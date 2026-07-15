@@ -7,9 +7,108 @@ build/launch script sets:
 ```text
 v9/    ds4dspark-v9 (Eldritch Enlightenment) — built, deployed, validated
 v10/   ds4dspark-v10 (Fathomless Firmament)  — built + GPU smoke 2026-07-09
+v16/   unified GLM-5.2 + DS4 v16             — built 2026-07-14, serving DS4
+                                               TP2 on rusty+toby
+v17/   GLM-5.2 v17 NVFP4/NF3 hybrid          — built + DRY_RUN-validated
+                                               2026-07-14 on rusty
 blackwell-llm-docker/   arch-parameterized build infra (branch spark/sm121-arm64)
 src/    component clones used by the SM121 audits
 ```
+
+## v17: GLM-5.2 hybrid TP4 for the 4-node cluster (prepared 2026-07-14)
+
+Target: `madeby561/GLM-5.2-MXFP8-NVFP4-NF3-Hybrid` (models/glm5.2_v17.md) at
+TP4 across the sparky/buddy/rocky/lucky cluster (one GB10 per node; the
+~744B hybrid checkpoint cannot fit fewer than four 121 GB nodes).
+
+- `v17/build-ds4dspark-v17-spark-sm121-cu132.sh` — v17 delta on the v16
+  Spark build: only the vLLM (`6ccc3eb`) and B12X (`1377d5f`) pins change,
+  plus the `serve-glm52-hybrid-v17.sh` launcher. Runs on the existing
+  `spark/sm121-arm64-v16` branch; reuses the arm64 base images. Post-build
+  DRY_RUN checks ported from the canonical v17 recipe (podman, `2>&1`).
+
+Built 2026-07-14 on rusty (three runs):
+
+```text
+localhost/voipmonitor/vllm:fathomless-firmament-v17-spark-sm121-vllm6ccc3eb-b12x1377d5f-fi801d57a-cu132-20260714
+image id 56a90d60ce31, 24.6 GB
+vllm 0.11.2.dev280+fathomless.firmament.v17.vllm6ccc3eb.b12x1377d5f.fi801d57a.sm121.cu132.20260714
+```
+
+Two SM121-side fixes were needed (r1 and r2 failure logs preserved on rusty
+as `~/build-v17-20260714-r{1,2}.log`):
+
+1. `patches/vllm-sm121-cuda13-supported-archs-20260714.patch` (**required**,
+   applied via `VLLM_PATCH_FILE`): vLLM's CUDA>=13 `CUDA_SUPPORTED_ARCHS`
+   lacks 12.1, so `TORCH_CUDA_ARCH_LIST=12.1a` collapsed to plain `12.0`
+   and the v17 NVFP4 KV-cache additions to
+   `csrc/libtorch_stable/cache_kernels.cu` failed at ptxas
+   (`cvt.e2m1x2.f32` needs an arch-specific target). One line; x86-neutral;
+   **upstream candidate** — any SM121 CUDA-13 vLLM build hits this.
+   Verified in the final image: `_C_stable_libtorch.abi3.so` carries 63
+   `sm_121a` cubins. Note this also means the v16 Spark image compiled its
+   vLLM kernels family-generic (no 12.1a) — worked because v16 had no
+   arch-specific instructions in base sources; a v16 rebuild with the patch
+   would give native SM121 codegen.
+2. `launchers/serve-glm52-hybrid-v17.sh` (new) and
+   `launchers/serve-glm52-v16.sh` (DCP-workspace-gate update) pulled from
+   upstream `blackwell-llm-docker` @ `6d3d0aa` — the spark branch pin
+   (`d104659` merge) predates them, and the required-launcher check fails
+   without the hybrid preset. Cheap fix: `COPY launchers/` sits after the
+   vLLM compile step, so only the image tail rebuilt.
+
+All post-build DRY_RUN checks passed (hybrid TP4/DCP4 and TP4/DCP1,
+workspace-off override, DS4 tp2 dspark, cooperative B12X, fathomless
+glm52); the hybrid TP4/DCP4 check was additionally re-run manually against
+the tagged image.
+
+### Four-node serving results (2026-07-14/15)
+
+Deployed on the sparky/buddy/rocky/lucky cluster: TP4/DCP1, MTP0,
+checkpoint rev `68babde`, NCCL over the two switched 200G rails
+(`rocep1s0f0,roceP2p1s0f0`), `GPU_MEM=0.86`, `MAX_MODEL_LEN=262144`.
+Weights 82.56 GiB/rank (314 s InstantTensor cold load; ~8.5 min full
+boot warm-JIT), KV cache 16.04 GiB = 472,064 tokens (1.80x full-length
+concurrency). Correctness probe clean — first NF3 execution on SM121.
+An earlier bring-up profile (`GPU_MEM=0.85`, `MAX_MODEL_LEN=131072`,
+431,168 KV tokens) measured identically within noise; note the 128k
+decode band REQUIRES max_model_len > ~135k or the bench's
+prompt+generation budget 400s at request validation.
+
+Decode (aggregate tok/s, sustained; llm-inference-bench defaults):
+
+| ctx \ cc | 1 | 2 | 4 |
+|---|---:|---:|---:|
+| 0 | 15.7 | 25.3 | 40.7 |
+| 16k | 15.3 | 24.2 | 38.9 |
+| 32k | 15.2 | 24.2 | 38.9 |
+| 64k | 15.1 | 24.1 | 38.6 |
+| 128k | 14.9 | 23.9 | needs >524k KV |
+
+Prefill: 906 tok/s @8k (TTFT 9.1 s) declining gently to 827 tok/s @128k
+(TTFT 155.8 s). Reference x86 (4x RTX PRO 6000, TP4/DCP1, v17 page):
+49.9 tok/s decode cc1, 4,469 tok/s prefill @8k — the Spark cluster
+delivers ~30% of decode and ~20% of prefill on ~15% of the memory
+bandwidth, with near-flat context scaling (-5% decode from 0 to 128k).
+Results JSON: `llm-inference-bench/benchmark_results-glm52-v17-spark-
+tp4-dcp1-gpu086-len256k_20260714_225402.json` (plus the gpu085 baseline
+and 127k-prefill probe files from the same evening).
+
+Untested so far: MTP (the hybrid checkpoint carries the layer-78 MTP
+head; x86 v14 measured +45-55% cc1 from MTP3 at TP8, but v17 validates
+MTP off), DCP>1 (impossible cross-node), KV bump via
+`--kv-cache-memory-bytes` (~24 GiB available per vLLM's own report).
+- `v17/run-glm52-v17-hybrid-tp4-node.sh` — four-node launcher. Replicates
+  the vllm serve command (v10-launcher style) because the GLM helpers have
+  no `EXTRA_VLLM_ARGS` hatch and hard-export single-node x86 env
+  (`CUTE_DSL_ARCH=sm_120a`, `NCCL_IB_DISABLE=1`,
+  `VLLM_ENABLE_PCIE_ALLREDUCE=1`). Node rank derives from the hostname
+  (sparky=0/head, buddy=1, rocky=2, lucky=3); start workers first, head
+  last; `MASTER_ADDR` (sparky's fabric IP) is required. DCP is pinned to 1
+  (B12X DCP pool is CUDA-IPC, single-node only); MTP defaults to 0 (the
+  v17-validated mode). Checkpoint revision `68babde` must be staged on all
+  four nodes. First-bring-up profile: gpu_mem 0.85, max_model_len 131072,
+  seqs 8, graph 32.
 
 v10 image (built on rusty, copied to toby):
 
