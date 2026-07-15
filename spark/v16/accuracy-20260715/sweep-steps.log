@@ -1,0 +1,56 @@
+[STEP 23:15:26] overnight sweep begins (logs: /tmp/claude-1000/-home-jugs-git-rtx6kpro/7caf515f-f37c-4098-b0f9-b3b8f7006de0/scratchpad/overnight-steps.log / /tmp/claude-1000/-home-jugs-git-rtx6kpro/7caf515f-f37c-4098-b0f9-b3b8f7006de0/scratchpad/overnight-bench-full.log)
+[STEP 23:15:26] teardown: stop worker (toby) then head (rusty), -t 60
+[STEP 23:15:27] launch: MODE=dspark BACKEND=lucifer-cutlass MAX_NUM_SEQS=8
+[STEP 23:20:05] healthy: dspark/lucifer-cutlass serving on rusty:8000
+[STEP 23:20:35] PHASE 0 begin (lucifer-cutlass dspark, seqs=8)
+[STEP 23:20:35] bench start: v16-lucifer-hotel (profile=hotel-lights cc=8 timeout=2700s)
+[STEP 23:37:00] bench done: v16-lucifer-hotel correct=7/9 (77.8%) med_tokens=20366 max_tokens=24231
+[STEP 23:37:00] cooldown 300s
+[STEP 23:42:00] bench start: v16-lucifer-estonia (profile=estonia cc=4 timeout=7200s)
+[STEP 23:42:30] FAIL: bench v16-lucifer-estonia rc=1
+[STEP 23:42:30] cooldown 300s
+[STEP 23:53:59] overnight sweep v2 begins (host=http://192.168.2.45:8000)
+[STEP 23:53:59] cell 1: lucifer-cutlass dspark already serving — reusing
+[STEP 23:53:59] PHASE 0 begin (lucifer-cutlass dspark, seqs=8) [v2: hotel rerun — v1 run had 22/30 errors]
+[STEP 23:53:59] bench start: v16-lucifer-hotel (profile=hotel-lights cc=8 attempt=1)
+[STEP 23:54:29] FAIL: bench v16-lucifer-hotel rc=1 (attempt 1)
+[STEP 23:58:29] bench start: v16-lucifer-hotel (profile=hotel-lights cc=8 attempt=2)
+[STEP 23:59:00] FAIL: bench v16-lucifer-hotel rc=1 (attempt 2)
+[STEP 00:02:40] overnight sweep v2 begins (host=http://192.168.2.45:8000)
+[STEP 00:02:40] cell 1: lucifer-cutlass dspark already serving — reusing
+[STEP 00:02:40] PHASE 0 begin (lucifer-cutlass dspark, seqs=8) [v2: hotel rerun — v1 run had 22/30 errors]
+[STEP 00:02:40] bench start: v16-lucifer-hotel (profile=hotel-lights cc=8 attempt=1)
+[STEP 00:47:40] FAIL: bench v16-lucifer-hotel rc=124 (attempt 1)
+[STEP 00:51:40] bench start: v16-lucifer-hotel (profile=hotel-lights cc=8 attempt=2)
+[STEP 01:36:40] FAIL: bench v16-lucifer-hotel rc=124 (attempt 2)
+[STEP 01:40:40] bench start: v16-lucifer-hotel (profile=hotel-lights cc=8 attempt=3)
+[STEP 02:25:40] FAIL: bench v16-lucifer-hotel rc=124 (attempt 3)
+[STEP 02:29:40] FAIL: bench v16-lucifer-hotel gave up after 3 attempts (server alive) — continuing battery
+[STEP 02:29:40] cooldown 300s
+[STEP 02:34:40] bench start: v16-lucifer-estonia (profile=estonia cc=4 attempt=1)
+[STEP 02:50:10] bench done: v16-lucifer-estonia correct=30 wrong=0 acc=100.0% errors=0/30 p50_tokens=2535 max_tokens=6810
+[STEP 02:50:10] cooldown 300s
+[STEP 02:55:10] bench start: v16-lucifer-gsm8k-slice (profile=gsm8k cc=8 attempt=1)
+[STEP 02:56:07] bench done: v16-lucifer-gsm8k-slice correct=25 wrong=0 acc=100.0% errors=0/25 p50_tokens=153 max_tokens=1400
+[STEP 02:56:07] cooldown 300s
+[STEP 03:01:07] PHASE 0 complete
+[STEP 03:01:07] PHASE 1 begin
+[STEP 03:01:07] bench start: v16-lucifer-gsm8k (profile=gsm8k cc=8 attempt=1)
+[STEP 04:01:50] bench done: v16-lucifer-gsm8k correct=1279 wrong=40 acc=97.0% errors=0/1319 p50_tokens=226 max_tokens=16384
+[STEP 04:01:50] cooldown 300s
+[STEP 04:06:50] bench start: v16-lucifer-lavd (profile=lavd-test cc=8 attempt=1)
+[STEP 04:27:49] bench done: v16-lucifer-lavd correct=9 wrong=1 acc=90.0% errors=0/10 p50_tokens=18107 max_tokens=28024
+[STEP 04:27:49] cooldown 300s
+[STEP 04:32:49] cell 1/4 (lucifer dspark) finished
+[STEP 04:32:49] teardown: stop worker (toby) then head (rusty), -t 60
+[STEP 04:38:09] launch: MODE=mtp0 BACKEND=b12x-a16 MAX_NUM_SEQS=8
+[STEP 04:41:23] healthy: mtp0/b12x-a16 serving on rusty:8000
+[STEP 04:41:53] bench start: v16-mtp0-hotel (profile=hotel-lights cc=8 attempt=1)
+[STEP 05:26:53] FAIL: bench v16-mtp0-hotel rc=124 (attempt 1)
+[STEP 05:30:53] bench start: v16-mtp0-hotel (profile=hotel-lights cc=8 attempt=2)
+[STEP 06:15:53] FAIL: bench v16-mtp0-hotel rc=124 (attempt 2)
+[STEP 06:19:53] bench start: v16-mtp0-hotel (profile=hotel-lights cc=8 attempt=3)
+[STEP 07:04:53] FAIL: bench v16-mtp0-hotel rc=124 (attempt 3)
+[STEP 07:08:53] FAIL: bench v16-mtp0-hotel gave up after 3 attempts (server alive) — continuing battery
+[STEP 07:08:53] cooldown 300s
+[STEP 07:13:53] bench start: v16-mtp0-gsm8k (profile=gsm8k cc=8 attempt=1)

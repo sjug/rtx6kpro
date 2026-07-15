@@ -92,7 +92,13 @@ for key in "${optional_env[@]}"; do
   if [[ -n "${!key+x}" ]]; then opt_args+=(-e "${key}=${!key}"); fi
 done
 
-podman rm -f "$NAME" >/dev/null 2>&1 || true
+# Graceful cleanup of a leftover container: SIGTERM with a long grace period,
+# never rm -f (its 10 s window falls back to SIGKILL mid-shutdown). If the old
+# container won't die, the podman run below fails loudly on the name conflict.
+if podman container exists "$NAME" 2>/dev/null; then
+  podman stop -t 60 "$NAME" >/dev/null 2>&1 || true
+  podman rm "$NAME" >/dev/null 2>&1 || true
+fi
 
 podman run -d \
   --name "$NAME" \
