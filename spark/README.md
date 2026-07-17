@@ -94,10 +94,49 @@ Results JSON: `llm-inference-bench/benchmark_results-glm52-v17-spark-
 tp4-dcp1-gpu086-len256k_20260714_225402.json` (plus the gpu085 baseline
 and 127k-prefill probe files from the same evening).
 
-Untested so far: MTP (the hybrid checkpoint carries the layer-78 MTP
-head; x86 v14 measured +45-55% cc1 from MTP3 at TP8, but v17 validates
-MTP off), DCP>1 (impossible cross-node), KV bump via
-`--kv-cache-memory-bytes` (~24 GiB available per vLLM's own report).
+### MTP3 speculative decoding (2026-07-15)
+
+First MTP run on the hybrid checkpoint anywhere — x86 v17 validates MTP
+off, and x86 v14's MTP3 campaign used the standard NVFP4 checkpoint.
+Same profile as above plus `MTP=3` (launcher passes the helper-identical
+`--speculative-config` with `method=mtp`, `moe_backend=b12x`,
+probabilistic draft sampling). vLLM resolves the layer-78 head as
+`DeepSeekMTPModel` and runs the single MTP layer three times per step
+(it warns late draft positions accept less — confirmed below). Memory:
+draft weights +1.56 GiB/rank (84.12 GiB total), KV cache 14.16 GiB =
+404,032 tokens (down from 472,064). Boot ~9 min warm.
+
+Decode (aggregate tok/s; concurrency widened to 1,2,3,4,8 to probe the
+404k KV budget; MTP0 baseline in parens):
+
+| ctx \ cc | 1 | 2 | 3 | 4 | 8 |
+|---|---:|---:|---:|---:|---:|
+| 0 | 24.8 (15.7) | 35.2 (25.3) | 47.3 | 52.2 (40.7) | 75.2 |
+| 16k | 21.5 (15.3) | 33.1 (24.2) | 48.0 | 51.1 (38.9) | 73.2 |
+| 32k | 22.6 (15.2) | 34.4 (24.2) | 44.8 | 52.3 (38.9) | 73.6 |
+| 64k | 22.4 (15.1) | 33.3 (24.1) | 43.4 | 49.9 (38.6) | ∅ |
+| 128k | 22.2 (14.9) | 31.6 (23.9) | ∅ | ∅ | ∅ |
+
++41–58% at cc1, +32–42% at cc2, +28–34% at cc4 — the same band as x86
+v14's +45–55% — and peak cluster throughput nearly doubles, 40.7 →
+75.2 tok/s at cc8 (9.1–9.4 tok/s per stream). ∅ = cell does not fit
+the 404k-token KV budget (cc8 needs ~516k at 64k; at 128k even cc3 —
+3×131k prompts, 97% occupancy — never drains once generation slots are
+added). Prefill pays ~2.4% for the draft pass: 885 tok/s @8k → 807
+@128k (was 906 → 827).
+
+Acceptance (cumulative over probe + sweep, 11,436 drafts): 64.6% of
+draft tokens accepted; per-position 85.0% / 63.3% / 45.4%; mean
+acceptance length 2.94 of max 4 tokens per step. Coding prompts run
+hotter (interval peaks 84% acceptance; a cc1 code probe did 26.1 tok/s
+wall-clock including prefill vs the 15.7 MTP0 decode baseline); prose
+sits near 58%. Results JSON: `llm-inference-bench/benchmark_results-
+glm52-v17-spark-tp4-dcp1-mtp3-gpu086-len256k_20260715_093449.json`.
+
+Untested so far: DCP>1 (impossible cross-node), KV bump via
+`--kv-cache-memory-bytes` (~22.5 GiB available per vLLM's report under
+MTP3), raising `MAX_BATCHED_TOKENS` beyond 2048 (with MTP3 vLLM warns
+`max_num_scheduled_tokens=2048` may be suboptimal for draft slots).
 - `v17/run-glm52-v17-hybrid-tp4-node.sh` — four-node launcher. Replicates
   the vllm serve command (v10-launcher style) because the GLM helpers have
   no `EXTRA_VLLM_ARGS` hatch and hard-export single-node x86 env
@@ -106,9 +145,10 @@ MTP off), DCP>1 (impossible cross-node), KV bump via
   (sparky=0/head, buddy=1, rocky=2, lucky=3); start workers first, head
   last; `MASTER_ADDR` (sparky's fabric IP) is required. DCP is pinned to 1
   (B12X DCP pool is CUDA-IPC, single-node only); MTP defaults to 0 (the
-  v17-validated mode). Checkpoint revision `68babde` must be staged on all
-  four nodes. First-bring-up profile: gpu_mem 0.85, max_model_len 131072,
-  seqs 8, graph 32.
+  x86-v17-validated mode; `MTP=3` validated on the cluster 2026-07-15 —
+  see the MTP3 section above). Checkpoint revision `68babde` must be
+  staged on all four nodes. First-bring-up profile: gpu_mem 0.85,
+  max_model_len 131072, seqs 8, graph 32.
 
 v10 image (built on rusty, copied to toby):
 
