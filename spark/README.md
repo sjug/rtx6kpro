@@ -11,9 +11,20 @@ v16/   unified GLM-5.2 + DS4 v16             — built 2026-07-14, serving DS4
                                                TP2 on rusty+toby
 v17/   GLM-5.2 v17 NVFP4/NF3 hybrid          — built + DRY_RUN-validated
                                                2026-07-14 on rusty
+v18.4/ Gilded Gnosis Grid48 for SM121         — source-pinned build + TP4
+                                               switched-200G launcher
 blackwell-llm-docker/   arch-parameterized build infra (branch spark/sm121-arm64)
 src/    component clones used by the SM121 audits
 ```
+
+## v18.4: SM121 Grid48 source build
+
+`v18.4/` pins the reviewed B12X and vLLM Grid48 branches directly. B12X is
+`6b10833` (Grid48, both v18 compatibility fixes, and review cleanup) and
+vLLM is `df7a0b7`. The build performs a real CuTe Grid48 compile on the
+48-SM GB10 and admits only a 48-CTA, one-CTA-per-SM, spill-free kernel. The
+four-node launcher retains TP4/DCP1 and NCCL over the two switched 200 GbE
+rails. See [`v18.4/README.md`](v18.4/README.md) for pins and commands.
 
 ## v17: GLM-5.2 hybrid TP4 for the 4-node cluster (prepared 2026-07-14)
 
