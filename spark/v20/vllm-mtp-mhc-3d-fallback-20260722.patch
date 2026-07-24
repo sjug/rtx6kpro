@@ -1,0 +1,48 @@
+--- a/vllm/models/deepseek_v4/nvidia/model.py
++++ b/vllm/models/deepseek_v4/nvidia/model.py
+@@ -1307,16 +1307,35 @@
+             attn_norm_weight = self.attn_norm.weight.data
+             attn_norm_eps = self.attn_norm.variance_epsilon
+             if residual is None:
+-                assert x.dim() == 2
+-                assert self.hc_attn_fn_broadcast is not None
+-                residual, post_mix, res_mix, x = self.hc_pre(
+-                    x,
+-                    self.hc_attn_fn_broadcast,
+-                    self.hc_attn_scale,
+-                    self.hc_attn_base,
+-                    norm_weight=attn_norm_weight,
+-                    norm_eps=attn_norm_eps,
+-                )
++                if x.dim() == 2:
++                    assert self.hc_attn_fn_broadcast is not None
++                    residual, post_mix, res_mix, x = self.hc_pre(
++                        x,
++                        self.hc_attn_fn_broadcast,
++                        self.hc_attn_scale,
++                        self.hc_attn_base,
++                        norm_weight=attn_norm_weight,
++                        norm_eps=attn_norm_eps,
++                    )
++                else:
++                    # MTP entry: per-lane 3D hidden states. The first-layer
++                    # broadcast collapse is only valid when every hc lane sees
++                    # the same 2D input; h_proj is per-lane, so take the
++                    # general pre instead — mirroring the non-B12X branch.
++                    residual = x
++                    post_mix, res_mix, x = mhc_pre_tilelang(
++                        x,
++                        self.hc_attn_fn,
++                        self.hc_attn_scale,
++                        self.hc_attn_base,
++                        self.rms_norm_eps,
++                        self.hc_eps,
++                        self.hc_eps,
++                        self.hc_post_alpha,
++                        self.hc_sinkhorn_iters,
++                        norm_weight=attn_norm_weight,
++                        norm_eps=attn_norm_eps,
++                    )
+             else:
+                 assert post_mix is not None
+                 assert res_mix is not None
