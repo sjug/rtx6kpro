@@ -1,0 +1,24 @@
+# v18p3 = v18p2 + B12X W4A16 ultra-tile forced-repin fix (python-only layer).
+#
+# On GB10 (SM121, 48 SMs) the W4A16 TC-decode auto selection fires the FC2
+# ultra-wide override (tile_k=32, tile_n=512) for wave balance — admitted via
+# a direct footprint check because tile_k=32 sits below the generic tile_k>=64
+# floor. Re-pinning those tiles across the torch custom-op boundary
+# (force_tile_config) re-validates with the generic _candidate_tile_fits,
+# which rejects the very shape the auto path selected:
+#   ValueError: force_tile_config fc2 tile (tile_k=32, tile_n=512) does not
+#   fit problem N/K=4096/1024 at moe_block_size=8
+# Upstream never sees this: the override's wave-balance gates depend on SM
+# count and do not fire on 188-SM SM120 parts. Fix: the forced-repin path
+# admits the exact ultra shape under the same direct footprint check.
+FROM localhost/voipmonitor/vllm:gilded-gnosis-v18p2-spark-sm121-vllm264bce1-b12xbc85ef3-fi801d57a-cu132-20260718
+
+COPY b12x-w4a16-ultra-tile-forced-repin-20260718.patch /tmp/
+RUN set -e; cd /opt/venv/lib/python3.12/site-packages \
+ && git apply --verbose -p1 /tmp/b12x-w4a16-ultra-tile-forced-repin-20260718.patch \
+ && grep -q "custom-op boundary must admit" b12x/moe/fused/w4a16/kernel.py \
+ && rm -f b12x/moe/fused/w4a16/__pycache__/kernel.cpython-312.pyc \
+ && python3 -c "import ast; ast.parse(open('b12x/moe/fused/w4a16/kernel.py').read()); print('patched kernel.py: syntax OK')" \
+ && rm /tmp/b12x-w4a16-ultra-tile-forced-repin-20260718.patch
+
+LABEL org.opencontainers.b12x.patch2="b12x-w4a16-ultra-tile-forced-repin-20260718"
