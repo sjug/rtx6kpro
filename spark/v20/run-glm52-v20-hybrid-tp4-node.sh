@@ -21,8 +21,8 @@ set -euo pipefail
 #   2. TP4 across four nodes via --nnodes/--node-rank/--master-addr/
 #      --headless (torch-distributed, no Ray): one GB10 (121 GB) cannot
 #      hold the ~TP4 checkpoint shard plus peers.
-#   3. DCP pinned to 1: the B12X DCP pool exchanges CUDA IPC handles,
-#      which do not cross nodes. DCP>1 is refused.
+#   3. DCP2 default (production since 2026-07-28): v20's ag_rs transport
+#      carries DCP cross-node over PYNCCL/RoCE. DCP=1 remains selectable.
 #   4. NCCL over the two SWITCHED 200 GbE CX7 rails (helper sets
 #      NCCL_IB_DISABLE=1): IB on, HCA list, RoCE-v2 GID auto-detect,
 #      TC 106, socket ifnames, per-node VLLM_HOST_IP. NCCL_PROTO=LL,Simple
@@ -63,8 +63,9 @@ set -euo pipefail
 # fixes baked (see spark/v20/). The fork-only VLLM_NF3_MAPPED_GRID_DECODE env
 # below is retained for compatibility but upstream 2167295 does not read it;
 # upstream's hybrid decode was reworked (constexpr tiers) — decode perf vs the
-# v18p4 grid48 fork kernel is TBD by benchmark. DCP remains 1 (cross-node);
-# v20's ag_rs A2A large-message backend may permit DCP>1 cross-node — untested.
+# v18p4 grid48 fork kernel is TBD by benchmark. DCP2 cross-node validated
+# 2026-07-23/24 on this cluster (ag_rs over PYNCCL/RoCE) and default since
+# 2026-07-28; DCP4 works too (KV 5.48x) but costs -11% decode.
 IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722}
 NAME=${NAME:-glm52-v20-tp4}
 PORT=${PORT:-8000}
@@ -85,17 +86,19 @@ if [[ "$NODE_RANK" != "0" ]]; then HEADLESS_ARGS=(--headless); fi
 MASTER_ADDR=${MASTER_ADDR:-10.11.11.1}
 MASTER_PORT=${MASTER_PORT:-25000}
 
-DCP=${DCP:-1}
+DCP=${DCP:-2}
 # v18-era hard block removed: the IPC-only DCP pool could not cross nodes,
 # but v20's a2a transport has an ag_rs (NCCL-collective) large-message
-# backend that may carry cross-node. DCP>1 is EXPERIMENTAL here; the
-# upstream TP4/DCP>=2 dispatch enables query-split + transient full-CKV
-# gather, mirrored below. DCP_A2A_MAX_TOKENS=0 forces every message onto
-# ag_rs if the small-message pool cannot initialize without IPC peers.
+# backend that carries cross-node over PYNCCL/RoCE. DCP2 is the production
+# default since 2026-07-28: KV 739,200 (2.82x, five 128k sessions vs two),
+# decode within noise of DCP1, prefill -4-5% (full decision table in the
+# v20 rollout notes). DCP4 validated but decode -11%. The upstream
+# TP4/DCP>=2 dispatch enables query-split + transient full-CKV gather,
+# mirrored below. DCP_A2A_MAX_TOKENS=0 forces every message onto ag_rs if
+# the small-message pool cannot initialize without IPC peers.
 DCP_QUERY_SPLIT_V=0
 DCP_CKV_GATHER_V=0
 if [[ "$DCP" != "1" ]]; then
-  echo "WARNING: DCP=$DCP cross-node is EXPERIMENTAL (v20 ag_rs transport)" >&2
   DCP_QUERY_SPLIT_V=1
   DCP_CKV_GATHER_V=1
 fi
