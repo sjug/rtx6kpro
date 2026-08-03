@@ -38,9 +38,20 @@ set -euo pipefail
 
 ROLE=${ROLE:?set ROLE=head|worker}
 
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722}
-NAME=${NAME:-ds4-v20-tp2}
+# Production image since 2026-08-03: v20p3 (r24 DS4-runtime composition +
+# SM121 overlays reduced to arch+MTP-3D — upstream absorbed the mHC
+# custom-op, autotune skip_attn, and ultra-tile fixes — + FlashInfer
+# PR#3932, which upstream still lacks).
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803}
+NAME=${NAME:-ds4-0731-tp2}
 PORT=${PORT:-8000}
+
+# Production model since 2026-07-31: DeepSeek-V4-Flash-0731 (official
+# release; DSpark module attached). Revision = the staged local snapshot.
+DSPARK_MODEL=${DSPARK_MODEL:-deepseek-ai/DeepSeek-V4-Flash-0731}
+MODEL_REVISION=${MODEL_REVISION:-9e165c30e2704aec5d9d593cce3eebd58bbef1cb}
+DSPARK_MODEL_REVISION=${DSPARK_MODEL_REVISION:-9e165c30e2704aec5d9d593cce3eebd58bbef1cb}
+SERVED_MODEL_NAME=${SERVED_MODEL_NAME:-DeepSeek-V4-Flash-0731}
 
 HF_CACHE=${HF_CACHE:-$HOME/.cache/huggingface}
 CACHE=${CACHE:-$HOME/.cache/vllm-ds4-v20}
@@ -68,9 +79,23 @@ esac
 MODE=${MODE:-dspark}
 BACKEND=${BACKEND:-b12x-a8}
 # Production K. Defaulting it here (not just in launch commands) keeps the
-# dense capture-size derivation below active on bare launches; without it
-# the helper falls back to K=5 silently.
-DSPARK_TOKENS=${DSPARK_TOKENS:-6}
+# dense capture-size derivation below active on bare launches.
+# K=5 supersedes the 0731 card's K=7: same-pair A/B on GB10 (2026-08-03,
+# v20p3, probabilistic both arms) measured K5 +10.2% decode geomean over
+# 15 cells (14/15 cells) and +8.8% coding-peak mean — acceptance decays
+# to ~4-8% by draft positions 6-7, so K7's tail is wasted verify width.
+# Matches upstream r24's RTX PRO 6000 data (217.8 vs 192.1 tok/s) and
+# avoids their still-open K7 long-context quality flag. JSONs:
+# benchmark_results-ds4-0731-v20p3-k{5,7}prob_*.json.
+DSPARK_TOKENS=${DSPARK_TOKENS:-5}
+# Deliberate deviation from the 0731 card's draft_sample_method=greedy:
+# A/B on this pair (2026-07-31, K=7, identical stack) measured
+# probabilistic faster on BOTH coding-peak (59.2 vs 52.8 tok/s mean of 8)
+# and the 15-cell decode sweep (+9.9% geomean), and it keeps the lossless
+# speculative-sampling guarantee. Greedy's one +38% probe was a single
+# boilerplate-code anecdote that did not survive repetition. JSONs:
+# benchmark_results-ds4-0731-{v20p2-k7*,codingpeak-k7*}.
+DRAFT_SAMPLE_METHOD=${DRAFT_SAMPLE_METHOD:-probabilistic}
 TP_SIZE=${TP_SIZE:-2}
 MAX_NUM_SEQS=${MAX_NUM_SEQS:-4}
 
