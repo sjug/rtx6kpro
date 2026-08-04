@@ -66,7 +66,18 @@ set -euo pipefail
 # v18p4 grid48 fork kernel is TBD by benchmark. DCP2 cross-node validated
 # 2026-07-23/24 on this cluster (ag_rs over PYNCCL/RoCE) and default since
 # 2026-07-28; DCP4 works too (KV 5.48x) but costs -11% decode.
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722}
+# r28-spark (2026-08-04): upstream r28 composition + SM121 overlay. Qualified
+# on this cluster 2026-08-04: TP4/DCP2/MTP3 boot with PYNCCL/RoCE ag_rs,
+# decode 24.9 tok/s cc1, uncached prefill flat 766-779 tok/s at 8k/64k and
+# 771 tok/s at 128k (154,631 tokens), zero errors on all four nodes. The
+# upstream r26 TP4/DCP4 auto prefill policy ships in the image's baked GLM
+# helpers, but this runner bypasses the helper suite entirely (direct vllm
+# serve, --entrypoint /bin/bash): every DCP mechanism is set explicitly
+# below and the upstream PCIe calibrator NEVER runs on this cluster; its
+# same-host PCIe conclusions do not transfer to our cross-node RoCE DCP.
+# CKV/query-split/workspace/prefetch get their own RoCE A/B (queued).
+# Rollback: gilded-gnosis-v20p1-...-20260722 (previous production).
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804}
 NAME=${NAME:-glm52-v20-tp4}
 PORT=${PORT:-8000}
 NNODES=${NNODES:-4}

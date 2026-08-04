@@ -38,11 +38,14 @@ set -euo pipefail
 
 ROLE=${ROLE:?set ROLE=head|worker}
 
-# Production image since 2026-08-03: v20p3 (r24 DS4-runtime composition +
-# SM121 overlays reduced to arch+MTP-3D — upstream absorbed the mHC
-# custom-op, autotune skip_attn, and ultra-tile fixes — + FlashInfer
-# PR#3932, which upstream still lacks).
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803}
+# Production image since 2026-08-04: r28-spark (upstream r28 composition
+# + SM121 overlay: arch 12.1, MTP-3D, PR#234-refined frozen-q_len guard,
+# fail-closed EXL3 loader; FlashInfer PR#3932, which upstream still lacks).
+# r28 brings vLLM #235: the official 0731 reasoning contract. NOTE the
+# helper's default-chat-template reasoning_effort=high becomes REAL on this
+# image (pre-#235 "high" rendered identically to "low"); only "max" was
+# extended reasoning before. Rollback: v20p3 (vllm92b27a4-...-20260803).
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804}
 NAME=${NAME:-ds4-0731-tp2}
 PORT=${PORT:-8000}
 
@@ -52,6 +55,10 @@ DSPARK_MODEL=${DSPARK_MODEL:-deepseek-ai/DeepSeek-V4-Flash-0731}
 MODEL_REVISION=${MODEL_REVISION:-9e165c30e2704aec5d9d593cce3eebd58bbef1cb}
 DSPARK_MODEL_REVISION=${DSPARK_MODEL_REVISION:-9e165c30e2704aec5d9d593cce3eebd58bbef1cb}
 SERVED_MODEL_NAME=${SERVED_MODEL_NAME:-DeepSeek-V4-Flash-0731}
+# Alias (2026-08-04): also serve the bare upstream name so clients using the
+# GG default ("DeepSeek-V4-Flash") resolve. Appended via EXTRA_VLLM_ARGS;
+# argparse last-wins over the helper's single-name flag, serving BOTH names.
+SERVED_MODEL_ALIAS=${SERVED_MODEL_ALIAS:-DeepSeek-V4-Flash}
 
 HF_CACHE=${HF_CACHE:-$HOME/.cache/huggingface}
 CACHE=${CACHE:-$HOME/.cache/vllm-ds4-v20}
@@ -117,7 +124,7 @@ ALLREDUCE_MODE=${ALLREDUCE_MODE:-nccl}
 
 # EXTRA_VLLM_ARGS_APPEND: extra `vllm serve` CLI flags for debug runs (e.g.
 # "--enforce-eager" for CUDA_LAUNCH_BLOCKING kernel attribution).
-EXTRA_VLLM_ARGS="--nnodes 2 --node-rank ${NODE_RANK} --master-addr ${MASTER_ADDR} --master-port ${MASTER_PORT} ${ROLE_ARGS} ${EXTRA_VLLM_ARGS_APPEND:-}"
+EXTRA_VLLM_ARGS="--nnodes 2 --node-rank ${NODE_RANK} --master-addr ${MASTER_ADDR} --master-port ${MASTER_PORT} ${ROLE_ARGS} --served-model-name ${SERVED_MODEL_NAME} ${SERVED_MODEL_ALIAS} ${EXTRA_VLLM_ARGS_APPEND:-}"
 
 optional_env=(
   GRAPH MAX_CUDAGRAPH_CAPTURE_SIZE CUDAGRAPH_CAPTURE_SIZES
