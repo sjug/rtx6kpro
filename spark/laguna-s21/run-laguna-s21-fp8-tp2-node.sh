@@ -47,7 +47,12 @@ set -euo pipefail
 
 ROLE=${ROLE:?set ROLE=head|worker|stop}
 
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803}
+# r28-spark (2026-08-04): upstream r28 composition + SM121 overlay with the
+# PR#234-refined q_len guard. Qualified on this pair 2026-08-04: both
+# frozen-wrapper reproducers token-exact vs PIECEWISE refs, 61 FULL replays,
+# clean error scan. Rollback: gilded-gnosis-v20p3p1-...-20260803 (staged on
+# all 8 nodes).
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804}
 NAME=${NAME:-laguna-s21-fp8-tp2}
 PORT=${PORT:-8000}
 
