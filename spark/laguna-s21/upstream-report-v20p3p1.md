@@ -158,25 +158,40 @@ graphs; only the rare boundary/truncation steps run piecewise.
    MAX_NUM_BATCHED_TOKENS as the primary sizing lever in the r16 page;
    vLLM's "estimated maximum model length" hint is misleading here (it
    divides by the fixed-block rate as if per-token).
-7. **EXL3/Trellis on GB10 (SM121, aarch64)**: the a1-retile-sm120 extension
-   (704aefd) compiles cleanly for sm_121a once its x86-only units are
-   arch-guarded (6-file guard patch, +81/-7: AVX target macros, cpuid
-   detection returning false off x86, stubbed AVX reduce units behind the
-   existing `is_avx2_supported()` runtime gate; no kernel changes). On GB10
-   the GEMM family is self-consistent (fused trellis-decode GEMM vs
-   `reconstruct`+`hgemm` agree to 0.09% at M=1/32/128, K3 and K4) and the
-   `mul1` codebook round-trips encoder->decode bit-exactly at every K. But
-   for the **3INST and MCG codebooks the quantizer and the standalone
-   `decode` op produce entirely different codewords** (max |diff| ~6.7,
-   ~100% of elements, K1-K8), and the divergence is invariant to removing
-   `--use_fast_math`. The codebook generators are integer+fixed-half-op
-   sequences, so this looks like a per-unit compilation divergence
-   (inline `lop3.b32`/half2 paths) specific to sm_121a. Reproducer: the
-   stock `tests/test_quant_fn.py::test_encode_ideal` fails for cb0/cb1 and
-   passes for mul1 on GB10. We ship SM121 images with the extension
-   fail-closed (SKIPPED marker + clear startup rejection) until this is
-   root-caused. Guard patch and harnesses available on request.
-8. **For poolside (separate HF discussions, FYI)**: RC2 config ships only
+7. **ExLlamaV3 a1-retile ENCODER bug (fork-wide, NOT SM121-specific)**:
+   an exhaustive codebook oracle (exact integer+lop3+IEEE-fp16 emulation of
+   `decode_3inst`/`decode_mul1`, all 65,536 indices) proves the DECODE
+   family (`decode`, `reconstruct`, GEMM kernels) bit-exact on BOTH SM120
+   and SM121 for all three codebooks. The ENCODER fast path
+   (`quantize_tiles`) disagrees with the true codebook for **3INST and MCG**
+   at ~100% of positions with IDENTICAL mismatch counts on SM120 and SM121
+   (16383/16381 at K3, max |diff| ~6.4/6.2); `mul1` is bit-exact
+   everywhere. Fast-math removal changes nothing. Reproducer: stock
+   `tests/test_quant_fn.py::test_encode_ideal` fails for cb0/cb1 on any
+   SM12x GPU. Open question for you: production online-K6 KLD looks sane
+   (r28 table), suggesting the calibrated LDLQ pipeline may not share the
+   fast path's defect - worth confirming which path production uses. Our
+   images ship the extension ENABLED for sm_121a behind a 6-file pure
+   arch-guard patch (serving is decode-only and oracle-exact) with online
+   quantization fail-closed at mode selection. Oracle script + guard patch
+   available.
+8. **r33 dropped `return_prompt_logits`**: the KLD runner
+   (`scripts/glm52_exl3_shared_h_kld.py`) feature-detects
+   `return_prompt_logits` in `SamplingParams`, but neither the r28 nor r33
+   composed trees carry it - the harness silently falls back to the
+   `prompt_logprobs=-1` container path. On 121 GB UMA hosts (DGX Spark)
+   that fallback OOM-kills rank 0: the model-runner side accumulates
+   compact tensors, but the engine-to-frontend conversion into
+   Python-object logprob containers peaks at ~28 GB RSS for a 2,047 x
+   154,880 capture (kernel oom-kill confirmed). Restoring the dense/tensor
+   return path would make KLD capture feasible on unified-memory hardware;
+   until then we adopt your published KLD figures (justified by the decode
+   bit-exactness above).
+9. **r31+ native L2 offload cache poisoning** (community report, 08-08
+   summary): failed disk read permanently marks blocks missing with no
+   cleanup path (PR #252/#254 interaction). We do not run offload; flagged
+   for awareness.
+10. **For poolside (separate HF discussions, FYI)**: RC2 config ships only
    the 1M rope profile (card's 256K profile: factor 32, af 1.34657 — not
    shipped); laguna SWA layers reuse global rope
    (`laguna.py:389` warning); tokenizer snapshot trips the transformers

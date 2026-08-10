@@ -38,14 +38,14 @@ set -euo pipefail
 
 ROLE=${ROLE:?set ROLE=head|worker}
 
-# Production image since 2026-08-04: r28-spark (upstream r28 composition
-# + SM121 overlay: arch 12.1, MTP-3D, PR#234-refined frozen-q_len guard,
-# fail-closed EXL3 loader; FlashInfer PR#3932, which upstream still lacks).
-# r28 brings vLLM #235: the official 0731 reasoning contract. NOTE the
-# helper's default-chat-template reasoning_effort=high becomes REAL on this
-# image (pre-#235 "high" rendered identically to "low"); only "max" was
-# extended reasoning before. Rollback: v20p3 (vllm92b27a4-...-20260803).
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804}
+# Production image since 2026-08-09: r33-spark (upstream r33 composition +
+# SM121 overlay; our #234 q_len guard now rides UPSTREAM in the manifest;
+# adds #245 indexer query-split fix, #251 B12X graph channels + DSpark
+# context-KV FULL graph, #252/#254 offload ordering, FlashInfer 0.6.18
+# with the #3932 quantfix mainlined - the sjug FlashInfer pin is retired).
+# The #235 reasoning contract behavior (default effort=high is real) is
+# unchanged from r28-spark. Rollback: r28-spark (vllm47d1950-...-20260804).
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808}
 NAME=${NAME:-ds4-0731-tp2}
 PORT=${PORT:-8000}
 
