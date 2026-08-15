@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# DS4 v20p0 (GG v20 release-candidate pins, SparkInfer rename) two-node TP2
-# launcher for the DGX Spark pair (rusty + toby).
+# CANDIDATE (unqualified): DS4 on Infernal Invocation r10 Spark/SM121. Same
+# env contract as run-ds4-v20-tp2-node.sh (helper reads the identical names;
+# new II opts GRAPH=auto / DSPARK_DEPTH_MODE / KV_OFFLOADING_SIZE available
+# via env passthrough). Production stays on the v20 runner until this image
+# passes its DS4 qualification.
+#
+# NCCL channel pin: the II NCCL 2.31.2 Turin branch prefers more channels
+# at equal bandwidth, which regresses the 2-rank RoCE rail 2.5x in the
+# 256KB-1MB allreduce band under NCCL_PROTO=LL,Simple. The 32-cell matrix
+# (2026-08-14, dusty/kirby, ~/nccl-matrix) picked MIN=MAX=4 as the winner for
+# both NCCL versions; see spark/ii-r10/nccl-matrix-analyze.py output.
 #
 # Same launch contract as spark/v19/run-ds4-v19-tp2-node.sh: the image ships
 # /usr/local/bin/serve-ds4-flash.sh (env-only interface, from the v20
@@ -157,6 +166,15 @@ done
 # shellcheck disable=SC2206
 extra_podman_args=( ${EXTRA_PODMAN_ARGS:-} )
 
+# Channel pin (NCCL matrix winner 2026-08-14: LL,Simple + MIN=MAX=4 is
+# 2.8-3.2x faster at 128-256KB allreduce on the pair rails, flat elsewhere).
+# Empty NCCL_MAX_NCHANNELS omits the pin entirely (production-equivalent env).
+nccl_ch_args=()
+if [[ -n "${NCCL_MAX_NCHANNELS:-4}" ]]; then
+  _ch="${NCCL_MAX_NCHANNELS:-4}"
+  nccl_ch_args+=(-e NCCL_MAX_NCHANNELS="$_ch" -e NCCL_MIN_NCHANNELS="${NCCL_MIN_NCHANNELS:-$_ch}")
+fi
+
 # Graceful cleanup of a leftover container: SIGTERM with a long grace period,
 # never rm -f (its 10 s window falls back to SIGKILL mid-shutdown). If the old
 # container won't die, the podman run below fails loudly on the name conflict.
@@ -195,6 +213,7 @@ podman run -d \
   -e NCCL_IB_GID_INDEX="${NCCL_IB_GID_INDEX:-3}" \
   -e NCCL_IB_TC=106 \
   -e NCCL_PROTO=LL,Simple \
+  ${nccl_ch_args[@]+"${nccl_ch_args[@]}"} \
   -e NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1 \
   -e GLOO_SOCKET_IFNAME=enp1s0f1np1 \
   -e VLLM_HOST_IP="$HOST_IP" \
