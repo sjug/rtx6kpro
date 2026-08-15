@@ -1,0 +1,94 @@
+{
+ "nccl": [
+  2,
+  31,
+  2
+ ],
+ "env": {
+  "NCCL_PROTO": null,
+  "NCCL_MAX_NCHANNELS": "1",
+  "NCCL_MIN_NCHANNELS": "1"
+ },
+ "results": [
+  {
+   "op": "all_reduce",
+   "size": 4096,
+   "us": 15.51
+  },
+  {
+   "op": "all_reduce",
+   "size": 16384,
+   "us": 20.53
+  },
+  {
+   "op": "all_reduce",
+   "size": 32768,
+   "us": 24.6
+  },
+  {
+   "op": "all_reduce",
+   "size": 65536,
+   "us": 31.31
+  },
+  {
+   "op": "all_reduce",
+   "size": 131072,
+   "us": 46.5
+  },
+  {
+   "op": "all_reduce",
+   "size": 262144,
+   "us": 61.46
+  },
+  {
+   "op": "all_reduce",
+   "size": 1048576,
+   "us": 177.0
+  },
+  {
+   "op": "all_reduce",
+   "size": 16777216,
+   "us": 1510.45
+  },
+  {
+   "op": "all_gather",
+   "size": 4096,
+   "us": 23.14
+  },
+  {
+   "op": "all_gather",
+   "size": 16384,
+   "us": 22.0
+  },
+  {
+   "op": "all_gather",
+   "size": 32768,
+   "us": 24.22
+  },
+  {
+   "op": "all_gather",
+   "size": 65536,
+   "us": 39.67
+  },
+  {
+   "op": "all_gather",
+   "size": 131072,
+   "us": 40.53
+  },
+  {
+   "op": "all_gather",
+   "size": 262144,
+   "us": 53.14
+  },
+  {
+   "op": "all_gather",
+   "size": 1048576,
+   "us": 156.99
+  },
+  {
+   "op": "all_gather",
+   "size": 16777216,
+   "us": 2133.45
+  }
+ ]
+}
