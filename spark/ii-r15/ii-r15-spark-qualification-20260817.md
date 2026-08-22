@@ -78,6 +78,10 @@ Other sweep observations:
 State at record time: dusty/kirby serving r15 production defaults
 (staging); rusty/toby production DS4 stays GG r33; GLM cluster stays GG
 r33. The release-source ceremony completed on 2026-08-21: the r15 recipe
-is commit `ff4183531798d5cbff741b7d8d9c9601ccbbe541`, and the benchmark
-tool used for the later acceptance-normalized comparisons is commit
-`88acca8b8e5a5f13b24c494d56f35ea2f0b4375f`.
+is commit `ff4183531798d5cbff741b7d8d9c9601ccbbe541`. The final benchmark
+source used for the later comparisons is commit
+`6838fbeed513433a6403ed56ed15dcf1535f7dd4`; its acceptance-normalized
+decode and interrupted-run resume implementation comes from upstream
+commit `0b4185b5b435e948b199c9077a00b084864aa963`. The benchmark history was
+linearized after the ceremony without changing the validated source tree
+(`e2df7852161dc0dd08cbc3770393c1679ececa78`).

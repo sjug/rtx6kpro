@@ -440,5 +440,11 @@ production cutover to corrected-r34 remains a user decision.
 - Infernal Invocation r17: `c0d8b47fad1c3b4c50ba4bc74654eb3dd64f6646`
 - Infernal Invocation r18: `5ab7ab4126b38be9c50522b4485e068d8f14f45d`
 - Infernal Invocation r18p: `520899278a984e37a2f1d873b1b2042cf5b5b7c7`
-- Acceptance-normalized benchmark tool:
-  `88acca8b8e5a5f13b24c494d56f35ea2f0b4375f`
+- Final benchmark source: `6838fbeed513433a6403ed56ed15dcf1535f7dd4`
+- Upstream acceptance-normalized decode and interrupted-run resume
+  implementation: `0b4185b5b435e948b199c9077a00b084864aa963`
+
+The benchmark history was linearized after the ceremony. Its validated
+source tree remains byte-identical at
+`e2df7852161dc0dd08cbc3770393c1679ececa78`; the former merge commit is
+not a canonical source identity.
