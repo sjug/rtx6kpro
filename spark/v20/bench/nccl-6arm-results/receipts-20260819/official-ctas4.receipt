@@ -1,0 +1,13 @@
+arm: official-ctas4
+rank0 command: timeout 240 ssh dusty "podman run --rm --name ncclrc --network host --ipc host --device nvidia.com/gpu=all --device /dev/infiniband -v ~/mb-dcp2-receipts.py:/tmp/mb.py:ro -v ~/nccl-official-lib.so:/nccl-official/libnccl.so:ro -e MASTER_ADDR=10.11.1.1 -e MASTER_PORT=29681 -e WORLD_SIZE=2 -e GLOO_SOCKET_IFNAME=enp1s0f1np1 -e NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1 -e NCCL_IB_DISABLE=0 -e NCCL_IB_HCA=rocep1s0f1,roceP2p1s0f1 -e NCCL_IB_TC=106 -e NCCL_IB_GID_INDEX=3 -e NCCL_PROTO=LL,Simple -e NCCL_DEBUG=INFO -e NCCL_DEBUG_SUBSYS=INIT,GRAPH,ENV,TUNING -e NCCL_MIN_CTAS=4 -e NCCL_MAX_CTAS=4 -e VLLM_NCCL_SO_PATH=/nccl-official/libnccl.so -e LD_PRELOAD=/nccl-official/libnccl.so -e RANK=__RANK__ --entrypoint python3 localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818 /tmp/mb.py" (RANK=0)
+rank1 command: ssh kirby "podman run --rm --name ncclrc --network host --ipc host --device nvidia.com/gpu=all --device /dev/infiniband -v ~/mb-dcp2-receipts.py:/tmp/mb.py:ro -v ~/nccl-official-lib.so:/nccl-official/libnccl.so:ro -e MASTER_ADDR=10.11.1.1 -e MASTER_PORT=29681 -e WORLD_SIZE=2 -e GLOO_SOCKET_IFNAME=enp1s0f1np1 -e NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1 -e NCCL_IB_DISABLE=0 -e NCCL_IB_HCA=rocep1s0f1,roceP2p1s0f1 -e NCCL_IB_TC=106 -e NCCL_IB_GID_INDEX=3 -e NCCL_PROTO=LL,Simple -e NCCL_DEBUG=INFO -e NCCL_DEBUG_SUBSYS=INIT,GRAPH,ENV,TUNING -e NCCL_MIN_CTAS=4 -e NCCL_MAX_CTAS=4 -e VLLM_NCCL_SO_PATH=/nccl-official/libnccl.so -e LD_PRELOAD=/nccl-official/libnccl.so -e RANK=__RANK__ --entrypoint python3 localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818 /tmp/mb.py" (RANK=1)
+start: 2026-08-19T19:06:01Z
+end: 2026-08-19T19:06:12Z
+timeout_seconds: 240
+wall_seconds: 8
+rank0_exit_status: 0 
+max_channel_line_rank0: Channel 03/04
+graph_nchannels_rank0: nChannels 32 
+validation_rank0:       3 "validation": "OK" 
+rank1_complete: 1
+result_json: 1

@@ -1,0 +1,2 @@
+INFO 08-19 18:41:29 [pynccl.py:113] vLLM is using nccl==2.31.2
+{"cases": [[8192, 3072], [32768, 3072], [64256, 222]], "event": "start", "layers": 75, "mode": "concurrent", "warmup": 5}
