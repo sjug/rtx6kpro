@@ -1,0 +1,304 @@
+/opt/venv/lib/python3.12/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+WARNING 08-18 11:43:50 [envs.py:2421] Unknown vLLM environment variable detected: VLLM_RTX6K_FUSED_ALLREDUCE_ADD
+WARNING 08-18 11:43:50 [envs.py:2421] Unknown vLLM environment variable detected: VLLM_RTX6K_FUSED_ALLREDUCE_ADD_END_BARRIER
+INFO 08-18 11:44:00 [model.py:622] Resolved architecture: GlmMoeDsaForCausalLM
+INFO 08-18 11:44:00 [model.py:1794] Using max model len 262144
+INFO 08-18 11:44:00 [cache.py:286] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+INFO 08-18 11:44:00 [arg_utils.py:2068] Inferred data_parallel_rank 0 from node_rank 2
+INFO 08-18 11:44:10 [model.py:622] Resolved architecture: DeepSeekMTPModel
+INFO 08-18 11:44:10 [model.py:1794] Using max model len 1048576
+WARNING 08-18 11:44:10 [speculative.py:1027] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+INFO 08-18 11:44:10 [speculative.py:1252] Overriding draft model max model len from 1048576 to 262144
+INFO 08-18 11:44:10 [scheduler.py:252] Chunked prefill is enabled with max_num_batched_tokens=3072.
+INFO 08-18 11:44:10 [vllm.py:1162] Asynchronous scheduling is enabled.
+INFO 08-18 11:44:10 [kernel.py:299] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+WARNING 08-18 11:44:10 [vllm.py:1758] max_num_scheduled_tokens is set to 3072 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens or max_num_seqs.
+INFO 08-18 11:44:11 [compilation.py:329] Enabled custom fusions: allreduce_rms
+INFO 08-18 11:44:11 [serve.py:212] Launching vLLM (v0.11.2.dev280+gilded.gnosis.v20.r34.spark.vllm9eb28db.b12xcd3ce19.fi1ac6942.sm121.cu132.20260817) headless multiproc executor, with head node address 10.11.11.1:25000 for torch.distributed process group.
+/opt/venv/lib/python3.12/site-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+(Worker pid=215) INFO 08-18 11:44:21 [parallel_state.py:1884] world_size=4 rank=2 local_rank=0 distributed_init_method=tcp://10.11.11.1:25000 backend=nccl
+(Worker pid=215) INFO 08-18 11:44:39 [nccl.py:24] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/libnccl-local-inference.so.2.30.4
+(Worker pid=215) WARNING 08-18 11:44:41 [symm_mem.py:69] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+(Worker pid=215) INFO 08-18 11:44:41 [nccl.py:24] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/libnccl-local-inference.so.2.30.4
+(Worker pid=215) INFO 08-18 11:44:41 [pynccl.py:113] vLLM is using nccl==2.30.4
+(Worker pid=215) INFO 08-18 11:44:41 [nccl.py:24] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/libnccl-local-inference.so.2.30.4
+(Worker pid=215) INFO 08-18 11:44:41 [nccl.py:24] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/libnccl-local-inference.so.2.30.4
+(Worker pid=215) INFO 08-18 11:44:42 [nccl.py:24] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/libnccl-local-inference.so.2.30.4
+(Worker pid=215) INFO 08-18 11:44:43 [parallel_state.py:2283] rank 2 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 2, EP rank 2, EPLB rank N/A
+(Worker pid=215) INFO 08-18 11:44:43 [gpu_worker.py:397] Using V2 Model Runner
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:43 [model_runner.py:372] Loading model from scratch...
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:43 [cuda.py:425] Using AttentionBackendEnum.B12X_MLA_SPARSE backend.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:43 [mla_attention.py:692] Using fp8_ds_mla KV cache format for B12X_MLA_SPARSE backend.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:43 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:43 [b12x_mla_sparse.py:1620] Preallocated 1640.4 MiB for 2 persistent CKV execution lane(s)
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1684] Using native CKV layer prefetch with depth=1 and 2 workspace slots.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [selector.py:174] Using FLASH_ATTN MLA prefill backend.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deep_gemm.py:202] DeepGEMM PDL enabled on deep_gemm.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deep_gemm.py:120] DeepGEMM E8M0 enabled on current platform.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [cuda.py:425] Using AttentionBackendEnum.B12X_MLA_SPARSE backend.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 3.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 4.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 5.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 7.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 8.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 9.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 11.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 12.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 13.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 15.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 16.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 17.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 19.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 20.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 21.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 23.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 24.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 25.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 27.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 28.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 29.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 31.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 32.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 33.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 35.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 36.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 37.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 39.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 40.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 41.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 43.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 44.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 45.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 47.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 48.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 49.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 51.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 52.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 53.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 55.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 56.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 57.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 59.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 60.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 61.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 63.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 64.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 65.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 67.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 68.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 69.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:46 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 71.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 72.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 73.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 75.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 76.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [deepseek_v2.py:1313] Using index_topk_pattern/index_topk_freq to skip sparse MLA indexer computation on layer 77.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:44:47 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:54 [default_loader.py:451] Loading weights took 127.11 seconds
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.3.mlp.experts: tiers=((3, 206), (4, 50))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.4.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.5.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.6.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.7.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.8.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.9.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.10.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:55 [exl3.py:3158] EXL3 mixed Trellis model.layers.11.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.12.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.13.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.14.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.15.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.16.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.17.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.18.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.19.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.20.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.21.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:56 [exl3.py:3158] EXL3 mixed Trellis model.layers.22.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.23.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.24.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.25.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.26.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.27.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.28.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.29.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.30.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.31.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.32.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.33.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:57 [exl3.py:3158] EXL3 mixed Trellis model.layers.34.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.35.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.36.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.37.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.38.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.39.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.40.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.41.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.42.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.43.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.44.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:58 [exl3.py:3158] EXL3 mixed Trellis model.layers.45.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.46.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.47.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.48.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.49.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.50.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.51.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.52.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.53.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.54.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.55.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:46:59 [exl3.py:3158] EXL3 mixed Trellis model.layers.56.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.57.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.58.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.59.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.60.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.61.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.62.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.63.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.64.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.65.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.66.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:00 [exl3.py:3158] EXL3 mixed Trellis model.layers.67.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.68.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.69.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.70.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.71.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.72.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.73.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.74.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.75.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.76.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [exl3.py:3158] EXL3 mixed Trellis model.layers.77.mlp.experts: tiers=((3, 148), (4, 108))
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [vllm.py:1162] Asynchronous scheduling is enabled.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [kernel.py:299] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+(Worker_TP2_DCP0 pid=215) WARNING 08-18 11:47:01 [vllm.py:1758] max_num_scheduled_tokens is set to 3072 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens or max_num_seqs.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:01 [kernel.py:299] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:02 [b12x_mla_sparse.py:1405] B12X GLM MLA KV format: KV_FP8_ROPE=0 kv_gmem_stride=656 kv_cache_dtype=fp8_ds_mla
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:03 [weight_utils.py:664] Safetensors index filter selected 1/81 checkpoint shards.
+(Worker_TP2_DCP0 pid=215) /opt/venv/lib/python3.12/site-packages/vllm/model_executor/model_loader/weight_utils.py:1237: RuntimeWarning: Shrink io_depth from 128 to 63 due to memory limit.
+(Worker_TP2_DCP0 pid=215)   with instanttensor.safe_open(
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:04 [default_loader.py:451] Loading weights took 1.35 seconds
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:04 [exl3.py:3268] EXL3 shared-H rotation layout active; saving 8.96 MiB per routed-expert layer and TP rank
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:05 [model_runner.py:394] Model loading took 86.95 GiB and 141.990867 seconds
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:05 [interface.py:635] Setting kv cache block size to 64 for B12X_NON_COMPRESSED_INDEXER backend.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:19 [backends.py:1094] Using cache directory: /cache/jit/vllme2666d9a65-b12x7cecbb2c48-166048354e4f38d2/vllm/torch_compile_cache/3fba3e56a3/rank_2_0/backbone for vLLM's torch.compile
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:47:19 [backends.py:1155] Dynamo bytecode transform time: 12.61 s
+(Worker_TP2_DCP0 pid=215) WARNING 08-18 11:47:19 [allreduce_rms_fusion.py:1129] Flashinfer allreduce fusion is not supported for world size 4 or max size is not provided
+(Worker_TP2_DCP0 pid=215) WARNING 08-18 11:47:20 [allreduce_rms_fusion.py:1258] AllReduce fusion pass is disabled.
+(Worker_TP2_DCP0 pid=215) [rank2]:W0818 11:47:20.582000 215 torch/_inductor/utils.py:1717] Not enough SMs to use max_autotune_gemm mode
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:03 [backends.py:393] Compiling a graph for compile range (1, 3072) takes 43.37 s
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:10 [backends.py:920] collected artifacts: 79 entries, 24 artifacts, 97465358 bytes total
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:10 [decorators.py:708] saved AOT compiled function to /cache/jit/vllme2666d9a65-b12x7cecbb2c48-166048354e4f38d2/vllm/torch_compile_cache/torch_aot_compile/3b8b3c7873c305a5694f04f6d424d64a4ab33032d55dab8f14fe1c9bb4af4f22/rank_2_0/model
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:10 [monitor.py:53] torch.compile took 63.90 s in total
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:20 [mla_attention.py:1180] Including 397.12 MiB of B12X sparse DCP transient memory in the profile peak
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:22 [exl3.py:3330] EXL3 mixed Trellis prefill block policy: selected=32 configured=64 explicit=False shape=6144x512 tiers=((3, 206), (4, 50)) topk=8 sm=12 tile=(128, 128, 32, 512)
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:26 [exl3.py:713] R7 fused MoE scratch arena (worst-case sized): capacity=32 block_m=8 topk=8 max_m_blocks=256
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:30 [exl3.py:713] R7 fused MoE scratch arena (worst-case sized): capacity=3072 block_m=32 topk=8 max_m_blocks=1016
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:30 [exl3.py:3493] EXL3 mixed Trellis runtime planned: tiers=((3, 206), (4, 50)) one-grid decode=32 one-grid prefill=3072/3072 block_m=32 buffers=13.5+732.1 MiB
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:31 [exl3.py:3330] EXL3 mixed Trellis prefill block policy: selected=32 configured=64 explicit=False shape=6144x512 tiers=((3, 148), (4, 108)) topk=8 sm=12 tile=(128, 128, 32, 512)
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:31 [exl3.py:3493] EXL3 mixed Trellis runtime planned: tiers=((3, 148), (4, 108)) one-grid decode=32 one-grid prefill=3072/3072 block_m=32 buffers=13.5+732.1 MiB
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:34 [monitor.py:81] Initial profiling/warmup run took 23.65 s
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:34 [backends.py:1094] Using cache directory: /cache/jit/vllme2666d9a65-b12x7cecbb2c48-166048354e4f38d2/vllm/torch_compile_cache/3fba3e56a3/rank_2_0/eagle_head for vLLM's torch.compile
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:34 [backends.py:1155] Dynamo bytecode transform time: 0.40 s
+(Worker_TP2_DCP0 pid=215) WARNING 08-18 11:48:34 [allreduce_rms_fusion.py:1129] Flashinfer allreduce fusion is not supported for world size 4 or max size is not provided
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:39 [backends.py:393] Compiling a graph for compile range (1, 3072) takes 4.42 s
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:39 [backends.py:920] collected artifacts: 2 entries, 2 artifacts, 7914728 bytes total
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:39 [decorators.py:708] saved AOT compiled function to /cache/jit/vllme2666d9a65-b12x7cecbb2c48-166048354e4f38d2/vllm/torch_compile_cache/torch_aot_compile/4d999f4e408c30a861fade99b60189299769ae20806aa90decd601f3304ac2f0/rank_2_0/model
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:39 [monitor.py:53] torch.compile took 5.04 s in total
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:49 [exl3.py:4527] EXL3 rank-sliced runtime planned: Trellis m=1..32 block_m=8, prefill trellis block_m=64 capacity=3072 arena=984.2MiB scheduler_capacity=3072 chunk=128 topk=8
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:48:57 [monitor.py:81] Initial profiling/warmup run took 17.63 s
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:02 [model_runner.py:823] Profiled V1 prompt-logprobs workspace with chunk size 1024
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:02 [kernel_warmup.py:351] Warmed up 2 fused MLA BF16/MXFP8 query variants.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:02 [kernel_warmup.py:376] Warmed up 34 EXL3 mixed-Trellis route-pack variant(s); free-memory delta 1.6 MiB.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:04 [kernel_warmup.py:398] Skipping FlashInfer autotune because no FlashInfer compute kernels are active.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:04 [kernel_warmup.py:85] Warming up ll_bf16 router GEMM kernels.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:09 [cutedsl_warmup.py:101] Skipping CuTeDSL warmup because no compile units were requested.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:12 [indexer.py:461] DSA indexer decode path: use_flattening=False use_varlen=False (next_n=4, use_fp4_indexer_cache=False)
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:30 [speculator.py:94] Capturing model for speculator...
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:45 [model_runner.py:1026] Estimated MRV2 CUDA graph memory: 0.70 GiB total (0.58 GiB retained in the reusable pool)
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:45 [gpu_worker.py:617] Available KV cache memory: 8.52 GiB
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:49:45 [gpu_worker.py:632] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8600 is equivalent to --gpu-memory-utilization=0.8542 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8658. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:50:03 [speculator.py:94] Capturing model for speculator...
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:50:14 [model_runner.py:1080] Graph capturing finished in 28 secs, took 0.22 GiB
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:50:14 [gpu_worker.py:854] CUDA graph pool memory: 0.22 GiB (actual), 0.7 GiB (estimated), difference: 0.48 GiB (223.1%).
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:50:14 [gpu_worker.py:918] Free memory on device (111.73/121.69 GiB) on startup. Desired GPU memory utilization is (0.86, 104.65 GiB). Actual usage is 86.95 GiB for weight, 3.13 GiB for peak activation, 5.35 GiB for non-torch memory, and 0.22 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory-bytes=9507511583` (8.85 GiB) to fit into requested memory, or `--kv-cache-memory-bytes=17111113728` (15.94 GiB) to fully utilize gpu memory. Current kv cache memory in use is 8.52 GiB.
+(Worker_TP2_DCP0 pid=215) INFO 08-18 11:50:15 [jit_monitor.py:79] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
