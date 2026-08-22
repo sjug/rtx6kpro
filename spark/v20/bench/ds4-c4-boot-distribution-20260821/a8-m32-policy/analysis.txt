@@ -1,0 +1,20 @@
+arm concurrency steps_geo tokens_geo accept_len prefill64k
+default 1 14.733 41.906 2.845 2276.5
+default 4 31.399 92.721 2.956 2276.5
+m32 1 14.485 42.084 2.906 2259.5
+m32 4 31.039 92.768 2.989 2259.5
+
+M32 versus default
+64K prefill: -0.75%
+c1: steps=-1.69% tokens=+0.42% accept=+2.14%
+  0: steps=-1.82%
+  16384: steps=-3.34%
+  32768: steps=-1.74%
+  65536: steps=-1.18%
+  131072: steps=-0.54%
+c4: steps=-1.15% tokens=+0.05% accept=+1.10%
+  0: steps=-2.96%
+  16384: steps=+0.49%
+  32768: steps=-0.61%
+  65536: steps=-1.73%
+  131072: steps=-0.43%

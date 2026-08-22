@@ -1,0 +1,15 @@
+label steps_geo tokens_geo accept_len prefill64k
+r18p-opening 14.647 41.330 2.822 2258.5
+r34 14.753 41.679 2.826 2242.0
+r18p-closing 14.640 41.719 2.850 2273.5
+
+r18p median controls versus r34
+steps=-0.74% tokens=-0.37% accept=+0.36% prefill64k=+1.07%
+  0: steps=-0.84%
+  16384: steps=+0.13%
+  32768: steps=-1.90%
+  65536: steps=-1.24%
+  131072: steps=+0.16%
+
+r18p closing versus opening control
+steps=-0.05% tokens=+0.94% accept=+1.00% prefill64k=+0.66%

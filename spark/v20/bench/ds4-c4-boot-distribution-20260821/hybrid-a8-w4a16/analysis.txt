@@ -1,0 +1,37 @@
+arm concurrency steps_geo tokens_geo accept_len prefill64k
+a8 1 14.720 42.317 2.875 2263.5
+a8 4 30.961 94.707 3.059 2263.5
+packed-w4a16 1 13.747 39.405 2.866 2094.5
+packed-w4a16 4 32.763 101.334 3.094 2094.5
+source-w4a16 1 8.444 26.023 3.082 1987.5
+source-w4a16 4 30.393 91.758 3.019 1987.5
+
+source-native W4A16 versus A8
+64K prefill: -12.19%
+c1: steps=-42.64% tokens=-38.51% accept=+7.22%
+  0: steps=-43.35%
+  16384: steps=-43.80%
+  32768: steps=-42.82%
+  65536: steps=-42.10%
+  131072: steps=-42.11%
+c4: steps=-1.83% tokens=-3.11% accept=-1.30%
+  0: steps=-5.18%
+  16384: steps=-1.06%
+  32768: steps=-2.15%
+  65536: steps=-0.84%
+  131072: steps=-0.63%
+
+source-native W4A16 versus packed W4A16
+64K prefill: -5.11%
+c1: steps=-38.57% tokens=-33.96% accept=+7.53%
+  0: steps=-38.73%
+  16384: steps=-39.44%
+  32768: steps=-39.14%
+  65536: steps=-38.18%
+  131072: steps=-37.36%
+c4: steps=-7.23% tokens=-9.45% accept=-2.41%
+  0: steps=-6.01%
+  16384: steps=-8.16%
+  32768: steps=-6.65%
+  65536: steps=-8.25%
+  131072: steps=-7.05%

@@ -1,0 +1,30 @@
+Production-geometry W4A8 policy screen
+
+Geometry: E=256, K=4096, N=1024, top-k=6 on one GB10/SM121.
+Timing: CUDA-graph replay, median of seven samples.
+
+Broad screen deltas versus stock
+arm                 M1       M3       M4       M5       M6      M24      M256     M1024
+persistent_grid   +3.741%  +0.086%  -0.177%  +0.002%  +0.186%  -0.108%  +0.040%  +0.046%
+no_materialized   +1.290%  +0.077%  -0.012%  -0.006%  -0.166%  +0.004%  +1.517%  +2.208%
+no_share_input    +0.962%  +0.206%  +0.031%  +0.747%  +0.908%  +0.107%  +1.578%  +2.030%
+
+Focused tiny-decode result
+M  stock_us  no_tiny_us  no_tiny_delta  stock_oracle_cos  no_tiny_oracle_cos
+1   187.262     221.700       +18.391%       0.998931706          0.999876916
+3   551.652     575.148        +4.259%       0.998988092          0.999788463
+4   741.450     719.391        -2.975%       0.998880565          0.999830604
+
+All outputs were finite and both paths passed the B12X oracle threshold of
+cosine >= 0.998 with norm ratios inside 0.98..1.02. The dynamic fallback is
+closer to the oracle at every tested tiny M, but it is materially slower at
+M=1 and M=3. The stock tiny kernel remains the correct broad policy. M=4 is a
+narrow unresolved opportunity: routing only that exact shape to dynamic saves
+about 22 us per MoE invocation in this synthetic screen, but it requires a
+source-level selector and a two-node serving A/B to establish that M=4 occurs
+often enough to matter.
+
+Verdict: reject persistent_grid, disabling the materialized intermediate,
+disabling shared-input reuse, and globally disabling tiny decode. Preserve the
+stock W4A8 policy. Keep an M=4-only dynamic selector as the sole positive
+microbenchmark lead; it is not yet a release candidate.

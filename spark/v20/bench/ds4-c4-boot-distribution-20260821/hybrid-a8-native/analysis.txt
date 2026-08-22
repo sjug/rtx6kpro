@@ -1,0 +1,29 @@
+arm concurrency steps_geo tokens_geo accept_len prefill64k
+a8-opening 1 14.720 42.317 2.875 2267.0
+a8-opening 4 31.011 96.266 3.104 2267.0
+hybrid 1 14.628 45.007 3.077 2265.0
+hybrid 4 30.985 91.655 2.959 2265.0
+a8-closing 1 14.739 42.242 2.867 2259.0
+a8-closing 4 30.919 93.784 3.033 2259.0
+a8-median 1 14.730 42.280 2.871 2263.0
+a8-median 4 30.965 95.025 3.069 2263.0
+
+hybrid versus median A8
+64K prefill: +0.09%
+c1: steps=-0.69% tokens=+6.45% accept=+7.18%
+  0: steps=+0.81%
+  16384: steps=-0.89%
+  32768: steps=-3.70%
+  65536: steps=+0.68%
+  131072: steps=-0.24%
+c4: steps=+0.07% tokens=-3.55% accept=-3.59%
+  0: steps=-1.00%
+  16384: steps=+1.01%
+  32768: steps=+0.64%
+  65536: steps=-0.64%
+  131072: steps=+0.31%
+
+A8 closing versus opening drift
+64K prefill: -0.35%
+c1: steps=+0.13% tokens=-0.18% accept=-0.28%
+c4: steps=-0.30% tokens=-2.58% accept=-2.29%

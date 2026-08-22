@@ -1,0 +1,20 @@
+arm concurrency steps_geo tokens_geo accept_len prefill64k
+default 1 14.703 42.136 2.866 2268.5
+default 4 31.042 93.055 2.987 2268.5
+managed 1 14.722 44.973 3.055 2246.5
+managed 4 31.001 93.214 3.007 2246.5
+
+managed versus default
+64K prefill: -0.97%
+c1: steps=+0.13% tokens=+6.73% accept=+6.59%
+  0: steps=+0.03%
+  16384: steps=-0.71%
+  32768: steps=+0.81%
+  65536: steps=-0.10%
+  131072: steps=+0.60%
+c4: steps=-0.13% tokens=+0.17% accept=+0.65%
+  0: steps=-0.35%
+  16384: steps=+1.44%
+  32768: steps=-1.46%
+  65536: steps=-2.35%
+  131072: steps=+1.53%
