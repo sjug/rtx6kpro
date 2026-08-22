@@ -1,0 +1,5 @@
+{"event": "rank1-complete", "lib_sha256": "1e9696ffeee4074005f99b9172c78803c5c92d10cb53f958550daaea2109aae8", "maps_nccl": ["fbe849bf0000-fbe84e910000 r-xp 00000000 103:02 2359317                   /nccl-official/libnccl.so"], "validations": ["OK", "OK", "OK"]}
+
+[2026-08-20 13:17:53] kirby:1:1 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+
+[2026-08-20 13:17:53] kirby:1:1 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93

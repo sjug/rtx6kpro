@@ -1,0 +1,424 @@
+Error reading attached process's symbol file.
+: No such file or directory.
+From                To                  Syms Read   Shared Object Library
+0x0000fd9e15ca2c30  0x0000fd9e15fbb43c  Yes         /proc/1873184/root/nccl-official/libnccl.so
+0x0000fd9e15b6cb40  0x0000fd9e15bb59f4  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libm.so.6
+0x0000fd9e15b22100  0x0000fd9e15b32aa0  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libz.so.1
+0x0000fd9e15ad3310  0x0000fd9e15aef820  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libexpat.so.1
+0x0000fd9e15937d00  0x0000fd9e15a543a4  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+0x0000fd9e1a9eddc0  0x0000fd9e1aa09e70  Yes (*)     /proc/1873184/root/lib/ld-linux-aarch64.so.1
+0x0000fd9e15720c20  0x0000fd9e158607bc  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+0x0000fd9e156435c0  0x0000fd9e1565b5a8  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libgcc_s.so.1
+0x0000fd9e15356920  0x0000fd9e15367114  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_ctypes.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e15321a80  0x0000fd9e15326bcc  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libffi.so.8
+0x0000fd9e151d1f10  0x0000fd9e151d786c  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_json.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e14f71860  0x0000fd9e14f73524  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_bz2.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e14f41390  0x0000fd9e14f4dc08  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libbz2.so.1.0
+0x0000fd9e14f12560  0x0000fd9e14f15e58  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_lzma.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e14ec3020  0x0000fd9e14ee1a60  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/liblzma.so.5
+0x0000fd9e14d90610  0x0000fd9e14d906f8  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_global_deps.so
+                                        No          /usr/local/mpi/lib/libmpi.so.40
+0x0000fd9e149d4050  0x0000fd9e14a3e560  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcudart.so.13
+                                        No          /usr/local/mpi/lib/./libopen-pal.so.80
+                                        No          /usr/local/mpi/lib/./libevent_core-2.1.so.7
+                                        No          /usr/local/mpi/lib/./libevent_pthreads-2.1.so.7
+                                        No          /usr/local/mpi/lib/./libhwloc.so.15
+                                        No          /usr/local/mpi/lib/./libpmix.so.2
+0x0000fd9e14530550  0x0000fd9e14530650  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libdl.so.2
+0x0000fd9e14500730  0x0000fd9e14500830  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libpthread.so.0
+0x0000fd9e144d0690  0x0000fd9e144d0914  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/librt.so.1
+                                        No          /usr/local/mpi/lib/./../../ucx/lib/libucp.so.0
+                                        No          /usr/local/mpi/lib/./../../ucx/lib/libucs.so.0
+                                        No          /usr/local/mpi/lib/./../../ucx/lib/libucm.so.0
+0x0000fd9e142a56e0  0x0000fd9e142c5168  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libudev.so.1
+                                        No          /usr/local/mpi/lib/./../../ucx/lib/./libuct.so.0
+0x0000fd9e14212e60  0x0000fd9e1421824c  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libcap.so.2
+                                        No          /usr/local/mpi/lib/./../../ucx/lib/ucx/libucs_fuse.so.0
+0x0000fd9e13960640  0x0000fd9e13960734  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/_C.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e12533660  0x0000fd9e134cbe68  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_python.so
+0x0000fd9e123405a0  0x0000fd9e12340688  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch.so
+0x0000fd9e12312a20  0x0000fd9e12315f08  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libshm.so
+0x0000fd9e02cf3a20  0x0000fd9e0a249dc4  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+0x0000fd9df87eb3b0  0x0000fd9dfb88e1bc  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so
+0x0000fd9e1225b220  0x0000fd9e122ae2b0  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libc10_cuda.so
+0x0000fd9e1210fd00  0x0000fd9e121e7d50  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so
+0x0000fd9e11e00000  0x0000fd9e11e02358  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libcudnn.so.9
+0x0000fd9e1172e6a0  0x0000fd9e11927328  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcufile.so.0
+0x0000fd9e1206ab40  0x0000fd9e120a1a5c  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libgomp.so.1
+0x0000fd9e111ec440  0x0000fd9e113e6050  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcupti.so.13
+0x0000fd9ded828320  0x0000fd9dee0a09d0  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcusparse.so.12
+0x0000fd9ddd72ad88  0x0000fd9ddda72c1c  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcufft.so.12
+                                        No          /usr/local/cuda/lib64/libcusparseLt.so.0
+0x0000fd9dc37b4c30  0x0000fd9dc38a4fd0  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcurand.so.10
+0x0000fd9dbf404010  0x0000fd9dbf8c8ae0  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcublas.so.13
+0x0000fd9d929aa4e8  0x0000fd9d97463978  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libcublasLt.so.13
+0x0000fd9d8e72f6f8  0x0000fd9d928a9bdc  Yes (*)     /proc/1873184/root/usr/local/cuda/lib64/libnvrtc.so.13
+0x0000fd9e120331e0  0x0000fd9e120392d0  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libnuma.so.1
+0x0000fd9e10fc20a0  0x0000fd9e10fc6ca8  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libatomic.so.1
+0x0000fd9d87d57140  0x0000fd9d88c23c74  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+0x0000fd9e107bbd50  0x0000fd9e10b185b0  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/_multiarray_umath.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d86848720  0x0000fd9d878e6d20  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+0x0000fd9e105f9280  0x0000fd9e106fc1ac  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libgfortran-daac5196-038a5e3c.so.5.0.0
+0x0000fd9e10f506f0  0x0000fd9e10f50878  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_contextvars.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e10274960  0x0000fd9e1028fb6c  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/linalg/_umath_linalg.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e150a1e50  0x0000fd9e150a4494  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/mmap.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d56940d20  0x0000fd9d56c62964  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/runtime.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d56190d20  0x0000fd9d565bcf64  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/driver.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e10e60380  0x0000fd9e10e72008  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/cydriver.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d55dc06c0  0x0000fd9d55e0bdd0  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/_bindings/cydriver.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e100304c0  0x0000fd9e1003df84  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/cyruntime.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d55bc0d60  0x0000fd9d55c4e538  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/_bindings/cyruntime.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d55ad0c60  0x0000fd9d55b48270  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/cuda/bindings/_bindings/cyruntime_ptds.cpython-312-aarch64-linux-gnu.so
+0x0000fd9e10e215a0  0x0000fd9e10e224a4  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_queue.cpython-312-aarch64-linux-gnu.so
+0x0000fd9dc3513f60  0x0000fd9dc3519010  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_hashlib.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d551f4000  0x0000fd9d5544e05c  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libcrypto.so.3
+0x0000fd9dc34d34c0  0x0000fd9dc34dea1c  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_ssl.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d56090280  0x0000fd9d560ef360  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libssl.so.3
+0x0000fd9d7ce11b00  0x0000fd9d7ce12c68  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_multiprocessing.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d54240c80  0x0000fd9d542410a0  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_posixshmem.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d54014090  0x0000fd9d5401b79c  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_asyncio.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d52b306e0  0x0000fd9d52b635b0  Yes         /proc/1873184/root/usr/local/lib/python3.12/dist-packages/regex/_regex.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d51aab890  0x0000fd9d51c1e0a8  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libnvidia-ml.so.1
+0x0000fd9d4fdb3c20  0x0000fd9d5026f2fc  Yes (*)     /proc/1873184/root/opt/infernal-invocation/vllm/vllm/_C_stable_libtorch.abi3.so
+0x0000fd9d4fb2aa50  0x0000fd9d4fb6b96c  Yes (*)     /proc/1873184/root/opt/infernal-invocation/vllm/vllm/_qutlass_C.abi3.so
+0x0000fd9d4faf19e0  0x0000fd9d4faf3d20  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_lsprof.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4fac2cc0  0x0000fd9d4fac3dac  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/termios.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4f646b50  0x0000fd9d4f684370  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_decimal.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e49a850  0x0000fd9d4e50b420  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/fft/_pocketfft_umath.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e444ee0  0x0000fd9d4e4625c0  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/bit_generator.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e3e3d20  0x0000fd9d4e40c11c  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_common.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e3164f0  0x0000fd9d4e36082c  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/mtrand.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e2a3f70  0x0000fd9d4e2da018  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_bounded_integers.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e263710  0x0000fd9d4e27397c  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_mt19937.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e2237e0  0x0000fd9d4e2319a0  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_philox.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e1e3a40  0x0000fd9d4e1f45d4  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_pcg64.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e1b3350  0x0000fd9d4e1bbb4c  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_sfc64.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d4e0c8bb0  0x0000fd9d4e133e20  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/random/_generator.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d438d6a50  0x0000fd9d4a232b90  Yes         /proc/1873184/root/usr/local/lib/python3.12/dist-packages/triton/_C/libtriton.so
+0x0000fd9d42920f00  0x0000fd9d429adfac  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/optree/_C.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d544112e0  0x0000fd9d54411eb8  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/resource.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d543d05a0  0x0000fd9d543d2ed4  Yes         /proc/1873184/root/usr/local/lib/python3.12/dist-packages/psutil/_psutil_linux.abi3.so
+0x0000fd9d54380460  0x0000fd9d5438bdbc  Yes         /proc/1873184/root/usr/local/lib/python3.12/dist-packages/xxhash/_xxhash.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d40bd7850  0x0000fd9d40be6338  Yes (*)     /proc/1873184/root/usr/lib/python3.12/lib-dynload/_sqlite3.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d40a603b0  0x0000fd9d40b60004  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libsqlite3.so.0
+0x0000fd9d3fd000a0  0x0000fd9d3fd0098c  Yes         /proc/1873184/root/usr/local/lib/python3.12/dist-packages/markupsafe/_speedups.cpython-312-aarch64-linux-gnu.so
+0x0000fd9d3f780ce0  0x0000fd9d3f79f164  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/zmq/backend/cython/_zmq.abi3.so
+0x0000fd9d3f650ec0  0x0000fd9d3f6dba88  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/zmq/backend/cython/../../../pyzmq.libs/libzmq-915d1bcb.so.5.2.5
+0x0000fd9d3f570c20  0x0000fd9d3f5cbd88  Yes (*)     /proc/1873184/root/usr/local/lib/python3.12/dist-packages/zmq/backend/cython/../../../pyzmq.libs/libsodium-5e22a6bf.so.26.2.0
+0x0000fd9d34a2c190  0x0000fd9d36243a30  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libnvidia-ptxjitcompiler.so.1
+0x0000fd9b289e5db0  0x0000fd9b2b180124  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libnvidia-gpucomp.so.580.173.02
+0x0000fd9d3c946a80  0x0000fd9d3c95a3c0  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libibverbs.so
+0x0000fd9d3c8acd70  0x0000fd9d3c8f63d4  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libnl-route-3.so.200
+0x0000fd9d3c8474d0  0x0000fd9d3c8573a8  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libnl-3.so.200
+0x0000fd9d3c7a7e90  0x0000fd9d3c80e360  Yes (*)     /proc/1873184/root/lib/aarch64-linux-gnu/libmlx5.so
+(*): Shared library is missing debugging information.
+
+Thread 41 (Thread 0xfd9d8676a8c0 (LWP 1873229) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 40 (Thread 0xfd9d85f5a8c0 (LWP 1873230) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 39 (Thread 0xfd9d8574a8c0 (LWP 1873231) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 38 (Thread 0xfd9d84f3a8c0 (LWP 1873232) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 37 (Thread 0xfd9d8472a8c0 (LWP 1873233) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 36 (Thread 0xfd9d83f1a8c0 (LWP 1873234) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 35 (Thread 0xfd9d8370a8c0 (LWP 1873235) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 34 (Thread 0xfd9d82efa8c0 (LWP 1873236) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 33 (Thread 0xfd9d826ea8c0 (LWP 1873237) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 32 (Thread 0xfd9d81eda8c0 (LWP 1873238) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 31 (Thread 0xfd9d816ca8c0 (LWP 1873239) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 30 (Thread 0xfd9d80eba8c0 (LWP 1873240) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 29 (Thread 0xfd9d806aa8c0 (LWP 1873241) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 28 (Thread 0xfd9d7fe9a8c0 (LWP 1873242) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 27 (Thread 0xfd9d7f68a8c0 (LWP 1873243) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 26 (Thread 0xfd9d7ee7a8c0 (LWP 1873244) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 25 (Thread 0xfd9d7e66a8c0 (LWP 1873245) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 24 (Thread 0xfd9d7de5a8c0 (LWP 1873246) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 23 (Thread 0xfd9d7d64a8c0 (LWP 1873247) "python3"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9d869d1b68 in blas_thread_server () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/numpy/_core/../../numpy.libs/libscipy_openblas64_-0f683016.so
+#3  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 22 (Thread 0xfd9d51a8a8c0 (LWP 1873249) "cuda00001800007"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9d87edec70 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#2  0x0000fd9d87f8cd70 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#3  0x0000fd9d87ecd928 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#4  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 21 (Thread 0xfd9d3f45a8c0 (LWP 1873251) "pt_tcpstore_uv"):
+#0  0x0000fd9e159fbe74 in epoll_pwait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e09edb92c in uv.io_poll () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#2  0x0000fd9e09ecc14c in uv_run () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e097c74c0 in c10d::detail::LibUVStoreDaemon::run() () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#4  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#5  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#6  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 20 (Thread 0xfd9d3ec4a8c0 (LWP 1873252) "gloo_tcp_loop"):
+#0  0x0000fd9e159fbe74 in epoll_pwait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e09dd2c4c in gloo::transport::tcp::Loop::run() () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#2  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#3  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 19 (Thread 0xfd9d3e43a8c0 (LWP 1873253) "pt_gloo_runloop"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9e0977ba1c in c10d::ProcessGroupGloo::runLoop(int) () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 18 (Thread 0xfd9d3dc2a8c0 (LWP 1873254) "pt_gloo_runloop"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9e0977ba1c in c10d::ProcessGroupGloo::runLoop(int) () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 17 (Thread 0xfd9d3d1878c0 (LWP 1873258) "cuda-EvtHandlr"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9d87edec70 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#2  0x0000fd9d87f8cd70 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#3  0x0000fd9d87ecd928 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#4  0x0000fd9e1599595c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 16 (Thread 0xfd9b22dd98c0 (LWP 1873259) "gloo_tcp_loop"):
+#0  0x0000fd9e159fbe74 in epoll_pwait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e09dd2c4c in gloo::transport::tcp::Loop::run() () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#2  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#3  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 15 (Thread 0xfd9b225c98c0 (LWP 1873260) "pt_gloo_runloop"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9e0977ba1c in c10d::ProcessGroupGloo::runLoop(int) () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 14 (Thread 0xfd9b21db98c0 (LWP 1873261) "pt_gloo_runloop"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9e0977ba1c in c10d::ProcessGroupGloo::runLoop(int) () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 13 (Thread 0xfd9b215a98c0 (LWP 1873262) "gloo_tcp_loop"):
+#0  0x0000fd9e159fbe74 in epoll_pwait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e09dd2c4c in gloo::transport::tcp::Loop::run() () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#2  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#3  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#4  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 12 (Thread 0xfd9b20d998c0 (LWP 1873263) "pt_gloo_runloop"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9e0977ba1c in c10d::ProcessGroupGloo::runLoop(int) () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 11 (Thread 0xfd9b1bffa8c0 (LWP 1873264) "pt_gloo_runloop"):
+#0  0x0000fd9e15991e9c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15994b20 in pthread_cond_wait () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#2  0x0000fd9e0977ba1c in c10d::ProcessGroupGloo::runLoop(int) () from /proc/1873184/root/usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 10 (Thread 0xfd9b1afda8c0 (LWP 1873266) "python3"):
+#0  0x0000fd9e159f1288 in read () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9d3c955450 in ibv_get_async_event () from /proc/1873184/root/lib/aarch64-linux-gnu/libibverbs.so
+#2  0x0000fd9e15d9c6c8 [PAC] in wrap_ibv_get_async_event (context=<optimized out>, event=event@entry=0xfd9b1afd9e48) at misc/ibvwrap.cc:140
+#3  0x0000fd9e15ddec80 in ncclIbAsyncThreadMain (args=0xfd9e1a978b00 <ncclIbDevs>) at transport/net_ib/common.cc:170
+#4  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#5  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#6  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 9 (Thread 0xfd9b1a7ca8c0 (LWP 1873267) "python3"):
+#0  0x0000fd9e159f1288 in read () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9d3c955450 in ibv_get_async_event () from /proc/1873184/root/lib/aarch64-linux-gnu/libibverbs.so
+#2  0x0000fd9e15d9c6c8 [PAC] in wrap_ibv_get_async_event (context=<optimized out>, event=event@entry=0xfd9b1a7c9e48) at misc/ibvwrap.cc:140
+#3  0x0000fd9e15ddec80 in ncclIbAsyncThreadMain (args=0xfd9e1a979c80 <ncclIbDevs+4480>) at transport/net_ib/common.cc:170
+#4  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#5  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#6  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 8 (Thread 0xfd9b1b7ea8c0 (LWP 1873268) "python3"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15e724a0 in poll (__timeout=<optimized out>, __nfds=<optimized out>, __fds=<optimized out>) at /usr/include/aarch64-linux-gnu/bits/poll2.h:39
+#2  rasThreadMain () at ras/ras.cc:658
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 7 (Thread 0xfd9b19fba8c0 (LWP 1873269) "python3"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15d0ba0c in poll (__timeout=500, __nfds=74, __fds=0xfd9af0000e90) at /usr/include/aarch64-linux-gnu/bits/poll2.h:39
+#2  ncclProxyService (_args=0x1aeee580) at proxy.cc:1797
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 6 (Thread 0xfd9b197aa8c0 (LWP 1873270) "python3"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15d02778 in poll (__timeout=500, __nfds=1, __fds=0xfd9b197a9e98) at /usr/include/aarch64-linux-gnu/bits/poll2.h:39
+#2  ncclProxyServiceUDS (_args=0x1aeee580) at proxy.cc:2017
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 5 (Thread 0xfd9b18f9a8c0 (LWP 1873271) "python3"):
+#0  0x0000fd9e15db8948 in recvProxyProgress (proxyState=0x1aeee580, args=0xfd9a951c61f8) at transport/net.cc:1634
+#1  0x0000fd9e15d0455c in progressOps (idle=<synthetic pointer>, opStart=<optimized out>, state=0x1aeee6e0, proxyState=0x1aeee580) at proxy.cc:805
+#2  ncclProxyProgress (proxyState_=0x1aeee580) at proxy.cc:978
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 4 (Thread 0xfd9af4f388c0 (LWP 1873273) "python3"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15d0ba0c in poll (__timeout=500, __nfds=74, __fds=0xfd9a8c000ed0) at /usr/include/aarch64-linux-gnu/bits/poll2.h:39
+#2  ncclProxyService (_args=0x1bf05890) at proxy.cc:1797
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 3 (Thread 0xfd9aedf598c0 (LWP 1873274) "python3"):
+#0  0x0000fd9e159f0c1c in poll () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15d02778 in poll (__timeout=500, __nfds=1, __fds=0xfd9aedf58e98) at /usr/include/aarch64-linux-gnu/bits/poll2.h:39
+#2  ncclProxyServiceUDS (_args=0x1bf05890) at proxy.cc:2017
+#3  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#4  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#5  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 2 (Thread 0xfd9aed7498c0 (LWP 1873275) "python3"):
+#0  0x0000fd9e159e5d4c in sched_yield () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#1  0x0000fd9e15d04660 in __gthread_yield () at /usr/include/aarch64-linux-gnu/c++/13/bits/gthr-default.h:693
+#2  std::this_thread::yield () at /usr/include/c++/13/bits/std_thread.h:366
+#3  ncclProxyProgress (proxyState_=0x1bf05890) at proxy.cc:1003
+#4  0x0000fd9e15761ae0 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libstdc++.so.6
+#5  0x0000fd9e1599595c [PAC] in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+#6  0x0000fd9e159fbb4c in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libc.so.6
+
+Thread 1 (Thread 0xfd9e15c098c0 (LWP 1873184) "python3"):
+#0  0x0000fd9e1aa29584 in ?? ()
+#1  0x0000fd9d87eddaec in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#2  0x0000fd9d87eddaec in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#3  0x0000fd9d87e09f10 in ?? () from /proc/1873184/root/lib/aarch64-linux-gnu/libcuda.so.1
+#4  0x0000ffffdaa5d598 in ?? ()
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
