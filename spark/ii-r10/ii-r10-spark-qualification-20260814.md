@@ -209,3 +209,18 @@ TP4 NCCL c4-pin decode A/B on GLM was not reached (open item, GG line).
 - Upstream report additions: NCCL Turin over-channeling on 2-rank rails,
   buildah ARG/ENV divergence, arm64 NGC base env drift, spcx plugin
   inheritance, #298 exposure data, nondeterminism note.
+
+## Correction (2026-08-15): encoder-bug finding retracted
+
+The "exhaustive codebook oracle mismatch for the 3INST/MCG codebooks"
+rationale cited by this record's overlay description (and embedded in the
+II image's guard error message) is RETRACTED: the oracle harness passed
+both codebook keys into `quantize_tiles`, whose selection semantics at the
+pinned commit are key-PRESENCE, so all three arms encoded with a single
+codebook. No encoder defect was ever established on any platform. The
+DECODE oracle results (bit-exact, all indices, all codebooks, both
+platforms) are unaffected. Consequences: the II image's fail-closed guard
+is administratively conservative but its message text is stale (text debt
+for the next II respin); the r34-spark program removes the guard entirely
+and gates online K6 on a corrected oracle plus a production-path pipeline
+gate (see the r34-spark record).

@@ -158,23 +158,36 @@ graphs; only the rare boundary/truncation steps run piecewise.
    MAX_NUM_BATCHED_TOKENS as the primary sizing lever in the r16 page;
    vLLM's "estimated maximum model length" hint is misleading here (it
    divides by the fixed-block rate as if per-token).
-7. **ExLlamaV3 a1-retile ENCODER bug (fork-wide, NOT SM121-specific)**:
-   an exhaustive codebook oracle (exact integer+lop3+IEEE-fp16 emulation of
-   `decode_3inst`/`decode_mul1`, all 65,536 indices) proves the DECODE
-   family (`decode`, `reconstruct`, GEMM kernels) bit-exact on BOTH SM120
-   and SM121 for all three codebooks. The ENCODER fast path
-   (`quantize_tiles`) disagrees with the true codebook for **3INST and MCG**
-   at ~100% of positions with IDENTICAL mismatch counts on SM120 and SM121
-   (16383/16381 at K3, max |diff| ~6.4/6.2); `mul1` is bit-exact
-   everywhere. Fast-math removal changes nothing. Reproducer: stock
-   `tests/test_quant_fn.py::test_encode_ideal` fails for cb0/cb1 on any
-   SM12x GPU. Open question for you: production online-K6 KLD looks sane
-   (r28 table), suggesting the calibrated LDLQ pipeline may not share the
-   fast path's defect - worth confirming which path production uses. Our
-   images ship the extension ENABLED for sm_121a behind a 6-file pure
-   arch-guard patch (serving is decode-only and oracle-exact) with online
-   quantization fail-closed at mode selection. Oracle script + guard patch
-   available.
+7. **RETRACTED (2026-08-15), replaced by a harness lesson + an API
+   footgun report**: we previously reported the a1-retile ENCODER
+   (`quantize_tiles`) as inconsistent with the 3INST/MCG codebooks
+   fork-wide. That finding was OUR harness's bug, not an encoder defect:
+   `quantize_tiles` selects codebooks by KEY PRESENCE
+   (`mcg = "mcg" in quant_args`), and our oracle passed BOTH keys with
+   boolean values, so every arm encoded with one codebook - the "identical
+   mismatch counts on SM120 and SM121" were the harness reproducing
+   itself, which we misread as cross-platform confirmation. The DECODE
+   family findings stand unchanged (exhaustive oracle: `decode`,
+   `reconstruct`, GEMM bit-exact on both platforms, all three codebooks,
+   all 65,536 indices). What we now ship and recommend upstream:
+   (a) value-based codebook selection with mutual-exclusion rejection
+   (`bool(quant_args.get("mcg", False))` etc.) - the key-presence
+   semantics is a footgun that silently reinterprets explicit False;
+   (b) a corrected oracle testing each codebook separately at K3-K8
+   including the production K6/MCG arm, encoder/decode round-trip, and
+   both-selected rejection; (c) an online-K6 production-path pipeline
+   gate (meta-Hessian fallback, output scaling, packed tensors, cache-hit
+   byte-identity). Our earlier claim that stock
+   `tests/test_quant_fn.py::test_encode_ideal` fails on SM12x is
+   RETRACTED after re-measurement (2026-08-14, GG r34-spark image,
+   value-based selection patch applied): 48/48 parametrizations pass
+   (3 codebooks x K1-8 x bsz {1,64}), stock test body verbatim including
+   its `{"mcg": mcg, "mul1": mul1}` both-keys-boolean convention. The
+   observed "failure" was the same key-presence collapse: under presence
+   semantics all three cb arms select one codebook, so ideal encodings
+   for the other two cannot round-trip. Note the stock test is therefore
+   itself a victim of the footgun on unpatched trees - with value-based
+   selection it works as written.
 8. **r33 dropped `return_prompt_logits`**: the KLD runner
    (`scripts/glm52_exl3_shared_h_kld.py`) feature-detects
    `return_prompt_logits` in `SamplingParams`, but neither the r28 nor r33

@@ -77,7 +77,7 @@ set -euo pipefail
 # same-host PCIe conclusions do not transfer to our cross-node RoCE DCP.
 # CKV/query-split/workspace/prefetch get their own RoCE A/B (queued).
 # Rollback: gilded-gnosis-v20p1-...-20260722 (previous production).
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808}
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm17b78ef-b12xcd3ce19-fi1ac6942-cu132-20260818}
 NAME=${NAME:-glm52-exl3-tp4}
 PORT=${PORT:-8000}
 NNODES=${NNODES:-4}
@@ -155,7 +155,7 @@ HYBRID_REPO_DIR=models--willfalco--GLM-5.2-EXL3-TR3-3.42bpw
 SNAPSHOT=${SNAPSHOT:-ae68c65947efa90bea37308e15421872f124c46d}
 MODEL=${MODEL:-/root/.cache/huggingface/hub/$HYBRID_REPO_DIR/snapshots/$SNAPSHOT}
 SERVED_MODEL_NAME=${SERVED_MODEL_NAME:-GLM-5.2-EXL3-TR3-3.42bpw}
-if [[ "$MODEL" == /root/.cache/huggingface/* ]] \
+if [[ "${DRY_RUN:-0}" != "1" ]] && [[ "$MODEL" == /root/.cache/huggingface/* ]] \
   && ! test -f "$HF_CACHE/hub/$HYBRID_REPO_DIR/snapshots/$SNAPSHOT/config.json"; then
   echo "Checkpoint not staged: $HF_CACHE/hub/$HYBRID_REPO_DIR/snapshots/$SNAPSHOT" >&2
   echo "Stage willfalco/GLM-5.2-EXL3-TR3-3.42bpw @ $SNAPSHOT on all $NNODES nodes (or pass MODEL=/path)." >&2
@@ -202,18 +202,27 @@ done
 [[ -n "$graph_sizes" ]] || graph_sizes="$GRAPH"
 COMPILATION_CONFIG_JSON=$(printf '{"cudagraph_mode":"FULL_AND_PIECEWISE","cudagraph_capture_sizes":[%s],"custom_ops":["all"],"pass_config":{"fuse_allreduce_rms":true}}' "$graph_sizes")
 
-mkdir -p \
-  "$CACHE/vllm" "$CACHE/tilelang/tmp" "$CACHE/tvm" "$CACHE/triton" \
-  "$CACHE/torchinductor" "$CACHE/torch_extensions" "$CACHE/flashinfer" \
-  "$CONTAINER_TMP"
+# DRY_RUN=1 is SIDE-EFFECT-FREE (2026-08-18): no directory creation and
+# no teardown of a live container - render only.
+if [ "${DRY_RUN:-0}" != "1" ]; then
+  mkdir -p \
+    "$CACHE/vllm" "$CACHE/tilelang/tmp" "$CACHE/tvm" "$CACHE/triton" \
+    "$CACHE/torchinductor" "$CACHE/torch_extensions" "$CACHE/flashinfer" \
+    "$CONTAINER_TMP"
 
-# Graceful teardown of a stale instance: never rm -f a running server.
-if podman container exists "$NAME" 2>/dev/null; then
-  podman stop -t 60 "$NAME" >/dev/null 2>&1 || true
-  podman rm "$NAME" >/dev/null 2>&1 || true
+  # Graceful teardown of a stale instance: never rm -f a running server.
+  if podman container exists "$NAME" 2>/dev/null; then
+    podman stop -t 60 "$NAME" >/dev/null 2>&1 || true
+    podman rm "$NAME" >/dev/null 2>&1 || true
+  fi
 fi
 
-podman run -d \
+# DRY_RUN=1 (2026-08-18): render the full podman invocation without
+# executing - used by build gates to assert the runner adds NO NCCL or
+# cache-identity overrides (those are image-owned).
+run_cmd=(podman run -d)
+if [ "${DRY_RUN:-0}" = "1" ]; then run_cmd=(echo DRY-RUN: podman run -d); fi
+"${run_cmd[@]}" \
   --name "$NAME" \
   --device nvidia.com/gpu=all \
   --device /dev/infiniband \
@@ -282,22 +291,19 @@ podman run -d \
   -e NCCL_SOCKET_IFNAME="$NCCL_SOCKET_IFNAME" \
   -e GLOO_SOCKET_IFNAME="$CONTROL_IF" \
   -e VLLM_HOST_IP="$VLLM_HOST_IP" \
-  -e LD_PRELOAD=/opt/libnccl-local-inference.so.2.30.4 \
-  -e VLLM_NCCL_SO_PATH=/opt/libnccl-local-inference.so.2.30.4 \
   -e HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}" \
   -e TMPDIR=/container-tmp \
-  -e XDG_CACHE_HOME=/cache \
-  -e VLLM_CACHE_DIR=/cache/vllm \
-  -e TILELANG_CACHE_DIR=/cache/tilelang \
-  -e TILELANG_TMP_DIR=/cache/tilelang/tmp \
-  -e TVM_CACHE_DIR=/cache/tvm \
-  -e TRITON_CACHE_DIR=/cache/triton \
-  -e TORCHINDUCTOR_CACHE_DIR=/cache/torchinductor \
-  -e TORCH_EXTENSIONS_DIR=/cache/torch_extensions \
-  -e FLASHINFER_WORKSPACE_BASE=/cache/flashinfer \
   --entrypoint /bin/bash \
   "$IMAGE" \
-  -lc 'unset NCCL_GRAPH_FILE NCCL_GRAPH_DUMP_FILE VLLM_B12X_MLA_EXTEND_MAX_CHUNKS; exec vllm serve "$@"' \
+  -lc 'unset NCCL_GRAPH_FILE NCCL_GRAPH_DUMP_FILE VLLM_B12X_MLA_EXTEND_MAX_CHUNKS
+    # NCCL and cache identity are IMAGE-owned (2026-08-18): the runner must
+    # not override LD_PRELOAD/VLLM_NCCL_SO_PATH or the fingerprinted cache
+    # dirs - each image pins its own NCCL build and cache namespace.
+    if [ -z "${VLLM_NCCL_SO_PATH:-}" ] || [ ! -f "$VLLM_NCCL_SO_PATH" ]; then
+      echo "preflight: VLLM_NCCL_SO_PATH invalid: ${VLLM_NCCL_SO_PATH:-unset}" >&2
+      exit 78
+    fi
+    exec vllm serve "$@"' \
   -- "$MODEL" \
   --served-model-name "$SERVED_MODEL_NAME" \
   --host 0.0.0.0 \
