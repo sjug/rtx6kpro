@@ -1,0 +1,147 @@
+[2026-08-22T09:39:25-04:00] validating remote source and image
+[2026-08-22T09:39:27-04:00] stopping worker then head
+[2026-08-22T09:39:43-04:00] starting single-GPU W4A8 kernel screen on dusty
+arm=stock env={}
+[b12x cute.compile] compile-start number=1 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=da20934ae830a764 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 8], ['fc1_tasks', 384], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 384], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 1], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 6], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 384]
+[b12x cute.compile] compile-done number=1 duration_s=0.253 total_compile_s=0.253 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=da20934ae830a764 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 8], ['fc1_tasks', 384], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 384], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 1], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 6], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 384]
+[b12x cute.compile] compile-start number=2 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=a5cf5cfddd0b1f51 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 8], ['fc1_tasks', 384], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 384], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 1], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 6], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 384]
+[b12x cute.compile] compile-done number=2 duration_s=0.212 total_compile_s=0.465 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=a5cf5cfddd0b1f51 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 8], ['fc1_tasks', 384], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 384], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 1], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 6], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 384]
+  m=   1 median=  182.635 us sha=7e582da18e4a
+[b12x cute.compile] compile-start number=3 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=69f5670ca772c22e kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 8], ['fc1_tasks', 1152], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1152], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 3], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 18], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1152]
+[b12x cute.compile] compile-done number=3 duration_s=0.197 total_compile_s=0.663 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=69f5670ca772c22e kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 8], ['fc1_tasks', 1152], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1152], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 3], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 18], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1152]
+[b12x cute.compile] compile-start number=4 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=9116664708a8b377 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 8], ['fc1_tasks', 1152], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1152], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 3], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 18], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1152]
+[b12x cute.compile] compile-done number=4 duration_s=0.211 total_compile_s=0.874 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=9116664708a8b377 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 8], ['fc1_tasks', 1152], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1152], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 3], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 18], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1152]
+  m=   3 median=  551.054 us sha=aee38cf306e2
+[b12x cute.compile] compile-start number=5 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=db89a1ac6cd82815 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 8], ['fc1_tasks', 1536], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1536], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 4], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 24], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1536]
+[b12x cute.compile] compile-done number=5 duration_s=0.197 total_compile_s=1.071 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=db89a1ac6cd82815 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 8], ['fc1_tasks', 1536], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1536], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 4], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 24], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1536]
+[b12x cute.compile] compile-start number=6 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=ed341d2390d2e962 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 8], ['fc1_tasks', 1536], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1536], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 4], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 24], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1536]
+[b12x cute.compile] compile-done number=6 duration_s=0.210 total_compile_s=1.281 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=ed341d2390d2e962 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 8], ['fc1_tasks', 1536], ['fc2_kt_per_task', 2], ['fc2_ktg', 4], ['fc2_tasks', 1536], ['k', 4096], ['k2_tail_g32', 0], ['kt13', 32], ['kt2', 8], ['kt2_full', 8], ['m', 4], ['n', 1024], ['n_pad128', 1024], ['nt13', 8], ['nt2', 16], ['num_topk', 6], ['rt', 24], ['sfb13_bytes', 262144], ['sfb2_bytes', 131072], ['two_n', 2048], ['w13_words', 1048576], ['w2_words', 524288], ['weight_E', 256]], 1536]
+  m=   4 median=  739.053 us sha=97c5dc45da4b
+[b12x cute.compile] compile-start number=7 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=0dc0d8bea34558cc kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=7 duration_s=1.514 total_compile_s=2.795 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=0dc0d8bea34558cc kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m=   5 median=  888.593 us sha=04158c9c4ac5
+  m=   6 median= 1037.080 us sha=e5891492648c
+[b12x cute.compile] compile-start number=8 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=bfc0ece8730799f6 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=8 duration_s=0.731 total_compile_s=3.526 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=bfc0ece8730799f6 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m=  24 median= 3178.488 us sha=bfca438f7ff2
+[b12x cute.compile] compile-start number=9 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=e41b5f92f8572003 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', True], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=9 duration_s=0.909 total_compile_s=4.436 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=e41b5f92f8572003 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', True], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m= 256 median= 7516.070 us sha=cc01da8d982c
+  m=1024 median= 8115.168 us sha=a73e5431f559
+arm=persistent_grid env={'B12X_DYNAMIC_WORK_SOURCE': 'persistent_grid'}
+  m=   1 median=  189.467 us sha=91e395914360
+  m=   3 median=  551.531 us sha=ace7b098c8e9
+  m=   4 median=  737.747 us sha=6356ce0d8caa
+[b12x cute.compile] compile-start number=10 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=a8b4257ed66482ce kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'persistent_grid'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=10 duration_s=0.852 total_compile_s=5.288 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=a8b4257ed66482ce kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'persistent_grid'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m=   5 median=  888.612 us sha=55ed0b45845e
+  m=   6 median= 1039.012 us sha=73068e82167d
+[b12x cute.compile] compile-start number=11 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=4581b195109d9e62 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'persistent_grid'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=11 duration_s=0.704 total_compile_s=5.992 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=4581b195109d9e62 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [16, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'persistent_grid'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m=  24 median= 3175.052 us sha=9e9f06e18274
+[b12x cute.compile] compile-start number=12 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=60635ee685f6bcb7 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'persistent_grid'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', True], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=12 duration_s=0.856 total_compile_s=6.848 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=60635ee685f6bcb7 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'persistent_grid'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', True], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m= 256 median= 7519.101 us sha=7978a599c0b4
+  m=1024 median= 8118.903 us sha=ced8d9e458a1
+arm=no_materialized env={'B12X_DYNAMIC_W4A8_MATERIALIZED': '0'}
+  m=   1 median=  184.991 us sha=51bd3f0eaf83
+  m=   3 median=  551.478 us sha=a9f8ae6deb9e
+  m=   4 median=  738.962 us sha=443859212759
+  m=   5 median=  888.537 us sha=b99e9047886f
+  m=   6 median= 1035.358 us sha=7d4f90d3de08
+  m=  24 median= 3178.604 us sha=8c5fdb998e36
+[b12x cute.compile] compile-start number=13 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=4b7aaee0b9363c11 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=13 duration_s=1.118 total_compile_s=7.966 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=4b7aaee0b9363c11 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m= 256 median= 7630.096 us sha=94af0977ba7e
+  m=1024 median= 8294.368 us sha=e0f536c89dc5
+arm=no_share_input env={'B12X_DYNAMIC_W4A8_SHARE_INPUT': '0'}
+  m=   1 median=  184.391 us sha=782c65b46e30
+  m=   3 median=  552.192 us sha=0ad18aa21d80
+  m=   4 median=  739.278 us sha=01f4e8418a03
+  m=   5 median=  895.232 us sha=61da7f370c8e
+  m=   6 median= 1046.495 us sha=5f6bba05178a
+  m=  24 median= 3181.886 us sha=0b4c1f50009b
+[b12x cute.compile] compile-start number=14 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=772d216f85908d66 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+[b12x cute.compile] compile-done number=14 duration_s=0.953 total_compile_s=8.919 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=772d216f85908d66 kernel=integration.tp_moe.dynamic version=1 params=['legacy', 'integration.tp_moe.dynamic', 1, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 256], ['field', 'arg3', 4096], ['field', 'arg4', 1024], ['field', 'arg5', 6], ['field', 'arg6', [32, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', 'materialized_queue'], ['field', 'arg18', True], ['field', 'arg19', False], ['field', 'arg20', False], ['field', 'arg21', 0], ['field', 'arg22', False]]]
+  m= 256 median= 7634.692 us sha=e989b0ebed98
+  m=1024 median= 8279.891 us sha=c0690c8eca35
+arm=no_tiny env={'B12X_W4A8_TINY_DECODE': '0'}
+Traceback (most recent call last):
+  File "/output/microbench.py", line 255, in <module>
+    main()
+  File "/output/microbench.py", line 238, in main
+    result["comparison_to_stock"] = _compare(output, references[m])
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/output/microbench.py", line 96, in _compare
+    raise AssertionError(
+AssertionError: candidate output diverged: cosine=0.9988641738891602, norm_ratio=0.9980164369839741
+[2026-08-22T09:40:37-04:00] restoring stock r18p A8 worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:40:39-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:41:09-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:41:40-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:42:11-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:42:41-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:43:12-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:43:42-04:00] waiting for restored endpoint
+[2026-08-22T09:44:13-04:00] restored endpoint ready
+[2026-08-22T09:47:54-04:00] validating remote source and image
+[2026-08-22T09:47:55-04:00] stopping worker then head
+[2026-08-22T09:48:11-04:00] starting single-GPU W4A8 kernel screen on dusty
+Traceback (most recent call last):
+  File "/output/microbench.py", line 330, in <module>
+    main()
+  File "/output/microbench.py", line 248, in main
+    moe_reference_w4a8_mx(
+TypeError: moe_reference_w4a8_mx() takes 14 positional arguments but 15 positional arguments (and 1 keyword-only argument) were given
+[2026-08-22T09:48:22-04:00] restoring stock r18p A8 worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:48:24-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:48:55-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:49:25-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:49:56-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:50:26-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:50:57-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:51:27-04:00] waiting for restored endpoint
+[2026-08-22T09:51:57-04:00] restored endpoint ready
+[2026-08-22T09:52:11-04:00] validating remote source and image
+[2026-08-22T09:52:12-04:00] stopping worker then head
+[2026-08-22T09:52:28-04:00] starting single-GPU W4A8 kernel screen on dusty
+arm=stock env={}
+  m=   1 median=  187.262 us sha=b7f39661772e
+  m=   3 median=  551.652 us sha=97e0392c8905
+  m=   4 median=  741.450 us sha=970128de23d3
+arm=no_tiny env={'B12X_W4A8_TINY_DECODE': '0'}
+  m=   1 median=  221.700 us sha=b5cd00a45103
+  m=   3 median=  575.148 us sha=6541339f831f
+  m=   4 median=  719.391 us sha=ebd7b55e4fcb
+wrote /output/tiny-results.json
+[2026-08-22T09:52:44-04:00] restoring stock r18p A8 worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:52:46-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:53:17-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:53:47-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:54:18-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T09:54:48-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:55:19-04:00] waiting for restored endpoint
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T09:55:49-04:00] waiting for restored endpoint
+[2026-08-22T09:56:19-04:00] restored endpoint ready
+[2026-08-22T09:56:22-04:00] kernel screen complete; final staging state is stock r18p A8

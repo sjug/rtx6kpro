@@ -1,0 +1,27 @@
+label concurrency steps_geo tokens_geo accept_len prefill64k
+a8-control-1 1 14.761 42.343 2.869 2268.5
+a8-control-1 4 31.036 93.634 3.017 2268.5
+a16-candidate 1 13.747 39.405 2.866 2094.5
+a16-candidate 4 32.763 101.334 3.094 2094.5
+a8-control-2 1 14.647 41.330 2.822 2258.5
+a8-control-2 4 30.860 94.157 3.051 2258.5
+
+A16 versus median A8 controls
+64K prefill: -7.47%
+c1: steps=-6.51% tokens=-5.81% accept=+0.75%
+  0: steps=-7.56%
+  16384: steps=-6.80%
+  32768: steps=-5.60%
+  65536: steps=-5.73%
+  131072: steps=-6.86%
+c4: steps=+5.86% tokens=+7.92% accept=+1.96%
+  0: steps=+2.62%
+  16384: steps=+6.99%
+  32768: steps=+5.39%
+  65536: steps=+7.38%
+  131072: steps=+7.04%
+
+A8 control 2 versus A8 control 1
+c1: steps=-0.77% tokens=-2.39% accept=-1.63%
+c4: steps=-0.57% tokens=+0.56% accept=+1.12%
+64K prefill: -0.44%

@@ -1,0 +1,24 @@
+arm concurrency steps_geo tokens_geo accept_len prefill64k
+queue 1 14.725 41.798 2.829 2262.0
+queue 4 31.079 93.904 3.008 2262.0
+persistent 1 14.721 42.772 2.906 2247.0
+persistent 4 30.908 93.902 3.038 2247.0
+
+persistent versus queue
+64K prefill: -0.66%
+c1: steps=-0.03% tokens=+2.33% accept=+2.73%
+  0: steps=-0.31%
+  16384: steps=-1.90%
+  32768: steps=-0.20%
+  65536: steps=+1.81%
+  131072: steps=+0.13%
+c4: steps=-0.55% tokens=-0.00% accept=+0.99%
+  0: steps=-0.49%
+  16384: steps=+0.20%
+  32768: steps=+0.54%
+  65536: steps=-2.05%
+  131072: steps=+1.07%
+
+Verdict: reject persistent_grid. Removing the atomic task claims produces no
+throughput gain and is slightly slower at c4 and prefill, consistent with the
+loss of queue load balancing. Keep materialized_queue.

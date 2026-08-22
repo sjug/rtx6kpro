@@ -1,0 +1,1110 @@
+[2026-08-22T06:45:06-04:00] beginning default/24/32/40/default W4A8 MAC screen
+[2026-08-22T06:45:06-04:00] stopping worker then head
+[2026-08-22T06:45:22-04:00] launching A8 MAC policy=default worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:45:24-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:45:54-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:46:25-04:00] waiting for readiness
+[2026-08-22T06:46:31-04:00] restoring stock r18p A8 MAC behavior
+[2026-08-22T06:46:31-04:00] stopping worker then head
+time="2026-08-22T06:48:14-04:00" level=warning msg="StopSignal SIGTERM failed to stop container ds4-0731-tp2 in 90 seconds, resorting to SIGKILL"
+[2026-08-22T06:48:16-04:00] launching A8 MAC policy=default worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:48:19-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:48:49-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:49:20-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:49:50-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:50:21-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:50:52-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:51:22-04:00] waiting for readiness
+[2026-08-22T06:51:52-04:00] endpoint ready
+[2026-08-22T06:52:17-04:00] beginning default/24/32/40/default W4A8 MAC screen
+[2026-08-22T06:52:17-04:00] stopping worker then head
+[2026-08-22T06:52:33-04:00] launching A8 MAC policy=default worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:52:35-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:53:05-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:53:36-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:54:06-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:54:37-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T06:55:07-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T06:55:38-04:00] waiting for readiness
+[2026-08-22T06:56:08-04:00] endpoint ready
+[2026-08-22T06:56:11-04:00] benchmark default-opening sweep 1
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-0731 @ http://dusty:8000                            │
+│ Decode concurrency: [1, 4]                                                   │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 10 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45  
+Models: ['DeepSeek-V4-Flash-0731', 'DeepSeek-V4-Flash']
+vLLM Prometheus reports only local KV cache (71,788 tokens), but DCP/CP 
+multiplier is not exported by this server. Pass --dcp-size N or --kv-budget to 
+enable exact KV capacity skips for remote vLLM. Leaving KV budget unset instead 
+of assuming DCP=1.
+vLLM: KV cache budget not available from metrics. Use --kv-budget to skip 
+over-capacity cells, or rely on queue detection.
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=ukvqohrdzfqh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.19 chars/token (cached, source=8k)
+  8k: 50,668 chars (~8,191 tokens)
+  16k: 101,336 chars (~16,383 tokens)
+  32k: 202,672 chars (~32,767 tokens)
+  64k: 405,345 chars (~65,535 tokens)
+  128k: 810,690 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,193       3.58          2,290              —             —   1  
+  16k        16,152       6.84          2,361      2,376 (1)             —   1  
+  32k        32,097      13.85          2,318      2,329 (1)             —   1  
+  64k        63,986      28.38          2,255      2,268 (1)             —   1  
+  128k      127,752      60.10          2,126      2,136 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL               
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 38.8 329/25 │ 87.5 405/44 │
+│ 16k        │  40.7 2k/24 │  94.2 5k/43 │
+│ 32k        │ 49.7 400/20 │ 98.4 846/39 │
+│ 64k        │ 46.1 560/21 │  93.2 1k/41 │
+│ 128k       │ 40.8 919/23 │  93.4 2k/43 │
+╰────────────┴─────────────┴─────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s           
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 38.8 │ 21.9 │
+│ 16k        │ 40.7 │ 23.6 │
+│ 32k        │ 49.7 │ 24.6 │
+│ 64k        │ 46.1 │ 23.3 │
+│ 128k       │ 40.8 │ 23.3 │
+╰────────────┴──────┴──────╯
+Client request latency:   
+p50 / p90 ms              
+╭────────────┬─────┬─────╮
+│ ctx \ conc │   1 │   4 │
+├────────────┼─────┼─────┤
+│ 0          │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │
+╰────────────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,193 │   3.58 │ 2,290 │ 1 │
+│ 16k  │  16,152 │   6.84 │ 2,361 │ 1 │
+│ 32k  │  32,097 │  13.85 │ 2,318 │ 1 │
+│ 64k  │  63,986 │  28.38 │ 2,255 │ 1 │
+│ 128k │ 127,752 │  60.10 │ 2,126 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s      
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 38.8 │ 87.5 │
+│ 16k        │ 40.7 │ 94.2 │
+│ 32k        │ 49.7 │ 98.4 │
+│ 64k        │ 46.1 │ 93.2 │
+│ 128k       │ 40.8 │ 93.4 │
+╰────────────┴──────┴──────╯
+MTP-normalized decode steps/s (accept len)
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 15.2 (2.55) │ 32.5 (2.69) │
+│ 16k        │ 15.0 (2.71) │ 30.5 (3.09) │
+│ 32k        │ 14.4 (3.46) │ 30.7 (3.20) │
+│ 64k        │ 14.6 (3.16) │ 30.6 (3.05) │
+│ 128k       │ 14.4 (2.84) │ 29.5 (3.16) │
+╰────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac
+-screen/results/default-opening-sweep1.json
+spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac-screen/run-mac-screen.sh: line 252: m: command not found
+[2026-08-22T07:05:55-04:00] restoring stock r18p A8 MAC behavior
+[2026-08-22T07:05:55-04:00] stopping worker then head
+[2026-08-22T07:06:11-04:00] launching A8 MAC policy=default worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:06:13-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:06:43-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:07:14-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:07:44-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:08:15-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:08:45-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:09:16-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:09:47-04:00] waiting for readiness
+[2026-08-22T07:10:17-04:00] endpoint ready
+[2026-08-22T07:10:50-04:00] beginning default/24/32/40/default W4A8 MAC screen
+[2026-08-22T07:10:50-04:00] stopping worker then head
+[2026-08-22T07:11:06-04:00] launching A8 MAC policy=default worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:11:08-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:11:39-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:12:09-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:12:40-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:13:10-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:13:41-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:14:11-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:14:42-04:00] waiting for readiness
+[2026-08-22T07:15:12-04:00] endpoint ready
+[2026-08-22T07:15:15-04:00] benchmark default-opening sweep 1
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-0731 @ http://dusty:8000                            │
+│ Decode concurrency: [1, 4]                                                   │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 10 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45  
+Models: ['DeepSeek-V4-Flash-0731', 'DeepSeek-V4-Flash']
+vLLM Prometheus reports only local KV cache (70,624 tokens), but DCP/CP 
+multiplier is not exported by this server. Pass --dcp-size N or --kv-budget to 
+enable exact KV capacity skips for remote vLLM. Leaving KV budget unset instead 
+of assuming DCP=1.
+vLLM: KV cache budget not available from metrics. Use --kv-budget to skip 
+over-capacity cells, or rely on queue detection.
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=ukvqohrdzfqh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.19 chars/token (cached, source=8k)
+  8k: 50,668 chars (~8,191 tokens)
+  16k: 101,336 chars (~16,383 tokens)
+  32k: 202,672 chars (~32,767 tokens)
+  64k: 405,345 chars (~65,535 tokens)
+  128k: 810,690 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,193       3.56          2,304              —             —   1  
+  16k        16,152       6.80          2,375      2,390 (1)             —   1  
+  32k        32,097      13.75          2,334      2,347 (1)             —   1  
+  64k        63,986      28.28          2,263      2,274 (1)             —   1  
+  128k      127,752      60.14          2,124      2,135 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL               
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 38.9 318/25 │ 93.3 747/42 │
+│ 16k        │  39.2 2k/25 │ 101.9 5k/40 │
+│ 32k        │ 42.5 403/23 │ 96.6 912/39 │
+│ 64k        │ 57.9 537/17 │  94.5 1k/40 │
+│ 128k       │ 42.6 935/23 │  88.9 2k/44 │
+╰────────────┴─────────────┴─────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s           
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 38.9 │ 23.3 │
+│ 16k        │ 39.2 │ 25.5 │
+│ 32k        │ 42.5 │ 24.2 │
+│ 64k        │ 57.9 │ 23.6 │
+│ 128k       │ 42.6 │ 22.2 │
+╰────────────┴──────┴──────╯
+Client request latency:   
+p50 / p90 ms              
+╭────────────┬─────┬─────╮
+│ ctx \ conc │   1 │   4 │
+├────────────┼─────┼─────┤
+│ 0          │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │
+╰────────────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,193 │   3.56 │ 2,304 │ 1 │
+│ 16k  │  16,152 │   6.80 │ 2,375 │ 1 │
+│ 32k  │  32,097 │  13.75 │ 2,334 │ 1 │
+│ 64k  │  63,986 │  28.28 │ 2,263 │ 1 │
+│ 128k │ 127,752 │  60.14 │ 2,124 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s       
+╭────────────┬──────┬───────╮
+│ ctx \ conc │    1 │     4 │
+├────────────┼──────┼───────┤
+│ 0          │ 38.9 │  93.3 │
+│ 16k        │ 39.2 │ 101.9 │
+│ 32k        │ 42.5 │  96.6 │
+│ 64k        │ 57.9 │  94.5 │
+│ 128k       │ 42.6 │  88.9 │
+╰────────────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 15.2 (2.56) │ 33.3 (2.80) │
+│ 16k        │ 15.0 (2.62) │ 30.9 (3.30) │
+│ 32k        │ 15.0 (2.83) │ 30.7 (3.15) │
+│ 64k        │ 14.0 (4.13) │ 30.5 (3.10) │
+│ 128k       │ 14.3 (2.98) │ 29.6 (3.01) │
+╰────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac
+-screen/results/default-opening-sweep1.json
+[2026-08-22T07:24:57-04:00] stopping worker then head
+[2026-08-22T07:25:13-04:00] launching A8 MAC policy=24 worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:25:15-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:25:46-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:26:16-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:26:47-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:27:18-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:27:48-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:28:19-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:28:49-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:29:20-04:00] waiting for readiness
+[2026-08-22T07:29:50-04:00] endpoint ready
+[2026-08-22T07:29:53-04:00] benchmark mac24-candidate sweep 1
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-0731 @ http://dusty:8000                            │
+│ Decode concurrency: [1, 4]                                                   │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 10 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45  
+Models: ['DeepSeek-V4-Flash-0731', 'DeepSeek-V4-Flash']
+vLLM Prometheus reports only local KV cache (70,752 tokens), but DCP/CP 
+multiplier is not exported by this server. Pass --dcp-size N or --kv-budget to 
+enable exact KV capacity skips for remote vLLM. Leaving KV budget unset instead 
+of assuming DCP=1.
+vLLM: KV cache budget not available from metrics. Use --kv-budget to skip 
+over-capacity cells, or rely on queue detection.
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=ukvqohrdzfqh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.19 chars/token (cached, source=8k)
+  8k: 50,668 chars (~8,191 tokens)
+  16k: 101,336 chars (~16,383 tokens)
+  32k: 202,672 chars (~32,767 tokens)
+  64k: 405,345 chars (~65,535 tokens)
+  128k: 810,690 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,193       3.76          2,179              —             —   1  
+  16k        16,152       7.21          2,239      2,255 (1)             —   1  
+  32k        32,097      14.63          2,195      2,207 (1)             —   1  
+  64k        63,986      29.81          2,146      2,158 (1)             —   1  
+  128k      127,752      63.17          2,022      2,033 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL               
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 43.6 333/22 │ 87.1 399/45 │
+│ 16k        │  40.7 2k/24 │  96.4 6k/43 │
+│ 32k        │ 42.2 419/23 │ 98.9 930/38 │
+│ 64k        │ 42.2 547/24 │  93.2 1k/42 │
+│ 128k       │ 42.3 966/23 │  89.7 2k/43 │
+╰────────────┴─────────────┴─────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s           
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 43.6 │ 21.8 │
+│ 16k        │ 40.7 │ 24.1 │
+│ 32k        │ 42.2 │ 24.7 │
+│ 64k        │ 42.2 │ 23.3 │
+│ 128k       │ 42.3 │ 22.4 │
+╰────────────┴──────┴──────╯
+Client request latency:   
+p50 / p90 ms              
+╭────────────┬─────┬─────╮
+│ ctx \ conc │   1 │   4 │
+├────────────┼─────┼─────┤
+│ 0          │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │
+╰────────────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,193 │   3.76 │ 2,179 │ 1 │
+│ 16k  │  16,152 │   7.21 │ 2,239 │ 1 │
+│ 32k  │  32,097 │  14.63 │ 2,195 │ 1 │
+│ 64k  │  63,986 │  29.81 │ 2,146 │ 1 │
+│ 128k │ 127,752 │  63.17 │ 2,022 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s      
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 43.6 │ 87.1 │
+│ 16k        │ 40.7 │ 96.4 │
+│ 32k        │ 42.2 │ 98.9 │
+│ 64k        │ 42.2 │ 93.2 │
+│ 128k       │ 42.3 │ 89.7 │
+╰────────────┴──────┴──────╯
+MTP-normalized decode steps/s (accept len)
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 15.1 (2.89) │ 33.4 (2.60) │
+│ 16k        │ 14.7 (2.76) │ 30.0 (3.22) │
+│ 32k        │ 14.6 (2.89) │ 31.1 (3.18) │
+│ 64k        │ 14.7 (2.87) │ 29.9 (3.12) │
+│ 128k       │ 14.4 (2.95) │ 30.1 (2.98) │
+╰────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac
+-screen/results/mac24-candidate-sweep1.json
+[2026-08-22T07:39:48-04:00] stopping worker then head
+[2026-08-22T07:40:05-04:00] launching A8 MAC policy=32 worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:40:06-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:40:37-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:41:07-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:41:38-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:42:09-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:42:39-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:43:10-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:43:40-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:44:11-04:00] waiting for readiness
+[2026-08-22T07:44:41-04:00] endpoint ready
+[2026-08-22T07:44:44-04:00] benchmark mac32-candidate sweep 1
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-0731 @ http://dusty:8000                            │
+│ Decode concurrency: [1, 4]                                                   │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 10 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45  
+Models: ['DeepSeek-V4-Flash-0731', 'DeepSeek-V4-Flash']
+vLLM Prometheus reports only local KV cache (71,276 tokens), but DCP/CP 
+multiplier is not exported by this server. Pass --dcp-size N or --kv-budget to 
+enable exact KV capacity skips for remote vLLM. Leaving KV budget unset instead 
+of assuming DCP=1.
+vLLM: KV cache budget not available from metrics. Use --kv-budget to skip 
+over-capacity cells, or rely on queue detection.
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=ukvqohrdzfqh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.19 chars/token (cached, source=8k)
+  8k: 50,668 chars (~8,191 tokens)
+  16k: 101,336 chars (~16,383 tokens)
+  32k: 202,672 chars (~32,767 tokens)
+  64k: 405,345 chars (~65,535 tokens)
+  128k: 810,690 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,193       3.70          2,217              —             —   1  
+  16k        16,152       7.11          2,273      2,286 (1)             —   1  
+  32k        32,097      14.46          2,219      2,230 (1)             —   1  
+  64k        63,986      29.43          2,174      2,185 (1)             —   1  
+  128k      127,752      62.34          2,049      2,060 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL               
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 38.4 335/25 │ 88.8 697/45 │
+│ 16k        │  45.4 2k/22 │  97.1 6k/42 │
+│ 32k        │ 41.2 407/23 │ 95.6 826/40 │
+│ 64k        │ 43.3 534/22 │  93.4 1k/41 │
+│ 128k       │ 43.5 972/22 │  90.1 2k/44 │
+╰────────────┴─────────────┴─────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s           
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 38.4 │ 22.2 │
+│ 16k        │ 45.4 │ 24.3 │
+│ 32k        │ 41.2 │ 23.9 │
+│ 64k        │ 43.3 │ 23.4 │
+│ 128k       │ 43.5 │ 22.5 │
+╰────────────┴──────┴──────╯
+Client request latency:   
+p50 / p90 ms              
+╭────────────┬─────┬─────╮
+│ ctx \ conc │   1 │   4 │
+├────────────┼─────┼─────┤
+│ 0          │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │
+╰────────────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,193 │   3.70 │ 2,217 │ 1 │
+│ 16k  │  16,152 │   7.11 │ 2,273 │ 1 │
+│ 32k  │  32,097 │  14.46 │ 2,219 │ 1 │
+│ 64k  │  63,986 │  29.43 │ 2,174 │ 1 │
+│ 128k │ 127,752 │  62.34 │ 2,049 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s      
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 38.4 │ 88.8 │
+│ 16k        │ 45.4 │ 97.1 │
+│ 32k        │ 41.2 │ 95.6 │
+│ 64k        │ 43.3 │ 93.4 │
+│ 128k       │ 43.5 │ 90.1 │
+╰────────────┴──────┴──────╯
+MTP-normalized decode steps/s (accept len)
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 15.3 (2.51) │ 34.2 (2.60) │
+│ 16k        │ 14.9 (3.04) │ 31.0 (3.13) │
+│ 32k        │ 14.7 (2.81) │ 31.6 (3.03) │
+│ 64k        │ 14.5 (2.99) │ 30.1 (3.10) │
+│ 128k       │ 14.4 (3.02) │ 29.2 (3.08) │
+╰────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac
+-screen/results/mac32-candidate-sweep1.json
+[2026-08-22T07:54:36-04:00] stopping worker then head
+[2026-08-22T07:54:52-04:00] launching A8 MAC policy=40 worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T07:54:54-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:55:25-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:55:55-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:56:26-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:56:57-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:57:27-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:57:58-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T07:58:28-04:00] waiting for readiness
+[2026-08-22T07:58:58-04:00] endpoint ready
+[2026-08-22T07:59:02-04:00] benchmark mac40-candidate sweep 1
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-0731 @ http://dusty:8000                            │
+│ Decode concurrency: [1, 4]                                                   │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 10 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45  
+Models: ['DeepSeek-V4-Flash-0731', 'DeepSeek-V4-Flash']
+vLLM Prometheus reports only local KV cache (71,940 tokens), but DCP/CP 
+multiplier is not exported by this server. Pass --dcp-size N or --kv-budget to 
+enable exact KV capacity skips for remote vLLM. Leaving KV budget unset instead 
+of assuming DCP=1.
+vLLM: KV cache budget not available from metrics. Use --kv-budget to skip 
+over-capacity cells, or rely on queue detection.
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=ukvqohrdzfqh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.19 chars/token (cached, source=8k)
+  8k: 50,668 chars (~8,191 tokens)
+  16k: 101,336 chars (~16,383 tokens)
+  32k: 202,672 chars (~32,767 tokens)
+  64k: 405,345 chars (~65,535 tokens)
+  128k: 810,690 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,193       3.64          2,252              —             —   1  
+  16k        16,152       6.93          2,331      2,350 (1)             —   1  
+  32k        32,097      14.15          2,269      2,285 (1)             —   1  
+  64k        63,986      28.73          2,227      2,238 (1)             —   1  
+  128k      127,752      60.99          2,094      2,105 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                
+╭────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │            4 │
+├────────────┼─────────────┼──────────────┤
+│ 0          │ 40.4 341/24 │  90.0 388/43 │
+│ 16k        │  43.8 2k/22 │   96.1 5k/44 │
+│ 32k        │ 48.6 401/20 │ 103.0 875/38 │
+│ 64k        │ 42.3 535/23 │   93.9 1k/41 │
+│ 128k       │ 49.6 954/20 │   90.5 2k/45 │
+╰────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s           
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 40.4 │ 22.5 │
+│ 16k        │ 43.8 │ 24.0 │
+│ 32k        │ 48.6 │ 25.8 │
+│ 64k        │ 42.3 │ 23.5 │
+│ 128k       │ 49.6 │ 22.6 │
+╰────────────┴──────┴──────╯
+Client request latency:   
+p50 / p90 ms              
+╭────────────┬─────┬─────╮
+│ ctx \ conc │   1 │   4 │
+├────────────┼─────┼─────┤
+│ 0          │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │
+╰────────────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,193 │   3.64 │ 2,252 │ 1 │
+│ 16k  │  16,152 │   6.93 │ 2,331 │ 1 │
+│ 32k  │  32,097 │  14.15 │ 2,269 │ 1 │
+│ 64k  │  63,986 │  28.73 │ 2,227 │ 1 │
+│ 128k │ 127,752 │  60.99 │ 2,094 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s       
+╭────────────┬──────┬───────╮
+│ ctx \ conc │    1 │     4 │
+├────────────┼──────┼───────┤
+│ 0          │ 40.4 │  90.0 │
+│ 16k        │ 43.8 │  96.1 │
+│ 32k        │ 48.6 │ 103.0 │
+│ 64k        │ 42.3 │  93.9 │
+│ 128k       │ 49.6 │  90.5 │
+╰────────────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 15.3 (2.63) │ 32.3 (2.78) │
+│ 16k        │ 14.8 (2.96) │ 30.1 (3.19) │
+│ 32k        │ 14.7 (3.30) │ 30.9 (3.34) │
+│ 64k        │ 14.8 (2.87) │ 30.4 (3.08) │
+│ 128k       │ 14.4 (3.43) │ 29.5 (3.07) │
+╰────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac
+-screen/results/mac40-candidate-sweep1.json
+[2026-08-22T08:08:49-04:00] stopping worker then head
+[2026-08-22T08:09:07-04:00] launching A8 MAC policy=default worker then head
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T08:09:08-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T08:09:39-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T08:10:10-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T08:10:40-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T08:11:11-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T08:11:41-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+[2026-08-22T08:12:12-04:00] waiting for readiness
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+[2026-08-22T08:12:42-04:00] waiting for readiness
+[2026-08-22T08:13:12-04:00] endpoint ready
+[2026-08-22T08:13:15-04:00] benchmark default-closing sweep 1
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-0731 @ http://dusty:8000                            │
+│ Decode concurrency: [1, 4]                                                   │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 10 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45  
+Models: ['DeepSeek-V4-Flash-0731', 'DeepSeek-V4-Flash']
+vLLM Prometheus reports only local KV cache (73,272 tokens), but DCP/CP 
+multiplier is not exported by this server. Pass --dcp-size N or --kv-budget to 
+enable exact KV capacity skips for remote vLLM. Leaving KV budget unset instead 
+of assuming DCP=1.
+vLLM: KV cache budget not available from metrics. Use --kv-budget to skip 
+over-capacity cells, or rely on queue detection.
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=ukvqohrdzfqh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.19 chars/token (cached, source=8k)
+  8k: 50,668 chars (~8,191 tokens)
+  16k: 101,336 chars (~16,383 tokens)
+  32k: 202,672 chars (~32,767 tokens)
+  64k: 405,345 chars (~65,535 tokens)
+  128k: 810,690 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,193       3.58          2,289              —             —   1  
+  16k        16,152       6.81          2,372      2,389 (1)             —   1  
+  32k        32,097      13.87          2,315      2,329 (1)             —   1  
+  64k        63,986      28.28          2,262      2,275 (1)             —   1  
+  128k      127,752      60.12          2,125      2,136 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL               
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 41.0 349/24 │ 92.1 387/42 │
+│ 16k        │  39.4 2k/25 │  91.0 5k/45 │
+│ 32k        │ 42.0 405/23 │ 97.3 924/40 │
+│ 64k        │ 40.6 547/24 │  91.4 1k/42 │
+│ 128k       │ 46.4 937/21 │  91.1 2k/43 │
+╰────────────┴─────────────┴─────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s           
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 41.0 │ 23.0 │
+│ 16k        │ 39.4 │ 22.8 │
+│ 32k        │ 42.0 │ 24.3 │
+│ 64k        │ 40.6 │ 22.8 │
+│ 128k       │ 46.4 │ 22.8 │
+╰────────────┴──────┴──────╯
+Client request latency:   
+p50 / p90 ms              
+╭────────────┬─────┬─────╮
+│ ctx \ conc │   1 │   4 │
+├────────────┼─────┼─────┤
+│ 0          │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │
+╰────────────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,193 │   3.58 │ 2,289 │ 1 │
+│ 16k  │  16,152 │   6.81 │ 2,372 │ 1 │
+│ 32k  │  32,097 │  13.87 │ 2,315 │ 1 │
+│ 64k  │  63,986 │  28.28 │ 2,262 │ 1 │
+│ 128k │ 127,752 │  60.12 │ 2,125 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s      
+╭────────────┬──────┬──────╮
+│ ctx \ conc │    1 │    4 │
+├────────────┼──────┼──────┤
+│ 0          │ 41.0 │ 92.1 │
+│ 16k        │ 39.4 │ 91.0 │
+│ 32k        │ 42.0 │ 97.3 │
+│ 64k        │ 40.6 │ 91.4 │
+│ 128k       │ 46.4 │ 91.1 │
+╰────────────┴──────┴──────╯
+MTP-normalized decode steps/s (accept len)
+╭────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           4 │
+├────────────┼─────────────┼─────────────┤
+│ 0          │ 15.1 (2.71) │ 33.3 (2.77) │
+│ 16k        │ 15.1 (2.61) │ 30.9 (2.94) │
+│ 32k        │ 14.7 (2.86) │ 30.8 (3.15) │
+│ 64k        │ 14.5 (2.80) │ 30.2 (3.03) │
+│ 128k       │ 14.1 (3.28) │ 29.4 (3.10) │
+╰────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/spark/v20/bench/ds4-c4-boot-distribution-20260821/a8-mac
+-screen/results/default-closing-sweep1.json
+[2026-08-22T08:22:59-04:00] MAC screen complete; final staging state is stock r18p A8

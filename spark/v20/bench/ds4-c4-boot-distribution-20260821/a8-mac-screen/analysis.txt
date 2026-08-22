@@ -1,0 +1,59 @@
+arm concurrency steps_geo tokens_geo accept_len prefill64k
+default 1 14.694 42.755 2.910 2262.5
+default 4 30.934 93.754 3.031 2262.5
+24 1 14.694 42.183 2.871 2146.0
+24 4 30.882 92.962 3.010 2146.0
+32 1 14.767 42.295 2.864 2174.0
+32 4 31.176 92.930 2.981 2174.0
+40 1 14.807 44.804 3.026 2227.0
+40 4 30.633 94.589 3.088 2227.0
+
+MAC 24 versus default
+64K prefill: -5.15%
+c1: steps=+0.00% tokens=-1.34% accept=-1.34%
+  0: steps=-0.47%
+  16384: steps=-1.92%
+  32768: steps=-1.53%
+  65536: steps=+2.90%
+  131072: steps=+1.08%
+c4: steps=-0.17% tokens=-0.84% accept=-0.68%
+  0: steps=+0.41%
+  16384: steps=-2.96%
+  32768: steps=+1.02%
+  65536: steps=-1.45%
+  131072: steps=+2.21%
+
+MAC 32 versus default
+64K prefill: -3.91%
+c1: steps=+0.50% tokens=-1.08% accept=-1.57%
+  0: steps=+1.01%
+  16384: steps=-0.61%
+  32768: steps=-1.05%
+  65536: steps=+1.64%
+  131072: steps=+1.51%
+c4: steps=+0.78% tokens=-0.88% accept=-1.65%
+  0: steps=+2.58%
+  16384: steps=+0.48%
+  32768: steps=+2.60%
+  65536: steps=-0.79%
+  131072: steps=-0.91%
+
+MAC 40 versus default
+64K prefill: -1.57%
+c1: steps=+0.77% tokens=+4.79% accept=+3.99%
+  0: steps=+1.11%
+  16384: steps=-1.51%
+  32768: steps=-0.81%
+  65536: steps=+3.43%
+  131072: steps=+1.68%
+c4: steps=-0.97% tokens=+0.89% accept=+1.88%
+  0: steps=-2.91%
+  16384: steps=-2.48%
+  32768: steps=+0.28%
+  65536: steps=+0.31%
+  131072: steps=-0.01%
+
+Verdict: reject every lower resident-grid cap. None produces a broad decode
+gain, and all reduce 64K prefill monotonically as the grid shrinks. Keep the
+stock logical cap of 48, expanded by the prepared-W4A8 launcher to 96 physical
+CTAs on this 48-SM device.

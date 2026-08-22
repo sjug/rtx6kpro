@@ -1,0 +1,20 @@
+dusty:257:257 [0] NCCL INFO Tuning P2P operations with maxP2pPeers = 2
+dusty:257:257 [0] NCCL INFO NCCL_PROTO set by environment to LL,LL128,Simple
+dusty:257:257 [0] NCCL INFO Enabled NCCL Func/Proto/Algo Matrix:
+dusty:257:257 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+dusty:257:257 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |   (Worker pid=257) INFO 08-22 01:18:46 [cuda_communicator.py:274] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'tp:0' out of potential backends: ['NCCL_SYMM_MEM', 'QUICK_REDUCE', 'FLASHINFER', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+dusty:257:257 [0] NCCL INFO   Algorithm   |                             PAT                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO Input: { .comm = 0x3be524b0, .tuningMask = 0x1fffff, .func = AllReduce, .redOp = 0, .devRedop = 0, .dataType = 7, .nBytes = 4, .numPipesOps = 1, .count = 1, .countMax = 0, .nWorks = 0, .winRegType = 0, .regBuff = 0 }
+dusty:257:257 [0] NCCL INFO Best tuning { .id = 3, .valid = 1, timeUs = 16.601042,  .algo = RING, .proto = LL, .symKernelId = Unknown, .ceMethodId = 2, nChannels = 1, maxChannels = 1, nWarps = 3, forced = 1 }
+dusty:257:257 [0] NCCL INFO Best tuning, algorithm, RING, protocol, LL
+dusty:257:257 [0] NCCL INFO AllReduce: 4 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0} cgaClusterSize 4
+dusty:257:257 [0] NCCL INFO Tuning P2P operations with maxP2pPeers = 2
+dusty:257:257 [0] NCCL INFO NCCL_PROTO set by environment to LL,LL128,Simple
+dusty:257:257 [0] NCCL INFO Enabled NCCL Func/Proto/Algo Matrix:
+dusty:257:257 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+dusty:257:257 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |

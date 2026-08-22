@@ -1,0 +1,137 @@
+dusty:257:257 [0] NCCL INFO Enabled NCCL Func/Proto/Algo Matrix:
+     Function |       LL     LL128    Simple   |          Tree           Ring  CollNetDirect   CollNetChain           NVLS       NVLSTree            PAT   | AllReduce_AGxLL_R  AllReduce_AGxLLMC_R  AllReduce_RSxTmaLD_AGxTmaST  AllReduce_RSxLD_AGxST  AllReduce_RSxLDMC_AGxSTMC   AllGather_LL  AllGather_LLMC  AllGather_TmaST   AllGather_ST  AllGather_TmaSTMC  AllGather_STMC  AllGather_RailRing_LsaSTMC  ReduceScatter_LL  ReduceScatter_TmaLD  ReduceScatter_LD  ReduceScatter_LDMC  ReduceScatter_RailA2A_LsaLD  ReduceScatter_RailA2A_LsaLDMC  
+    Broadcast |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+       Reduce |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+    AllGather |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+ReduceScatter |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+    AllReduce |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+
+dusty:257:257 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+dusty:257:257 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |     9.3/   3.8 |    18.0/   7.1 |    22.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |     9.3/   3.8 |    18.0/   7.1 |    22.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    11.6/   7.7 |    22.5/  14.1 |    22.4/  15.4 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    11.6/   7.7 |    22.5/  14.1 |    22.4/  15.4 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllReduce |    16.8/   0.4 |    31.0/   1.4 |    36.4/   1.5 |    16.6/   3.8 |    31.0/   7.1 |    36.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |   (Worker pid=257) INFO 08-22 01:18:46 [cuda_communicator.py:274] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'tp:0' out of potential backends: ['NCCL_SYMM_MEM', 'QUICK_REDUCE', 'FLASHINFER', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+(Worker pid=257) INFO 08-22 01:18:46 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+      Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                             PAT                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |    17.6/   2.9 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |    17.6/   2.9 |
+dusty:257:257 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+dusty:257:257 [0] NCCL INFO symmetricSupport 0, cuMemEnable 1, globalGinSupport 0, cuMemGdrSupport 0, contiguousRanksPerHost 1, crossNicSupport 1
+dusty:257:257 [0] NCCL INFO CC Off, workFifoBytes 1048576
+dusty:257:257 [0] NCCL INFO ncclCommInitRank comm 0x3be524b0 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId f01000 commId 0xb13cf85dc0cd2368 - Init COMPLETE
+dusty:257:257 [0] NCCL INFO Init timings - ncclCommInitRank: rank 0 nranks 2 total 0.33 (kernels 0.23, alloc 0.04, bootstrap 0.04, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.00, rest 0.00)
+dusty:257:257 [0] NCCL INFO Input: { .comm = 0x3be524b0, .tuningMask = 0x1fffff, .func = AllReduce, .redOp = 0, .devRedop = 0, .dataType = 7, .nBytes = 4, .numPipesOps = 1, .count = 1, .countMax = 0, .nWorks = 0, .winRegType = 0, .regBuff = 0 }
+dusty:257:257 [0] NCCL INFO Best tuning { .id = 3, .valid = 1, timeUs = 16.601042,  .algo = RING, .proto = LL, .symKernelId = Unknown, .ceMethodId = 2, nChannels = 1, maxChannels = 1, nWarps = 3, forced = 1 }
+dusty:257:257 [0] NCCL INFO Best tuning, algorithm, RING, protocol, LL
+dusty:257:257 [0] NCCL INFO Channel 00/0 : 1[0] -> 0[0] [receive] via NET/IB/0
+dusty:257:257 [0] NCCL INFO Channel 01/0 : 1[0] -> 0[0] [receive] via NET/IB/1
+dusty:257:257 [0] NCCL INFO Channel 02/0 : 1[0] -> 0[0] [receive] via NET/IB/0
+dusty:257:257 [0] NCCL INFO Channel 03/0 : 1[0] -> 0[0] [receive] via NET/IB/1
+dusty:257:257 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[0] [send] via NET/IB/0
+--
+dusty:257:257 [0] NCCL INFO Enabled NCCL Func/Proto/Algo Matrix:
+     Function |       LL     LL128    Simple   |          Tree           Ring  CollNetDirect   CollNetChain           NVLS       NVLSTree            PAT   | AllReduce_AGxLL_R  AllReduce_AGxLLMC_R  AllReduce_RSxTmaLD_AGxTmaST  AllReduce_RSxLD_AGxST  AllReduce_RSxLDMC_AGxSTMC   AllGather_LL  AllGather_LLMC  AllGather_TmaST   AllGather_ST  AllGather_TmaSTMC  AllGather_STMC  AllGather_RailRing_LsaSTMC  ReduceScatter_LL  ReduceScatter_TmaLD  ReduceScatter_LD  ReduceScatter_LDMC  ReduceScatter_RailA2A_LsaLD  ReduceScatter_RailA2A_LsaLDMC  
+    Broadcast |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+       Reduce |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+    AllGather |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+ReduceScatter |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+    AllReduce |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+
+dusty:257:257 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+dusty:257:257 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |     9.3/   3.8 |    18.0/   7.1 |    22.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |     9.3/   3.8 |    18.0/   7.1 |    22.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    11.6/   7.7 |    22.5/  14.1 |    22.4/  15.4 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    11.6/   7.7 |    22.5/  14.1 |    22.4/  15.4 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllReduce |    16.8/   0.4 |    31.0/   1.4 |    36.4/   1.5 |    16.6/   3.8 |    31.0/   7.1 |    36.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                             PAT                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |    17.6/   2.9 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |    17.6/   2.9 |
+dusty:257:257 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+dusty:257:257 [0] NCCL INFO symmetricSupport 0, cuMemEnable 1, globalGinSupport 0, cuMemGdrSupport 0, contiguousRanksPerHost 1, crossNicSupport 1
+dusty:257:257 [0] NCCL INFO CC Off, workFifoBytes 1048576
+dusty:257:257 [0] NCCL INFO (Worker pid=257) INFO 08-22 01:18:46 [cuda_communicator.py:274] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'ep:0' out of potential backends: ['NCCL_SYMM_MEM', 'QUICK_REDUCE', 'FLASHINFER', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+(Worker pid=257) INFO 08-22 01:18:46 [parallel_state.py:2344] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0, EPLB rank N/A
+(Worker pid=257) INFO 08-22 01:18:46 [gpu_worker.py:414] Using V2 Model Runner
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [model_runner.py:447] Loading model from scratch...
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [model.py:910] DeepSeek V4 b12x mHC enabled.
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [quant_config.py:75] DeepSeek V4 expert_dtype resolved to 'fp4'
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [__init__.py:704] Selected B12xFp8BlockScaledMMKernel for Fp8LinearMethod
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [attention.py:120] Using DeepSeek's fp8_ds_mla KV cache format.
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [mxfp4.py:439] Using 'B12X' Mxfp4 MoE backend.
+(Worker_TP0 pid=257) INFO 08-22 01:18:47 [attention.py:1174] Using FP8 indexer cache for Lightning Indexer.
+ncclCommInitRank comm 0x41ad87c0 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId f01000 commId 0xdaba2e1ed2458bf7 - Init COMPLETE
+dusty:257:257 [0] NCCL INFO Init timings - ncclCommInitRank: rank 0 nranks 2 total 0.01 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.00, rest 0.00)
+--
+dusty:257:257 [0] NCCL INFO Enabled NCCL Func/Proto/Algo Matrix:
+     Function |       LL     LL128    Simple   |          Tree           Ring  CollNetDirect   CollNetChain           NVLS       NVLSTree            PAT   | AllReduce_AGxLL_R  AllReduce_AGxLLMC_R  AllReduce_RSxTmaLD_AGxTmaST  AllReduce_RSxLD_AGxST  AllReduce_RSxLDMC_AGxSTMC   AllGather_LL  AllGather_LLMC  AllGather_TmaST   AllGather_ST  AllGather_TmaSTMC  AllGather_STMC  AllGather_RailRing_LsaSTMC  ReduceScatter_LL  ReduceScatter_TmaLD  ReduceScatter_LD  ReduceScatter_LDMC  ReduceScatter_RailA2A_LsaLD  ReduceScatter_RailA2A_LsaLDMC  
+    Broadcast |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+       Reduce |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+    AllGather |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+ReduceScatter |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+    AllReduce |        1         1         1   |             1              1              1              1              1              1              1   |             1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1              1  
+
+dusty:257:257 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 512 | 512
+dusty:257:257 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |     9.3/   3.8 |    18.0/   7.1 |    22.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |     9.3/   3.8 |    18.0/   7.1 |    22.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    11.6/   7.7 |    22.5/  14.1 |    22.4/  15.4 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    11.6/   7.7 |    22.5/  14.1 |    22.4/  15.4 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllReduce |    16.8/   0.4 |    31.0/   1.4 |    36.4/   1.5 |    16.6/   3.8 |    31.0/   7.1 |    36.4/   7.7 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+(Worker_TP0 pid=257) Loading safetensors using InstantTensor loader:   0% Completed | 0.00/155G [00:00<?, ?B/s]
+dusty:257:257 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+dusty:257:257 [0] NCCL INFO   Algorithm   |                             PAT                  |
+dusty:257:257 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+dusty:257:257 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |    17.6/   2.9 |
+dusty:257:257 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |    17.6/   2.9 |
+dusty:257:257 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |    -1.0/  -1.0 |
+dusty:257:257 [0] NCCL INFO 4 coll channels, 4 collnet channels, 0 nvls channels, 4 p2p channels, 2 p2p channels per peer
+dusty:257:257 [0] NCCL INFO symmetricSupport 0, cuMemEnable 1, globalGinSupport 0, cuMemGdrSupport 0, contiguousRanksPerHost 1, crossNicSupport 1
+dusty:257:257 [0] NCCL INFO CC Off, workFifoBytes 1048576
+dusty:257:257 [0] NCCL INFO ncclCommInitRankConfig comm 0x4fa37910 rank 0 nranks 2 cudaDev 0 nvmlDev 0 busId f01000 commId 0x7ae7352e088e7f6d - Init COMPLETE
+dusty:257:257 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 2 total 0.03 (kernels 0.00, alloc 0.00, bootstrap 0.02, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.00, rest 0.00)
+dusty:257:257 [0] NCCL INFO Input: { .comm = 0x4fa37910, .tuningMask = 0x1fffff, .func = AllReduce, .redOp = 3, .devRedop = 2, .dataType = 4, .nBytes = 8, .numPipesOps = 1, .count = 1, .countMax = 18446744069414584322, .nWorks = -1, .winRegType = -1, .regBuff = 0 }
+dusty:257:257 [0] NCCL INFO Best tuning { .id = 3, .valid = 1, timeUs = 16.602083,  .algo = RING, .proto = LL, .symKernelId = Unknown, .ceMethodId = 2, nChannels = 1, maxChannels = 1, nWarps = 3, forced = 1 }
+dusty:257:257 [0] NCCL INFO Best tuning, algorithm, RING, protocol, LL
+dusty:257:468 [0] NCCL INFO [Proxy Progress] Device 0 CPU core 1
+dusty:257:257 [0] NCCL INFO Channel 00/0 : 1[0] -> 0[0] [receive] via NET/IB/0
+dusty:257:257 [0] NCCL INFO Channel 01/0 : 1[0] -> 0[0] [receive] via NET/IB/1
+dusty:257:257 [0] NCCL INFO Channel 02/0 : 1[0] -> 0[0] [receive] via NET/IB/0
+dusty:257:257 [0] NCCL INFO Channel 03/0 : 1[0] -> 0[0] [receive] via NET/IB/1
+dusty:257:257 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[0] [send] via NET/IB/0

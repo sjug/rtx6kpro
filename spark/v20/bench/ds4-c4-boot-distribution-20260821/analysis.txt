@@ -1,0 +1,25 @@
+arm boot steps_geo tokens_geo accept_len prefill64k
+r18p 1 30.961 95.005 3.068 2278.0
+r18p 2 30.910 93.815 3.035 2283.5
+r18p 3 30.799 93.881 3.048 2235.5
+r34 1 30.002 88.807 2.960 2249.0
+r34 2 29.931 89.568 2.992 2277.5
+r34 3 29.839 89.318 2.993 2271.5
+
+paired r18p-minus-r34 deltas
+pair1: steps=+3.20% tokens=+6.98% accept=+3.66% prefill64k=+1.29%
+pair2: steps=+3.27% tokens=+4.74% accept=+1.42% prefill64k=+0.26%
+pair3: steps=+3.22% tokens=+5.11% accept=+1.83% prefill64k=-1.58%
+
+arm medians across boots
+r18p: steps_geo=30.910 range=30.799..30.961 tokens_geo=93.881 accept_len=3.048 prefill64k=2278.0
+r34: steps_geo=29.931 range=29.839..30.002 tokens_geo=89.318 accept_len=2.992 prefill64k=2271.5
+r18p median delta: steps=+3.27% tokens=+5.11% accept=+1.86% prefill64k=+0.29%
+
+context medians across boot medians
+context r18p_steps r34_steps delta_steps delta_tokens delta_accept
+0 32.835 31.904 +2.92% +5.29% -0.29%
+16384 30.998 29.794 +4.04% +4.73% +2.63%
+32768 30.908 29.436 +5.00% +11.06% +6.64%
+65536 30.227 29.234 +3.40% +3.55% +1.62%
+131072 29.653 28.648 +3.50% +7.59% +3.36%

@@ -1,0 +1,120 @@
+label=a8-control-1-sweep1-before host=dusty timestamp=2026-08-22T00:04:32-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       113Gi       4.9Gi       379Mi       4.5Gi       8.0Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 00:04:33.147, NVIDIA GB10, 57, 14.83, 2405, 0
+label=a8-control-1-sweep1-before host=kirby timestamp=2026-08-22T00:04:33-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       112Gi       3.0Gi       381Mi       7.6Gi       9.1Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:04:33.475, NVIDIA GB10, 54, 11.87, 2405, 0
+label=a8-control-1-sweep1-after host=dusty timestamp=2026-08-22T00:14:12-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       116Gi       3.4Gi       389Mi       4.0Gi       5.1Gi
+Swap:           15Gi       108Mi        15Gi
+2026/08/22 00:14:13.733, NVIDIA GB10, 68, 17.34, 2405, 0
+label=a8-control-1-sweep1-after host=kirby timestamp=2026-08-22T00:14:13-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.5Gi       383Mi       7.1Gi       7.2Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:14:14.285, NVIDIA GB10, 68, 14.94, 2411, 0
+label=a8-control-1-sweep2-before host=dusty timestamp=2026-08-22T00:14:14-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       116Gi       3.3Gi       389Mi       4.0Gi       5.1Gi
+Swap:           15Gi       108Mi        15Gi
+2026/08/22 00:14:14.600, NVIDIA GB10, 68, 17.30, 2405, 0
+label=a8-control-1-sweep2-before host=kirby timestamp=2026-08-22T00:14:14-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.6Gi       383Mi       7.1Gi       7.2Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:14:14.924, NVIDIA GB10, 67, 14.90, 2411, 0
+label=a8-control-1-sweep2-after host=dusty timestamp=2026-08-22T00:23:53-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       116Gi       3.3Gi       391Mi       4.0Gi       5.0Gi
+Swap:           15Gi       108Mi        15Gi
+2026/08/22 00:23:54.290, NVIDIA GB10, 64, 16.68, 2405, 0
+label=a8-control-1-sweep2-after host=kirby timestamp=2026-08-22T00:23:54-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.5Gi       383Mi       7.1Gi       7.2Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:23:54.737, NVIDIA GB10, 63, 14.05, 2411, 0
+label=a16-candidate-sweep1-before host=dusty timestamp=2026-08-22T00:28:52-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       112Gi       5.2Gi       379Mi       5.0Gi       8.7Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 00:28:52.568, NVIDIA GB10, 56, 14.75, 2405, 0
+label=a16-candidate-sweep1-before host=kirby timestamp=2026-08-22T00:28:52-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       111Gi       2.9Gi       381Mi       8.4Gi       9.9Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:28:52.903, NVIDIA GB10, 54, 11.83, 2405, 0
+label=a16-candidate-sweep1-after host=dusty timestamp=2026-08-22T00:38:50-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       3.6Gi       389Mi       4.6Gi       6.7Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 00:38:51.393, NVIDIA GB10, 65, 16.79, 2405, 0
+label=a16-candidate-sweep1-after host=kirby timestamp=2026-08-22T00:38:51-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.4Gi       383Mi       8.0Gi       7.1Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:38:52.102, NVIDIA GB10, 66, 14.74, 2411, 0
+label=a16-candidate-sweep2-before host=dusty timestamp=2026-08-22T00:38:52-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       3.6Gi       389Mi       4.6Gi       6.7Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 00:38:52.426, NVIDIA GB10, 65, 16.69, 2405, 0
+label=a16-candidate-sweep2-before host=kirby timestamp=2026-08-22T00:38:52-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.4Gi       383Mi       8.0Gi       7.1Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:38:52.743, NVIDIA GB10, 66, 14.71, 2411, 0
+label=a16-candidate-sweep2-after host=dusty timestamp=2026-08-22T00:48:47-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       115Gi       3.5Gi       391Mi       4.6Gi       6.4Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 00:48:47.955, NVIDIA GB10, 65, 16.75, 2405, 0
+label=a16-candidate-sweep2-after host=kirby timestamp=2026-08-22T00:48:47-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       113Gi       1.6Gi       383Mi       7.8Gi       8.0Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:48:48.609, NVIDIA GB10, 64, 14.45, 2411, 0
+label=a8-control-2-sweep1-before host=dusty timestamp=2026-08-22T00:52:45-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       113Gi       4.7Gi       379Mi       5.0Gi       8.0Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 00:52:45.675, NVIDIA GB10, 58, 15.08, 2405, 0
+label=a8-control-2-sweep1-before host=kirby timestamp=2026-08-22T00:52:45-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       112Gi       3.0Gi       381Mi       7.8Gi       9.3Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 00:52:46.009, NVIDIA GB10, 56, 12.25, 2405, 0
+label=a8-control-2-sweep1-after host=dusty timestamp=2026-08-22T01:02:27-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       115Gi       3.4Gi       389Mi       4.1Gi       6.0Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 01:02:28.566, NVIDIA GB10, 64, 16.53, 2405, 0
+label=a8-control-2-sweep1-after host=kirby timestamp=2026-08-22T01:02:28-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.5Gi       383Mi       7.4Gi       7.1Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 01:02:29.288, NVIDIA GB10, 68, 15.19, 2411, 0
+label=a8-control-2-sweep2-before host=dusty timestamp=2026-08-22T01:02:29-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       115Gi       3.4Gi       389Mi       4.1Gi       6.0Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 01:02:29.627, NVIDIA GB10, 63, 16.36, 2405, 0
+label=a8-control-2-sweep2-before host=kirby timestamp=2026-08-22T01:02:29-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       114Gi       1.5Gi       383Mi       7.4Gi       6.8Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 01:02:29.949, NVIDIA GB10, 68, 15.19, 2411, 0
+label=a8-control-2-sweep2-after host=dusty timestamp=2026-08-22T01:12:10-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       116Gi       3.5Gi       391Mi       4.2Gi       5.7Gi
+Swap:           15Gi        57Mi        15Gi
+2026/08/22 01:12:10.783, NVIDIA GB10, 65, 16.74, 2405, 0
+label=a8-control-2-sweep2-after host=kirby timestamp=2026-08-22T01:12:10-04:00
+               total        used        free      shared  buff/cache   available
+Mem:           121Gi       115Gi       1.4Gi       383Mi       7.4Gi       6.5Gi
+Swap:           15Gi       1.1Mi        15Gi
+2026/08/22 01:12:11.275, NVIDIA GB10, 69, 15.33, 2411, 0

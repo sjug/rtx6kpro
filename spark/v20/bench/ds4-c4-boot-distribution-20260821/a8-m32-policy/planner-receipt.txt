@@ -1,0 +1,10 @@
+Exact r18p image, dusty, 2026-08-22:
+
+Command body:
+from b12x.moe.fused_moe._impl import _select_dynamic_tile_mn as s
+print({r: s(r, 1024, "w4a8_mx", num_experts=256, activation="silu")
+       for r in (36, 72, 108, 144, 192, 288, 383, 384)})
+
+Output:
+{36: (16, 128), 72: (16, 128), 108: (16, 128), 144: (16, 128),
+ 192: (16, 128), 288: (16, 128), 383: (16, 128), 384: (32, 128)}

@@ -1,0 +1,35 @@
+--- a/serve-ds4-flash.sh
++++ b/serve-ds4-flash.sh
+@@ -56,10 +56,10 @@
+ backend=${BACKEND:-b12x-a8}
+ case "${backend}" in
+   b12x) backend=b12x-a16 ;;
+-  b12x-a16|b12x-a8|b12x-a8-dglin|lucifer-default|lucifer-cutlass) ;;
++  b12x-a16|b12x-a8|b12x-a8-dglin|b12x-native|lucifer-default|lucifer-cutlass) ;;
+   *)
+-    echo "BACKEND must be b12x-a16, b12x-a8, b12x-a8-dglin," \
+-      "lucifer-default, or lucifer-cutlass; got '${backend}'" >&2
++    echo "BACKEND must be b12x-a16, b12x-a8, b12x-a8-dglin, b12x-native," \
++      "lucifer-default, or lucifer-cutlass; got '${backend}'" >&2
+     exit 2
+     ;;
+ esac
+@@ -254,7 +254,7 @@
+ b12x_backend=0
+ backend_args=()
+ case "${backend}" in
+-  b12x-a16|b12x-a8|b12x-a8-dglin)
++  b12x-a16|b12x-a8|b12x-a8-dglin|b12x-native)
+     b12x_backend=1
+     export VLLM_USE_B12X_WO_PROJECTION=${VLLM_USE_B12X_WO_PROJECTION:-1}
+     export VLLM_USE_B12X_MHC=${VLLM_USE_B12X_MHC:-1}
+@@ -271,6 +271,9 @@
+     if [[ "${backend}" == "b12x-a16" ]]; then
+       export B12X_MOE_FORCE_A8=0
+       export B12X_MOE_FORCE_A16=1
++    elif [[ "${backend}" == "b12x-native" ]]; then
++      export B12X_MOE_FORCE_A8=0
++      export B12X_MOE_FORCE_A16=0
+     else
+       export B12X_MOE_FORCE_A8=1
+       export B12X_MOE_FORCE_A16=0
