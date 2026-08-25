@@ -49,4 +49,19 @@ print(f"status={st} time={dt:.1f}s prompt_tokens={u['prompt_tokens']} "
 print("answer:", (c["message"].get("content") or "")[:200].strip(), flush=True)
 ok = "7391" in (c["message"].get("content") or "") and u["prompt_tokens"] >= 500_000
 print("NEEDLE:", "PASS" if ok else "FAIL", flush=True)
-sys.exit(0 if ok else 2)
+
+# The same prompt with one more allowed completion token must be rejected at
+# admission, not accepted and truncated past the configured model envelope.
+cap1_status, cap1_body, cap1_dt = post("/v1/chat/completions", {
+    "model": "DeepSeek-V4-Flash-0731",
+    "messages": msgs,
+    "max_tokens": max_toks + 1,
+    "temperature": 0,
+})
+cap1_ok = cap1_status == 400
+print(
+    f"CAP+1: {'PASS' if cap1_ok else 'FAIL'} status={cap1_status} "
+    f"time={cap1_dt:.1f}s detail={json.dumps(cap1_body)[:240]}",
+    flush=True,
+)
+sys.exit(0 if ok and cap1_ok else 2)

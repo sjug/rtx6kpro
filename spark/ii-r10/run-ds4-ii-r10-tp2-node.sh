@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# CANDIDATE (unqualified): DS4 on Infernal Invocation r10 Spark/SM121. Same
-# env contract as run-ds4-v20-tp2-node.sh (helper reads the identical names;
-# new II opts GRAPH=auto / DSPARK_DEPTH_MODE / KV_OFFLOADING_SIZE available
-# via env passthrough). Production stays on the v20 runner until this image
-# passes its DS4 qualification.
+# DS4 staging-only runner for Infernal Invocation r18p on Spark/SM121. Runtime
+# and performance gates passed, but response-quality parity with corrected r34
+# did not. Production remains on corrected r34 while target-only and semantic
+# qualification isolate the newer runtime stack. DGLIN remains available as an
+# explicit BACKEND override for performance experiments.
 #
 # NCCL channel pin: the II NCCL 2.31.2 Turin branch prefers more channels
 # at equal bandwidth, which regresses the 2-rank RoCE rail 2.5x in the
@@ -47,14 +47,11 @@ set -euo pipefail
 
 ROLE=${ROLE:?set ROLE=head|worker}
 
-# Production image since 2026-08-09: r33-spark (upstream r33 composition +
-# SM121 overlay; our #234 q_len guard now rides UPSTREAM in the manifest;
-# adds #245 indexer query-split fix, #251 B12X graph channels + DSpark
-# context-KV FULL graph, #252/#254 offload ordering, FlashInfer 0.6.18
-# with the #3932 quantfix mainlined - the sjug FlashInfer pin is retired).
-# The #235 reasoning contract behavior (default effort=high is real) is
-# unchanged from r28-spark. Rollback: r28-spark (vllm47d1950-...-20260804).
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808}
+# Infernal Invocation r18p with the paired-FC2 restoration. The 2026-08-24
+# respin carries the refreshed build infrastructure and provenance gates. It
+# is retained as a staging candidate, not a production default.
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260824}
+EXPECTED_IMAGE_ID=${EXPECTED_IMAGE_ID:-6ff2730764791cf13bca277f22a98b4c31a769bd6d2b4ff03f3414954399ee89}
 NAME=${NAME:-ds4-0731-tp2}
 PORT=${PORT:-8000}
 
@@ -90,7 +87,7 @@ esac
 
 MODE=${MODE:-dspark}
 BACKEND=${BACKEND:-b12x-a8}
-# Production K. Defaulting it here (not just in launch commands) keeps the
+# Qualified DS4-0731 K. Defaulting it here (not just in launch commands) keeps the
 # dense capture-size derivation below active on bare launches.
 # K=5 supersedes the 0731 card's K=7: same-pair A/B on GB10 (2026-08-03,
 # v20p3, probabilistic both arms) measured K5 +10.2% decode geomean over
@@ -182,6 +179,73 @@ if [[ -n "${_ch}" ]]; then
   nccl_ch_args+=(-e NCCL_MAX_NCHANNELS="$_ch" -e NCCL_MIN_NCHANNELS="${NCCL_MIN_NCHANNELS:-$_ch}")
 fi
 
+if [[ "${_ch}" != 4 || "${NCCL_MIN_NCHANNELS:-$_ch}" != 4 ]]; then
+  echo "DS4 r18p requires NCCL_MIN_NCHANNELS=4 and NCCL_MAX_NCHANNELS=4" >&2
+  exit 78
+fi
+if [[ -n "${NCCL_LAUNCH_ORDER_IMPLICIT:-}" ]]; then
+  echo "NCCL_LAUNCH_ORDER_IMPLICIT is not qualified for DS4 r18p" >&2
+  exit 78
+fi
+
+actual_image_id=$(podman image inspect "$IMAGE" --format '{{.Id}}' 2>/dev/null || true)
+actual_image_id=${actual_image_id#sha256:}
+if [[ "$actual_image_id" != "$EXPECTED_IMAGE_ID" ]]; then
+  echo "image identity mismatch for $IMAGE: got '${actual_image_id:-missing}', expected '$EXPECTED_IMAGE_ID'" >&2
+  exit 78
+fi
+
+podman_args=(
+  run -d
+  --name "$NAME"
+  --device nvidia.com/gpu=all
+  --device /dev/infiniband
+  --security-opt label=disable
+  --network host
+  --ipc host
+  --init
+  --ulimit memlock=-1
+  --ulimit stack=67108864
+  --ulimit nofile=500000:500000
+  -v "$HF_CACHE:/root/.cache/huggingface:rw"
+  -v "$CACHE:/cache:rw"
+  -v "$CACHE/tmp:/container-tmp:rw"
+  -e MODE="$MODE"
+  -e BACKEND="$BACKEND"
+  -e TP_SIZE="$TP_SIZE"
+  -e PORT="$PORT"
+  -e MAX_NUM_SEQS="$MAX_NUM_SEQS"
+  -e MAX_MODEL_LEN="$MAX_MODEL_LEN"
+  -e GPU_MEMORY_UTILIZATION="$GPU_MEM"
+  -e ALLREDUCE_MODE="$ALLREDUCE_MODE"
+  -e EXTRA_VLLM_ARGS="$EXTRA_VLLM_ARGS"
+  -e VLLM_USE_V2_MODEL_RUNNER="${VLLM_USE_V2_MODEL_RUNNER:-1}"
+  -e CUTE_DSL_ARCH=sm_121a
+  -e NCCL_IB_DISABLE=0
+  -e "NCCL_IB_HCA=rocep1s0f1,roceP2p1s0f1"
+  -e NCCL_IB_GID_INDEX="${NCCL_IB_GID_INDEX:-3}"
+  -e NCCL_IB_TC=106
+  -e "NCCL_PROTO=LL,Simple"
+  "${nccl_ch_args[@]}"
+  -e "NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1"
+  -e GLOO_SOCKET_IFNAME=enp1s0f1np1
+  -e VLLM_HOST_IP="$HOST_IP"
+  -e HF_HUB_OFFLINE=1
+  -e TMPDIR=/container-tmp
+  -e XDG_CACHE_HOME=/cache
+  "${opt_args[@]}"
+  "${extra_podman_args[@]}"
+  --entrypoint /usr/local/bin/serve-ds4-flash.sh
+  "$IMAGE"
+)
+
+if [[ "${DRY_RUN:-0}" == 1 ]]; then
+  printf 'podman'
+  printf ' %q' "${podman_args[@]}"
+  printf '\n'
+  exit 0
+fi
+
 # Graceful cleanup of a leftover container: SIGTERM with a long grace period,
 # never rm -f (its 10 s window falls back to SIGKILL mid-shutdown). If the old
 # container won't die, the podman run below fails loudly on the name conflict.
@@ -190,46 +254,6 @@ if podman container exists "$NAME" 2>/dev/null; then
   podman rm "$NAME" >/dev/null 2>&1 || true
 fi
 
-podman run -d \
-  --name "$NAME" \
-  --device nvidia.com/gpu=all \
-  --device /dev/infiniband \
-  --security-opt label=disable \
-  --network host \
-  --ipc host \
-  --init \
-  --ulimit memlock=-1 \
-  --ulimit stack=67108864 \
-  --ulimit nofile=500000:500000 \
-  -v "$HF_CACHE:/root/.cache/huggingface:rw" \
-  -v "$CACHE:/cache:rw" \
-  -v "$CACHE/tmp:/container-tmp:rw" \
-  -e MODE="$MODE" \
-  -e BACKEND="$BACKEND" \
-  -e TP_SIZE="$TP_SIZE" \
-  -e PORT="$PORT" \
-  -e MAX_NUM_SEQS="$MAX_NUM_SEQS" \
-  -e MAX_MODEL_LEN="$MAX_MODEL_LEN" \
-  -e GPU_MEMORY_UTILIZATION="$GPU_MEM" \
-  -e ALLREDUCE_MODE="$ALLREDUCE_MODE" \
-  -e EXTRA_VLLM_ARGS="$EXTRA_VLLM_ARGS" \
-  -e VLLM_USE_V2_MODEL_RUNNER="${VLLM_USE_V2_MODEL_RUNNER:-1}" \
-  -e CUTE_DSL_ARCH=sm_121a \
-  -e NCCL_IB_DISABLE=0 \
-  -e NCCL_IB_HCA=rocep1s0f1,roceP2p1s0f1 \
-  -e NCCL_IB_GID_INDEX="${NCCL_IB_GID_INDEX:-3}" \
-  -e NCCL_IB_TC=106 \
-  -e NCCL_PROTO=LL,Simple \
-  ${nccl_ch_args[@]+"${nccl_ch_args[@]}"} \
-  -e NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1 \
-  -e GLOO_SOCKET_IFNAME=enp1s0f1np1 \
-  -e VLLM_HOST_IP="$HOST_IP" \
-  -e HF_HUB_OFFLINE=1 \
-  -e TMPDIR=/container-tmp \
-  -e XDG_CACHE_HOME=/cache \
-  "${opt_args[@]}" \
-  "${extra_podman_args[@]}" \
-  --entrypoint /usr/local/bin/serve-ds4-flash.sh \
-  "$IMAGE"
+podman "${podman_args[@]}"
 
 echo "$NAME ROLE=$ROLE rank=$NODE_RANK mode=$MODE backend=$BACKEND allreduce=$ALLREDUCE_MODE tp=$TP_SIZE port=$PORT seqs=$MAX_NUM_SEQS gpu_mem=$GPU_MEM gid=${NCCL_IB_GID_INDEX:-3} extra='$EXTRA_VLLM_ARGS'"
