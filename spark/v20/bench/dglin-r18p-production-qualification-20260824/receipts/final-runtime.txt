@@ -1,0 +1,8 @@
+runner=8c00b09d705e271b2feb55d66e07767a56c9a69106655bf739b87fc6f159438e  /home/jugs/run-ds4-ii-r10-tp2-node.sh
+image=6ff2730764791cf13bca277f22a98b4c31a769bd6d2b4ff03f3414954399ee89
+health=ok
+models=["DeepSeek-V4-Flash-0731"]
+NVIDIA GB10, 50, 13.37 W, [N/A], [N/A]
+runner=8c00b09d705e271b2feb55d66e07767a56c9a69106655bf739b87fc6f159438e  /home/jugs/run-ds4-ii-r10-tp2-node.sh
+image=6ff2730764791cf13bca277f22a98b4c31a769bd6d2b4ff03f3414954399ee89
+NVIDIA GB10, 48, 10.62 W, [N/A], [N/A]

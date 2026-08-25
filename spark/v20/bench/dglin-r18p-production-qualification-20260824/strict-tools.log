@@ -1,0 +1,5 @@
+json_schema arithmetic c1: 24/24 correct-sum, schema-valid
+strict tools c1: 24/24 conformant
+strict tools c8: 64/64 conformant
+long-ctx (231641 prompt tokens, 124s): conformant, needle-recall=EXACT args={'sensor': 'aft-plenum-7', 'value': 63.4, 'unit': 'C'}
+STRICT-TOOLS-OK

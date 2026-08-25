@@ -1,0 +1,16 @@
+{
+ "repro_a": {
+  "content": null,
+  "reasoning": "We need answer simple. Need list primes",
+  "finish": "length",
+  "completion_tokens": 8,
+  "prompt_tokens": 97
+ },
+ "repro_b": {
+  "content": "579",
+  "reasoning": "We need answer count. Need parse. User lists Component 0 through 578 inclusive. Need count = 579. Need just number. Ensure no extra.",
+  "finish": "stop",
+  "completion_tokens": 35,
+  "prompt_tokens": 8202
+ }
+}
