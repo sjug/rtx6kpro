@@ -43,11 +43,15 @@ ROLE=${ROLE:?set ROLE=head|worker}
 # adds #245 indexer query-split fix, #251 B12X graph channels + DSpark
 # context-KV FULL graph, #252/#254 offload ordering, FlashInfer 0.6.18
 # with the #3932 quantfix mainlined - the sjug FlashInfer pin is retired).
-# The #235 reasoning contract behavior (default effort=high is real) is
+# The #235 reasoning contract behavior (default effort=max is real) is
 # unchanged from r28-spark. Rollback: r28-spark (vllm47d1950-...-20260804).
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808}
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm17b78ef-b12xcd3ce19-fi1ac6942-cu132-20260818}
+EXPECTED_IMAGE_ID=${EXPECTED_IMAGE_ID:-276f00868134ed3116ffaf44db975f1b4d8803c7f528c8f772bdaae43506fbd6}
 NAME=${NAME:-ds4-0731-tp2}
 PORT=${PORT:-8000}
+
+SERVE_LAUNCHER=${SERVE_LAUNCHER:-$HOME/.local/share/vllm-launchers/gilded-gnosis-r34/serve-ds4-flash.sh}
+EXPECTED_SERVE_LAUNCHER_SHA256=${EXPECTED_SERVE_LAUNCHER_SHA256:-be66105adddd51f6d0e143d1c3b32ad77316af6144a6183b923c7bf1e6d7a6f9}
 
 # Production model since 2026-07-31: DeepSeek-V4-Flash-0731 (official
 # release; DSpark module attached). Revision = the staged local snapshot.
@@ -160,6 +164,23 @@ done
 # shellcheck disable=SC2206
 extra_podman_args=( ${EXTRA_PODMAN_ARGS:-} )
 
+if [[ ! -r "$SERVE_LAUNCHER" ]]; then
+  echo "DS4 launcher overlay is missing: $SERVE_LAUNCHER" >&2
+  exit 78
+fi
+actual_launcher_sha256=$(sha256sum "$SERVE_LAUNCHER" | awk '{print $1}')
+if [[ "$actual_launcher_sha256" != "$EXPECTED_SERVE_LAUNCHER_SHA256" ]]; then
+  echo "DS4 launcher overlay digest mismatch: got '$actual_launcher_sha256', expected '$EXPECTED_SERVE_LAUNCHER_SHA256'" >&2
+  exit 78
+fi
+
+actual_image_id=$(podman image inspect "$IMAGE" --format '{{.Id}}' 2>/dev/null || true)
+actual_image_id=${actual_image_id#sha256:}
+if [[ "$actual_image_id" != "$EXPECTED_IMAGE_ID" ]]; then
+  echo "image identity mismatch for $IMAGE: got '${actual_image_id:-missing}', expected '$EXPECTED_IMAGE_ID'" >&2
+  exit 78
+fi
+
 # Graceful cleanup of a leftover container: SIGTERM with a long grace period,
 # never rm -f (its 10 s window falls back to SIGKILL mid-shutdown). If the old
 # container won't die, the podman run below fails loudly on the name conflict.
@@ -182,6 +203,7 @@ podman run -d \
   -v "$HF_CACHE:/root/.cache/huggingface:rw" \
   -v "$CACHE:/cache:rw" \
   -v "$CACHE/tmp:/container-tmp:rw" \
+  -v "$SERVE_LAUNCHER:/usr/local/bin/serve-ds4-flash.sh:ro" \
   -e MODE="$MODE" \
   -e BACKEND="$BACKEND" \
   -e TP_SIZE="$TP_SIZE" \

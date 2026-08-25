@@ -55,6 +55,9 @@ EXPECTED_IMAGE_ID=${EXPECTED_IMAGE_ID:-6ff2730764791cf13bca277f22a98b4c31a769bd6
 NAME=${NAME:-ds4-0731-tp2}
 PORT=${PORT:-8000}
 
+SERVE_LAUNCHER=${SERVE_LAUNCHER:-$HOME/.local/share/vllm-launchers/infernal-invocation-r18p/serve-ds4-flash.sh}
+EXPECTED_SERVE_LAUNCHER_SHA256=${EXPECTED_SERVE_LAUNCHER_SHA256:-7b26e7872a4e33b98ce854ed6ae450c11e1768ac74b1a7818513ecc58b487770}
+
 # Production model since 2026-07-31: DeepSeek-V4-Flash-0731 (official
 # release; DSpark module attached). Revision = the staged local snapshot.
 DSPARK_MODEL=${DSPARK_MODEL:-deepseek-ai/DeepSeek-V4-Flash-0731}
@@ -166,6 +169,16 @@ done
 # shellcheck disable=SC2206
 extra_podman_args=( ${EXTRA_PODMAN_ARGS:-} )
 
+if [[ ! -r "$SERVE_LAUNCHER" ]]; then
+  echo "DS4 launcher overlay is missing: $SERVE_LAUNCHER" >&2
+  exit 78
+fi
+actual_launcher_sha256=$(sha256sum "$SERVE_LAUNCHER" | awk '{print $1}')
+if [[ "$actual_launcher_sha256" != "$EXPECTED_SERVE_LAUNCHER_SHA256" ]]; then
+  echo "DS4 launcher overlay digest mismatch: got '$actual_launcher_sha256', expected '$EXPECTED_SERVE_LAUNCHER_SHA256'" >&2
+  exit 78
+fi
+
 # Channel pin (NCCL matrix winner 2026-08-14: LL,Simple + MIN=MAX=4 is
 # 2.8-3.2x faster at 128-256KB allreduce on the pair rails, flat elsewhere).
 # Empty NCCL_MAX_NCHANNELS omits the pin entirely (production-equivalent env).
@@ -210,6 +223,7 @@ podman_args=(
   -v "$HF_CACHE:/root/.cache/huggingface:rw"
   -v "$CACHE:/cache:rw"
   -v "$CACHE/tmp:/container-tmp:rw"
+  -v "$SERVE_LAUNCHER:/usr/local/bin/serve-ds4-flash.sh:ro"
   -e MODE="$MODE"
   -e BACKEND="$BACKEND"
   -e TP_SIZE="$TP_SIZE"
