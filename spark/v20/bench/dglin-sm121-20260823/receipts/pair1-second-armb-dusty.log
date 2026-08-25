@@ -1,0 +1,1213 @@
+2026-08-23T23:59:24.372149000-04:00 DS4 launch: mode=dspark depth=fixed capacity_activation=disabled backend=b12x-a8-dglin allreduce=nccl b12x_dma=0 indexer=b12x tp=2 dcp=1 max_seqs=4 graph=24 load_format=instanttensor instanttensor_backend=BUFFERED native_l2=0 allocator=expandable_segments:True model=deepseek-ai/DeepSeek-V4-Flash-0731
+2026-08-23T23:59:24.372569000-04:00 Process-group interfaces: GLOO_SOCKET_IFNAME=enp1s0f1np1 NCCL_SOCKET_IFNAME=enp1s0f1np1,enP2p1s0f1np1
+2026-08-23T23:59:24.372608000-04:00 Command: vllm serve deepseek-ai/DeepSeek-V4-Flash-0731 --revision 9e165c30e2704aec5d9d593cce3eebd58bbef1cb --tokenizer-revision 9e165c30e2704aec5d9d593cce3eebd58bbef1cb --served-model-name DeepSeek-V4-Flash-0731 --host 0.0.0.0 --port 8000 --trust-remote-code --kv-cache-dtype fp8 --block-size 256 --load-format instanttensor --tensor-parallel-size 2 --decode-context-parallel-size 1 --gpu-memory-utilization 0.87 --max-model-len 524288 --max-num-seqs 4 --max-num-batched-tokens 8192 --max-cudagraph-capture-size 24 --compilation-config \{\"cudagraph_mode\":\"FULL_AND_PIECEWISE\"\,\"custom_ops\":\[\"all\"\]\} --async-scheduling --no-scheduler-reserve-full-isl --enable-chunked-prefill --tokenizer-mode deepseek_v4 --tool-call-parser deepseek_v4 --reasoning-parser deepseek_v4 --enable-auto-tool-choice --enable-prompt-tokens-details --enable-force-include-usage --enable-request-id-headers --default-chat-template-kwargs.thinking=true --default-chat-template-kwargs.reasoning_effort=high --enable-flashinfer-autotune --enable-prefix-caching --cudagraph-capture-sizes 1 2 4 6 8 12 16 18 24 --speculative-config \{\"model\":\"deepseek-ai/DeepSeek-V4-Flash-0731\"\,\"method\":\"dspark\"\,\"num_speculative_tokens\":5\,\"draft_sample_method\":\"probabilistic\"\,\"rejection_sample_method\":\"standard\"\} --attention-backend B12X_MLA_SPARSE --moe-backend b12x --disable-custom-all-reduce --nnodes 2 --node-rank 0 --master-addr 10.11.1.1 --master-port 25000
+2026-08-23T23:59:29.672181000-04:00 W0824 03:59:29.671000 44 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-08-23T23:59:29.710498000-04:00 W0824 03:59:29.709000 44 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-08-23T23:59:35.152234000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:345] 
+2026-08-23T23:59:35.152560000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:345]        █     █     █▄   ▄█
+2026-08-23T23:59:35.152589000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:345]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45
+2026-08-23T23:59:35.152617000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:345]   █▄█▀ █     █     █     █  model   deepseek-ai/DeepSeek-V4-Flash-0731
+2026-08-23T23:59:35.152647000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:345]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+2026-08-23T23:59:35.152673000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:345] 
+2026-08-23T23:59:35.154869000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [api_utils.py:273] non-default args: {'model_tag': 'deepseek-ai/DeepSeek-V4-Flash-0731', 'default_chat_template_kwargs': {'thinking': True, 'reasoning_effort': 'high'}, 'enable_auto_tool_choice': True, 'tool_call_parser': 'deepseek_v4', 'enable_prompt_tokens_details': True, 'enable_force_include_usage': True, 'host': '0.0.0.0', 'enable_request_id_headers': True, 'model': 'deepseek-ai/DeepSeek-V4-Flash-0731', 'tokenizer_mode': 'deepseek_v4', 'trust_remote_code': True, 'revision': '9e165c30e2704aec5d9d593cce3eebd58bbef1cb', 'tokenizer_revision': '9e165c30e2704aec5d9d593cce3eebd58bbef1cb', 'max_model_len': 524288, 'served_model_name': ['DeepSeek-V4-Flash-0731'], 'load_format': 'instanttensor', 'attention_backend': 'B12X_MLA_SPARSE', 'reasoning_parser': 'deepseek_v4', 'master_addr': '10.11.1.1', 'master_port': 25000, 'nnodes': 2, 'tensor_parallel_size': 2, 'disable_custom_all_reduce': True, 'block_size': 256, 'gpu_memory_utilization': 0.87, 'kv_cache_dtype': 'fp8', 'enable_prefix_caching': True, 'max_num_batched_tokens': 8192, 'max_num_seqs': 4, 'enable_chunked_prefill': True, 'scheduler_reserve_full_isl': False, 'async_scheduling': True, 'cudagraph_capture_sizes': [1, 2, 4, 6, 8, 12, 16, 18, 24], 'max_cudagraph_capture_size': 24, 'enable_flashinfer_autotune': True, 'moe_backend': 'b12x', 'speculative_config': {'model': 'deepseek-ai/DeepSeek-V4-Flash-0731', 'method': 'dspark', 'num_speculative_tokens': 5, 'draft_sample_method': 'probabilistic', 'rejection_sample_method': 'standard'}, 'compilation_config': {'mode': None, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': None, 'splitting_ops': None, 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': None, 'compile_ranges_endpoints': None, 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': None, 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': None, 'pass_config': {}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': None, 'static_all_moe_layers': []}}
+2026-08-23T23:59:35.156208000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [arg_utils.py:808] HF_HUB_OFFLINE is True, replace model_id [deepseek-ai/DeepSeek-V4-Flash-0731] to model_path [/root/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-0731/snapshots/9e165c30e2704aec5d9d593cce3eebd58bbef1cb]
+2026-08-23T23:59:35.156228000-04:00 (APIServer pid=44) WARNING 08-24 03:59:35 [envs.py:2544] Unknown vLLM environment variable detected: VLLM_DSPARK_CAPACITY_LOG_INTERVAL
+2026-08-23T23:59:35.156253000-04:00 (APIServer pid=44) WARNING 08-24 03:59:35 [envs.py:2544] Unknown vLLM environment variable detected: VLLM_DSPARK_STS_LOG_INTERVAL
+2026-08-23T23:59:35.156272000-04:00 (APIServer pid=44) WARNING 08-24 03:59:35 [envs.py:2544] Unknown vLLM environment variable detected: VLLM_DSPARK_TP_CHECK
+2026-08-23T23:59:35.176872000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [config.py:775] Detected quantization_config.scale_fmt=ue8m0; enabling UE8M0 for DeepGEMM.
+2026-08-23T23:59:35.199870000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [model.py:680] Resolved architecture: DeepseekV4ForCausalLM
+2026-08-23T23:59:35.199995000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [model.py:1975] Using max model len 524288
+2026-08-23T23:59:35.780247000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [cache.py:283] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+2026-08-23T23:59:35.780436000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [arg_utils.py:2180] Inferred data_parallel_rank 0 from node_rank 0
+2026-08-23T23:59:35.800346000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [model.py:680] Resolved architecture: DeepSeekV4MTPModel
+2026-08-23T23:59:35.800513000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [model.py:1975] Using max model len 1048576
+2026-08-23T23:59:35.804010000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [speculative.py:1380] Overriding draft model max model len from 1048576 to 524288
+2026-08-23T23:59:35.804326000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [scheduler.py:242] Chunked prefill is enabled with max_num_batched_tokens=8192.
+2026-08-23T23:59:35.805020000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [kernel.py:310] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-08-23T23:59:35.805172000-04:00 (APIServer pid=44) WARNING 08-24 03:59:35 [vllm.py:1851] max_num_scheduled_tokens is set to 8176 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens or max_num_seqs.
+2026-08-23T23:59:35.811828000-04:00 (APIServer pid=44) INFO 08-24 03:59:35 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-08-23T23:59:39.665885000-04:00 W0824 03:59:39.664000 193 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-08-23T23:59:39.677986000-04:00 W0824 03:59:39.677000 193 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-08-23T23:59:42.345124000-04:00 (EngineCore pid=193) INFO 08-24 03:59:42 [core.py:121] Initializing a V1 LLM engine (v0.26.1rc0+infernal.invocation.cu133.r18p.vllmf0fa1ce.b12x07cdf45) with config: model='/root/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-0731/snapshots/9e165c30e2704aec5d9d593cce3eebd58bbef1cb', speculative_config=SpeculativeConfig(method='dspark', model='deepseek-ai/DeepSeek-V4-Flash-0731', num_spec_tokens=5), tokenizer='/root/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-0731/snapshots/9e165c30e2704aec5d9d593cce3eebd58bbef1cb', skip_tokenizer_init=False, tokenizer_mode=deepseek_v4, revision=9e165c30e2704aec5d9d593cce3eebd58bbef1cb, tokenizer_revision=9e165c30e2704aec5d9d593cce3eebd58bbef1cb, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=524288, download_dir=None, load_format=instanttensor, tensor_parallel_size=2, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=deepseek_v4_fp8, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=fp8, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='deepseek_v4', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=DeepSeek-V4-Flash-0731, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all', '+quant_fp8', '+quant_fp8'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::minimax_m3_sparse_attention_with_output', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update', 'vllm::minimax_m3_sparse_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 6, 8, 12, 16, 18, 24], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 24, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='b12x', linear_backend='auto')
+2026-08-23T23:59:42.345613000-04:00 (EngineCore pid=193) INFO 08-24 03:59:42 [multiproc_executor.py:165] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=10.11.1.1, mq_connect_ip=10.11.1.1 (local), world_size=2, local_world_size=1
+2026-08-23T23:59:45.850796000-04:00 W0824 03:59:45.849000 256 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-08-23T23:59:45.863165000-04:00 W0824 03:59:45.862000 256 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-08-23T23:59:49.369292000-04:00 (Worker pid=256) INFO 08-24 03:59:49 [parallel_state.py:1938] world_size=2 rank=0 local_rank=0 distributed_init_method=tcp://10.11.1.1:25000 backend=nccl
+2026-08-23T23:59:51.100931000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-08-23T23:59:51.101599000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [pynccl.py:113] vLLM is using nccl==2.31.2
+2026-08-23T23:59:51.748440000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [cuda_communicator.py:274] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'tp:0' out of potential backends: ['NCCL_SYMM_MEM', 'QUICK_REDUCE', 'FLASHINFER', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+2026-08-23T23:59:51.776016000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-08-23T23:59:51.887495000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [cuda_communicator.py:274] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'ep:0' out of potential backends: ['NCCL_SYMM_MEM', 'QUICK_REDUCE', 'FLASHINFER', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+2026-08-23T23:59:51.887686000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [parallel_state.py:2344] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0, EPLB rank N/A
+2026-08-23T23:59:51.887753000-04:00 (Worker pid=256) INFO 08-24 03:59:51 [gpu_worker.py:414] Using V2 Model Runner
+2026-08-23T23:59:52.394884000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [model_runner.py:447] Loading model from scratch...
+2026-08-23T23:59:52.427206000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [model.py:910] DeepSeek V4 b12x mHC enabled.
+2026-08-23T23:59:52.427375000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [quant_config.py:75] DeepSeek V4 expert_dtype resolved to 'fp4'
+2026-08-23T23:59:52.442066000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [__init__.py:704] Selected DeepGemmFp8BlockScaledMMKernel for Fp8LinearMethod
+2026-08-23T23:59:52.447944000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [deep_gemm.py:202] DeepGEMM PDL enabled on deep_gemm.
+2026-08-23T23:59:52.448111000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [deep_gemm.py:120] DeepGEMM E8M0 enabled on current platform.
+2026-08-23T23:59:52.594013000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [attention.py:120] Using DeepSeek's fp8_ds_mla KV cache format.
+2026-08-23T23:59:52.812375000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:52 [mxfp4.py:439] Using 'B12X' Mxfp4 MoE backend.
+2026-08-23T23:59:53.002915000-04:00 (Worker_TP0 pid=256) INFO 08-24 03:59:53 [attention.py:1174] Using FP8 indexer cache for Lightning Indexer.
+2026-08-23T23:59:57.319540000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   0% Completed | 0.00/155G [00:00<?, ?B/s]
+2026-08-23T23:59:58.323076000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   1% Completed | 1.00G/155G [00:01<02:34, 1.07GB/s]
+2026-08-23T23:59:59.323819000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   1% Completed | 2.05G/155G [00:02<02:28, 1.11GB/s]
+2026-08-24T00:00:00.325162000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   3% Completed | 4.68G/155G [00:03<01:25, 1.89GB/s]
+2026-08-24T00:00:01.325045000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   5% Completed | 7.66G/155G [00:04<01:05, 2.40GB/s]
+2026-08-24T00:00:02.325283000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   7% Completed | 10.4G/155G [00:05<00:59, 2.61GB/s]
+2026-08-24T00:00:03.330173000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   9% Completed | 13.5G/155G [00:06<00:53, 2.84GB/s]
+2026-08-24T00:00:04.332339000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  10% Completed | 16.3G/155G [00:07<00:51, 2.88GB/s]
+2026-08-24T00:00:05.335901000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  12% Completed | 19.2G/155G [00:08<00:49, 2.98GB/s]
+2026-08-24T00:00:06.336505000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  15% Completed | 22.6G/155G [00:09<00:44, 3.18GB/s]
+2026-08-24T00:00:07.336231000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  17% Completed | 25.9G/155G [00:10<00:42, 3.28GB/s]
+2026-08-24T00:00:08.339265000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  19% Completed | 29.2G/155G [00:11<00:40, 3.36GB/s]
+2026-08-24T00:00:09.394274000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  21% Completed | 32.3G/155G [00:12<00:39, 3.31GB/s]
+2026-08-24T00:00:10.512257000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  23% Completed | 35.4G/155G [00:13<00:40, 3.19GB/s]
+2026-08-24T00:00:11.934355000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  25% Completed | 38.4G/155G [00:14<00:44, 2.85GB/s]
+2026-08-24T00:00:12.947157000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  26% Completed | 41.1G/155G [00:15<00:43, 2.85GB/s]
+2026-08-24T00:00:13.950497000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  29% Completed | 44.3G/155G [00:16<00:39, 3.01GB/s]
+2026-08-24T00:00:15.458295000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  30% Completed | 47.1G/155G [00:18<00:43, 2.64GB/s]
+2026-08-24T00:00:16.871589000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  32% Completed | 49.7G/155G [00:19<00:47, 2.41GB/s]
+2026-08-24T00:00:18.126377000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  33% Completed | 52.0G/155G [00:20<00:48, 2.29GB/s]
+2026-08-24T00:00:19.262756000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  35% Completed | 54.2G/155G [00:21<00:48, 2.23GB/s]
+2026-08-24T00:00:20.427678000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  36% Completed | 56.4G/155G [00:23<00:49, 2.15GB/s]
+2026-08-24T00:00:21.430114000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  38% Completed | 58.7G/155G [00:24<00:46, 2.26GB/s]
+2026-08-24T00:00:22.430051000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  39% Completed | 61.2G/155G [00:25<00:43, 2.35GB/s]
+2026-08-24T00:00:23.433407000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  41% Completed | 64.1G/155G [00:26<00:38, 2.56GB/s]
+2026-08-24T00:00:24.715057000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  43% Completed | 66.5G/155G [00:27<00:40, 2.38GB/s]
+2026-08-24T00:00:25.720747000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  45% Completed | 69.3G/155G [00:28<00:36, 2.55GB/s]
+2026-08-24T00:00:26.723455000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  46% Completed | 72.0G/155G [00:29<00:33, 2.64GB/s]
+2026-08-24T00:00:27.732131000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  48% Completed | 74.5G/155G [00:30<00:32, 2.65GB/s]
+2026-08-24T00:00:28.733098000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  50% Completed | 77.0G/155G [00:31<00:31, 2.66GB/s]
+2026-08-24T00:00:29.802391000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  51% Completed | 79.5G/155G [00:32<00:31, 2.61GB/s]
+2026-08-24T00:00:30.833594000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  53% Completed | 81.9G/155G [00:33<00:30, 2.59GB/s]
+2026-08-24T00:00:31.856253000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  54% Completed | 84.3G/155G [00:34<00:29, 2.58GB/s]
+2026-08-24T00:00:32.951616000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  56% Completed | 86.7G/155G [00:35<00:29, 2.51GB/s]
+2026-08-24T00:00:34.010809000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  57% Completed | 89.1G/155G [00:36<00:28, 2.47GB/s]
+2026-08-24T00:00:35.014326000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  59% Completed | 91.9G/155G [00:37<00:26, 2.62GB/s]
+2026-08-24T00:00:36.079290000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  61% Completed | 94.3G/155G [00:38<00:25, 2.57GB/s]
+2026-08-24T00:00:37.082266000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  63% Completed | 97.2G/155G [00:39<00:23, 2.70GB/s]
+2026-08-24T00:00:38.192926000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  64% Completed | 99.7G/155G [00:40<00:22, 2.62GB/s]
+2026-08-24T00:00:39.322950000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  66% Completed | 102G/155G [00:42<00:22, 2.53GB/s]
+2026-08-24T00:00:40.326831000-04:00 (Worker_TP0 pid=256)  Loading safetensors using InstantTensor loader:  67% Completed | 105G/155G [00:43<00:21, 2.57GB/s]
+2026-08-24T00:00:41.411667000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  69% Completed | 107G/155G [00:44<00:20, 2.51GB/s]
+2026-08-24T00:00:42.527666000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  70% Completed | 109G/155G [00:45<00:20, 2.44GB/s]
+2026-08-24T00:00:43.530765000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  72% Completed | 112G/155G [00:46<00:18, 2.52GB/s]
+2026-08-24T00:00:44.532599000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  74% Completed | 114G/155G [00:47<00:17, 2.54GB/s]
+2026-08-24T00:00:45.534849000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  75% Completed | 117G/155G [00:48<00:15, 2.66GB/s]
+2026-08-24T00:00:46.589725000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  77% Completed | 120G/155G [00:49<00:14, 2.62GB/s]
+2026-08-24T00:00:47.595239000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  79% Completed | 122G/155G [00:50<00:13, 2.65GB/s]
+2026-08-24T00:00:48.653694000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  80% Completed | 125G/155G [00:51<00:12, 2.61GB/s]
+2026-08-24T00:00:49.733443000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  82% Completed | 127G/155G [00:52<00:11, 2.55GB/s]
+2026-08-24T00:00:50.766400000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  83% Completed | 129G/155G [00:53<00:11, 2.53GB/s]
+2026-08-24T00:00:51.768733000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  85% Completed | 132G/155G [00:54<00:09, 2.61GB/s]
+2026-08-24T00:00:52.862897000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  87% Completed | 135G/155G [00:55<00:08, 2.54GB/s]
+2026-08-24T00:00:53.863199000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  88% Completed | 137G/155G [00:56<00:07, 2.60GB/s]
+2026-08-24T00:00:54.869606000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  90% Completed | 140G/155G [00:57<00:06, 2.64GB/s]
+2026-08-24T00:00:55.870103000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  92% Completed | 143G/155G [00:58<00:04, 2.86GB/s]
+2026-08-24T00:00:56.874947000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  94% Completed | 146G/155G [00:59<00:03, 2.97GB/s]
+2026-08-24T00:00:57.913586000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  96% Completed | 149G/155G [01:00<00:02, 2.94GB/s]
+2026-08-24T00:00:59.000879000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  97% Completed | 151G/155G [01:01<00:01, 2.87GB/s]
+2026-08-24T00:00:59.104081000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader: 100% Completed | 155G/155G [01:01<00:00, 2.70GB/s]
+2026-08-24T00:00:59.104166000-04:00 (Worker_TP0 pid=256) 
+2026-08-24T00:00:59.446944000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:00:59 [default_loader.py:497] Loading weights took 63.35 seconds
+2026-08-24T00:01:00.640735000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:01:00 [mxfp4.py:1943] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-08-24T00:01:00.641046000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:01:00 [mxfp4.py:1944] Using B12xExperts
+2026-08-24T00:01:00.641074000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:01:00 [b12x_moe.py:813] B12X MoE force-A8 enabled: using quant_mode=w4a8_mx for E8M0 FP4 weights.
+2026-08-24T00:01:03.775984000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:01:03 [eagle3_utils.py:28] Using Eagle3 auxiliary layers from config: (41, 42, 43)
+2026-08-24T00:01:03.776876000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:01:03 [kernel.py:310] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-08-24T00:01:03.776926000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:01:03 [vllm.py:1851] max_num_scheduled_tokens is set to 8176 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens or max_num_seqs.
+2026-08-24T00:01:03.834015000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:01:03 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-08-24T00:01:04.188924000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:01:04 [vllm.py:2606] `torch.compile` is turned on, but the model deepseek-ai/DeepSeek-V4-Flash-0731 does not support it. Please open an issue on GitHub if you want it to be supported.
+2026-08-24T00:01:04.576377000-04:00 (Worker_TP0 pid=256) /opt/infernal-invocation/vllm/vllm/model_executor/model_loader/weight_utils.py:1391: RuntimeWarning: Shrink io_depth from 256 to 60 due to memory limit.
+2026-08-24T00:01:04.576551000-04:00 (Worker_TP0 pid=256)   instant_open = instanttensor.safe_open(
+2026-08-24T00:01:05.251872000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   0% Completed | 0.00/155G [00:00<?, ?B/s]
+2026-08-24T00:01:06.257341000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   1% Completed | 1.78G/155G [00:01<01:26, 1.90GB/s]
+2026-08-24T00:01:07.258131000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   3% Completed | 4.64G/155G [00:02<01:02, 2.58GB/s]
+2026-08-24T00:01:08.259906000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   5% Completed | 7.71G/155G [00:03<00:54, 2.91GB/s]
+2026-08-24T00:01:09.342127000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   7% Completed | 10.4G/155G [00:04<00:55, 2.82GB/s]
+2026-08-24T00:01:10.558722000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:   8% Completed | 13.1G/155G [00:05<00:58, 2.62GB/s]
+2026-08-24T00:01:11.673568000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  10% Completed | 15.5G/155G [00:06<00:59, 2.54GB/s]
+2026-08-24T00:01:12.677413000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  12% Completed | 18.2G/155G [00:07<00:56, 2.63GB/s]
+2026-08-24T00:01:13.677381000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  13% Completed | 20.8G/155G [00:08<00:53, 2.70GB/s]
+2026-08-24T00:01:14.680950000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  15% Completed | 23.7G/155G [00:09<00:50, 2.81GB/s]
+2026-08-24T00:01:15.925527000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  17% Completed | 26.3G/155G [00:10<00:52, 2.62GB/s]
+2026-08-24T00:01:16.926752000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  19% Completed | 28.9G/155G [00:11<00:50, 2.68GB/s]
+2026-08-24T00:01:17.928132000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  20% Completed | 31.7G/155G [00:12<00:48, 2.76GB/s]
+2026-08-24T00:01:18.932618000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  22% Completed | 34.8G/155G [00:13<00:44, 2.92GB/s]
+2026-08-24T00:01:19.932619000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  24% Completed | 37.8G/155G [00:14<00:41, 3.01GB/s]
+2026-08-24T00:01:20.939565000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  26% Completed | 40.8G/155G [00:15<00:40, 3.07GB/s]
+2026-08-24T00:01:22.161817000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  28% Completed | 43.7G/155G [00:16<00:41, 2.89GB/s]
+2026-08-24T00:01:23.321957000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  30% Completed | 46.4G/155G [00:18<00:42, 2.77GB/s]
+2026-08-24T00:01:24.322152000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  32% Completed | 49.6G/155G [00:19<00:38, 2.94GB/s]
+2026-08-24T00:01:25.327005000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  34% Completed | 52.4G/155G [00:20<00:37, 2.95GB/s]
+2026-08-24T00:01:26.327004000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  36% Completed | 55.2G/155G [00:21<00:36, 2.98GB/s]
+2026-08-24T00:01:27.330143000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  37% Completed | 58.2G/155G [00:22<00:34, 3.05GB/s]
+2026-08-24T00:01:28.468220000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  39% Completed | 61.1G/155G [00:23<00:34, 2.93GB/s]
+2026-08-24T00:01:29.667272000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  41% Completed | 63.8G/155G [00:24<00:35, 2.78GB/s]
+2026-08-24T00:01:30.747806000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  43% Completed | 66.4G/155G [00:25<00:35, 2.73GB/s]
+2026-08-24T00:01:31.748504000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  45% Completed | 69.6G/155G [00:26<00:31, 2.93GB/s]
+2026-08-24T00:01:32.751085000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  47% Completed | 72.7G/155G [00:27<00:29, 3.04GB/s]
+2026-08-24T00:01:33.775012000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  49% Completed | 75.6G/155G [00:28<00:28, 3.03GB/s]
+2026-08-24T00:01:34.781982000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  51% Completed | 79.1G/155G [00:29<00:25, 3.25GB/s]
+2026-08-24T00:01:35.912957000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  53% Completed | 82.2G/155G [00:30<00:25, 3.13GB/s]
+2026-08-24T00:01:36.915203000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  55% Completed | 85.5G/155G [00:31<00:23, 3.26GB/s]
+2026-08-24T00:01:37.915631000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  57% Completed | 89.0G/155G [00:32<00:20, 3.41GB/s]
+2026-08-24T00:01:38.917868000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  60% Completed | 92.5G/155G [00:33<00:19, 3.52GB/s]
+2026-08-24T00:01:40.156711000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  62% Completed | 95.8G/155G [00:34<00:19, 3.29GB/s]
+2026-08-24T00:01:41.463247000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  64% Completed | 98.9G/155G [00:36<00:19, 3.04GB/s]
+2026-08-24T00:01:42.531704000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  66% Completed | 102G/155G [00:37<00:19, 3.00GB/s]
+2026-08-24T00:01:43.534901000-04:00 (Worker_TP0 pid=256)  Loading safetensors using InstantTensor loader:  67% Completed | 105G/155G [00:38<00:17, 3.06GB/s]
+2026-08-24T00:01:44.534736000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  69% Completed | 108G/155G [00:39<00:16, 3.11GB/s]
+2026-08-24T00:01:45.687877000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  71% Completed | 111G/155G [00:40<00:16, 2.98GB/s]
+2026-08-24T00:01:46.774412000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  73% Completed | 114G/155G [00:41<00:15, 2.92GB/s]
+2026-08-24T00:01:47.981803000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  75% Completed | 116G/155G [00:42<00:15, 2.76GB/s]
+2026-08-24T00:01:49.105958000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  76% Completed | 119G/155G [00:43<00:14, 2.68GB/s]
+2026-08-24T00:01:50.109297000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  78% Completed | 122G/155G [00:44<00:12, 2.81GB/s]
+2026-08-24T00:01:51.111817000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  80% Completed | 125G/155G [00:45<00:10, 2.97GB/s]
+2026-08-24T00:01:52.113153000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  83% Completed | 128G/155G [00:46<00:09, 3.19GB/s]
+2026-08-24T00:01:53.115004000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  85% Completed | 132G/155G [00:47<00:07, 3.25GB/s]
+2026-08-24T00:01:54.145554000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  87% Completed | 135G/155G [00:48<00:06, 3.22GB/s]
+2026-08-24T00:01:55.147033000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  89% Completed | 138G/155G [00:49<00:05, 3.33GB/s]
+2026-08-24T00:01:56.228897000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  91% Completed | 141G/155G [00:50<00:04, 3.26GB/s]
+2026-08-24T00:01:57.229182000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  93% Completed | 145G/155G [00:51<00:03, 3.61GB/s]
+2026-08-24T00:01:58.729743000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  96% Completed | 149G/155G [00:53<00:02, 3.15GB/s]
+2026-08-24T00:01:59.731969000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader:  98% Completed | 152G/155G [00:54<00:01, 3.29GB/s]
+2026-08-24T00:02:00.462802000-04:00 (Worker_TP0 pid=256) Loading safetensors using InstantTensor loader: 100% Completed | 155G/155G [00:55<00:00, 3.02GB/s]
+2026-08-24T00:02:00.462994000-04:00 (Worker_TP0 pid=256) 
+2026-08-24T00:02:00.564258000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:00 [dspark.py:576] DSpark draft model loaded: 97 params
+2026-08-24T00:02:00.564454000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:00 [default_loader.py:497] Loading weights took 56.25 seconds
+2026-08-24T00:02:01.715332000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:01 [model_runner.py:469] Model loading took 81.27 GiB and 129.532758 seconds
+2026-08-24T00:02:01.754122000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:01 [topk_topp_sampler.py:62] Using FlashInfer for top-p & top-k sampling.
+2026-08-24T00:02:01.788023000-04:00 (EngineCore pid=193) WARNING 08-24 04:02:01 [torch_utils.py:251] OMP_NUM_THREADS=16 is set; leaving Torch threads at 16 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+2026-08-24T00:02:04.799413000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:04 [backends.py:1094] Using cache directory: /cache/jit/cu133-torch213-spark-sm121-vllmf560085b72-b12x07cdf4567b-lmcachee045d729bc/vllm/torch_compile_cache/2e0d97a21f/rank_0_0/backbone for vLLM's torch.compile
+2026-08-24T00:02:04.799831000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:04 [backends.py:1155] Dynamo bytecode transform time: 2.04 s
+2026-08-24T00:02:14.723363000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:14 [backends.py:393] Compiling a graph for compile range (1, 8192) takes 8.96 s
+2026-08-24T00:02:15.940975000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:15 [backends.py:920] collected artifacts: 44 entries, 44 artifacts, 7677919 bytes total
+2026-08-24T00:02:15.965043000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:15 [decorators.py:708] saved AOT compiled function to /cache/jit/cu133-torch213-spark-sm121-vllmf560085b72-b12x07cdf4567b-lmcachee045d729bc/vllm/torch_compile_cache/torch_aot_compile/c637b9755e03cad3f28bd375938f0e181bb60f90ffec46cea9897d1696a5267e/rank_0_0/model
+2026-08-24T00:02:15.965178000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:15 [monitor.py:53] torch.compile took 13.20 s in total
+2026-08-24T00:02:27.442009000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:27 [monitor.py:81] Initial profiling/warmup run took 11.48 s
+2026-08-24T00:02:33.860866000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:33 [model_runner.py:1002] Profiled V1 prompt-logprobs workspace with chunk size 1024
+2026-08-24T00:02:34.719000000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:34 [deepseek_v4_mhc_warmup.py:276] Warming up DeepSeek V4 mHC kernels for token sizes: [1, 2, 4, 6, 8, 12, 16, 18, 24, 32, 64, 65, 128, 129, 193, 256, 257, 321, 385, 512, 513, 577, 769, 1024, 1025, 1537, 2048, 4096, 8176, 8192]
+2026-08-24T00:02:34.872136000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:34 [deepseek_v4_mhc_warmup.py:282] DeepSeek V4 mHC warmup finished in 0.15 seconds.
+2026-08-24T00:02:35.057903000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:02:35 [kernel_warmup.py:112] Warming up ll_bf16 router GEMM kernels for shapes: ((4096, 256),).
+2026-08-24T00:03:01.856753000-04:00 (EngineCore pid=193) INFO 08-24 04:03:01 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+2026-08-24T00:03:08.170364000-04:00 (Worker_TP0 pid=256) DeepGEMM warmup:   0%|          | 0/1447 [00:00<?, ?it/s]DeepGEMM warmup:   0%|          | 1/1447 [00:00<21:54,  1.10it/s]DeepGEMM warmup:   0%|          | 2/1447 [00:01<23:12,  1.04it/s]DeepGEMM warmup:   0%|          | 3/1447 [00:02<22:58,  1.05it/s]DeepGEMM warmup:   0%|          | 4/1447 [00:03<22:52,  1.05it/s]DeepGEMM warmup:   0%|          | 5/1447 [00:04<22:37,  1.06it/s]DeepGEMM warmup:   1%|          | 12/1447 [00:05<07:43,  3.10it/s]DeepGEMM warmup:   1%|          | 14/1447 [00:06<08:48,  2.71it/s]DeepGEMM warmup:   1%|▏         | 20/1447 [00:07<06:25,  3.71it/s]DeepGEMM warmup:  14%|█▍        | 206/1447 [00:08<00:20, 60.38it/s]DeepGEMM warmup:  15%|█▍        | 213/1447 [00:15<01:20, 15.35it/s]DeepGEMM warmup:  15%|█▌        | 218/1447 [00:18<01:51, 11.00it/s]DeepGEMM warmup:  17%|█▋        | 242/1447 [00:20<01:35, 12.59it/s]DeepGEMM warmup:  38%|███▊      | 546/1447 [00:21<00:15, 56.66it/s]DeepGEMM warmup:  38%|███▊      | 556/1447 [00:22<00:18, 47.96it/s]DeepGEMM warmup:  57%|█████▋    | 819/1447 [00:23<00:06, 89.83it/s]DeepGEMM warmup:  77%|███████▋  | 1118/1447 [00:24<00:02, 135.56it/s]DeepGEMM warmup:  79%|███████▊  | 1136/1447 [00:31<00:07, 43.64it/s] DeepGEMM warmup:  79%|███████▉  | 1149/1447 [00:32<00:07, 39.80it/s]DeepGEMM warmup: 100%|██████████| 1447/1447 [00:32<00:00, 44.61it/s]
+2026-08-24T00:03:08.290158000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:08 [b12x_moe.py:1695] Warmed up 2 B12X MoE dynamic launch variant(s) across 1 expert signature(s).
+2026-08-24T00:03:08.292961000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:08 [kernel_warmup.py:484] Deferring runtime-dependent kernel warmup until KV cache initialization.
+2026-08-24T00:03:12.187430000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:12 [indexer.py:687] DSA indexer decode path: use_flattening=False use_varlen=False (next_n=6, use_fp4_indexer_cache=False)
+2026-08-24T00:03:12.189174000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:12 [kernel.py:310] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-08-24T00:03:19.036692000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:19 [kernel.py:310] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-08-24T00:03:26.246675000-04:00 (Worker_TP0 pid=256) Profiling CUDA graph memory (PIECEWISE):   0%|          | 0/9 [00:00<?, ?it/s]Profiling CUDA graph memory (PIECEWISE):  11%|█         | 1/9 [00:00<00:05,  1.46it/s]Profiling CUDA graph memory (PIECEWISE):  22%|██▏       | 2/9 [00:01<00:04,  1.58it/s]Profiling CUDA graph memory (PIECEWISE):  33%|███▎      | 3/9 [00:01<00:03,  1.63it/s]Profiling CUDA graph memory (PIECEWISE):  44%|████▍     | 4/9 [00:03<00:05,  1.01s/it]Profiling CUDA graph memory (PIECEWISE):  56%|█████▌    | 5/9 [00:04<00:03,  1.17it/s]Profiling CUDA graph memory (PIECEWISE):  67%|██████▋   | 6/9 [00:05<00:03,  1.10s/it]Profiling CUDA graph memory (PIECEWISE):  78%|███████▊  | 7/9 [00:06<00:01,  1.15it/s]Profiling CUDA graph memory (PIECEWISE):  89%|████████▉ | 8/9 [00:06<00:00,  1.40it/s]Profiling CUDA graph memory (PIECEWISE): 100%|██████████| 9/9 [00:06<00:00,  1.62it/s]Profiling CUDA graph memory (PIECEWISE): 100%|██████████| 9/9 [00:06<00:00,  1.32it/s]
+2026-08-24T00:03:29.433220000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:29 [speculator.py:230] Capturing model for DSpark speculator...
+2026-08-24T00:03:29.433771000-04:00 (Worker_TP0 pid=256) Profiling CUDA graph memory (FULL):   0%|          | 0/4 [00:00<?, ?it/s]Profiling CUDA graph memory (FULL):  25%|██▌       | 1/4 [00:00<00:02,  1.18it/s]Profiling CUDA graph memory (FULL):  50%|█████     | 2/4 [00:01<00:01,  1.20it/s]Profiling CUDA graph memory (FULL):  75%|███████▌  | 3/4 [00:02<00:00,  1.23it/s]Profiling CUDA graph memory (FULL): 100%|██████████| 4/4 [00:03<00:00,  1.28it/s]Profiling CUDA graph memory (FULL): 100%|██████████| 4/4 [00:03<00:00,  1.26it/s]
+2026-08-24T00:03:32.698196000-04:00 (Worker_TP0 pid=256) Capturing dspark CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]Capturing dspark CUDA graphs (FULL):  50%|█████     | 2/4 [00:01<00:01,  1.78it/s]Capturing dspark CUDA graphs (FULL):  75%|███████▌  | 3/4 [00:03<00:01,  1.20s/it]Capturing dspark CUDA graphs (FULL): 100%|██████████| 4/4 [00:03<00:00,  1.23it/s]
+2026-08-24T00:03:32.711095000-04:00 (Worker_TP0 pid=256) Capturing DFlash context-KV CUDA graphs (FULL):   0%|          | 0/9 [00:00<?, ?it/s]Capturing DFlash context-KV CUDA graphs (FULL): 100%|██████████| 9/9 [00:00<00:00, 706.01it/s]
+2026-08-24T00:03:33.087031000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:33 [model_runner.py:1241] Estimated MRV2 CUDA graph memory: 1.76 GiB total (1.40 GiB retained in the reusable pool)
+2026-08-24T00:03:33.087174000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:33 [gpu_worker.py:646] Available KV cache memory: 15.17 GiB
+2026-08-24T00:03:33.087198000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:33 [gpu_worker.py:661] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8700 is equivalent to --gpu-memory-utilization=0.8556 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8844. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+2026-08-24T00:03:33.098736000-04:00 (EngineCore pid=193) INFO 08-24 04:03:33 [kv_cache_utils.py:2181] GPU KV cache size: 975,668 tokens, Maximum concurrency for 524,288 tokens per request: 1.86x
+2026-08-24T00:03:33.462765000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:33 [kernel.py:310] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-08-24T00:03:34.330552000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:34 [kernel_warmup.py:621] Using FlashInfer autotune cache file: /cache/jit/cu133-torch213-spark-sm121-vllmf560085b72-b12x07cdf4567b-lmcachee045d729bc/flashinfer-autotune/06949939f2b8cfdb45681bcae9547fd43cafe8dd78c0044a9b5e635442009901/autotune_configs.json
+2026-08-24T00:03:34.343139000-04:00 (Worker_TP0 pid=256) 2026-08-24 04:03:34,342 - INFO - autotuner.py:809 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-08-24T00:03:37.342816000-04:00 (Worker_TP0 pid=256) [AutoTuner]: Tuning sparse_mla_sm120_decode_dsv4:   0%|          | 0/6 [00:00<?, ?profile/s][AutoTuner]: Tuning sparse_mla_sm120_decode_dsv4:  83%|████████▎ | 5/6 [00:00<00:00, 42.97profile/s][AutoTuner]: Tuning sparse_mla_sm120_decode_dsv4: 100%|██████████| 6/6 [00:00<00:00, 39.79profile/s]
+2026-08-24T00:03:37.363608000-04:00 (Worker_TP0 pid=256) 2026-08-24 04:03:37,363 - INFO - autotuner.py:832 - flashinfer.jit: [Autotuner]: Autotuning process ends
+2026-08-24T00:03:37.653431000-04:00 (Worker_TP0 pid=256) 2026-08-24 04:03:37,653 - INFO - autotuner.py:2264 - flashinfer.jit: [Autotuner]: Saved 6 configs to /cache/jit/cu133-torch213-spark-sm121-vllmf560085b72-b12x07cdf4567b-lmcachee045d729bc/flashinfer-autotune/06949939f2b8cfdb45681bcae9547fd43cafe8dd78c0044a9b5e635442009901/autotune_configs.json (6 new, 0 from previous config)
+2026-08-24T00:03:42.162479000-04:00 (Worker_TP0 pid=256) Capturing CUDA graphs (PIECEWISE):   0%|          | 0/9 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):  11%|█         | 1/9 [00:00<00:04,  1.81it/s]Capturing CUDA graphs (PIECEWISE):  22%|██▏       | 2/9 [00:01<00:03,  1.83it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 3/9 [00:01<00:03,  1.85it/s]Capturing CUDA graphs (PIECEWISE):  44%|████▍     | 4/9 [00:02<00:02,  1.84it/s]Capturing CUDA graphs (PIECEWISE):  56%|█████▌    | 5/9 [00:02<00:02,  1.86it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 6/9 [00:03<00:01,  1.88it/s]Capturing CUDA graphs (PIECEWISE):  78%|███████▊  | 7/9 [00:03<00:00,  2.17it/s]Capturing CUDA graphs (PIECEWISE):  89%|████████▉ | 8/9 [00:03<00:00,  2.43it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 9/9 [00:04<00:00,  2.64it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 9/9 [00:04<00:00,  2.17it/s]
+2026-08-24T00:03:48.454815000-04:00 (Worker_TP0 pid=256) Capturing CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):  25%|██▌       | 1/4 [00:01<00:03,  1.09s/it]Capturing CUDA graphs (FULL):  50%|█████     | 2/4 [00:02<00:02,  1.05s/it]Capturing CUDA graphs (FULL):  75%|███████▌  | 3/4 [00:04<00:01,  1.59s/it]Capturing CUDA graphs (FULL): 100%|██████████| 4/4 [00:06<00:00,  1.73s/it]Capturing CUDA graphs (FULL): 100%|██████████| 4/4 [00:06<00:00,  1.57s/it]
+2026-08-24T00:03:48.455155000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:48 [speculator.py:230] Capturing model for DSpark speculator...
+2026-08-24T00:03:48.676346000-04:00 (Worker_TP0 pid=256) Capturing dspark CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]Capturing dspark CUDA graphs (FULL):  50%|█████     | 2/4 [00:00<00:00, 16.54it/s]Capturing dspark CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 18.39it/s]Capturing dspark CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 18.08it/s]
+2026-08-24T00:03:48.688689000-04:00 (Worker_TP0 pid=256) Capturing DFlash context-KV CUDA graphs (FULL):   0%|          | 0/9 [00:00<?, ?it/s]Capturing DFlash context-KV CUDA graphs (FULL): 100%|██████████| 9/9 [00:00<00:00, 743.20it/s]
+2026-08-24T00:03:48.688812000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:48 [model_runner.py:1298] Graph capturing finished in 11 secs, took 0.25 GiB
+2026-08-24T00:03:48.688844000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:48 [gpu_worker.py:813] CUDA graph pool memory: 0.25 GiB (actual), 1.76 GiB (estimated), difference: 1.51 GiB (613.8%).
+2026-08-24T00:03:48.688873000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:48 [gpu_worker.py:876] Free memory on device (112.79/121.69 GiB) on startup. Desired GPU memory utilization is (0.87, 105.87 GiB). Actual usage is 87.2 GiB for consumed memory (weights + non-torch), 3.49 GiB for peak activation, and 0.25 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory-bytes=15872136111` (14.78 GiB) to fit into requested memory, or `--kv-cache-memory-bytes=23299619840` (21.7 GiB) to fully utilize gpu memory. Current kv cache memory in use is 15.17 GiB.
+2026-08-24T00:03:54.669804000-04:00 (Worker_TP0 pid=256) INFO 08-24 04:03:54 [jit_monitor.py:79] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+2026-08-24T00:03:55.042127000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:03:55 [torch_utils.py:251] OMP_NUM_THREADS=16 is set; leaving Torch threads at 16 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+2026-08-24T00:03:55.043208000-04:00 (EngineCore pid=193) INFO 08-24 04:03:55 [core.py:349] init engine (profile, create kv cache, warmup model) took 113.25 s (compilation: 13.20 s)
+2026-08-24T00:03:55.933816000-04:00 (EngineCore pid=193) INFO 08-24 04:03:55 [kernel.py:310] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-08-24T00:03:55.934114000-04:00 (EngineCore pid=193) WARNING 08-24 04:03:55 [vllm.py:1851] max_num_scheduled_tokens is set to 8176 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens or max_num_seqs.
+2026-08-24T00:03:55.941163000-04:00 (EngineCore pid=193) INFO 08-24 04:03:55 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-08-24T00:03:55.948039000-04:00 (APIServer pid=44) INFO 08-24 04:03:55 [api_server.py:685] Supported tasks: ['generate']
+2026-08-24T00:03:56.111129000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [parser_manager.py:37] "auto" tool choice has been enabled.
+2026-08-24T00:03:56.118910000-04:00 (APIServer pid=44) WARNING 08-24 04:03:56 [model.py:1723] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 1.0}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+2026-08-24T00:03:56.129334000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [api_server.py:689] Starting vLLM server on http://0.0.0.0:8000
+2026-08-24T00:03:56.129419000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:51] Available routes are:
+2026-08-24T00:03:56.129466000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /openapi.json, Methods: GET, HEAD
+2026-08-24T00:03:56.129515000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /docs, Methods: GET, HEAD
+2026-08-24T00:03:56.129578000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+2026-08-24T00:03:56.129626000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /redoc, Methods: GET, HEAD
+2026-08-24T00:03:56.129668000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /load, Methods: GET
+2026-08-24T00:03:56.129706000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /version, Methods: GET
+2026-08-24T00:03:56.129753000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /health, Methods: GET
+2026-08-24T00:03:56.129788000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /metrics, Methods: GET
+2026-08-24T00:03:56.129838000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /tokenize, Methods: POST
+2026-08-24T00:03:56.129871000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /detokenize, Methods: POST
+2026-08-24T00:03:56.129911000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/models, Methods: GET
+2026-08-24T00:03:56.129950000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /ping, Methods: GET
+2026-08-24T00:03:56.129990000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /ping, Methods: POST
+2026-08-24T00:03:56.130028000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /invocations, Methods: POST
+2026-08-24T00:03:56.130059000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/chat/completions, Methods: POST
+2026-08-24T00:03:56.130100000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/chat/completions/batch, Methods: POST
+2026-08-24T00:03:56.130131000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/responses, Methods: POST
+2026-08-24T00:03:56.130164000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/responses/{response_id}, Methods: GET
+2026-08-24T00:03:56.130201000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/responses/{response_id}/cancel, Methods: POST
+2026-08-24T00:03:56.130237000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/completions, Methods: POST
+2026-08-24T00:03:56.130270000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/messages, Methods: POST
+2026-08-24T00:03:56.130312000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/messages/count_tokens, Methods: POST
+2026-08-24T00:03:56.130349000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /generative_scoring, Methods: POST
+2026-08-24T00:03:56.130383000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /scale_elastic_ep, Methods: POST
+2026-08-24T00:03:56.130424000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /is_scaling_elastic_ep, Methods: POST
+2026-08-24T00:03:56.130460000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/chat/completions/render, Methods: POST
+2026-08-24T00:03:56.130496000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/completions/render, Methods: POST
+2026-08-24T00:03:56.130540000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/chat/completions/derender, Methods: POST
+2026-08-24T00:03:56.130585000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /v1/completions/derender, Methods: POST
+2026-08-24T00:03:56.130618000-04:00 (APIServer pid=44) INFO 08-24 04:03:56 [launcher.py:60] Route: /inference/v1/generate, Methods: POST
+2026-08-24T00:03:56.149398000-04:00 (APIServer pid=44) INFO:     Started server process [44]
+2026-08-24T00:03:56.149577000-04:00 (APIServer pid=44) INFO:     Waiting for application startup.
+2026-08-24T00:03:56.386133000-04:00 (APIServer pid=44) INFO:     Application startup complete.
+2026-08-24T00:03:58.363371000-04:00 (APIServer pid=44) INFO:     192.168.2.2:44730 - "GET /health HTTP/1.1" 200 OK
+2026-08-24T00:03:58.368195000-04:00 (APIServer pid=44) INFO:     192.168.2.2:44746 - "GET /v1/models HTTP/1.1" 200 OK
+2026-08-24T00:08:59.232077000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57150 - "GET /v1/models HTTP/1.1" 200 OK
+2026-08-24T00:08:59.233029000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57150 - "GET /get_server_info HTTP/1.1" 404 Not Found
+2026-08-24T00:08:59.244116000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57150 - "GET /version HTTP/1.1" 200 OK
+2026-08-24T00:08:59.254138000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57150 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:08:59.258273000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57150 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:08:59.276841000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57154 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:09:00.702754000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:09:00 [jit_monitor.py:135] Triton kernel JIT compilation during inference: _prepare_dflash_inputs_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-08-24T00:09:01.611953000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:01.625364000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57174 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:09:02.120883000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:02.629616000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:03.137776000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:03.643824000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:04.151296000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:04.659127000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:05.164852000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:05.670622000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:06.176464000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:06.408961000-04:00 (APIServer pid=44) INFO 08-24 04:09:06 [loggers.py:314] Engine 000: Avg prompt throughput: 826.6 tokens/s, Avg generation throughput: 6.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 20.7%, Prefix cache hit rate: 0.0%
+2026-08-24T00:09:06.409147000-04:00 (APIServer pid=44) INFO 08-24 04:09:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 4.85, Current speculative depth: 5, Accepted throughput: 0.16 tokens/s, Drafted throughput: 0.21 tokens/s, Accepted: 50 tokens, Drafted: 65 tokens, Per-position acceptance rate: 0.923, 0.846, 0.692, 0.692, 0.692, Avg Draft acceptance rate: 76.9%
+2026-08-24T00:09:06.684974000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:06.696957000-04:00 (APIServer pid=44) INFO:     192.168.2.2:36872 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:09:07.195897000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:07.703931000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:08.211891000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:08.718752000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:09.225398000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:09.734146000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:10.241866000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:10.958994000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:11.197900000-04:00 (APIServer pid=44) INFO:     192.168.2.2:36882 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:09:11.469925000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:11.977909000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:12.484782000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:12.992978000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:13.014911000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:09:13 [jit_monitor.py:135] Triton kernel JIT compilation during inference: _gather_shared_paged_supertile_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-08-24T00:09:13.500550000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:14.007863000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:14.514443000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:15.023329000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:15.531066000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:16.038639000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:16.409720000-04:00 (APIServer pid=44) INFO 08-24 04:09:16 [loggers.py:314] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 1.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 41.3%, Prefix cache hit rate: 0.0%
+2026-08-24T00:09:16.409906000-04:00 (APIServer pid=44) INFO 08-24 04:09:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 4.75, Current speculative depth: 5, Accepted throughput: 1.50 tokens/s, Drafted throughput: 2.00 tokens/s, Accepted: 15 tokens, Drafted: 20 tokens, Per-position acceptance rate: 1.000, 0.750, 0.750, 0.750, 0.500, Avg Draft acceptance rate: 75.0%
+2026-08-24T00:09:16.546380000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:17.054292000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:17.560806000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:18.068841000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:18.578137000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:19.086055000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:19.593262000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:20.099905000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:20.606363000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:21.112883000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:21.619378000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:22.126443000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:22.634695000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:23.141451000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:23.648564000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:24.155738000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:24.662630000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:25.169309000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:25.677589000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:26.184640000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:26.409837000-04:00 (APIServer pid=44) INFO 08-24 04:09:26 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.7 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 42.0%, Prefix cache hit rate: 0.0%
+2026-08-24T00:09:26.693631000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:27.199912000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:27.707369000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:28.214875000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:28.721691000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:29.229919000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:29.736181000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:30.244806000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:30.751622000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:31.258239000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:31.764468000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:32.271956000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:32.778922000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:33.287074000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:33.794669000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:34.302987000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:34.811099000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:35.318630000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:35.827299000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:36.333497000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:36.409595000-04:00 (APIServer pid=44) INFO 08-24 04:09:36 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.9 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 42.6%, Prefix cache hit rate: 0.0%
+2026-08-24T00:09:36.840929000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:37.348048000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:37.856529000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:38.363878000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:38.871063000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:39.377809000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:39.883886000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:40.391955000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:40.899065000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:41.406291000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:41.913696000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:42.419831000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:42.926459000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:43.432164000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:43.940403000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:44.448157000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:44.954898000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:45.461412000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:45.968231000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:46.410201000-04:00 (APIServer pid=44) INFO 08-24 04:09:46 [loggers.py:314] Engine 000: Avg prompt throughput: 1635.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 43.0%, Prefix cache hit rate: 0.0%
+2026-08-24T00:09:46.474906000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:46.981486000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:47.487481000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:47.994008000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:48.502358000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:49.010040000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:49.516039000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:50.022151000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:50.527397000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:51.033356000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:51.538650000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:52.046156000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:52.552515000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:53.058699000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:53.565599000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:54.071235000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:54.576655000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:55.082989000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:55.589329000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:56.095515000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:56.411338000-04:00 (APIServer pid=44) INFO 08-24 04:09:56 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.7 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 43.6%, Prefix cache hit rate: 0.0%
+2026-08-24T00:09:56.604007000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:57.110780000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:57.617012000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:58.123926000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:58.630035000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:59.136266000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:09:59.642426000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:00.149953000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:00.656580000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:01.163324000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:01.670415000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:02.175778000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:02.682117000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:03.188667000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:03.695691000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:04.201888000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:04.710559000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:05.217917000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:05.725096000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:06.232323000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:06.411012000-04:00 (APIServer pid=44) INFO 08-24 04:10:06 [loggers.py:314] Engine 000: Avg prompt throughput: 1635.2 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 44.0%, Prefix cache hit rate: 0.0%
+2026-08-24T00:10:06.738255000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:07.244334000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:07.749829000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:08.256519000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:08.764940000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:09.272658000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:09.778826000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:10.285296000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:10.793115000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:11.300503000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:11.985892000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55416 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:10:12.063102000-04:00 (Worker_TP0 pid=256) [b12x cute.compile] disk-hit reason=post-engine-start target=b12x._lib.dense_gemm._DenseGemmLaunch status=disk-cache-hit cache_key=2dbabc6d3c2ec5a6 attrs={} spec_hash=487bf1c2343b31b6ed51fa01aff2b879369ce0eee3499ed1654a22121c3266b7 spec={"facts":["legacy","gemm.dense",4,[["field","arg0",4096],["field","arg1",4096],["field","arg2",1],["field","arg3",1],["field","arg4","k"],["field","arg5","k"],["field","arg6","n"],["field","arg7",["type","cutlass.base_dsl.typing","Float8E4M3FN"]],["field","arg8",["type","cutlass.base_dsl.typing","Float8E8M0FNU"]],["field","arg9",["type","cutlass.base_dsl.typing","BFloat16"]],["field","arg10",["type","cutlass.base_dsl.typing","Float32"]],["field","arg11",32],["field","arg12",32],["field","arg13",128],["field","arg14",[64,128]],["field","arg15",[1,1]],["field","arg16",["dataclass","b12x._lib.dense_gemm","_DenseGemmPolicy",[["single_work_tile_per_cta",false],["direct_one_m_tile_scheduler",false],["use_m1_non_tma",false],["split_k_slices",1],["split_k_atomic_bf16",true],["large_m_unroll",false]]]],["field","arg17",48],["field","arg18",48],["field","arg19","sm_120"],["field","arg20","tma"],["field","arg21",false],["field","arg22",false],["field","arg23",true],["field","arg24",false],["field","arg25",0],["field","arg26",false],["field","arg27",false],["field","arg28",false],["field","arg29",false],["field","arg30",1],["field","arg31",false]]],"kernel":"gemm.dense","version":4} env={'B12X_CUTE_COMPILE_CACHE_DIR': '/cache/jit/cu133-torch213-spark-sm121-vllmf560085b72-b12x07cdf4567b-lmcachee045d729bc/b12x/cute', 'B12X_MHC_MAX_TOKENS': '16384', 'B12X_MOE_FORCE_A16': '0', 'B12X_MOE_FORCE_A8': '1', 'CUDA_HOME': '/usr/local/cuda', 'CUTE_DSL_ARCH': 'sm_121a', 'CUTE_DSL_LIBS': '/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/cu13/lib/libcute_dsl_runtime.so', 'CUTLASS_DSL_VERSION': '4.6.2'} toolchain={'python': 'cpython 3.12.3', 'torch': '2.13.0', 'torch_cuda': '13.3', 'cutlass_dsl': '4.6.2', 'cutlass_dsl_libs_base': '4.6.2', 'cutlass_dsl_libs_core': '4.6.2', 'cutlass_dsl_libs_cu12': '4.6.2', 'cutlass_dsl_libs_cu13': '4.6.2', 'cuda_python': '13.3.1', 'cuda_bindings': '13.3.1', 'b12x_runtime_patches': (('compile_only_warning', True), ('memory_debug', True), ('direct_frameinfo', True))}
+2026-08-24T00:10:12.311406000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:13.321372000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:14.332239000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:15.344263000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:16.356900000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:16.411889000-04:00 (APIServer pid=44) INFO 08-24 04:10:16 [loggers.py:314] Engine 000: Avg prompt throughput: 1407.1 tokens/s, Avg generation throughput: 20.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.3%, Prefix cache hit rate: 46.7%
+2026-08-24T00:10:16.412060000-04:00 (APIServer pid=44) INFO 08-24 04:10:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.92, Current speculative depth: 5, Accepted throughput: 2.48 tokens/s, Drafted throughput: 4.25 tokens/s, Accepted: 149 tokens, Drafted: 255 tokens, Per-position acceptance rate: 0.961, 0.784, 0.569, 0.373, 0.235, Avg Draft acceptance rate: 58.4%
+2026-08-24T00:10:17.368130000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:18.378835000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:19.355432000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:19.383028000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:21.401157000-04:00 (APIServer pid=44) INFO:     192.168.2.2:35226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:10:21.904372000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:22.916148000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:23.926180000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:24.939779000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:25.949923000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:26.413628000-04:00 (APIServer pid=44) INFO 08-24 04:10:26 [loggers.py:314] Engine 000: Avg prompt throughput: 14.4 tokens/s, Avg generation throughput: 34.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%, Prefix cache hit rate: 46.7%
+2026-08-24T00:10:26.414290000-04:00 (APIServer pid=44) INFO 08-24 04:10:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.01, Current speculative depth: 5, Accepted throughput: 22.70 tokens/s, Drafted throughput: 56.49 tokens/s, Accepted: 227 tokens, Drafted: 565 tokens, Per-position acceptance rate: 0.699, 0.522, 0.389, 0.239, 0.159, Avg Draft acceptance rate: 40.2%
+2026-08-24T00:10:26.961056000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:27.972019000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:28.982254000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:29.992771000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:31.002627000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:32.013417000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:33.024037000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:34.035198000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:35.046517000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:36.057911000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:36.413915000-04:00 (APIServer pid=44) INFO 08-24 04:10:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 42.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%, Prefix cache hit rate: 46.7%
+2026-08-24T00:10:36.414137000-04:00 (APIServer pid=44) INFO 08-24 04:10:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.72, Current speculative depth: 5, Accepted throughput: 26.70 tokens/s, Drafted throughput: 77.50 tokens/s, Accepted: 267 tokens, Drafted: 775 tokens, Per-position acceptance rate: 0.716, 0.497, 0.297, 0.148, 0.065, Avg Draft acceptance rate: 34.5%
+2026-08-24T00:10:37.067116000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:38.079436000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:39.090301000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:40.102771000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:41.113116000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:42.123571000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:43.133919000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:44.145556000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:45.154561000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:46.165366000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:46.414198000-04:00 (APIServer pid=44) INFO 08-24 04:10:46 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 48.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%, Prefix cache hit rate: 46.7%
+2026-08-24T00:10:46.414530000-04:00 (APIServer pid=44) INFO 08-24 04:10:46 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.18, Current speculative depth: 5, Accepted throughput: 33.50 tokens/s, Drafted throughput: 77.00 tokens/s, Accepted: 335 tokens, Drafted: 770 tokens, Per-position acceptance rate: 0.818, 0.597, 0.377, 0.240, 0.143, Avg Draft acceptance rate: 43.5%
+2026-08-24T00:10:47.177295000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:48.188937000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:49.200414000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:50.210551000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:51.220082000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:52.229316000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:53.239705000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:54.252158000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:55.263085000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:56.275160000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:56.415731000-04:00 (APIServer pid=44) INFO 08-24 04:10:56 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 37.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%, Prefix cache hit rate: 46.7%
+2026-08-24T00:10:56.416010000-04:00 (APIServer pid=44) INFO 08-24 04:10:56 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.48, Current speculative depth: 5, Accepted throughput: 22.60 tokens/s, Drafted throughput: 76.49 tokens/s, Accepted: 226 tokens, Drafted: 765 tokens, Per-position acceptance rate: 0.712, 0.392, 0.229, 0.105, 0.039, Avg Draft acceptance rate: 29.5%
+2026-08-24T00:10:56.961578000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:56.993284000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:59.011372000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:59.017909000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:59.226376000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:59.435599000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:59.643213000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:10:59.852120000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:00.060241000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:00.067427000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:00.089611000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55450 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:11:00.577839000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:01.085479000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:01.592601000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:02.100303000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:02.607384000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:03.114548000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:03.624448000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:04.131550000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:04.639103000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:05.147263000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:05.654564000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:06.162337000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:06.416351000-04:00 (APIServer pid=44) INFO 08-24 04:11:06 [loggers.py:314] Engine 000: Avg prompt throughput: 817.5 tokens/s, Avg generation throughput: 1.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 40.8%, Prefix cache hit rate: 44.0%
+2026-08-24T00:11:06.416467000-04:00 (APIServer pid=44) INFO 08-24 04:11:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.00, Current speculative depth: 5, Accepted throughput: 0.90 tokens/s, Drafted throughput: 4.50 tokens/s, Accepted: 9 tokens, Drafted: 45 tokens, Per-position acceptance rate: 0.667, 0.222, 0.111, 0.000, 0.000, Avg Draft acceptance rate: 20.0%
+2026-08-24T00:11:06.670362000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:07.179551000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:07.388020000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:07.596002000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:07.804271000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:08.013014000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:08.220955000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:08.246186000-04:00 (APIServer pid=44) INFO:     192.168.2.2:47658 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:11:08.279283000-04:00 (Worker_TP0 pid=256) [b12x cute.compile] disk-hit reason=post-engine-start target=b12x._lib.dense_gemm._DenseGemmLaunch status=disk-cache-hit cache_key=b6f63112d407e02d attrs={} spec_hash=3487a98082f969acc24fe54acdef4a0eaeefe060abf5aa9aeae605f7f14492fd spec={"facts":["legacy","gemm.dense",4,[["field","arg0",4096],["field","arg1",4096],["field","arg2",1],["field","arg3",1],["field","arg4","k"],["field","arg5","k"],["field","arg6","n"],["field","arg7",["type","cutlass.base_dsl.typing","Float8E4M3FN"]],["field","arg8",["type","cutlass.base_dsl.typing","Float8E8M0FNU"]],["field","arg9",["type","cutlass.base_dsl.typing","BFloat16"]],["field","arg10",["type","cutlass.base_dsl.typing","Float32"]],["field","arg11",32],["field","arg12",32],["field","arg13",64],["field","arg14",[128,128]],["field","arg15",[1,1]],["field","arg16",["dataclass","b12x._lib.dense_gemm","_DenseGemmPolicy",[["single_work_tile_per_cta",false],["direct_one_m_tile_scheduler",false],["use_m1_non_tma",false],["split_k_slices",1],["split_k_atomic_bf16",true],["large_m_unroll",false]]]],["field","arg17",48],["field","arg18",48],["field","arg19","sm_120"],["field","arg20","tma"],["field","arg21",false],["field","arg22",false],["field","arg23",true],["field","arg24",false],["field","arg25",0],["field","arg26",false],["field","arg27",false],["field","arg28",false],["field","arg29",false],["field","arg30",1],["field","arg31",false]]],"kernel":"gemm.dense","version":4} env={'B12X_CUTE_COMPILE_CACHE_DIR': '/cache/jit/cu133-torch213-spark-sm121-vllmf560085b72-b12x07cdf4567b-lmcachee045d729bc/b12x/cute', 'B12X_MHC_MAX_TOKENS': '16384', 'B12X_MOE_FORCE_A16': '0', 'B12X_MOE_FORCE_A8': '1', 'CUDA_HOME': '/usr/local/cuda', 'CUTE_DSL_ARCH': 'sm_121a', 'CUTE_DSL_LIBS': '/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/cu13/lib/libcute_dsl_runtime.so', 'CUTLASS_DSL_VERSION': '4.6.2'} toolchain={'python': 'cpython 3.12.3', 'torch': '2.13.0', 'torch_cuda': '13.3', 'cutlass_dsl': '4.6.2', 'cutlass_dsl_libs_base': '4.6.2', 'cutlass_dsl_libs_core': '4.6.2', 'cutlass_dsl_libs_cu12': '4.6.2', 'cutlass_dsl_libs_cu13': '4.6.2', 'cuda_python': '13.3.1', 'cuda_bindings': '13.3.1', 'b12x_runtime_patches': (('compile_only_warning', True), ('memory_debug', True), ('direct_frameinfo', True))}
+2026-08-24T00:11:08.738924000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:09.746828000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:10.756283000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:11.766904000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:12.776575000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:13.787102000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:14.797262000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:15.807450000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:16.417074000-04:00 (APIServer pid=44) INFO 08-24 04:11:16 [loggers.py:314] Engine 000: Avg prompt throughput: 1183.9 tokens/s, Avg generation throughput: 24.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%, Prefix cache hit rate: 45.7%
+2026-08-24T00:11:16.417336000-04:00 (APIServer pid=44) INFO 08-24 04:11:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.61, Current speculative depth: 5, Accepted throughput: 15.10 tokens/s, Drafted throughput: 47.00 tokens/s, Accepted: 151 tokens, Drafted: 470 tokens, Per-position acceptance rate: 0.691, 0.457, 0.255, 0.128, 0.074, Avg Draft acceptance rate: 32.1%
+2026-08-24T00:11:16.816580000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:17.826506000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:18.839118000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:19.848632000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:20.859596000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:21.869277000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:22.879068000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:23.889105000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:24.899461000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:25.910764000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:26.417891000-04:00 (APIServer pid=44) INFO 08-24 04:11:26 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 42.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%, Prefix cache hit rate: 45.7%
+2026-08-24T00:11:26.418209000-04:00 (APIServer pid=44) INFO 08-24 04:11:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.76, Current speculative depth: 5, Accepted throughput: 26.90 tokens/s, Drafted throughput: 76.50 tokens/s, Accepted: 269 tokens, Drafted: 765 tokens, Per-position acceptance rate: 0.771, 0.497, 0.281, 0.150, 0.059, Avg Draft acceptance rate: 35.2%
+2026-08-24T00:11:26.921179000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:27.931202000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:28.941155000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:29.952768000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:30.962620000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:31.972564000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:32.982461000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:33.992826000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:35.004095000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:36.014565000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:36.418738000-04:00 (APIServer pid=44) INFO 08-24 04:11:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 41.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%, Prefix cache hit rate: 45.7%
+2026-08-24T00:11:36.419049000-04:00 (APIServer pid=44) INFO 08-24 04:11:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.71, Current speculative depth: 5, Accepted throughput: 26.20 tokens/s, Drafted throughput: 76.50 tokens/s, Accepted: 262 tokens, Drafted: 765 tokens, Per-position acceptance rate: 0.791, 0.444, 0.248, 0.150, 0.078, Avg Draft acceptance rate: 34.2%
+2026-08-24T00:11:37.025819000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:38.036689000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:39.046820000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:40.056796000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:41.066529000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:42.077922000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:43.087426000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:43.788374000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:43.835995000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:45.855161000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:45.861639000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.069842000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.278171000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.420162000-04:00 (APIServer pid=44) INFO 08-24 04:11:46 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 25.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 45.7%
+2026-08-24T00:11:46.420285000-04:00 (APIServer pid=44) INFO 08-24 04:11:46 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.31, Current speculative depth: 5, Accepted throughput: 14.20 tokens/s, Drafted throughput: 53.99 tokens/s, Accepted: 142 tokens, Drafted: 540 tokens, Per-position acceptance rate: 0.676, 0.352, 0.176, 0.065, 0.046, Avg Draft acceptance rate: 26.3%
+2026-08-24T00:11:46.487218000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.695957000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.904268000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.911979000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:46.953499000-04:00 (APIServer pid=44) INFO:     192.168.2.2:48706 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:11:47.422185000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:47.930276000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:48.438669000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:48.946767000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:49.454597000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:49.962604000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:50.471869000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:50.979698000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:51.487437000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:51.994842000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:52.502860000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:53.010934000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:53.519319000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:54.029170000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:54.537327000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:55.045698000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:55.553774000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:56.061493000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:56.420489000-04:00 (APIServer pid=44) INFO 08-24 04:11:56 [loggers.py:314] Engine 000: Avg prompt throughput: 1635.1 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 41.6%, Prefix cache hit rate: 41.4%
+2026-08-24T00:11:56.569544000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:57.077509000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:57.586556000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:58.094006000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:58.601776000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:59.109201000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:11:59.616558000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:00.123822000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:00.633044000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:00.841206000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:01.049340000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:01.257417000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:01.466047000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:01.675086000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:01.721448000-04:00 (APIServer pid=44) INFO:     192.168.2.2:59840 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:12:02.187044000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:03.196894000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:04.207176000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:05.217865000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:06.229088000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:06.421303000-04:00 (APIServer pid=44) INFO 08-24 04:12:06 [loggers.py:314] Engine 000: Avg prompt throughput: 1584.1 tokens/s, Avg generation throughput: 22.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%, Prefix cache hit rate: 46.5%
+2026-08-24T00:12:06.421601000-04:00 (APIServer pid=44) INFO 08-24 04:12:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.56, Current speculative depth: 5, Accepted throughput: 8.05 tokens/s, Drafted throughput: 15.75 tokens/s, Accepted: 161 tokens, Drafted: 315 tokens, Per-position acceptance rate: 0.825, 0.667, 0.540, 0.302, 0.222, Avg Draft acceptance rate: 51.1%
+2026-08-24T00:12:07.239556000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:08.251561000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:09.263152000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:10.274420000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:11.285957000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:12.299650000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:13.312292000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:14.324239000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:15.336782000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:16.347975000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:16.422142000-04:00 (APIServer pid=44) INFO 08-24 04:12:16 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 48.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%, Prefix cache hit rate: 46.5%
+2026-08-24T00:12:16.422376000-04:00 (APIServer pid=44) INFO 08-24 04:12:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.26, Current speculative depth: 5, Accepted throughput: 33.50 tokens/s, Drafted throughput: 73.99 tokens/s, Accepted: 335 tokens, Drafted: 740 tokens, Per-position acceptance rate: 0.784, 0.622, 0.453, 0.270, 0.135, Avg Draft acceptance rate: 45.3%
+2026-08-24T00:12:17.359616000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:18.370875000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:19.380490000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:20.391115000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:21.402412000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:22.412125000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:23.422855000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:24.432964000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:25.443456000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:26.422620000-04:00 (APIServer pid=44) INFO 08-24 04:12:26 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 38.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%, Prefix cache hit rate: 46.5%
+2026-08-24T00:12:26.422895000-04:00 (APIServer pid=44) INFO 08-24 04:12:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.65, Current speculative depth: 5, Accepted throughput: 24.20 tokens/s, Drafted throughput: 73.50 tokens/s, Accepted: 242 tokens, Drafted: 735 tokens, Per-position acceptance rate: 0.707, 0.422, 0.259, 0.177, 0.082, Avg Draft acceptance rate: 32.9%
+2026-08-24T00:12:26.453383000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:27.463579000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:28.474552000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:29.485056000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:30.495122000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:31.506067000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:32.516350000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:33.527185000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:34.537101000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:35.219145000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:35.267018000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:36.424073000-04:00 (APIServer pid=44) INFO 08-24 04:12:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 37.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 46.5%
+2026-08-24T00:12:36.424391000-04:00 (APIServer pid=44) INFO 08-24 04:12:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.81, Current speculative depth: 5, Accepted throughput: 23.90 tokens/s, Drafted throughput: 65.99 tokens/s, Accepted: 239 tokens, Drafted: 660 tokens, Per-position acceptance rate: 0.780, 0.561, 0.227, 0.152, 0.091, Avg Draft acceptance rate: 36.2%
+2026-08-24T00:12:37.285954000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:37.293927000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:37.502184000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:37.710502000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:37.918970000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:38.127573000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:38.336146000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:38.343476000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:38.427930000-04:00 (APIServer pid=44) INFO:     192.168.2.2:51186 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:12:38.857302000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:39.366095000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:39.875098000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:40.383529000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:40.892608000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:41.401143000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:41.910365000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:42.419118000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:42.928095000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:43.435969000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:43.944088000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:44.453121000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:44.961547000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:45.469441000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:45.977912000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:46.424830000-04:00 (APIServer pid=44) INFO 08-24 04:12:46 [loggers.py:314] Engine 000: Avg prompt throughput: 1635.1 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 41.6%, Prefix cache hit rate: 39.6%
+2026-08-24T00:12:46.486893000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:46.995158000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:47.503616000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:48.011584000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:48.520333000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:49.027396000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:49.536104000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:50.045068000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:50.553279000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:51.061366000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:51.570073000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:52.077844000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:52.585745000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:53.094265000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:53.603295000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:54.111914000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:54.620119000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:55.128115000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:55.636303000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:56.144251000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:56.424877000-04:00 (APIServer pid=44) INFO 08-24 04:12:56 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.7 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 42.2%, Prefix cache hit rate: 39.6%
+2026-08-24T00:12:56.653396000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:57.162080000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:57.669818000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:58.178165000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:58.686292000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:59.194089000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:12:59.701894000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:00.210292000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:00.718177000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:01.226004000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:01.734744000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:02.242382000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:02.750775000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:03.259307000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:03.768491000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:04.278106000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:04.788119000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:05.297326000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:05.807524000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:06.315754000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:06.426285000-04:00 (APIServer pid=44) INFO 08-24 04:13:06 [loggers.py:314] Engine 000: Avg prompt throughput: 2310.3 tokens/s, Avg generation throughput: 0.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 39.6%
+2026-08-24T00:13:06.826523000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:07.035177000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:07.243115000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:07.451002000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:07.658909000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:07.867670000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:07.959831000-04:00 (APIServer pid=44) INFO:     192.168.2.2:41772 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:13:08.377889000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:09.389037000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:10.399779000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:11.410119000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:12.423418000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:13.433269000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:14.443073000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:15.454456000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:16.427527000-04:00 (APIServer pid=44) INFO 08-24 04:13:16 [loggers.py:314] Engine 000: Avg prompt throughput: 24.2 tokens/s, Avg generation throughput: 41.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.7%, Prefix cache hit rate: 47.3%
+2026-08-24T00:13:16.427831000-04:00 (APIServer pid=44) INFO 08-24 04:13:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.56, Current speculative depth: 5, Accepted throughput: 7.35 tokens/s, Drafted throughput: 14.37 tokens/s, Accepted: 294 tokens, Drafted: 575 tokens, Per-position acceptance rate: 0.896, 0.704, 0.496, 0.304, 0.157, Avg Draft acceptance rate: 51.1%
+2026-08-24T00:13:16.465920000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:17.475931000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:18.486917000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:19.498671000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:20.508870000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:21.518942000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:22.529866000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:23.540914000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:24.551185000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:25.561517000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:26.429525000-04:00 (APIServer pid=44) INFO 08-24 04:13:26 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 45.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.8%, Prefix cache hit rate: 47.3%
+2026-08-24T00:13:26.429972000-04:00 (APIServer pid=44) INFO 08-24 04:13:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.10, Current speculative depth: 5, Accepted throughput: 30.49 tokens/s, Drafted throughput: 72.49 tokens/s, Accepted: 305 tokens, Drafted: 725 tokens, Per-position acceptance rate: 0.766, 0.538, 0.414, 0.255, 0.131, Avg Draft acceptance rate: 42.1%
+2026-08-24T00:13:26.570618000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:27.581099000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:28.592007000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:29.602931000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:30.613055000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:31.623925000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:32.633970000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:33.646214000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:34.657114000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:35.667321000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:36.430966000-04:00 (APIServer pid=44) INFO 08-24 04:13:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 36.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.8%, Prefix cache hit rate: 47.3%
+2026-08-24T00:13:36.431187000-04:00 (APIServer pid=44) INFO 08-24 04:13:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.50, Current speculative depth: 5, Accepted throughput: 21.80 tokens/s, Drafted throughput: 72.49 tokens/s, Accepted: 218 tokens, Drafted: 725 tokens, Per-position acceptance rate: 0.634, 0.400, 0.269, 0.124, 0.076, Avg Draft acceptance rate: 30.1%
+2026-08-24T00:13:36.678002000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:37.688502000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:38.699142000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:39.708913000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:40.719327000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:41.730547000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:42.422324000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:42.481347000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:44.501001000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:44.507896000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:44.716745000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:44.925056000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:45.133077000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:45.341458000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:45.549890000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:45.558448000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:45.772517000-04:00 (APIServer pid=44) INFO:     192.168.2.2:47234 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:13:46.073077000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:46.431952000-04:00 (APIServer pid=44) INFO 08-24 04:13:46 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 28.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 47.3%
+2026-08-24T00:13:46.432066000-04:00 (APIServer pid=44) INFO 08-24 04:13:46 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.18, Current speculative depth: 5, Accepted throughput: 19.20 tokens/s, Drafted throughput: 44.00 tokens/s, Accepted: 192 tokens, Drafted: 440 tokens, Per-position acceptance rate: 0.773, 0.523, 0.386, 0.295, 0.205, Avg Draft acceptance rate: 43.6%
+2026-08-24T00:13:46.581248000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:47.089284000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:47.598363000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:48.107259000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:48.615720000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:49.123845000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:49.632300000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:50.140696000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:50.649730000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:51.158466000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:51.668070000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:52.176580000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:52.685576000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:53.193984000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:53.702011000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:54.211631000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:54.719902000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:55.228110000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:55.736090000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:56.244767000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:56.433103000-04:00 (APIServer pid=44) INFO 08-24 04:13:56 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.5 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 41.8%, Prefix cache hit rate: 37.6%
+2026-08-24T00:13:56.753261000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:57.261938000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:57.771020000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:58.279469000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:58.788287000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:59.297276000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:13:59.807051000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:00.316085000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:00.823986000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:01.332426000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:01.840830000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:02.349043000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:02.857686000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:03.366945000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:03.876022000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:04.384017000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:04.892921000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:05.401430000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:05.910142000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:06.418628000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:06.434215000-04:00 (APIServer pid=44) INFO 08-24 04:14:06 [loggers.py:314] Engine 000: Avg prompt throughput: 1635.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 42.2%, Prefix cache hit rate: 37.6%
+2026-08-24T00:14:06.927443000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:07.435613000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:07.944417000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:08.452928000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:08.961254000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:09.469362000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:09.977295000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:10.486130000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:10.994936000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:11.504023000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:12.012888000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:12.521571000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:13.030196000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:13.538387000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:14.046576000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:14.554943000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:15.063302000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:15.572069000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:16.080960000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:16.434946000-04:00 (APIServer pid=44) INFO 08-24 04:14:16 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.6 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 42.8%, Prefix cache hit rate: 37.6%
+2026-08-24T00:14:16.589274000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:17.097727000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:17.605841000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:18.114413000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:18.623232000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:19.131901000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:19.640062000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:20.148318000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:20.656133000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:21.164345000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:21.672557000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:22.181241000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:22.689575000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:23.197589000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:23.706004000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:24.214208000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:24.722643000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:25.230587000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:25.739808000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:26.248165000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:26.435982000-04:00 (APIServer pid=44) INFO 08-24 04:14:26 [loggers.py:314] Engine 000: Avg prompt throughput: 2452.5 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 43.4%, Prefix cache hit rate: 37.6%
+2026-08-24T00:14:26.756884000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:27.265277000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:27.773736000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:28.282186000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:28.790391000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:29.298134000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:29.806968000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:30.316011000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:30.824431000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:31.332498000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:31.840376000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:32.348966000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:32.857083000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:33.365071000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:33.873511000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:34.381886000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:34.890552000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:35.399241000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:35.907283000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:36.415900000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:36.436875000-04:00 (APIServer pid=44) INFO 08-24 04:14:36 [loggers.py:314] Engine 000: Avg prompt throughput: 1635.1 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 43.8%, Prefix cache hit rate: 37.6%
+2026-08-24T00:14:36.924801000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:37.434059000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:37.942388000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:38.449873000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:38.958015000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:39.466247000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:39.974592000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:40.482981000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:40.991934000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:41.500249000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:42.008852000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:42.517638000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:43.026307000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:43.534549000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:44.043254000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:44.551899000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:45.060368000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:45.570239000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:45.778966000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:45.988065000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:46.195892000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:46.404302000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:46.438003000-04:00 (APIServer pid=44) INFO 08-24 04:14:46 [loggers.py:314] Engine 000: Avg prompt throughput: 2146.2 tokens/s, Avg generation throughput: 0.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 37.6%
+2026-08-24T00:14:46.611795000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:46.819168000-04:00 (APIServer pid=44) INFO:     192.168.2.2:58112 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:14:47.122052000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:48.132795000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:49.143646000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:50.156218000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:51.169978000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:52.181526000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:53.192624000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:54.205175000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:55.216530000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:56.228144000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:56.439170000-04:00 (APIServer pid=44) INFO 08-24 04:14:56 [loggers.py:314] Engine 000: Avg prompt throughput: 77.6 tokens/s, Avg generation throughput: 41.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.3%, Prefix cache hit rate: 48.1%
+2026-08-24T00:14:56.439838000-04:00 (APIServer pid=44) INFO 08-24 04:14:56 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.25, Current speculative depth: 5, Accepted throughput: 4.06 tokens/s, Drafted throughput: 9.00 tokens/s, Accepted: 284 tokens, Drafted: 630 tokens, Per-position acceptance rate: 0.802, 0.595, 0.405, 0.278, 0.175, Avg Draft acceptance rate: 45.1%
+2026-08-24T00:14:57.238912000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:58.250251000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:14:59.262906000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:00.274236000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:01.285632000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:02.298084000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:03.309675000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:04.320864000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:05.332518000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:06.344640000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:06.441046000-04:00 (APIServer pid=44) INFO 08-24 04:15:06 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 40.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.3%, Prefix cache hit rate: 48.1%
+2026-08-24T00:15:06.441367000-04:00 (APIServer pid=44) INFO 08-24 04:15:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.86, Current speculative depth: 5, Accepted throughput: 26.59 tokens/s, Drafted throughput: 71.49 tokens/s, Accepted: 266 tokens, Drafted: 715 tokens, Per-position acceptance rate: 0.762, 0.517, 0.301, 0.175, 0.105, Avg Draft acceptance rate: 37.2%
+2026-08-24T00:15:07.357634000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:08.370058000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:09.381920000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:10.393389000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:11.404516000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:12.416136000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:13.428455000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:14.438816000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:15.449460000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:16.441507000-04:00 (APIServer pid=44) INFO 08-24 04:15:16 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 41.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.3%, Prefix cache hit rate: 48.1%
+2026-08-24T00:15:16.441866000-04:00 (APIServer pid=44) INFO 08-24 04:15:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.85, Current speculative depth: 5, Accepted throughput: 27.00 tokens/s, Drafted throughput: 73.00 tokens/s, Accepted: 270 tokens, Drafted: 730 tokens, Per-position acceptance rate: 0.753, 0.466, 0.301, 0.212, 0.116, Avg Draft acceptance rate: 37.0%
+2026-08-24T00:15:16.459469000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:17.470160000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:18.480445000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:19.492130000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:20.502990000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:21.168304000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:21.179753000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:23.201634000-04:00 (APIServer pid=44) INFO:     192.168.2.2:45752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:15:23.214908000-04:00 (APIServer pid=44) INFO:     192.168.2.2:45766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:15:23.215010000-04:00 (APIServer pid=44) INFO:     192.168.2.2:45788 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:15:23.215081000-04:00 (APIServer pid=44) INFO:     192.168.2.2:45776 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:15:23.533295000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:15:23 [jit_monitor.py:135] Triton kernel JIT compilation during inference: _compute_global_topk_indices_and_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-08-24T00:15:23.699382000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:23.836115000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:15:23 [jit_monitor.py:135] Triton kernel JIT compilation during inference: ComputePrefillMetadataKernel.kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-08-24T00:15:24.709426000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:25.720883000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:26.444268000-04:00 (APIServer pid=44) INFO 08-24 04:15:26 [loggers.py:314] Engine 000: Avg prompt throughput: 57.6 tokens/s, Avg generation throughput: 53.1 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%, Prefix cache hit rate: 48.1%
+2026-08-24T00:15:26.444696000-04:00 (APIServer pid=44) INFO 08-24 04:15:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.47, Current speculative depth: 5, Accepted throughput: 37.49 tokens/s, Drafted throughput: 75.98 tokens/s, Accepted: 375 tokens, Drafted: 760 tokens, Per-position acceptance rate: 0.757, 0.586, 0.467, 0.375, 0.283, Avg Draft acceptance rate: 49.3%
+2026-08-24T00:15:26.731982000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:27.743743000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:28.756239000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:29.768826000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:30.781767000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:31.795599000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:32.807783000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:33.817691000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:34.830750000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:35.843350000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:36.444802000-04:00 (APIServer pid=44) INFO 08-24 04:15:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 87.7 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%, Prefix cache hit rate: 48.1%
+2026-08-24T00:15:36.445240000-04:00 (APIServer pid=44) INFO 08-24 04:15:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.67, Current speculative depth: 5, Accepted throughput: 54.90 tokens/s, Drafted throughput: 163.99 tokens/s, Accepted: 549 tokens, Drafted: 1640 tokens, Per-position acceptance rate: 0.713, 0.460, 0.299, 0.143, 0.058, Avg Draft acceptance rate: 33.5%
+2026-08-24T00:15:36.855603000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:37.867943000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:38.881278000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:39.893992000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:40.905671000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:41.917081000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:42.930417000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:43.942674000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:44.954450000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:45.965621000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:46.446242000-04:00 (APIServer pid=44) INFO 08-24 04:15:46 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 94.9 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%, Prefix cache hit rate: 48.1%
+2026-08-24T00:15:46.446657000-04:00 (APIServer pid=44) INFO 08-24 04:15:46 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.70, Current speculative depth: 5, Accepted throughput: 59.69 tokens/s, Drafted throughput: 175.98 tokens/s, Accepted: 597 tokens, Drafted: 1760 tokens, Per-position acceptance rate: 0.759, 0.477, 0.264, 0.134, 0.062, Avg Draft acceptance rate: 33.9%
+2026-08-24T00:15:46.978280000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:47.989562000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:49.001869000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:50.013908000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:51.025589000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:52.036504000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:53.048505000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:54.060900000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:55.071911000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:56.083882000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:56.446906000-04:00 (APIServer pid=44) INFO 08-24 04:15:56 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 92.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%, Prefix cache hit rate: 48.1%
+2026-08-24T00:15:56.447313000-04:00 (APIServer pid=44) INFO 08-24 04:15:56 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.75, Current speculative depth: 5, Accepted throughput: 58.90 tokens/s, Drafted throughput: 167.99 tokens/s, Accepted: 589 tokens, Drafted: 1680 tokens, Per-position acceptance rate: 0.685, 0.512, 0.310, 0.155, 0.092, Avg Draft acceptance rate: 35.1%
+2026-08-24T00:15:57.095805000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:58.108026000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:58.757631000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:15:58.851649000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:00.872265000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:00.892041000-04:00 (APIServer pid=44) INFO:     192.168.2.2:34346 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:01.383808000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:01.893430000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:02.403464000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:02.934347000-04:00 (APIServer pid=44) INFO:     192.168.2.2:49398 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:02.955480000-04:00 (APIServer pid=44) INFO:     192.168.2.2:49418 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:02.975756000-04:00 (APIServer pid=44) INFO:     192.168.2.2:49412 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:03.000249000-04:00 (APIServer pid=44) INFO:     192.168.2.2:49432 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:03.416805000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:04.429419000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:04.747505000-04:00 (Worker_TP0 pid=256) WARNING 08-24 04:16:04 [jit_monitor.py:135] Triton kernel JIT compilation during inference: _build_c128a_topk_metadata_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-08-24T00:16:05.439264000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:06.450358000-04:00 (APIServer pid=44) INFO 08-24 04:16:06 [loggers.py:314] Engine 000: Avg prompt throughput: 772.5 tokens/s, Avg generation throughput: 22.9 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 21.4%, Prefix cache hit rate: 50.8%
+2026-08-24T00:16:06.450816000-04:00 (APIServer pid=44) INFO 08-24 04:16:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.80, Current speculative depth: 5, Accepted throughput: 14.60 tokens/s, Drafted throughput: 40.49 tokens/s, Accepted: 146 tokens, Drafted: 405 tokens, Per-position acceptance rate: 0.704, 0.494, 0.333, 0.185, 0.086, Avg Draft acceptance rate: 36.0%
+2026-08-24T00:16:06.450875000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:07.461264000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:08.471348000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:09.482634000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:10.494960000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:11.505808000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:12.519479000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:13.532250000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:14.543307000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:15.555889000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:16.451169000-04:00 (APIServer pid=44) INFO 08-24 04:16:16 [loggers.py:314] Engine 000: Avg prompt throughput: 1159.1 tokens/s, Avg generation throughput: 76.8 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%, Prefix cache hit rate: 50.8%
+2026-08-24T00:16:16.451608000-04:00 (APIServer pid=44) INFO 08-24 04:16:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.61, Current speculative depth: 5, Accepted throughput: 55.30 tokens/s, Drafted throughput: 106.00 tokens/s, Accepted: 553 tokens, Drafted: 1060 tokens, Per-position acceptance rate: 0.844, 0.656, 0.519, 0.344, 0.245, Avg Draft acceptance rate: 52.2%
+2026-08-24T00:16:16.566864000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:17.577853000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:18.591962000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:19.603677000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:20.616589000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:21.628860000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:22.641130000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:23.651967000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:24.662493000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:25.674151000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:26.453590000-04:00 (APIServer pid=44) INFO 08-24 04:16:26 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 102.2 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%, Prefix cache hit rate: 50.8%
+2026-08-24T00:16:26.454241000-04:00 (APIServer pid=44) INFO 08-24 04:16:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.32, Current speculative depth: 5, Accepted throughput: 71.38 tokens/s, Drafted throughput: 153.96 tokens/s, Accepted: 714 tokens, Drafted: 1540 tokens, Per-position acceptance rate: 0.815, 0.614, 0.445, 0.286, 0.159, Avg Draft acceptance rate: 46.4%
+2026-08-24T00:16:26.685817000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:27.696288000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:28.708325000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:29.719948000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:30.731579000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:31.743127000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:32.755205000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:33.765968000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:34.776625000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:35.788292000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:36.456432000-04:00 (APIServer pid=44) INFO 08-24 04:16:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 92.7 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%, Prefix cache hit rate: 50.8%
+2026-08-24T00:16:36.456881000-04:00 (APIServer pid=44) INFO 08-24 04:16:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.09, Current speculative depth: 5, Accepted throughput: 62.68 tokens/s, Drafted throughput: 149.96 tokens/s, Accepted: 627 tokens, Drafted: 1500 tokens, Per-position acceptance rate: 0.790, 0.570, 0.367, 0.240, 0.123, Avg Draft acceptance rate: 41.8%
+2026-08-24T00:16:36.799464000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:37.810301000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:38.820925000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:39.832284000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:40.843368000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:41.853612000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:42.865628000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:43.531963000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:43.589261000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:45.608440000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:45.649549000-04:00 (APIServer pid=44) INFO:     192.168.2.2:51586 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:46.161634000-04:00 (APIServer pid=44) INFO:     192.168.2.2:51590 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:46.213928000-04:00 (APIServer pid=44) INFO:     192.168.2.2:51630 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:46.271451000-04:00 (APIServer pid=44) INFO:     192.168.2.2:51606 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:46.326735000-04:00 (APIServer pid=44) INFO:     192.168.2.2:51622 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:16:46.456649000-04:00 (APIServer pid=44) INFO 08-24 04:16:46 [loggers.py:314] Engine 000: Avg prompt throughput: 9.7 tokens/s, Avg generation throughput: 57.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 52.6%
+2026-08-24T00:16:46.456826000-04:00 (APIServer pid=44) INFO 08-24 04:16:46 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.64, Current speculative depth: 5, Accepted throughput: 35.40 tokens/s, Drafted throughput: 108.00 tokens/s, Accepted: 354 tokens, Drafted: 1080 tokens, Per-position acceptance rate: 0.713, 0.440, 0.241, 0.157, 0.088, Avg Draft acceptance rate: 32.8%
+2026-08-24T00:16:46.621951000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:47.631865000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:48.643003000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:49.653614000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:50.664449000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:51.676368000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:52.686806000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:53.698856000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:54.711427000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:55.723003000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:56.457910000-04:00 (APIServer pid=44) INFO 08-24 04:16:56 [loggers.py:314] Engine 000: Avg prompt throughput: 38.8 tokens/s, Avg generation throughput: 105.0 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.6%, Prefix cache hit rate: 58.7%
+2026-08-24T00:16:56.458770000-04:00 (APIServer pid=44) INFO 08-24 04:16:56 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.42, Current speculative depth: 5, Accepted throughput: 73.99 tokens/s, Drafted throughput: 152.99 tokens/s, Accepted: 740 tokens, Drafted: 1530 tokens, Per-position acceptance rate: 0.814, 0.631, 0.458, 0.294, 0.222, Avg Draft acceptance rate: 48.4%
+2026-08-24T00:16:56.735209000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:57.747096000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:58.760303000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:16:59.772264000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:00.785253000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:01.796028000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:02.807294000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:03.819857000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:04.830142000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:05.840808000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:06.459094000-04:00 (APIServer pid=44) INFO 08-24 04:17:06 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 100.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.6%, Prefix cache hit rate: 58.7%
+2026-08-24T00:17:06.459369000-04:00 (APIServer pid=44) INFO 08-24 04:17:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.31, Current speculative depth: 5, Accepted throughput: 70.09 tokens/s, Drafted throughput: 151.98 tokens/s, Accepted: 701 tokens, Drafted: 1520 tokens, Per-position acceptance rate: 0.849, 0.615, 0.398, 0.270, 0.174, Avg Draft acceptance rate: 46.1%
+2026-08-24T00:17:06.852199000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:07.863230000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:08.874906000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:09.885206000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:10.896748000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:11.908812000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:12.921243000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:13.932131000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:14.942778000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:15.953108000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:16.459431000-04:00 (APIServer pid=44) INFO 08-24 04:17:16 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 89.9 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.7%, Prefix cache hit rate: 58.7%
+2026-08-24T00:17:16.459808000-04:00 (APIServer pid=44) INFO 08-24 04:17:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.88, Current speculative depth: 5, Accepted throughput: 58.70 tokens/s, Drafted throughput: 156.00 tokens/s, Accepted: 587 tokens, Drafted: 1560 tokens, Per-position acceptance rate: 0.763, 0.526, 0.317, 0.179, 0.096, Avg Draft acceptance rate: 37.6%
+2026-08-24T00:17:16.963983000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:17.974882000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:18.985330000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:19.995437000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:20.664834000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:20.684415000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:22.704092000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:22.789563000-04:00 (APIServer pid=44) INFO:     192.168.2.2:54848 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:17:23.231282000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:23.829741000-04:00 (APIServer pid=44) INFO:     192.168.2.2:54866 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:17:23.947557000-04:00 (APIServer pid=44) INFO:     192.168.2.2:54856 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:17:24.082457000-04:00 (APIServer pid=44) INFO:     192.168.2.2:54862 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:17:24.220601000-04:00 (APIServer pid=44) INFO:     192.168.2.2:54876 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:17:24.241773000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:25.253959000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:26.266891000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:26.461225000-04:00 (APIServer pid=44) INFO 08-24 04:17:26 [loggers.py:314] Engine 000: Avg prompt throughput: 121.0 tokens/s, Avg generation throughput: 56.4 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.4%, Prefix cache hit rate: 68.7%
+2026-08-24T00:17:26.461562000-04:00 (APIServer pid=44) INFO 08-24 04:17:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.23, Current speculative depth: 5, Accepted throughput: 38.59 tokens/s, Drafted throughput: 86.49 tokens/s, Accepted: 386 tokens, Drafted: 865 tokens, Per-position acceptance rate: 0.821, 0.584, 0.382, 0.272, 0.173, Avg Draft acceptance rate: 44.6%
+2026-08-24T00:17:27.276895000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:28.285690000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:29.294763000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:30.304569000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:31.315567000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:32.326438000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:33.336290000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:34.346149000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:35.355674000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:36.364927000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:36.463029000-04:00 (APIServer pid=44) INFO 08-24 04:17:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 98.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.4%, Prefix cache hit rate: 68.7%
+2026-08-24T00:17:36.463362000-04:00 (APIServer pid=44) INFO 08-24 04:17:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.12, Current speculative depth: 5, Accepted throughput: 66.89 tokens/s, Drafted throughput: 157.97 tokens/s, Accepted: 669 tokens, Drafted: 1580 tokens, Per-position acceptance rate: 0.756, 0.560, 0.383, 0.259, 0.158, Avg Draft acceptance rate: 42.3%
+2026-08-24T00:17:37.375023000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:38.384836000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:39.395582000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:40.407018000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:41.419009000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:42.430522000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:43.440004000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:44.449750000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:45.462089000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:46.464655000-04:00 (APIServer pid=44) INFO 08-24 04:17:46 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 91.3 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.4%, Prefix cache hit rate: 68.7%
+2026-08-24T00:17:46.465629000-04:00 (APIServer pid=44) INFO 08-24 04:17:46 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.00, Current speculative depth: 5, Accepted throughput: 60.89 tokens/s, Drafted throughput: 151.99 tokens/s, Accepted: 609 tokens, Drafted: 1520 tokens, Per-position acceptance rate: 0.793, 0.533, 0.345, 0.214, 0.118, Avg Draft acceptance rate: 40.1%
+2026-08-24T00:17:46.471950000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:47.483994000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:48.492854000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:49.502748000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:50.513631000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:51.525142000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:52.534851000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:53.545094000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:54.556163000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:55.565639000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:56.465543000-04:00 (APIServer pid=44) INFO 08-24 04:17:56 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 94.4 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.4%, Prefix cache hit rate: 68.7%
+2026-08-24T00:17:56.465996000-04:00 (APIServer pid=44) INFO 08-24 04:17:56 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.06, Current speculative depth: 5, Accepted throughput: 63.59 tokens/s, Drafted throughput: 153.98 tokens/s, Accepted: 636 tokens, Drafted: 1540 tokens, Per-position acceptance rate: 0.779, 0.555, 0.393, 0.231, 0.107, Avg Draft acceptance rate: 41.3%
+2026-08-24T00:17:56.575895000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:57.588087000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:58.285522000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:17:58.321360000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:00.342435000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:00.553470000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55188 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:18:00.853580000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:01.573295000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55214 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:18:01.866394000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:01.887118000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55228 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:18:02.211032000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55204 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:18:02.558039000-04:00 (APIServer pid=44) INFO:     192.168.2.2:55226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-08-24T00:18:02.878655000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:03.890960000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:04.902820000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:05.914812000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:06.466406000-04:00 (APIServer pid=44) INFO 08-24 04:18:06 [loggers.py:314] Engine 000: Avg prompt throughput: 388.0 tokens/s, Avg generation throughput: 52.1 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.9%, Prefix cache hit rate: 78.7%
+2026-08-24T00:18:06.466680000-04:00 (APIServer pid=44) INFO 08-24 04:18:06 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.69, Current speculative depth: 5, Accepted throughput: 37.60 tokens/s, Drafted throughput: 70.00 tokens/s, Accepted: 376 tokens, Drafted: 700 tokens, Per-position acceptance rate: 0.900, 0.679, 0.500, 0.343, 0.264, Avg Draft acceptance rate: 53.7%
+2026-08-24T00:18:06.925171000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:07.936518000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:08.947964000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:09.961293000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:10.973918000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:11.986483000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:12.999749000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:14.011234000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:15.023610000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:16.037016000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:16.468036000-04:00 (APIServer pid=44) INFO 08-24 04:18:16 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 100.4 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.0%, Prefix cache hit rate: 78.7%
+2026-08-24T00:18:16.468368000-04:00 (APIServer pid=44) INFO 08-24 04:18:16 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.30, Current speculative depth: 5, Accepted throughput: 69.99 tokens/s, Drafted throughput: 151.98 tokens/s, Accepted: 700 tokens, Drafted: 1520 tokens, Per-position acceptance rate: 0.829, 0.592, 0.424, 0.289, 0.168, Avg Draft acceptance rate: 46.1%
+2026-08-24T00:18:17.049693000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:18.061286000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:19.078987000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:20.089962000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:21.103121000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:22.114574000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:23.125851000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:24.137720000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:25.150426000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:26.164037000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:26.469144000-04:00 (APIServer pid=44) INFO 08-24 04:18:26 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 85.0 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.0%, Prefix cache hit rate: 78.7%
+2026-08-24T00:18:26.469687000-04:00 (APIServer pid=44) INFO 08-24 04:18:26 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 2.87, Current speculative depth: 5, Accepted throughput: 55.39 tokens/s, Drafted throughput: 147.98 tokens/s, Accepted: 554 tokens, Drafted: 1480 tokens, Per-position acceptance rate: 0.764, 0.517, 0.331, 0.166, 0.095, Avg Draft acceptance rate: 37.4%
+2026-08-24T00:18:27.176075000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:28.189231000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:29.200253000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:30.212731000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:31.224012000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:32.236676000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:33.249453000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:34.261937000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:35.272453000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:36.282741000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:36.470691000-04:00 (APIServer pid=44) INFO 08-24 04:18:36 [loggers.py:314] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 91.3 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.0%, Prefix cache hit rate: 78.7%
+2026-08-24T00:18:36.470971000-04:00 (APIServer pid=44) INFO 08-24 04:18:36 [metrics.py:125] SpecDecoding metrics: Mean acceptance length: 3.31, Current speculative depth: 5, Accepted throughput: 63.69 tokens/s, Drafted throughput: 137.98 tokens/s, Accepted: 637 tokens, Drafted: 1380 tokens, Per-position acceptance rate: 0.826, 0.594, 0.406, 0.293, 0.188, Avg Draft acceptance rate: 46.2%
+2026-08-24T00:18:37.292161000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:37.936566000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
+2026-08-24T00:18:38.027894000-04:00 (APIServer pid=44) INFO:     192.168.2.2:57170 - "GET /metrics HTTP/1.1" 200 OK
