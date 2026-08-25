@@ -1,0 +1,6 @@
+probe prompt: 85 templated tokens (target 6)
+50/200 trials, 0 corrupt
+100/200 trials, 0 corrupt
+150/200 trials, 0 corrupt
+200/200 trials, 0 corrupt
+RESULT: 0/200 corruption-signature hits under 3-stream load (width 6)

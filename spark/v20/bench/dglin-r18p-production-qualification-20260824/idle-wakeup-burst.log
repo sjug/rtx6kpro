@@ -1,0 +1,4 @@
+[r18p-dglin-idle-wakeup] cc1: 42.9 tok/s aggregate (42.9/user)
+[r18p-dglin-idle-wakeup] cc2: 71.2 tok/s aggregate (35.6/user)
+[r18p-dglin-idle-wakeup] cc4: 110.5 tok/s aggregate (27.6/user)
+{"r18p-dglin-idle-wakeup": {"cc1": 42.9, "cc2": 71.2, "cc4": 110.5}}

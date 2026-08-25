@@ -1,0 +1,7 @@
+n=20300 -> templated prompt tokens=547223
+n=19271 -> templated prompt tokens=519440
+sending: prompt=519440, max_tokens=4848 (total exactly 524,288)
+status=200 time=346.4s prompt_tokens=519440 completion_tokens=25 finish=stop
+answer: 7391
+NEEDLE: PASS
+CAP+1: PASS status=400 time=1.0s detail={"error": {"message": "This model's maximum context length is 524288 tokens. However, you requested 4849 output tokens and your prompt contains at least 519440 input tokens, for a total of at least 524289 tokens. Please reduce the length of

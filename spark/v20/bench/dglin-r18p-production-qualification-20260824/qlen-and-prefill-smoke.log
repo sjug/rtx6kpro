@@ -1,0 +1,5 @@
+model: DeepSeek-V4-Flash-0731
+repro A: {'content': None, 'reasoning': 'We need answer simple. Need list primes', 'finish': 'length', 'completion_tokens': 8, 'prompt_tokens': 97}
+repro B prompt: 8202 tokens (579 components)
+repro B: {'content': '579', 'reasoning': 'We need answer count. Need parse. User lists Component 0 through 578 inclusive. ...', 'finish': 'stop', 'completion_tokens': 35, 'prompt_tokens': 8202}
+ENGINE ALIVE, both reproducers complete -> spark/v20/bench/dglin-r18p-production-qualification-20260824/qlen-and-prefill-smoke.json
