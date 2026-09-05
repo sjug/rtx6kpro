@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "name": "glm53-jj-r22-spark-sm121",
+  "scope": "Exact JJ r22 sources for GLM-5.3 Flash and Qwen3.8 Flash Next plus the minimum SM121 vLLM architecture overlay and three newer B12X correctness and RoCEnante commits",
+  "published_r22": {
+    "image": "voipmonitor/vllm:jovian-judgement-community-20260904-r22",
+    "digest": "sha256:284784e685aa0377f1cf63a312a364fc884b02beb98949d6886624edbddb3806",
+    "source_lock_sha256": "57789f330528d65c80f4ffac208beb63617b6c6ab1e077056b2a0fe992e997d8"
+  },
+  "native_artifact_base": {
+    "image": "localhost/voipmonitor/vllm:glm53-jj-r17-stock-spark-sm121-vllmbd8e2ab-b12x5ee3a5a-lmcachec867e17-cu133-torch213-20260903-r1-dev",
+    "image_id": "1e2051dade83f41fa46ee7d1dd4432c1a3e2cf0ca50dd21b5b892b597a4fcb68",
+    "vllm_spark_tree": "6ba304782a948408612c2aa8e468ea51f6da398c",
+    "vllm_package_tree": "bd8e2ab97002642a0512d1b80893d6a9a2f26a01",
+    "b12x_tree": "3c30f0fd7c6c77bdaef6132439db8b51b81f958e",
+    "b12x_package_tree": "5ee3a5a8b79b1325f4b25709bcf17ca05f6f9e94"
+  },
+  "vllm": {
+    "repository": "https://github.com/local-inference-lab/vllm.git",
+    "r22_source_branch": "artifact/jovian-judgement-community-20260904-r22-source",
+    "r22_integration_commit": "70b3c1c7f1c76fcf0847fcbb4a0b8b5583b78d19",
+    "r22_integration_tree": "89481110674c08be1759a9222c525a0be14ad52a",
+    "package_tree": "4fbb1c257ac59e5e68450655ad4061d2c8a05e5c",
+    "spark_tree": "997f08f583f1439363939f592c54980d584bc4c7",
+    "spark_overlay": "CUDA 13.x supported-architecture lists admit 12.1; package subtree is unchanged",
+    "refresh_patch": "patches/vllm/r17-spark-to-r22-spark.patch",
+    "refresh_patch_sha256": "41a264f26864f29f1190f03cc079c99274a9c64a969f15726ed5757c35af4163",
+    "changed_paths": "patches/vllm/changed-paths.txt",
+    "changed_paths_sha256": "9309758102ce50c70abf9ccfe8f793fb4be60bd3b9748ce1fb7aa62372f43ac7",
+    "changed_paths_count": 77,
+    "flashkda_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "flashkda_tree": "e8cf226562e56d0817462de76a614d32a83409ef",
+    "flashkda_cutlass_commit": "5c149f52a436782210263fb2f19b354443a61c6a"
+  },
+  "b12x": {
+    "repository": "https://github.com/local-inference-lab/b12x.git",
+    "r22_source_branch": "artifact/jovian-judgement-community-20260903-r20-source",
+    "r22_integration_commit": "1e59a1fd09f782d302b1068b15c8a0bd66103894",
+    "r22_integration_tree": "f322c804eec1c58a63bd4fe6e7901a95a678a575",
+    "r22_package_tree": "aaa5f189acae0206d886553421f6e9044f4c458a",
+    "selected_commits": [
+      "aa90a277a61f9ded46c0f504e37a955b7706659b",
+      "1a7e3ec286b0ff0b7c2aabee22dce08daab7e011",
+      "9ae41c5cb9935d740456479954b0089f80bd2ef2"
+    ],
+    "integration_tree": "8ad308af020b9d176f7d1b3767c5404acf384ef3",
+    "package_tree": "e1edb6d11c9b760d4a0d3fdf05f8b6646479d551",
+    "refresh_patch": "patches/b12x/r17-to-r22-spark.patch",
+    "refresh_patch_sha256": "742ec6436fae329e591e353a5fb3a656b5db63e6be632c473dbab731f7912f35",
+    "changed_paths": "patches/b12x/changed-paths.txt",
+    "changed_paths_sha256": "e8ed0524d79edf072eec4b2f65aaf490783f0b82b1251f9c752f8d7695e24eef",
+    "changed_paths_count": 96,
+    "rocenante_api_version": 1,
+    "rocenante_proxy_abi": 3,
+    "rocenante_proxy_cache_dir": "/opt/jovian-judgement/b12x-roce"
+  },
+  "lmcache": {
+    "repository": "https://github.com/local-inference-lab/LMCache.git",
+    "published_release_commit": "aefe3ab701ab7a835532e701be89f5055b13ec0f",
+    "acquisition_commit": "b13fa35eb2a1e35ba2cfd4277a0b93bf1cfd322b",
+    "tree": "683ab2c165a9aa0e2d1a1ab757af4a8b193688c5",
+    "package_tree": "976a97f22c0497f34db089dc5f02a713dd0b5888",
+    "version": "0.5.5.dev0+glm53cache.aefe3ab7",
+    "build_arch": "12.1a",
+    "default": "disabled"
+  },
+  "model": {
+    "repository": "local-inference-lab/GLM-5.3-Flash-NVFP4",
+    "revision": "2e8b6daeb2be8716c06b54d746d12e581e551cca",
+    "draft_repository": "local-inference-lab/GLM-5.3-Flash-DFlash2",
+    "draft_revision": "aea0ac8a05624512ca9e106c09c16087da998426"
+  },
+  "qwen38_model": {
+    "repository": "local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89",
+    "revision": "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d",
+    "max_position_embeddings": 262144
+  }
+}
