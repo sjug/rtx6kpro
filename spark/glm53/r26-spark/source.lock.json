@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "name": "glm53-jj-r26-spark-sm121",
+  "scope": "Exact JJ r26 sources for GLM-5.3 Flash and Qwen3.8 Flash Next, derived from the qualified r22 Spark image with SM121 vLLM overlays and an SM121 LMCache rebuild",
+  "published_r26": {
+    "image": "voipmonitor/vllm:jovian-judgement-community-20260905-r26",
+    "digest": "sha256:d0592ea9d73cac5aadb151a58bbb43cf7aff03829d46bb4f4ba7396aaef67c68",
+    "source_lock": "models/glm-5.3-flash/build/glm53-jovian-judgement-community-20260905-r26.source.lock",
+    "source_lock_sha256": "bced2847d40e650a145d7060d614bcf77de7df5d8a1d2db1a64c7bcaa338217a"
+  },
+  "native_artifact_base": {
+    "image": "localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1",
+    "image_id": "907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a",
+    "vllm_spark_tree": "997f08f583f1439363939f592c54980d584bc4c7",
+    "vllm_package_tree": "4fbb1c257ac59e5e68450655ad4061d2c8a05e5c",
+    "b12x_tree": "8ad308af020b9d176f7d1b3767c5404acf384ef3",
+    "b12x_package_tree": "e1edb6d11c9b760d4a0d3fdf05f8b6646479d551",
+    "flashkda_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "flashkda_sha256": "484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116"
+  },
+  "vllm": {
+    "repository": "https://github.com/local-inference-lab/vllm.git",
+    "base_commit": "f564dffe9a6625ae3d87706530ce35974f1d2989",
+    "r26_integration_repository": "https://github.com/voipmonitor/vllm.git",
+    "r26_source_branch": "integration/glm53-r26-current-head-20260905",
+    "r26_integration_commit": "7f53b30481b4110f293521d09f7af18f9e8f9d9e",
+    "r26_integration_tree": "c861b31da5cf527d96b5772a6709450b23c93a6f",
+    "r26_package_tree": "3d98f6ebfaabf06309c9a5d3a7fbd469747aa5e1",
+    "pull_requests": [619, 573, 571, 572, 642, 552, 558, 553],
+    "spark_tree": "d4571e5ba189fcc05534ecae88dee763ffef4e35",
+    "spark_package_tree": "59c9787400c85d5d4547ef898c5dee41804e7088",
+    "spark_overlay": "CUDA 13.x architecture lists admit 12.1 and the GLM NVFP4 MTP proposal head admits qualified SM120 and SM121 devices",
+    "refresh_patch": "patches/vllm/r22-spark-to-r26-spark.patch",
+    "refresh_patch_sha256": "b0495e2f24ece8e3c67e1497f634bb388ec5ce9600f6f9604b1a591118e0523c",
+    "changed_paths": "patches/vllm/changed-paths.txt",
+    "changed_paths_sha256": "d21527d47294311125351cb12d2afe781b66b3ba2b5a45d6c3305b082064b428",
+    "changed_paths_count": 92,
+    "flashkda_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b"
+  },
+  "b12x": {
+    "repository": "https://github.com/local-inference-lab/b12x.git",
+    "base_commit": "613cfd9bbc542e2a7a9e5e216d1f62a8becda87f",
+    "r26_integration_repository": "https://github.com/voipmonitor/b12x.git",
+    "r26_source_branch": "integration/glm53-r26-current-head-20260905",
+    "r26_integration_commit": "60dbc57098a3abff60cbf6048bcf8784c117feaf",
+    "r26_integration_tree": "c20b6aab67ed791cc226ee91de23f7c45509f436",
+    "r26_package_tree": "00248b09689830e55d8fbce8ee630600b63ef663",
+    "pull_requests": [316, 267, 268, 269, 270, 272, 273, 278, 279, 280],
+    "refresh_patch": "patches/b12x/r22-spark-to-r26-spark.patch",
+    "refresh_patch_sha256": "f4f4bd47377472088fe7dbf7800446f38a911e1136c52894a9cc3f7431d4b9aa",
+    "changed_paths": "patches/b12x/changed-paths.txt",
+    "changed_paths_sha256": "67579300c56df00995d7e266c7c0a0a7d58c9506bb4de360bab5056ce4c83bf9",
+    "changed_paths_count": 104,
+    "rocenante_api_version": 1,
+    "rocenante_proxy_abi": 3,
+    "rocenante_proxy_cache_dir": "/opt/jovian-judgement/b12x-roce"
+  },
+  "lmcache": {
+    "repository": "https://github.com/local-inference-lab/LMCache.git",
+    "base_commit": "7ed4675404a31f4ffafd98975899dc83832ba965",
+    "r26_integration_commit": "822330db1160d2847538d53f9e6f4eeee2404f4d",
+    "acquisition_commit": "63919a2c6c310f9b34de7049b9b28b77fab13ca0",
+    "integration_tree": "008ac3e09ae5917aa0849147480d7bd5b9f8b37a",
+    "package_tree": "fe5442fbf258accaa7f26d2bbb00d8b7b5c349ca",
+    "version": "0.5.5.dev0+glm53cache.engine.822330db",
+    "pull_requests": [49, 50, 51],
+    "build_arch": "12.1a",
+    "default": "disabled"
+  },
+  "model": {
+    "repository": "local-inference-lab/GLM-5.3-Flash-NVFP4",
+    "revision": "46aaae8a82032f77100f2f03e9cc11b391df3b4d",
+    "draft_repository": "local-inference-lab/GLM-5.3-Flash-DFlash2",
+    "draft_revision_policy": "huggingface-main"
+  },
+  "qwen38_model": {
+    "repository": "local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89",
+    "revision": "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d",
+    "max_position_embeddings": 262144
+  }
+}

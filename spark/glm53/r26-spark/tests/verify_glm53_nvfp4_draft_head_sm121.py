@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""Exercise the R26 GLM NVFP4 proposal head on a physical SM121 GPU."""
+
+from __future__ import annotations
+
+import torch
+import torch.nn.functional as F
+
+from vllm.models.glm5next.nvidia.mtp_draft_head import (
+    QuantizedDraftHead,
+    supports_nvfp4_draft_head,
+)
+
+
+def main() -> None:
+    assert torch.cuda.is_available()
+    device = torch.device("cuda", 0)
+    capability = torch.cuda.get_device_capability(device)
+    assert capability == (12, 1), capability
+    assert supports_nvfp4_draft_head(capability)
+
+    generator = torch.Generator().manual_seed(26)
+    source = torch.nn.Linear(
+        4096, 8192, bias=False, device=device, dtype=torch.bfloat16
+    )
+    source.tp_size = 4
+    source.shard_indices = object()
+    with torch.no_grad():
+        source.weight.copy_(
+            torch.randn(
+                source.weight.shape,
+                generator=generator,
+                dtype=torch.float32,
+            ).to(device=device, dtype=torch.bfloat16)
+            / 64.0
+        )
+
+    draft = QuantizedDraftHead(source, "nvfp4")
+    assert (
+        0 < draft.storage_bytes < source.weight.numel() * source.weight.element_size()
+    )
+
+    for rows in (1, 4, 32):
+        hidden = torch.randn(
+            (rows, source.in_features), generator=generator, dtype=torch.float32
+        ).to(device=device, dtype=torch.bfloat16)
+        reference = F.linear(hidden, source.weight)
+        actual = draft(hidden)
+        torch.cuda.synchronize(device)
+
+        assert actual.shape == reference.shape
+        assert torch.isfinite(actual).all()
+        actual_f32 = actual.float()
+        reference_f32 = reference.float()
+        relative_rmse = (
+            torch.linalg.vector_norm(actual_f32 - reference_f32)
+            / torch.linalg.vector_norm(reference_f32)
+        ).item()
+        cosine = F.cosine_similarity(
+            actual_f32.flatten(), reference_f32.flatten(), dim=0
+        ).item()
+        assert relative_rmse < 0.20, (rows, relative_rmse)
+        assert cosine > 0.98, (rows, cosine)
+        print(
+            f"rows={rows} relative_rmse={relative_rmse:.6f} cosine={cosine:.6f}",
+            flush=True,
+        )
+
+    print("GLM R26 NVFP4 proposal head SM121: PASS", flush=True)
+
+
+if __name__ == "__main__":
+    main()

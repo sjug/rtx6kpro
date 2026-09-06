@@ -1,0 +1,256 @@
+# syntax=docker/dockerfile:1.7
+
+ARG BASE_IMAGE=localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1
+
+FROM ${BASE_IMAGE} AS lmcache-builder
+
+ARG LMCACHE_REPO=https://github.com/local-inference-lab/LMCache.git
+ARG LMCACHE_ACQUISITION_COMMIT=63919a2c6c310f9b34de7049b9b28b77fab13ca0
+ARG LMCACHE_TREE=008ac3e09ae5917aa0849147480d7bd5b9f8b37a
+ARG LMCACHE_PACKAGE_TREE=fe5442fbf258accaa7f26d2bbb00d8b7b5c349ca
+ARG LMCACHE_VERSION=0.5.5.dev0+glm53cache.engine.822330db
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV TORCH_CUDA_ARCH_LIST=12.1a \
+    CMAKE_CUDA_ARCHITECTURES=121a \
+    BUILD_WITH_CUDA=1 \
+    ENABLE_CXX11_ABI=1 \
+    LMCACHE_CUDA_MAJOR=13 \
+    MAX_JOBS=8 \
+    NVCC_THREADS=2
+
+# PR 51's public head is the acquisition commit for the exact locked R26
+# repository and package trees. Both identities are checked before compilation.
+RUN set -eux; \
+    git clone --filter=blob:none --no-checkout "${LMCACHE_REPO}" /tmp/lmcache-src; \
+    git -C /tmp/lmcache-src fetch --depth=1 origin "${LMCACHE_ACQUISITION_COMMIT}"; \
+    git -C /tmp/lmcache-src checkout --detach "${LMCACHE_ACQUISITION_COMMIT}"; \
+    test "$(git -C /tmp/lmcache-src write-tree)" = "${LMCACHE_TREE}"; \
+    test "$(git -C /tmp/lmcache-src rev-parse "${LMCACHE_TREE}:lmcache")" = "${LMCACHE_PACKAGE_TREE}"; \
+    make -C /tmp/lmcache-src/csrc/cumem_ipc_interposer CUDA_HOME=/usr/local/cuda; \
+    test -s /tmp/lmcache-src/csrc/cumem_ipc_interposer/liblmcache_cumem_shareable.so; \
+    cd /tmp/lmcache-src; \
+    SETUPTOOLS_SCM_PRETEND_VERSION_FOR_LMCACHE="${LMCACHE_VERSION}" \
+      python -m pip wheel --no-build-isolation --no-deps -w /tmp/lmcache-wheel .; \
+    test "$(find /tmp/lmcache-wheel -maxdepth 1 -type f -name 'lmcache-*.whl' | wc -l)" = 1; \
+    python -m pip install --no-deps --force-reinstall /tmp/lmcache-wheel/lmcache-*.whl; \
+    cd /; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("lmcache"))')" = "${LMCACHE_VERSION}"; \
+    python -c 'import lmcache.cuda_ops, lmcache.lmcache_fs, lmcache.lmcache_native, lmcache.lmcache_redis'
+
+FROM ${BASE_IMAGE}
+
+ARG BASE_IMAGE
+ARG BASE_IMAGE_ID
+ARG BASE_VLLM_SPARK_TREE=997f08f583f1439363939f592c54980d584bc4c7
+ARG BASE_VLLM_PACKAGE_TREE=4fbb1c257ac59e5e68450655ad4061d2c8a05e5c
+ARG BASE_B12X_TREE=8ad308af020b9d176f7d1b3767c5404acf384ef3
+ARG BASE_B12X_PACKAGE_TREE=e1edb6d11c9b760d4a0d3fdf05f8b6646479d551
+ARG VLLM_R26_COMMIT=7f53b30481b4110f293521d09f7af18f9e8f9d9e
+ARG VLLM_R26_TREE=c861b31da5cf527d96b5772a6709450b23c93a6f
+ARG VLLM_R26_PACKAGE_TREE=3d98f6ebfaabf06309c9a5d3a7fbd469747aa5e1
+ARG VLLM_PACKAGE_TREE=59c9787400c85d5d4547ef898c5dee41804e7088
+ARG VLLM_SPARK_TREE=d4571e5ba189fcc05534ecae88dee763ffef4e35
+ARG VLLM_REFRESH_PATCH_SHA256
+ARG VLLM_CHANGED_PATHS_SHA256
+ARG VLLM_PACKAGE_VERSION
+ARG FLASHKDA_COMMIT=3b225bf26bb8e218928a1fe14751cb48cf31d11b
+ARG FLASHKDA_SHA256=484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116
+ARG B12X_R26_COMMIT=60dbc57098a3abff60cbf6048bcf8784c117feaf
+ARG B12X_TREE=c20b6aab67ed791cc226ee91de23f7c45509f436
+ARG B12X_PACKAGE_TREE=00248b09689830e55d8fbce8ee630600b63ef663
+ARG B12X_REFRESH_PATCH_SHA256
+ARG B12X_CHANGED_PATHS_SHA256
+ARG B12X_ROCE_API_VERSION=1
+ARG B12X_ROCE_PROXY_ABI=3
+ARG LMCACHE_R26_COMMIT=822330db1160d2847538d53f9e6f4eeee2404f4d
+ARG LMCACHE_ACQUISITION_COMMIT=63919a2c6c310f9b34de7049b9b28b77fab13ca0
+ARG LMCACHE_TREE=008ac3e09ae5917aa0849147480d7bd5b9f8b37a
+ARG LMCACHE_PACKAGE_TREE=fe5442fbf258accaa7f26d2bbb00d8b7b5c349ca
+ARG LMCACHE_VERSION=0.5.5.dev0+glm53cache.engine.822330db
+ARG SOURCE_LOCK_SHA256
+ARG RELEASE_NAME
+ARG RELEASE_DATE
+ARG DOCKER_COMMIT
+ARG RECIPE_SHA256
+ARG RELEASE_STATUS=research-only
+ARG CACHE_FINGERPRINT
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV LMCACHE_ENABLED=0 \
+    LMCACHE_CUMEM_INTERPOSER=/opt/lmcache/lib/liblmcache_cumem_shareable.so \
+    LOCAL_INFERENCE_CACHE_FINGERPRINT=${CACHE_FINGERPRINT} \
+    XDG_CACHE_HOME=/cache/jit/${CACHE_FINGERPRINT} \
+    VLLM_CACHE_ROOT=/cache/jit/${CACHE_FINGERPRINT}/vllm \
+    VLLM_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/vllm \
+    TRITON_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/triton \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/torchinductor \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/cute-dsl \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/cute \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile \
+    B12X_ROCE_CACHE_DIR=/opt/jovian-judgement/b12x-roce
+
+COPY patches/vllm/r22-spark-to-r26-spark.patch /tmp/vllm-refresh.patch
+COPY patches/vllm/changed-paths.txt /tmp/vllm-changed-paths.expected
+COPY patches/b12x/r22-spark-to-r26-spark.patch /tmp/b12x-refresh.patch
+COPY patches/b12x/changed-paths.txt /tmp/b12x-changed-paths.expected
+
+RUN set -eux; \
+    vllm_root=/opt/jovian-judgement/vllm; \
+    b12x_root=/opt/jovian-judgement/b12x; \
+    site_packages="$(python -c 'import site; print(site.getsitepackages()[0])')"; \
+    triton_source="${vllm_root}/vllm/third_party/triton_kernels"; \
+    triton_link="${site_packages}/triton_kernels"; \
+    test "$(git -C "${vllm_root}" write-tree)" = "${BASE_VLLM_SPARK_TREE}"; \
+    test "$(git -C "${vllm_root}" rev-parse "${BASE_VLLM_SPARK_TREE}:vllm")" = "${BASE_VLLM_PACKAGE_TREE}"; \
+    test "$(git -C "${b12x_root}" write-tree)" = "${BASE_B12X_TREE}"; \
+    test "$(git -C "${b12x_root}" rev-parse "${BASE_B12X_TREE}:b12x")" = "${BASE_B12X_PACKAGE_TREE}"; \
+    test "$(find "${vllm_root}/vllm" -type f -name '*.abi3.so' | wc -l)" = 10; \
+    test -f "${vllm_root}/vllm/_flashkda_C.abi3.so"; \
+    test -L "${triton_link}"; \
+    test "$(readlink -f "${triton_link}")" = "$(readlink -f "${triton_source}")"; \
+    preserved_manifest() { \
+      find "${vllm_root}/vllm" -type f \( \
+        -name '*.abi3.so' -o -name 'vllm-rs' -o \
+        -path '*/vllm_flash_attn/cute/*' -o \
+        -path '*/vllm_flash_attn/layers/*' -o \
+        -path '*/vllm_flash_attn/ops/*' -o \
+        -path '*/third_party/triton_kernels/*' \
+      \) ! -path '*/__pycache__/*' ! -name '*.pyc' -print0 \
+        | LC_ALL=C sort -z | xargs -0 sha256sum; \
+      printf 'triton-link %s\n' "$(readlink -f "${triton_link}")"; \
+    }; \
+    preserved_manifest > /tmp/build-products.before; \
+    test "$(sha256sum "${vllm_root}/vllm/_flashkda_C.abi3.so" | cut -d' ' -f1)" = "${FLASHKDA_SHA256}"; \
+    echo "${VLLM_REFRESH_PATCH_SHA256}  /tmp/vllm-refresh.patch" | sha256sum -c -; \
+    echo "${VLLM_CHANGED_PATHS_SHA256}  /tmp/vllm-changed-paths.expected" | sha256sum -c -; \
+    echo "${B12X_REFRESH_PATCH_SHA256}  /tmp/b12x-refresh.patch" | sha256sum -c -; \
+    echo "${B12X_CHANGED_PATHS_SHA256}  /tmp/b12x-changed-paths.expected" | sha256sum -c -; \
+    git -C "${vllm_root}" apply /tmp/vllm-refresh.patch; \
+    git -C "${vllm_root}" add -A; \
+    test "$(git -C "${vllm_root}" write-tree)" = "${VLLM_SPARK_TREE}"; \
+    test "$(git -C "${vllm_root}" rev-parse "${VLLM_SPARK_TREE}:vllm")" = "${VLLM_PACKAGE_TREE}"; \
+    git -C "${vllm_root}" diff --name-only --no-renames "${BASE_VLLM_SPARK_TREE}" "${VLLM_SPARK_TREE}" | LC_ALL=C sort > /tmp/vllm-changed-paths.actual; \
+    cmp /tmp/vllm-changed-paths.expected /tmp/vllm-changed-paths.actual; \
+    while IFS= read -r path; do \
+      case "${path}" in *.py|*.sh|*.cmake|*.md) ;; *) echo "R26 vLLM refresh rejects ${path}" >&2; exit 1 ;; esac; \
+    done < /tmp/vllm-changed-paths.actual; \
+    git -C "${b12x_root}" apply /tmp/b12x-refresh.patch; \
+    git -C "${b12x_root}" add -A; \
+    test "$(git -C "${b12x_root}" write-tree)" = "${B12X_TREE}"; \
+    test "$(git -C "${b12x_root}" rev-parse "${B12X_TREE}:b12x")" = "${B12X_PACKAGE_TREE}"; \
+    git -C "${b12x_root}" diff --name-only --no-renames "${BASE_B12X_TREE}" "${B12X_TREE}" | LC_ALL=C sort > /tmp/b12x-changed-paths.actual; \
+    cmp /tmp/b12x-changed-paths.expected /tmp/b12x-changed-paths.actual; \
+    while IFS= read -r path; do \
+      case "${path}" in *.py|*.c|*.md|*.json|*.json.gz|*.txt|*.toml|*.sh) ;; *) echo "R26 B12X refresh rejects ${path}" >&2; exit 1 ;; esac; \
+    done < /tmp/b12x-changed-paths.actual; \
+    ! grep -Fq 'scale_physical_base[:, -1].fill_(127)' "${b12x_root}/b12x/gemm/blockscaled/_linear.py"; \
+    grep -Fq 'Persistent CTAs also reuse sC across multiple stores.' "${b12x_root}/b12x/_lib/dense_gemm.py"; \
+    cd "${vllm_root}"; \
+    VLLM_TARGET_DEVICE=empty VLLM_REQUIRE_RUST_FRONTEND=1 VLLM_VERSION_OVERRIDE="${VLLM_PACKAGE_VERSION}" \
+      python -m pip install --no-build-isolation --no-deps --force-reinstall .; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("vllm"))')" = "${VLLM_PACKAGE_VERSION}"; \
+    git -C "${vllm_root}" diff --quiet; \
+    git -C "${b12x_root}" diff --quiet; \
+    preserved_manifest > /tmp/build-products.after-source; \
+    cmp /tmp/build-products.before /tmp/build-products.after-source; \
+    test "$(readlink -f "${triton_link}")" = "$(readlink -f "${triton_source}")"
+
+COPY --from=lmcache-builder /tmp/lmcache-wheel/ /tmp/lmcache-wheel/
+COPY --from=lmcache-builder /tmp/lmcache-src/csrc/cumem_ipc_interposer/liblmcache_cumem_shareable.so /opt/lmcache/lib/liblmcache_cumem_shareable.so
+
+RUN set -eux; \
+    vllm_root=/opt/jovian-judgement/vllm; \
+    test "$(sha256sum "${vllm_root}/vllm/_flashkda_C.abi3.so" | cut -d' ' -f1)" = "${FLASHKDA_SHA256}"; \
+    ldd "${vllm_root}/vllm/_flashkda_C.abi3.so" | tee /tmp/flashkda.ldd; \
+    ! grep -Fq 'not found' /tmp/flashkda.ldd; \
+    python -m pip install --no-deps --force-reinstall /tmp/lmcache-wheel/lmcache-*.whl; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("lmcache"))')" = "${LMCACHE_VERSION}"; \
+    test -s "${LMCACHE_CUMEM_INTERPOSER}"; \
+    ldd "${LMCACHE_CUMEM_INTERPOSER}" | tee /tmp/lmcache.ldd; \
+    ! grep -Fq 'not found' /tmp/lmcache.ldd; \
+    cd /; \
+    python -c 'import lmcache.cuda_ops, lmcache.lmcache_fs, lmcache.lmcache_native, lmcache.lmcache_redis'; \
+    preserved_manifest() { \
+      find "${vllm_root}/vllm" -type f \( \
+        -name '*.abi3.so' -o -name 'vllm-rs' -o \
+        -path '*/vllm_flash_attn/cute/*' -o \
+        -path '*/vllm_flash_attn/layers/*' -o \
+        -path '*/vllm_flash_attn/ops/*' -o \
+        -path '*/third_party/triton_kernels/*' \
+      \) ! -path '*/__pycache__/*' ! -name '*.pyc' -print0 \
+        | LC_ALL=C sort -z | xargs -0 sha256sum; \
+      printf 'triton-link %s\n' "$(readlink -f "$(python -c 'import site; print(site.getsitepackages()[0])')/triton_kernels")"; \
+    }; \
+    preserved_manifest > /tmp/build-products.after; \
+    cmp /tmp/build-products.before /tmp/build-products.after; \
+    proxy_source=/opt/jovian-judgement/b12x/b12x/comm/roce/_roce_proxy.c; \
+    proxy_digest="$(sha256sum "${proxy_source}" | cut -c1-16)"; \
+    proxy_so="${B12X_ROCE_CACHE_DIR}/roce_proxy-${proxy_digest}.so"; \
+    test "$(python -c 'from b12x.comm import roce; print(roce.API_VERSION)')" = "${B12X_ROCE_API_VERSION}"; \
+    python -c 'from b12x.comm.roce._proxy import load; load()'; \
+    test -s "${proxy_so}"; \
+    test "$(python -c 'from b12x.comm.roce._proxy import load; print(load().roce_abi_version())')" = "${B12X_ROCE_PROXY_ABI}"; \
+    ldd "${proxy_so}" | tee /tmp/roce-proxy.ldd; \
+    ! grep -Fq 'not found' /tmp/roce-proxy.ldd; \
+    CC=/bin/false python -c 'from b12x.comm.roce._proxy import load; load()'; \
+    rm -rf /tmp/lmcache-wheel /tmp/*.ldd /tmp/*.before /tmp/build-products.* /tmp/*-changed-paths.* /tmp/*-refresh.patch
+
+COPY --chmod=0755 launchers/serve-glm53-flash-jj-r26-spark.sh /usr/local/bin/serve-glm53-flash-jj-r26-spark.sh
+COPY --chmod=0755 launchers/serve-qwen38-flash-next-jj-r26-spark.sh /usr/local/bin/serve-qwen38-flash-next-jj-r26-spark.sh
+COPY --chmod=0755 tests/verify_jj_r26_runtime.py /opt/local-inference/verify_jj_r26_runtime.py
+COPY --chmod=0755 tests/verify_glm53_nvfp4_draft_head_sm121.py /opt/local-inference/verify_glm53_nvfp4_draft_head_sm121.py
+COPY source.lock.json /opt/glm53-flash/source.lock
+
+ENTRYPOINT ["/usr/local/bin/serve-glm53-flash-jj-r26-spark.sh"]
+
+LABEL org.opencontainers.image.title="Jovian Judgement r26 Spark SM121 runtime" \
+      org.opencontainers.image.description="JJ r26 for GLM-5.3 Flash and Qwen3.8 Flash Next, derived from the qualified r22 SM121 runtime" \
+      org.opencontainers.image.source="https://github.com/voipmonitor/rtx6kpro" \
+      org.opencontainers.image.version="${RELEASE_DATE}" \
+      org.opencontainers.image.revision="${DOCKER_COMMIT}" \
+      local-inference.release.name="${RELEASE_NAME}" \
+      local-inference.status="${RELEASE_STATUS}" \
+      local-inference.scope="glm53-qwen38-r26-spark-sm121-qualification" \
+      local-inference.docker.commit="${DOCKER_COMMIT}" \
+      local-inference.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.cache.fingerprint="${CACHE_FINGERPRINT}" \
+      local-inference.runtime.source-lock.sha256="${SOURCE_LOCK_SHA256}" \
+      local-inference.runtime.native-artifact-base-image="${BASE_IMAGE}" \
+      local-inference.runtime.native-artifact-base-id="${BASE_IMAGE_ID}" \
+      local-inference.runtime.native-artifact-reuse="qualified-r22-spark-native-artifacts-plus-r26-sm121-lmcache-wheel" \
+      local-inference.runtime.source-mode="source-tree-first" \
+      local-inference.vllm.r26.commit="${VLLM_R26_COMMIT}" \
+      local-inference.vllm.integration.tree="${VLLM_R26_TREE}" \
+      local-inference.vllm.r26.package.tree="${VLLM_R26_PACKAGE_TREE}" \
+      local-inference.vllm.package.tree="${VLLM_PACKAGE_TREE}" \
+      local-inference.vllm.spark-overlay="cuda-arch-12.1-plus-glm53-nvfp4-draft-head-sm121" \
+      local-inference.vllm.spark-overlay.tree="${VLLM_SPARK_TREE}" \
+      local-inference.vllm.changed-paths.sha256="${VLLM_CHANGED_PATHS_SHA256}" \
+      local-inference.vllm.package-version="${VLLM_PACKAGE_VERSION}" \
+      local-inference.flashkda.commit="${FLASHKDA_COMMIT}" \
+      local-inference.flashkda.sha256="${FLASHKDA_SHA256}" \
+      local-inference.flashkda.arch="12.1a" \
+      local-inference.b12x.r26.commit="${B12X_R26_COMMIT}" \
+      local-inference.b12x.integration.tree="${B12X_TREE}" \
+      local-inference.b12x.package.tree="${B12X_PACKAGE_TREE}" \
+      local-inference.b12x.spark-source-patches="none; required RoCEnante and dense-GEMM fixes are ancestors of the r26 base" \
+      local-inference.b12x.changed-paths.sha256="${B12X_CHANGED_PATHS_SHA256}" \
+      local-inference.b12x.rocenante.api-version="${B12X_ROCE_API_VERSION}" \
+      local-inference.b12x.rocenante.proxy-abi="${B12X_ROCE_PROXY_ABI}" \
+      local-inference.b12x.rocenante.proxy-cache-dir="${B12X_ROCE_CACHE_DIR}" \
+      local-inference.lmcache.r26.commit="${LMCACHE_R26_COMMIT}" \
+      local-inference.lmcache.acquisition-commit="${LMCACHE_ACQUISITION_COMMIT}" \
+      local-inference.lmcache.integration.tree="${LMCACHE_TREE}" \
+      local-inference.lmcache.package.tree="${LMCACHE_PACKAGE_TREE}" \
+      local-inference.lmcache.version="${LMCACHE_VERSION}" \
+      local-inference.lmcache.default="disabled" \
+      local-inference.model.repository="local-inference-lab/GLM-5.3-Flash-NVFP4" \
+      local-inference.model.revision="46aaae8a82032f77100f2f03e9cc11b391df3b4d" \
+      local-inference.draft-model.repository="local-inference-lab/GLM-5.3-Flash-DFlash2" \
+      local-inference.draft-model.revision-policy="huggingface-main" \
+      local-inference.qwen38-model.repository="local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89" \
+      local-inference.qwen38-model.revision="c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
