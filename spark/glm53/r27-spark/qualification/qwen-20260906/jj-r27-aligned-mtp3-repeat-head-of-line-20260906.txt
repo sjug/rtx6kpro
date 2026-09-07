@@ -1,0 +1,6 @@
+seed done {'seed': (0.3, 1.7)}
+repeat   ttft=   0.3s total=   2.1s
+fresh0   ttft=   0.3s total=   1.9s
+fresh1   ttft=   0.3s total=   2.1s
+long0    ttft=   0.3s total=  17.3s
+long1    ttft=   0.3s total=  17.5s

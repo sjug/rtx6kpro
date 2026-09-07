@@ -1,0 +1,3 @@
+{"label": "aligned-mtp3", "request": 0, "ttft_s": 31.54, "total_s": 31.561, "prompt_tokens": 77552, "prefix_queries_delta": 77552.0, "prefix_hits_delta": 0.0, "answer": "DONE"}
+{"label": "aligned-mtp3", "request": 1, "ttft_s": 1.931, "total_s": 1.975, "prompt_tokens": 77553, "prefix_queries_delta": 77553.0, "prefix_hits_delta": 74048.0, "answer": "FINISHED"}
+{"label": "aligned-mtp3", "request": 2, "ttft_s": 1.92, "total_s": 1.962, "prompt_tokens": 77550, "prefix_queries_delta": 77550.0, "prefix_hits_delta": 74048.0, "answer": "OK"}

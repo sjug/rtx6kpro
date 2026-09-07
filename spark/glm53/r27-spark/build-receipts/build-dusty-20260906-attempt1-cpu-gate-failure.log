@@ -1,0 +1,1024 @@
+GLM-5.3 Flash NVFP4 JJ r27 Spark TP4 runner: PASS
+Qwen3.8 Flash Next NVFP4 JJ r27 Spark TP2 runner: PASS
+STEP 1/51: FROM localhost/voipmonitor/vllm:glm53-jj-r26-spark-sm121-vllm59c9787-b12x00248b0-lmcachefe5442f-cu133-torch213-20260905-r1
+STEP 2/51: ARG BASE_IMAGE
+--> 49be4d05a69b
+STEP 3/51: ARG BASE_IMAGE_ID
+--> 6e295615f7a5
+STEP 4/51: ARG BASE_VLLM_SPARK_TREE=d4571e5ba189fcc05534ecae88dee763ffef4e35
+--> c4bcd0b040f9
+STEP 5/51: ARG BASE_VLLM_PACKAGE_TREE=59c9787400c85d5d4547ef898c5dee41804e7088
+--> d356b5475595
+STEP 6/51: ARG BASE_B12X_TREE=c20b6aab67ed791cc226ee91de23f7c45509f436
+--> ca2522c65ee5
+STEP 7/51: ARG BASE_B12X_PACKAGE_TREE=00248b09689830e55d8fbce8ee630600b63ef663
+--> 8290756a5994
+STEP 8/51: ARG VLLM_R27_COMMIT=63a82f8d323e8538cbe6f88ae1812a1c01577a0f
+--> 21e64204244d
+STEP 9/51: ARG VLLM_R27_TREE=f54cd9ca2b9434727715197d32150b75e82a9ebf
+--> f3a37815037a
+STEP 10/51: ARG VLLM_R27_PACKAGE_TREE=a336313dfd12c6b692051d1d3291712dda0c2a3d
+--> e607a3c5e9b4
+STEP 11/51: ARG VLLM_PR674_COMMIT=04813092b20f76b71159b75672a4f0d8f97c0f9e
+--> 60bbc7a837fe
+STEP 12/51: ARG VLLM_PACKAGE_TREE=f3c3fef548738807f7d1ef8157df63815c498607
+--> e640d80bbfdd
+STEP 13/51: ARG VLLM_SPARK_TREE=8881b7772e1644d63162ad3b7494888ef7ac54fd
+--> 935c8e8794aa
+STEP 14/51: ARG VLLM_REFRESH_PATCH_SHA256
+--> 09ce90455baf
+STEP 15/51: ARG VLLM_CHANGED_PATHS_SHA256
+--> 263ad32cd1cd
+STEP 16/51: ARG VLLM_PACKAGE_VERSION
+--> 79b60fd25cb6
+STEP 17/51: ARG FLASHKDA_COMMIT=3b225bf26bb8e218928a1fe14751cb48cf31d11b
+--> ba74c0679601
+STEP 18/51: ARG FLASHKDA_SHA256=484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116
+--> 4862ec0d2fef
+STEP 19/51: ARG B12X_R27_COMMIT=e8ad299b174f16e2e8fb5879bea272f4efbb53f2
+--> f5546f4c289c
+STEP 20/51: ARG B12X_TREE=f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71
+--> 90290b6c32b3
+STEP 21/51: ARG B12X_PACKAGE_TREE=95fdcb1cfea380480b8882fa44055cfef358ddbb
+--> f3ea4bd52574
+STEP 22/51: ARG B12X_REFRESH_PATCH_SHA256
+--> 4d42ebe507bf
+STEP 23/51: ARG B12X_CHANGED_PATHS_SHA256
+--> 4933523a9331
+STEP 24/51: ARG B12X_ROCE_API_VERSION=1
+--> 302f9769c86c
+STEP 25/51: ARG B12X_ROCE_PROXY_ABI=3
+--> c783378aab50
+STEP 26/51: ARG LMCACHE_R26_COMMIT=822330db1160d2847538d53f9e6f4eeee2404f4d
+--> 0e13ae1284c2
+STEP 27/51: ARG LMCACHE_ACQUISITION_COMMIT=63919a2c6c310f9b34de7049b9b28b77fab13ca0
+--> 3362121e9c6c
+STEP 28/51: ARG LMCACHE_TREE=008ac3e09ae5917aa0849147480d7bd5b9f8b37a
+--> eb0b03801350
+STEP 29/51: ARG LMCACHE_PACKAGE_TREE=fe5442fbf258accaa7f26d2bbb00d8b7b5c349ca
+--> cd16795c2e86
+STEP 30/51: ARG LMCACHE_VERSION=0.5.5.dev0+glm53cache.engine.822330db
+--> 8c432e1571e7
+STEP 31/51: ARG SOURCE_LOCK_SHA256
+--> 3a7121bdff76
+STEP 32/51: ARG RELEASE_NAME
+--> 6e0c6c24a470
+STEP 33/51: ARG RELEASE_DATE
+--> 27e289554885
+STEP 34/51: ARG DOCKER_COMMIT
+--> 0102c2d3e602
+STEP 35/51: ARG RECIPE_SHA256
+--> 068d8c5f1fde
+STEP 36/51: ARG RELEASE_STATUS=research-only
+--> a39744e75187
+STEP 37/51: ARG CACHE_FINGERPRINT
+--> d85e70beeff2
+STEP 38/51: SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+--> 2c4842d67486
+STEP 39/51: ENV LMCACHE_ENABLED=0     LMCACHE_CUMEM_INTERPOSER=/opt/lmcache/lib/liblmcache_cumem_shareable.so     LOCAL_INFERENCE_CACHE_FINGERPRINT=${CACHE_FINGERPRINT}     XDG_CACHE_HOME=/cache/jit/${CACHE_FINGERPRINT}     VLLM_CACHE_ROOT=/cache/jit/${CACHE_FINGERPRINT}/vllm     VLLM_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/vllm     TRITON_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/triton     TORCHINDUCTOR_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/torchinductor     CUTE_DSL_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/cute-dsl     B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/cute     B12X_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile     SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile     B12X_ROCE_CACHE_DIR=/opt/jovian-judgement/b12x-roce
+--> 4fc7d550019e
+STEP 40/51: COPY patches/vllm/r26-spark-to-r27-spark.patch /tmp/vllm-refresh.patch
+--> 34e16ff91b7f
+STEP 41/51: COPY patches/vllm/changed-paths.txt /tmp/vllm-changed-paths.expected
+--> 695349576e72
+STEP 42/51: COPY patches/b12x/r26-spark-to-r27-spark.patch /tmp/b12x-refresh.patch
+--> b1bab8243f5a
+STEP 43/51: COPY patches/b12x/changed-paths.txt /tmp/b12x-changed-paths.expected
+--> 503b37fe122b
+STEP 44/51: RUN set -eux;     vllm_root=/opt/jovian-judgement/vllm;     b12x_root=/opt/jovian-judgement/b12x;     site_packages="$(python -c 'import site; print(site.getsitepackages()[0])')";     triton_source="${vllm_root}/vllm/third_party/triton_kernels";     triton_link="${site_packages}/triton_kernels";     test "$(git -C "${vllm_root}" write-tree)" = "${BASE_VLLM_SPARK_TREE}";     test "$(git -C "${vllm_root}" rev-parse "${BASE_VLLM_SPARK_TREE}:vllm")" = "${BASE_VLLM_PACKAGE_TREE}";     test "$(git -C "${b12x_root}" write-tree)" = "${BASE_B12X_TREE}";     test "$(git -C "${b12x_root}" rev-parse "${BASE_B12X_TREE}:b12x")" = "${BASE_B12X_PACKAGE_TREE}";     test "$(find "${vllm_root}/vllm" -type f -name '*.abi3.so' | wc -l)" = 10;     test -f "${vllm_root}/vllm/_flashkda_C.abi3.so";     test -L "${triton_link}";     test "$(readlink -f "${triton_link}")" = "$(readlink -f "${triton_source}")";     test "$(python -c 'import importlib.metadata as m; print(m.version("lmcache"))')" = "${LMCACHE_VERSION}";     test -s "${LMCACHE_CUMEM_INTERPOSER}";     preserved_manifest() {       find "${vllm_root}/vllm" -type f \(         -name '*.abi3.so' -o -name 'vllm-rs' -o         -path '*/vllm_flash_attn/cute/*' -o         -path '*/vllm_flash_attn/layers/*' -o         -path '*/vllm_flash_attn/ops/*' -o         -path '*/third_party/triton_kernels/*'       \) ! -path '*/__pycache__/*' ! -name '*.pyc' -print0         | LC_ALL=C sort -z | xargs -0 sha256sum;       printf 'triton-link %s\n' "$(readlink -f "${triton_link}")";       sha256sum "${LMCACHE_CUMEM_INTERPOSER}";       find "${site_packages}/lmcache" -type f -name '*.so' -print0 | LC_ALL=C sort -z | xargs -0 sha256sum;     };     preserved_manifest > /tmp/build-products.before;     test "$(sha256sum "${vllm_root}/vllm/_flashkda_C.abi3.so" | cut -d' ' -f1)" = "${FLASHKDA_SHA256}";     echo "${VLLM_REFRESH_PATCH_SHA256}  /tmp/vllm-refresh.patch" | sha256sum -c -;     echo "${VLLM_CHANGED_PATHS_SHA256}  /tmp/vllm-changed-paths.expected" | sha256sum -c -;     echo "${B12X_REFRESH_PATCH_SHA256}  /tmp/b12x-refresh.patch" | sha256sum -c -;     echo "${B12X_CHANGED_PATHS_SHA256}  /tmp/b12x-changed-paths.expected" | sha256sum -c -;     git -C "${vllm_root}" apply /tmp/vllm-refresh.patch;     git -C "${vllm_root}" add -A;     test "$(git -C "${vllm_root}" write-tree)" = "${VLLM_SPARK_TREE}";     test "$(git -C "${vllm_root}" rev-parse "${VLLM_SPARK_TREE}:vllm")" = "${VLLM_PACKAGE_TREE}";     git -C "${vllm_root}" diff --name-only --no-renames "${BASE_VLLM_SPARK_TREE}" "${VLLM_SPARK_TREE}" | LC_ALL=C sort > /tmp/vllm-changed-paths.actual;     cmp /tmp/vllm-changed-paths.expected /tmp/vllm-changed-paths.actual;     while IFS= read -r path; do       case "${path}" in *.py|*.sh|*.cmake|*.md) ;; *) echo "R27 vLLM refresh rejects ${path}" >&2; exit 1 ;; esac;     done < /tmp/vllm-changed-paths.actual;     grep -Fq 'tl.cast(block, tl.int64)' "${vllm_root}/vllm/v1/worker/gpu/boundary_checkpoint.py";     grep -Fq 'tl.cast(slot, tl.int64)' "${vllm_root}/vllm/v1/worker/gpu/boundary_checkpoint.py";     test -f "${vllm_root}/tests/v1/worker/test_boundary_checkpoint_restore_scalars.py";     grep -Fq 'recurrent_instruction_boundary' "${vllm_root}/vllm/renderers/online_renderer.py";     grep -Fq '_SUPPORTED_NVFP4_CAPABILITIES = frozenset(((12, 0), (12, 1)))' "${vllm_root}/vllm/models/glm5next/nvidia/mtp_draft_head.py";     grep -Fq '12.0;12.1")' "${vllm_root}/CMakeLists.txt";     git -C "${b12x_root}" apply /tmp/b12x-refresh.patch;     git -C "${b12x_root}" add -A;     test "$(git -C "${b12x_root}" write-tree)" = "${B12X_TREE}";     test "$(git -C "${b12x_root}" rev-parse "${B12X_TREE}:b12x")" = "${B12X_PACKAGE_TREE}";     git -C "${b12x_root}" diff --name-only --no-renames "${BASE_B12X_TREE}" "${B12X_TREE}" | LC_ALL=C sort > /tmp/b12x-changed-paths.actual;     cmp /tmp/b12x-changed-paths.expected /tmp/b12x-changed-paths.actual;     while IFS= read -r path; do       case "${path}" in *.py|*.c|*.md|*.json|*.json.gz|*.txt|*.toml|*.sh) ;; *) echo "R27 B12X refresh rejects ${path}" >&2; exit 1 ;; esac;     done < /tmp/b12x-changed-paths.actual;     ! grep -Fq 'scale_physical_base[:, -1].fill_(127)' "${b12x_root}/b12x/gemm/blockscaled/_linear.py";     grep -Fq 'Persistent CTAs also reuse sC across multiple stores.' "${b12x_root}/b12x/_lib/dense_gemm.py";     test -f "${b12x_root}/b12x/loader/_direct.c";     test -f "${b12x_root}/b12x/policy/_profiles/data/nvidia.gb10.48sm.json.gz";     cd "${vllm_root}";     VLLM_TARGET_DEVICE=empty VLLM_REQUIRE_RUST_FRONTEND=1 VLLM_VERSION_OVERRIDE="${VLLM_PACKAGE_VERSION}"       python -m pip install --no-build-isolation --no-deps --force-reinstall .;     test "$(python -c 'import importlib.metadata as m; print(m.version("vllm"))')" = "${VLLM_PACKAGE_VERSION}";     test "$(python -c 'import importlib.metadata as m; print(m.version("b12x"))')" = 1.3.0;     git -C "${vllm_root}" diff --quiet;     git -C "${b12x_root}" diff --quiet;     preserved_manifest > /tmp/build-products.after;     cmp /tmp/build-products.before /tmp/build-products.after;     test "$(readlink -f "${triton_link}")" = "$(readlink -f "${triton_source}")";     test "$(sha256sum "${vllm_root}/vllm/_flashkda_C.abi3.so" | cut -d' ' -f1)" = "${FLASHKDA_SHA256}";     ldd "${vllm_root}/vllm/_flashkda_C.abi3.so" | tee /tmp/flashkda.ldd;     ! grep -Fq 'not found' /tmp/flashkda.ldd;     ldd "${LMCACHE_CUMEM_INTERPOSER}" | tee /tmp/lmcache.ldd;     ! grep -Fq 'not found' /tmp/lmcache.ldd;     cd /;     python -c 'import lmcache.cuda_ops, lmcache.lmcache_fs, lmcache.lmcache_native, lmcache.lmcache_redis';     proxy_source=/opt/jovian-judgement/b12x/b12x/comm/roce/_roce_proxy.c;     proxy_digest="$(sha256sum "${proxy_source}" | cut -c1-16)";     proxy_so="${B12X_ROCE_CACHE_DIR}/roce_proxy-${proxy_digest}.so";     test "$(python -c 'from b12x.comm import roce; print(roce.API_VERSION)')" = "${B12X_ROCE_API_VERSION}";     python -c 'from b12x.comm.roce._proxy import load; load()';     test -s "${proxy_so}";     test "$(python -c 'from b12x.comm.roce._proxy import load; print(load().roce_abi_version())')" = "${B12X_ROCE_PROXY_ABI}";     ldd "${proxy_so}" | tee /tmp/roce-proxy.ldd;     ! grep -Fq 'not found' /tmp/roce-proxy.ldd;     CC=/bin/false python -c 'from b12x.comm.roce._proxy import load; load()';     rm -rf /tmp/*.ldd /tmp/build-products.* /tmp/*-changed-paths.* /tmp/*-refresh.patch
++ vllm_root=/opt/jovian-judgement/vllm
++ b12x_root=/opt/jovian-judgement/b12x
+++ python -c 'import site; print(site.getsitepackages()[0])'
++ site_packages=/opt/venv/lib/python3.12/site-packages
++ triton_source=/opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
++ triton_link=/opt/venv/lib/python3.12/site-packages/triton_kernels
+++ git -C /opt/jovian-judgement/vllm write-tree
++ test d4571e5ba189fcc05534ecae88dee763ffef4e35 = d4571e5ba189fcc05534ecae88dee763ffef4e35
+++ git -C /opt/jovian-judgement/vllm rev-parse d4571e5ba189fcc05534ecae88dee763ffef4e35:vllm
++ test 59c9787400c85d5d4547ef898c5dee41804e7088 = 59c9787400c85d5d4547ef898c5dee41804e7088
+++ git -C /opt/jovian-judgement/b12x write-tree
++ test c20b6aab67ed791cc226ee91de23f7c45509f436 = c20b6aab67ed791cc226ee91de23f7c45509f436
+++ git -C /opt/jovian-judgement/b12x rev-parse c20b6aab67ed791cc226ee91de23f7c45509f436:b12x
++ test 00248b09689830e55d8fbce8ee630600b63ef663 = 00248b09689830e55d8fbce8ee630600b63ef663
+++ find /opt/jovian-judgement/vllm/vllm -type f -name '*.abi3.so'
+++ wc -l
++ test 10 = 10
++ test -f /opt/jovian-judgement/vllm/vllm/_flashkda_C.abi3.so
++ test -L /opt/venv/lib/python3.12/site-packages/triton_kernels
+++ readlink -f /opt/venv/lib/python3.12/site-packages/triton_kernels
+++ readlink -f /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
++ test /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels = /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
+++ python -c 'import importlib.metadata as m; print(m.version("lmcache"))'
++ test 0.5.5.dev0+glm53cache.engine.822330db = 0.5.5.dev0+glm53cache.engine.822330db
++ test -s /opt/lmcache/lib/liblmcache_cumem_shareable.so
++ preserved_manifest
++ find /opt/jovian-judgement/vllm/vllm -type f '(' -name '*.abi3.so' -o -name vllm-rs -o -path '*/vllm_flash_attn/cute/*' -o -path '*/vllm_flash_attn/layers/*' -o -path '*/vllm_flash_attn/ops/*' -o -path '*/third_party/triton_kernels/*' ')' '!' -path '*/__pycache__/*' '!' -name '*.pyc' -print0
++ LC_ALL=C
++ sort -z
++ xargs -0 sha256sum
+++ readlink -f /opt/venv/lib/python3.12/site-packages/triton_kernels
++ printf 'triton-link %s\n' /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
++ sha256sum /opt/lmcache/lib/liblmcache_cumem_shareable.so
++ find /opt/venv/lib/python3.12/site-packages/lmcache -type f -name '*.so' -print0
++ LC_ALL=C
++ sort -z
++ xargs -0 sha256sum
+++ sha256sum /opt/jovian-judgement/vllm/vllm/_flashkda_C.abi3.so
+++ cut '-d ' -f1
++ test 484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116 = 484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116
++ echo '03f4e82ab8c9632c09ffce035e93f29de6cc3483a836a7d0daba040808b12178  /tmp/vllm-refresh.patch'
++ sha256sum -c -
+/tmp/vllm-refresh.patch: OK
++ echo 'c653fdd058e3e3ca890a6eb430f21bec8d6f4e92e94c4bd82a46954337f9689f  /tmp/vllm-changed-paths.expected'
++ sha256sum -c -
+/tmp/vllm-changed-paths.expected: OK
++ echo 'e77ed8ea721955c58de444e7734eb01c763f43d9f7fc916b4e984e1d4f948168  /tmp/b12x-refresh.patch'
++ sha256sum -c -
+/tmp/b12x-refresh.patch: OK
++ echo '97f16753199144b846ec54484bce27f8d0cb239c82501a9608ca698b8dc99e59  /tmp/b12x-changed-paths.expected'
++ sha256sum -c -
+/tmp/b12x-changed-paths.expected: OK
++ git -C /opt/jovian-judgement/vllm apply /tmp/vllm-refresh.patch
++ git -C /opt/jovian-judgement/vllm add -A
+++ git -C /opt/jovian-judgement/vllm write-tree
++ test 8881b7772e1644d63162ad3b7494888ef7ac54fd = 8881b7772e1644d63162ad3b7494888ef7ac54fd
+++ git -C /opt/jovian-judgement/vllm rev-parse 8881b7772e1644d63162ad3b7494888ef7ac54fd:vllm
++ test f3c3fef548738807f7d1ef8157df63815c498607 = f3c3fef548738807f7d1ef8157df63815c498607
++ git -C /opt/jovian-judgement/vllm diff --name-only --no-renames d4571e5ba189fcc05534ecae88dee763ffef4e35 8881b7772e1644d63162ad3b7494888ef7ac54fd
++ LC_ALL=C
++ sort
++ cmp /tmp/vllm-changed-paths.expected /tmp/vllm-changed-paths.actual
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ grep -Fq 'tl.cast(block, tl.int64)' /opt/jovian-judgement/vllm/vllm/v1/worker/gpu/boundary_checkpoint.py
++ grep -Fq 'tl.cast(slot, tl.int64)' /opt/jovian-judgement/vllm/vllm/v1/worker/gpu/boundary_checkpoint.py
++ test -f /opt/jovian-judgement/vllm/tests/v1/worker/test_boundary_checkpoint_restore_scalars.py
++ grep -Fq recurrent_instruction_boundary /opt/jovian-judgement/vllm/vllm/renderers/online_renderer.py
++ grep -Fq '_SUPPORTED_NVFP4_CAPABILITIES = frozenset(((12, 0), (12, 1)))' /opt/jovian-judgement/vllm/vllm/models/glm5next/nvidia/mtp_draft_head.py
++ grep -Fq '12.0;12.1")' /opt/jovian-judgement/vllm/CMakeLists.txt
++ git -C /opt/jovian-judgement/b12x apply /tmp/b12x-refresh.patch
++ git -C /opt/jovian-judgement/b12x add -A
+++ git -C /opt/jovian-judgement/b12x write-tree
++ test f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71 = f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71
+++ git -C /opt/jovian-judgement/b12x rev-parse f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71:b12x
++ test 95fdcb1cfea380480b8882fa44055cfef358ddbb = 95fdcb1cfea380480b8882fa44055cfef358ddbb
++ git -C /opt/jovian-judgement/b12x diff --name-only --no-renames c20b6aab67ed791cc226ee91de23f7c45509f436 f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71
++ LC_ALL=C
++ sort
++ cmp /tmp/b12x-changed-paths.expected /tmp/b12x-changed-paths.actual
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ case "${path}" in
++ IFS=
++ read -r path
++ grep -Fq 'scale_physical_base[:, -1].fill_(127)' /opt/jovian-judgement/b12x/b12x/gemm/blockscaled/_linear.py
++ grep -Fq 'Persistent CTAs also reuse sC across multiple stores.' /opt/jovian-judgement/b12x/b12x/_lib/dense_gemm.py
++ test -f /opt/jovian-judgement/b12x/b12x/loader/_direct.c
++ test -f /opt/jovian-judgement/b12x/b12x/policy/_profiles/data/nvidia.gb10.48sm.json.gz
++ cd /opt/jovian-judgement/vllm
++ VLLM_TARGET_DEVICE=empty
++ VLLM_REQUIRE_RUST_FRONTEND=1
++ VLLM_VERSION_OVERRIDE=0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1
++ python -m pip install --no-build-isolation --no-deps --force-reinstall .
+Processing ./.
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: vllm
+  Building wheel for vllm (pyproject.toml): started
+  Building wheel for vllm (pyproject.toml): finished with status 'done'
+  Created wheel for vllm: filename=vllm-0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1-cp312-cp312-linux_aarch64.whl size=32295575 sha256=f492de65800a567f0bbfe8e87cf61d4f77a33bc84611dd6abf88370b9a213c69
+  Stored in directory: /tmp/pip-ephem-wheel-cache-261s19_y/wheels/34/16/9f/5ffef1a83815c3bc7ac8da4480f06ca81ebaf86951d5ee76a2
+Successfully built vllm
+Installing collected packages: vllm
+  Attempting uninstall: vllm
+    Found existing installation: vllm 0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1
+    Not uninstalling vllm at /opt/jovian-judgement/vllm, outside environment /opt/venv
+    Can't uninstall 'vllm'. No files were found to uninstall.
+Successfully installed vllm-0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1
+++ python -c 'import importlib.metadata as m; print(m.version("vllm"))'
++ test 0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1 = 0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1
+++ python -c 'import importlib.metadata as m; print(m.version("b12x"))'
++ test 1.3.0 = 1.3.0
++ git -C /opt/jovian-judgement/vllm diff --quiet
++ git -C /opt/jovian-judgement/b12x diff --quiet
++ preserved_manifest
++ find /opt/jovian-judgement/vllm/vllm -type f '(' -name '*.abi3.so' -o -name vllm-rs -o -path '*/vllm_flash_attn/cute/*' -o -path '*/vllm_flash_attn/layers/*' -o -path '*/vllm_flash_attn/ops/*' -o -path '*/third_party/triton_kernels/*' ')' '!' -path '*/__pycache__/*' '!' -name '*.pyc' -print0
++ LC_ALL=C
++ sort -z
++ xargs -0 sha256sum
+++ readlink -f /opt/venv/lib/python3.12/site-packages/triton_kernels
++ printf 'triton-link %s\n' /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
++ sha256sum /opt/lmcache/lib/liblmcache_cumem_shareable.so
++ find /opt/venv/lib/python3.12/site-packages/lmcache -type f -name '*.so' -print0
++ LC_ALL=C
++ sort -z
++ xargs -0 sha256sum
++ cmp /tmp/build-products.before /tmp/build-products.after
+++ readlink -f /opt/venv/lib/python3.12/site-packages/triton_kernels
+++ readlink -f /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
++ test /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels = /opt/jovian-judgement/vllm/vllm/third_party/triton_kernels
+++ sha256sum /opt/jovian-judgement/vllm/vllm/_flashkda_C.abi3.so
+++ cut '-d ' -f1
++ test 484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116 = 484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116
++ ldd /opt/jovian-judgement/vllm/vllm/_flashkda_C.abi3.so
++ tee /tmp/flashkda.ldd
+	linux-vdso.so.1 (0x0000f22ce7c7d000)
+	/opt/local-inference/nccl/lib/libnccl.so.2.31.2 (0x0000f22ce2c10000)
+	libcudart.so.13 => /usr/local/cuda/targets/sbsa-linux/lib/libcudart.so.13 (0x0000f22ce2b30000)
+	libtorch_cpu.so => /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so (0x0000000000400000)
+	libtorch_cuda.so => /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so (0x0000f22cd89a0000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000f22cd8710000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000f22cd86d0000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000f22cd8510000)
+	/lib/ld-linux-aarch64.so.1 (0x0000f22ce7c30000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000f22cd8460000)
+	libdl.so.2 => /lib/aarch64-linux-gnu/libdl.so.2 (0x0000f22cd8430000)
+	libpthread.so.0 => /lib/aarch64-linux-gnu/libpthread.so.0 (0x0000f22cd8400000)
+	librt.so.1 => /lib/aarch64-linux-gnu/librt.so.1 (0x0000f22cd83d0000)
+	libc10.so => /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so (0x0000f22cd8260000)
+	libgomp.so.1 => /lib/aarch64-linux-gnu/libgomp.so.1 (0x0000f22cd81e0000)
+	libcupti.so.13 => /usr/local/cuda/lib64/libcupti.so.13 (0x0000f22cd7b30000)
+	libmpi.so.40 => /usr/local/mpi/lib/libmpi.so.40 (0x0000f22cd7830000)
+	libc10_cuda.so => /usr/local/lib/python3.12/dist-packages/torch/lib/libc10_cuda.so (0x0000f22cd7770000)
+	libcusparse.so.12 => /usr/local/cuda/lib64/libcusparse.so.12 (0x0000f22ccc5f0000)
+	libcufft.so.12 => /usr/local/cuda/lib64/libcufft.so.12 (0x0000f22cbcf00000)
+	libcufile.so.0 => /usr/local/cuda/lib64/libcufile.so.0 (0x0000f22cbcba0000)
+	libcusparseLt.so.0 => /usr/local/cuda/lib64/libcusparseLt.so.0 (0x0000f22cac060000)
+	libcurand.so.10 => /usr/local/cuda/lib64/libcurand.so.10 (0x0000f22ca2ba0000)
+	libcublas.so.13 => /usr/local/cuda/lib64/libcublas.so.13 (0x0000f22c9e800000)
+	libcublasLt.so.13 => /usr/local/cuda/lib64/libcublasLt.so.13 (0x0000f22c73c00000)
+	libcudnn.so.9 => /lib/aarch64-linux-gnu/libcudnn.so.9 (0x0000f22c73400000)
+	libnvrtc.so.13 => /usr/local/cuda/lib64/libnvrtc.so.13 (0x0000f22c6c680000)
+	libnuma.so.1 => /lib/aarch64-linux-gnu/libnuma.so.1 (0x0000f22ca2b70000)
+	libatomic.so.1 => /lib/aarch64-linux-gnu/libatomic.so.1 (0x0000f22ca2b40000)
+	libopen-pal.so.80 => /usr/local/mpi/lib/./libopen-pal.so.80 (0x0000f22c73af0000)
+	libevent_core-2.1.so.7 => /usr/local/mpi/lib/./libevent_core-2.1.so.7 (0x0000f22ca2ae0000)
+	libevent_pthreads-2.1.so.7 => /usr/local/mpi/lib/./libevent_pthreads-2.1.so.7 (0x0000f22ca2ab0000)
+	libhwloc.so.15 => /usr/local/mpi/lib/./libhwloc.so.15 (0x0000f22c73a70000)
+	libpmix.so.2 => /usr/local/mpi/lib/./libpmix.so.2 (0x0000f22c6c450000)
+	libucp.so.0 => /usr/local/mpi/lib/./../../ucx/lib/libucp.so.0 (0x0000f22c6c350000)
+	libucs.so.0 => /usr/local/mpi/lib/./../../ucx/lib/libucs.so.0 (0x0000f22c6c2c0000)
+	libucm.so.0 => /usr/local/mpi/lib/./../../ucx/lib/libucm.so.0 (0x0000f22c73a30000)
+	libudev.so.1 => /lib/aarch64-linux-gnu/libudev.so.1 (0x0000f22c6c260000)
+	libuct.so.0 => /usr/local/mpi/lib/./../../ucx/lib/./libuct.so.0 (0x0000f22c6c200000)
+	libcap.so.2 => /lib/aarch64-linux-gnu/libcap.so.2 (0x0000f22c6c1d0000)
++ grep -Fq 'not found' /tmp/flashkda.ldd
++ ldd /opt/lmcache/lib/liblmcache_cumem_shareable.so
++ tee /tmp/lmcache.ldd
+	linux-vdso.so.1 (0x0000ed99728b9000)
+	/opt/local-inference/nccl/lib/libnccl.so.2.31.2 (0x0000ed996da60000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000ed996d8a0000)
+	/lib/ld-linux-aarch64.so.1 (0x0000ed9972870000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000ed996d610000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000ed996d560000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000ed996d520000)
++ grep -Fq 'not found' /tmp/lmcache.ldd
++ cd /
++ python -c 'import lmcache.cuda_ops, lmcache.lmcache_fs, lmcache.lmcache_native, lmcache.lmcache_redis'
+[32;20m[2026-09-06 18:30:12,594] LMCache INFO:[0m torch_dev=StubCPUDevice(device_type=cpu), torch_device_type=cpu [3m(_device_detect.py:312:lmcache.v1.platform._device_detect)[0m
++ proxy_source=/opt/jovian-judgement/b12x/b12x/comm/roce/_roce_proxy.c
+++ sha256sum /opt/jovian-judgement/b12x/b12x/comm/roce/_roce_proxy.c
+++ cut -c1-16
++ proxy_digest=a35f54cf75d6abf2
++ proxy_so=/opt/jovian-judgement/b12x-roce/roce_proxy-a35f54cf75d6abf2.so
+++ python -c 'from b12x.comm import roce; print(roce.API_VERSION)'
++ test 1 = 1
++ python -c 'from b12x.comm.roce._proxy import load; load()'
++ test -s /opt/jovian-judgement/b12x-roce/roce_proxy-a35f54cf75d6abf2.so
+++ python -c 'from b12x.comm.roce._proxy import load; print(load().roce_abi_version())'
++ test 3 = 3
++ ldd /opt/jovian-judgement/b12x-roce/roce_proxy-a35f54cf75d6abf2.so
++ tee /tmp/roce-proxy.ldd
+	linux-vdso.so.1 (0x0000eb64e6dd6000)
+	/opt/local-inference/nccl/lib/libnccl.so.2.31.2 (0x0000eb64e1f80000)
+	libibverbs.so.1 => /lib/aarch64-linux-gnu/libibverbs.so.1 (0x0000eb64e1f40000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000eb64e1d80000)
+	/lib/ld-linux-aarch64.so.1 (0x0000eb64e6d90000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000eb64e1af0000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000eb64e1a40000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000eb64e1a00000)
+	libnl-route-3.so.200 => /lib/aarch64-linux-gnu/libnl-route-3.so.200 (0x0000eb64e1950000)
+	libnl-3.so.200 => /lib/aarch64-linux-gnu/libnl-3.so.200 (0x0000eb64e1900000)
++ grep -Fq 'not found' /tmp/roce-proxy.ldd
++ CC=/bin/false
++ python -c 'from b12x.comm.roce._proxy import load; load()'
++ rm -rf /tmp/flashkda.ldd /tmp/lmcache.ldd /tmp/roce-proxy.ldd /tmp/build-products.after /tmp/build-products.before /tmp/b12x-changed-paths.actual /tmp/b12x-changed-paths.expected /tmp/vllm-changed-paths.actual /tmp/vllm-changed-paths.expected /tmp/b12x-refresh.patch /tmp/vllm-refresh.patch
+--> 59062feb9d9a
+STEP 45/51: COPY --chmod=0755 launchers/serve-glm53-flash-jj-r27-spark.sh /usr/local/bin/serve-glm53-flash-jj-r27-spark.sh
+--> 16c08a4d5066
+STEP 46/51: COPY --chmod=0755 launchers/serve-qwen38-flash-next-jj-r27-spark.sh /usr/local/bin/serve-qwen38-flash-next-jj-r27-spark.sh
+--> 1e9970bcc8e7
+STEP 47/51: COPY --chmod=0755 tests/verify_jj_r27_runtime.py /opt/local-inference/verify_jj_r27_runtime.py
+--> 8b88b565623b
+STEP 48/51: COPY --chmod=0755 tests/verify_glm53_nvfp4_draft_head_sm121.py /opt/local-inference/verify_glm53_nvfp4_draft_head_sm121.py
+--> 40bf887c0066
+STEP 49/51: COPY source.lock.json /opt/glm53-flash/source.lock
+--> 9943c63949e3
+STEP 50/51: ENTRYPOINT ["/usr/local/bin/serve-glm53-flash-jj-r27-spark.sh"]
+--> 114d2c71c70e
+STEP 51/51: LABEL org.opencontainers.image.title="Jovian Judgement r27 Spark SM121 runtime"       org.opencontainers.image.description="JJ r27 for GLM-5.3 Flash and Qwen3.8 Flash Next, derived from the qualified r26 SM121 runtime with pinned vLLM PR 674"       org.opencontainers.image.source="https://github.com/voipmonitor/rtx6kpro"       org.opencontainers.image.version="${RELEASE_DATE}"       org.opencontainers.image.revision="${DOCKER_COMMIT}"       local-inference.release.name="${RELEASE_NAME}"       local-inference.status="${RELEASE_STATUS}"       local-inference.scope="glm53-qwen38-r27-spark-sm121-qualification"       local-inference.docker.commit="${DOCKER_COMMIT}"       local-inference.recipe.sha256="${RECIPE_SHA256}"       local-inference.cache.fingerprint="${CACHE_FINGERPRINT}"       local-inference.runtime.source-lock.sha256="${SOURCE_LOCK_SHA256}"       local-inference.runtime.native-artifact-base-image="${BASE_IMAGE}"       local-inference.runtime.native-artifact-base-id="${BASE_IMAGE_ID}"       local-inference.runtime.native-artifact-reuse="qualified-r26-spark-native-artifacts-including-sm121-lmcache-wheel"       local-inference.runtime.source-mode="source-tree-first"       local-inference.vllm.r27.commit="${VLLM_R27_COMMIT}"       local-inference.vllm.integration.tree="${VLLM_R27_TREE}"       local-inference.vllm.r27.package.tree="${VLLM_R27_PACKAGE_TREE}"       local-inference.vllm.pr674.commit="${VLLM_PR674_COMMIT}"       local-inference.vllm.package.tree="${VLLM_PACKAGE_TREE}"       local-inference.vllm.spark-overlay="cuda-arch-12.1-plus-glm53-nvfp4-draft-head-sm121-plus-pr674"       local-inference.vllm.spark-overlay.tree="${VLLM_SPARK_TREE}"       local-inference.vllm.changed-paths.sha256="${VLLM_CHANGED_PATHS_SHA256}"       local-inference.vllm.package-version="${VLLM_PACKAGE_VERSION}"       local-inference.flashkda.commit="${FLASHKDA_COMMIT}"       local-inference.flashkda.sha256="${FLASHKDA_SHA256}"       local-inference.flashkda.arch="12.1a"       local-inference.b12x.r27.commit="${B12X_R27_COMMIT}"       local-inference.b12x.integration.tree="${B12X_TREE}"       local-inference.b12x.package.tree="${B12X_PACKAGE_TREE}"       local-inference.b12x.spark-source-patches="none; the r27 B12X integration tree is applied unmodified"       local-inference.b12x.loader-plugin="not registered; VLLM_PLUGINS is empty and the launchers keep InstantTensor"       local-inference.b12x.changed-paths.sha256="${B12X_CHANGED_PATHS_SHA256}"       local-inference.b12x.rocenante.api-version="${B12X_ROCE_API_VERSION}"       local-inference.b12x.rocenante.proxy-abi="${B12X_ROCE_PROXY_ABI}"       local-inference.b12x.rocenante.proxy-cache-dir="${B12X_ROCE_CACHE_DIR}"       local-inference.lmcache.r26.commit="${LMCACHE_R26_COMMIT}"       local-inference.lmcache.acquisition-commit="${LMCACHE_ACQUISITION_COMMIT}"       local-inference.lmcache.integration.tree="${LMCACHE_TREE}"       local-inference.lmcache.package.tree="${LMCACHE_PACKAGE_TREE}"       local-inference.lmcache.version="${LMCACHE_VERSION}"       local-inference.lmcache.rebuilt="false"       local-inference.lmcache.default="disabled"       local-inference.model.repository="local-inference-lab/GLM-5.3-Flash-NVFP4"       local-inference.model.revision="46aaae8a82032f77100f2f03e9cc11b391df3b4d"       local-inference.draft-model.repository="local-inference-lab/GLM-5.3-Flash-DFlash2"       local-inference.draft-model.revision-policy="huggingface-main"       local-inference.qwen38-model.repository="local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89"       local-inference.qwen38-model.revision="c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+COMMIT localhost/voipmonitor/vllm:glm53-jj-r27-spark-sm121-vllmf3c3fef-b12x95fdcb1-lmcachefe5442f-cu133-torch213-20260906-r1
+--> 38313d4d2946
+Successfully tagged localhost/voipmonitor/vllm:glm53-jj-r27-spark-sm121-vllmf3c3fef-b12x95fdcb1-lmcachefe5442f-cu133-torch213-20260906-r1
+38313d4d29462b43f8f3012b301765b9e9548da50f16c8eaf6ab0342d02fd557
+LMCache is packaged but not qualified on DGX Spark; set LMCACHE_ENABLED=0.
+
+==================================== ERRORS ====================================
+__________ ERROR collecting tests/v1/worker/test_b12x_roce_health.py ___________
+opt/jovian-judgement/vllm/tests/v1/worker/test_b12x_roce_health.py:16: in <module>
+    import vllm.v1.worker.gpu_worker as gpu_worker_module
+opt/jovian-judgement/vllm/vllm/v1/worker/gpu_worker.py:56: in <module>
+    from vllm.model_executor.warmup.kernel_warmup import kernel_warmup
+opt/jovian-judgement/vllm/vllm/model_executor/warmup/kernel_warmup.py:30: in <module>
+    from vllm.model_executor.warmup.flashinfer_sparse_mla_warmup import (
+opt/jovian-judgement/vllm/vllm/model_executor/warmup/flashinfer_sparse_mla_warmup.py:17: in <module>
+    from vllm.v1.worker.gpu.warmup import run_mixed_prefill_decode_warmup
+opt/jovian-judgement/vllm/vllm/v1/worker/gpu/warmup.py:23: in <module>
+    from vllm.v1.worker.gpu.model_runner import GPUModelRunner
+opt/jovian-judgement/vllm/vllm/v1/worker/gpu/model_runner.py:75: in <module>
+    from vllm.v1.worker.gpu import pcp_manager as pcp
+opt/jovian-judgement/vllm/vllm/v1/worker/gpu/pcp_manager.py:15: in <module>
+    from vllm.v1.worker.gpu.input_batch import (
+opt/jovian-judgement/vllm/vllm/v1/worker/gpu/input_batch.py:13: in <module>
+    from vllm.v1.worker.gpu.boundary_checkpoint import (
+opt/jovian-judgement/vllm/vllm/v1/worker/gpu/boundary_checkpoint.py:29: in <module>
+    _PROMPT_CHECKPOINT_SLOT = tl.constexpr(PROMPT_CHECKPOINT_SLOT)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: 'NoneType' object is not callable
+------------------------------- Captured stdout --------------------------------
+INFO 09-06 18:30:38 [importing.py:60] Triton is installed but 0 active driver(s) found (expected 1). Disabling Triton to prevent runtime errors.
+INFO 09-06 18:30:38 [importing.py:95] Triton not installed or not compatible; certain GPU-related functions will not be available.
+WARNING 09-06 18:30:39 [interface.py:369] Failed to import from vllm._C: ModuleNotFoundError("No module named 'vllm._C'")
+WARNING 09-06 18:30:40 [interface.py:369] Failed to import from vllm._C: ModuleNotFoundError("No module named 'vllm._C'")
+WARNING 09-06 18:30:40 [interface.py:369] Failed to import from vllm._C: ModuleNotFoundError("No module named 'vllm._C'")
+------------------------------- Captured stderr --------------------------------
+W0906 18:30:37.018000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0906 18:30:37.049000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0906 18:30:39.106000 1 usr/local/lib/python3.12/dist-packages/torch/utils/cpp_extension.py:178] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+=============================== warnings summary ===============================
+usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR opt/jovian-judgement/vllm/tests/v1/worker/test_b12x_roce_health.py - Ty...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+14 warnings, 1 error in 8.33s

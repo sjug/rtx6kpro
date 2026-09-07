@@ -1,0 +1,4 @@
+{"label": "auto-mtp3", "step": "fresh", "ttft_s": 10.88, "total_s": 10.974, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "auto-mtp3", "step": "extension", "ttft_s": 0.262, "total_s": 0.36, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 32044.0, "answer": "739184 done"}
+{"label": "auto-mtp3", "step": "verbatim_repeat", "ttft_s": 0.102, "total_s": 0.248, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 32038.0, "answer": "739184"}
+{"label": "auto-mtp3", "step": "extension_repeat", "ttft_s": 0.101, "total_s": 0.25, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 32069.0, "answer": "739184 done"}

@@ -1,0 +1,17 @@
+id: "2026-09-jj-r27-vs-r26"
+status: "planned"
+objective: "Qualify JJ r27 Spark (r27 vLLM/B12X trees plus pinned vLLM PR 674) against the qualified JJ r26 Spark result using the identical Qwen3.8 Flash Next NVFP4-4p89 TP2/MTP3 workload on dusty and kirby."
+baseline: "2026-09-jj-r26-vs-r22"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+notes: |
+  Dusty and kirby, TP2 over the direct 200G RoCE pair, native 262144-token
+  model length, MTP3, FP8 KV, full-and-piecewise CUDA graphs with capture
+  sizes 1 2 4 8 16 24 32, InstantTensor BUFFERED loading, NCCL 2.31.2, and the
+  unchanged r26 Qwen launcher environment including
+  VLLM_GDN_SPEC_DECODE_METADATA_FASTPATH=1. The r27 candidate image is
+  localhost/voipmonitor/vllm:glm53-jj-r27-spark-sm121-vllmf3c3fef-b12x95fdcb1-lmcachefe5442f-cu133-torch213-20260906-r1.
+  Engine steps/s is the primary decode metric. The padded-replay transition
+  probe (spark/glm53/r27-spark/tests/probe-spec-padded-transition.py) is a
+  separate receipt, not part of this campaign's throughput cells.

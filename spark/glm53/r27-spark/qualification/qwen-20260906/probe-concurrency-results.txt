@@ -1,0 +1,20 @@
+probe-concurrency-identical-vs-distinct.py (17:5x local, r27 ef669fa1, auto checkpoint policy)
+warm c1: n=1 wall=4.6s agg_tok/s=43.3 per_req_s=[4.6]
+c4 distinct: n=4 wall=7.6s agg_tok/s=105.8 per_req_s=[6.9, 7.0, 7.6, 7.2]
+c4 identical: n=4 wall=17.8s agg_tok/s=44.9 per_req_s=[4.7, 13.8, 9.3, 17.8]
+c4 distinct again (same prompts as first run): n=4 wall=17.4s agg_tok/s=46.1 per_req_s=[4.0, 13.2, 8.7, 17.4]
+c1: n=1 wall=4.3s agg_tok/s=46.9 per_req_s=[4.3]
+
+probe-concurrency-fresh-extension-repeat.py
+A: 4 fresh distinct: n=4 wall=7.2s agg_tok/s=110.7 per_req_s=[7.2, 7.0, 6.9, 6.9]
+B: 4 extensions of A (multi-turn): n=4 wall=6.8s agg_tok/s=118.4 per_req_s=[6.6, 6.6, 6.8, 6.8]
+C: 4 fresh distinct after B: n=4 wall=6.8s agg_tok/s=117.8 per_req_s=[6.2, 6.8, 6.6, 6.3]
+D: repeat A verbatim: n=4 wall=16.3s agg_tok/s=49.2 per_req_s=[3.9, 12.4, 8.2, 16.3]
+E: 4 fresh distinct after D: n=4 wall=6.9s agg_tok/s=116.6 per_req_s=[6.3, 6.7, 6.6, 6.9]
+
+probe-repeat-head-of-line.py (two 600-token decodes running; repeat submitted at +2 s, two fresh at +3 s)
+long0    ttft=   0.3s total=  16.2s
+long1    ttft=   0.6s total=  16.7s
+fresh1   ttft=   9.1s total=  10.6s
+repeat   ttft=  14.7s total=  16.7s
+fresh0   ttft=  12.1s total=  13.8s
