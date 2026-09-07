@@ -94,11 +94,14 @@ The Qwen profile pins `--recurrent-checkpoint-policy aligned`. r27's default
 serialized identical concurrent requests and blocked fresh arrivals on
 2026-09-06; `aligned` removed both effects under matched settings and passed
 the correctness set (see `QUALIFICATION.md`). The launcher defaults to it,
-the build gate requires it in the Qwen render and forbids it in the GLM
-render, and the runner test requires it in every role. Because image
+the build gate requires it in both Qwen and GLM renders after their matched
+qualification, and the runner tests require it in every role. Because image
 `ef669fa1` was built before the launcher default, the host runner also passes
 the flag; drop that runner line when a rebuilt image carries the launcher
-default. GLM's policy is unchanged until its own qualification.
+default. GLM now also defaults to aligned. Explicit auto remains a reproduction
+control, not an operational profile. The deployed GLM host launcher remains
+the qualified original; its next-build source now adds the aligned default
+without duplicating an explicitly supplied runner policy.
 
 ## Build
 
@@ -123,20 +126,36 @@ rejects any reappearance of the removed policy exports.
    sequence under full graphs with verification that c3 replays a padded
    batch through a graph captured for a uniform one, watching for persistent
    acceptance collapse.
-2. GLM in an approved window, policy unchanged (`tests/qualify-glm53-r27.sh`,
-   prepared): all-rank identity gates, semantic x3, the concurrency
+2. GLM auto reproduction (`tests/qualify-glm53-r27.sh`, executed and rejected):
+   explicitly select `RECURRENT_CHECKPOINT_POLICY=auto`. All-rank identity gates, semantic x3, the concurrency
    reproducers (identical burst, multi-turn extension, repeat head-of-line)
    under GLM's default policy, the frozen r26/r22 prefix-cache pair matrix and
    the short and long triples (`tests/glm/`), native context with the 262000
    warm before 1048000, then the standard grid and prefill against corrected
    R26 (campaign `2026-09-jj-r27-sm121-qualification`).
 
-   Window sequence (operator-scheduled): ship the image archive dusty to
-   rusty, then rusty to sparky, buddy, rocky, and lucky over the 200G mesh,
+   Window sequence (operator-scheduled): ship the unchanged Docker archive
+   directly from dusty to sparky, buddy, rocky, and lucky over the 200G mesh,
    `podman load` and verify the image ID on every node; sync this directory
    to each node; stop the r26 GLM containers workers first, head last
    (`ROLE=stop`); start r27 workers first, then the head, with the GLM runner
-   as committed (no policy flag); run the driver from the workstation. The
+   with the selected policy; run the driver from the workstation. The
    r26 image stays loaded for rollback.
 
+3. GLM matched aligned control (`tests/qualify-glm53-r27-aligned.sh`,
+   passed): the executed auto window failed concurrent serving on GLM with
+   the same signature as Qwen. The control relaunches the same image, runner,
+   revision, corpus, probes, and benchmark with the four ranks started under
+   `RECURRENT_CHECKPOINT_POLICY=aligned` (now the GLM runner default;
+   explicit `auto` or
+   `aligned` are accepted, anything else is rejected). The driver refuses any rank without the
+   aligned flag and writes to `qualification/glm-aligned-<date>/` with
+   benchmark variant `jj-r27-aligned-sm121-tp4-dcp1-mtp3-native1m`.
+
 Status and evidence are in `QUALIFICATION.md`.
+
+Operational selection: R27 aligned, image plus deployed runner and host-launcher
+identities recorded in `qualification/GLM-PROMOTION.md`. R26 remains the recovery
+image. No rebuild or restart is required to make the already-serving aligned
+profile the default. Future launcher changes are not retroactively qualified by
+the existing image's receipts.

@@ -37,7 +37,16 @@ def stream(label, prompt, max_tokens, out):
     t0 = time.monotonic(); ttft = None
     with urllib.request.urlopen(req, timeout=900) as r:
         for line in r:
-            if line.startswith(b"data:") and b'"content"' in line and ttft is None: ttft = time.monotonic() - t0
+            if not line.startswith(b"data:"): continue
+            data = line[5:].strip()
+            if data == b"[DONE]": continue
+            chunk = json.loads(data)
+            if "error" in chunk: raise RuntimeError(chunk["error"])
+            for choice in chunk.get("choices", []):
+                delta = choice.get("delta", {})
+                if ttft is None and (delta.get("content") or delta.get("reasoning_content") or delta.get("reasoning")):
+                    ttft = time.monotonic() - t0
+    if ttft is None: raise RuntimeError(f"{label}: no generated text in stream")
     out[label] = (ttft, time.monotonic() - t0)
 seed = f"Essay {uuid.uuid4().hex}: describe the geology of a volcanic island in detail."
 o = {}; stream("seed", seed, 60, o)
@@ -48,4 +57,5 @@ for i in range(2): start(f"long{i}", f"Essay {uuid.uuid4().hex}: history of cana
 start("repeat", seed, 60, 2.0)
 for i in range(2): start(f"fresh{i}", f"Essay {uuid.uuid4().hex}: history of bridges.", 60, 3.0)
 time.sleep(4); [t.join() for t in th]
+assert set(res) == {"long0", "long1", "repeat", "fresh0", "fresh1"}, f"incomplete streaming probe: {res}"
 for k, (ttft, tot) in res.items(): print(f"{k:8s} ttft={ttft:6.1f}s total={tot:6.1f}s", flush=True)

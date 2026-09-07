@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-# GLM-5.3-Flash NVFP4 JJ r27 Spark qualification driver (workstation side).
-# PREPARED for the operator-scheduled window; runs only against an already
-# launched r27 TP4 pair of pairs on sparky/buddy/rocky/lucky with GLM's policy
-# auto, explicitly selected for reproduction now that aligned is the default.
+# GLM-5.3-Flash NVFP4 JJ r27 Spark ALIGNED CONTROL driver (workstation side).
+# Matched to the executed auto window: same image, runner, model revision,
+# corpus, probes, and benchmark; the only change is the four ranks launched
+# with RECURRENT_CHECKPOINT_POLICY=aligned. Not a promotion.
+# Runs only against an already launched r27 TP4 cluster on
+# sparky/buddy/rocky/lucky whose four command lines carry
+# --recurrent-checkpoint-policy aligned; the identity gate refuses any rank
+# without it.
 # Sequence: bounded readiness by completion, all-rank identity gates, semantic
 # x3, concurrency reproducers (identical burst, multi-turn extension, repeat
 # head-of-line), frozen prefix-cache pair matrix, short and long triples,
@@ -15,7 +19,7 @@ archive=${ARCHIVE:-/home/jugs/git/rtx6kpro-artifacts/20260906-pre-r27/spark/glm5
 base_url=${BASE_URL:-http://sparky:8000}; model=${MODEL:-GLM-5.3-Flash}
 nodes=(sparky buddy rocky lucky); name=glm53-flash-nvfp4-jj-r27-spark-tp4
 expected_image=${EXPECTED_IMAGE_ID:-ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae}
-date_tag=${DATE_TAG:-$(date +%Y%m%d)}; out=${OUT_DIR:-${r27}/qualification/glm-${date_tag}}
+date_tag=${DATE_TAG:-$(date +%Y%m%d)}; out=${OUT_DIR:-${r27}/qualification/glm-aligned-${date_tag}}
 mkdir -p "${out}"; exec > >(tee -a "${out}/driver.log") 2>&1
 echo "START $(date -Is) base_url=${base_url} model=${model} out=${out}"
 
@@ -37,42 +41,40 @@ while [ "$(date +%s)" -lt "${deadline}" ]; do
 done
 [ "${ready}" = 1 ] || { echo "no completion within 30 minutes"; exit 1; }
 
-echo "== all-rank identity gates: image, running, policy unchanged, backends =="
+echo "== all-rank identity gates: image, running, aligned policy on every rank, backends =="
 for n in "${nodes[@]}"; do
   img=$(ssh -n "${n}" "podman inspect --format '{{.Image}}' ${name}")
   [[ "${img}" == "${expected_image}" ]] || { echo "${n}: image ${img} != ${expected_image}"; exit 1; }
   cmdline=$(ssh -n "${n}" "podman exec ${name} cat /proc/1/cmdline | tr '\\0' ' '; podman inspect --format '{{join .Args \" \"}}' ${name}")
-  if ! python3 -c 'import shlex,sys; a=shlex.split(sys.stdin.read()); assert all(a[i+1] == "auto" for i,x in enumerate(a) if x == "--recurrent-checkpoint-policy"); assert all(x.split("=",1)[1] == "auto" for x in a if x.startswith("--recurrent-checkpoint-policy="))' <<<"${cmdline}"; then
-    echo "${n}: this reproduction requires auto, not the qualified aligned default"; exit 1
-  fi
+  if ! grep -q -- '--recurrent-checkpoint-policy aligned' <<<"${cmdline}"; then echo "${n}: GLM command line does not set the aligned policy; this is the aligned control"; exit 1; fi
   printf '%s\n' "${cmdline}" > "${out}/${n}-cmdline.txt"
 done
 grep -q "B12X_ROCENANTE" "${out}/sparky-container.log" || { echo "RoCEnante backend not reported on sparky"; exit 1; }
 echo "identity gates passed on ${nodes[*]}"
 
 echo "== semantic admission x3 =="
-python3 "${repo}/spark/glm53/verify-semantic-admission.py" --base-url "${base_url}" --model "${model}" --runs 3 --receipt-file "${out}/jj-r27-glm-semantic-admission-3x-${date_tag}.jsonl"
+python3 "${repo}/spark/glm53/verify-semantic-admission.py" --base-url "${base_url}" --model "${model}" --runs 3 --receipt-file "${out}/jj-r27-aligned-glm-semantic-admission-3x-${date_tag}.jsonl"
 
-echo "== concurrency reproducers under the unchanged policy =="
-BASE_URL="${base_url}" MODEL="${model}" python3 "${r27}/tests/glm/probe-concurrency-glm.py" | tee "${out}/jj-r27-glm-concurrency-${date_tag}.txt"
+echo "== concurrency reproducers under aligned =="
+BASE_URL="${base_url}" MODEL="${model}" python3 "${r27}/tests/glm/probe-concurrency-glm.py" | tee "${out}/jj-r27-aligned-glm-concurrency-${date_tag}.txt"
 
 echo "== frozen prefix-cache pair matrix (r26/r22 corpus) =="
 cp -n "${archive}/prefix-matrix-inputs.json" "${out}/"
 sha256sum "${out}/prefix-matrix-inputs.json" | grep -q '^31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9 ' || { echo "prefix corpus digest mismatch"; exit 1; }
-OUT_DIR="${out}" BASE_URL="${base_url}" MODEL="${model}" python3 "${r27}/tests/glm/prefix-matrix.py" r27
+OUT_DIR="${out}" BASE_URL="${base_url}" MODEL="${model}" python3 "${r27}/tests/glm/prefix-matrix.py" r27-aligned
 echo "== prefix-cache triples: short, then long (262000/262000/1048000) =="
 OUT_DIR="${out}" BASE_URL="${base_url}" MODEL="${model}" python3 "${r27}/tests/glm/prefix-triples.py" short
 OUT_DIR="${out}" BASE_URL="${base_url}" MODEL="${model}" python3 "${r27}/tests/glm/prefix-triples.py" long
 
 echo "== boundary + native context (262000 warms before 1048000) =="
 python3 "${repo}/spark/qwen38-flash-next/verify-native-context.py" --base-url "${base_url}" --model "${model}" --needle 739526 --max-tokens 128 \
-  --lengths 2048 2049 262000 1048000 --receipt-file "${out}/jj-r27-glm-native-context-needle-${date_tag}.jsonl"
+  --lengths 2048 2049 262000 1048000 --receipt-file "${out}/jj-r27-aligned-glm-native-context-needle-${date_tag}.jsonl"
 
 echo "== standard 15-cell grid (campaign 2026-09-jj-r27-sm121-qualification) =="
 ( cd "${bench}" && HOST="${base_url}" MODEL="${model}" MODEL_FAMILY=glm-5.3-flash MODEL_VARIANT=nvfp4 \
-    CAMPAIGN=2026-09-jj-r27-sm121-qualification VARIANT=jj-r27-sm121-tp4-dcp1-mtp3-native1m CONCURRENCY=1,2,4 \
+    CAMPAIGN=2026-09-jj-r27-sm121-qualification VARIANT=jj-r27-aligned-sm121-tp4-dcp1-mtp3-native1m CONCURRENCY=1,2,4 \
     ./run_bench.sh --duration 30 --max-total-tokens 6412288 ) | tee "${out}/benchmark.log"
-mkdir -p "${out}/llm-inference-bench" && cp "${bench}"/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r27-sm121-qualification/throughput/*jj-r27-sm121-tp4-dcp1-mtp3-native1m* "${out}/llm-inference-bench/" 2>/dev/null || true
+mkdir -p "${out}/llm-inference-bench" && cp "${bench}"/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r27-sm121-qualification/throughput/*jj-r27-aligned-sm121-tp4-dcp1-mtp3-native1m* "${out}/llm-inference-bench/" 2>/dev/null || true
 
 echo "== post-benchmark completion =="
 completion | tee "${out}/post-benchmark-completion.json" | grep -q 333

@@ -12,7 +12,7 @@ import urllib.request
 
 import os
 ROOT = Path(os.environ.get('OUT_DIR', Path(__file__).resolve().parent))
-REPO = Path(__file__).resolve().parents[4]
+REPO = Path(__file__).resolve().parents[5]
 spec = importlib.util.spec_from_file_location('needle', REPO / 'spark/qwen38-flash-next/verify-native-context.py')
 needle = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(needle)

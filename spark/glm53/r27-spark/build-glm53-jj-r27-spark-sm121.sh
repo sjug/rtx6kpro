@@ -300,10 +300,7 @@ grep -Fq -- 'num_speculative_tokens\":3' <<<"${qwen_launch}"
 grep -Fq -- '--disable-custom-all-reduce' <<<"${qwen_launch}"
 grep -Fq -- '--load-format instanttensor' <<<"${qwen_launch}"
 grep -Fq -- '--recurrent-checkpoint-policy aligned' <<<"${qwen_launch}"
-if grep -Fq -- 'recurrent-checkpoint-policy' <<<"${glm_launch}"; then
-  echo 'The GLM launcher must not set a recurrent checkpoint policy before its own qualification.' >&2
-  exit 1
-fi
+grep -Fq -- '--recurrent-checkpoint-policy aligned' <<<"${glm_launch}"
 if grep -Fq -- 'instanttensor_copy' <<<"${qwen_launch}"; then
   echo 'The Qwen launcher still passes the removed instanttensor_copy option.' >&2
   exit 1

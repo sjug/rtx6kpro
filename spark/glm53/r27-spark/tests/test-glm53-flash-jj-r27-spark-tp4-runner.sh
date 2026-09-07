@@ -60,6 +60,7 @@ for output in "${head_render}" "${buddy_render}" "${rocky_render}" "${lucky_rend
   require "${output}" 'NCCL_SOCKET_IFNAME=enp1s0f0np0\,enP2p1s0f0np0'
   require "${output}" 'GLOO_SOCKET_IFNAME=enp1s0f0np0'
   require "${output}" 'serve-glm53-flash-jj-r27-spark.sh'
+  require "${output}" '--recurrent-checkpoint-policy aligned'
   reject "${output}" 'KV_CACHE_MEMORY_BYTES'
   reject "${output}" '--disable-custom-all-reduce'
   reject "${output}" '--privileged'
@@ -76,8 +77,31 @@ for output in "${head_render}" "${buddy_render}" "${rocky_render}" "${lucky_rend
 done
 
 require "${head_render}" '--node-rank 0'
-# GLM keeps r27's default checkpoint policy until its own qualification.
-reject "${head_render}" 'recurrent-checkpoint-policy'
+# The unoverridden profile must preserve the qualified policy on every rank.
+require "${head_render}" '--recurrent-checkpoint-policy aligned'
+control=$(HOME="${test_home}" ROLE=head DRY_RUN=1 IMAGE="${image}" \
+  NODE_RANK=0 HOST_IP=10.11.11.1 RECURRENT_CHECKPOINT_POLICY=aligned "${runner}")
+require "${control}" '--recurrent-checkpoint-policy aligned'
+auto_control=$(HOME="${test_home}" ROLE=head DRY_RUN=1 IMAGE="${image}" \
+  NODE_RANK=0 HOST_IP=10.11.11.1 RECURRENT_CHECKPOINT_POLICY=auto "${runner}")
+require "${auto_control}" '--recurrent-checkpoint-policy auto'
+reject "${auto_control}" '--recurrent-checkpoint-policy aligned'
+launcher="$(dirname "${runner}")/launchers/serve-glm53-flash-jj-r27-spark.sh"
+for policy in aligned auto; do
+  launch=$(DRY_RUN=1 RECURRENT_CHECKPOINT_POLICY="${policy}" bash "${launcher}")
+  require "${launch}" "--recurrent-checkpoint-policy ${policy}"
+done
+launch=$(DRY_RUN=1 bash "${launcher}" --recurrent-checkpoint-policy auto)
+require "${launch}" '--recurrent-checkpoint-policy auto'
+reject "${launch}" '--recurrent-checkpoint-policy aligned'
+[[ $(grep -o -- '--recurrent-checkpoint-policy' <<<"${launch}" | wc -l) == 1 ]]
+launch=$(env -u RECURRENT_CHECKPOINT_POLICY DRY_RUN=1 bash "${launcher}")
+require "${launch}" '--recurrent-checkpoint-policy aligned'
+if HOME="${test_home}" ROLE=head DRY_RUN=1 IMAGE="${image}" \
+  NODE_RANK=0 HOST_IP=10.11.11.1 RECURRENT_CHECKPOINT_POLICY=bogus "${runner}" >/dev/null 2>&1; then
+  echo 'invalid checkpoint policy unexpectedly passed' >&2
+  exit 1
+fi
 require "${head_render}" 'VLLM_HOST_IP=10.11.11.1'
 reject "${head_render}" '--headless'
 require "${buddy_render}" '--node-rank 1'

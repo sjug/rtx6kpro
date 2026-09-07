@@ -48,6 +48,10 @@ MAX_NUM_BATCHED_TOKENS=${MAX_NUM_BATCHED_TOKENS:-4096}
 SPECULATOR=${SPECULATOR:-mtp}
 MTP=${MTP:-3}
 VLLM_GLM53_MTP_DRAFT_HEAD=${VLLM_GLM53_MTP_DRAFT_HEAD:-bf16}
+# Qualified ef669fa1 profile. Carry the flag explicitly because that image's
+# baked launcher predates this default. Explicit auto is for reproduction only.
+RECURRENT_CHECKPOINT_POLICY=${RECURRENT_CHECKPOINT_POLICY:-aligned}
+case "${RECURRENT_CHECKPOINT_POLICY}" in aligned|auto) ;; *) echo 'invalid RECURRENT_CHECKPOINT_POLICY' >&2; exit 2 ;; esac
 MAX_CUDAGRAPH_CAPTURE_SIZE=${MAX_CUDAGRAPH_CAPTURE_SIZE:-}
 CUDAGRAPH_CAPTURE_SIZES=${CUDAGRAPH_CAPTURE_SIZES:-'1 2 4 8 12 16 24 32'}
 PREFILL_SCHEDULE_INTERVAL=${PREFILL_SCHEDULE_INTERVAL:-8}
@@ -279,6 +283,9 @@ cmd=(
   --master-port "${MASTER_PORT}"
   "${role_args[@]}"
 )
+if [[ -n "${RECURRENT_CHECKPOINT_POLICY}" ]]; then
+  cmd+=(--recurrent-checkpoint-policy "${RECURRENT_CHECKPOINT_POLICY}")
+fi
 
 if [[ "${DRY_RUN:-0}" == 1 ]]; then
   printf 'DRY-RUN:'

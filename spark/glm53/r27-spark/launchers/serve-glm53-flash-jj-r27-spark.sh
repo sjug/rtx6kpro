@@ -182,7 +182,15 @@ if ((num_speculative_tokens > 0)); then
       ;;
   esac
 fi
-cmd+=("$@")
+# Next rebuild owns the same qualified default as the host runner. A runner
+# supplying an explicit control policy must not create duplicate policy flags.
+checkpoint_policy=${RECURRENT_CHECKPOINT_POLICY:-aligned}
+case "${checkpoint_policy}" in aligned|auto) ;; *) fail 'invalid RECURRENT_CHECKPOINT_POLICY' ;; esac
+policy_args=(--recurrent-checkpoint-policy "${checkpoint_policy}")
+for arg in "$@"; do
+  case "${arg}" in --recurrent-checkpoint-policy|--recurrent-checkpoint-policy=*) policy_args=() ;; esac
+done
+cmd+=("${policy_args[@]}" "$@")
 
 if [[ "${DRY_RUN:-0}" == 1 ]]; then
   printf 'VLLM_GLM53_MTP_DRAFT_HEAD=%q\n' "${draft_head_mode}"
