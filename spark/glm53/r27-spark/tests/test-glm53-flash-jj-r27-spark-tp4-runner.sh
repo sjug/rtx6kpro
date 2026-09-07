@@ -76,6 +76,8 @@ for output in "${head_render}" "${buddy_render}" "${rocky_render}" "${lucky_rend
 done
 
 require "${head_render}" '--node-rank 0'
+# GLM keeps r27's default checkpoint policy until its own qualification.
+reject "${head_render}" 'recurrent-checkpoint-policy'
 require "${head_render}" 'VLLM_HOST_IP=10.11.11.1'
 reject "${head_render}" '--headless'
 require "${buddy_render}" '--node-rank 1'

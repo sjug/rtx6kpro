@@ -123,9 +123,20 @@ rejects any reappearance of the removed policy exports.
    sequence under full graphs with verification that c3 replays a padded
    batch through a graph captured for a uniform one, watching for persistent
    acceptance collapse.
-2. GLM in an approved window: the frozen prefix-cache pairs and triples plus
-   appended conversation turns (cache hits are promising on r27, not proven
-   for our reproducer), concurrent multi-turn MTP3, then the standard grid and
-   prefill against corrected R26.
+2. GLM in an approved window, policy unchanged (`tests/qualify-glm53-r27.sh`,
+   prepared): all-rank identity gates, semantic x3, the concurrency
+   reproducers (identical burst, multi-turn extension, repeat head-of-line)
+   under GLM's default policy, the frozen r26/r22 prefix-cache pair matrix and
+   the short and long triples (`tests/glm/`), native context with the 262000
+   warm before 1048000, then the standard grid and prefill against corrected
+   R26 (campaign `2026-09-jj-r27-sm121-qualification`).
+
+   Window sequence (operator-scheduled): ship the image archive dusty to
+   rusty, then rusty to sparky, buddy, rocky, and lucky over the 200G mesh,
+   `podman load` and verify the image ID on every node; sync this directory
+   to each node; stop the r26 GLM containers workers first, head last
+   (`ROLE=stop`); start r27 workers first, then the head, with the GLM runner
+   as committed (no policy flag); run the driver from the workstation. The
+   r26 image stays loaded for rollback.
 
 Status and evidence are in `QUALIFICATION.md`.

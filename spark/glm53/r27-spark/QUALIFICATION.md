@@ -265,5 +265,9 @@ and retested.
 
 ## Phase 2: GLM TP4
 
-Not started. Requires an approved GLM window. GLM and DS4 remain untouched
-until then.
+Not started. Requires an approved GLM window; GLM and DS4 remain untouched
+until then. The driver `tests/qualify-glm53-r27.sh` and the GLM probes under
+`tests/glm/` are prepared (syntax-checked, not executed): GLM's checkpoint
+policy stays unchanged and the driver refuses a GLM command line that sets
+one, so the window also measures whether the exact-repeat serialization seen
+on Qwen under `auto` reproduces on GLM before any GLM policy decision.
