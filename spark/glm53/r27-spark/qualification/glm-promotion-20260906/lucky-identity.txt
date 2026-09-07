@@ -1,0 +1,3 @@
+f78a965525ef99d17bb1389a6c2ae48194f265f631c11bd2a797fdde0eac1d4c  /home/jugs/git/bld-jj-r27-spark/run-glm53-flash-jj-r27-spark-tp4-node.sh
+613a257b4648aa35f074a2d695eb7a1d3cc66fba7115207a76df2a352980cfaa  /home/jugs/git/bld-jj-r27-spark/launchers/serve-glm53-flash-jj-r27-spark.sh
+image=ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae started=2026-09-06 22:10:47.751260354 -0400 EDT running=true

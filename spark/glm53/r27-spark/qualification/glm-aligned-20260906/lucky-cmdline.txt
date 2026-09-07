@@ -1,0 +1,1 @@
+/run/podman-init -- /usr/local/bin/serve-glm53-flash-jj-r27-spark.sh --nnodes 4 --node-rank 3 --master-addr 10.11.11.1 --master-port 25000 --headless --recurrent-checkpoint-policy aligned -- /usr/local/bin/serve-glm53-flash-jj-r27-spark.sh --nnodes 4 --node-rank 3 --master-addr 10.11.11.1 --master-port 25000 --headless --recurrent-checkpoint-policy aligned

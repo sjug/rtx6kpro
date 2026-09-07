@@ -1,0 +1,32 @@
+id: "2026-09-jj-r27-sm121-qualification"
+status: "completed"
+objective: "Qualify GLM-5.3-Flash R27 on four GB10 nodes against corrected R26; varied parameter: recurrent checkpoint policy (auto, then the matched aligned control)."
+baseline: "2026-09-jj-r26-sm121-qualification"
+conclusion: "Auto arm: passes correctness but fails concurrent-serving qualification, all ten C2/C4 cells underfilled at concurrency one, not promotion-ready. Matched aligned arm: all correctness checks and 15 full-occupancy cells pass with zero request errors or warmup timeouts; removes head-of-line blocking and restores long partial-prefix reuse. Steps/s geomeans 19.742/31.198/45.427 versus corrected R26 18.833/29.573/43.512, single-boot evidence. Aligned remains serving for testing, not automatically promoted."
+shared_configuration:
+  model_family: "glm-5.3-flash"
+  model_variant: "nvfp4"
+notes: |
+  TP4/DCP1/MTP3, BF16 proposal head, FP8 KV, 1048576 context,
+  0.85 utilization, 4096 batched tokens, max sequences 8, RoCEnante,
+  LMCache disabled. Only varied serving parameter: auto versus aligned
+  recurrent checkpoint policy; actual all-rank command-line receipts match otherwise.
+  Image ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae.
+  Checkpoint 46aaae8a82032f77100f2f03e9cc11b391df3b4d.
+  Compare only against the corrected R26 materialized-queue launcher control,
+  not the original R26 run with unqualified dynamic/L2 policy exports.
+  Auto: all 15 cells completed without request errors; C1 steps/s geomean 19.670,
+  C2 19.729 and C4 19.832 are underfilled observations, not full-concurrency
+  throughput. The capacity_limited flags reflect running_reqs=1/2 or 1/4,
+  not a measured KV deficit. Hardware summaries are workstation-local;
+  use the four remote GPU logs in the rtx6kpro GLM qualification directory.
+  Aligned: all 15 cells reach requested concurrency, no errors or warmup
+  timeouts. Output tok/s geomeans 50.13/80.82/122.26. No JIT warnings during
+  the timed grid. Long exact repeat takes 2.93s versus auto's 1.48s;
+  long divergent extension restores 258048 cache hits, versus auto's zero.
+  Startup allocation warnings and non-thinking formatting remain separately
+  documented caveats. Raw results are unchanged.
+  Subsequently approved operational default: R27 aligned, with the runner
+  default deployed without restarting the qualified processes. R26 remains
+  rollback. Image plus runner and deployed launcher identities are recorded
+  in rtx6kpro spark/glm53/r27-spark/qualification/GLM-PROMOTION.md.

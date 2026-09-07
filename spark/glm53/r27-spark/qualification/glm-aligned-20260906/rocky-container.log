@@ -1,0 +1,91 @@
+2026-09-06T22:10:47.131308000-04:00 GLM Spark policy: L2_PREFETCH=platform-default-off-sm121 WORK_SOURCE=materialized_queue DRAFT_HEAD=bf16
+2026-09-06T22:10:57.597882000-04:00 WARNING 09-07 02:10:57 [envs.py:2345] Unknown vLLM environment variable detected: VLLM_USE_B12X_PCIE_DMA
+2026-09-06T22:10:57.598275000-04:00 WARNING 09-07 02:10:57 [envs.py:2345] Unknown vLLM environment variable detected: VLLM_CACHE_DIR
+2026-09-06T22:10:57.598334000-04:00 WARNING 09-07 02:10:57 [envs.py:2345] Unknown vLLM environment variable detected: VLLM_GLM53_SPLIT_TARGET_BLOCK_SIZE
+2026-09-06T22:10:53.874745000-04:00 W0907 02:10:53.873000 45 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-06T22:10:53.899992000-04:00 W0907 02:10:53.899000 45 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-06T22:10:57.598377000-04:00 WARNING 09-07 02:10:57 [envs.py:2345] Unknown vLLM environment variable detected: VLLM_GLM53_SPLIT_MAMBA_BLOCK_SIZE
+2026-09-06T22:10:57.609212000-04:00 INFO 09-07 02:10:57 [model.py:684] Resolved architecture: Glm5NextForConditionalGeneration
+2026-09-06T22:10:57.609341000-04:00 INFO 09-07 02:10:57 [model.py:2021] Using max model len 1048576
+2026-09-06T22:11:00.427844000-04:00 INFO 09-07 02:11:00 [cache.py:347] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+2026-09-06T22:11:00.428140000-04:00 INFO 09-07 02:11:00 [arg_utils.py:2327] Inferred data_parallel_rank 0 from node_rank 2
+2026-09-06T22:11:00.433796000-04:00 INFO 09-07 02:11:00 [model.py:684] Resolved architecture: Glm5NextMTPModel
+2026-09-06T22:11:00.433820000-04:00 INFO 09-07 02:11:00 [model.py:2021] Using max model len 1048576
+2026-09-06T22:11:00.433852000-04:00 WARNING 09-07 02:11:00 [speculative.py:1348] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+2026-09-06T22:11:00.434355000-04:00 INFO 09-07 02:11:00 [scheduler.py:338] Chunked prefill is enabled with max_num_batched_tokens=4096.
+2026-09-06T22:11:00.434377000-04:00 WARNING 09-07 02:11:00 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+2026-09-06T22:11:00.434396000-04:00 WARNING 09-07 02:11:00 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+2026-09-06T22:11:00.434417000-04:00 WARNING 09-07 02:11:00 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+2026-09-06T22:11:00.434437000-04:00 WARNING 09-07 02:11:00 [modelopt.py:1695] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+2026-09-06T22:11:00.434455000-04:00 INFO 09-07 02:11:00 [vllm.py:802] Auto-enabling VLLM_USE_BREAKABLE_CUDAGRAPH=1. Set VLLM_USE_BREAKABLE_CUDAGRAPH=0 to opt out.
+2026-09-06T22:11:00.434892000-04:00 INFO 09-07 02:11:00 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-06T22:11:00.434909000-04:00 WARNING 09-07 02:11:00 [vllm.py:2010] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-06T22:11:00.490527000-04:00 INFO 09-07 02:11:00 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-09-06T22:11:00.490664000-04:00 INFO 09-07 02:11:00 [serve.py:217] Launching vLLM (v0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1) headless multiproc executor, with head node address 10.11.11.1:25000 for torch.distributed process group.
+2026-09-06T22:11:04.107691000-04:00 W0907 02:11:04.106000 131 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-06T22:11:04.121542000-04:00 W0907 02:11:04.120000 131 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-06T22:11:08.387274000-04:00 (Worker pid=131) INFO 09-07 02:11:08 [parallel_state.py:1647] world_size=4 rank=2 local_rank=0 distributed_init_method=tcp://10.11.11.1:25000 backend=nccl
+2026-09-06T22:11:26.847984000-04:00 (Worker pid=131) INFO 09-07 02:11:26 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-09-06T22:11:30.593427000-04:00 (Worker pid=131) WARNING 09-07 02:11:30 [symm_mem.py:67] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+2026-09-06T22:11:30.628594000-04:00 (Worker pid=131) INFO 09-07 02:11:30 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-09-06T22:11:32.818053000-04:00 (Worker pid=131) INFO 09-07 02:11:32 [parallel_state.py:1991] rank 2 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 2, EP rank 2, EPLB rank N/A
+2026-09-06T22:11:32.818356000-04:00 (Worker pid=131) INFO 09-07 02:11:32 [gpu_worker.py:421] Using V2 Model Runner
+2026-09-06T22:11:33.303147000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:33 [model_runner.py:389] Loading model from scratch...
+2026-09-06T22:11:33.402711000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:33 [cuda.py:551] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+2026-09-06T22:11:33.402842000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:33 [mm_encoder_attention.py:375] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+2026-09-06T22:11:33.428450000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:33 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-06T22:11:33.428590000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:11:33 [vllm.py:2010] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-06T22:11:34.480348000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:34 [mla_attention.py:634] Using fp8_ds_mla KV cache format for B12X backend.
+2026-09-06T22:11:34.486253000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:11:34 [mla_attention.py:717] Sparse MLA layer has no dense-MHA prefill path; using the top-k MQA path only.
+2026-09-06T22:11:34.511844000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:34 [deep_gemm.py:213] DeepGEMM PDL enabled on deep_gemm.
+2026-09-06T22:11:34.511992000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:34 [deep_gemm.py:131] DeepGEMM E8M0 enabled on current platform.
+2026-09-06T22:11:34.724549000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:34 [nvfp4.py:261] Using 'B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+2026-09-06T22:11:36.773137000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:36 [__init__.py:869] Using B12xMxfp8LinearKernel for MXFP8 GEMM
+2026-09-06T22:11:36.773427000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:11:36 [vocab_parallel_embedding.py:389] Quantizing LM head shards to MXFP8 with BF16 activations.
+2026-09-06T22:12:36.034452000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [default_loader.py:450] Loading weights took 59.05 seconds
+2026-09-06T22:12:36.123033000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [nvfp4.py:613] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-06T22:12:36.553486000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-06T22:12:36.566770000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-06T22:12:36.582878000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [vocab_parallel_embedding.py:389] Quantizing LM head shards to NVFP4 with BF16 activations.
+2026-09-06T22:12:36.591552000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [mxfp8.py:125] Using 'MARLIN' MxFp8 MoE backend (user-requested).
+2026-09-06T22:12:36.840051000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:36 [weight_utils.py:655] Safetensors index filter selected 5/44 checkpoint shards.
+2026-09-06T22:12:36.854453000-04:00 (Worker_TP2 pid=131) /opt/jovian-judgement/vllm/vllm/model_executor/model_loader/weight_utils.py:1221: RuntimeWarning: Shrink io_depth from 128 to 28 due to memory limit.
+2026-09-06T22:12:36.854618000-04:00 (Worker_TP2 pid=131)   with instanttensor.safe_open(
+2026-09-06T22:12:39.923421000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:39 [default_loader.py:450] Loading weights took 3.08 seconds
+2026-09-06T22:12:40.424146000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:40 [fp8.py:706] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-06T22:12:40.436766000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:12:40 [speculator.py:196] Draft model Glm5NextMTP does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+2026-09-06T22:12:41.201952000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:41 [model_runner.py:411] Model loading took 47.25 GiB memory and 68.109441 seconds
+2026-09-06T22:12:41.247955000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:12:41 [interface.py:888] Using split GLM-5.3 cache pages: target block size 2048 tokens, recurrent-state block size 2048 tokens.
+2026-09-06T22:12:44.025619000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:44 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 32242 tokens, and profiled with 1 video items of the maximum feature size.
+2026-09-06T22:12:53.848933000-04:00 (Worker_TP2 pid=131) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 4096, 'out_features': 38720, 'recipe': 'nvfp4'}
+2026-09-06T22:12:53.958181000-04:00 (Worker_TP2 pid=131) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 4096, 'out_features': 38720, 'recipe': 'mxfp8'}
+2026-09-06T22:12:55.031726000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:55 [b12x_warmup.py:90] Warmed up 1 b12x MLA kernel signature(s).
+2026-09-06T22:12:55.032122000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:55 [b12x_warmup.py:90] Warmed up 1 b12x MoE kernel signature(s).
+2026-09-06T22:12:55.032177000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:55 [b12x_warmup.py:90] Warmed up 1 b12x MXFP8 kernel signature(s).
+2026-09-06T22:12:55.396547000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:12:55 [kv_cache_utils.py:2119] Keeping split GLM-5.3 cache groups with physical page sizes [1122304, 1148928].
+2026-09-06T22:12:55.499940000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:12:55 [breakable_cudagraph.py:307] Breakable CUDA graph enabled
+2026-09-06T22:13:03.866212000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:03 [speculator.py:187] Capturing model for speculator...
+2026-09-06T22:13:07.116421000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:07 [model_runner.py:1002] Graph capturing finished in 12 secs, took 1.45 GiB
+2026-09-06T22:13:07.526876000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:07 [gpu_worker.py:628] Available KV cache memory: 40.94 GiB
+2026-09-06T22:13:07.527056000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:07 [gpu_worker.py:643] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8500 is equivalent to --gpu-memory-utilization=0.8367 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8633. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+2026-09-06T22:13:12.443940000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:12 [kernel_warmup.py:124] JIT kernel warmup starting.
+2026-09-06T22:13:12.444373000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:12 [kernel_warmup.py:134] JIT kernel warmup finished in 0.00s.
+2026-09-06T22:13:12.480858000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:12 [kernel_warmup.py:92] Warming up ll_bf16 router GEMM kernels for shapes: ((4096, 288),).
+2026-09-06T22:13:13.435423000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:13 [kernel_warmup.py:194] Skipping FlashInfer autotune because it is disabled.
+2026-09-06T22:13:30.570821000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:30 [speculator.py:187] Capturing model for speculator...
+2026-09-06T22:13:33.764158000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:33 [model_runner.py:1002] Graph capturing finished in 20 secs, took -0.17 GiB
+2026-09-06T22:13:33.764576000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:33 [gpu_worker.py:796] CUDA graph pool memory: -0.17 GiB (actual), 1.62 GiB (estimated), difference: 1.79 GiB (191920401200.0%).
+2026-09-06T22:13:33.764629000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:33 [gpu_worker.py:859] Free memory on device (107.8/121.69 GiB) on startup. Desired GPU memory utilization is (0.85, 103.44 GiB). Actual usage is 58.81 GiB for consumed memory (weights + non-torch), 3.68 GiB for peak activation, and -0.17 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=43986308744` (40.97 GiB) to fit into requested memory, or `--kv-cache-memory=48673890132` (45.33 GiB) to fully utilize gpu memory. Current kv cache memory in use is 40.94 GiB.
+2026-09-06T22:13:36.687530000-04:00 (Worker_TP2 pid=131) INFO 09-07 02:13:36 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+2026-09-06T22:14:00.034667000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:00 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _expand_c4_block_table_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:00.080185000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:00 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_local_logits_stats_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:00.218077000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:00 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _rejection_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:00.222694000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:00 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _resample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:05.141932000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:05 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _pool_seq_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:07.617482000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:07 [jit_monitor.py:141] Triton kernel JIT compilation during inference: rotary_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:22.949733000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:22 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _prefill_pool_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:23.048920000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:23 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _prefill_tail_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:23.061376000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:23 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _gather_c4_block_table_rows_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:14:53.281880000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:14:53 [jit_monitor.py:141] CuTeDSL JIT compilation during inference: MHCPrefillTf32ProjectTmaKernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:15:38.496809000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:15:38 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _gather_shared_paged_supertile_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-06T22:17:56.850804000-04:00 (Worker_TP2 pid=131) WARNING 09-07 02:17:56 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _store_cache_checkpoints_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.

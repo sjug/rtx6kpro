@@ -1,0 +1,1 @@
+image=bb9cb676e464425acb945118bc541fd917fa7eb7f3024418f1733b70de31e8b8 started=2026-09-06 13:37:19.070119817 -0400 EDT status=running args=["--","/usr/local/bin/serve-glm53-flash-jj-r26-spark.sh","--nnodes","4","--node-rank","0","--master-addr","10.11.11.1","--master-port","25000"]

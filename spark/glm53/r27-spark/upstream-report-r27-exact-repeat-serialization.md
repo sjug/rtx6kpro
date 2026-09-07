@@ -110,3 +110,19 @@ The unchanged 15-cell benchmark recovers: engine steps/s geometric means c1
 19.17 / 31.91 / 48.98). Correctness is unchanged (semantic set 18/18,
 retrieval exact through 262,000 tokens, speculative acceptance 2.19 vs
 2.25).
+
+## Second model family: GLM-5.3-Flash
+
+The same image reproduces both symptoms with `local-inference-lab/GLM-5.3-Flash-NVFP4` revision `46aaae8a82032f77100f2f03e9cc11b391df3b4d`, TP4/DCP1 on four GB10 nodes over switched 200G RoCE, BF16 MTP3 proposal head, FP8 KV, maximum sequences 8, and native 1048576 context. The matched aligned run changes only the recurrent-checkpoint-policy argument; all four actual command-line receipts otherwise match. This is a second model-family reproduction, not proof of a different mechanism.
+
+| Probe | Auto | Aligned |
+| --- | ---: | ---: |
+| C4 identical, aggregate output tok/s | 50.4 | 105.5 |
+| Repeat four previously completed distinct prompts, tok/s | 56.8 | 113.2 |
+| Repeated head-of-line request TTFT, seconds | 13.2 | 0.3 |
+| Fresh request 0 behind repeat TTFT, seconds | 10.5 | 0.7 |
+| Fresh request 1 behind repeat TTFT, seconds | 7.5 | 0.6 |
+
+Reproducer: `tests/glm/probe-concurrency-glm.py`, same request sequence in both arms. Streaming TTFT counts first nonempty generated text, not an empty role/header delta. Fresh distinct requests batch in both arms. Auto's standard benchmark has all ten C2/C4 cells underfilled at effective concurrency one; aligned admits the requested concurrency in every cell with zero warmup timeouts or request errors. Engine steps/s geometric means at C1/C2/C4 are 19.670/19.729/19.832 under auto (C2/C4 underfilled) and 19.742/31.198/45.427 under aligned.
+
+Both arms pass the semantic reasoning/vision/tool battery and native retrieval through 1048000 tokens. Results are single-boot measurements. Receipts are under `qualification/glm-20260906/` and `qualification/glm-aligned-20260906/`. Cache-reuse tradeoffs are documented separately in `qualification/GLM-ALIGNED-WINDOW.md`; this report's claim remains identical-repeat serialization and head-of-line blocking, with source attribution provisional. This draft has not been filed.

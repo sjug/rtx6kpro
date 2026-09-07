@@ -1,6 +1,6 @@
 # JJ r27 Spark qualification
 
-Status: built and gated on dusty; Qwen TP2 qualified under `--recurrent-checkpoint-policy aligned` (staging on dusty/kirby); `auto` rejected pending an upstream scheduler fix; not promoted
+Status: Qwen TP2 and GLM TP4 passed their requested batteries under `aligned` and remain running for testing; both auto profiles rejected for concurrent-serving behavior. GLM aligned control completed 2026-09-06 22:40 EDT; its runner default remains auto, so explicit aligned selection is required.
 
 Composition date: 2026-09-06. Build date: 2026-09-06.
 
@@ -265,9 +265,89 @@ and retested.
 
 ## Phase 2: GLM TP4
 
-Not started. Requires an approved GLM window; GLM and DS4 remain untouched
-until then. The driver `tests/qualify-glm53-r27.sh` and the GLM probes under
-`tests/glm/` are prepared (syntax-checked, not executed): GLM's checkpoint
-policy stays unchanged and the driver refuses a GLM command line that sets
-one, so the window also measures whether the exact-repeat serialization seen
-on Qwen under `auto` reproduces on GLM before any GLM policy decision.
+Executed in the user-approved window, 2026-09-06 21:12 to 22:00 EDT, on
+sparky/buddy/rocky/lucky. Exact image `ef669fa1...` is running on all four;
+R26 stopped containers and image are retained as rollback. Qwen and DS4
+were not changed. GLM's checkpoint policy stayed unchanged (`auto`).
+
+**Verdict: correctness gates passed; concurrent-serving qualification failed.
+Do not promote this GLM auto profile.** The driver exited zero because its
+concurrency probe records behavior rather than asserting a latency threshold;
+that exit status is not an overall qualification pass.
+
+- Semantic admission: 15/15 across three runs, including reasoning, vision,
+  and tool round trips. Native retrieval passed at 2048, 2049, 262000, and
+  1048000 tokens. Frozen pairs and triples passed answer and counter-isolation
+  checks. KV admission was 6,245,692 tokens for this boot.
+- Identical C4 prompts serialize at 50.4 aggregate tok/s; fresh distinct
+  probes reach 113.4 to 118.3. Repeating previously completed distinct
+  prompts also serializes. The repeated head-of-line request has 13.2 s TTFT,
+  and fresh requests behind it have 10.5 and 7.5 s TTFT.
+- The unchanged 15-cell `run_bench.sh` pass completed with zero request errors.
+  All ten C2/C4 cells timed out during readiness with effective concurrency
+  one. Their observed rates are underfilled scheduler measurements, not
+  valid full-concurrency kernel-throughput measurements.
+
+| Requested concurrency | Corrected R26 steps/s geo | R27 auto observed steps/s geo | R27 output tok/s geo |
+| --- | ---: | ---: | ---: |
+| 1 | 18.833 | 19.670 | 52.20 |
+| 2 | 29.573 | 19.729 (underfilled) | 47.73 |
+| 4 | 43.512 | 19.832 (underfilled) | 49.89 |
+
+The C1 increase is single-boot evidence only. Fresh-prefill client tok/s at
+8K/16K/32K/64K/128K: 2827/2949/2961/2950/2842. Server fresh-token rates,
+where available at 16K through 128K: 2968/2978/2966/2856.
+
+Exact repeat reuse improves: the 262000-token repeat reuses all tokens and
+completes in 1.48 s, versus 91.96 s with zero hits on corrected R26 using
+the same corpus. Divergent-prefix pairs still miss. The long triple's 1M
+extension takes 476.05 s with zero hits; R26 took 386.59 s with 258048 hits.
+Those times do not compare identical amounts of prefill work.
+
+Post-grid arithmetic completion and all-rank running/OOM checks passed.
+The first/post arithmetic responses both contain a literal `</think>` in
+content despite the probe's `enable_thinking=false`; they establish liveness
+and the correct answer, not a clean non-thinking formatting contract. The
+separate reasoning/vision/tool semantic battery passes its own checks.
+
+Receipts and full caveats: [GLM window report](qualification/GLM-WINDOW.md),
+raw logs and responses in `qualification/glm-20260906/`, and benchmark
+campaign `2026-09-jj-r27-sm121-qualification` under `llm-inference-bench/results`.
+At the end of this auto window, the aligned control was not yet authorized.
+The subsequent approved control is recorded below; no automatic promotion
+or rollback occurred.
+
+## Phase 2b: matched GLM aligned control
+
+Completed 2026-09-06 22:40:17 EDT on the same four nodes and exact image.
+Actual argv receipts differ from auto only by the aligned flag/value.
+Semantic 15/15, frozen cache pairs/triples, retrieval through 1048000 tokens,
+all 15 benchmark cells, post-completion, and all-rank running/OOM checks passed.
+Every benchmark cell achieved requested concurrency without warmup timeout or
+request error. The driver exit status is supported by these individual gates.
+
+| Concurrency | Corrected R26 steps/s | R27 aligned steps/s | Change | R27 aligned output tok/s |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 18.833 | 19.742 | +4.83% | 50.13 |
+| 2 | 29.573 | 31.198 | +5.50% | 80.82 |
+| 4 | 43.512 | 45.427 | +4.40% | 122.26 |
+
+Single-boot comparisons, not demonstrated repeatable gains. Fresh-prefill
+scouts remain near baseline overall; the 8K scout is about 2.9% lower.
+
+Identical C4 requests now batch at 105.5 tok/s versus auto's 50.4. The repeated
+head-of-line request reaches first token in 0.3 s and fresh arrivals in 0.6
+to 0.7 s, versus auto's 13.2 and 7.5 to 10.5 s. Long divergent pairs recover
+126976/129024 hits. The 1M triple extension recovers 258048 hits and completes
+in 386.73 s, matching R26's same-hit 386.59 s, versus auto's 476.05 s and
+zero hits. This matched A/B establishes the policy-dependent reuse difference
+for these cases. Aligned's 262K exact repeat takes 2.93 s with 258048 hits
+versus auto's 1.48 s with 262000. Short 4K repeats still miss under aligned.
+
+At the end of this control R27 aligned remained serving for testing, without
+changing defaults. The subsequently approved promotion makes aligned the
+runner default without restarting the already-qualified serving processes.
+R26 remains the rollback. Qwen and DS4 were untouched. See the
+[promotion identity record](qualification/GLM-PROMOTION.md).
+Startup allocation warnings and the non-thinking formatting caveat remain;
+see [full aligned report and raw numbers](qualification/GLM-ALIGNED-WINDOW.md).
