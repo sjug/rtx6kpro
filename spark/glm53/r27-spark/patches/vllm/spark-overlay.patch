@@ -1,0 +1,83 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bb0f51b43..1c3b2e496 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -117,13 +117,13 @@ if(DEFINED CMAKE_CUDA_COMPILER_VERSION AND
+    CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 13.4)
+   # Rubin (10.7) can run SM100 family code, but CUDA 13.4 also supports
+   # targeting it directly.
+-  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;10.7;11.0;12.0")
++  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;10.7;11.0;12.0;12.1")
+ elseif(DEFINED CMAKE_CUDA_COMPILER_VERSION AND
+    CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 13.0)
+    # starting from CUDA 12.9 and Blackwell (10.0), we use family-specific targets (10.0f, 12.0f, etc)
+    # to support the whole generation without specifying all sub-architectures
+    # see: https://developer.nvidia.com/blog/nvidia-blackwell-and-nvidia-cuda-12-9-introduce-family-specific-architecture-features/
+-  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;11.0;12.0")
++  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;11.0;12.0;12.1")
+ elseif(DEFINED CMAKE_CUDA_COMPILER_VERSION AND
+    CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.8)
+   set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;10.1;10.3;12.0;12.1")
+diff --git a/tests/models/test_glm5next_model.py b/tests/models/test_glm5next_model.py
+index f94a2c97d..ae77e52e9 100644
+--- a/tests/models/test_glm5next_model.py
++++ b/tests/models/test_glm5next_model.py
+@@ -212,6 +212,21 @@ def test_glm5next_mtp_draft_head_rejects_unknown_mode(monkeypatch) -> None:
+         mtp_draft_head.configured_draft_head_mode()
+ 
+ 
++@pytest.mark.parametrize(
++    ("capability", "supported"),
++    (
++        ((12, 0), True),
++        ((12, 1), True),
++        ((11, 0), False),
++        ((13, 0), False),
++    ),
++)
++def test_glm5next_mtp_nvfp4_draft_head_capability(
++    capability: tuple[int, int], supported: bool
++) -> None:
++    assert mtp_draft_head.supports_nvfp4_draft_head(capability) is supported
++
++
+ def test_glm5next_mtp_prepares_configured_draft_head(monkeypatch) -> None:
+     source_head = torch.nn.Linear(4, 8, bias=False)
+     quantized_head = torch.nn.Linear(4, 8, bias=False)
+diff --git a/vllm/models/glm5next/nvidia/mtp_draft_head.py b/vllm/models/glm5next/nvidia/mtp_draft_head.py
+index ae662622e..b76e56567 100644
+--- a/vllm/models/glm5next/nvidia/mtp_draft_head.py
++++ b/vllm/models/glm5next/nvidia/mtp_draft_head.py
+@@ -28,6 +28,7 @@ logger = init_logger(__name__)
+ 
+ _NVFP4_GLOBAL_MAX = 448.0 * 6.0
+ _SUPPORTED_MODES = frozenset(("bf16", "nvfp4"))
++_SUPPORTED_NVFP4_CAPABILITIES = frozenset(((12, 0), (12, 1)))
+ 
+ 
+ def configured_draft_head_mode() -> str:
+@@ -41,6 +42,11 @@ def configured_draft_head_mode() -> str:
+     return mode
+ 
+ 
++def supports_nvfp4_draft_head(capability: tuple[int, int]) -> bool:
++    """Return whether FlashInfer's W4A16 draft-head path is qualified."""
++    return capability in _SUPPORTED_NVFP4_CAPABILITIES
++
++
+ class _DraftHeadQuantMethod:
+     """Adapt a quantized draft head to ``LogitsProcessor``'s linear contract."""
+ 
+@@ -84,10 +90,10 @@ class QuantizedDraftHead(nn.Module):
+             raise TypeError("the shared target vocabulary head has no shard metadata")
+ 
+         major, minor = torch.cuda.get_device_capability(weight.device)
+-        if (major, minor) != (12, 0):
++        if not supports_nvfp4_draft_head((major, minor)):
+             raise ValueError(
+                 "the NVFP4 W4A16 draft vocabulary head requires CUDA capability "
+-                f"12.0; got {major}.{minor}"
++                f"12.0 or 12.1; got {major}.{minor}"
+             )
+         import flashinfer
+ 

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "name": "glm53-jj-r27-spark-sm121",
+  "scope": "Exact JJ r27 sources for GLM-5.3 Flash and Qwen3.8 Flash Next, derived from the qualified r26 Spark image with the SM121 vLLM overlay, pinned vLLM PR 674, and the unchanged SM121 LMCache and FlashKDA artifacts",
+  "published_r27": {
+    "image": "voipmonitor/vllm:jovian-judgement-community-20260906-r27",
+    "digest": "sha256:a298fe1cd207eaf97bd2ff2686716ed25b7009c09b36650eba732a4a7dc51512",
+    "source_lock": "models/glm-5.3-flash/build/glm53-jovian-judgement-community-20260906-r27.source.lock",
+    "source_lock_sha256": "e964f1c53c693eb83c3476c89a4a40e823f6d012f5ef9588ff5ae025ab18dd91",
+    "flashkda_extension_sha256_sm120": "16aece5ffb83c2dfb0355758bbbc9d6e0ea50a2cfc36ecee4936607d445aba0a",
+    "note": "The published extension digest is the SM120 workstation object. Spark gates on the SM121 object recorded under native_artifact_base."
+  },
+  "native_artifact_base": {
+    "image": "localhost/voipmonitor/vllm:glm53-jj-r26-spark-sm121-vllm59c9787-b12x00248b0-lmcachefe5442f-cu133-torch213-20260905-r1",
+    "image_id": "bb9cb676e464425acb945118bc541fd917fa7eb7f3024418f1733b70de31e8b8",
+    "vllm_spark_tree": "d4571e5ba189fcc05534ecae88dee763ffef4e35",
+    "vllm_package_tree": "59c9787400c85d5d4547ef898c5dee41804e7088",
+    "b12x_tree": "c20b6aab67ed791cc226ee91de23f7c45509f436",
+    "b12x_package_tree": "00248b09689830e55d8fbce8ee630600b63ef663",
+    "flashkda_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "flashkda_sha256": "484f88deea08f7e07fec6d1c275560cccbeeeb9928fcb047de0b25b4135f3116",
+    "lmcache_package_tree": "fe5442fbf258accaa7f26d2bbb00d8b7b5c349ca"
+  },
+  "vllm": {
+    "repository": "https://github.com/local-inference-lab/vllm.git",
+    "base_commit": "7d66922a7bf0c9c7efe9a35a87df128f6b24e762",
+    "r27_integration_repository": "https://github.com/voipmonitor/vllm.git",
+    "r27_source_branch": "integration/glm53-r27-release-20260906",
+    "r27_integration_commit": "63a82f8d323e8538cbe6f88ae1812a1c01577a0f",
+    "r27_integration_tree": "f54cd9ca2b9434727715197d32150b75e82a9ebf",
+    "r27_package_tree": "a336313dfd12c6b692051d1d3291712dda0c2a3d",
+    "pull_requests": [619, 573, 571, 572, 665, 552, 558, 553, 561, 664, 599, 666, 653],
+    "pr674": {
+      "repository": "https://github.com/local-inference-lab/vllm.git",
+      "number": 674,
+      "title": "[BugFix] Handle specialized scalar indices in checkpoint restore",
+      "head_commit": "04813092b20f76b71159b75672a4f0d8f97c0f9e",
+      "patch": "patches/vllm/pr674-boundary-checkpoint-scalar-cast.patch",
+      "patch_sha256": "7ce783e9c9a1982e12c0a9e5512ecfeeeabef723eda68b2838326ff533314fe5",
+      "status_at_composition": "open, mergeable, absent from the published r27 lock"
+    },
+    "spark_overlay": "CUDA 13.x architecture lists admit 12.1 and the GLM NVFP4 MTP proposal head admits qualified SM120 and SM121 devices",
+    "spark_overlay_patch": "patches/vllm/spark-overlay.patch",
+    "spark_overlay_patch_sha256": "992cbae5b9f7fd358fe01f20659c9a7985406d37bdafa129940bfe7e33afaea4",
+    "spark_tree": "8881b7772e1644d63162ad3b7494888ef7ac54fd",
+    "spark_package_tree": "f3c3fef548738807f7d1ef8157df63815c498607",
+    "refresh_patch": "patches/vllm/r26-spark-to-r27-spark.patch",
+    "refresh_patch_sha256": "03f4e82ab8c9632c09ffce035e93f29de6cc3483a836a7d0daba040808b12178",
+    "changed_paths": "patches/vllm/changed-paths.txt",
+    "changed_paths_sha256": "c653fdd058e3e3ca890a6eb430f21bec8d6f4e92e94c4bd82a46954337f9689f",
+    "changed_paths_count": 157,
+    "native_changes": "none; the refresh touches Python, shell, and Markdown only",
+    "flashkda_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b"
+  },
+  "b12x": {
+    "repository": "https://github.com/local-inference-lab/b12x.git",
+    "base_commit": "a1bbd02781c7505754e7aa58a959c1a77891c690",
+    "r27_integration_repository": "https://github.com/voipmonitor/b12x.git",
+    "r27_source_branch": "integration/glm53-r27-release-20260906",
+    "r27_integration_commit": "e8ad299b174f16e2e8fb5879bea272f4efbb53f2",
+    "r27_integration_tree": "f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71",
+    "r27_package_tree": "95fdcb1cfea380480b8882fa44055cfef358ddbb",
+    "pull_requests": [316, 267, 268, 269, 270, 272, 273, 278, 279, 280, 317],
+    "refresh_patch": "patches/b12x/r26-spark-to-r27-spark.patch",
+    "refresh_patch_sha256": "e77ed8ea721955c58de444e7734eb01c763f43d9f7fc916b4e984e1d4f948168",
+    "changed_paths": "patches/b12x/changed-paths.txt",
+    "changed_paths_sha256": "97f16753199144b846ec54484bce27f8d0cb239c82501a9608ca698b8dc99e59",
+    "changed_paths_count": 63,
+    "native_changes": "b12x/loader/*.c and benchmarks/loader/qualify_io.c are C99 sources compiled by b12x.loader._native at first use; the launchers keep --load-format instanttensor and VLLM_PLUGINS empty, so the loader is inert",
+    "package_metadata": "pyproject.toml adds the b12x_loader vllm.general_plugins entry point; the installed 1.3.0 metadata is not reinstalled and the entry point is not registered",
+    "rocenante_api_version": 1,
+    "rocenante_proxy_abi": 3,
+    "rocenante_proxy_cache_dir": "/opt/jovian-judgement/b12x-roce"
+  },
+  "lmcache": {
+    "repository": "https://github.com/local-inference-lab/LMCache.git",
+    "base_commit": "7ed4675404a31f4ffafd98975899dc83832ba965",
+    "r26_integration_commit": "822330db1160d2847538d53f9e6f4eeee2404f4d",
+    "acquisition_commit": "63919a2c6c310f9b34de7049b9b28b77fab13ca0",
+    "integration_tree": "008ac3e09ae5917aa0849147480d7bd5b9f8b37a",
+    "package_tree": "fe5442fbf258accaa7f26d2bbb00d8b7b5c349ca",
+    "version": "0.5.5.dev0+glm53cache.engine.822330db",
+    "pull_requests": [49, 50, 51],
+    "build_arch": "12.1a",
+    "rebuilt": false,
+    "reuse": "unchanged between the r26 and r27 locks; the SM121 wheel and cumem interposer are inherited from the r26 Spark image",
+    "default": "disabled"
+  },
+  "model": {
+    "repository": "local-inference-lab/GLM-5.3-Flash-NVFP4",
+    "revision": "46aaae8a82032f77100f2f03e9cc11b391df3b4d",
+    "draft_repository": "local-inference-lab/GLM-5.3-Flash-DFlash2",
+    "draft_revision_policy": "huggingface-main"
+  },
+  "qwen38_model": {
+    "repository": "local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89",
+    "revision": "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d",
+    "max_position_embeddings": 262144
+  }
+}
