@@ -1,0 +1,163 @@
+[1/2] STEP 1/6: FROM ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae AS refreshed
+[1/2] STEP 2/6: SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+--> Using cache d160f7e7346f683711e8c584590bf5db916157a1e3535e3311211f31e486780c
+--> d160f7e7346f
+[1/2] STEP 3/6: COPY source.lock.json refresh_sources.py contracts.py verify_native.py strengthen_flashkda_tests.py /build/r28/
+--> Using cache 7e1a077785fc5a226763599f1579793b6e16be20e3f75981dc2fd23284c1eb83
+--> 7e1a077785fc
+[1/2] STEP 4/6: COPY patches /build/r28/patches
+--> Using cache 7aa2dd7e80b8fe27bf0ee2a621337acbbb7214d063e7ca0140639a7a3c5b43d4
+--> 7aa2dd7e80b8
+[1/2] STEP 5/6: RUN python /build/r28/refresh_sources.py
+--> Using cache 49fa21dc66bd80e33d12065c2c08fa96a2df13f4bcb893cc55f43d464e8868a8
+--> 49fa21dc66bd
+[1/2] STEP 6/6: RUN python -m pip install --no-deps uv==0.12.9
+--> Using cache f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54
+--> f2d6639db4d3
+[2/2] STEP 1/5: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS flashkda-builder
+[2/2] STEP 2/5: ENV TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a
+--> Using cache ace3c1fc5be94181f8cfad3bd8a27c134ec33d927c010bd10884564a8423ee86
+--> ace3c1fc5be9
+[2/2] STEP 3/5: WORKDIR /opt/jovian-judgement/vllm
+--> Using cache 35d08763155cced4fccc0df41890132f5b9cde220c4bdc849b8a593e90fd2f9d
+--> 35d08763155c
+[2/2] STEP 4/5: RUN test -z "${FLASH_KDA_SRC_DIR:-}"     && cmake -S . -B /build/flashkda -G Ninja        -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES=121a        -DVLLM_TARGET_DEVICE=cuda -DVLLM_PYTHON_EXECUTABLE=/opt/venv/bin/python        -DNVCC_THREADS=2     && cmake --build /build/flashkda --target _flashkda_C --parallel 2     && install -Dm755 /build/flashkda/_flashkda_C.abi3.so /artifacts/_flashkda_C.abi3.so     && test "$(git -C /build/flashkda/_deps/flashkda-src rev-parse HEAD)" = 3b225bf26bb8e218928a1fe14751cb48cf31d11b     && echo 'a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a  cmake/external_projects/patches/flashkda-packed-checkpoints.patch' | sha256sum -c -     && cuobjdump --list-elf /artifacts/_flashkda_C.abi3.so | tee /artifacts/flashkda-cubins.txt     && python /build/r28/verify_native.py flashkda /artifacts/_flashkda_C.abi3.so     && cd /artifacts && sha256sum _flashkda_C.abi3.so > flashkda.sha256
+--> Using cache e8e29094c9e8e9ef9a9290381573c5a8397b7e71c0b83dc04cb978feea5a4e2f
+--> e8e29094c9e8
+[2/2] STEP 5/5: RUN install -Dm644 /build/flashkda/_deps/flashkda-src/tests/test_vsplit.py /artifacts/flashkda-tests/test_vsplit.py     && install -Dm644 /build/flashkda/_deps/flashkda-src/tests/torch_ref.py /artifacts/flashkda-tests/torch_ref.py     && python /build/r28/strengthen_flashkda_tests.py /artifacts/flashkda-tests/test_vsplit.py
+--> Using cache cc2e6cc77c7f7c6bf4c55501eb02dfad7a06880b4a4f0db03a55f0bc664855e8
+--> cc2e6cc77c7f
+cc2e6cc77c7f7c6bf4c55501eb02dfad7a06880b4a4f0db03a55f0bc664855e8
+[1/4] STEP 1/6: FROM ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae AS refreshed
+[1/4] STEP 2/6: SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+--> Using cache d160f7e7346f683711e8c584590bf5db916157a1e3535e3311211f31e486780c
+--> d160f7e7346f
+[1/4] STEP 3/6: COPY source.lock.json refresh_sources.py contracts.py verify_native.py strengthen_flashkda_tests.py /build/r28/
+--> Using cache 7e1a077785fc5a226763599f1579793b6e16be20e3f75981dc2fd23284c1eb83
+--> 7e1a077785fc
+[1/4] STEP 4/6: COPY patches /build/r28/patches
+--> Using cache 7aa2dd7e80b8fe27bf0ee2a621337acbbb7214d063e7ca0140639a7a3c5b43d4
+--> 7aa2dd7e80b8
+[1/4] STEP 5/6: RUN python /build/r28/refresh_sources.py
+--> Using cache 49fa21dc66bd80e33d12065c2c08fa96a2df13f4bcb893cc55f43d464e8868a8
+--> 49fa21dc66bd
+[1/4] STEP 6/6: RUN python -m pip install --no-deps uv==0.12.9
+--> Using cache f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54
+--> f2d6639db4d3
+[4/4] STEP 1/25: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS runtime
+[4/4] STEP 2/25: ARG CACHE_FINGERPRINT
+--> Using cache d680131f76f23bed9a9ef3687a51bdc90e2529df58b6a6be0751ff3f6edaaf8a
+--> d680131f76f2
+[4/4] STEP 3/25: ARG SOURCE_LOCK_SHA256
+--> Using cache dba862a3f6765178fa77d3911c17d9c33625a7b9e2281f7f83b35734afa57cce
+--> dba862a3f676
+[4/4] STEP 4/25: ARG RECIPE_SHA256
+--> Using cache 472c0d16f62e4ac574e72fb8856c3e83d002ee34aa2acb69c8b605e5c12cf1b3
+--> 472c0d16f62e
+[4/4] STEP 5/25: ARG RECIPE_COMMIT
+--> Using cache 5a28515b7311f27453d215c137e8789ac2ff6a4ef34f8a74e544eb645ce648c0
+--> 5a28515b7311
+[4/4] STEP 6/25: ARG VLLM_VERSION
+--> Using cache 7e824e541db7334589b0fc59f0f94c926008dfd603b2c9a955b8fcf8fc0fa918
+--> 7e824e541db7
+[4/4] STEP 7/25: ARG FLASHKDA_SHA256
+--> Using cache c8d7c90340a9d2b23dcdfd0fa60b54a2f214a41cacdf1f43a1d781362ef2fd7a
+--> c8d7c90340a9
+[4/4] STEP 8/25: ARG GLM_LAUNCHER_SHA256
+--> Using cache c75cf04583335ac876b3c079232d52e41fd8a97f33a9e29d0ec6d0e23b8dbf45
+--> c75cf0458333
+[4/4] STEP 9/25: ARG RECIPE_DIRTY
+--> Using cache 4a115b6d66f12cdd62ea1d4026820dafbeb0a6c8f28f085db1aa96d2a68a6dea
+--> 4a115b6d66f1
+[4/4] STEP 10/25: ENV LMCACHE_ENABLED=0 VLLM_PLUGINS=""     GLM_LAUNCHER_SHA256=${GLM_LAUNCHER_SHA256}     LOCAL_INFERENCE_CACHE_FINGERPRINT=${CACHE_FINGERPRINT}     XDG_CACHE_HOME=/cache/jit/${CACHE_FINGERPRINT}     VLLM_CACHE_ROOT=/cache/jit/${CACHE_FINGERPRINT}/vllm     VLLM_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/vllm     TRITON_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/triton     TORCHINDUCTOR_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/torchinductor     CUTE_DSL_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/cute-dsl     B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/cute     B12X_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile     SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile     TORCH_EXTENSIONS_DIR=/cache/jit/${CACHE_FINGERPRINT}/torch-extensions     VLLM_FLASHINFER_AUTOTUNE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/flashinfer-autotune     FLASHINFER_WORKSPACE_BASE=/cache/jit/${CACHE_FINGERPRINT}/flashinfer     TVM_FFI_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/tvm-ffi     TVM_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/tvm     TILELANG_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/tilelang     DG_JIT_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/deep-gemm     NUMBA_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/numba     CUDA_CACHE_PATH=/cache/jit/${CACHE_FINGERPRINT}/cuda     CUPY_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/cupy     B12X_ROCE_CACHE_DIR=/opt/jovian-judgement/b12x-roce
+--> Using cache 6ced68c25790f81000c697e90bef683ee7331692279d2591515ca53619091020
+--> 6ced68c25790
+[4/4] STEP 11/25: COPY --from=flashkda-builder /artifacts/ /opt/local-inference/r28-native/
+[2/4] STEP 1/5: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS flashkda-builder
+[2/4] STEP 2/5: ENV TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a
+--> Using cache ace3c1fc5be94181f8cfad3bd8a27c134ec33d927c010bd10884564a8423ee86
+--> ace3c1fc5be9
+[2/4] STEP 3/5: WORKDIR /opt/jovian-judgement/vllm
+--> Using cache 35d08763155cced4fccc0df41890132f5b9cde220c4bdc849b8a593e90fd2f9d
+--> 35d08763155c
+[2/4] STEP 4/5: RUN test -z "${FLASH_KDA_SRC_DIR:-}"     && cmake -S . -B /build/flashkda -G Ninja        -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES=121a        -DVLLM_TARGET_DEVICE=cuda -DVLLM_PYTHON_EXECUTABLE=/opt/venv/bin/python        -DNVCC_THREADS=2     && cmake --build /build/flashkda --target _flashkda_C --parallel 2     && install -Dm755 /build/flashkda/_flashkda_C.abi3.so /artifacts/_flashkda_C.abi3.so     && test "$(git -C /build/flashkda/_deps/flashkda-src rev-parse HEAD)" = 3b225bf26bb8e218928a1fe14751cb48cf31d11b     && echo 'a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a  cmake/external_projects/patches/flashkda-packed-checkpoints.patch' | sha256sum -c -     && cuobjdump --list-elf /artifacts/_flashkda_C.abi3.so | tee /artifacts/flashkda-cubins.txt     && python /build/r28/verify_native.py flashkda /artifacts/_flashkda_C.abi3.so     && cd /artifacts && sha256sum _flashkda_C.abi3.so > flashkda.sha256
+--> Using cache e8e29094c9e8e9ef9a9290381573c5a8397b7e71c0b83dc04cb978feea5a4e2f
+--> e8e29094c9e8
+[2/4] STEP 5/5: RUN install -Dm644 /build/flashkda/_deps/flashkda-src/tests/test_vsplit.py /artifacts/flashkda-tests/test_vsplit.py     && install -Dm644 /build/flashkda/_deps/flashkda-src/tests/torch_ref.py /artifacts/flashkda-tests/torch_ref.py     && python /build/r28/strengthen_flashkda_tests.py /artifacts/flashkda-tests/test_vsplit.py
+--> Using cache cc2e6cc77c7f7c6bf4c55501eb02dfad7a06880b4a4f0db03a55f0bc664855e8
+--> cc2e6cc77c7f
+[3/4] STEP 1/6: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS lmcache-builder
+[3/4] STEP 2/6: ENV TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a     BUILD_WITH_CUDA=1 ENABLE_CXX11_ABI=1 LMCACHE_CUDA_MAJOR=13 MAX_JOBS=2 NVCC_THREADS=2
+--> Using cache c90a5834dfc1ae30aa4243b97f5dc6accfcd7bc770fe24ad55c6a89a22986ec5
+--> c90a5834dfc1
+[3/4] STEP 3/6: COPY inputs/lmcache.bundle /build/r28/inputs/lmcache.bundle
+--> Using cache 9c4996362e173fb0a6d34b201af0554a2dcb1b7d1ee836921655405a99ca06a5
+--> 9c4996362e17
+[3/4] STEP 4/6: RUN python /build/r28/verify_native.py bundle /build/r28/inputs/lmcache.bundle     && git init /build/lmcache     && git -C /build/lmcache fetch /build/r28/inputs/lmcache.bundle refs/spark/jj-r28/lmcache-source     && git -C /build/lmcache checkout --detach FETCH_HEAD     && test "$(git -C /build/lmcache rev-parse HEAD^{tree})" = 247f81b6fd3b156c402a0dd31cd4a21ae8e21160     && test "$(git -C /build/lmcache rev-parse HEAD:lmcache)" = 85622f21a2a3ae115e7a4ca41801fe221001e87f
+--> Using cache 028afb893bcd43dcef979ab0247bfa45ee8fc6be3bcfa58433465d72a0674f76
+--> 028afb893bcd
+[3/4] STEP 5/6: WORKDIR /build/lmcache
+--> Using cache 0db87bde86ab95b4660e08954487f3e657ab16e7fce2826e46dbb8a9a48e7c0c
+--> 0db87bde86ab
+[3/4] STEP 6/6: RUN command -v uv && command -v cmake     && SETUPTOOLS_SCM_PRETEND_VERSION_FOR_LMCACHE=0.5.5.dev0+glm53checkpoints.617a1b47        uv build --python /opt/venv/bin/python --wheel --no-build-isolation --out-dir /artifacts .     && make -C csrc/cumem_ipc_interposer CUDA_HOME=/usr/local/cuda     && install -Dm755 csrc/cumem_ipc_interposer/liblmcache_cumem_shareable.so /artifacts/liblmcache_cumem_shareable.so     && uv pip install --python /opt/venv/bin/python --no-deps --reinstall /artifacts/lmcache-*.whl     && cd /     && python /build/r28/verify_native.py lmcache /artifacts/liblmcache_cumem_shareable.so     && cd /artifacts && sha256sum *.whl *.so > lmcache-native.sha256
+--> Using cache 3ec8379c09542650f0649bf61ca3d1c5f42db2e6ed6043b1fa79303459073881
+--> 3ec8379c0954
+--> Using cache 5d0419e4f860838f9c36f9fe1ffe613d8e9430fb1557fb5e63380a1a40e25904
+--> 5d0419e4f860
+[4/4] STEP 12/25: COPY --from=lmcache-builder /artifacts/ /opt/local-inference/r28-native/
+--> Using cache 15f640f9f13d8f1f9479af50c3e89b97bc1d88378040f8a1a038000947509e96
+--> 15f640f9f13d
+[4/4] STEP 13/25: COPY --from=lmcache-builder /build/lmcache/ /opt/lmcache/source-r28/
+--> Using cache 7aeacde800b6d887ed5af1d361c9c7341a1427d2aed9c475e2b15e0eaacb037a
+--> 7aeacde800b6
+[4/4] STEP 14/25: COPY source.lock.json /opt/glm53-flash/source.lock
+--> Using cache a3ce639a2f051d80e9c58a6a7f8efff108ae196c89ebea706d6b6258f513aa42
+--> a3ce639a2f05
+[4/4] STEP 15/25: COPY install_runtime.py /build/r28/install_runtime.py
+--> c27e8959cf51
+[4/4] STEP 16/25: COPY launchers/ /usr/local/bin/
+--> 85a540b65637
+[4/4] STEP 17/25: COPY tests/verify_jj_r28_runtime.py /opt/local-inference/verify_r28_runtime.py
+--> e8d11f4a3aef
+[4/4] STEP 18/25: COPY tests/verify_glm53_nvfp4_draft_head_sm121.py /opt/local-inference/verify_glm53_nvfp4_draft_head_sm121.py
+--> 847f1b9c19b0
+[4/4] STEP 19/25: COPY tests/run_flashkda_gate.py /opt/local-inference/run_flashkda_gate.py
+--> f2084b0f802c
+[4/4] STEP 20/25: COPY tests/flashkda_counts.py contracts.py verify_native.py /opt/local-inference/
+--> d869f5568ec9
+[4/4] STEP 21/25: RUN python /build/r28/install_runtime.py     && python /build/r28/verify_native.py proxy     && CC=/bin/false python /build/r28/verify_native.py proxy
+_flashkda_C.abi3.so: OK
+lmcache-0.5.5.dev0+glm53checkpoints.617a1b47-cp312-cp312-linux_aarch64.whl: OK
+liblmcache_cumem_shareable.so: OK
+Using Python 3.12.3 environment at: /opt/venv
+Resolved 1 package in 1.68s
+   Building vllm @ file:///opt/jovian-judgement/vllm
+      Built vllm @ file:///opt/jovian-judgement/vllm
+Prepared 1 package in 4.12s
+Uninstalled 7 packages in 194ms
+Installed 1 package in 28ms
+ - vllm==0.26.1rc0+glm53.jj.r11.spark.r1.vllm605efbb.b12xaace94c (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r12.spark.r2.vllm12a8897.b12xaace94c (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r15.spark.r1.vllm7e389bd.b12x2a69d69 (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r17.stock.spark.r1.vllmbd8e2ab.b12x5ee3a5a (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r22.spark.r1.vllm4fbb1c2.b12xe1edb6d (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r26.spark.r1.vllm59c9787.b12x00248b0 (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1 (from file:///opt/jovian-judgement/vllm)
+ + vllm==0.26.1rc0+glm53.jj.r28.spark.vllm3db6db5 (from file:///opt/jovian-judgement/vllm)
+Using Python 3.12.3 environment at: /opt/venv
+Resolved 1 package in 1ms
+Prepared 1 package in 59ms
+Uninstalled 1 package in 61ms
+Installed 1 package in 9ms
+ - lmcache==0.5.5.dev0+glm53cache.engine.822330db (from file:///tmp/lmcache-wheel/lmcache-0.5.5.dev0%2Bglm53cache.engine.822330db-cp312-cp312-linux_aarch64.whl#sha256=395300783bac2941df4deabc1245959d0cd2584007c361f6d6a980f3541927d6)
+ + lmcache==0.5.5.dev0+glm53checkpoints.617a1b47 (from file:///opt/local-inference/r28-native/lmcache-0.5.5.dev0+glm53checkpoints.617a1b47-cp312-cp312-linux_aarch64.whl)
+Traceback (most recent call last):
+  File "/build/r28/install_runtime.py", line 73, in <module>
+    shutil.copytree(
+  File "/usr/lib/python3.12/shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/shutil.py", line 554, in _copytree
+    raise Error(errors)
+shutil.Error: [('/opt/lmcache/source-r28/lmcache/v1/distributed/bitmap_ops/README.md', '/opt/venv/lib/python3.12/site-packages/lmcache/v1/distributed/bitmap_ops/README.md', "[Errno 17] File exists: '../../../../docs/design/v1/distributed/bitmap_ops/README.md' -> '/opt/venv/lib/python3.12/site-packages/lmcache/v1/distributed/bitmap_ops/README.md'")]
+Error: building at STEP "RUN python /build/r28/install_runtime.py     && python /build/r28/verify_native.py proxy     && CC=/bin/false python /build/r28/verify_native.py proxy": while running runtime: exit status 1

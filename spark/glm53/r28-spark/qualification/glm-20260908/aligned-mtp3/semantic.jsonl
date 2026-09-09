@@ -1,0 +1,16 @@
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 1, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 58, "effort": "high", "kind": "reasoning", "reasoning_chars": 55, "repetition": 1, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 55, "effort": "max", "kind": "reasoning", "reasoning_chars": 30, "repetition": 1, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 1, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 2, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 51, "effort": "high", "kind": "reasoning", "reasoning_chars": 28, "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 45, "effort": "max", "kind": "reasoning", "reasoning_chars": 30, "repetition": 2, "valid": true}
+{"answer": "The left side is red and the right side is blue. FINAL: red, blue", "kind": "vision", "repetition": 2, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 3, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 51, "effort": "high", "kind": "reasoning", "reasoning_chars": 28, "repetition": 3, "valid": true}
+{"answer": "17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 45, "effort": "max", "kind": "reasoning", "reasoning_chars": 30, "repetition": 3, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 3, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "GLM-5.3-Flash", "runs": 3, "valid": true}

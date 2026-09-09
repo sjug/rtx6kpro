@@ -1,0 +1,550 @@
+{
+  "host": "dusty",
+  "candidates": [
+    {
+      "Id": "fd26f5b9a2c14e5e1a44a73805c9c6dfa4d69e1c649b5d1cc0d4f7fe702efa3a",
+      "ParentId": "a8aa39338baecac32163e527298e4564b5277efa08b35866c1413304e1c547bb",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r17p1-rocenante-spark-sm121-vllm8c5b282-b12x3c9d909-lmcachec867e17-cu133-torch213-20260903-r1-dev"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:271d6f14c328455cdb89838faf52d6d9b3c75728cf2212eea2380175f56bd0da"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "0f2a9222fe588566ffa979b3eea914f54cb824678605b284f7533ff688aeaa53",
+      "ParentId": "ecafaeab9e59c37914ddf6616dca5b3d12646e46de69f7c1b64f2c851d72afed",
+      "Names": [
+        "localhost/voipmonitor/vllm:qwen38-jj-r15p-sm121-vllm7e389bd-b12xabfa395-cu133-20260902-r3-dev"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:0460214aa580ebe3b668e6107a6e30e874e76f7aecfc9a3053a2ccd0fb79c976"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "bfffa670ea5adfd591384e15a0021fd3e4b016f6df8573581258613cefe366d1",
+      "ParentId": "c2d6e2f14a01a3ad85f5c524ad5298587e25035677f742ffcd31ec922b3e6fc9",
+      "Names": [
+        "localhost/voipmonitor/vllm:qwen38-jj-r15p-sm121-vllm7e389bd-b12x4a78d03-cu133-20260902-r2-dev"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:2c4f9a81c4d9d2d8f7970e3e3f5e41a7a6f004a304e5b48ee7103be8f57bbdb9"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "8914c066f372bca78290ac5cef9121eae0142a5db7064d6f4dba1327d97c270c",
+      "ParentId": "7c6c893a8daad5135da4cad08bd1f44fa0861c14115da389f3bc60a69482fb53",
+      "Names": [
+        "localhost/voipmonitor/vllm:qwen38-jj-r15-sm121-mechanism-unrelated-10k-fill"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:c7a7a37a0102432a283e4cecdb450a11503d1858f88f2b0ece550721c5954eda"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "9889e0661b907540ccb88989917f1e1c461e2f3574418e02b74ba677c63efefc",
+      "ParentId": "d606f1155e4881a284ec642ce58a5b4890ffee303a9f66540ea678f5bebcedba",
+      "Names": [
+        "localhost/voipmonitor/vllm:qwen38-jj-r15-sm121-mechanism-same-atom-zero"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:907065f75b7ceece421d45ac5ed7e6be50e5af13f2a9dbea19c6e94a1fc9bb1a"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "eae5374f3dbf8f8ba2c033fdfc023cb2ac2fddd1c0e40cf86000e7b23a87b5d6",
+      "ParentId": "2eb28dfa2124d63863f92799c2f55e19c4b885af455789b15321c0f449f4430f",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-r12-mxfp8-fill-control"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:be3fcd118e63ae67cade6c9e534f805274d041820b0276bc2b4ddc0ead33e156"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "3964fe6f02297e2c21bf354f6a1e0801a388e671d488bd5c4a4199ae4075ec7e",
+      "ParentId": "a02637b80b1ac836f40af3d642e949696922ee751a2aae2967ae8dea67d1de33",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-h-functional-boundary"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:fad2e1bf0359cfbab66f867510985d166a9891336e0632428df56ad127624db6"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "ce9f202f5388333fa9057bdff669567521b0ccdd11f3d5896a505c127fd68e23",
+      "ParentId": "214455d275012434f4d43c8641429637de827b8225426ea6640a619223c3b4a1",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-g-record-stream"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:532a97fc4f060b71f62e9cc1259a3fd9fc1d0f5468d0ca5200daa51af8140d0a"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "6d86da6f6d874b2a95871076939c60d0770fd0f6d23452d487fd241a8eef236b",
+      "ParentId": "20ec0baf308cae5926557adfdd05a4626644b3e419f83c73d7894f67b684d43c",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-f-scale-physical-tail"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:a00add063cba927436284ebb82d373e3f6acdf3a12ef130ed25b8555992e4003"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "f6b64fbdcee4c09e611ec9e0a30bedb1247d27e053729961899c7095cea4d3fe",
+      "ParentId": "4ae3e631e4f5fd88315a10bd93f9eaf4df689e52918a679ceb4d9a8e67771486",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-e-scale-physical-full"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:70e1cfe2a66a7c348833b185dd16d771eb5640f5b9601ec2e07916d7b669d946"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "32eac384c10f4f613c260ec6e6b5c45c5f74c919cff6af55dc6005c80571a4dd",
+      "ParentId": "864b7d7ee6f21bdea2822548d31532cfa8c24d933937342586f5e6c7c6f3c4d2",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-d-scale-rows-only"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:e13618519a05f1ebc53e94d9bf3c8b73397e27c0537648a1712a96273dd7fd5f"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "efc67e27867f1cba67474645ab4abbe16fe9740687e5cdbb54ef1a63e730fa98",
+      "ParentId": "885ebfb5934bb1184066ba050ac58c0a3858ed21597a6fe4a16974d7e7eb62b8",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-c-scratch-fused-only"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:5ae51d8992a976cc327d9456edf9bb06a726da5a1b39414e0c9b6492553b8158"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "a4553d7c79b3d29cf7ec92aac1c8009047964eb0890ad9ed45687e62e7a77a18",
+      "ParentId": "1acabff38cb8ec6cd823afb222cd210cfbbad399cbea38706fea0aa5801a6f94",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-arm-b-packed-only"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:83d641876ecc39ec2660798fed8a429db03ada412a963338d222c30086c83737"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "6d9abf179c792990cf63b12d5b122abdeb2c8062eab2cbba4e14d2889c35ff39",
+      "ParentId": "3412cc57a7b2d08e78c576af6521ca4545a5e5e191a49452d03f645445e3fcff",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r15-sm121-mxfp8-fill-only-control"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:4a4aaddd539d3e9a3cea70071064b3af0c25c495b0b4fa5c487d46ff824e062d"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "3949be5f63b0b459292f5be43d10fafcbb25624cd35b7a46a36cb0aa1d0e3849",
+      "ParentId": "76292cdf207673f643eb209dc450e5ba3bc33d06dc4bc97e399c15b3a916c5d2",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r1-dev"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:e98ddf47fbdf3f9f473d6fee62172b0c3b1c0b9c0c615b00e5a5cde346d394e5"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "6ff2730764791cf13bca277f22a98b4c31a769bd6d2b4ff03f3414954399ee89",
+      "ParentId": "a7e4a682694671025ed412cc2312d68146bf546a692a47ead6d78cdb184bcab2",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260824"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:5207909104ac02ef7693a6258849cfa1ba3325ecfe369d8b54bd1b7ad8807b59"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "445f9ac3196dd10a47d0d90441ba43a8417903ba029f59a1a9c7fbef8ecfa4a1",
+      "ParentId": "3590050cd170df04445ba5bb2fca255754007dd1d5afcd10cfed99856f3bcfde",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260820"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:303888a16c24bc90562114d3760ac5d09b69fc561050e5abf4e7a037957666aa"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "58dbb868d26213a82150a365822b9eed0e769d67ddcbb0ab68ba9ab0ba4bc7af",
+      "ParentId": "0b75fdeacff7bc6b86a9d3633155714af714d6c84e6a51117efccffeb5082d30",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x5f3efa5-fi1ac6942-cu133-torch213-20260820"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:ba7774a87f9b885525ed53ad28fb26b9c4371597642f885b2ba57bebdb4ae4c9"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "ad037c9f87148a2858a86d5687ef39a97ebceca89646f798f39bc270bed73c6e",
+      "ParentId": "0db685b140a92d9bee9ec0b38fcbcb2dde5a0d73ebf3a5c49ae42c9dfb484097",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:dc9a5d5ffc85ca8d15c9d602befa53a2fa9f64e68902e8f644ffe8be77be8ada"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "fa19b0b1423bcfa3bd7485e6a96f2dbcadbc861ccb6adba1286ad7a001ba9ff0",
+      "ParentId": "df4c6ca1c6b0d478f4151de0b77030cfe91ecd707e2b566ce599a3b5617692df",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818b"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:0556f01d0484cc0e776be6845d36858be37810913dfc46835ed5017d82bb102a"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "edf3e0c8c62dad35b19200396574705ba9121654f83de8d6e5049d7da7e54ea3",
+      "ParentId": "231d82d6c2c6266918a06c44f04a7732efc9e0f1a43fa266ed850637671d3077",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:611050e2fd469e39e8e8ee2a4221b3051b450942d6c98fd471b11e1a61e92fb7"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "f85b66327d0a786f7467e2d88a0396f72e995ae32534c0065c104eda786372f6",
+      "ParentId": "63fe5c3b2797fc1292f4f550c60b1b3ad089af48901b7bc489acb83bbe843332",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r15-spark-sm121-vllm8ad1330-b12x96e5d3d-fi1ac6942-cu133-torch213-20260817"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:1936ecdf6c368f0a77abf392f48f92ded2252a0265d0a7f4590a7ab9e42ac97f"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "12e1b7c0699802e348fb67ba3998f82d47cea25ab22db6a8b246f07ba8afda87",
+      "ParentId": "aeac400d785ce1649b62ef82fa69eb2287f76d5de739ace8b4da2acedcc2eabb",
+      "Names": [
+        "localhost/voipmonitor/vllm:infernal-invocation-r10-spark-sm121-vllmd650d5c-b12x5d648d9-fi1ac6942-cu133-torch213-20260813"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:d6110c0eea4f0eaa9d6303b7db26cdeb5fbdd55b9fa29205e655bfb2aff4159d"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80",
+      "ParentId": "c818839ef4eae44e39e6e1d1058eb7751dd32a3e0addaae11802104c9e9ad4f4",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:20e14e67e6aede95248bae0161e3916b5c19d1557222735c6fb9912504a06814"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "d7b811bec132a6dbcce7020b0606f2a28cd2f161e043b9e06d888d2a27c9af7a",
+      "ParentId": "73243f30a20ca79e7c35f53d072c463daf6dcf84b28f4d76a4d3a7a87be35b9f",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllmc3ffb74-b12xcd3ce19-fi1ac6942-cu132-20260814"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:2fa36349ecd2d61d1471858a7c0f79d81d6f0448cca194a20f397ee207f3a4b0"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79",
+      "ParentId": "6d463ab5c31a9d1acc46dea484e1e93cc8720ac6eb4d462d72317d20b2fb6f74",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:5a43f548361babbb51b9e1e865b66a335c622703b4f5d5ee404012bd7ba9c97b"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc",
+      "ParentId": "53fcf13bfb50be915e514e28f89a12ba22b33cfc55e8ae743b29799419d7b9bb",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:30c6737a9b72c40495fc414c970e221d0c0e2950600ef8565f775581772755d4"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14",
+      "ParentId": "9a07cba636db7997745186fdea10a3fc60439a648d2ad288befc9fab752fa6c7",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:5ab19ebaeaa8ea7058ebc4f296e20cce0ec1db71b7fe5535dfcd594327248398"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "dfad43d4b2dea816eef6a2f9835fba3faf9c589f5912c912ca7efcbb6d5e7866",
+      "ParentId": "0c31b3762a129cb4a606d865de92f8ceaf5ad4c22c35c0b75daa3995c7c7cee9",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:9b8dd35eee43c3baaa9b93a621360b3da4e22dba4ae1de51f15026303212fa5a"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c",
+      "ParentId": "356b8af3f190a89fe42c202da6bf0aeccdc48898b72ddca9a76e92f330f252c1",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:e2a2b8d5c2093e598eba414983de4002101ce5e58d2805f8bca291f7b8ca7798"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "777bd6bbdfef405573a2da50aaeeef37b4198923cd28c4b442b38b6fe343db8f",
+      "ParentId": "c16c09a689bef2ff078d98785a46fd28337f6a613420c28c9be895ba4b0ea4d0",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm6dbe127-si9c34ff8-fi7ad08da-cu132-20260730"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:5e3916392550a38cdce22d83756d317bd7de99a8f09bcd51c07cb514ef518a9a"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "39d6390e168d2621a8565e629c7f6e1351183f650af2ce55af0b38b981ce9c14",
+      "ParentId": "fcc4a7f81544087314e8bfdaa1c237bd0e62d1f0e11dc4a0b8dd2dcfa3be83a1",
+      "Names": [
+        "localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl2-20260830"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:7378669b311eb29fb82353ee3ca9d16f6095f4bd9072ba8f3da93eeb2024d792"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "9aa6483944ab9fbe342c6b5522a8b79b71b9104b6b1b05348c056c594849365e",
+      "ParentId": "2776775aa463e71547960098fcbd6e60a4731022dbd95a6446afd212f002c330",
+      "Names": [
+        "localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl1-20260830"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:5d1ab12a4966d27c3431c86a66f3d135b6a520f5b1bdbaab2a4bd344c4a86deb"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "1f13d03fc08137f0772da259ba09c11b5e80c70b8e8fd805e99da1178ad7997e",
+      "ParentId": "d434b80434e5fd52965c5c283b9fa83abe3068129cc6f6d753dc2df84b7967be",
+      "Names": [
+        "localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-20260830"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:fd95f6c24daa37072926536496c3ec45dae8b866a8e404b8cf23714cb8253882"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "7692d14a22c987c68550b6ae5232d1ea910b5fab8e154b553a491e1eb4f4d0c4",
+      "ParentId": "658ad9ecda72f8f48179ca54b4e984c2a25a69578dc580df29b0c16134f271ce",
+      "Names": [
+        "localhost/qwen38-flash-next-sglang:sm121-qsa-4429b60"
+      ],
+      "RepoDigests": [
+        "localhost/qwen38-flash-next-sglang@sha256:fa4d736b67d3ad82f3f14c62a21e223a241c8e4e7db4f87d23ab0b0f55e4411e"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "64c58f100438fa5f036bdfbeb3edd3136fb12c5d22d8ae52786c4a701263c55d",
+      "ParentId": "",
+      "Names": [
+        "localhost/qwen38-flash-next-sglang:arm64-14ed5825",
+        "docker.io/lmsysorg/sglang@sha256:14ed582518584c5c830206b5318a2c2769e68229c3422e48a28b952b3a888bd4"
+      ],
+      "RepoDigests": [
+        "docker.io/lmsysorg/sglang@sha256:14ed582518584c5c830206b5318a2c2769e68229c3422e48a28b952b3a888bd4",
+        "localhost/qwen38-flash-next-sglang@sha256:14ed582518584c5c830206b5318a2c2769e68229c3422e48a28b952b3a888bd4"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "2dc397ccf5dd8e7f7b749ec648fbd7ee22c41902002f166d6886eb334784e71e",
+      "ParentId": "",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:63584774e66a59cf61e9df0a8699bc13822dd27a7a1379e1aa576f482e396029"
+      ],
+      "Containers": 0
+    },
+    {
+      "Id": "83c03df2d23695ee7f87d8504c78a87698343e6c1399b508dea8fdeb3a56744a",
+      "ParentId": "",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20p0-ds4-spark-sm121-vllm2167295-si6a92bcc-fi801d57a-cu132-20260722"
+      ],
+      "RepoDigests": [
+        "localhost/voipmonitor/vllm@sha256:71985c484686b5a8394c13eabc61bafc29819cdd0782afd1c57c9cf2eca85a2d"
+      ],
+      "Containers": 0
+    }
+  ],
+  "retain": [
+    {
+      "Id": "cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-r28-spark-sm121"
+      ]
+    },
+    {
+      "Id": "ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r27-spark-sm121-vllmf3c3fef-b12x95fdcb1-lmcachefe5442f-cu133-torch213-20260906-r1"
+      ]
+    },
+    {
+      "Id": "bb9cb676e464425acb945118bc541fd917fa7eb7f3024418f1733b70de31e8b8",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r26-spark-sm121-vllm59c9787-b12x00248b0-lmcachefe5442f-cu133-torch213-20260905-r1"
+      ]
+    },
+    {
+      "Id": "907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1",
+        "localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1-scratch"
+      ]
+    },
+    {
+      "Id": "1e2051dade83f41fa46ee7d1dd4432c1a3e2cf0ca50dd21b5b892b597a4fcb68",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r17-stock-spark-sm121-vllmbd8e2ab-b12x5ee3a5a-lmcachec867e17-cu133-torch213-20260903-r1-dev"
+      ]
+    },
+    {
+      "Id": "f306b92934d4d9c57778e7bd782de44b68e23ba12c28b4ea52b080e40c363fbf",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r15-spark-sm121-vllm7e389bd-b12x2a69d69-lmcache9086bfb-cu133-torch213-20260902-r1-dev",
+        "localhost/voipmonitor/vllm:glm53-jj-r15-spark-sm121-build-output-f306b929"
+      ]
+    },
+    {
+      "Id": "d3776a397fd7e656a731696eca403474ceb5a8f48fe2eb861533a46ca3b7533c",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r2-dev"
+      ]
+    },
+    {
+      "Id": "e0b6e58d50825daa5ae19dc23df0e50bbe9eb3b6f3a4997020e9dca7516ab376",
+      "Names": [
+        "localhost/voipmonitor/vllm:glm53-jj-r11-spark-sm121-dev-20260901-r1"
+      ]
+    },
+    {
+      "Id": "c8281440367303646993d27d28e3eba0c419b4a52fef007fe6b6c78df090f3b8",
+      "Names": [
+        "localhost/voipmonitor/vllm:jj-spark-sm121-cu133-torch213-nccl2312-20260901-r1"
+      ]
+    },
+    {
+      "Id": "79f90dc238bec1147ed7d44dee9a612b6c0555ce843ea26ba53df7db52298855",
+      "Names": [
+        "ghcr.io/astral-sh/uv@sha256:95f2aa1fe59274951cfe9b0cbc7972e879ff1004bc8945d130a32eb0dbd85945"
+      ]
+    },
+    {
+      "Id": "d464f3b466fa9c45ddbff8a812e80564503b6879a9fd95c1a47514f3f0df5a4a",
+      "Names": [
+        "docker.io/vllm/vllm-openai@sha256:3b0e188ffceb3d07e09c3cb5215433a0020eacf02d7f882ed3a8bfd15454477e"
+      ]
+    },
+    {
+      "Id": "c11cda53f7d1a0ac30c83678b81d153f627297d68c3b444255e27ff07dc9758c",
+      "Names": [
+        "localhost/voipmonitor/vllm:flashinfer-wheels-sm121-fi1ac6942-cu133-torch213-20260824-r1"
+      ]
+    },
+    {
+      "Id": "276f00868134ed3116ffaf44db975f1b4d8803c7f528c8f772bdaae43506fbd6",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm17b78ef-b12xcd3ce19-fi1ac6942-cu132-20260818"
+      ]
+    },
+    {
+      "Id": "f2d936ccb81a6e3992a81cfbc13c2df78f7f3fbec281878db7ad2343933f268c",
+      "Names": [
+        "localhost/voipmonitor/vllm:spark-sm121-cu132-build-base-r13-20260730"
+      ]
+    },
+    {
+      "Id": "ba676a6c6d6b7e80865a6cc7e4ba868f6f724356547b66c581c403e6c2935aed",
+      "Names": [
+        "localhost/voipmonitor/vllm:spark-sm121-cu132-system-base-r13-20260730"
+      ]
+    },
+    {
+      "Id": "2a3b0c146aa66e3b9a116bb12bd3b906e904cdba4975e555af9e57271ba243b3",
+      "Names": [
+        "localhost/voipmonitor/vllm:ii-spark-sm121-cu133-torch213-nccl2312-20260814-r1"
+      ]
+    },
+    {
+      "Id": "69f83ec7efff842b460e610809e7029959e4c81d01ac490517dbee2fa599b351",
+      "Names": [
+        "localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808"
+      ]
+    },
+    {
+      "Id": "9c9c8140d313f1038f7f78304089c280873b007afb4d36dbfb8b153af6103196",
+      "Names": [
+        "docker.io/moby/buildkit:buildx-stable-1"
+      ]
+    },
+    {
+      "Id": "15b8de8baabe68e46afc51e88f3ccad5042013bafe8f244ec082ce0bb06d47e3",
+      "Names": [
+        "nvcr.io/nvidia/pytorch@sha256:7531d90bcbe0e43e1f7363029c7e145ce90eebeb494a7b4695fdba0329d7c3c3"
+      ]
+    },
+    {
+      "Id": "27dd470f35a35913295a37bca0b873dd9529e6b7b354db14d7a5add80b7e223e",
+      "Names": [
+        "docker.io/nvidia/cuda:13.2.1-cudnn-devel-ubuntu24.04"
+      ]
+    }
+  ],
+  "external_container_count": 316
+}

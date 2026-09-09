@@ -1,0 +1,40 @@
+id: "2026-09-jj-r28-vs-r27"
+status: "completed"
+objective: "Qualify GLM-5.3-Flash R28 aligned on the four Sparks and compare the unchanged standard grid with qualified R27 aligned."
+baseline: "jj-r27-aligned-sm121-tp4-dcp1-mtp3-native1m"
+shared_configuration:
+  model: "local-inference-lab/GLM-5.3-Flash-NVFP4"
+  checkpoint_revision: "46aaae8a82032f77100f2f03e9cc11b391df3b4d"
+  nodes: ["sparky", "buddy", "rocky", "lucky"]
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  speculative_tokens: 3
+  draft_head: "bf16"
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 1048576
+  max_num_seqs: 8
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  kv_cache_dtype: "fp8"
+  kda_prefill_backend: "flashkda"
+  nccl_proto: "LL,Simple"
+conclusion: "R28 aligned MTP3 passed GLM qualification and remains serving on all four nodes. Engine steps/s changes versus historical R27 are +0.99%, -0.07%, -0.68% at c1/c2/c4; no material regression or Qwen-sized improvement demonstrated. Prefill scout differences range -0.36% to -2.62%, single-boot evidence."
+notes: |
+  R28 image cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1.
+  R27 reference is 20260906T222747-0400 aligned r01. Historical single-boot
+  comparison, not proof of repeatability or kernel causality. Keep R28 if qualified.
+  Use run_bench.sh, duration 30 and max-total-tokens 6412288 as in R27; the latter
+  is a client admission limit, not a measured R28 KV capacity or server allocation.
+  Semantics precede timings. Prefix diagnostics and native 1M retrieval retain
+  cache-hit counters where available; their elapsed times are not cold-prefill
+  comparisons. All four ranks have GPU clock telemetry during the long requests.
+  Aligned only: no R28 auto-policy qualification or default change in this window.
+  GLM uses RoCEnante plus PyNCCL; no transfer of Qwen gains is assumed.
+  Completed 2026-09-08 19:20:25 EDT, all 15 cells clean. No in-window JIT or
+  throttle samples on the four dedicated node traces. Built-in benchmark
+  hardware sampling is client-local and must not be attributed to the Sparks.
+  Readiness/native probes were corrected to GLM's supported thinking contract;
+  inherited Qwen enable_thinking=false leaked reasoning into answer content.
+  Rejected probe receipts are preserved. GLM semantic 15/15, exact retrieval
+  through 1048000 tokens, and frozen prefix pairs/triples passed. Long extension
+  reused 258048 tokens in 389.32 seconds, comparable to R27 aligned 386.73 s.

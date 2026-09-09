@@ -1,0 +1,10 @@
+true
+RETENTION-VERIFIED
+TYPE           TOTAL       ACTIVE      SIZE        RECLAIMABLE
+Images         2224        212         341.2GB     340.3GB (100%)
+Containers     0           0           0B          0B (0%)
+Local Volumes  1           0           17.76GB     17.76GB (100%)
+TYPE           TOTAL       ACTIVE      SIZE        RECLAIMABLE
+Images         928         212         126.8GB     121.3GB (96%)
+Containers     0           0           0B          0B (0%)
+Local Volumes  1           0           17.76GB     17.76GB (100%)

@@ -1,0 +1,63 @@
+REMOVE ad037c9f87148a2858a86d5687ef39a97ebceca89646f798f39bc270bed73c6e localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818
+Deleted: ad037c9f87148a2858a86d5687ef39a97ebceca89646f798f39bc270bed73c6e
+REMOVE fa19b0b1423bcfa3bd7485e6a96f2dbcadbc861ccb6adba1286ad7a001ba9ff0 localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818b
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818b
+Deleted: fa19b0b1423bcfa3bd7485e6a96f2dbcadbc861ccb6adba1286ad7a001ba9ff0
+REMOVE edf3e0c8c62dad35b19200396574705ba9121654f83de8d6e5049d7da7e54ea3 localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818
+Deleted: edf3e0c8c62dad35b19200396574705ba9121654f83de8d6e5049d7da7e54ea3
+REMOVE f85b66327d0a786f7467e2d88a0396f72e995ae32534c0065c104eda786372f6 localhost/voipmonitor/vllm:infernal-invocation-r15-spark-sm121-vllm8ad1330-b12x96e5d3d-fi1ac6942-cu133-torch213-20260817
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r15-spark-sm121-vllm8ad1330-b12x96e5d3d-fi1ac6942-cu133-torch213-20260817
+Deleted: f85b66327d0a786f7467e2d88a0396f72e995ae32534c0065c104eda786372f6
+REMOVE 12e1b7c0699802e348fb67ba3998f82d47cea25ab22db6a8b246f07ba8afda87 localhost/voipmonitor/vllm:infernal-invocation-r10-spark-sm121-vllmd650d5c-b12x5d648d9-fi1ac6942-cu133-torch213-20260813
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r10-spark-sm121-vllmd650d5c-b12x5d648d9-fi1ac6942-cu133-torch213-20260813
+Deleted: 12e1b7c0699802e348fb67ba3998f82d47cea25ab22db6a8b246f07ba8afda87
+REMOVE 5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80 localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817
+Deleted: 5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80
+REMOVE d7b811bec132a6dbcce7020b0606f2a28cd2f161e043b9e06d888d2a27c9af7a localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllmc3ffb74-b12xcd3ce19-fi1ac6942-cu132-20260814
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllmc3ffb74-b12xcd3ce19-fi1ac6942-cu132-20260814
+Deleted: d7b811bec132a6dbcce7020b0606f2a28cd2f161e043b9e06d888d2a27c9af7a
+REMOVE 3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79 localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808
+Deleted: 3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79
+REMOVE 5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804
+Deleted: 5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc
+REMOVE b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14 localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803
+Deleted: b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14
+REMOVE dfad43d4b2dea816eef6a2f9835fba3faf9c589f5912c912ca7efcbb6d5e7866 localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803
+Deleted: dfad43d4b2dea816eef6a2f9835fba3faf9c589f5912c912ca7efcbb6d5e7866
+REMOVE 6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730
+Deleted: 6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c
+REMOVE 777bd6bbdfef405573a2da50aaeeef37b4198923cd28c4b442b38b6fe343db8f localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm6dbe127-si9c34ff8-fi7ad08da-cu132-20260730
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm6dbe127-si9c34ff8-fi7ad08da-cu132-20260730
+Deleted: 777bd6bbdfef405573a2da50aaeeef37b4198923cd28c4b442b38b6fe343db8f
+REMOVE 39d6390e168d2621a8565e629c7f6e1351183f650af2ce55af0b38b981ce9c14 localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl2-20260830
+Untagged: localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl2-20260830
+Deleted: 39d6390e168d2621a8565e629c7f6e1351183f650af2ce55af0b38b981ce9c14
+REMOVE 9aa6483944ab9fbe342c6b5522a8b79b71b9104b6b1b05348c056c594849365e localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl1-20260830
+Untagged: localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl1-20260830
+REMOVE 1f13d03fc08137f0772da259ba09c11b5e80c70b8e8fd805e99da1178ad7997e localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-20260830
+Untagged: localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-20260830
+Deleted: 1f13d03fc08137f0772da259ba09c11b5e80c70b8e8fd805e99da1178ad7997e
+REMOVE 7692d14a22c987c68550b6ae5232d1ea910b5fab8e154b553a491e1eb4f4d0c4 localhost/qwen38-flash-next-sglang:sm121-qsa-4429b60
+Untagged: localhost/qwen38-flash-next-sglang:sm121-qsa-4429b60
+Deleted: 7692d14a22c987c68550b6ae5232d1ea910b5fab8e154b553a491e1eb4f4d0c4
+REMOVE 64c58f100438fa5f036bdfbeb3edd3136fb12c5d22d8ae52786c4a701263c55d localhost/qwen38-flash-next-sglang:arm64-14ed5825
+Untagged: localhost/qwen38-flash-next-sglang:arm64-14ed5825
+REMOVE 64c58f100438fa5f036bdfbeb3edd3136fb12c5d22d8ae52786c4a701263c55d docker.io/lmsysorg/sglang@sha256:14ed582518584c5c830206b5318a2c2769e68229c3422e48a28b952b3a888bd4
+Untagged: docker.io/lmsysorg/sglang@sha256:14ed582518584c5c830206b5318a2c2769e68229c3422e48a28b952b3a888bd4
+REMOVE 2dc397ccf5dd8e7f7b749ec648fbd7ee22c41902002f166d6886eb334784e71e localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722
+Deleted: 2dc397ccf5dd8e7f7b749ec648fbd7ee22c41902002f166d6886eb334784e71e
+REMOVE 83c03df2d23695ee7f87d8504c78a87698343e6c1399b508dea8fdeb3a56744a localhost/voipmonitor/vllm:gilded-gnosis-v20p0-ds4-spark-sm121-vllm2167295-si6a92bcc-fi801d57a-cu132-20260722
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p0-ds4-spark-sm121-vllm2167295-si6a92bcc-fi801d57a-cu132-20260722
+Deleted: 83c03df2d23695ee7f87d8504c78a87698343e6c1399b508dea8fdeb3a56744a
+Error: 2 errors occurred:
+	* image used by fc9e937a8fb76626fa4a05935c7281ca95521b376c70107382ecc3d5e79da326: image is in use by a container: consider listing external containers and force-removing image
+	* image used by b4104445e19708a677c3d69b5840dabb79536b18155c56f368d816b57f8462f5: image is in use by a container: consider listing external containers and force-removing image

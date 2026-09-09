@@ -1,0 +1,29 @@
+START aligned-mtp3-restored 2026-09-08T16:28:31-04:00
+qwen38-flash-next-nvfp4-jj-r28-tp2 stopped and removed on kirby
+qwen38-flash-next-nvfp4-jj-r28-tp2 stopped and removed on dusty
+5cda3000faf0a0b855d3e21a361c85d6d58f216792abf5605fd4b6c0f58c4305
+qwen38-flash-next-nvfp4-jj-r28-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+8c3d2b4ca272b5e832c37248a5c264dd4dd66640b3ff644ed71ad38750c69743
+qwen38-flash-next-nvfp4-jj-r28-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 4 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY aligned-mtp3-restored 2026-09-08T16:31:55-04:00

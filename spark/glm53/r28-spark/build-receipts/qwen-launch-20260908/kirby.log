@@ -1,0 +1,145 @@
+WARNING 09-08 19:42:30 [argparse_utils.py:441] Found duplicate keys --recurrent-checkpoint-policy
+WARNING 09-08 19:42:30 [envs.py:2345] Unknown vLLM environment variable detected: VLLM_CACHE_DIR
+W0908 19:42:26.462000 46 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 19:42:26.495000 46 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+INFO 09-08 19:42:40 [model.py:684] Resolved architecture: Qwen3_8FlashNextForConditionalGeneration
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+INFO 09-08 19:42:40 [model.py:2024] Using max model len 262144
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+INFO 09-08 19:42:41 [cache.py:347] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+INFO 09-08 19:42:41 [arg_utils.py:2327] Inferred data_parallel_rank 0 from node_rank 1
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+INFO 09-08 19:42:47 [model.py:684] Resolved architecture: Qwen3_8FlashNextMTP
+INFO 09-08 19:42:47 [model.py:2024] Using max model len 262144
+WARNING 09-08 19:42:47 [speculative.py:1348] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+INFO 09-08 19:42:47 [scheduler.py:338] Chunked prefill is enabled with max_num_batched_tokens=4096.
+WARNING 09-08 19:42:47 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+WARNING 09-08 19:42:47 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+WARNING 09-08 19:42:47 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+WARNING 09-08 19:42:47 [modelopt.py:1695] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+INFO 09-08 19:42:47 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+WARNING 09-08 19:42:47 [vllm.py:2037] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+INFO 09-08 19:42:47 [compilation.py:329] Enabled custom fusions: act_quant
+INFO 09-08 19:42:47 [serve.py:217] Launching vLLM (v0.26.1rc0+glm53.jj.r28.spark.vllm3db6db5) headless multiproc executor, with head node address 10.11.1.1:25000 for torch.distributed process group.
+W0908 19:42:51.268000 418 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 19:42:51.281000 418 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+[transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+(Worker pid=418) INFO 09-08 19:42:54 [parallel_state.py:1647] world_size=2 rank=1 local_rank=0 distributed_init_method=tcp://10.11.1.1:25000 backend=nccl
+(Worker pid=418) INFO 09-08 19:43:24 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+(Worker pid=418) WARNING 09-08 19:43:26 [symm_mem.py:67] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+(Worker pid=418) WARNING 09-08 19:43:26 [flashinfer_all_reduce.py:383] FlashInfer All Reduce is disabled because it is not supported for world_size=2.
+(Worker pid=418) INFO 09-08 19:43:26 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+(Worker pid=418) INFO 09-08 19:43:27 [parallel_state.py:1991] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank 1, EPLB rank N/A
+(Worker pid=418) INFO 09-08 19:43:27 [gpu_worker.py:421] Using V2 Model Runner
+(Worker_TP1 pid=418) INFO 09-08 19:43:28 [model_runner.py:390] Loading model from scratch...
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [__init__.py:869] Using B12xMxfp8LinearKernel for MXFP8 GEMM
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [cuda.py:551] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [mm_encoder_attention.py:375] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [__init__.py:1101] Using MarlinNvFp4LinearKernel for NVFP4 GEMM
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [qwen_gdn_linear_attn.py:239] Using FlashInfer GDN prefill kernel (requested=auto, head_k_dim=128).
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [qwen_gdn_linear_attn.py:617] GDN decode kernel: b12x
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [nvfp4.py:261] Using 'B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTEDSL_BATCHED', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+(Worker_TP1 pid=418) INFO 09-08 19:43:29 [mamba_utils.py:37] VLLM_SSM_CONV_STATE_LAYOUT env detected. Setting SSM conv state layout to DS.
+(Worker_TP1 pid=418) INFO 09-08 19:43:32 [vocab_parallel_embedding.py:389] Quantizing LM head shards to MXFP8 with BF16 activations.
+(Worker_TP1 pid=418) INFO 09-08 19:44:35 [default_loader.py:450] Loading weights took 63.33 seconds
+(Worker_TP1 pid=418) WARNING 09-08 19:44:35 [marlin.py:34] Your GPU does not have native support for FP4 computation but FP4 quantization is being used. Weight-only FP4 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.
+(Worker_TP1 pid=418) WARNING 09-08 19:44:35 [marlin_utils.py:238] Marlin requires thread-tile padding for some weight shapes in this model. Activations and/or outputs of the padded layers are padded/sliced on every forward; performance may be degraded.
+(Worker_TP1 pid=418) INFO 09-08 19:44:36 [nvfp4.py:613] Using MoEPrepareAndFinalizeNoDPEPModular
+(Worker_TP1 pid=418) INFO 09-08 19:44:36 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+(Worker_TP1 pid=418) WARNING 09-08 19:44:36 [vllm.py:2037] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+(Worker_TP1 pid=418) WARNING 09-08 19:44:36 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+(Worker_TP1 pid=418) WARNING 09-08 19:44:36 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+(Worker_TP1 pid=418) WARNING 09-08 19:44:36 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+(Worker_TP1 pid=418) WARNING 09-08 19:44:36 [modelopt.py:1695] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+(Worker_TP1 pid=418) INFO 09-08 19:44:36 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+(Worker_TP1 pid=418) INFO 09-08 19:44:39 [vocab_parallel_embedding.py:389] Quantizing LM head shards to NVFP4 with BF16 activations.
+(Worker_TP1 pid=418) INFO 09-08 19:44:39 [weight_utils.py:655] Safetensors index filter selected 2/35 checkpoint shards.
+(Worker_TP1 pid=418) INFO 09-08 19:44:41 [default_loader.py:450] Loading weights took 1.44 seconds
+(Worker_TP1 pid=418) WARNING 09-08 19:44:41 [speculator.py:196] Draft model Qwen3_8FlashNextMTP does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+(Worker_TP1 pid=418) INFO 09-08 19:44:42 [model_runner.py:412] Model loading took 51.85 GiB memory and 74.294297 seconds
+(Worker_TP1 pid=418) INFO 09-08 19:44:42 [interface.py:1029] Setting attention block size to 2848 tokens to ensure that attention page size is >= mamba page size.
+(Worker_TP1 pid=418) INFO 09-08 19:44:42 [interface.py:1062] Padding mamba page size by 0.38% to ensure that mamba page size and attention page size are exactly equal.
+WARNING 09-08 19:44:42 [torch_utils.py:266] OMP_NUM_THREADS=16 is set; leaving Torch threads at 16 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+(Worker_TP1 pid=418) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+(Worker_TP1 pid=418) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+(Worker_TP1 pid=418) [transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+(Worker_TP1 pid=418) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+(Worker_TP1 pid=418) INFO 09-08 19:44:46 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_TP1 pid=418) INFO 09-08 19:45:14 [backends.py:1094] Using cache directory: /cache/jit/cu133-torch213-jj-r28-sm121-ea577d24a0eaa116ff79/vllm/torch_compile_cache/0aa76082eb/rank_1_0/backbone for vLLM's torch.compile
+(Worker_TP1 pid=418) INFO 09-08 19:45:14 [backends.py:1155] Dynamo bytecode transform time: 7.42 s
+(Worker_TP1 pid=418) INFO 09-08 19:45:25 [backends.py:393] Compiling a graph for compile range (1, 4096) takes 10.09 s
+(Worker_TP1 pid=418) INFO 09-08 19:45:29 [backends.py:920] collected artifacts: 52 entries, 9 artifacts, 6015001 bytes total
+(Worker_TP1 pid=418) INFO 09-08 19:45:29 [decorators.py:710] saved AOT compiled function to /cache/jit/cu133-torch213-jj-r28-sm121-ea577d24a0eaa116ff79/vllm/torch_compile_cache/torch_aot_compile/ea78e3e5978367d6a62a172c802ddce4969c0dce340ea007cd9fcae76c3a7409/rank_1_0/model
+(Worker_TP1 pid=418) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+(Worker_TP1 pid=418) [rank1]:W0908 19:45:15.753000 418 torch/_inductor/utils.py:1953] Not enough SMs to use max_autotune_gemm mode
+(Worker_TP1 pid=418) INFO 09-08 19:45:29 [monitor.py:53] torch.compile took 21.80 s in total
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 2560, 'out_features': 8192, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 2560, 'out_features': 48, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 3072, 'out_features': 2560, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 2560, 'out_features': 640, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 2560, 'out_features': 6656, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) INFO 09-08 19:45:40 [monitor.py:81] Initial profiling/warmup run took 11.27 s
+(Worker_TP1 pid=418) INFO 09-08 19:45:41 [backends.py:1094] Using cache directory: /cache/jit/cu133-torch213-jj-r28-sm121-ea577d24a0eaa116ff79/vllm/torch_compile_cache/0aa76082eb/rank_1_0/eagle_head for vLLM's torch.compile
+(Worker_TP1 pid=418) INFO 09-08 19:45:41 [backends.py:1155] Dynamo bytecode transform time: 0.37 s
+(Worker_TP1 pid=418) INFO 09-08 19:45:46 [backends.py:393] Compiling a graph for compile range (1, 4096) takes 5.16 s
+(Worker_TP1 pid=418) INFO 09-08 19:45:46 [backends.py:920] collected artifacts: 2 entries, 2 artifacts, 4899477 bytes total
+(Worker_TP1 pid=418) INFO 09-08 19:45:46 [decorators.py:710] saved AOT compiled function to /cache/jit/cu133-torch213-jj-r28-sm121-ea577d24a0eaa116ff79/vllm/torch_compile_cache/torch_aot_compile/da53d9b3799cfefd7e750f01294fea6388b417eefaf06369b2d39c4d434420aa/rank_1_0/model
+(Worker_TP1 pid=418) INFO 09-08 19:45:46 [monitor.py:53] torch.compile took 5.88 s in total
+(Worker_TP1 pid=418) b12x policy fallback: moe.decode is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'activation': 'silu', 'hidden_size': 2560, 'intermediate_size': 320, 'num_experts': 512, 'num_tokens': 4096, 'quant_mode': 'w4a16', 'routed_rows': 40960, 'source_format': 'modelopt_nvfp4', 'top_k': 10}
+(Worker_TP1 pid=418) b12x policy fallback: moe.decode is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'activation': 'silu', 'hidden_size': 2560, 'intermediate_size': 320, 'num_experts': 512, 'num_tokens': 8, 'quant_mode': 'w4a16', 'routed_rows': 80, 'source_format': 'modelopt_nvfp4', 'top_k': 10}
+(Worker_TP1 pid=418) INFO 09-08 19:45:49 [monitor.py:81] Initial profiling/warmup run took 2.83 s
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 2560, 'out_features': 124160, 'recipe': 'nvfp4'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 2560, 'out_features': 124160, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 4608, 'out_features': 4608, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 4608, 'out_features': 2560, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 1152, 'out_features': 3456, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 1152, 'out_features': 1152, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) INFO 09-08 19:46:18 [b12x_warmup.py:90] Warmed up 12 b12x MXFP8 kernel signature(s).
+(Worker_TP1 pid=418) b12x policy fallback: gemm.blockscaled_precision is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'in_features': 1152, 'out_features': 4304, 'recipe': 'mxfp8'}
+(Worker_TP1 pid=418) INFO 09-08 19:46:18 [b12x_warmup.py:90] Warmed up 1 b12x MoE kernel signature(s).
+(Worker_TP1 pid=418) INFO 09-08 19:46:18 [b12x_warmup.py:90] Warmed up 1 b12x QSA prefill kernel signature(s).
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 4096, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 8192, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 16384, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 32768, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 65536, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 131072, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) b12x policy fallback: attention.qsa is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'budget': 2048, 'compress_ratio': 4, 'head_dim': 256, 'index_head_dim': 128, 'index_heads': 4, 'index_kv_heads': 1, 'index_rotary_dim': 64, 'kv_dtype': 'float8_e4m3fn', 'kv_heads': 1, 'main_page_size': 2848, 'max_batch': 4, 'max_q_rows': 4096, 'max_seq_len': 262144, 'max_speculative_tokens': 3, 'mrope_interleaved': True, 'position_axes': 3, 'q_dtype': 'bfloat16', 'q_heads': 12}
+(Worker_TP1 pid=418) INFO 09-08 19:46:34 [speculator.py:187] Capturing model for speculator...
+(Worker_TP1 pid=418) b12x policy fallback: moe.decode is using a heuristic on nvidia gb10 (compute capability 12.1, 48 SMs) because profile 'nvidia.gb10.48sm' does not cover the query; query={'activation': 'silu', 'hidden_size': 2560, 'intermediate_size': 320, 'num_experts': 512, 'num_tokens': 1, 'quant_mode': 'w4a16', 'routed_rows': 10, 'source_format': 'modelopt_nvfp4', 'top_k': 10}
+(Worker_TP1 pid=418) INFO 09-08 19:46:37 [model_runner.py:1007] Graph capturing finished in 18 secs, took 0.58 GiB
+(Worker_TP1 pid=418) INFO 09-08 19:46:37 [gpu_worker.py:628] Available KV cache memory: 43.52 GiB
+(Worker_TP1 pid=418) INFO 09-08 19:46:37 [gpu_worker.py:643] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8500 is equivalent to --gpu-memory-utilization=0.8453 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8547. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(Worker_TP1 pid=418) INFO 09-08 19:46:40 [kernel_warmup.py:124] JIT kernel warmup starting.
+(Worker_TP1 pid=418) INFO 09-08 19:46:40 [kernel_warmup.py:134] JIT kernel warmup finished in 0.00s.
+(Worker_TP1 pid=418) INFO 09-08 19:46:43 [kernel_warmup.py:194] Skipping FlashInfer autotune because it is disabled.
+(Worker_TP1 pid=418) INFO 09-08 19:46:49 [speculator.py:187] Capturing model for speculator...
+(Worker_TP1 pid=418) INFO 09-08 19:46:50 [model_runner.py:1007] Graph capturing finished in 6 secs, took 0.13 GiB
+(Worker_TP1 pid=418) INFO 09-08 19:46:50 [gpu_worker.py:796] CUDA graph pool memory: 0.13 GiB (actual), 0.58 GiB (estimated), difference: 0.45 GiB (339.2%).
+(Worker_TP1 pid=418) INFO 09-08 19:46:50 [gpu_worker.py:859] Free memory on device (110.73/121.69 GiB) on startup. Desired GPU memory utilization is (0.85, 103.44 GiB). Actual usage is 58.71 GiB for consumed memory (weights + non-torch), 0.62 GiB for peak activation, and 0.13 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=47053715661` (43.82 GiB) to fit into requested memory, or `--kv-cache-memory=54885650432` (51.12 GiB) to fully utilize gpu memory. Current kv cache memory in use is 43.52 GiB.
+(Worker_TP1 pid=418) INFO 09-08 19:46:56 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+(Worker_TP1 pid=418) WARNING 09-08 19:46:57 [torch_utils.py:266] OMP_NUM_THREADS=16 is set; leaving Torch threads at 16 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:20 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_local_logits_stats_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:20 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _rejection_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:20 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _resample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:51 [jit_monitor.py:141] Triton kernel JIT compilation during inference: layer_norm_fwd_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:51 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _w4a16_route_count_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:51 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _w4a16_route_prefix_from_counts_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:47:51 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _pack_topk_routes_post_prefix_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+(Worker_TP1 pid=418) WARNING 09-08 19:48:03 [jit_monitor.py:141] CuTeDSL JIT compilation during inference: W4A16FusedMoeKernel. This causes a latency spike; consider extending warmup to cover this shape/config.

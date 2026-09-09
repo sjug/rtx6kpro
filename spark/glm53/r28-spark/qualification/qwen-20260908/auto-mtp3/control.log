@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/jugs/git/rtx6kpro/spark/qwen38-flash-next/verify-semantic-admission.py", line 331, in <module>
+    main()
+    ~~~~^^
+  File "/home/jugs/git/rtx6kpro/spark/qwen38-flash-next/verify-semantic-admission.py", line 314, in main
+    check_reasoning_efforts(endpoint, model, repetition, receipt_file)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jugs/git/rtx6kpro/spark/qwen38-flash-next/verify-semantic-admission.py", line 105, in check_reasoning_efforts
+    raise AssertionError(f"{effort}: wrong answer: {answer!r}")
+AssertionError: low: wrong answer: '\n\n**Step 1:** Find the total number of bolts: 17 boxes × 23 bolts = 391 bolts.\n\n**Step 2:** Subtract the bolts used: 391 − 58 = 333 bolts.\n\n**FINAL: 333**'

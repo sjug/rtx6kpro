@@ -1,0 +1,7 @@
+{"answer": "\n\nThe shop has 17 boxes \u00d7 23 bolts = 391 bolts total. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 127, "effort": "low", "kind": "reasoning", "reasoning_chars": 224, "repetition": 1, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = 391 bolts total. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 121, "effort": "medium", "kind": "reasoning", "reasoning_chars": 205, "repetition": 1, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58, 391 \u2212 58 = 333 remain.\n\nFINAL: 333", "completion_tokens": 180, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 396, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nThe image is split vertically into two solid blocks. The left half is a pure red, and the right half is a pure blue.\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "runs": 1, "valid": true}

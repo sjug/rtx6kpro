@@ -1,0 +1,141 @@
+REMOVE 7692d14a22c987c68550b6ae5232d1ea910b5fab8e154b553a491e1eb4f4d0c4 localhost/qwen38-flash-next-sglang:sm121-qsa-4429b60
+Untagged: localhost/qwen38-flash-next-sglang:sm121-qsa-4429b60
+Deleted: 7692d14a22c987c68550b6ae5232d1ea910b5fab8e154b553a491e1eb4f4d0c4
+Deleted: 658ad9ecda72f8f48179ca54b4e984c2a25a69578dc580df29b0c16134f271ce
+Deleted: 9f319ec2ba83d834d792da48413d9f1b3a67cc0df7a0b6522e4d53b7143a745f
+Deleted: daf0004f4583c3ee2a5821a7c3d37b63b03dad4aca06dbff740ae30196f846de
+Deleted: cb7077c1d2b529888ea2f4cf8bfe9597ac221b32c9e630a4557111397ddf7c81
+Deleted: 6e296686d3c82771ebf633fe1941f8f9da8e5bb728ddd04f74db2c1714e32db2
+REMOVE a09a5ad27a5eacccdcd6efbaeee0ff014fd0fdcb80fe0271f4469a6616902f80 localhost/voipmonitor/vllm:qwen38-jj-r15-sm121-mechanism-same-atom-zero
+Untagged: localhost/voipmonitor/vllm:qwen38-jj-r15-sm121-mechanism-same-atom-zero
+Deleted: a09a5ad27a5eacccdcd6efbaeee0ff014fd0fdcb80fe0271f4469a6616902f80
+Deleted: b268b910af3b7d5a3ed7d48b26e11b4b7060c9e491cf383400415bed5708d2b6
+Deleted: 571fedceb9e8e45fb509faebc850344bc4917fee17ff754e36ff7aeccfdd3a0b
+REMOVE 62aee247357dd2d7b79be9b489afb8aba595c07cd1813c5b5545760269ca5aeb localhost/voipmonitor/vllm:qwen38-jj-r15-sm121-mechanism-unrelated-10k-fill
+Untagged: localhost/voipmonitor/vllm:qwen38-jj-r15-sm121-mechanism-unrelated-10k-fill
+Deleted: 62aee247357dd2d7b79be9b489afb8aba595c07cd1813c5b5545760269ca5aeb
+Deleted: 030b6e57152ac9070191f5f70daf3e6c52a4db167d68cdf5e92fe27ec593e5c8
+Deleted: a630654b9b44f2b7e51b41e8c7fa057dc2eef23eb82a7f0453c68253fdf2957b
+Deleted: 3d8ddabf4b31688ef0f43e6cfb62edc124e54a387332948ee00c59024b4cb1d8
+REMOVE 32eac384c10f4f613c260ec6e6b5c45c5f74c919cff6af55dc6005c80571a4dd localhost/voipmonitor/vllm:jj-r15-sm121-arm-d-scale-rows-only
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-d-scale-rows-only
+Deleted: 32eac384c10f4f613c260ec6e6b5c45c5f74c919cff6af55dc6005c80571a4dd
+Deleted: 864b7d7ee6f21bdea2822548d31532cfa8c24d933937342586f5e6c7c6f3c4d2
+Deleted: 689664b9c4fd3c5cacbb3363e122fa45c70b0bca737cfd1630a200726367d3b5
+REMOVE f6b64fbdcee4c09e611ec9e0a30bedb1247d27e053729961899c7095cea4d3fe localhost/voipmonitor/vllm:jj-r15-sm121-arm-e-scale-physical-full
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-e-scale-physical-full
+Deleted: f6b64fbdcee4c09e611ec9e0a30bedb1247d27e053729961899c7095cea4d3fe
+Deleted: 4ae3e631e4f5fd88315a10bd93f9eaf4df689e52918a679ceb4d9a8e67771486
+Deleted: ed614961b28b4502103ea4f61c2a7112716740865f6c53d33f97204cdccb4d8a
+REMOVE 6d86da6f6d874b2a95871076939c60d0770fd0f6d23452d487fd241a8eef236b localhost/voipmonitor/vllm:jj-r15-sm121-arm-f-scale-physical-tail
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-f-scale-physical-tail
+Deleted: 6d86da6f6d874b2a95871076939c60d0770fd0f6d23452d487fd241a8eef236b
+Deleted: 20ec0baf308cae5926557adfdd05a4626644b3e419f83c73d7894f67b684d43c
+Deleted: 24903d203157e38fcdb8202a3eb92d1617bcd0b960b7a4432ed9b81559e16d2c
+REMOVE ce9f202f5388333fa9057bdff669567521b0ccdd11f3d5896a505c127fd68e23 localhost/voipmonitor/vllm:jj-r15-sm121-arm-g-record-stream
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-g-record-stream
+Deleted: ce9f202f5388333fa9057bdff669567521b0ccdd11f3d5896a505c127fd68e23
+Deleted: 214455d275012434f4d43c8641429637de827b8225426ea6640a619223c3b4a1
+Deleted: 8662e980c3ce4eb8344da8dc9d94204659775be6b490a0864ea8ea22c174d6bd
+REMOVE 3964fe6f02297e2c21bf354f6a1e0801a388e671d488bd5c4a4199ae4075ec7e localhost/voipmonitor/vllm:jj-r15-sm121-arm-h-functional-boundary
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-h-functional-boundary
+Deleted: 3964fe6f02297e2c21bf354f6a1e0801a388e671d488bd5c4a4199ae4075ec7e
+Deleted: a02637b80b1ac836f40af3d642e949696922ee751a2aae2967ae8dea67d1de33
+Deleted: 62e69ebede222d3520af0c05e76871c361bc5c43f3c73cdeee6140561677e3de
+REMOVE 6d9abf179c792990cf63b12d5b122abdeb2c8062eab2cbba4e14d2889c35ff39 localhost/voipmonitor/vllm:jj-r15-sm121-mxfp8-fill-only-control
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-mxfp8-fill-only-control
+Deleted: 6d9abf179c792990cf63b12d5b122abdeb2c8062eab2cbba4e14d2889c35ff39
+Deleted: 3412cc57a7b2d08e78c576af6521ca4545a5e5e191a49452d03f645445e3fcff
+REMOVE efc67e27867f1cba67474645ab4abbe16fe9740687e5cdbb54ef1a63e730fa98 localhost/voipmonitor/vllm:jj-r15-sm121-arm-c-scratch-fused-only
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-c-scratch-fused-only
+Deleted: efc67e27867f1cba67474645ab4abbe16fe9740687e5cdbb54ef1a63e730fa98
+Deleted: 885ebfb5934bb1184066ba050ac58c0a3858ed21597a6fe4a16974d7e7eb62b8
+REMOVE a4553d7c79b3d29cf7ec92aac1c8009047964eb0890ad9ed45687e62e7a77a18 localhost/voipmonitor/vllm:jj-r15-sm121-arm-b-packed-only
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-arm-b-packed-only
+Deleted: a4553d7c79b3d29cf7ec92aac1c8009047964eb0890ad9ed45687e62e7a77a18
+Deleted: 1acabff38cb8ec6cd823afb222cd210cfbbad399cbea38706fea0aa5801a6f94
+Deleted: d304082777eeb54a07920031354723b5af2d62b962be64ca74f97a3348affa96
+REMOVE 907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1
+REMOVE 907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1-scratch
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1-scratch
+Deleted: 907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a
+REMOVE 0f2a9222fe588566ffa979b3eea914f54cb824678605b284f7533ff688aeaa53 localhost/voipmonitor/vllm:qwen38-jj-r15p-sm121-vllm7e389bd-b12xabfa395-cu133-20260902-r3-dev
+Untagged: localhost/voipmonitor/vllm:qwen38-jj-r15p-sm121-vllm7e389bd-b12xabfa395-cu133-20260902-r3-dev
+Deleted: 0f2a9222fe588566ffa979b3eea914f54cb824678605b284f7533ff688aeaa53
+REMOVE bfffa670ea5adfd591384e15a0021fd3e4b016f6df8573581258613cefe366d1 localhost/voipmonitor/vllm:qwen38-jj-r15p-sm121-vllm7e389bd-b12x4a78d03-cu133-20260902-r2-dev
+Untagged: localhost/voipmonitor/vllm:qwen38-jj-r15p-sm121-vllm7e389bd-b12x4a78d03-cu133-20260902-r2-dev
+Deleted: bfffa670ea5adfd591384e15a0021fd3e4b016f6df8573581258613cefe366d1
+REMOVE eae5374f3dbf8f8ba2c033fdfc023cb2ac2fddd1c0e40cf86000e7b23a87b5d6 localhost/voipmonitor/vllm:jj-r15-sm121-r12-mxfp8-fill-control
+Untagged: localhost/voipmonitor/vllm:jj-r15-sm121-r12-mxfp8-fill-control
+Deleted: eae5374f3dbf8f8ba2c033fdfc023cb2ac2fddd1c0e40cf86000e7b23a87b5d6
+REMOVE f306b92934d4d9c57778e7bd782de44b68e23ba12c28b4ea52b080e40c363fbf localhost/voipmonitor/vllm:glm53-jj-r15-spark-sm121-vllm7e389bd-b12x2a69d69-lmcache9086bfb-cu133-torch213-20260902-r1-dev
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r15-spark-sm121-vllm7e389bd-b12x2a69d69-lmcache9086bfb-cu133-torch213-20260902-r1-dev
+Deleted: f306b92934d4d9c57778e7bd782de44b68e23ba12c28b4ea52b080e40c363fbf
+REMOVE d3776a397fd7e656a731696eca403474ceb5a8f48fe2eb861533a46ca3b7533c localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r2-dev
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r2-dev
+Deleted: d3776a397fd7e656a731696eca403474ceb5a8f48fe2eb861533a46ca3b7533c
+REMOVE 3949be5f63b0b459292f5be43d10fafcbb25624cd35b7a46a36cb0aa1d0e3849 localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r1-dev
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r1-dev
+Deleted: 3949be5f63b0b459292f5be43d10fafcbb25624cd35b7a46a36cb0aa1d0e3849
+REMOVE 39d6390e168d2621a8565e629c7f6e1351183f650af2ce55af0b38b981ce9c14 localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl2-20260830
+Untagged: localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-nccl2-20260830
+Deleted: 39d6390e168d2621a8565e629c7f6e1351183f650af2ce55af0b38b981ce9c14
+REMOVE 1f13d03fc08137f0772da259ba09c11b5e80c70b8e8fd805e99da1178ad7997e localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-20260830
+Untagged: localhost/voipmonitor/vllm:jovian-judgement-r7-spark-sm121-vllm9cd4481-b12x0bb58d0-fi1ac6942-cu133-torch213-20260830
+Deleted: 1f13d03fc08137f0772da259ba09c11b5e80c70b8e8fd805e99da1178ad7997e
+REMOVE 64c58f100438fa5f036bdfbeb3edd3136fb12c5d22d8ae52786c4a701263c55d localhost/qwen38-flash-next-sglang:arm64-14ed5825
+Untagged: localhost/qwen38-flash-next-sglang:arm64-14ed5825
+Deleted: 64c58f100438fa5f036bdfbeb3edd3136fb12c5d22d8ae52786c4a701263c55d
+REMOVE 6ff2730764791cf13bca277f22a98b4c31a769bd6d2b4ff03f3414954399ee89 localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260824
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260824
+Deleted: 6ff2730764791cf13bca277f22a98b4c31a769bd6d2b4ff03f3414954399ee89
+REMOVE 445f9ac3196dd10a47d0d90441ba43a8417903ba029f59a1a9c7fbef8ecfa4a1 localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260820
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r18p-spark-sm121-vllmf560085-b12x07cdf45-fi1ac6942-cu133-torch213-20260820
+Deleted: 445f9ac3196dd10a47d0d90441ba43a8417903ba029f59a1a9c7fbef8ecfa4a1
+REMOVE ad037c9f87148a2858a86d5687ef39a97ebceca89646f798f39bc270bed73c6e localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818
+Deleted: ad037c9f87148a2858a86d5687ef39a97ebceca89646f798f39bc270bed73c6e
+REMOVE fa19b0b1423bcfa3bd7485e6a96f2dbcadbc861ccb6adba1286ad7a001ba9ff0 localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818b
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818b
+Deleted: fa19b0b1423bcfa3bd7485e6a96f2dbcadbc861ccb6adba1286ad7a001ba9ff0
+REMOVE edf3e0c8c62dad35b19200396574705ba9121654f83de8d6e5049d7da7e54ea3 localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818
+Deleted: edf3e0c8c62dad35b19200396574705ba9121654f83de8d6e5049d7da7e54ea3
+REMOVE 5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80 localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817
+Deleted: 5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80
+REMOVE f85b66327d0a786f7467e2d88a0396f72e995ae32534c0065c104eda786372f6 localhost/voipmonitor/vllm:infernal-invocation-r15-spark-sm121-vllm8ad1330-b12x96e5d3d-fi1ac6942-cu133-torch213-20260817
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r15-spark-sm121-vllm8ad1330-b12x96e5d3d-fi1ac6942-cu133-torch213-20260817
+Deleted: f85b66327d0a786f7467e2d88a0396f72e995ae32534c0065c104eda786372f6
+REMOVE d7b811bec132a6dbcce7020b0606f2a28cd2f161e043b9e06d888d2a27c9af7a localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllmc3ffb74-b12xcd3ce19-fi1ac6942-cu132-20260814
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllmc3ffb74-b12xcd3ce19-fi1ac6942-cu132-20260814
+Deleted: d7b811bec132a6dbcce7020b0606f2a28cd2f161e043b9e06d888d2a27c9af7a
+REMOVE 12e1b7c0699802e348fb67ba3998f82d47cea25ab22db6a8b246f07ba8afda87 localhost/voipmonitor/vllm:infernal-invocation-r10-spark-sm121-vllmd650d5c-b12x5d648d9-fi1ac6942-cu133-torch213-20260813
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r10-spark-sm121-vllmd650d5c-b12x5d648d9-fi1ac6942-cu133-torch213-20260813
+Deleted: 12e1b7c0699802e348fb67ba3998f82d47cea25ab22db6a8b246f07ba8afda87
+REMOVE 3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79 localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808
+Deleted: 3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79
+REMOVE 5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804
+Deleted: 5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc
+REMOVE b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14 localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803
+Deleted: b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14
+REMOVE dfad43d4b2dea816eef6a2f9835fba3faf9c589f5912c912ca7efcbb6d5e7866 localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803
+Deleted: dfad43d4b2dea816eef6a2f9835fba3faf9c589f5912c912ca7efcbb6d5e7866
+REMOVE 6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730
+Deleted: 6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c
+true
+CLEANUP-OK
+TYPE           TOTAL       ACTIVE      SIZE        RECLAIMABLE
+Images         66          0           266GB       266GB (100%)
+Containers     0           0           0B          0B (0%)
+Local Volumes  0           0           0B          0B (0%)
+TYPE           TOTAL       ACTIVE      SIZE        RECLAIMABLE
+Images         6           0           93.24GB     93.24GB (100%)
+Containers     0           0           0B          0B (0%)
+Local Volumes  0           0           0B          0B (0%)

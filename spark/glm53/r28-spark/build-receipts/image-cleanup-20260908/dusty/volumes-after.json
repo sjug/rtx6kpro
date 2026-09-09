@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "buildx_buildkit_default_state",
+    "Driver": "local",
+    "Mountpoint": "/home/jugs/.local/share/containers/storage/volumes/buildx_buildkit_default_state/_data",
+    "CreatedAt": "2026-08-14T21:10:59.888527145-04:00",
+    "Labels": {
+      
+    },
+    "Scope": "local",
+    "Options": {
+      
+    },
+    "MountCount": 0,
+    "NeedsCopyUp": true,
+    "NeedsChown": true,
+    "LockNumber": 2
+  }
+]

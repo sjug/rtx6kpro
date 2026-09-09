@@ -1,0 +1,214 @@
+START aligned 2026-09-08T16:00:27-04:00
+true
+true
+warm c1: n=1 wall=4.2s agg_tok/s=47.3 per_req_s=[4.2]
+c4 distinct: n=4 wall=6.1s agg_tok/s=130.7 per_req_s=[6.1, 5.8, 5.8, 5.7]
+c4 identical: n=4 wall=6.3s agg_tok/s=127.0 per_req_s=[6.3, 5.8, 6.0, 6.3]
+c4 distinct again: n=4 wall=6.3s agg_tok/s=127.6 per_req_s=[6.1, 6.2, 6.0, 6.3]
+c1: n=1 wall=4.1s agg_tok/s=48.5 per_req_s=[4.1]
+A: 4 fresh distinct: n=4 wall=5.9s agg_tok/s=134.5 per_req_s=[5.4, 5.9, 5.7, 5.7]
+B: 4 extensions of A (multi-turn): n=4 wall=6.6s agg_tok/s=120.9 per_req_s=[6.6, 6.6, 6.5, 6.5]
+C: 4 fresh distinct after B: n=4 wall=5.8s agg_tok/s=138.2 per_req_s=[5.7, 5.8, 5.4, 5.7]
+D: repeat A verbatim: n=4 wall=5.9s agg_tok/s=135.4 per_req_s=[5.5, 5.6, 5.6, 5.9]
+E: 4 fresh distinct after D: n=4 wall=6.0s agg_tok/s=133.8 per_req_s=[5.4, 5.7, 6.0, 5.8]
+{"content_preview": "# The Anatomy of Fire: The Geology of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Earth. Born from the ", "content_sha256": "6dcb426c21c1f0d71ea96b5ed8c9531fa8b314737573d7b389ed51a19c7aa311", "finish_reason": "length", "label": "seed", "policy": "aligned", "timestamp": "2026-09-08T16:01:27.565815-04:00", "total_s": 1.3709084279835224, "ttft_s": 0.257572395959869, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 55, "total_tokens": 115}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of human civilization, but for millennia, humanity was at the mercy o", "content_sha256": "ab506a7eaf948c16cc84911d66d56cd57dff37399df7e7f734a34644424d54f2", "finish_reason": "length", "label": "long0", "policy": "aligned", "timestamp": "2026-09-08T16:01:43.106259-04:00", "total_s": 15.538808088982478, "ttft_s": 0.29497526300838217, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 49, "total_tokens": 649}}
+{"content_preview": "# The Arteries of Civilization: A History of Canals\n\nBefore the advent of the steam engine, the railway, or the automobile, the movement of heavy goods and peop", "content_sha256": "86523db967863ef856105c16939944b7614f7105c151cf3cdde5631ffd0736ed", "finish_reason": "length", "label": "long1", "policy": "aligned", "timestamp": "2026-09-08T16:01:43.106348-04:00", "total_s": 15.087659897049889, "ttft_s": 0.2945479570189491, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 49, "total_tokens": 649}}
+{"content_preview": "# The Anatomy of Fire: The Geology of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically significant landforms on Earth. Born from ", "content_sha256": "e589432983939eb294252bd513811bba9eae384d86531b8a9000e40e3ac3181c", "finish_reason": "length", "label": "repeat", "policy": "aligned", "timestamp": "2026-09-08T16:01:43.106366-04:00", "total_s": 1.847850168007426, "ttft_s": 0.3180278029758483, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 55, "total_tokens": 115}}
+{"content_preview": "**The Evolution of Bridges: Connecting People and Places**\n\nBridges are more than just structures that cross rivers or valleys. They are symbols of human ingenu", "content_sha256": "8538d898cdfd37701ee505c782b007de087adc21d7d7d52e7b7985922fd5838d", "finish_reason": "length", "label": "fresh0", "policy": "aligned", "timestamp": "2026-09-08T16:01:43.106376-04:00", "total_s": 1.9884134460007772, "ttft_s": 0.29579971998464316, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 45, "total_tokens": 105}}
+{"content_preview": "**Spanning the Divide: A History of Bridges**\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or con", "content_sha256": "834256117179787ec4ea342fb31a7656f5eadd30de4326cb28d3aa1b697bffe1", "finish_reason": "length", "label": "fresh1", "policy": "aligned", "timestamp": "2026-09-08T16:01:43.106385-04:00", "total_s": 1.7915351400151849, "ttft_s": 0.27965214604046196, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 48, "total_tokens": 108}}
+{"fresh_max_ttft_s": 0.29579971998464316, "kind": "summary", "policy": "aligned", "repeat_ttft_s": 0.3180278029758483, "streams_complete": true, "timestamp": "2026-09-08T16:01:43.106413-04:00"}
+true
+BENCHMARK-START 2026-09-08T16:01:43-04:00
+─────────────────────────────────
+host=http://dusty:8000 model=Qwen3.8-Flash-Next-NVFP4-4p89 concurrency=1,2,4
+campaign=2026-09-jj-r28-vs-r27 workload=throughput variant=jj-r28-aligned-sm121-tp2-mtp3 repetition=1
+output=/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r28-vs-r27/throughput/20260908T160143-0400__jj-r28-aligned-sm121-tp2-mtp3__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: Qwen3.8-Flash-Next-NVFP4-4p89 @ http://dusty:8000                     │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+glm53.jj.r28.spark.vllm3db6db5  Models: 
+['Qwen3.8-Flash-Next-NVFP4-4p89']
+KV cache budget (vLLM metrics): 78,670,304 tokens (27623 blocks × 2848)
+Model context length: 262,144 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=zayzosuvneuh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.17 chars/token (cached, source=8k)
+  8k: 50,524 chars (~8,191 tokens)
+  16k: 101,048 chars (~16,383 tokens)
+  32k: 202,096 chars (~32,767 tokens)
+  64k: 404,192 chars (~65,535 tokens)
+  128k: 808,385 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,196       2.64          3,100              —             —   1  
+  16k        16,173       7.40          2,185      2,196 (1)             —   1  
+  32k        32,158      11.02          2,919      2,935 (1)             —   1  
+  64k        64,122      23.37          2,743      2,757 (1)             —   1  
+  128k      128,058      51.50          2,486      2,499 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                              
+╭────────────┬─────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │           2 │            4 │
+├────────────┼─────────────┼─────────────┼──────────────┤
+│ 0          │ 48.5 261/21 │ 76.7 273/27 │ 123.7 406/32 │
+│ 16k        │  42.6 2k/24 │  80.8 2k/25 │  112.5 4k/39 │
+│ 32k        │  44.5 1k/22 │  73.0 2k/28 │  118.3 4k/34 │
+│ 64k        │  43.3 2k/23 │  76.6 3k/27 │  118.4 5k/37 │
+│ 128k       │  46.3 3k/21 │  74.6 4k/28 │  106.9 7k/41 │
+╰────────────┴─────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 48.5 │ 38.4 │ 30.9 │
+│ 16k        │ 42.6 │ 40.4 │ 28.1 │
+│ 32k        │ 44.5 │ 36.5 │ 29.6 │
+│ 64k        │ 43.3 │ 38.3 │ 29.6 │
+│ 128k       │ 46.3 │ 37.3 │ 26.7 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬──────┬────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼──────┼────┼───────────────┤
+│ 0  │ │ sust… │    12/15% │    2% │ 163/170 │ 41C │  69C │ 3… │     2863/3290 │
+│ 1… │ │ sust… │    12/13% │    1% │ 165/181 │ 41C │  69C │ 3… │     2863/3305 │
+│ 3… │ │ sust… │    12/13% │    2% │ 161/162 │ 40C │  69C │ 3… │     2890/3222 │
+│ 6… │ │ sust… │    12/13% │    1% │ 163/164 │ 40C │  68C │ 3… │     3023/3137 │
+│ 1… │ │ sust… │    12/13% │    2% │ 160/162 │ 40C │  68C │ 3… │     2942/3314 │
+│ 0  │ │ sust… │    12/13% │    2% │ 161/162 │ 40C │  72C │ 3… │     2981/3254 │
+│ 0  │ │ sust… │    12/13% │    2% │ 160/163 │ 40C │  69C │ 3… │     2915/3248 │
+│ 1… │ │ sust… │    12/13% │    2% │ 160/161 │ 40C │  67C │ 3… │     3039/3175 │
+│ 1… │ │ sust… │    12/13% │    2% │ 161/162 │ 40C │  68C │ 3… │     3050/3149 │
+│ 3… │ │ sust… │    12/13% │    1% │ 160/162 │ 40C │  67C │ 3… │     2883/3120 │
+│ 3… │ │ sust… │    12/13% │    2% │ 163/167 │ 40C │  69C │ 3… │     3038/3310 │
+│ 6… │ │ sust… │    12/13% │    2% │ 160/163 │ 40C │  68C │ 3… │     2879/3300 │
+│ 6… │ │ sust… │    12/13% │    1% │ 160/162 │ 40C │  68C │ 3… │     3038/3212 │
+│ 1… │ │ sust… │    12/13% │    2% │ 159/160 │ 40C │  68C │ 3… │     2917/3258 │
+│ 1… │ │ sust… │    12/13% │    2% │ 161/161 │ 40C │  68C │ 3… │     2846/3225 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴──────┴────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ───────────────────────╮
+│ avg 161 W | max 181 W | limit 600 W | over 13m 05s | 368 samples │
+╰──────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,196 │   2.64 │ 3,100 │ 1 │
+│ 16k  │  16,173 │   7.40 │ 2,185 │ 1 │
+│ 32k  │  32,158 │  11.02 │ 2,919 │ 1 │
+│ 64k  │  64,122 │  23.37 │ 2,743 │ 1 │
+│ 128k │ 128,058 │  51.50 │ 2,486 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s              
+╭────────────┬──────┬──────┬───────╮
+│ ctx \ conc │    1 │    2 │     4 │
+├────────────┼──────┼──────┼───────┤
+│ 0          │ 48.5 │ 76.7 │ 123.7 │
+│ 16k        │ 42.6 │ 80.8 │ 112.5 │
+│ 32k        │ 44.5 │ 73.0 │ 118.3 │
+│ 64k        │ 43.3 │ 76.6 │ 118.4 │
+│ 128k       │ 46.3 │ 74.6 │ 106.9 │
+╰────────────┴──────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 22.5 (2.15) │ 36.8 (2.08) │ 58.5 (2.11) │
+│ 16k        │ 22.1 (1.93) │ 36.9 (2.19) │ 56.5 (1.99) │
+│ 32k        │ 22.0 (2.02) │ 36.2 (2.02) │ 57.7 (2.05) │
+│ 64k        │ 21.6 (2.01) │ 37.4 (2.05) │ 55.4 (2.14) │
+│ 128k       │ 21.1 (2.19) │ 35.0 (2.13) │ 53.7 (1.99) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/20
+26-09-jj-r28-vs-r27/throughput/20260908T160143-0400__jj-r28-aligned-sm121-tp2-mt
+p3__r01.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r28-vs-r27/throughput/20260908T160143-0400__jj-r28-aligned-sm121-tp2-mtp3__r01.json
+─────────────────────────────────
+BENCHMARK-END 2026-09-08T16:14:49-04:00
+DONE aligned 2026-09-08T16:14:49-04:00

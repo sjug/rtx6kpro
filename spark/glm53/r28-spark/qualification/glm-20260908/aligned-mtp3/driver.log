@@ -1,0 +1,322 @@
+START 2026-09-08T18:51:34-04:00
+true
+READY 2026-09-08T18:51:35-04:00
+true
+true
+true
+true
+== semantic x3 2026-09-08T18:51:36-04:00 ==
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 1, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 58, "effort": "high", "kind": "reasoning", "reasoning_chars": 55, "repetition": 1, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 55, "effort": "max", "kind": "reasoning", "reasoning_chars": 30, "repetition": 1, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 1, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 2, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 51, "effort": "high", "kind": "reasoning", "reasoning_chars": 28, "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 45, "effort": "max", "kind": "reasoning", "reasoning_chars": 30, "repetition": 2, "valid": true}
+{"answer": "The left side is red and the right side is blue. FINAL: red, blue", "kind": "vision", "repetition": 2, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 3, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 51, "effort": "high", "kind": "reasoning", "reasoning_chars": 28, "repetition": 3, "valid": true}
+{"answer": "17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 45, "effort": "max", "kind": "reasoning", "reasoning_chars": 30, "repetition": 3, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 3, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "GLM-5.3-Flash", "runs": 3, "valid": true}
+GLM53_SEMANTIC_ADMISSION_PASS
+== concurrency 2026-09-08T18:51:48-04:00 ==
+== identical burst vs distinct ==
+warm c1: n=1 wall=4.2s agg_tok/s=48.2 per_req_s=[4.2]
+c4 distinct: n=4 wall=7.4s agg_tok/s=108.0 per_req_s=[7.2, 7.4, 7.4, 7.3]
+c4 identical: n=4 wall=6.4s agg_tok/s=124.6 per_req_s=[6.2, 6.4, 6.1, 6.3]
+c4 distinct again: n=4 wall=7.4s agg_tok/s=107.8 per_req_s=[6.9, 7.0, 7.4, 6.6]
+== fresh / extension / verbatim-repeat ==
+A: 4 fresh distinct: n=4 wall=8.2s agg_tok/s=97.8 per_req_s=[6.4, 7.3, 8.2, 6.6]
+B: 4 extensions of A (multi-turn): n=4 wall=7.7s agg_tok/s=103.8 per_req_s=[7.5, 7.4, 7.7, 7.6]
+C: 4 fresh distinct after B: n=4 wall=7.2s agg_tok/s=110.7 per_req_s=[6.5, 7.2, 6.8, 6.8]
+D: repeat A verbatim: n=4 wall=6.4s agg_tok/s=124.9 per_req_s=[6.3, 5.9, 6.4, 6.3]
+E: 4 fresh distinct after D: n=4 wall=6.7s agg_tok/s=119.0 per_req_s=[6.5, 6.7, 6.4, 6.2]
+== repeat head-of-line ==
+repeat   ttft=   1.1s total=   2.6s
+fresh0   ttft=   0.5s total=   1.9s
+fresh1   ttft=   0.3s total=   1.8s
+long0    ttft=   0.2s total=  16.1s
+long1    ttft=   0.2s total=  16.4s
+== frozen prefix pairs 2026-09-08T18:53:07-04:00 ==
+2026-09-08T18:53:07.926456-04:00 r28-aligned-long-unaligned-base 131072
+{"arm": "r28-aligned", "pair": "long-unaligned", "stage": "base", "common_prefix_tokens": 131049, "prompt_tokens": 131072, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-08T18:53:07.926456-04:00", "finished_at": "2026-09-08T18:53:56.908194-04:00", "elapsed_seconds": 47.9713649659534, "cached_tokens": 0.0, "fresh_tokens": 131072.0, "usage": {"prompt_tokens": 131072, "total_tokens": 131110, "completion_tokens": 38, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-08T18:53:56.914550-04:00 r28-aligned-long-unaligned-extension 262144
+{"arm": "r28-aligned", "pair": "long-unaligned", "stage": "extension", "common_prefix_tokens": 131049, "prompt_tokens": 262144, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-08T18:53:56.914550-04:00", "finished_at": "2026-09-08T18:54:49.501313-04:00", "elapsed_seconds": 51.573346263030544, "cached_tokens": 126976.0, "fresh_tokens": 135168.0, "usage": {"prompt_tokens": 262144, "total_tokens": 262203, "completion_tokens": 59, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-08T18:54:49.513694-04:00 r28-aligned-long-aligned-base 131095
+{"arm": "r28-aligned", "pair": "long-aligned", "stage": "base", "common_prefix_tokens": 131072, "prompt_tokens": 131095, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-08T18:54:49.513694-04:00", "finished_at": "2026-09-08T18:55:35.513513-04:00", "elapsed_seconds": 44.98694887699094, "cached_tokens": 0.0, "fresh_tokens": 131095.0, "usage": {"prompt_tokens": 131095, "total_tokens": 131151, "completion_tokens": 56, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-08T18:55:35.523629-04:00 r28-aligned-long-aligned-extension 262144
+{"arm": "r28-aligned", "pair": "long-aligned", "stage": "extension", "common_prefix_tokens": 131072, "prompt_tokens": 262144, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-08T18:55:35.523629-04:00", "finished_at": "2026-09-08T18:56:26.350282-04:00", "elapsed_seconds": 49.81110439199256, "cached_tokens": 129024.0, "fresh_tokens": 133120.0, "usage": {"prompt_tokens": 262144, "total_tokens": 262207, "completion_tokens": 63, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-08T18:56:26.362215-04:00 r28-aligned-short-unaligned-base 4096
+{"arm": "r28-aligned", "pair": "short-unaligned", "stage": "base", "common_prefix_tokens": 4073, "prompt_tokens": 4096, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-08T18:56:26.362215-04:00", "finished_at": "2026-09-08T18:56:29.565463-04:00", "elapsed_seconds": 2.1951527139754035, "cached_tokens": 0.0, "fresh_tokens": 4096.0, "usage": {"prompt_tokens": 4096, "total_tokens": 4137, "completion_tokens": 41, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-08T18:56:29.571927-04:00 r28-aligned-short-unaligned-extension 8192
+{"arm": "r28-aligned", "pair": "short-unaligned", "stage": "extension", "common_prefix_tokens": 4073, "prompt_tokens": 8192, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-08T18:56:29.571927-04:00", "finished_at": "2026-09-08T18:56:34.370170-04:00", "elapsed_seconds": 3.789986404008232, "cached_tokens": 0.0, "fresh_tokens": 8192.0, "usage": {"prompt_tokens": 8192, "total_tokens": 8246, "completion_tokens": 54, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+MATRIX COMPLETE r28-aligned
+== prefix triples 2026-09-08T18:56:34-04:00 ==
+2026-09-08T18:56:34.532631-04:00 triple-short-budget16-first START
+{"name": "short-budget16", "stage": "first", "started_at": "2026-09-08T18:56:34.532631-04:00", "elapsed_seconds": 1.785964973969385, "max_tokens": 16, "prompt_tokens": 4096, "finish_reason": "length", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "5e02c32a286bf56a3b9f3da230333c41124e10481d278f27d7a5f63e6bb2b6ea", "usage": {"prompt_tokens": 4096, "total_tokens": 4112, "completion_tokens": 16, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-08T18:56:37.330218-04:00 triple-short-budget16-repeat START
+{"name": "short-budget16", "stage": "repeat", "started_at": "2026-09-08T18:56:37.330218-04:00", "elapsed_seconds": 2.555066662025638, "max_tokens": 64, "prompt_tokens": 4096, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "5e02c32a286bf56a3b9f3da230333c41124e10481d278f27d7a5f63e6bb2b6ea", "usage": {"prompt_tokens": 4096, "total_tokens": 4152, "completion_tokens": 56, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-08T18:56:40.896193-04:00 triple-short-budget16-extension START
+{"name": "short-budget16", "stage": "extension", "started_at": "2026-09-08T18:56:40.896193-04:00", "elapsed_seconds": 3.40173564205179, "max_tokens": 128, "prompt_tokens": 8192, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 8192.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "5e02c32a286bf56a3b9f3da230333c41124e10481d278f27d7a5f63e6bb2b6ea", "usage": {"prompt_tokens": 8192, "total_tokens": 8232, "completion_tokens": 40, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+TRIPLE COMPLETE short-budget16
+2026-09-08T18:56:45.404272-04:00 triple-short-normal-first START
+{"name": "short-normal", "stage": "first", "started_at": "2026-09-08T18:56:45.404272-04:00", "elapsed_seconds": 2.1437033789698035, "max_tokens": 128, "prompt_tokens": 4096, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "cfd93f03b0c072aec21887e16a5566d4c809d56b2aba1812465a4dabc9be8fd3", "usage": {"prompt_tokens": 4096, "total_tokens": 4134, "completion_tokens": 38, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-08T18:56:48.558742-04:00 triple-short-normal-repeat START
+{"name": "short-normal", "stage": "repeat", "started_at": "2026-09-08T18:56:48.558742-04:00", "elapsed_seconds": 2.4542420789948665, "max_tokens": 64, "prompt_tokens": 4096, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "cfd93f03b0c072aec21887e16a5566d4c809d56b2aba1812465a4dabc9be8fd3", "usage": {"prompt_tokens": 4096, "total_tokens": 4152, "completion_tokens": 56, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-08T18:56:52.024194-04:00 triple-short-normal-extension START
+{"name": "short-normal", "stage": "extension", "started_at": "2026-09-08T18:56:52.024194-04:00", "elapsed_seconds": 3.641077561012935, "max_tokens": 128, "prompt_tokens": 8192, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 8192.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "cfd93f03b0c072aec21887e16a5566d4c809d56b2aba1812465a4dabc9be8fd3", "usage": {"prompt_tokens": 8192, "total_tokens": 8236, "completion_tokens": 44, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+TRIPLE COMPLETE short-normal
+2026-09-08T18:57:04.525965-04:00 triple-long-budget16-first START
+{"name": "long-budget16", "stage": "first", "started_at": "2026-09-08T18:57:04.525965-04:00", "elapsed_seconds": 92.23634892900009, "max_tokens": 16, "prompt_tokens": 262000, "finish_reason": "length", "needle_present": true, "cache_hits": 0.0, "cache_queries": 262000.0, "isolated": true, "common_prefix_tokens": 261977, "corpus_sha256": "61afc9c816607b11d1e7a67adb2aed19a9e158a4065c59fbf213128fc4ba334f", "usage": {"prompt_tokens": 262000, "total_tokens": 262016, "completion_tokens": 16, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-08T18:58:37.792694-04:00 triple-long-budget16-repeat START
+{"name": "long-budget16", "stage": "repeat", "started_at": "2026-09-08T18:58:37.792694-04:00", "elapsed_seconds": 2.71675011201296, "max_tokens": 64, "prompt_tokens": 262000, "finish_reason": "stop", "needle_present": true, "cache_hits": 258048.0, "cache_queries": 262000.0, "isolated": true, "common_prefix_tokens": 261977, "corpus_sha256": "61afc9c816607b11d1e7a67adb2aed19a9e158a4065c59fbf213128fc4ba334f", "usage": {"prompt_tokens": 262000, "total_tokens": 262037, "completion_tokens": 37, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-08T18:58:41.537371-04:00 triple-long-budget16-extension START
+{"name": "long-budget16", "stage": "extension", "started_at": "2026-09-08T18:58:41.537371-04:00", "elapsed_seconds": 389.31834952300414, "max_tokens": 128, "prompt_tokens": 1048000, "finish_reason": "stop", "needle_present": true, "cache_hits": 258048.0, "cache_queries": 1048000.0, "isolated": true, "common_prefix_tokens": 261977, "corpus_sha256": "61afc9c816607b11d1e7a67adb2aed19a9e158a4065c59fbf213128fc4ba334f", "usage": {"prompt_tokens": 1048000, "total_tokens": 1048041, "completion_tokens": 41, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+TRIPLE COMPLETE long-budget16
+== native context 2026-09-08T19:05:11-04:00 ==
+SHORT_START
+{"content": "11", "elapsed_seconds": 0.62, "finish_reason": "stop", "kind": "short", "reasoning_content": "The user is asking a simple arithmetic question: 5 + 6. The answer is 11. They want the final answer as one numeral.", "usage": {"completion_tokens": 33, "completion_tokens_details": {"reasoning_tokens": 30}, "prompt_tokens": 28, "prompt_tokens_details": null, "total_tokens": 61}}
+CONTEXT_START length=2048
+{"cached_tokens": null, "completion_tokens": 44, "elapsed_seconds": 1.627, "finish_reason": "stop", "kind": "context_needle", "needle": "739526", "needle_token_offset": 34, "output_ids": [785, 1196, 4588, 752, 311, 16022, 551, 279, 2038, 220, 22, 101294, 20, 99916, 11, 1221, 6551, 264, 1293, 54344, 1467, 11, 323, 1431, 17045, 369, 279, 2038, 13, 576, 2038, 374, 220, 22, 101294, 20, 99916, 13, 154842, 22, 101294, 20, 99916, 154827], "prompt_tokens": 2048, "reasoning": "", "requested_input_tokens": 2048, "text": "The user asked me to memorize the code 739526, then gave a long filler text, and now asks for the code. The code is 739526.</think>739526", "usage": {"completion_tokens": 44, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2048, "prompt_tokens_details": null, "total_tokens": 2092}, "valid": true}
+CONTEXT_START length=2049
+{"cached_tokens": null, "completion_tokens": 28, "elapsed_seconds": 1.217, "finish_reason": "stop", "kind": "context_needle", "needle": "739526", "needle_token_offset": 34, "output_ids": [785, 1196, 4588, 752, 311, 16022, 551, 279, 2038, 220, 22, 101294, 20, 99916, 323, 1221, 9846, 448, 1172, 429, 2038, 13, 154842, 22, 101294, 20, 99916, 154827], "prompt_tokens": 2049, "reasoning": "", "requested_input_tokens": 2049, "text": "The user asked me to memorize the code 739526 and then reply with only that code.</think>739526", "usage": {"completion_tokens": 28, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2049, "prompt_tokens_details": null, "total_tokens": 2077}, "valid": true}
+CONTEXT_START length=262000
+{"cached_tokens": null, "completion_tokens": 50, "elapsed_seconds": 2.973, "finish_reason": "stop", "kind": "context_needle", "needle": "739526", "needle_token_offset": 34, "output_ids": [785, 1196, 4588, 752, 311, 16022, 551, 279, 2038, 220, 22, 101294, 20, 99916, 10977, 1573, 279, 18104, 13, 4695, 807, 2299, 10156, 752, 311, 19056, 432, 13, 1096, 374, 264, 4285, 4938, 1273, 13, 576, 2038, 572, 220, 22, 101294, 20, 99916, 13, 154842, 22, 101294, 20, 99916, 154827], "prompt_tokens": 262000, "reasoning": "", "requested_input_tokens": 262000, "text": "The user asked me to memorize the code 739526 stated before the archive. Now they're asking me to recall it. This is a simple memory test. The code was 739526.</think>739526", "usage": {"completion_tokens": 50, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 262000, "prompt_tokens_details": null, "total_tokens": 262050}, "valid": true}
+CONTEXT_START length=1048000
+{"cached_tokens": null, "completion_tokens": 34, "elapsed_seconds": 4.966, "finish_reason": "stop", "kind": "context_needle", "needle": "739526", "needle_token_offset": 34, "output_ids": [785, 1196, 4588, 752, 311, 16022, 551, 279, 2038, 220, 22, 101294, 20, 99916, 10977, 1573, 279, 18104, 13, 4695, 807, 2299, 10156, 752, 311, 19056, 432, 13, 154842, 22, 101294, 20, 99916, 154827], "prompt_tokens": 1048000, "reasoning": "", "requested_input_tokens": 1048000, "text": "The user asked me to memorize the code 739526 stated before the archive. Now they're asking me to recall it.</think>739526", "usage": {"completion_tokens": 34, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 1048000, "prompt_tokens_details": null, "total_tokens": 1048034}, "valid": true}
+{"kind": "summary", "lengths": [2048, 2049, 262000, 1048000], "model": "GLM-5.3-Flash", "needle": "739526", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+false
+START 2026-09-08T19:06:56-04:00
+true
+READY 2026-09-08T19:06:57-04:00
+true
+true
+true
+true
+== native context 2026-09-08T19:06:58-04:00 ==
+Traceback (most recent call last):
+  File "/home/jugs/git/rtx6kpro/spark/glm53/r28-spark/tests/verify-glm-native-context.py", line 16, in <module>
+    spec.loader.exec_module(needle)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 755, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 892, in get_code
+  File "<frozen importlib._bootstrap_external>", line 950, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/home/jugs/git/rtx6kpro/qwen38-flash-next/verify-native-context.py'
+START 2026-09-08T19:07:32-04:00
+true
+READY 2026-09-08T19:07:32-04:00
+true
+true
+true
+true
+== native context 2026-09-08T19:07:33-04:00 ==
+CONTEXT_START length=2048
+{"kind": "context_needle", "prompt_tokens": 2048, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.5885141129838303, "finish_reason": "stop", "text": "739526", "valid": true}
+CONTEXT_START length=2049
+{"kind": "context_needle", "prompt_tokens": 2049, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.1954135280102491, "finish_reason": "stop", "text": "739526", "valid": true}
+CONTEXT_START length=262000
+{"kind": "context_needle", "prompt_tokens": 262000, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 2.757279946003109, "finish_reason": "stop", "text": "739526", "valid": true}
+CONTEXT_START length=1048000
+{"kind": "context_needle", "prompt_tokens": 1048000, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 5.112403189006727, "finish_reason": "stop", "text": "739526", "valid": true}
+GLM_NATIVE_CONTEXT_PASS
+true
+== standard grid 2026-09-08T19:07:49-04:00 ==
+─────────────────────────────────
+host=http://sparky:8000 model=GLM-5.3-Flash concurrency=1,2,4
+campaign=2026-09-jj-r28-vs-r27 workload=throughput variant=jj-r28-aligned-sm121-tp4-dcp1-mtp3-native1m repetition=1
+output=/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r28-vs-r27/throughput/20260908T190749-0400__jj-r28-aligned-sm121-tp4-dcp1-mtp3-native1m__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: GLM-5.3-Flash @ http://sparky:8000                                    │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+glm53.jj.r28.spark.vllm3db6db5  Models: ['GLM-5.3-Flash']
+Model context length: 1,048,576 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=yiurkmmccqbn, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.18 chars/token (cached, source=8k)
+  8k: 50,598 chars (~8,191 tokens)
+  16k: 101,196 chars (~16,383 tokens)
+  32k: 202,393 chars (~32,767 tokens)
+  64k: 404,786 chars (~65,535 tokens)
+  128k: 809,572 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,199       2.95          2,776              —             —   1  
+  16k        16,229       5.60          2,896      2,917 (1)             —   1  
+  32k        32,320      10.96          2,950      2,969 (1)             —   1  
+  64k        64,510      21.93          2,941      2,958 (1)             —   1  
+  128k      128,879      45.39          2,839      2,856 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                              
+╭────────────┬─────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │           2 │            4 │
+├────────────┼─────────────┼─────────────┼──────────────┤
+│ 0          │ 49.2 212/20 │ 79.7 224/25 │ 118.1 639/34 │
+│ 16k        │  54.1 1k/18 │  82.4 2k/25 │  122.9 4k/33 │
+│ 32k        │  52.2 1k/19 │  81.8 2k/24 │  122.0 4k/34 │
+│ 64k        │  50.7 1k/20 │  84.0 2k/24 │  116.5 3k/35 │
+│ 128k       │  52.4 2k/19 │  79.8 3k/25 │  120.0 4k/35 │
+╰────────────┴─────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 49.2 │ 39.8 │ 29.5 │
+│ 16k        │ 54.1 │ 41.2 │ 30.7 │
+│ 32k        │ 52.2 │ 40.9 │ 30.5 │
+│ 64k        │ 50.7 │ 42.0 │ 29.1 │
+│ 128k       │ 52.4 │ 39.9 │ 30.0 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬──────┬────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼──────┼────┼───────────────┤
+│ 0  │ │ sust… │      0/0% │    0% │  61/155 │ 40C │  65C │ 3… │           1/3 │
+│ 1… │ │ sust… │      0/1% │    0% │   38/46 │ 37C │  67C │ 3… │           2/4 │
+│ 3… │ │ sust… │      0/0% │    0% │   38/46 │ 35C │  65C │ 3… │           2/4 │
+│ 6… │ │ sust… │      0/0% │    0% │   37/42 │ 33C │  66C │ 3… │           2/4 │
+│ 1… │ │ sust… │      0/0% │    0% │   36/43 │ 32C │  64C │ 3… │           2/4 │
+│ 0  │ │ sust… │      0/0% │    0% │   36/40 │ 31C │  67C │ 3… │           2/4 │
+│ 0  │ │ sust… │      0/0% │    0% │   36/43 │ 31C │  62C │ 3… │           2/4 │
+│ 1… │ │ sust… │      0/0% │    0% │   36/45 │ 31C │  64C │ 3… │           2/4 │
+│ 1… │ │ sust… │      0/0% │    0% │   35/42 │ 30C │  64C │ 3… │           2/3 │
+│ 3… │ │ sust… │      0/0% │    0% │   34/40 │ 30C │  63C │ 3… │           2/4 │
+│ 3… │ │ sust… │      0/0% │    0% │   35/43 │ 30C │  64C │ 3… │           2/4 │
+│ 6… │ │ sust… │      0/0% │    0% │   35/43 │ 30C │  63C │ 3… │           2/4 │
+│ 6… │ │ sust… │      0/1% │    0% │   35/40 │ 30C │  64C │ 3… │           2/4 │
+│ 1… │ │ sust… │      0/0% │    0% │   35/41 │ 30C │  63C │ 3… │           2/5 │
+│ 1… │ │ sust… │      0/0% │    0% │   35/42 │ 30C │  64C │ 3… │           2/4 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴──────┴────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ──────────────────────╮
+│ avg 49 W | max 167 W | limit 600 W | over 12m 30s | 338 samples │
+╰─────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,199 │   2.95 │ 2,776 │ 1 │
+│ 16k  │  16,229 │   5.60 │ 2,896 │ 1 │
+│ 32k  │  32,320 │  10.96 │ 2,950 │ 1 │
+│ 64k  │  64,510 │  21.93 │ 2,941 │ 1 │
+│ 128k │ 128,879 │  45.39 │ 2,839 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s              
+╭────────────┬──────┬──────┬───────╮
+│ ctx \ conc │    1 │    2 │     4 │
+├────────────┼──────┼──────┼───────┤
+│ 0          │ 49.2 │ 79.7 │ 118.1 │
+│ 16k        │ 54.1 │ 82.4 │ 122.9 │
+│ 32k        │ 52.2 │ 81.8 │ 122.0 │
+│ 64k        │ 50.7 │ 84.0 │ 116.5 │
+│ 128k       │ 52.4 │ 79.8 │ 120.0 │
+╰────────────┴──────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 20.0 (2.46) │ 31.6 (2.52) │ 46.4 (2.54) │
+│ 16k        │ 20.1 (2.70) │ 31.6 (2.61) │ 45.8 (2.68) │
+│ 32k        │ 20.0 (2.62) │ 30.9 (2.65) │ 45.2 (2.70) │
+│ 64k        │ 19.8 (2.56) │ 31.1 (2.70) │ 43.8 (2.66) │
+│ 128k       │ 19.8 (2.64) │ 30.6 (2.60) │ 44.3 (2.71) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r
+28-vs-r27/throughput/20260908T190749-0400__jj-r28-aligned-sm121-tp4-dcp1-mtp3-na
+tive1m__r01.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r28-vs-r27/throughput/20260908T190749-0400__jj-r28-aligned-sm121-tp4-dcp1-mtp3-native1m__r01.json
+─────────────────────────────────
+true
+true
+true
+true
+true
+QUALIFICATION-PASS 2026-09-08T19:20:25-04:00

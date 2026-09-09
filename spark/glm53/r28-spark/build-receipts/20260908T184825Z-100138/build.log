@@ -1,0 +1,667 @@
+[1/2] STEP 1/6: FROM ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae AS refreshed
+[1/2] STEP 2/6: SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+--> Using cache d160f7e7346f683711e8c584590bf5db916157a1e3535e3311211f31e486780c
+--> d160f7e7346f
+[1/2] STEP 3/6: COPY source.lock.json refresh_sources.py contracts.py verify_native.py strengthen_flashkda_tests.py /build/r28/
+--> Using cache 7e1a077785fc5a226763599f1579793b6e16be20e3f75981dc2fd23284c1eb83
+--> 7e1a077785fc
+[1/2] STEP 4/6: COPY patches /build/r28/patches
+--> Using cache 7aa2dd7e80b8fe27bf0ee2a621337acbbb7214d063e7ca0140639a7a3c5b43d4
+--> 7aa2dd7e80b8
+[1/2] STEP 5/6: RUN python /build/r28/refresh_sources.py
+--> Using cache 49fa21dc66bd80e33d12065c2c08fa96a2df13f4bcb893cc55f43d464e8868a8
+--> 49fa21dc66bd
+[1/2] STEP 6/6: RUN python -m pip install --no-deps uv==0.12.9
+--> Using cache f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54
+--> f2d6639db4d3
+[2/2] STEP 1/5: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS flashkda-builder
+[2/2] STEP 2/5: ENV TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a
+--> Using cache ace3c1fc5be94181f8cfad3bd8a27c134ec33d927c010bd10884564a8423ee86
+--> ace3c1fc5be9
+[2/2] STEP 3/5: WORKDIR /opt/jovian-judgement/vllm
+--> Using cache 35d08763155cced4fccc0df41890132f5b9cde220c4bdc849b8a593e90fd2f9d
+--> 35d08763155c
+[2/2] STEP 4/5: RUN test -z "${FLASH_KDA_SRC_DIR:-}"     && cmake -S . -B /build/flashkda -G Ninja        -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES=121a        -DVLLM_TARGET_DEVICE=cuda -DVLLM_PYTHON_EXECUTABLE=/opt/venv/bin/python        -DNVCC_THREADS=2     && cmake --build /build/flashkda --target _flashkda_C --parallel 2     && install -Dm755 /build/flashkda/_flashkda_C.abi3.so /artifacts/_flashkda_C.abi3.so     && test "$(git -C /build/flashkda/_deps/flashkda-src rev-parse HEAD)" = 3b225bf26bb8e218928a1fe14751cb48cf31d11b     && echo 'a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a  cmake/external_projects/patches/flashkda-packed-checkpoints.patch' | sha256sum -c -     && cuobjdump --list-elf /artifacts/_flashkda_C.abi3.so | tee /artifacts/flashkda-cubins.txt     && python /build/r28/verify_native.py flashkda /artifacts/_flashkda_C.abi3.so     && cd /artifacts && sha256sum _flashkda_C.abi3.so > flashkda.sha256
+--> Using cache e8e29094c9e8e9ef9a9290381573c5a8397b7e71c0b83dc04cb978feea5a4e2f
+--> e8e29094c9e8
+[2/2] STEP 5/5: RUN install -Dm644 /build/flashkda/_deps/flashkda-src/tests/test_vsplit.py /artifacts/flashkda-tests/test_vsplit.py     && install -Dm644 /build/flashkda/_deps/flashkda-src/tests/torch_ref.py /artifacts/flashkda-tests/torch_ref.py     && python /build/r28/strengthen_flashkda_tests.py /artifacts/flashkda-tests/test_vsplit.py
+--> Using cache cc2e6cc77c7f7c6bf4c55501eb02dfad7a06880b4a4f0db03a55f0bc664855e8
+--> cc2e6cc77c7f
+cc2e6cc77c7f7c6bf4c55501eb02dfad7a06880b4a4f0db03a55f0bc664855e8
+[1/4] STEP 1/6: FROM ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae AS refreshed
+[1/4] STEP 2/6: SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+--> Using cache d160f7e7346f683711e8c584590bf5db916157a1e3535e3311211f31e486780c
+--> d160f7e7346f
+[1/4] STEP 3/6: COPY source.lock.json refresh_sources.py contracts.py verify_native.py strengthen_flashkda_tests.py /build/r28/
+--> Using cache 7e1a077785fc5a226763599f1579793b6e16be20e3f75981dc2fd23284c1eb83
+--> 7e1a077785fc
+[1/4] STEP 4/6: COPY patches /build/r28/patches
+--> Using cache 7aa2dd7e80b8fe27bf0ee2a621337acbbb7214d063e7ca0140639a7a3c5b43d4
+--> 7aa2dd7e80b8
+[1/4] STEP 5/6: RUN python /build/r28/refresh_sources.py
+--> Using cache 49fa21dc66bd80e33d12065c2c08fa96a2df13f4bcb893cc55f43d464e8868a8
+--> 49fa21dc66bd
+[1/4] STEP 6/6: RUN python -m pip install --no-deps uv==0.12.9
+--> Using cache f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54
+--> f2d6639db4d3
+[4/4] STEP 1/25: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS runtime
+[4/4] STEP 2/25: ARG CACHE_FINGERPRINT
+--> Using cache d680131f76f23bed9a9ef3687a51bdc90e2529df58b6a6be0751ff3f6edaaf8a
+--> d680131f76f2
+[4/4] STEP 3/25: ARG SOURCE_LOCK_SHA256
+--> Using cache dba862a3f6765178fa77d3911c17d9c33625a7b9e2281f7f83b35734afa57cce
+--> dba862a3f676
+[4/4] STEP 4/25: ARG RECIPE_SHA256
+--> Using cache 472c0d16f62e4ac574e72fb8856c3e83d002ee34aa2acb69c8b605e5c12cf1b3
+--> 472c0d16f62e
+[4/4] STEP 5/25: ARG RECIPE_COMMIT
+--> Using cache 5a28515b7311f27453d215c137e8789ac2ff6a4ef34f8a74e544eb645ce648c0
+--> 5a28515b7311
+[4/4] STEP 6/25: ARG VLLM_VERSION
+--> Using cache 7e824e541db7334589b0fc59f0f94c926008dfd603b2c9a955b8fcf8fc0fa918
+--> 7e824e541db7
+[4/4] STEP 7/25: ARG FLASHKDA_SHA256
+--> Using cache c8d7c90340a9d2b23dcdfd0fa60b54a2f214a41cacdf1f43a1d781362ef2fd7a
+--> c8d7c90340a9
+[4/4] STEP 8/25: ARG GLM_LAUNCHER_SHA256
+--> Using cache c75cf04583335ac876b3c079232d52e41fd8a97f33a9e29d0ec6d0e23b8dbf45
+--> c75cf0458333
+[4/4] STEP 9/25: ARG RECIPE_DIRTY
+--> Using cache 4a115b6d66f12cdd62ea1d4026820dafbeb0a6c8f28f085db1aa96d2a68a6dea
+--> 4a115b6d66f1
+[4/4] STEP 10/25: ENV LMCACHE_ENABLED=0 VLLM_PLUGINS=""     GLM_LAUNCHER_SHA256=${GLM_LAUNCHER_SHA256}     LOCAL_INFERENCE_CACHE_FINGERPRINT=${CACHE_FINGERPRINT}     XDG_CACHE_HOME=/cache/jit/${CACHE_FINGERPRINT}     VLLM_CACHE_ROOT=/cache/jit/${CACHE_FINGERPRINT}/vllm     VLLM_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/vllm     TRITON_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/triton     TORCHINDUCTOR_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/torchinductor     CUTE_DSL_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/cute-dsl     B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/cute     B12X_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile     SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/b12x/compile     TORCH_EXTENSIONS_DIR=/cache/jit/${CACHE_FINGERPRINT}/torch-extensions     VLLM_FLASHINFER_AUTOTUNE_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/flashinfer-autotune     FLASHINFER_WORKSPACE_BASE=/cache/jit/${CACHE_FINGERPRINT}/flashinfer     TVM_FFI_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/tvm-ffi     TVM_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/tvm     TILELANG_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/tilelang     DG_JIT_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/deep-gemm     NUMBA_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/numba     CUDA_CACHE_PATH=/cache/jit/${CACHE_FINGERPRINT}/cuda     CUPY_CACHE_DIR=/cache/jit/${CACHE_FINGERPRINT}/cupy     B12X_ROCE_CACHE_DIR=/opt/jovian-judgement/b12x-roce
+--> Using cache 6ced68c25790f81000c697e90bef683ee7331692279d2591515ca53619091020
+--> 6ced68c25790
+[4/4] STEP 11/25: COPY --from=flashkda-builder /artifacts/ /opt/local-inference/r28-native/
+[3/4] STEP 1/6: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS lmcache-builder
+[3/4] STEP 2/6: ENV TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a     BUILD_WITH_CUDA=1 ENABLE_CXX11_ABI=1 LMCACHE_CUDA_MAJOR=13 MAX_JOBS=2 NVCC_THREADS=2
+--> Using cache c90a5834dfc1ae30aa4243b97f5dc6accfcd7bc770fe24ad55c6a89a22986ec5
+--> c90a5834dfc1
+[3/4] STEP 3/6: COPY inputs/lmcache.bundle /build/r28/inputs/lmcache.bundle
+--> Using cache 9c4996362e173fb0a6d34b201af0554a2dcb1b7d1ee836921655405a99ca06a5
+--> 9c4996362e17
+[3/4] STEP 4/6: RUN python /build/r28/verify_native.py bundle /build/r28/inputs/lmcache.bundle     && git init /build/lmcache     && git -C /build/lmcache fetch /build/r28/inputs/lmcache.bundle refs/spark/jj-r28/lmcache-source     && git -C /build/lmcache checkout --detach FETCH_HEAD     && test "$(git -C /build/lmcache rev-parse HEAD^{tree})" = 247f81b6fd3b156c402a0dd31cd4a21ae8e21160     && test "$(git -C /build/lmcache rev-parse HEAD:lmcache)" = 85622f21a2a3ae115e7a4ca41801fe221001e87f
+--> Using cache 028afb893bcd43dcef979ab0247bfa45ee8fc6be3bcfa58433465d72a0674f76
+--> 028afb893bcd
+[3/4] STEP 5/6: WORKDIR /build/lmcache
+--> Using cache 0db87bde86ab95b4660e08954487f3e657ab16e7fce2826e46dbb8a9a48e7c0c
+--> 0db87bde86ab
+[3/4] STEP 6/6: RUN command -v uv && command -v cmake     && SETUPTOOLS_SCM_PRETEND_VERSION_FOR_LMCACHE=0.5.5.dev0+glm53checkpoints.617a1b47        uv build --python /opt/venv/bin/python --wheel --no-build-isolation --out-dir /artifacts .     && make -C csrc/cumem_ipc_interposer CUDA_HOME=/usr/local/cuda     && install -Dm755 csrc/cumem_ipc_interposer/liblmcache_cumem_shareable.so /artifacts/liblmcache_cumem_shareable.so     && uv pip install --python /opt/venv/bin/python --no-deps --reinstall /artifacts/lmcache-*.whl     && cd /     && python /build/r28/verify_native.py lmcache /artifacts/liblmcache_cumem_shareable.so     && cd /artifacts && sha256sum *.whl *.so > lmcache-native.sha256
+--> Using cache 3ec8379c09542650f0649bf61ca3d1c5f42db2e6ed6043b1fa79303459073881
+--> 3ec8379c0954
+[2/4] STEP 1/5: FROM f2d6639db4d34ce0c7fc7c3e85f33ba447a02969fc6b51d9bb060fdf44e5ed54 AS flashkda-builder
+[2/4] STEP 2/5: ENV TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a
+--> Using cache ace3c1fc5be94181f8cfad3bd8a27c134ec33d927c010bd10884564a8423ee86
+--> ace3c1fc5be9
+[2/4] STEP 3/5: WORKDIR /opt/jovian-judgement/vllm
+--> Using cache 35d08763155cced4fccc0df41890132f5b9cde220c4bdc849b8a593e90fd2f9d
+--> 35d08763155c
+[2/4] STEP 4/5: RUN test -z "${FLASH_KDA_SRC_DIR:-}"     && cmake -S . -B /build/flashkda -G Ninja        -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES=121a        -DVLLM_TARGET_DEVICE=cuda -DVLLM_PYTHON_EXECUTABLE=/opt/venv/bin/python        -DNVCC_THREADS=2     && cmake --build /build/flashkda --target _flashkda_C --parallel 2     && install -Dm755 /build/flashkda/_flashkda_C.abi3.so /artifacts/_flashkda_C.abi3.so     && test "$(git -C /build/flashkda/_deps/flashkda-src rev-parse HEAD)" = 3b225bf26bb8e218928a1fe14751cb48cf31d11b     && echo 'a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a  cmake/external_projects/patches/flashkda-packed-checkpoints.patch' | sha256sum -c -     && cuobjdump --list-elf /artifacts/_flashkda_C.abi3.so | tee /artifacts/flashkda-cubins.txt     && python /build/r28/verify_native.py flashkda /artifacts/_flashkda_C.abi3.so     && cd /artifacts && sha256sum _flashkda_C.abi3.so > flashkda.sha256
+--> Using cache e8e29094c9e8e9ef9a9290381573c5a8397b7e71c0b83dc04cb978feea5a4e2f
+--> e8e29094c9e8
+[2/4] STEP 5/5: RUN install -Dm644 /build/flashkda/_deps/flashkda-src/tests/test_vsplit.py /artifacts/flashkda-tests/test_vsplit.py     && install -Dm644 /build/flashkda/_deps/flashkda-src/tests/torch_ref.py /artifacts/flashkda-tests/torch_ref.py     && python /build/r28/strengthen_flashkda_tests.py /artifacts/flashkda-tests/test_vsplit.py
+--> Using cache cc2e6cc77c7f7c6bf4c55501eb02dfad7a06880b4a4f0db03a55f0bc664855e8
+--> cc2e6cc77c7f
+--> Using cache 5d0419e4f860838f9c36f9fe1ffe613d8e9430fb1557fb5e63380a1a40e25904
+--> 5d0419e4f860
+[4/4] STEP 12/25: COPY --from=lmcache-builder /artifacts/ /opt/local-inference/r28-native/
+--> Using cache 15f640f9f13d8f1f9479af50c3e89b97bc1d88378040f8a1a038000947509e96
+--> 15f640f9f13d
+[4/4] STEP 13/25: COPY --from=lmcache-builder /build/lmcache/ /opt/lmcache/source-r28/
+--> Using cache 7aeacde800b6d887ed5af1d361c9c7341a1427d2aed9c475e2b15e0eaacb037a
+--> 7aeacde800b6
+[4/4] STEP 14/25: COPY source.lock.json /opt/glm53-flash/source.lock
+--> Using cache a3ce639a2f051d80e9c58a6a7f8efff108ae196c89ebea706d6b6258f513aa42
+--> a3ce639a2f05
+[4/4] STEP 15/25: COPY install_runtime.py /build/r28/install_runtime.py
+--> Using cache 461cc4df1f137673b9306edfc6c150272827080e2c36ade9621b08ba4ceb6408
+--> 461cc4df1f13
+[4/4] STEP 16/25: COPY launchers/ /usr/local/bin/
+--> Using cache ad0be35114c87b800574bca510369d017c4463ff068a3e07303563d10cc3ecb2
+--> ad0be35114c8
+[4/4] STEP 17/25: COPY tests/verify_jj_r28_runtime.py /opt/local-inference/verify_r28_runtime.py
+--> Using cache 4079f2145862006d67a650bdca8c6aa67051abc691aaac346f386174ae33f557
+--> 4079f2145862
+[4/4] STEP 18/25: COPY tests/verify_glm53_nvfp4_draft_head_sm121.py /opt/local-inference/verify_glm53_nvfp4_draft_head_sm121.py
+--> Using cache ec22d996e6ed5bbe55381a78cca620f07c26bba7dc2772e1d3d75823321e0b5b
+--> ec22d996e6ed
+[4/4] STEP 19/25: COPY tests/run_flashkda_gate.py /opt/local-inference/run_flashkda_gate.py
+--> Using cache 654884020263b469e8cfd459cc5d1ed4a1173f8802dd4f0d5e4356f004e69997
+--> 654884020263
+[4/4] STEP 20/25: COPY tests/flashkda_counts.py contracts.py verify_native.py /opt/local-inference/
+--> Using cache a7e149990a9befd978d225f8b2d000fd4a5e487d6b686409009a210e706eed6e
+--> a7e149990a9b
+[4/4] STEP 21/25: RUN python /build/r28/install_runtime.py     && python /build/r28/verify_native.py proxy     && CC=/bin/false python /build/r28/verify_native.py proxy
+_flashkda_C.abi3.so: OK
+lmcache-0.5.5.dev0+glm53checkpoints.617a1b47-cp312-cp312-linux_aarch64.whl: OK
+liblmcache_cumem_shareable.so: OK
+Using Python 3.12.3 environment at: /opt/venv
+Resolved 1 package in 1.64s
+   Building vllm @ file:///opt/jovian-judgement/vllm
+      Built vllm @ file:///opt/jovian-judgement/vllm
+Prepared 1 package in 4.28s
+Uninstalled 7 packages in 167ms
+Installed 1 package in 50ms
+ - vllm==0.26.1rc0+glm53.jj.r11.spark.r1.vllm605efbb.b12xaace94c (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r12.spark.r2.vllm12a8897.b12xaace94c (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r15.spark.r1.vllm7e389bd.b12x2a69d69 (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r17.stock.spark.r1.vllmbd8e2ab.b12x5ee3a5a (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r22.spark.r1.vllm4fbb1c2.b12xe1edb6d (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r26.spark.r1.vllm59c9787.b12x00248b0 (from file:///opt/jovian-judgement/vllm)
+ - vllm==0.26.1rc0+glm53.jj.r27.spark.r1.vllmf3c3fef.b12x95fdcb1 (from file:///opt/jovian-judgement/vllm)
+ + vllm==0.26.1rc0+glm53.jj.r28.spark.vllm3db6db5 (from file:///opt/jovian-judgement/vllm)
+Using Python 3.12.3 environment at: /opt/venv
+Resolved 1 package in 1ms
+Prepared 1 package in 40ms
+Uninstalled 1 package in 61ms
+Installed 1 package in 8ms
+ - lmcache==0.5.5.dev0+glm53cache.engine.822330db (from file:///tmp/lmcache-wheel/lmcache-0.5.5.dev0%2Bglm53cache.engine.822330db-cp312-cp312-linux_aarch64.whl#sha256=395300783bac2941df4deabc1245959d0cd2584007c361f6d6a980f3541927d6)
+ + lmcache==0.5.5.dev0+glm53checkpoints.617a1b47 (from file:///opt/local-inference/r28-native/lmcache-0.5.5.dev0+glm53checkpoints.617a1b47-cp312-cp312-linux_aarch64.whl)
+R28 runtime installation, preserved natives, and metadata: PASS
+--> 6db41e24d1fc
+[4/4] STEP 22/25: LABEL local-inference.release.name="jj-r28-spark-sm121"       local-inference.status="build-candidate"       local-inference.scope="glm53-qwen38-r28-spark-sm121-qualification"       local-inference.runtime.native-artifact-base-id="ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae"       local-inference.runtime.native-artifact-reuse="R27 except rebuilt FlashKDA and LMCache"       local-inference.runtime.source-lock.sha256="${SOURCE_LOCK_SHA256}"       local-inference.recipe.sha256="${RECIPE_SHA256}"       local-inference.recipe.dirty="${RECIPE_DIRTY}"       local-inference.launcher.glm.sha256="${GLM_LAUNCHER_SHA256}"       org.opencontainers.image.revision="${RECIPE_COMMIT}"       local-inference.cache.fingerprint="${CACHE_FINGERPRINT}"       local-inference.flashkda.commit="3b225bf26bb8e218928a1fe14751cb48cf31d11b"       local-inference.flashkda.sha256="${FLASHKDA_SHA256}"       local-inference.flashkda.binary-manifest="/opt/local-inference/r28-native/flashkda.sha256"       local-inference.flashkda.patch.sha256="a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a"       local-inference.flashkda.arch="12.1a"       local-inference.vllm.package-version="${VLLM_VERSION}"       local-inference.vllm.spark-overlay="cuda-arch-12.1-plus-glm53-nvfp4-draft-head-sm121"       local-inference.vllm.pr674.commit="superseded-in-r28"       local-inference.b12x.spark-source-patches="none; the r28 B12X integration tree is applied unmodified"       local-inference.lmcache.default="disabled"
+--> c6e2fe4af5ae
+[4/4] STEP 23/25: WORKDIR /
+--> d0effd0866d8
+[4/4] STEP 24/25: ENTRYPOINT ["/usr/local/bin/serve-glm53-flash-jj-r28-spark.sh"]
+--> 4af5df13f71e
+[4/4] STEP 25/25: LABEL "local-inference.vllm.integration.tree"="a8b355eb38a0b75b97eae06738b03c65b1e9fbb5" "local-inference.vllm.spark-overlay.tree"="4b935ffc1d9ff38196ddddbc359110ea35c0a128" "local-inference.vllm.package.tree"="3db6db578029da6c4bf88c34991a69cf3571a2e5" "local-inference.b12x.integration.tree"="c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e" "local-inference.b12x.package.tree"="d76de6c4ceaa9c2feb49edaf8c2f77d5a29ab5cb" "local-inference.lmcache.integration.tree"="247f81b6fd3b156c402a0dd31cd4a21ae8e21160" "local-inference.lmcache.package.tree"="85622f21a2a3ae115e7a4ca41801fe221001e87f" "local-inference.b12x.rocenante.api-version"="1" "local-inference.b12x.rocenante.proxy-abi"="3" "local-inference.b12x.rocenante.proxy-cache-dir"="/opt/jovian-judgement/b12x-roce"
+[4/4] COMMIT
+--> cd93d80b3f95
+cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1
+W0908 18:48:49.598000 1 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:48:49.612000 1 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+[32;20m[2026-09-08 18:48:51,921] LMCache INFO:[0m torch_dev=<module 'torch.cuda' from '/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py'>, torch_device_type=cuda [3m(_device_detect.py:312:lmcache.v1.platform._device_detect)[0m
+[32;20m[2026-09-08 18:48:51,921] LMCache INFO:[0m Auto-selected backend [cuda] for accelerator 'cuda' from candidate backends [cuda, rocm]. [3m(__init__.py:148:lmcache.v1.platform)[0m
+NATIVE-OK 6c3b32b7892571c0a6a94b7197f87a3bad9735eb897779fc9c9d5981a583499d /opt/lmcache/lib/liblmcache_cumem_shareable.so
+ELF file    1: cuda_ops.cpython-312-aarch64-linux-gnu.1.sm_121a.cubin
+ELF file    2: cuda_ops.cpython-312-aarch64-linux-gnu.2.sm_121a.cubin
+ELF file    3: cuda_ops.cpython-312-aarch64-linux-gnu.3.sm_121a.cubin
+ELF file    4: cuda_ops.cpython-312-aarch64-linux-gnu.4.sm_121a.cubin
+ELF file    5: cuda_ops.cpython-312-aarch64-linux-gnu.5.sm_121a.cubin
+ELF file    6: cuda_ops.cpython-312-aarch64-linux-gnu.6.sm_121a.cubin
+ELF file    7: cuda_ops.cpython-312-aarch64-linux-gnu.7.sm_121a.cubin
+
+NATIVE-OK d35a46df3ae9f47bf3ab81d53ee0de405c171f6106901d03930cf8e4ccba3ae0 /opt/venv/lib/python3.12/site-packages/lmcache/cuda_ops.cpython-312-aarch64-linux-gnu.so
+JJ r28 Spark runtime contract: PASS
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:00.350000 84 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:00.364000 84 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 24 items
+
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-0-0] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-0-1] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-0-2] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-1-0] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-1-1] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-1-2] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-2-0] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-2-1] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[17-2-2] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-0-0] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-0-1] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-0-2] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-1-0] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-1-1] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-1-2] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-2-0] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-2-1] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_accepts_specialized_scalar_indices[1057-2-2] PASSED
+tests/v1/worker/test_boundary_checkpoint_restore_scalars.py::test_restore_keeps_page_offsets_above_signed_int32 PASSED
+tests/v1/worker/test_b12x_roce_health.py::test_sync_output_is_checked_immediately PASSED
+tests/v1/worker/test_b12x_roce_health.py::test_none_output_is_checked_and_passed_through PASSED
+tests/v1/worker/test_b12x_roce_health.py::test_async_output_is_checked_after_completion PASSED
+tests/v1/worker/test_b12x_roce_health.py::test_failure_propagates_from_sync_and_async PASSED
+tests/v1/worker/test_b12x_roce_health.py::test_no_roce_communicator_means_no_wrapping PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 24 passed, 14 warnings in 7.41s ========================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:10.654000 219 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:10.668000 219 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 154 items
+
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_connector_without_divergent_hit_support_uses_common_lookup PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_capable_connector_uses_divergent_partial_hit_lookup PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-False-3] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-False-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-False-5] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-False-7] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-False-8] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-False-9] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-True-3] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-True-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-True-5] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-True-7] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-True-8] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[1-True-9] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-False-3] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-False-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-False-5] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-False-7] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-False-8] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-False-9] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-True-3] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-True-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-True-5] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-True-7] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-True-8] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_exact_prompt_and_response_with_private_state[4-True-9] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundary_retains_complete_dflash_windows[None-1] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundary_retains_complete_dflash_windows[None-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundary_retains_complete_dflash_windows[2-1] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundary_retains_complete_dflash_windows[2-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundary_retains_complete_dflash_windows[3-1] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundary_retains_complete_dflash_windows[3-4] INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_keep_prompt_but_no_intermediate_recurrent_states INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_reuse_leading_instructions_across_user_prompts INFO 09-08 18:49:13 [kv_cache_manager.py:211] Request-boundary recurrent checkpoint caching is enabled. Supported chat requests retain leading instructions, the complete prompt, and the response endpoint.
+INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_request_boundaries_split_prefill_at_instruction_endpoint PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_mamba_align_split_partial_tail_schedule[1] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_mamba_align_split_partial_tail_schedule[4] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_mamba_align_split_when_block_exceeds_scheduling_budget PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_mamba_align_split_when_block_exceeds_long_prefill_threshold PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_mamba_align_partial_hash_hit PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_eagle_group_registers_unaligned_tail_under_partial_hash_hits PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_mamba_partial_tail_owner_uses_cow_on_continue PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_partial_hit_then_internal_checkpoint_uses_distinct_mamba_blocks PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_internal_checkpoint_requires_block_aligned_start PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_external_mamba_hit_same_block_uses_running_cow_on_continue PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_boundary_state_offloads_returns_cow_target PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_block_pool_touch_pins_released_cow_target PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_boundary_state_offload_dropped_when_request_freed_before_drain PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_boundary_state_offloads_block_aligned_prompt PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_truncate_computed_blocks_preserves_sparse_prefix_positions PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_truncate_computed_blocks_allows_short_mamba_group_only PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_mamba_partial_tail_owner_continue_preserves_later_hit PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_mamba_moved_partial_entry_defers_same_step_hit PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_divergent_sibling_reuses_retained_recurrent_anchor[False-1] INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_divergent_sibling_reuses_retained_recurrent_anchor[False-4] INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_divergent_sibling_reuses_retained_recurrent_anchor[True-1] INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_divergent_sibling_reuses_retained_recurrent_anchor[True-4] INFO 09-08 18:49:13 [block_pool.py:1010] Successfully reset prefix cache
+PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_packed_prefill_checkpoints_reuse_arbitrary_interior_prefix[1] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_packed_prefill_checkpoints_reuse_arbitrary_interior_prefix[4] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_full_attention_partial_hash_hit_uses_cow PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_partial_hit_cow_target_starts_uncached PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_partial_hash_truncates_full_attention_hit_length PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_cow_retained_blocks_returned_for_release PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_free_cow_retained_blocks_defers_until_copy_step_processed PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_full_attention_eagle_drops_one_hash_unit PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_partial_hit_with_eagle_stays_within_group_blocks PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_sliding_window_group_enables_partial_hash_hits PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_sliding_window_fine_grained_hits PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_sliding_window_fine_grained_reachable_mask PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_attention_only_hybrid_keeps_block_aligned_hits PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_sliding_window_eagle_margin_is_one_hash_unit_under_partial_hits PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_fine_grained_retention_keeps_scheduler_aligned_fallback[2] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_fine_grained_retention_keeps_scheduler_aligned_fallback[16] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_decoupled_blocks_keep_fine_grained_reuse[13] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_decoupled_blocks_keep_fine_grained_reuse[45] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_decoupled_blocks_keep_fine_grained_reuse[48] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_partial_hash_hit_uses_cow_under_dcp[1] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_partial_hash_hit_uses_cow_under_dcp[2] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_hybrid_partial_hash_hit_uses_cow_under_dcp[4] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_dcp_partial_hit_resumes_on_replicated_mamba_snapshot[2] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_dcp_partial_hit_resumes_on_replicated_mamba_snapshot[4] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_dcp_joint_hit_is_bounded_by_replicated_mamba_snapshots PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_dcp_partial_hit_with_eagle_rewinds_one_hash_unit PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_full_replay_reports_fine_hit[True-1] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_full_replay_reports_fine_hit[True-2] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_full_replay_reports_fine_hit[False-1] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_full_replay_reports_fine_hit[False-2] PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::TestSemanticReplayCheckpoints::test_fine_checkpoint_keeps_the_rewind_stop PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::TestSemanticReplayCheckpoints::test_large_chunk_materializes_a_reusable_replay_state PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::TestSemanticReplayCheckpoints::test_swa_preserves_the_materialized_recurrent_fallback PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_semantic_checkpoints_support_unitary_recurrent_coordinator PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_retention_snapshots_handed_off_with_exact_block_ids PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_snapshot_handoff_dense_default_retention PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_boundary_state_offer_includes_more_mamba_groups_than_two PASSED
+tests/v1/core/prefix_cache/test_partial_prefix_cache_hits.py::test_boundary_states_offered_past_prompt_for_resumed_prefill PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_internal_checkpoint_split[2002-2002-False-2002] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_internal_checkpoint_split[3602-2000-False-2000] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_internal_checkpoint_split[3602-3602-True-1600] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_dflash_checkpoint_keeps_intermediate_chunks_aligned_and_joins_prompt_tail PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_dflash_fragmented_budget_stops_at_external_retention_boundary PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_glm_mtp_checkpoint_joins_unaligned_prompt_tail PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_dflash_does_not_back_off_last_cache_position PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_sliding_window_group_tolerates_finer_alignment PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_fragmented_first_chunk_does_not_poison_mamba_prefix_cache PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_fragmented_tail_chunk_does_not_poison_mamba_prefix_cache PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_intermediate_chunk_ends_stay_block_aligned[800] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_intermediate_chunk_ends_stay_block_aligned[900] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_intermediate_chunk_ends_stay_block_aligned[1599] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_intermediate_chunk_ends_stay_block_aligned[1601] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_intermediate_chunk_ends_stay_block_aligned[2000] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_poisoning_is_block_size_independent[1536-30000-budgets0] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_poisoning_is_block_size_independent[12288-30000-budgets1] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_poisoning_is_block_size_independent[12288-41000-budgets2] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-331-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-331-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-1599-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-1599-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-1601-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-1601-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-2531-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-2531-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-3011-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[0-True-3011-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-331-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-331-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-1599-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-1599-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-1601-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-1601-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-2531-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-2531-True] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-3011-False] PASSED
+tests/v1/core/test_mamba_align_chunk_split.py::test_unaligned_resume_never_runs_past_its_block[1-False-3011-True] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[0-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[0-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[0-4096] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[256-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[256-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[256-4096] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[257-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[257-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[257-4096] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[4096-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[4096-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[4096-4096] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[7680-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[7680-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[7680-4096] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[7936-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[7936-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[7936-4096] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[8192-256] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[8192-2048] PASSED
+tests/v1/worker/test_mamba_prefix_state_index.py::test_resumed_state_index_uses_recurrent_blocks[8192-4096] PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 154 passed, 14 warnings in 6.16s =======================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:19.265000 284 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:19.278000 284 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 168 items / 164 deselected / 4 selected
+
+tests/v1/core/test_scheduler.py::test_full_boundary_hit_is_admitted_while_another_request_decodes[None] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+INFO 09-08 18:49:27 [model.py:684] Resolved architecture: OPTForCausalLM
+INFO 09-08 18:49:27 [model.py:2024] Using max model len 2048
+INFO 09-08 18:49:27 [scheduler.py:338] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 09-08 18:49:28 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+WARNING 09-08 18:49:28 [vllm.py:762] Model Runner V2 does not yet support ngram/ngram_gpu speculative decoding; using the V1 model runner instead.
+PASSED
+tests/v1/core/test_scheduler.py::test_full_boundary_hit_is_admitted_while_another_request_decodes[capacity] INFO 09-08 18:49:29 [model.py:684] Resolved architecture: OPTForCausalLM
+INFO 09-08 18:49:29 [model.py:2024] Using max model len 2048
+INFO 09-08 18:49:29 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+INFO 09-08 18:49:29 [scheduler.py:3334] setting pause state to UNPAUSED
+PASSED
+tests/v1/core/test_scheduler.py::test_full_boundary_hit_is_admitted_while_another_request_decodes[allocation] INFO 09-08 18:49:29 [model.py:684] Resolved architecture: OPTForCausalLM
+INFO 09-08 18:49:29 [model.py:2024] Using max model len 2048
+INFO 09-08 18:49:29 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+INFO 09-08 18:49:29 [scheduler.py:3334] setting pause state to UNPAUSED
+PASSED
+tests/v1/core/test_scheduler.py::test_full_boundary_hit_is_admitted_while_another_request_decodes[pause] INFO 09-08 18:49:29 [model.py:684] Resolved architecture: OPTForCausalLM
+INFO 09-08 18:49:29 [model.py:2024] Using max model len 2048
+INFO 09-08 18:49:29 [kernel.py:365] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+INFO 09-08 18:49:29 [scheduler.py:3334] setting pause state to PAUSED_NEW
+INFO 09-08 18:49:29 [scheduler.py:3334] setting pause state to UNPAUSED
+PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============== 4 passed, 164 deselected, 14 warnings in 13.80s ================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:35.181000 415 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:35.196000 415 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 22 items
+
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[query-1] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[query-2] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[query-4] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[query-8] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[query-32] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[value-1] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[value-2] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[value-4] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[value-8] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_at_mapped_allocation_end[value-32] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[query-1] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[query-4] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[query-8] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[query-32] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[query-128] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[query-4096] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[value-1] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[value-4] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[value-8] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[value-32] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[value-128] PASSED
+tests/kernels/attention/test_mla_bmm_storage.py::test_mla_bmm_random_values_and_graph_replay[value-4096] PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 22 passed, 14 warnings in 3.72s ========================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:43.039000 480 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:43.052000 480 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 2 items
+
+tests/model_executor/layers/test_shared_experts_stream.py::test_shared_output_survives_producer_reuse {'producer_reused_output': False, 'consumer_was_pending': True, 'copied_values': [17]}
+PASSED
+tests/model_executor/layers/test_shared_experts_stream.py::test_shared_output_cuda_graph_replay PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 2 passed, 14 warnings in 5.23s ========================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:50.427000 546 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:50.441000 546 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 102 items / 96 deselected / 6 selected
+
+tests/models/test_glm5next_model.py::test_glm5next_mtp_draft_head_mode[bf16-bf16] PASSED
+tests/models/test_glm5next_model.py::test_glm5next_mtp_draft_head_mode[NVFP4-nvfp4] PASSED
+tests/models/test_glm5next_model.py::test_glm5next_mtp_nvfp4_draft_head_capability[capability0-True] PASSED
+tests/models/test_glm5next_model.py::test_glm5next_mtp_nvfp4_draft_head_capability[capability1-True] PASSED
+tests/models/test_glm5next_model.py::test_glm5next_mtp_nvfp4_draft_head_capability[capability2-False] PASSED
+tests/models/test_glm5next_model.py::test_glm5next_mtp_nvfp4_draft_head_capability[capability3-False] PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 6 passed, 96 deselected, 14 warnings in 5.13s =================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0908 18:49:57.616000 662 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:49:57.629000 662 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 58 items / 57 deselected / 1 selected
+
+tests/models/kimi_k3/test_kda.py::test_flashkda_near_collinear_keys_remain_finite PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 1 passed, 57 deselected, 14 warnings in 5.52s =================
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/b12x
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... collected 20 items / 19 deselected / 1 selected
+
+../b12x/tests/gemm/test_mxfp8_linear.py::test_mm_persistent_ctas_complete_single_stage_epilogue_stores [b12x cute.compile] compile-start number=1 target=b12x._lib.dense_gemm._DenseGemmLaunch cache_key=0d4b55e5a157a80a kernel=gemm.dense version=4 params=['legacy', 'gemm.dense', 4, [['field', 'arg0', 4096], ['field', 'arg1', 128], ['field', 'arg2', 1], ['field', 'arg3', 1], ['field', 'arg4', 'k'], ['field', 'arg5', 'k'], ['field', 'arg6', 'n'], ['field', 'arg7', ['type', 'cutlass.base_dsl.typing', 'Float8E4M3FN']], ['field', 'arg8', ['type', 'cutlass.base_dsl.typing', 'Float8E8M0FNU']], ['field', 'arg9', ['type', 'cutlass.base_dsl.typing', 'BFloat16']], ['field', 'arg10', ['type', 'cutlass.base_dsl.typing', 'Float32']], ['field', 'arg11', 32], ['field', 'arg12', 32], ['field', 'arg13', 128], ['field', 'arg14', [64, 128]], ['field', 'arg15', [1, 1]], ['field', 'arg16', ['dataclass', 'b12x._lib.dense_gemm', '_DenseGemmPolicy', [['single_work_tile_per_cta', False], ['direct_one_m_tile_scheduler', False], ['use_m1_non_tma', False], ['split_k_slices', 1], ['split_k_atomic_bf16', True], ['large_m_unroll', False]]]], ['field', 'arg17', 48], ['field', 'arg18', 48], ['field', 'arg19', 'sm_120'], ['field', 'arg20', 'tma'], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', False], ['field', 'arg25', 0], ['field', 'arg26', False], ['field', 'arg27', True], ['field', 'arg28', False], ['field', 'arg29', False], ['field', 'arg30', 1], ['field', 'arg31', False]]]
+[b12x cute.compile] compile-done number=1 duration_s=0.575 total_compile_s=0.575 target=b12x._lib.dense_gemm._DenseGemmLaunch cache_key=0d4b55e5a157a80a kernel=gemm.dense version=4 params=['legacy', 'gemm.dense', 4, [['field', 'arg0', 4096], ['field', 'arg1', 128], ['field', 'arg2', 1], ['field', 'arg3', 1], ['field', 'arg4', 'k'], ['field', 'arg5', 'k'], ['field', 'arg6', 'n'], ['field', 'arg7', ['type', 'cutlass.base_dsl.typing', 'Float8E4M3FN']], ['field', 'arg8', ['type', 'cutlass.base_dsl.typing', 'Float8E8M0FNU']], ['field', 'arg9', ['type', 'cutlass.base_dsl.typing', 'BFloat16']], ['field', 'arg10', ['type', 'cutlass.base_dsl.typing', 'Float32']], ['field', 'arg11', 32], ['field', 'arg12', 32], ['field', 'arg13', 128], ['field', 'arg14', [64, 128]], ['field', 'arg15', [1, 1]], ['field', 'arg16', ['dataclass', 'b12x._lib.dense_gemm', '_DenseGemmPolicy', [['single_work_tile_per_cta', False], ['direct_one_m_tile_scheduler', False], ['use_m1_non_tma', False], ['split_k_slices', 1], ['split_k_atomic_bf16', True], ['large_m_unroll', False]]]], ['field', 'arg17', 48], ['field', 'arg18', 48], ['field', 'arg19', 'sm_120'], ['field', 'arg20', 'tma'], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', False], ['field', 'arg25', 0], ['field', 'arg26', False], ['field', 'arg27', True], ['field', 'arg28', False], ['field', 'arg29', False], ['field', 'arg30', 1], ['field', 'arg31', False]]]
+PASSED
+
+=============================== warnings summary ===============================
+tests/gemm/test_mxfp8_linear.py::test_mm_persistent_ctas_complete_single_stage_epilogue_stores
+  /opt/jovian-judgement/b12x/b12x/_lib/dense_gemm.py:4604: DeprecationWarning: Migrated to examples/CuTeDSL/helpers/static_persistent_tile_scheduler.py (BSD-3). The wheel copy will be removed in a future release.
+    tile_sched_params = utils.PersistentTileSchedulerParams(
+
+tests/gemm/test_mxfp8_linear.py: 28 warnings
+  /opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/_mlir_helpers/op.py:294: DeprecationWarning: FastDivmodDivisor is deprecated in favor of cute.FastDivmodDivisorV2 / cute.fast_divmod_create_divisor_v2. V2 additionally carries the scalar divisor across kernel boundaries (2 MLIR values per object instead of 1), so '.divisor' is readable inside kernels; arithmetic (divmod, //, %) is unchanged.
+    res_or_list = opFunc(*args, **kwargs, loc=loc)
+
+tests/gemm/test_mxfp8_linear.py: 13 warnings
+  /opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/utils/static_persistent_tile_scheduler.py:292: DeprecationWarning: Migrated to examples/CuTeDSL/helpers/static_persistent_tile_scheduler.py (BSD-3). The wheel copy will be removed in a future release.
+    new_params = PersistentTileSchedulerParams(*(tuple(obj_list)), loc=self._loc)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 1 passed, 19 deselected, 42 warnings in 4.44s =================
+W0908 18:50:11.884000 824 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0908 18:50:11.897000 824 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+rows=1 relative_rmse=0.094866 cosine=0.995507
+rows=4 relative_rmse=0.095540 cosine=0.995440
+rows=32 relative_rmse=0.095373 cosine=0.995457
+GLM R28 NVFP4 proposal head SM121: PASS
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... collected 34 items / 22 deselected / 12 selected
+
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-4] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-64] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-4] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-64] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-4] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-64] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-4] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-64] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-4] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-64] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-4] PASSED
+../../local-inference/r28-native/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-64] PASSED
+
+====================== 12 passed, 22 deselected in 27.30s ======================
+FLASHKDA-R28-GATE-OK collected=12 passed=12 skipped=0
+LMCache is packaged but not qualified on DGX Spark; set LMCACHE_ENABLED=0.
+LMCache is packaged but not qualified on DGX Spark; set LMCACHE_ENABLED=0.
+BUILD-OK image=localhost/voipmonitor/vllm:jj-r28-spark-sm121 id=sha256:cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1 flashkda=69347e79224ee3a48d1d3604d302dc275a595188b89db53be2a09593dbd07d98 lock=a0e3f833042ac0be453160255464c8827734ea2ccc302de9fff531cbdfac8110

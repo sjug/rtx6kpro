@@ -1,0 +1,31 @@
+START 2026-09-08T18:44:34-04:00
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+false

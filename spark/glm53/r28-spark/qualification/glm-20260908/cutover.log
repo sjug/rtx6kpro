@@ -1,0 +1,51 @@
+CUTOVER-START 2026-09-08T18:41:42-04:00
+glm53-flash-nvfp4-jj-r27-spark-tp4
+glm53-flash-nvfp4-jj-r27-spark-tp4
+glm53-flash-nvfp4-jj-r27-spark-tp4
+glm53-flash-nvfp4-jj-r27-spark-tp4
+R27-STOPPED 2026-09-08T18:43:40-04:00
+true
+true
+true
+true
+ALL-IMAGE-IDENTITIES-VERIFIED 2026-09-08T18:44:29-04:00
+d8c674038548c7bb593af5d158eeee81fbcd784b3c5979acbc368c662e71033e
+glm53-flash-nvfp4-jj-r28-spark-tp4 ROLE=worker rank=1/4 host_ip=10.11.11.2 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+dbf4aee1422c7f291f376e223374209dfc4b4e29174f0d7923fb8c2c6fbd0040
+glm53-flash-nvfp4-jj-r28-spark-tp4 ROLE=worker rank=2/4 host_ip=10.11.11.4 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+983876ec83195093b5e43f544d0a1934cd01316c961b95c186ef5fa8f3022e2c
+glm53-flash-nvfp4-jj-r28-spark-tp4 ROLE=worker rank=3/4 host_ip=10.11.11.3 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+96ba2f66fc1af473d9f5713ce7dbc1921de927a4e81aaf5b28fe9c0ec9fae598
+glm53-flash-nvfp4-jj-r28-spark-tp4 ROLE=head rank=0/4 host_ip=10.11.11.1 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+R28-LAUNCHED 2026-09-08T18:44:34-04:00
+START 2026-09-08T18:44:34-04:00
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+false

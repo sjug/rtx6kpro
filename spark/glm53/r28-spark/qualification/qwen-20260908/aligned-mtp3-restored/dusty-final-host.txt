@@ -1,0 +1,5 @@
+2026-09-08T16:32:55-04:00
+               total        used        free      shared  buff/cache   available
+Mem:     130663231488 124672974848  2416271360  3886264320  8629084160  5990256640
+Swap:    17179865088     4001792 17175863296
+d00f73937267f4d095d39aa065b7b66b9ba09714244c453ea139cee4a2b31dda  /home/jugs/git/bld-jj-r28-spark/run-qwen38-flash-next-jj-r28-spark-tp2-node.sh

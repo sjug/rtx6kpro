@@ -1,0 +1,39 @@
+id: "2026-09-jj-r28-vs-r27"
+status: "complete"
+objective: "Qualify Qwen R28 on dusty/kirby and compare its aligned MTP3 performance with the recorded R27 aligned baseline. Separately characterize R28 auto checkpoint policy."
+baseline: "jj-r27-aligned-sm121-tp2-mtp3"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+  checkpoint_revision: "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+  nodes: ["dusty", "kirby"]
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  kv_cache_dtype: "fp8"
+  load_format: "instanttensor"
+  nccl_proto: "LL,Simple"
+conclusion: "Qwen R28 aligned MTP3 passed qualification and remains serving on dusty/kirby. All 15 standard cells were clean; geometric-mean engine steps/s were 21.848, 36.470 and 56.339 at c1/c2/c4, 12.65%, 11.12% and 11.79% above the historical R27 aligned run. Prefill scouts improved 6.4% to 10.8%. These are single-boot observations, not proven repeatable gains."
+notes: |
+  R28 image cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1.
+  Main standard-grid arm is aligned MTP3, using run_bench.sh unchanged at c1/c2/c4.
+  Historical baseline is the 20260906T183107-0400 R27 aligned r01 JSON.
+  This is a single-boot historical comparison, not proof of a repeatable gain.
+  Separate auto MTP3 concurrency probes and aligned MTP0 retrieval controls are
+  not mixed into the main performance arm. Leave aligned MTP3 serving afterward.
+  No GLM or nous changes are included. Long-context retrieval times are correctness
+  receipts, not cold-prefill benchmarks; cache reuse is recorded where exposed.
+  Aligned semantics passed 18/18 and the final restored-boot smoke passed 6/6.
+  MTP3 retrieval passed at 2848/2849/131072/262000 and MTP0 at 2784/2785/131072.
+  R28 auto did not reproduce identical-burst serialization or head-of-line blocking
+  in the focused probes and improved endpoint reuse. One initial strict-format
+  semantic failure (correct 333 wrapped in Markdown) was retained; the unchanged
+  retry passed. No full auto-policy qualification or default change is claimed.
+  The sole grid JIT warning occurred at 16:07:47 EDT, before C2/0K measurement
+  started at 16:07:51. No measured cell was invalidated by that warning.
+  The raw hardware summary is client-local, not Spark thermal evidence. The
+  benchmark's block-derived token capacity is not the hybrid engine capacity.
+  Initial grid boot KV 5194550 tokens; final restored boot KV 5282370 tokens.
+  R27 baseline predates the user's dusty storage reset; this is not a contemporary A/B.

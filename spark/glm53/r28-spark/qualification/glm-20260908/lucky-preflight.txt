@@ -1,0 +1,5 @@
+f9e781dcebc22a50bc08904361cbc523902ee361d29a280151b97e0b79fb30b3  /home/jugs/git/bld-jj-r28-spark/run-glm53-flash-jj-r28-spark-tp4-node.sh
+b5c1cdc827148257d96a0d60a22276dd524fb098cbd52e94aaef252f8a1f3b1e  /home/jugs/git/bld-jj-r28-spark/launchers/serve-glm53-flash-jj-r28-spark.sh
+               total        used        free      shared  buff/cache   available
+Mem:     130663170048 115367051264  3275747328  5921017856 19110805504 15296118784
+Swap:    17179865088  4653142016 12526723072

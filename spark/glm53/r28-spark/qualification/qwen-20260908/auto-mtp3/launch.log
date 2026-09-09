@@ -1,0 +1,29 @@
+START auto-mtp3 2026-09-08T16:15:49-04:00
+qwen38-flash-next-nvfp4-jj-r28-tp2 stopped and removed on kirby
+qwen38-flash-next-nvfp4-jj-r28-tp2 stopped and removed on dusty
+d9755c02678c6cbf9f7e59fe403754537fc8eb4df0bb95f62b899a3653ff2907
+qwen38-flash-next-nvfp4-jj-r28-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+41308d6a8822579d3713e26b27a04211f50b0bf9f6a494df048c99f0ec299686
+qwen38-flash-next-nvfp4-jj-r28-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY auto-mtp3 2026-09-08T16:19:14-04:00
