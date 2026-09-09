@@ -1,0 +1,104 @@
+{
+  "release": "jj-r28-spark-sm121",
+  "status": "authored, not built or qualified",
+  "upstream_lock_sha256": "15a9a649559830822cb943ea0c3c6a644c8b69c9e54d7be3e265801851843932",
+  "base_image_id": "ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae",
+  "upstream_recipe_commit": "53031598b6ba4c176e9a64512c17cad18a8bf829",
+  "runtime": {
+    "checkpoint_policy": "aligned",
+    "lmcache_enabled": false,
+    "glm_mtp_head": "bf16",
+    "loader": "instanttensor",
+    "cuda_arch": "12.1a",
+    "nccl": "retain R27 image and runner contract"
+  },
+  "vllm": {
+    "commit": "2531689fa50b956d3e1156e1ab80d119aaf34c1e",
+    "upstream_tree": "a8b355eb38a0b75b97eae06738b03c65b1e9fbb5",
+    "upstream_package_tree": "b58e8822b7f01df715fe72a94ed9ae4d2f447040",
+    "spark_overlay_sha256": "992cbae5b9f7fd358fe01f20659c9a7985406d37bdafa129940bfe7e33afaea4",
+    "rebuild_native": [
+      "_flashkda_C"
+    ],
+    "pr674": "superseded by widened scalar restore; retain upstream GPU regression",
+    "native_changed_paths": [
+      "cmake/external_projects/apply_flashkda_checkpoint_patch.cmake",
+      "cmake/external_projects/flashkda.cmake",
+      "cmake/external_projects/patches/flashkda-packed-checkpoints.patch",
+      "csrc/flashkda_registration.cpp"
+    ],
+    "base_tree": "8881b7772e1644d63162ad3b7494888ef7ac54fd",
+    "tree": "4b935ffc1d9ff38196ddddbc359110ea35c0a128",
+    "package_tree": "3db6db578029da6c4bf88c34991a69cf3571a2e5",
+    "patch": "patches/vllm/r27-to-r28.patch",
+    "patch_sha256": "65ab058b4077bc966738da4fd71e7fe96899e303560b70849515a58369e85a98",
+    "changed_paths": "patches/vllm/changed-paths.txt",
+    "changed_paths_sha256": "fd618820bc350a51f2b46b689796361544127a3bcf45cd52eab9a195af7f4793",
+    "changed_paths_count": 127
+  },
+  "b12x": {
+    "commit": "3edbcbce70f491741b82f5eab9c1b30b39447228",
+    "upstream_tree": "c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e",
+    "upstream_package_tree": "d76de6c4ceaa9c2feb49edaf8c2f77d5a29ab5cb",
+    "rebuild_native": [
+      "RoCEnante proxy from composed source, if source digest changes"
+    ],
+    "base_tree": "f3cd8a9eb00d3226a1acbbed1efedf10cc1c3e71",
+    "tree": "c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e",
+    "package_tree": "d76de6c4ceaa9c2feb49edaf8c2f77d5a29ab5cb",
+    "patch": "patches/b12x/r27-to-r28.patch",
+    "patch_sha256": "ea542b9e6214a34a2d29f17f9f28effcbd5631476c191e9295a5815fb617e6cf",
+    "changed_paths": "patches/b12x/changed-paths.txt",
+    "changed_paths_sha256": "ecee3b1460573d9e5416153964280cf63dbf43e9d7024b0b2a463e3a379b0816",
+    "changed_paths_count": 75
+  },
+  "lmcache": {
+    "commit": "617a1b47a790de6b86eea92f59deb232a9eff87d",
+    "upstream_tree": "247f81b6fd3b156c402a0dd31cd4a21ae8e21160",
+    "upstream_package_tree": "85622f21a2a3ae115e7a4ca41801fe221001e87f",
+    "rebuild_native": [
+      "SM121 LMCache wheel",
+      "cuMem IPC interposer"
+    ],
+    "version": "0.5.5.dev0+glm53checkpoints.617a1b47",
+    "base_tree": "008ac3e09ae5917aa0849147480d7bd5b9f8b37a",
+    "tree": "247f81b6fd3b156c402a0dd31cd4a21ae8e21160",
+    "package_tree": "85622f21a2a3ae115e7a4ca41801fe221001e87f",
+    "patch": "patches/lmcache/r27-to-r28.patch",
+    "patch_sha256": "29f0dbf5d196ec66e54dcb58753084ebf7fde40b7c1fe730501f57c40abaee9f",
+    "changed_paths": "patches/lmcache/changed-paths.txt",
+    "changed_paths_sha256": "e7e524441cd7e4439bba73908c25e331be35559c8a5d1a761d7349fcce1bbd0b",
+    "changed_paths_count": 36,
+    "bundle": "inputs/lmcache.bundle",
+    "bundle_sha256": "4a77af47ce453ae89d439b4514674c3ddb7eaaf2ef36da34e1f2e0d992e16cff"
+  },
+  "flashkda": {
+    "base_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "patch_sha256": "a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a",
+    "upstream_sm120_extension_sha256": "3bb6ef2c9f0be24b2c6ae8a48eb20b53f28e632ed9cb45a32c7c0133f8cfde91",
+    "spark_digest_source": "frozen native-stage receipt before runtime assembly"
+  },
+  "native_build_contract": {
+    "cuda_arch": "12.1a",
+    "cmake_arch": "121a",
+    "torch": "2.13.0",
+    "cuda": "13.3",
+    "cxx11_abi": 1,
+    "dockerfile_sha256": "fcd3902cdd27863c5ded116aad132d5e2abbc47f816e7b23a6e632aae03a105e"
+  },
+  "cache_fingerprint": "cu133-torch213-jj-r28-sm121-ea577d24a0eaa116ff79",
+  "template_sources": {
+    "launchers/serve-glm53-flash-jj-r27-spark.sh": "26cdf7997ac3928384b585953a3ab76987143c273b02cb833cfaa3f6c29fedfa",
+    "launchers/serve-qwen38-flash-next-jj-r27-spark.sh": "0cb1fcc57d87ed66d7b4b76ce6f0092e1707b29a86ee30d35ee496491aa7c45b",
+    "run-glm53-flash-jj-r27-spark-tp4-node.sh": "f78a965525ef99d17bb1389a6c2ae48194f265f631c11bd2a797fdde0eac1d4c",
+    "run-qwen38-flash-next-jj-r27-spark-tp2-node.sh": "dd39ab5ffb7207ab10e05683d9d63ef8f12224852194e4617674140c15cc630c",
+    "tests/test-glm53-flash-jj-r27-spark-tp4-runner.sh": "6e5f30c783b2a8f89d422021c30a36d95b3d74d0bded3f3df5110d7cd01b4576",
+    "tests/test-qwen38-flash-next-jj-r27-spark-runner.sh": "456c0a7f4ab56627d16c325027bc70bd01a7fb54780329a5f08b8def76c2fc60",
+    "tests/verify_jj_r27_runtime.py": "d9d4cb4bf31f5df568a2932f1cbc46fc7de3706b8dc64c1c7abe61e6bb0d79fc",
+    "tests/verify_glm53_nvfp4_draft_head_sm121.py": "f17cd2ae60f5b0a830306a2fa0850b94cde33d750eef6f240bcdc477ff0cbf1a"
+  },
+  "launchers": {
+    "serve-glm53-flash-jj-r28-spark.sh": "b5c1cdc827148257d96a0d60a22276dd524fb098cbd52e94aaef252f8a1f3b1e",
+    "serve-qwen38-flash-next-jj-r28-spark.sh": "511582a8944cfd9a4b959993565bf4a73e1cdd5b65599bb2da7289e08dcaad99"
+  }
+}
