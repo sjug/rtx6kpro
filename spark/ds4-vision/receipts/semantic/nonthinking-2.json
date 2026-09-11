@@ -1,0 +1,50 @@
+{
+  "label": "nonthinking-2",
+  "elapsed_s": 0.3888883030740544,
+  "response": {
+    "id": "chatcmpl-b3cc4f6c050ca4fa",
+    "object": "chat.completion",
+    "created": 1789083437,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "133",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.26.1rc0+glm53.jj.r32.spark.vllm00eef6a-tp2-4d9e41ec",
+    "usage": {
+      "prompt_tokens": 18,
+      "total_tokens": 20,
+      "completion_tokens": 2,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 0,
+        "multimodal_tokens": null
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}

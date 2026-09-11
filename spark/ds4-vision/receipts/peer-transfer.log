@@ -1,0 +1,4 @@
+MODEL-TRANSFER route=10.11.11.6 dev enp1s0f0np0 src 10.11.11.5 uid 1000 
+    cache 
+{"status": "MODEL-VERIFIED", "revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "hashed": true, "snapshot": "/home/jugs/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380"}
+MODEL-TRANSFER-PASS 2026-09-10T19:29:56-04:00

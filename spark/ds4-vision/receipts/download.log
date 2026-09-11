@@ -1,0 +1,91 @@
+{"revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "bytes": 167831848791, "files": 84}
+Fetching 84 files:   0%|          | 0/84 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 84 files:   1%|          | 1/84 [00:00<00:25,  3.30it/s]Fetching 84 files:   2%|▏         | 2/84 [00:00<00:20,  3.96it/s]Fetching 84 files:   4%|▎         | 3/84 [00:00<00:16,  4.90it/s]Fetching 84 files:   7%|▋         | 6/84 [00:00<00:09,  8.23it/s]Fetching 84 files:  11%|█         | 9/84 [00:01<00:07, 10.61it/s]Fetching 84 files:  13%|█▎        | 11/84 [00:01<00:08,  8.91it/s]Fetching 84 files:  15%|█▌        | 13/84 [00:01<00:07,  9.23it/s]Fetching 84 files:  20%|██        | 17/84 [00:02<00:07,  9.55it/s]Fetching 84 files:  23%|██▎       | 19/84 [00:02<00:05, 10.92it/s]Fetching 84 files:  25%|██▌       | 21/84 [00:02<00:05, 11.23it/s]Fetching 84 files:  27%|██▋       | 23/84 [00:02<00:08,  7.06it/s]Fetching 84 files:  30%|██▉       | 25/84 [00:02<00:06,  8.58it/s]Fetching 84 files:  32%|███▏      | 27/84 [00:03<00:06,  9.04it/s]Fetching 84 files:  36%|███▌      | 30/84 [00:03<00:05, 10.77it/s]Fetching 84 files:  39%|███▉      | 33/84 [00:04<00:08,  5.81it/s]Fetching 84 files:  39%|███▉      | 33/84 [00:19<00:08,  5.81it/s]Fetching 84 files:  40%|████      | 34/84 [03:58<28:10, 33.81s/it]Fetching 84 files:  42%|████▏     | 35/84 [05:16<33:46, 41.36s/it]Fetching 84 files:  43%|████▎     | 36/84 [06:18<36:17, 45.36s/it]{"revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "bytes": 167831848791, "files": 84}
+Fetching 84 files:   0%|          | 0/84 [00:00<?, ?it/s]{"revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "bytes": 167831848791, "files": 84}
+Fetching 84 files:   0%|          | 0/84 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 84 files:  44%|████▍     | 37/84 [04:56<06:16,  8.00s/it]Fetching 84 files:  45%|████▌     | 38/84 [04:56<05:55,  7.74s/it]Fetching 84 files:  46%|████▋     | 39/84 [04:59<05:35,  7.45s/it]Fetching 84 files:  48%|████▊     | 40/84 [05:00<05:09,  7.03s/it]Fetching 84 files:  49%|████▉     | 41/84 [05:03<04:49,  6.74s/it]Fetching 84 files:  50%|█████     | 42/84 [05:04<04:14,  6.06s/it]Fetching 84 files:  51%|█████     | 43/84 [05:06<03:46,  5.52s/it]Fetching 84 files:  52%|█████▏    | 44/84 [05:12<03:42,  5.55s/it]Fetching 84 files:  55%|█████▍    | 46/84 [05:20<03:13,  5.10s/it]Fetching 84 files:  56%|█████▌    | 47/84 [05:30<03:42,  6.00s/it]Fetching 84 files:  57%|█████▋    | 48/84 [05:39<03:57,  6.59s/it]Fetching 84 files:  58%|█████▊    | 49/84 [05:42<03:18,  5.68s/it]Fetching 84 files:  60%|█████▉    | 50/84 [05:44<02:49,  4.97s/it]Fetching 84 files:  61%|██████    | 51/84 [06:28<08:13, 14.95s/it]Fetching 84 files:  62%|██████▏   | 52/84 [06:39<07:27, 13.97s/it]Fetching 84 files:  63%|██████▎   | 53/84 [06:55<07:31, 14.55s/it]Fetching 84 files:  64%|██████▍   | 54/84 [07:04<06:31, 13.04s/it]Fetching 84 files:  65%|██████▌   | 55/84 [07:32<08:21, 17.29s/it]Fetching 84 files:  67%|██████▋   | 56/84 [07:51<08:18, 17.81s/it]Fetching 84 files:  68%|██████▊   | 57/84 [07:57<06:28, 14.40s/it]Fetching 84 files:  69%|██████▉   | 58/84 [08:09<05:55, 13.67s/it]Fetching 84 files:  71%|███████▏  | 60/84 [08:19<03:54,  9.78s/it]Fetching 84 files:  73%|███████▎  | 61/84 [08:24<03:16,  8.53s/it]Fetching 84 files:  74%|███████▍  | 62/84 [08:46<04:22, 11.92s/it]Fetching 84 files:  75%|███████▌  | 63/84 [09:00<04:24, 12.59s/it]Fetching 84 files:  76%|███████▌  | 64/84 [09:14<04:20, 13.02s/it]Fetching 84 files:  77%|███████▋  | 65/84 [09:23<03:44, 11.79s/it]Fetching 84 files:  79%|███████▊  | 66/84 [09:31<03:11, 10.65s/it]Fetching 84 files:  80%|███████▉  | 67/84 [09:31<02:10,  7.66s/it]Fetching 84 files:  81%|████████  | 68/84 [09:32<01:28,  5.53s/it]Fetching 84 files:  82%|████████▏ | 69/84 [09:32<00:59,  3.95s/it]Fetching 84 files:  83%|████████▎ | 70/84 [09:53<02:06,  9.03s/it]Fetching 84 files:  85%|████████▍ | 71/84 [10:01<01:52,  8.66s/it]Fetching 84 files:  86%|████████▌ | 72/84 [10:04<01:25,  7.11s/it]Fetching 84 files:  87%|████████▋ | 73/84 [10:07<01:02,  5.71s/it]Fetching 84 files:  88%|████████▊ | 74/84 [10:31<01:51, 11.15s/it]Fetching 84 files:  89%|████████▉ | 75/84 [10:38<01:30, 10.02s/it]Fetching 84 files:  90%|█████████ | 76/84 [11:02<01:53, 14.21s/it]Fetching 84 files:  92%|█████████▏| 77/84 [11:15<01:36, 13.78s/it]Fetching 84 files:  93%|█████████▎| 78/84 [11:22<01:10, 11.77s/it]Fetching 84 files:  94%|█████████▍| 79/84 [11:27<00:49,  9.92s/it]Fetching 84 files:  95%|█████████▌| 80/84 [11:36<00:37,  9.46s/it]Fetching 84 files:  96%|█████████▋| 81/84 [11:56<00:37, 12.59s/it]Fetching 84 files:  98%|█████████▊| 82/84 [12:15<00:29, 14.53s/it]Fetching 84 files:  99%|█████████▉| 83/84 [13:38<00:35, 35.15s/it]Fetching 84 files: 100%|██████████| 84/84 [13:45<00:00, 26.77s/it]Fetching 84 files: 100%|██████████| 84/84 [13:45<00:00,  9.83s/it]
+VERIFIED .eval_results/deep-swe.yaml
+VERIFIED .eval_results/terminal-bench-2.1.yaml
+VERIFIED .gitattributes
+VERIFIED .gitignore
+VERIFIED LICENSE
+VERIFIED README.md
+VERIFIED config.json
+VERIFIED encoding/README.md
+VERIFIED encoding/encoding_dsv4.py
+VERIFIED encoding/test_encoding_dsv4.py
+VERIFIED encoding/tests/test_input_1.json
+VERIFIED encoding/tests/test_input_2.json
+VERIFIED encoding/tests/test_input_3.json
+VERIFIED encoding/tests/test_input_4.json
+VERIFIED encoding/tests/test_output_1.txt
+VERIFIED encoding/tests/test_output_2.txt
+VERIFIED encoding/tests/test_output_3.txt
+VERIFIED encoding/tests/test_output_4.txt
+VERIFIED generation_config.json
+VERIFIED inference/README.md
+VERIFIED inference/config.json
+VERIFIED inference/convert.py
+VERIFIED inference/examples/example_vl.txt
+VERIFIED inference/examples/example_vl_harmony.json
+VERIFIED inference/examples/images/carrots.jpeg
+VERIFIED inference/examples/images/corn.jpeg
+VERIFIED inference/generate.py
+VERIFIED inference/image_processor.py
+VERIFIED inference/kernel.py
+VERIFIED inference/model.py
+VERIFIED inference/requirements.txt
+VERIFIED inference/run.sh
+VERIFIED inference/vision.py
+VERIFIED model-00001-of-00048.safetensors
+VERIFIED model-00002-of-00048.safetensors
+VERIFIED model-00003-of-00048.safetensors
+VERIFIED model-00004-of-00048.safetensors
+VERIFIED model-00005-of-00048.safetensors
+VERIFIED model-00006-of-00048.safetensors
+VERIFIED model-00007-of-00048.safetensors
+VERIFIED model-00008-of-00048.safetensors
+VERIFIED model-00009-of-00048.safetensors
+VERIFIED model-00010-of-00048.safetensors
+VERIFIED model-00011-of-00048.safetensors
+VERIFIED model-00012-of-00048.safetensors
+VERIFIED model-00013-of-00048.safetensors
+VERIFIED model-00014-of-00048.safetensors
+VERIFIED model-00015-of-00048.safetensors
+VERIFIED model-00016-of-00048.safetensors
+VERIFIED model-00017-of-00048.safetensors
+VERIFIED model-00018-of-00048.safetensors
+VERIFIED model-00019-of-00048.safetensors
+VERIFIED model-00020-of-00048.safetensors
+VERIFIED model-00021-of-00048.safetensors
+VERIFIED model-00022-of-00048.safetensors
+VERIFIED model-00023-of-00048.safetensors
+VERIFIED model-00024-of-00048.safetensors
+VERIFIED model-00025-of-00048.safetensors
+VERIFIED model-00026-of-00048.safetensors
+VERIFIED model-00027-of-00048.safetensors
+VERIFIED model-00028-of-00048.safetensors
+VERIFIED model-00029-of-00048.safetensors
+VERIFIED model-00030-of-00048.safetensors
+VERIFIED model-00031-of-00048.safetensors
+VERIFIED model-00032-of-00048.safetensors
+VERIFIED model-00033-of-00048.safetensors
+VERIFIED model-00034-of-00048.safetensors
+VERIFIED model-00035-of-00048.safetensors
+VERIFIED model-00036-of-00048.safetensors
+VERIFIED model-00037-of-00048.safetensors
+VERIFIED model-00038-of-00048.safetensors
+VERIFIED model-00039-of-00048.safetensors
+VERIFIED model-00040-of-00048.safetensors
+VERIFIED model-00041-of-00048.safetensors
+VERIFIED model-00042-of-00048.safetensors
+VERIFIED model-00043-of-00048.safetensors
+VERIFIED model-00044-of-00048.safetensors
+VERIFIED model-00045-of-00048.safetensors
+VERIFIED model-00046-of-00048.safetensors
+VERIFIED model-00047-of-00048.safetensors
+VERIFIED model-00048-of-00048.safetensors
+VERIFIED model.safetensors.index.json
+VERIFIED tokenizer.json
+VERIFIED tokenizer_config.json
+MODEL-STAGED revision=6821d6ad3681a4b137b066b76094fa82ebd0a380 shards=48 path=/root/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380

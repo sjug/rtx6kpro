@@ -1,0 +1,56 @@
+{
+  "id": "chatcmpl-939677bd164fb4db",
+  "object": "chat.completion",
+  "created": 1789083442,
+  "model": "DeepSeek-V4-Flash-Vision-Exp",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [
+          {
+            "id": "chatcmpl-tool-bb62d3a3ac45dd9a",
+            "type": "function",
+            "function": {
+              "name": "multiply",
+              "arguments": "{\"a\": 17, \"b\": 23}"
+            }
+          }
+        ],
+        "reasoning": "We need to use multiply tool to calculate 17 times 23)Skip."
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.26.1rc0+glm53.jj.r32.spark.vllm00eef6a-tp2-4d9e41ec",
+  "usage": {
+    "prompt_tokens": 397,
+    "total_tokens": 473,
+    "completion_tokens": 76,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "created_cache_tokens": 256,
+      "multimodal_tokens": null
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 15
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

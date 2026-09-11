@@ -1,0 +1,6 @@
+{"status": "MODEL-VERIFIED", "revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "hashed": false, "snapshot": "/home/jugs/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380"}
+run-node.sh: OK
+launch-in-container.sh: OK
+runtime-preflight.py: OK
+verify-model.py: OK
+0453be326fd17540b2090b279054076ad4cfd6f410e42b7d88cdcd5cff4abf3f

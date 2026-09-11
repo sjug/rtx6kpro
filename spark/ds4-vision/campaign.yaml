@@ -1,0 +1,37 @@
+id: "2026-09-jj-r32-vision-spark-admission"
+status: "complete"
+objective: "Qualify Vision-Exp on rusty/toby and record its standard throughput grid after meaningful text and image validation."
+baseline: null
+shared_configuration:
+  model_family: "deepseek-v4-flash"
+  model_variant: "vision-exp"
+  checkpoint_revision: "6821d6ad3681a4b137b066b76094fa82ebd0a380"
+  image_id: "74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c"
+  nodes: [rusty, toby]
+  tensor_parallel_size: 2
+  decode_context_parallel_size: 1
+  dspark_tokens: 3
+  draft_sampling: "probabilistic"
+  backend: "b12x-a8-dglin"
+  max_model_len: 524288
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  kv_cache_dtype: "fp8"
+  nccl_proto: "LL,Simple"
+  reasoning_default: "max"
+conclusion: "Vision-Exp replaces 0731 on rusty/toby. Functional text/image/tool/concurrency admission, exact 524000-token retrieval, all 15 standard decode cells, and post-benchmark semantic checks passed. Single-sweep output geometric means are 34.483/57.799/79.749 tok/s at C1/C2/C4; normalized steps are 16.037/26.261/37.814. No matched 0731 quality or engine-performance comparison is claimed."
+notes: |
+  User requested replacing 0731, not restoring it after successful qualification.
+  Corrected-r34 and 0731 remain available as stopped rollback.
+  This changes checkpoint, runtime, dense backend, and K5 to K3, so historical
+  0731 measurements are not an isolated runtime A/B or a quality-equivalence claim.
+  Run meaningful text, image, tool, concurrency and long-context checks before timing.
+  Standard run_bench.sh grid, 30 seconds, concurrency 1/2/4, 0/16K/32K/64K/128K.
+  All cells passed without errors, underfill, warmup timeout, or capacity flags.
+  Two JIT events on both ranks preceded their cells' measured windows.
+  The 524000-token retrieval reused 16128 tokens from the earlier 16K probe;
+  its 413.06-second latency is not an entirely cold prefill measurement.
+  Single boot and sweep, not a repeatability, thermal-soak, general vision-quality,
+  maximum-image-load, or exact-token grid study. Four maximum-length requests
+  cannot all reside at once: this boot reports 1165720 effective KV tokens.

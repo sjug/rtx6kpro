@@ -1,0 +1,52 @@
+{
+  "label": "vision-continuation-2",
+  "elapsed_s": 2.4075760929845273,
+  "response": {
+    "id": "chatcmpl-82a8683d3a60dbc2",
+    "object": "chat.completion",
+    "created": 1789084789,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "blue",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": "1.  **Analyze the Request:**\n    *   Previous context: User asked for the colors on the left and right. Assistant answered \"red, blue\".\n    *   Current question: \"Which color was on the right?\"\n    *   Constraint: Reply with only the color name.\n\n2.  **Analyze the Image:**\n    *   The image has a red block on the left and a blue block on the right.\n    *   The right color is blue.\n\n3.  **Formulate the Output:**\n    *   Only the color name: \"blue\"."
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.26.1rc0+glm53.jj.r32.spark.vllm00eef6a-tp2-4d9e41ec",
+    "usage": {
+      "prompt_tokens": 262,
+      "total_tokens": 386,
+      "completion_tokens": 124,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 256,
+        "multimodal_tokens": {
+          "image": 115
+        }
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 121
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}

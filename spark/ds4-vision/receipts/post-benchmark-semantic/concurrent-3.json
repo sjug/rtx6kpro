@@ -1,0 +1,50 @@
+{
+  "label": "concurrent-3",
+  "elapsed_s": 1.5251338360831141,
+  "response": {
+    "id": "chatcmpl-849bc58828dfcd5e",
+    "object": "chat.completion",
+    "created": 1789084794,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "84",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": "We need answer only result of 21 times 4 = 84. Need comply \"Reply with only result\". final 84."
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.26.1rc0+glm53.jj.r32.spark.vllm00eef6a-tp2-4d9e41ec",
+    "usage": {
+      "prompt_tokens": 108,
+      "total_tokens": 138,
+      "completion_tokens": 30,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 0,
+        "multimodal_tokens": null
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 27
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}
