@@ -1,0 +1,865 @@
+WAIT-BUILD 2026-09-09T08:59:20-04:00
+BUILD-RECEIPT /home/jugs/git/bld-jj-r29-spark/build-receipts/20260909T125028Z-552785
+BUILD-VERIFIED 2026-09-09T09:10:00-04:00 ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+Copying blob sha256:2c042ab36ee22da5e09730c3dce27e9d84ff1cc8af8e5a8ed2275c05f0133445
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:a5926b361d1aedc9abbde6f1e11a57a634177f2a9eba5dbacc436032f5f02bac
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:961ab635cb19a290537ed7460a22a296ba810ddd003a896e3f023f1fc4fe9d29
+Copying blob sha256:d9b86bfe840bfe3aecc62d69e7c75d15b0b110d7cfe33c2dbe82beac81a0748b
+Copying blob sha256:f66432224dd58fdc723d20b70b7f902c7a624eda385e7ec2146c7045f7437172
+Copying blob sha256:3683f1510acc93f48cced1057a76788d446223012887ac23377bf0eb292113ce
+Copying blob sha256:1c7fd431961f3d5f91be1d295af2fbbbc6b91f9663877624d9a07ac24c942937
+Copying blob sha256:c509e928a1c47913d6a746f2499c932d6bbfec06287192846bfd9c40631321c0
+Copying blob sha256:08c2e6c4eef386fdf2633e97e69511ec505bf77b5ebad8e1c7b7a224c9499927
+Copying blob sha256:1edc99a99f5332e02f6a5bc706001195d1ce0b31beef1d2cd521efc5714b5b39
+Copying blob sha256:fd15600a5f68a05911982448b1002cfdea02ab681694a19db35c7033be302a64
+Copying blob sha256:5d5d4b505351c6ec1724c4ec6ba0b73a31dcca0f7b4ced81294e0cf88cea34db
+Copying blob sha256:47914250aa4df2f0bf9ebe07cd6022b30e97b1160dfec47cb71507b47d3d8ccc
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:7fa4ab7949834d96b6924bfa49850bb755b7f8bf1f1f5a4e063d809d8faa15a3
+Copying blob sha256:26f2bac11c210e53a99d2097777b11a921418fc978a5b55cdf969c285970ded8
+Copying blob sha256:87387053efe1d4d1dfdc0d816e6d0c4229a9916c7b720a0997b30ef105eaa730
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:eaab506fd7dc5d4a8eb431f84acf230213c58c97d3482b0640e7d7499a5e488c
+Copying blob sha256:3043f274bd68161ec03e09ec43e63c19a85cbd50ef3394f2b621a33f44629b6c
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:9a2ed419609b62c410d7e4f31773760682b73a3c4845c708cdc2ce91c8270d49
+Copying blob sha256:9fd623d2314f037a762e7268775d6830993d027bbb72956b6e495e405d028528
+Copying blob sha256:61d2c21dfe5d68b030ea71b6bd202b150e727999803ae178c57512a4a4067e91
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:ef3316967f4bf83fa19cb87c79c624131ec4714f0689a217dd6bce5a5c08431b
+Copying blob sha256:d119a74cbf53ac0024694f259d4e433560675f4e293139afa1ba2237af1211a6
+Copying blob sha256:7327300c9f196eb6b748d8f6da86a53a47421e12833ab38717e0835077b3c23d
+Copying blob sha256:5bdf0638c8d755a410d4cc4e61ab5024b101263cb67b0e5e0b7cc32c3612a7d3
+Copying blob sha256:1a86f899bf0eb23fb1a92d9f82921425f22a3b510841ca78437d3d343d00ed11
+Copying blob sha256:787495beb819a85ac1a74375ec294abb80deef605edd99caf73147d4cce341b5
+Copying blob sha256:4759a716b345299b8349ea2db53d524e6d58c9f9e427f6ecac49a0bb83df4ea0
+Copying blob sha256:3c8ecf20f9f08188227c08ca4a010ac1eebf3fea7f0036c76ee7cbfb586526ed
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:967a52c0c46eb52ac606d4310a9294163fc47ae6eb7f8e5f4fb50ea4329a5a61
+Copying blob sha256:1cf0aaa050551309d5175b5f2b5642c04be9897b918a4ecd8fe88fb9473f85e6
+Copying blob sha256:0abf0e4442f051ff9b67a1a528c089482ec86f1bf3ab7245270dc918ea22a827
+Copying blob sha256:db8f8e9da35a790612accbb19c1cf2d5e02f6de9479917858d0a201156e94724
+Copying blob sha256:b7b053353e029edab999e7016fee3fe3df34c1eb6106b35b7c897d12c36a575e
+Copying blob sha256:f8d9ad43714de8fd0c4494b35b18ea11359cceaef14bf566aaa8aad8ac341bea
+Copying blob sha256:202309ff6019cb95f04cbf8f8d1f610b2718bb9e643923aa01305965fdabded5
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:52ef659a4f1f56fd6a835a13269b19a81807a255ce0523cff7c2b15cc351c051
+Copying blob sha256:acc622117227f8797201d14e9e747218ad4b20f969427c0d5247b180ca09276a
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:f35a06c61ab57120007236e1d1c335370ea4e50b124053b2660c07b6d810ea4a
+Copying blob sha256:9c20c263d16d93e92fa18a9733ac03b8c822f554cae725bc312aede6aba5236d
+Copying blob sha256:94dc5964325c4b1fc0f72dcfeec72b2cc182b606ab6f85d833f5de54a6e006b4
+Copying blob sha256:6efc26269bca6b65dea5617c0596d36df2b90b89dfc2acaf6fa3e7480368d842
+Copying blob sha256:2e449713c2ea1a48d5834b1d1176fd899a467c3577e3afe1c7b893e14c882e8a
+Copying blob sha256:719d066cfb5dbd83631b4aa5949fa612b3d2039908e5475931e13d086867b485
+Copying blob sha256:d4f2dacd231ebaf919ccb34456d3a87bdad22684555017da48b2d3f541c29e8c
+Copying blob sha256:3cd0e229390008f5fc3441cf0dadbaaa766ced46fbf2a28fe5a344f39ce50ba3
+Copying blob sha256:ada001865051ff804229c8da819d16351d2ae7716c61090b310684a95081b417
+Copying blob sha256:ee70f6c009270f47d1aa67ff83db82dde39628d3593faea9dec550f40c6c8065
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:f8093bd3f714800bb041ff4d751145267f31aa0f8880e0dfe4f83a6414814a4f
+Copying blob sha256:a260c8a115dbe1a491886c10c79e4049a407cb9fde07a53c614f08d0819a3e3a
+Copying blob sha256:ade1d6e15a5bf7c032233f62bc34f5c337f65667ae36e970b6c0dad019185c7e
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:89f72e4b5f2efe93f008ccdf84148259120ed9262fd074fb2e6eb2feb7fb3236
+Copying blob sha256:66962dc0c8b6ef3097dd1e4b0da02b781cc2dc34ada6b0a243e0d60d74f82564
+Copying blob sha256:7358bcc5e8d906eafdd32ace4aa1a20e61f63d6ab39dc80164eb26eb58669260
+Copying blob sha256:1761942640b0d984d72b83efe7eb57150b8120067aab3195e6cfb3a49464ad89
+Copying blob sha256:5a9c86a5a6bd79491e7b2e18c15a6109f47b915ad40de71911b5bb78384131f9
+Copying blob sha256:4ef578615b8588dfd5e5fbcf8507e4127afd5cd859eb492d3073a7d8dcc23d69
+Copying blob sha256:e79a2bf45f983a18e71d629ffff4b5c03d318a1847236c7b89b8a95b30b9ad6a
+Copying blob sha256:bb30e0c351432bc761b99a51c66e87dda5184e4ed68cd71471cc017cf2f5a6c7
+Copying blob sha256:7e6d3135cc5745b935f944077e1af519284014eca4fe31f31e5111686048295c
+Copying blob sha256:60754a7a4a6826ffca5968b4c9a9b948917550ca4b0439a6897100e184037e8c
+Copying blob sha256:3f751be18971aeef8fc690b6d86b172d1b4c4ae81764e7a9e26e6c70c8c526ae
+Copying blob sha256:6ea9a42eab6fdf987bab9066e3375eed01160db7cdfb6cacdf2391446bebb132
+Copying blob sha256:8149bf6f72bab74554d77b99d5c35b4b097ee3f8702f9d683ff8f58e75a5a9c5
+Copying blob sha256:10a6ca2791b1d0a12601360e9ac845b7bbb5a688e2194478e3811bbde70c357a
+Copying blob sha256:c571bbb10f2c1e175961157965269c82b7bb19d297a40a4884bbcf9f9463d636
+Copying blob sha256:6cacfdb342ad7bad4c891c13f0f9e09a4d04d9e8118f89573d5da21946a2d423
+Copying blob sha256:4f5a72db17ab09f7b3e06e7c67e66f32ef52f67cd77a717690de07fac48e6b9f
+Copying blob sha256:4eb4df8e20dd9256e810d3d0e8b144122a0aba640ace8235e02c4b5334c095d5
+Copying blob sha256:3a839940de223c7990c05a3ae1363804c1b205be873a93871a3427ca30b7f1ee
+Copying blob sha256:7e57a422385cbeda883aa29249ef0a75c54f37db404f6984534899aed5867b94
+Copying blob sha256:ba15e33800157ff13ab46d061f11cc5e5bf68fbed8f0077ad584c958ecc64716
+Copying blob sha256:8526d62b5bbf7aaa720f2cce2616f5da071928921354320a6663809b31846474
+Copying blob sha256:befc9a749951046f72a85077104700851781d96147d554c2a8eb184518b02ed0
+Copying blob sha256:4c059282ad555facdce5dd76f1f0d197df6f36c315fd567b561edabb8c4420ca
+Copying blob sha256:e490db67a41c29c39744b28adfeebc32a3d2de09d6a88242f3c2a09a6868a2c1
+Copying blob sha256:cbbd8ad92aa00752c7bdedf5e2bc1e7f6adbbc35fe18aae360e6ced7341c14de
+Copying blob sha256:4ea12c883bd9780683d0c82de3a4cfda61d82c34f6a8f3cdede63fcb712edc10
+Copying blob sha256:b29b98c2b12b4d37bcb2de8c460b5dd24da620a6a8960c34a118fda65cf08d1b
+Copying blob sha256:d4196b1167af613ced0222792747236879c5d1e96049f128e191d721112c9dc0
+Copying blob sha256:32e1c81317c0acb88a6c9cb72a8268bf28e2cd57d10f1098c2ed4f4f8144e371
+Copying blob sha256:76b49470762dfa522b5aa52c5fa8ac8ddaa7f4b29efae3506b12589662edca75
+Copying blob sha256:6f9013dbca1d0c1ec5eab4a76e903df12ca9ef51e2b7875a57923faaf1dc909f
+Copying blob sha256:b6508a3eb75e1e8b3fc0ea5c91e909de404bcfc953fb42d26940ca258b921234
+Copying blob sha256:784468c514e87f8f4602d1043bce2104b6d88eacc774c0edf5a2e66689fc1e5e
+Copying blob sha256:57fc52fe2b9c4dd009e84fe349dc7191d2ecf5d691d515daedc3c569c19a6336
+Copying blob sha256:1ff7fcd5b2d565dd23946c650323f07105eae45910ec3ebbe1fa42cdb1e0d2bb
+Copying blob sha256:63ff57e320e74c036730029bbd843f852acfece7cebab992f2c5427818f5b9ea
+Copying blob sha256:ebec18ba07d06c519b777df3e544fe3cee377e678019f95233fd9478210ace5f
+Copying blob sha256:1d586244e1f6468435b87070751b5f3a74a25eda9b902f06278d1b6ce26aea23
+Copying blob sha256:825a3434a7759e7bbb0a0a5c603b7d24f9252f23f3b99516d05f3a0b25b681b8
+Copying blob sha256:959b3f228488b8ee29c6578fb411aa6fdff26bea6c28d7ca5bd41e2de8c24f17
+Copying blob sha256:dc2100cd7008863cde14b3b19936be919c2ee8e0264d6cf8fc970622f49fea95
+Copying blob sha256:f4dde8037e98a16222d2279ceda006449798e01f97548b118d5b1c7b8eb55db3
+Copying blob sha256:15f362eaa6a5bdf0d49a18da7c15dc84a653e6be149ecbdf7105129385bffb76
+Copying blob sha256:809769770edb469739219c5883d3e7623a65a98ea098c4fa2fc6a075c6091f6d
+Copying blob sha256:143c9d333bd216c3ca9c97d876a0c33cb2ff91fdf1c07ae62349f4e345f16cd0
+Copying blob sha256:60248aca88870af65ddd69c937a0888c62e1cbe3e13ca7d11c25a70b6dc6dd50
+Copying blob sha256:73f5cbb503178e81830337beac74d4e8bb04b56e5657cd720a7d37eecfb6c107
+Copying blob sha256:28c17ec08d2c899f3143d0c50291d630b47cdbe196ff8221ed7070f9aef9ccb6
+Copying blob sha256:9f87caa37e0733a3dd17d50c16b1e1649d04dcf8218629d618912b8aeccb5e7b
+Copying blob sha256:81314562b7daf246363529446c57d1886b525b523323245e212ae65ae61bf719
+Copying blob sha256:94a2c469a47b5f7e07d04b03faeb29377ecb0241568bcfcb960efbfaf2a36cbf
+Copying blob sha256:db62a9e32496326e11856ba5f4cc42bfa071402e25ebbed1acbc177bcf501cd0
+Copying blob sha256:5af7a6f988b0673fd3a5014d8465bbd30cc3901229624ddfc5f2026460156eab
+Copying blob sha256:b926dfe8b2232562975d643271e598dbba51ce574c30b43d5e43435527dfc700
+Copying blob sha256:d119dc60b7d1d04732ded18a89c9bd4d3074f4ce4f0961de6e8b338212728405
+Copying blob sha256:2156aba2fffb55e39131545128b169f915aa34faec9cfa6523a8911e87811b88
+Copying blob sha256:6feab3fc5c666a9e4d9e208f961abf5ac97f8349b9c09fb0ff1b3bbcda6ebc8d
+Copying blob sha256:175311e5a0361521d131411c82c2df54eb7a69d91ca5e4a9d053387d0e2369e3
+Copying blob sha256:7f9858ef76d091c5f758d520daff7cda8dc15dfa419565219170ec1103d5bec4
+Copying blob sha256:b1a0a137a17190139e9fee97b45fafbc0e4b45cd1cd8530c6c6c52d20e6ece6f
+Copying blob sha256:bb7b64d558064540db5ff150ead04093dab6e41d17c5d4c40abafbcf8207a20f
+Copying blob sha256:e1cb4ad08d21223e3005a6584abd18db013964d5329ccdb278ec740012df7e78
+Copying blob sha256:8b3d7d58120576861b233b56bc3e4804246b554cc8015fa2e1a9fa20131503ab
+Copying blob sha256:81093c9f9576704c8319f2efab7305ec9760eccb0a567b34ed2797a184f2ca7e
+Copying blob sha256:72133f6e8f8718f869b39c7d0d73bb6607719bf1e3a307f8892a0356166af868
+Copying blob sha256:92171e290ca30606011ce896e8c97b28386b62cdd9f473ddf4e7699c9f88d576
+Copying blob sha256:31a590021006806247e7cad1e15b63a39af23c7e6636ce3fd9967edcbd91033c
+Copying blob sha256:8ab883966e884c2e0127a85197e54c49b46b8656a6620194a3c08f4d6aeb1f52
+Copying blob sha256:f69b830382847fc3acdb7f59bbfe0fb9af7120cd49049bda18ca2a71e6d7eee9
+Copying blob sha256:9db16e3baec08f2b5680d36ba2593390c063bc49e094ff24ddc66d341c503af6
+Copying blob sha256:a6a7490a0af90543e5836d4504861f4df39ed99e987e56af2f83cc23bbd3c1a4
+Copying blob sha256:6dcaa67ae66c104d8e93ba7d259f737d6625d3009fe2a6e950c45b1d100da3ae
+Copying blob sha256:0fe77b0cdf3b907f069671d9438c531138189900d8db2eb3afd1ffbe04a24316
+Copying blob sha256:5a71fbee24fbd6ff9686e9c097dc4ab5fb84c8be97c6e5367f82d703ada6654f
+Copying blob sha256:1e035bb98ee3b32412ba3b45de1b6847764dd51c9918c8c3b89061f4a5fc44d3
+Copying blob sha256:adf5948197cdad7bdd75420d480383a7ccb99c147e4bc06b8e9b6c8a2b5c4e12
+Copying blob sha256:97aa16919273353c1131694b5764cc9bf1e359b6040803fb939dbec83ab55d87
+Copying blob sha256:3923899799a29b7b25c4175f21dd49b7b04918545d4d04497c9d1e3add1ef8b9
+Copying blob sha256:658d0e2886215fb772ed3e4648512483c272f082b48bab9e4fb24f0015f6a404
+Copying blob sha256:fc1df78cb23c0ae3bb35b4717d55b8551fd70292fcd6d5230423ca25c938e7bf
+Copying blob sha256:92a6979b79b7dacc1b96cfaf03bf64ac9b949c2b681809322befe441cd74029a
+Copying blob sha256:12e659d0a694e8947c9415056e8907241d209ec96b77643a2ffaa9a769ef1475
+Copying blob sha256:c0622b3b0bb76444631a85a70a2d8056d902c00e70fed8920314c936b00479c4
+Copying blob sha256:e32cc766fdbf7137e0e7d2c90fa00c2735a2b907c8cbe2b61a06d5bf8bd2a006
+Copying blob sha256:d321d4633c7b56714fa7e44224864ad75affa2c201c4d33a8ffaad84666a592e
+Copying blob sha256:10b31f306957dacf5fad65aec1b50e08876d713775e87d0f95c30d5148854132
+Copying blob sha256:18a46aa54e12c31fdb58674f23edb3ff29d24cdb80d47d4a2e6cae3243c73725
+Copying blob sha256:6616602cce190af7646acc89eb766044ebcbb0ddf35505f0baa7b873d3cc6b7c
+Copying blob sha256:fac7aa7c25e632d65b852a87841fe7d0431f6493de011a02c6f818937402cb70
+Copying blob sha256:b5a8b2f14a219d8b88312f515507b56d89490f6808ecfd7c703f742613eb45d0
+Copying blob sha256:8d553fc435bb76d0f953899daa9d732ecf95bae94ed7e01acd5693a4806cc568
+Copying blob sha256:4493afc5bc201085be2f86f86cc3149411a2f6d82840af93dae722ecbba95616
+Copying blob sha256:b795f369df716b611d57e96a58fee81cf5ae703153a01356bbbbb6ab2783822b
+Copying blob sha256:95eb4bd8d1bd2cf7238faf38b2e69b7e07fe7bb876bfd3b59061f75f8a2295df
+Copying blob sha256:e05fe2fdb2829adc9d816827d13ac536ba15087541c7613f90c343269315742c
+Copying blob sha256:8f766c6c70a00bec25e596493700f79c81ec01a41be79443803819757bc08901
+Copying blob sha256:d0bfee59b1ef29a0387f128a8da4daa2299e89cc7571b1a85d7bd0c40ed6f965
+Copying blob sha256:3a937ef28dfea52e926a7649d49f6ff03980ec088c0226c6e7f6e979998969aa
+Copying blob sha256:dc68ad33ced0683008836c845650ec3f4deb7d1c4aefab0ebf40300a12ea0c3f
+Copying blob sha256:0860ef1855c3141ce511a69e76d81ec6003fec24a099fea6aae08e6b5d5e86f4
+Copying blob sha256:08f9d77fc94a4c47a426b96e4a23f7f771558a55046bccaba11cb3cfbef8cf21
+Copying blob sha256:e7c9f6202717afeff7b6f005a41243ff572658fa83f525fc54ddec67b76be526
+Copying blob sha256:ba4376ea6a1bc986981599f0959cd2cab01493514f120f8b0d2046042c5a9a7a
+Copying blob sha256:b7c4b7031083dc14c63e8747bf40429b77163fd1998f8cb0f3326bf9ce8f991d
+Copying blob sha256:66d74331a52e7b6584a7767cdf74ce0a30d7743ce0bae7e52450c9c004653b5c
+Copying blob sha256:a1abd1045b326e1919548b201baaaa62313c8cfb68564558d1c443ea7be5e07f
+Copying blob sha256:7a271e392c0044b64f60c7f9ace0626e47d6a2f7225f334d68358de3e89bc41d
+Copying blob sha256:bef09b161719ba357771e51cfe18c86f04b17bdacfb89b504e124a8f42b57c2f
+Copying blob sha256:2ac9ea485c4e5b0c0cabab13c5d499aa472c332c8a52686ca9915f3e73a6279c
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:47e3cff27d3bdfd1e798dcd2b4527b98906c3e280e3a038b81a353d3cce9968b
+Copying blob sha256:41fb058cb1c2d4c81e05435fad8cf34ba4f113616fd0c714b2f8eeb9dcaf5614
+Copying blob sha256:546bfbfa4aec9138e8e2e09b7d6fc446ff8a8c6a2dcd1710302c853ec44d815b
+Copying blob sha256:95401257a62cc22c064bb1ea248f84af9ea3d2caea46a4d5b2425d6e55902075
+Copying blob sha256:b174b29eadd159d2b3035622341b67ecb3b70134070232c5f806f9114b3dfee7
+Copying blob sha256:4ca471543b31ef262029acc4c85933ef02aa162f0c9bdd602461d54490e14ee4
+Copying blob sha256:9971896cf21f7114967a61fb7bd0716dfe5b00a6908d34ade5df8b1d637b094d
+Copying blob sha256:d62429d544ea005cab70a5e3ac3855bbcbf807e1ab113188f64d93220ecefc2d
+Copying blob sha256:4714c6dd2de1f8281a997693309b932b01c50f7bdffa0a2d418d6d35d9941c01
+Copying blob sha256:0ac83fb32b40017b0d778bac14b54d71c9f84f0843637d467206dcc39c24184d
+Copying blob sha256:69371cb46a35dbdadda9057188ef0ad0585d860f7bb3853bf1a2456b3594758e
+Copying config sha256:ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+Writing manifest to image destination
+         32,768   0%    0.00kB/s    0:00:00      843,350,016   2%  804.25MB/s    0:00:40    1,877,508,096   5%  895.70MB/s    0:00:34    2,900,000,768   8%  922.49MB/s    0:00:32    3,869,507,584  11%  923.25MB/s    0:00:31    4,805,885,952  14%  945.45MB/s    0:00:30    5,728,239,616  16%  918.78MB/s    0:00:29    6,645,710,848  19%  893.72MB/s    0:00:29    7,521,468,416  22%  871.35MB/s    0:00:29    8,337,031,168  24%  842.52MB/s    0:00:29    9,101,443,072  26%  804.84MB/s    0:00:30    9,998,336,000  29%  799.93MB/s    0:00:29   10,821,468,160  31%  787.37MB/s    0:00:28   11,851,169,792  34%  838.46MB/s    0:00:25   12,794,560,512  37%  881.17MB/s    0:00:23   13,797,720,064  40%  906.52MB/s    0:00:21   14,681,833,472  43%  921.07MB/s    0:00:20   15,605,989,376  46%  895.89MB/s    0:00:19   16,546,562,048  48%  895.22MB/s    0:00:18   17,339,645,952  51%  845.09MB/s    0:00:19   18,308,235,264  54%  865.25MB/s    0:00:17   19,110,985,728  56%  836.28MB/s    0:00:17   20,145,504,256  59%  858.70MB/s    0:00:15   21,009,367,040  62%  875.59MB/s    0:00:14   21,769,191,424  64%  825.78MB/s    0:00:14   22,761,832,448  67%  871.08MB/s    0:00:12   23,590,404,096  69%  821.94MB/s    0:00:12   24,603,164,672  72%  857.47MB/s    0:00:10   25,537,052,672  75%  899.00MB/s    0:00:09   26,529,628,160  78%  898.99MB/s    0:00:07   27,466,432,512  81%  924.81MB/s    0:00:06   28,430,860,288  83%  913.28MB/s    0:00:05   29,477,601,280  86%  940.21MB/s    0:00:04   30,491,672,576  89%  945.33MB/s    0:00:03   31,464,882,176  92%  954.02MB/s    0:00:02   32,388,317,184  95%  944.24MB/s    0:00:01   33,031,684,096  97%  848.00MB/s    0:00:00   33,883,202,048 100%  877.37MB/s    0:00:36 (xfr#1, to-chk=0/1) 33,883,202,048 100%  877.37MB/s    0:00:36 (xfr#1, to-chk=0/1) 33,883,202,048 100%  877.32MB/s    0:00:36 (xfr#1, to-chk=0/1) 33,883,202,048 100%  877.32MB/s    0:00:36 (xfr#1, to-chk=0/1)
+Getting image source signatures
+Copying blob sha256:d9b86bfe840bfe3aecc62d69e7c75d15b0b110d7cfe33c2dbe82beac81a0748b
+Copying blob sha256:2c042ab36ee22da5e09730c3dce27e9d84ff1cc8af8e5a8ed2275c05f0133445
+Copying blob sha256:a5926b361d1aedc9abbde6f1e11a57a634177f2a9eba5dbacc436032f5f02bac
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:961ab635cb19a290537ed7460a22a296ba810ddd003a896e3f023f1fc4fe9d29
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:f66432224dd58fdc723d20b70b7f902c7a624eda385e7ec2146c7045f7437172
+Copying blob sha256:3683f1510acc93f48cced1057a76788d446223012887ac23377bf0eb292113ce
+Copying blob sha256:1c7fd431961f3d5f91be1d295af2fbbbc6b91f9663877624d9a07ac24c942937
+Copying blob sha256:c509e928a1c47913d6a746f2499c932d6bbfec06287192846bfd9c40631321c0
+Copying blob sha256:08c2e6c4eef386fdf2633e97e69511ec505bf77b5ebad8e1c7b7a224c9499927
+Copying blob sha256:1edc99a99f5332e02f6a5bc706001195d1ce0b31beef1d2cd521efc5714b5b39
+Copying blob sha256:fd15600a5f68a05911982448b1002cfdea02ab681694a19db35c7033be302a64
+Copying blob sha256:5d5d4b505351c6ec1724c4ec6ba0b73a31dcca0f7b4ced81294e0cf88cea34db
+Copying blob sha256:47914250aa4df2f0bf9ebe07cd6022b30e97b1160dfec47cb71507b47d3d8ccc
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:7fa4ab7949834d96b6924bfa49850bb755b7f8bf1f1f5a4e063d809d8faa15a3
+Copying blob sha256:26f2bac11c210e53a99d2097777b11a921418fc978a5b55cdf969c285970ded8
+Copying blob sha256:87387053efe1d4d1dfdc0d816e6d0c4229a9916c7b720a0997b30ef105eaa730
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:eaab506fd7dc5d4a8eb431f84acf230213c58c97d3482b0640e7d7499a5e488c
+Copying blob sha256:3043f274bd68161ec03e09ec43e63c19a85cbd50ef3394f2b621a33f44629b6c
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:9a2ed419609b62c410d7e4f31773760682b73a3c4845c708cdc2ce91c8270d49
+Copying blob sha256:9fd623d2314f037a762e7268775d6830993d027bbb72956b6e495e405d028528
+Copying blob sha256:61d2c21dfe5d68b030ea71b6bd202b150e727999803ae178c57512a4a4067e91
+Copying blob sha256:ef3316967f4bf83fa19cb87c79c624131ec4714f0689a217dd6bce5a5c08431b
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:d119a74cbf53ac0024694f259d4e433560675f4e293139afa1ba2237af1211a6
+Copying blob sha256:7327300c9f196eb6b748d8f6da86a53a47421e12833ab38717e0835077b3c23d
+Copying blob sha256:5bdf0638c8d755a410d4cc4e61ab5024b101263cb67b0e5e0b7cc32c3612a7d3
+Copying blob sha256:1a86f899bf0eb23fb1a92d9f82921425f22a3b510841ca78437d3d343d00ed11
+Copying blob sha256:787495beb819a85ac1a74375ec294abb80deef605edd99caf73147d4cce341b5
+Copying blob sha256:4759a716b345299b8349ea2db53d524e6d58c9f9e427f6ecac49a0bb83df4ea0
+Copying blob sha256:3c8ecf20f9f08188227c08ca4a010ac1eebf3fea7f0036c76ee7cbfb586526ed
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:967a52c0c46eb52ac606d4310a9294163fc47ae6eb7f8e5f4fb50ea4329a5a61
+Copying blob sha256:1cf0aaa050551309d5175b5f2b5642c04be9897b918a4ecd8fe88fb9473f85e6
+Copying blob sha256:0abf0e4442f051ff9b67a1a528c089482ec86f1bf3ab7245270dc918ea22a827
+Copying blob sha256:db8f8e9da35a790612accbb19c1cf2d5e02f6de9479917858d0a201156e94724
+Copying blob sha256:b7b053353e029edab999e7016fee3fe3df34c1eb6106b35b7c897d12c36a575e
+Copying blob sha256:f8d9ad43714de8fd0c4494b35b18ea11359cceaef14bf566aaa8aad8ac341bea
+Copying blob sha256:202309ff6019cb95f04cbf8f8d1f610b2718bb9e643923aa01305965fdabded5
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:52ef659a4f1f56fd6a835a13269b19a81807a255ce0523cff7c2b15cc351c051
+Copying blob sha256:acc622117227f8797201d14e9e747218ad4b20f969427c0d5247b180ca09276a
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:f35a06c61ab57120007236e1d1c335370ea4e50b124053b2660c07b6d810ea4a
+Copying blob sha256:9c20c263d16d93e92fa18a9733ac03b8c822f554cae725bc312aede6aba5236d
+Copying blob sha256:94dc5964325c4b1fc0f72dcfeec72b2cc182b606ab6f85d833f5de54a6e006b4
+Copying blob sha256:6efc26269bca6b65dea5617c0596d36df2b90b89dfc2acaf6fa3e7480368d842
+Copying blob sha256:2e449713c2ea1a48d5834b1d1176fd899a467c3577e3afe1c7b893e14c882e8a
+Copying blob sha256:719d066cfb5dbd83631b4aa5949fa612b3d2039908e5475931e13d086867b485
+Copying blob sha256:d4f2dacd231ebaf919ccb34456d3a87bdad22684555017da48b2d3f541c29e8c
+Copying blob sha256:3cd0e229390008f5fc3441cf0dadbaaa766ced46fbf2a28fe5a344f39ce50ba3
+Copying blob sha256:ada001865051ff804229c8da819d16351d2ae7716c61090b310684a95081b417
+Copying blob sha256:ee70f6c009270f47d1aa67ff83db82dde39628d3593faea9dec550f40c6c8065
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:f8093bd3f714800bb041ff4d751145267f31aa0f8880e0dfe4f83a6414814a4f
+Copying blob sha256:a260c8a115dbe1a491886c10c79e4049a407cb9fde07a53c614f08d0819a3e3a
+Copying blob sha256:ade1d6e15a5bf7c032233f62bc34f5c337f65667ae36e970b6c0dad019185c7e
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:89f72e4b5f2efe93f008ccdf84148259120ed9262fd074fb2e6eb2feb7fb3236
+Copying blob sha256:66962dc0c8b6ef3097dd1e4b0da02b781cc2dc34ada6b0a243e0d60d74f82564
+Copying blob sha256:7358bcc5e8d906eafdd32ace4aa1a20e61f63d6ab39dc80164eb26eb58669260
+Copying blob sha256:1761942640b0d984d72b83efe7eb57150b8120067aab3195e6cfb3a49464ad89
+Copying blob sha256:5a9c86a5a6bd79491e7b2e18c15a6109f47b915ad40de71911b5bb78384131f9
+Copying blob sha256:4ef578615b8588dfd5e5fbcf8507e4127afd5cd859eb492d3073a7d8dcc23d69
+Copying blob sha256:e79a2bf45f983a18e71d629ffff4b5c03d318a1847236c7b89b8a95b30b9ad6a
+Copying blob sha256:bb30e0c351432bc761b99a51c66e87dda5184e4ed68cd71471cc017cf2f5a6c7
+Copying blob sha256:7e6d3135cc5745b935f944077e1af519284014eca4fe31f31e5111686048295c
+Copying blob sha256:60754a7a4a6826ffca5968b4c9a9b948917550ca4b0439a6897100e184037e8c
+Copying blob sha256:3f751be18971aeef8fc690b6d86b172d1b4c4ae81764e7a9e26e6c70c8c526ae
+Copying blob sha256:6ea9a42eab6fdf987bab9066e3375eed01160db7cdfb6cacdf2391446bebb132
+Copying blob sha256:8149bf6f72bab74554d77b99d5c35b4b097ee3f8702f9d683ff8f58e75a5a9c5
+Copying blob sha256:c571bbb10f2c1e175961157965269c82b7bb19d297a40a4884bbcf9f9463d636
+Copying blob sha256:10a6ca2791b1d0a12601360e9ac845b7bbb5a688e2194478e3811bbde70c357a
+Copying blob sha256:6cacfdb342ad7bad4c891c13f0f9e09a4d04d9e8118f89573d5da21946a2d423
+Copying blob sha256:4f5a72db17ab09f7b3e06e7c67e66f32ef52f67cd77a717690de07fac48e6b9f
+Copying blob sha256:4eb4df8e20dd9256e810d3d0e8b144122a0aba640ace8235e02c4b5334c095d5
+Copying blob sha256:3a839940de223c7990c05a3ae1363804c1b205be873a93871a3427ca30b7f1ee
+Copying blob sha256:7e57a422385cbeda883aa29249ef0a75c54f37db404f6984534899aed5867b94
+Copying blob sha256:ba15e33800157ff13ab46d061f11cc5e5bf68fbed8f0077ad584c958ecc64716
+Copying blob sha256:8526d62b5bbf7aaa720f2cce2616f5da071928921354320a6663809b31846474
+Copying blob sha256:befc9a749951046f72a85077104700851781d96147d554c2a8eb184518b02ed0
+Copying blob sha256:4c059282ad555facdce5dd76f1f0d197df6f36c315fd567b561edabb8c4420ca
+Copying blob sha256:e490db67a41c29c39744b28adfeebc32a3d2de09d6a88242f3c2a09a6868a2c1
+Copying blob sha256:cbbd8ad92aa00752c7bdedf5e2bc1e7f6adbbc35fe18aae360e6ced7341c14de
+Copying blob sha256:4ea12c883bd9780683d0c82de3a4cfda61d82c34f6a8f3cdede63fcb712edc10
+Copying blob sha256:b29b98c2b12b4d37bcb2de8c460b5dd24da620a6a8960c34a118fda65cf08d1b
+Copying blob sha256:d4196b1167af613ced0222792747236879c5d1e96049f128e191d721112c9dc0
+Copying blob sha256:32e1c81317c0acb88a6c9cb72a8268bf28e2cd57d10f1098c2ed4f4f8144e371
+Copying blob sha256:76b49470762dfa522b5aa52c5fa8ac8ddaa7f4b29efae3506b12589662edca75
+Copying blob sha256:6f9013dbca1d0c1ec5eab4a76e903df12ca9ef51e2b7875a57923faaf1dc909f
+Copying blob sha256:b6508a3eb75e1e8b3fc0ea5c91e909de404bcfc953fb42d26940ca258b921234
+Copying blob sha256:784468c514e87f8f4602d1043bce2104b6d88eacc774c0edf5a2e66689fc1e5e
+Copying blob sha256:57fc52fe2b9c4dd009e84fe349dc7191d2ecf5d691d515daedc3c569c19a6336
+Copying blob sha256:1ff7fcd5b2d565dd23946c650323f07105eae45910ec3ebbe1fa42cdb1e0d2bb
+Copying blob sha256:63ff57e320e74c036730029bbd843f852acfece7cebab992f2c5427818f5b9ea
+Copying blob sha256:ebec18ba07d06c519b777df3e544fe3cee377e678019f95233fd9478210ace5f
+Copying blob sha256:1d586244e1f6468435b87070751b5f3a74a25eda9b902f06278d1b6ce26aea23
+Copying blob sha256:825a3434a7759e7bbb0a0a5c603b7d24f9252f23f3b99516d05f3a0b25b681b8
+Copying blob sha256:959b3f228488b8ee29c6578fb411aa6fdff26bea6c28d7ca5bd41e2de8c24f17
+Copying blob sha256:dc2100cd7008863cde14b3b19936be919c2ee8e0264d6cf8fc970622f49fea95
+Copying blob sha256:15f362eaa6a5bdf0d49a18da7c15dc84a653e6be149ecbdf7105129385bffb76
+Copying blob sha256:f4dde8037e98a16222d2279ceda006449798e01f97548b118d5b1c7b8eb55db3
+Copying blob sha256:809769770edb469739219c5883d3e7623a65a98ea098c4fa2fc6a075c6091f6d
+Copying blob sha256:143c9d333bd216c3ca9c97d876a0c33cb2ff91fdf1c07ae62349f4e345f16cd0
+Copying blob sha256:60248aca88870af65ddd69c937a0888c62e1cbe3e13ca7d11c25a70b6dc6dd50
+Copying blob sha256:73f5cbb503178e81830337beac74d4e8bb04b56e5657cd720a7d37eecfb6c107
+Copying blob sha256:28c17ec08d2c899f3143d0c50291d630b47cdbe196ff8221ed7070f9aef9ccb6
+Copying blob sha256:9f87caa37e0733a3dd17d50c16b1e1649d04dcf8218629d618912b8aeccb5e7b
+Copying blob sha256:81314562b7daf246363529446c57d1886b525b523323245e212ae65ae61bf719
+Copying blob sha256:94a2c469a47b5f7e07d04b03faeb29377ecb0241568bcfcb960efbfaf2a36cbf
+Copying blob sha256:db62a9e32496326e11856ba5f4cc42bfa071402e25ebbed1acbc177bcf501cd0
+Copying blob sha256:5af7a6f988b0673fd3a5014d8465bbd30cc3901229624ddfc5f2026460156eab
+Copying blob sha256:b926dfe8b2232562975d643271e598dbba51ce574c30b43d5e43435527dfc700
+Copying blob sha256:d119dc60b7d1d04732ded18a89c9bd4d3074f4ce4f0961de6e8b338212728405
+Copying blob sha256:2156aba2fffb55e39131545128b169f915aa34faec9cfa6523a8911e87811b88
+Copying blob sha256:6feab3fc5c666a9e4d9e208f961abf5ac97f8349b9c09fb0ff1b3bbcda6ebc8d
+Copying blob sha256:175311e5a0361521d131411c82c2df54eb7a69d91ca5e4a9d053387d0e2369e3
+Copying blob sha256:7f9858ef76d091c5f758d520daff7cda8dc15dfa419565219170ec1103d5bec4
+Copying blob sha256:b1a0a137a17190139e9fee97b45fafbc0e4b45cd1cd8530c6c6c52d20e6ece6f
+Copying blob sha256:bb7b64d558064540db5ff150ead04093dab6e41d17c5d4c40abafbcf8207a20f
+Copying blob sha256:e1cb4ad08d21223e3005a6584abd18db013964d5329ccdb278ec740012df7e78
+Copying blob sha256:8b3d7d58120576861b233b56bc3e4804246b554cc8015fa2e1a9fa20131503ab
+Copying blob sha256:81093c9f9576704c8319f2efab7305ec9760eccb0a567b34ed2797a184f2ca7e
+Copying blob sha256:72133f6e8f8718f869b39c7d0d73bb6607719bf1e3a307f8892a0356166af868
+Copying blob sha256:31a590021006806247e7cad1e15b63a39af23c7e6636ce3fd9967edcbd91033c
+Copying blob sha256:8ab883966e884c2e0127a85197e54c49b46b8656a6620194a3c08f4d6aeb1f52
+Copying blob sha256:92171e290ca30606011ce896e8c97b28386b62cdd9f473ddf4e7699c9f88d576
+Copying blob sha256:f69b830382847fc3acdb7f59bbfe0fb9af7120cd49049bda18ca2a71e6d7eee9
+Copying blob sha256:9db16e3baec08f2b5680d36ba2593390c063bc49e094ff24ddc66d341c503af6
+Copying blob sha256:a6a7490a0af90543e5836d4504861f4df39ed99e987e56af2f83cc23bbd3c1a4
+Copying blob sha256:6dcaa67ae66c104d8e93ba7d259f737d6625d3009fe2a6e950c45b1d100da3ae
+Copying blob sha256:0fe77b0cdf3b907f069671d9438c531138189900d8db2eb3afd1ffbe04a24316
+Copying blob sha256:1e035bb98ee3b32412ba3b45de1b6847764dd51c9918c8c3b89061f4a5fc44d3
+Copying blob sha256:5a71fbee24fbd6ff9686e9c097dc4ab5fb84c8be97c6e5367f82d703ada6654f
+Copying blob sha256:adf5948197cdad7bdd75420d480383a7ccb99c147e4bc06b8e9b6c8a2b5c4e12
+Copying blob sha256:97aa16919273353c1131694b5764cc9bf1e359b6040803fb939dbec83ab55d87
+Copying blob sha256:3923899799a29b7b25c4175f21dd49b7b04918545d4d04497c9d1e3add1ef8b9
+Copying blob sha256:658d0e2886215fb772ed3e4648512483c272f082b48bab9e4fb24f0015f6a404
+Copying blob sha256:fc1df78cb23c0ae3bb35b4717d55b8551fd70292fcd6d5230423ca25c938e7bf
+Copying blob sha256:92a6979b79b7dacc1b96cfaf03bf64ac9b949c2b681809322befe441cd74029a
+Copying blob sha256:12e659d0a694e8947c9415056e8907241d209ec96b77643a2ffaa9a769ef1475
+Copying blob sha256:c0622b3b0bb76444631a85a70a2d8056d902c00e70fed8920314c936b00479c4
+Copying blob sha256:e32cc766fdbf7137e0e7d2c90fa00c2735a2b907c8cbe2b61a06d5bf8bd2a006
+Copying blob sha256:d321d4633c7b56714fa7e44224864ad75affa2c201c4d33a8ffaad84666a592e
+Copying blob sha256:10b31f306957dacf5fad65aec1b50e08876d713775e87d0f95c30d5148854132
+Copying blob sha256:18a46aa54e12c31fdb58674f23edb3ff29d24cdb80d47d4a2e6cae3243c73725
+Copying blob sha256:6616602cce190af7646acc89eb766044ebcbb0ddf35505f0baa7b873d3cc6b7c
+Copying blob sha256:fac7aa7c25e632d65b852a87841fe7d0431f6493de011a02c6f818937402cb70
+Copying blob sha256:b5a8b2f14a219d8b88312f515507b56d89490f6808ecfd7c703f742613eb45d0
+Copying blob sha256:8d553fc435bb76d0f953899daa9d732ecf95bae94ed7e01acd5693a4806cc568
+Copying blob sha256:4493afc5bc201085be2f86f86cc3149411a2f6d82840af93dae722ecbba95616
+Copying blob sha256:b795f369df716b611d57e96a58fee81cf5ae703153a01356bbbbb6ab2783822b
+Copying blob sha256:95eb4bd8d1bd2cf7238faf38b2e69b7e07fe7bb876bfd3b59061f75f8a2295df
+Copying blob sha256:e05fe2fdb2829adc9d816827d13ac536ba15087541c7613f90c343269315742c
+Copying blob sha256:8f766c6c70a00bec25e596493700f79c81ec01a41be79443803819757bc08901
+Copying blob sha256:d0bfee59b1ef29a0387f128a8da4daa2299e89cc7571b1a85d7bd0c40ed6f965
+Copying blob sha256:3a937ef28dfea52e926a7649d49f6ff03980ec088c0226c6e7f6e979998969aa
+Copying blob sha256:dc68ad33ced0683008836c845650ec3f4deb7d1c4aefab0ebf40300a12ea0c3f
+Copying blob sha256:0860ef1855c3141ce511a69e76d81ec6003fec24a099fea6aae08e6b5d5e86f4
+Copying blob sha256:e7c9f6202717afeff7b6f005a41243ff572658fa83f525fc54ddec67b76be526
+Copying blob sha256:08f9d77fc94a4c47a426b96e4a23f7f771558a55046bccaba11cb3cfbef8cf21
+Copying blob sha256:ba4376ea6a1bc986981599f0959cd2cab01493514f120f8b0d2046042c5a9a7a
+Copying blob sha256:b7c4b7031083dc14c63e8747bf40429b77163fd1998f8cb0f3326bf9ce8f991d
+Copying blob sha256:66d74331a52e7b6584a7767cdf74ce0a30d7743ce0bae7e52450c9c004653b5c
+Copying blob sha256:7a271e392c0044b64f60c7f9ace0626e47d6a2f7225f334d68358de3e89bc41d
+Copying blob sha256:bef09b161719ba357771e51cfe18c86f04b17bdacfb89b504e124a8f42b57c2f
+Copying blob sha256:a1abd1045b326e1919548b201baaaa62313c8cfb68564558d1c443ea7be5e07f
+Copying blob sha256:2ac9ea485c4e5b0c0cabab13c5d499aa472c332c8a52686ca9915f3e73a6279c
+Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef
+Copying blob sha256:47e3cff27d3bdfd1e798dcd2b4527b98906c3e280e3a038b81a353d3cce9968b
+Copying blob sha256:41fb058cb1c2d4c81e05435fad8cf34ba4f113616fd0c714b2f8eeb9dcaf5614
+Copying blob sha256:546bfbfa4aec9138e8e2e09b7d6fc446ff8a8c6a2dcd1710302c853ec44d815b
+Copying blob sha256:95401257a62cc22c064bb1ea248f84af9ea3d2caea46a4d5b2425d6e55902075
+Copying blob sha256:b174b29eadd159d2b3035622341b67ecb3b70134070232c5f806f9114b3dfee7
+Copying blob sha256:4ca471543b31ef262029acc4c85933ef02aa162f0c9bdd602461d54490e14ee4
+Copying blob sha256:9971896cf21f7114967a61fb7bd0716dfe5b00a6908d34ade5df8b1d637b094d
+Copying blob sha256:d62429d544ea005cab70a5e3ac3855bbcbf807e1ab113188f64d93220ecefc2d
+Copying blob sha256:4714c6dd2de1f8281a997693309b932b01c50f7bdffa0a2d418d6d35d9941c01
+Copying blob sha256:0ac83fb32b40017b0d778bac14b54d71c9f84f0843637d467206dcc39c24184d
+Copying blob sha256:69371cb46a35dbdadda9057188ef0ad0585d860f7bb3853bf1a2456b3594758e
+Copying config sha256:ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+Writing manifest to image destination
+Loaded image: localhost/voipmonitor/vllm:jj-r29-spark-sm121
+TRANSFER-OK image=ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f sha256=fbda51fcf1e0b60fabc8229e10c977feca22a41474fe0e2f392f02f5a6635ec3 route=10.11.11.8 dev enp1s0f0np0 src 10.11.11.7 uid 1000 
+    cache 
+START initial 2026-09-09T09:15:08-04:00 image=ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+73e652d6c9c499e4fe344176d608bb39dd80d3031f2c58cee7f5ec17542c106f
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+8f654c0b1dffd0789ee251fcb4026a5115cdc2e505607d533c389849d79a6801
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY initial 2026-09-09T09:20:06-04:00
+START initial 2026-09-09T09:20:06-04:00
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts = 391 bolts.\n\nThen, subtract the bolts used: 391 \u2212 58 = 333 bolts remaining.\n\nFINAL: 333", "completion_tokens": 135, "effort": "low", "kind": "reasoning", "reasoning_chars": 215, "repetition": 1, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = 391 bolts in total. After using 58 bolts, the remaining count is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 125, "effort": "medium", "kind": "reasoning", "reasoning_chars": 205, "repetition": 1, "valid": true}
+{"answer": "\n\n17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\nFINAL: 333", "completion_tokens": 300, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 707, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nThe image is divided vertically into two equal halves. The left half is a solid, saturated red, and the right half is a solid, saturated blue.\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "\n\nThe shop has 17 boxes with 23 bolts each, giving a total of 17 \u00d7 23 = 391 bolts. After using 58 bolts, the remaining number is 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 150, "effort": "low", "kind": "reasoning", "reasoning_chars": 242, "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts per box = 391 bolts total. After using 58 bolts, the remaining amount is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 152, "effort": "medium", "kind": "reasoning", "reasoning_chars": 272, "repetition": 2, "valid": true}
+{"answer": "\n\nTotal bolts = 17 \u00d7 23 = 391. After using 58 bolts: 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 164, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 387, "repetition": 2, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 2, "valid": true}
+{"answer": "\n\nThe image is divided vertically into two uniform blocks. The left half is a fully saturated pure red (RGB 255, 0, 0), and the right half is a fully saturated pure blue (RGB 0, 0, 255).\n\nFINAL: red, blue", "kind": "image", "repetition": 2, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "\n\nA shop has 17 boxes, each containing 23 bolts, so the total number of bolts is 17 \u00d7 23 = 391. After using 58 bolts, the remaining bolts are 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 154, "effort": "low", "kind": "reasoning", "reasoning_chars": 246, "repetition": 3, "valid": true}
+{"answer": "\n\nThe shop starts with 17 \u00d7 23 = 391 bolts in total. After using 58 bolts, the remaining count is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 150, "effort": "medium", "kind": "reasoning", "reasoning_chars": 275, "repetition": 3, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 123, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 277, "repetition": 3, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 3, "valid": true}
+{"answer": "\n\nThe image is divided vertically into two equal halves.\n\n- **Left side:** a solid, pure red block.\n- **Right side:** a solid, pure blue block.\n\nThere are no gradients, patterns, or other hues present\u2014each half is a single flat color.\n\nFINAL: red, blue", "kind": "image", "repetition": 3, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "runs": 3, "valid": true}
+QWEN38_SEMANTIC_ADMISSION_PASS
+SHORT_START
+{"content": "\n\n11", "elapsed_seconds": 0.857, "finish_reason": "stop", "kind": "short", "reasoning_content": "We need answer user's simple arithmetic. Need final only one numeral. 5+6=11. Ensure final answer one numeral.\n", "usage": {"completion_tokens": 34, "completion_tokens_details": {"reasoning_tokens": 29}, "prompt_tokens": 68, "prompt_tokens_details": null, "total_tokens": 102}}
+CONTEXT_START length=2848
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.663, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2848, "reasoning": "", "requested_input_tokens": 2848, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2848, "prompt_tokens_details": null, "total_tokens": 2855}, "valid": true}
+CONTEXT_START length=2849
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.153, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2849, "reasoning": "", "requested_input_tokens": 2849, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2849, "prompt_tokens_details": null, "total_tokens": 2856}, "valid": true}
+CONTEXT_START length=131072
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 51.327, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 131072, "reasoning": "", "requested_input_tokens": 131072, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 131072, "prompt_tokens_details": null, "total_tokens": 131079}, "valid": true}
+CONTEXT_START length=262000
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 73.267, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 262000, "reasoning": "", "requested_input_tokens": 262000, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 262000, "prompt_tokens_details": null, "total_tokens": 262007}, "valid": true}
+{"kind": "summary", "lengths": [2848, 2849, 131072, 262000], "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "needle": "739184", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+{"accept_length": 2.37678916827853, "corpus_sha256": "cc9230856e9dab760645436993ec44669c3168e2edc3cfbc8a897c72de0ffff4", "counter_deltas": {"accepted_per_position": {"0": 1742.0, "1": 1120.0, "2": 697.0}, "accepted_tokens": 3559.0, "draft_tokens": 7749.0, "drafts": 2583.0}, "engine_steps": 2585.0, "max_tokens": 512, "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "output_repeatable_across_waves": false, "output_sha256_by_prompt": {"prompt-0": ["1e725a07994fcee2e1af481a9fe1c7aac7ee1cdfc5eaa6a9bfbd0e69c80e2eaf", "6385006073f45977372b76753944b9b27788c93f8f701359f9a96f18d8b2bb7f", "8ef82f09c12a4a97fed369f3e649073d5df7f8ddbe964cb3612f35094d53c032"], "prompt-1": ["4ddbdd53f10c8c48b0008e7dc8900e20a4bb9723f8cca85a2f49ccaa7d75380f", "e015caf43caa56b3466b25c45199751630d3c092d3c9b07202e7b3cdc97acafd", "f995a2644bb19fd72b9bfab95d938fc4c45f627c602de95712cf963839414761"], "prompt-2": ["89a593c99dc5616b5184a1e7daefab45405847d578a2a59fce27b6a19e42ed19", "d548b0f4897f413a3dff1c05801f4eb064a1cb0fb0ed0d5904ef302232c3015b", "ece42832f7ee5b1df44c575339878acefb84122007be1bfd2ecd51d518a4bbbb"], "prompt-3": ["2c06f582ec0e5105b92cb8bb81e105c6ff48834052cee3d3da558d4ff2380550", "ba6fae1b4cf1e68fe854c9287a76614ae69eb2e146d400634e614d793d6d0f51", "f62c0a32fa92f1686e769d7efd4938c0174ffdb603b5a7f71a75a9fd1dec5b64"]}, "output_tokens": 6144, "requests": [{"elapsed_seconds": 15.017766, "output_sha256": "1e725a07994fcee2e1af481a9fe1c7aac7ee1cdfc5eaa6a9bfbd0e69c80e2eaf", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 0}, {"elapsed_seconds": 15.157536, "output_sha256": "4ddbdd53f10c8c48b0008e7dc8900e20a4bb9723f8cca85a2f49ccaa7d75380f", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 0}, {"elapsed_seconds": 18.081289, "output_sha256": "ece42832f7ee5b1df44c575339878acefb84122007be1bfd2ecd51d518a4bbbb", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 0}, {"elapsed_seconds": 17.936928, "output_sha256": "ba6fae1b4cf1e68fe854c9287a76614ae69eb2e146d400634e614d793d6d0f51", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 0}, {"elapsed_seconds": 14.31492, "output_sha256": "6385006073f45977372b76753944b9b27788c93f8f701359f9a96f18d8b2bb7f", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 1}, {"elapsed_seconds": 15.207351, "output_sha256": "f995a2644bb19fd72b9bfab95d938fc4c45f627c602de95712cf963839414761", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 1}, {"elapsed_seconds": 17.758974, "output_sha256": "d548b0f4897f413a3dff1c05801f4eb064a1cb0fb0ed0d5904ef302232c3015b", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 1}, {"elapsed_seconds": 16.989906, "output_sha256": "f62c0a32fa92f1686e769d7efd4938c0174ffdb603b5a7f71a75a9fd1dec5b64", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 1}, {"elapsed_seconds": 15.22602, "output_sha256": "8ef82f09c12a4a97fed369f3e649073d5df7f8ddbe964cb3612f35094d53c032", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 2}, {"elapsed_seconds": 16.035928, "output_sha256": "e015caf43caa56b3466b25c45199751630d3c092d3c9b07202e7b3cdc97acafd", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 2}, {"elapsed_seconds": 15.796773, "output_sha256": "89a593c99dc5616b5184a1e7daefab45405847d578a2a59fce27b6a19e42ed19", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 2}, {"elapsed_seconds": 18.195948, "output_sha256": "2c06f582ec0e5105b92cb8bb81e105c6ff48834052cee3d3da558d4ff2380550", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 2}], "valid": true, "waves": 3}
+phase 0 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.558139534883721
+phase 1 c3: padded (1 padded request rows) tokens=12 graph=16 overlap=3 acceptance_length=2.6177474402730376
+phase 2 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.612244897959184
+phase 3 c2: uniform tokens=8 graph=8 overlap=2 acceptance_length=2.682373472949389
+phase 4 c4: uniform tokens=16 graph=16 overlap=4 acceptance_length=2.6020321761219307
+phase 5 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.4951456310679614
+{"collapsed_phases": [], "coverage_basis": "predicted from concurrency, spec window, and capture sizes; not confirmed from engine runtime evidence", "final_phase_acceptance_length": 2.4951456310679614, "kind": "summary", "max_acceptance_length": 2.682373472949389, "min_acceptance_length": 2.4951456310679614, "overlap_ok": true, "padded_transition_predicted": true, "phases": [1, 3, 1, 2, 4, 1], "valid": true}
+true
+{"label": "r29-initial", "step": "fresh", "ttft_s": 10.425, "total_s": 10.505, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "r29-initial", "step": "extension", "ttft_s": 2.537, "total_s": 2.63, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+{"label": "r29-initial", "step": "verbatim_repeat", "ttft_s": 1.298, "total_s": 1.388, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 28480.0, "answer": "739184"}
+{"label": "r29-initial", "step": "extension_repeat", "ttft_s": 1.634, "total_s": 1.772, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+CORRECTNESS-BATTERY-OK 2026-09-09T09:25:58-04:00
+true
+true
+warm c1: n=1 wall=4.2s agg_tok/s=48.0 per_req_s=[4.2]
+c4 distinct: n=4 wall=6.4s agg_tok/s=124.1 per_req_s=[6.4, 6.3, 5.9, 5.6]
+c4 identical: n=4 wall=6.3s agg_tok/s=127.9 per_req_s=[5.9, 6.3, 6.0, 5.9]
+c4 distinct again: n=4 wall=6.6s agg_tok/s=121.2 per_req_s=[6.1, 6.6, 6.3, 6.3]
+c1: n=1 wall=4.0s agg_tok/s=49.6 per_req_s=[4.0]
+A: 4 fresh distinct: n=4 wall=6.1s agg_tok/s=131.3 per_req_s=[5.9, 6.1, 5.8, 5.6]
+B: 4 extensions of A (multi-turn): n=4 wall=6.2s agg_tok/s=128.1 per_req_s=[6.2, 6.1, 6.2, 5.9]
+C: 4 fresh distinct after B: n=4 wall=5.6s agg_tok/s=142.1 per_req_s=[5.6, 5.1, 5.4, 5.6]
+D: repeat A verbatim: n=4 wall=5.8s agg_tok/s=137.4 per_req_s=[5.3, 5.1, 5.8, 5.6]
+E: 4 fresh distinct after D: n=4 wall=6.0s agg_tok/s=132.8 per_req_s=[5.7, 6.0, 5.7, 6.0]
+{"content_preview": "# The Anatomy of Fire: A Detailed Geological Portrait of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Ea", "content_sha256": "29ec4a10000e3f408d06ee42256e9a1f3f0e11c41e5f0d7a3d1a62696de0970d", "finish_reason": "length", "label": "seed", "policy": "aligned", "timestamp": "2026-09-09T09:26:58.288437-04:00", "total_s": 1.3156304209842347, "ttft_s": 0.25419102801242843, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 57, "total_tokens": 117}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of human civilization. From the earliest river valleys of Mesopotamia", "content_sha256": "5d5e604c79ba5b23f04c1c5e51ff1ba40047556a696f45aae4dc7cfec7a2ec0f", "finish_reason": "length", "label": "long0", "policy": "aligned", "timestamp": "2026-09-09T09:27:14.438856-04:00", "total_s": 16.148920403968077, "ttft_s": 0.25699251994956285, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 50, "total_tokens": 650}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of human civilization, but its management has defined our greatest en", "content_sha256": "c253ef1919ed69a47585b09166272e04b209cdcb462b5d3dd309459974e98715", "finish_reason": "length", "label": "long1", "policy": "aligned", "timestamp": "2026-09-09T09:27:14.438951-04:00", "total_s": 15.7816695930087, "ttft_s": 0.5102328159846365, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 49, "total_tokens": 649}}
+{"content_preview": "# The Anatomy of Fire: The Geology of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Earth. Born from the ", "content_sha256": "52584a6fec0cc4e3cc679de26fcdc3814e3d3f493b7e7eddf7e3cf7529448935", "finish_reason": "length", "label": "repeat", "policy": "aligned", "timestamp": "2026-09-09T09:27:14.438970-04:00", "total_s": 1.9024729250231758, "ttft_s": 0.283853427041322, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 57, "total_tokens": 117}}
+{"content_preview": "# Spanning the Divide: A History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or concr", "content_sha256": "5fd25860d00f28a2c84d03979df8b6ff0b3220842e85dc9e72dc68af106c01d4", "finish_reason": "length", "label": "fresh0", "policy": "aligned", "timestamp": "2026-09-09T09:27:14.438985-04:00", "total_s": 2.119788045005407, "ttft_s": 0.2917695610085502, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 49, "total_tokens": 109}}
+{"content_preview": "# Spanning the Divide: A Brief History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or", "content_sha256": "75b2c6c7e059e270a0a655ed150d9dbb5fa8631cf46b0adb358dace4e4183c59", "finish_reason": "length", "label": "fresh1", "policy": "aligned", "timestamp": "2026-09-09T09:27:14.438998-04:00", "total_s": 2.008950276009273, "ttft_s": 0.3187312299851328, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 45, "total_tokens": 105}}
+{"fresh_max_ttft_s": 0.3187312299851328, "kind": "summary", "policy": "aligned", "repeat_ttft_s": 0.283853427041322, "streams_complete": true, "timestamp": "2026-09-09T09:27:14.439021-04:00"}
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+BENCHMARK-START 2026-09-09T09:27:14-04:00
+─────────────────────────────────
+host=http://dusty:8000 model=Qwen3.8-Flash-Next-NVFP4-4p89 concurrency=1,2,4
+campaign=2026-09-jj-r29-vs-r28 workload=throughput variant=jj-r29-aligned-sm121-tp2-mtp3 repetition=1
+output=/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r29-vs-r28/throughput/20260909T092714-0400__jj-r29-aligned-sm121-tp2-mtp3__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: Qwen3.8-Flash-Next-NVFP4-4p89 @ http://dusty:8000                     │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+glm53.jj.r29.spark.vllm74b29cc  Models: 
+['Qwen3.8-Flash-Next-NVFP4-4p89']
+KV cache budget (vLLM metrics): 78,599,104 tokens (27598 blocks × 2848)
+Model context length: 262,144 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=mrttfvedboye, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.17 chars/token (cached, source=8k)
+  8k: 50,524 chars (~8,191 tokens)
+  16k: 101,048 chars (~16,383 tokens)
+  32k: 202,096 chars (~32,767 tokens)
+  64k: 404,192 chars (~65,535 tokens)
+  128k: 808,385 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,196       2.65          3,089              —             —   1  
+  16k        16,173       7.39          2,188      2,199 (1)             —   1  
+  32k        32,158      11.10          2,896      2,913 (1)             —   1  
+  64k        64,122      23.80          2,694      2,708 (1)             —   1  
+  128k      128,058      52.40          2,444      2,455 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                              
+╭────────────┬─────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │           2 │            4 │
+├────────────┼─────────────┼─────────────┼──────────────┤
+│ 0          │ 41.3 257/23 │ 79.8 289/26 │ 120.9 309/33 │
+│ 16k        │  41.4 2k/24 │  75.5 3k/27 │  112.7 4k/37 │
+│ 32k        │  46.0 1k/22 │  73.4 2k/27 │  124.0 4k/35 │
+│ 64k        │  44.2 2k/23 │  75.2 3k/27 │  115.3 5k/36 │
+│ 128k       │  53.1 3k/18 │  71.6 4k/28 │  124.1 7k/35 │
+╰────────────┴─────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 41.3 │ 39.9 │ 30.2 │
+│ 16k        │ 41.4 │ 37.8 │ 28.2 │
+│ 32k        │ 46.0 │ 36.7 │ 31.0 │
+│ 64k        │ 44.2 │ 37.6 │ 28.8 │
+│ 128k       │ 53.1 │ 35.8 │ 31.0 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬──────┬────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼──────┼────┼───────────────┤
+│ 0  │ │ sust… │      1/2% │   10% │   87/92 │ 34C │  64C │ 3… │          26/4 │
+│ 1… │ │ sust… │      1/4% │   12% │   86/89 │ 35C │  66C │ 3… │          39/4 │
+│ 3… │ │ sust… │     2/13% │    1% │ 102/137 │ 35C │  65C │ 3… │          24/3 │
+│ 6… │ │ sust… │     7/89% │    2% │ 105/147 │ 35C │  62C │ 3… │       450/559 │
+│ 1… │ │ sust… │     2/13% │    1% │  95/132 │ 35C │  65C │ 3… │         63/96 │
+│ 0  │ │ sust… │      1/5% │    1% │ 104/128 │ 35C │  64C │ 3… │         30/99 │
+│ 0  │ │ sust… │     2/13% │    2% │ 107/132 │ 36C │  66C │ 3… │        27/108 │
+│ 1… │ │ sust… │     3/15% │    1% │  97/118 │ 36C │  68C │ 3… │        116/98 │
+│ 1… │ │ sust… │      1/5% │    1% │  91/104 │ 35C │  66C │ 3… │       108/115 │
+│ 3… │ │ sust… │     2/13% │    2% │  93/113 │ 35C │  68C │ 3… │         51/56 │
+│ 3… │ │ sust… │     3/22% │    1% │ 104/181 │ 36C │  64C │ 3… │       232/253 │
+│ 6… │ │ sust… │     1/14% │    1% │  94/157 │ 35C │  65C │ 3… │        117/33 │
+│ 6… │ │ sust… │     2/25% │    1% │ 104/147 │ 35C │  64C │ 3… │          8/41 │
+│ 1… │ │ sust… │      0/2% │    1% │   87/92 │ 35C │  66C │ 3… │        173/59 │
+│ 1… │ │ sust… │    6/100% │    1% │   92/95 │ 35C │  66C │ 3… │          26/3 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴──────┴────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ──────────────────────╮
+│ avg 95 W | max 182 W | limit 600 W | over 13m 05s | 365 samples │
+╰─────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,196 │   2.65 │ 3,089 │ 1 │
+│ 16k  │  16,173 │   7.39 │ 2,188 │ 1 │
+│ 32k  │  32,158 │  11.10 │ 2,896 │ 1 │
+│ 64k  │  64,122 │  23.80 │ 2,694 │ 1 │
+│ 128k │ 128,058 │  52.40 │ 2,444 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s              
+╭────────────┬──────┬──────┬───────╮
+│ ctx \ conc │    1 │    2 │     4 │
+├────────────┼──────┼──────┼───────┤
+│ 0          │ 41.3 │ 79.8 │ 120.9 │
+│ 16k        │ 41.4 │ 75.5 │ 112.7 │
+│ 32k        │ 46.0 │ 73.4 │ 124.0 │
+│ 64k        │ 44.2 │ 75.2 │ 115.3 │
+│ 128k       │ 53.1 │ 71.6 │ 124.1 │
+╰────────────┴──────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 21.9 (1.88) │ 37.0 (2.15) │ 56.7 (2.13) │
+│ 16k        │ 21.9 (1.89) │ 35.9 (2.11) │ 55.1 (2.04) │
+│ 32k        │ 21.9 (2.11) │ 36.3 (2.02) │ 56.1 (2.21) │
+│ 64k        │ 21.5 (2.05) │ 36.0 (2.09) │ 54.9 (2.10) │
+│ 128k       │ 21.2 (2.50) │ 35.2 (2.03) │ 53.8 (2.31) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/20
+26-09-jj-r29-vs-r28/throughput/20260909T092714-0400__jj-r29-aligned-sm121-tp2-mt
+p3__r01.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r29-vs-r28/throughput/20260909T092714-0400__jj-r29-aligned-sm121-tp2-mtp3__r01.json
+─────────────────────────────────
+BENCHMARK-END 2026-09-09T09:40:21-04:00
+START aligned-mtp0 2026-09-09T09:40:23-04:00 image=ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+qwen38-flash-next-nvfp4-jj-r29-tp2 stopped and removed on kirby
+qwen38-flash-next-nvfp4-jj-r29-tp2 stopped and removed on dusty
+9b8b4174f8290eb41f9382db507cf34a7b402fa4d4a526c5556e6101091ea667
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+3dc78b3b2113270b6ad50d4980a2328f7d1f82e90fad827e1a7f8baa07568577
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY aligned-mtp0 2026-09-09T09:44:06-04:00
+START aligned-mtp0 2026-09-09T09:44:06-04:00
+SHORT_START
+{"content": "\n\n11", "elapsed_seconds": 1.301, "finish_reason": "stop", "kind": "short", "reasoning_content": "We need answer user's simple question: What is 5 + 6? Give final answer as one numeral. Need final only numeral 11. Ensure no extra.\n", "usage": {"completion_tokens": 41, "completion_tokens_details": {"reasoning_tokens": 36}, "prompt_tokens": 68, "prompt_tokens_details": null, "total_tokens": 109}}
+CONTEXT_START length=2784
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.919, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2784, "reasoning": "", "requested_input_tokens": 2784, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2784, "prompt_tokens_details": null, "total_tokens": 2791}, "valid": true}
+CONTEXT_START length=2785
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.041, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2785, "reasoning": "", "requested_input_tokens": 2785, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2785, "prompt_tokens_details": null, "total_tokens": 2792}, "valid": true}
+CONTEXT_START length=131072
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 46.387, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 131072, "reasoning": "", "requested_input_tokens": 131072, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 131072, "prompt_tokens_details": null, "total_tokens": 131079}, "valid": true}
+{"kind": "summary", "lengths": [2784, 2785, 131072], "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "needle": "739184", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+true
+{"label": "r29-aligned-mtp0", "step": "fresh", "ttft_s": 9.381, "total_s": 9.534, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "r29-aligned-mtp0", "step": "extension", "ttft_s": 0.58, "total_s": 0.76, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 30624.0, "answer": "739184 done"}
+{"label": "r29-aligned-mtp0", "step": "verbatim_repeat", "ttft_s": 0.549, "total_s": 0.699, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 30624.0, "answer": "739184"}
+{"label": "r29-aligned-mtp0", "step": "extension_repeat", "ttft_s": 0.571, "total_s": 0.746, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 30624.0, "answer": "739184 done"}
+CORRECTNESS-BATTERY-OK 2026-09-09T09:45:09-04:00
+START auto-mtp3 2026-09-09T09:45:09-04:00 image=ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+qwen38-flash-next-nvfp4-jj-r29-tp2 stopped and removed on kirby
+qwen38-flash-next-nvfp4-jj-r29-tp2 stopped and removed on dusty
+a8198d6dc1d8883f356281149f6685197a10b28903167c7fa03410bb0ecbaedb
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+43840f4d07bb2747dd0bc17941c358179fa0c4dfd9c1e71c724d9f77388149c3
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY auto-mtp3 2026-09-09T09:48:28-04:00
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts = 391 bolts.\n\nThen subtract the bolts used: 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 134, "effort": "low", "kind": "reasoning", "reasoning_chars": 210, "repetition": 1, "valid": true}
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts per box = 391 bolts. Then subtract the bolts used: 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 164, "effort": "medium", "kind": "reasoning", "reasoning_chars": 345, "repetition": 1, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 130, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 288, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nLooking at the image, it is split vertically into two equal halves.\n\n- **Left side:** A uniform, fully saturated red field (RGB \u2248 255, 0, 0).\n- **Right side:** A uniform, fully saturated blue field (RGB \u2248 0, 0, 255).\n\nThere are no gradients, patterns, or other colors present\u2014just two solid blocks side by side.\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "runs": 1, "valid": true}
+QWEN38_SEMANTIC_ADMISSION_PASS
+warm c1: n=1 wall=4.4s agg_tok/s=45.6 per_req_s=[4.4]
+c4 distinct: n=4 wall=6.7s agg_tok/s=119.8 per_req_s=[6.3, 6.3, 6.7, 6.4]
+c4 identical: n=4 wall=6.2s agg_tok/s=128.8 per_req_s=[6.2, 6.2, 6.1, 6.2]
+c4 distinct again: n=4 wall=6.5s agg_tok/s=122.7 per_req_s=[6.0, 6.3, 6.0, 6.5]
+c1: n=1 wall=3.7s agg_tok/s=54.5 per_req_s=[3.7]
+A: 4 fresh distinct: n=4 wall=6.2s agg_tok/s=129.5 per_req_s=[6.2, 6.1, 6.2, 5.6]
+B: 4 extensions of A (multi-turn): n=4 wall=6.5s agg_tok/s=122.2 per_req_s=[5.7, 6.4, 6.2, 6.5]
+C: 4 fresh distinct after B: n=4 wall=6.1s agg_tok/s=132.0 per_req_s=[5.2, 6.1, 5.8, 6.1]
+D: repeat A verbatim: n=4 wall=5.5s agg_tok/s=145.9 per_req_s=[4.9, 5.3, 5.2, 5.5]
+E: 4 fresh distinct after D: n=4 wall=6.0s agg_tok/s=134.4 per_req_s=[5.8, 5.6, 5.5, 6.0]
+{"content_preview": "**The Anatomy of Fire: The Geology of a Volcanic Island**\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Earth. Born from th", "content_sha256": "46aa1eb52104861451de84871340f36daa110ac78d105178dbf076ed828e2f3e", "finish_reason": "length", "label": "seed", "policy": "auto", "timestamp": "2026-09-09T09:49:41.450591-04:00", "total_s": 1.3417248250334524, "ttft_s": 0.3270776640274562, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 53, "total_tokens": 113}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of human civilization. From the earliest river valley settlements to ", "content_sha256": "c9ed84e4f7469bd99f0e532d6eba06dc37a063cf6e7aeb43bf784a3989937968", "finish_reason": "length", "label": "long0", "policy": "auto", "timestamp": "2026-09-09T09:49:57.310165-04:00", "total_s": 15.857925129996147, "ttft_s": 0.588424779009074, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 50, "total_tokens": 650}}
+{"content_preview": "**The Arteries of Progress: A Brief History of Canals**\n\nBefore the advent of railways and highways, water was the primary highway of commerce. For millennia, c", "content_sha256": "b416ffea737f9f05f682290f7671645c5e40864e4b5b559c3ded10dff36dc8f1", "finish_reason": "length", "label": "long1", "policy": "auto", "timestamp": "2026-09-09T09:49:57.310272-04:00", "total_s": 15.37218710698653, "ttft_s": 0.5293421460082754, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 47, "total_tokens": 647}}
+{"content_preview": "**The Anatomy of Fire and Stone: The Geology of a Volcanic Island**\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Earth. Bo", "content_sha256": "fc01ac94a8b24bf330533a59b01bf7af42d7f21922a9dc06413be91949e9b51b", "finish_reason": "length", "label": "repeat", "policy": "auto", "timestamp": "2026-09-09T09:49:57.310291-04:00", "total_s": 1.7172123070340604, "ttft_s": 0.16030498902546242, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 53, "total_tokens": 113}}
+{"content_preview": "# Spanning the Divide: A Brief History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or", "content_sha256": "a5f00223af17a455078d738888f32928ca82dc6912e6d5c814116d398591ce04", "finish_reason": "length", "label": "fresh0", "policy": "auto", "timestamp": "2026-09-09T09:49:57.310306-04:00", "total_s": 1.856811771984212, "ttft_s": 0.43998956301948056, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 48, "total_tokens": 108}}
+{"content_preview": "# Spanning the Divide: A History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. They are not merely structures of stone, steel, or ", "content_sha256": "b50235bb0ca26b3224468bf1dd5fd30b7ddde2865ba66b2d3d13579e6beca8d5", "finish_reason": "length", "label": "fresh1", "policy": "auto", "timestamp": "2026-09-09T09:49:57.310318-04:00", "total_s": 1.9126104230526835, "ttft_s": 0.43724145204760134, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 42, "total_tokens": 102}}
+{"fresh_max_ttft_s": 0.43998956301948056, "kind": "summary", "policy": "auto", "repeat_ttft_s": 0.16030498902546242, "streams_complete": true, "timestamp": "2026-09-09T09:49:57.310339-04:00"}
+{"label": "r29-auto-mtp3", "step": "fresh", "ttft_s": 10.177, "total_s": 10.266, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "r29-auto-mtp3", "step": "extension", "ttft_s": 0.27, "total_s": 0.396, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 32044.0, "answer": "739184 done"}
+{"label": "r29-auto-mtp3", "step": "verbatim_repeat", "ttft_s": 0.1, "total_s": 0.23, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 32038.0, "answer": "739184"}
+{"label": "r29-auto-mtp3", "step": "extension_repeat", "ttft_s": 0.098, "total_s": 0.271, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 32069.0, "answer": "739184 done"}
+true
+AUTO-CONTROL-COMPLETE 2026-09-09T09:50:08-04:00
+START aligned-mtp3-restored 2026-09-09T09:50:08-04:00 image=ee996ef8e531eb6e9c3208ebe30b141dc41702da1466e6ab2c47daa666d5694f
+qwen38-flash-next-nvfp4-jj-r29-tp2 stopped and removed on kirby
+qwen38-flash-next-nvfp4-jj-r29-tp2 stopped and removed on dusty
+bd0f56ad934e60d00e443c2a873c8c2928f9430b90af76787ca8314cccae1c74
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+9b7bba4ed64ba8cb8cff723a00d043931edbe3e29f9b61c0af0ef5dfa3c05eb0
+qwen38-flash-next-nvfp4-jj-r29-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY aligned-mtp3-restored 2026-09-09T09:53:27-04:00
+START aligned-mtp3-restored 2026-09-09T09:53:27-04:00
+{"answer": "\n\nThe shop has 17 \u00d7 23 = 391 bolts total. After using 58, the remaining bolts are 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 138, "effort": "low", "kind": "reasoning", "reasoning_chars": 273, "repetition": 1, "valid": true}
+{"answer": "\n\nThe shop has 17 boxes \u00d7 23 bolts = 391 bolts in total. After using 58 bolts, the remaining number is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 152, "effort": "medium", "kind": "reasoning", "reasoning_chars": 278, "repetition": 1, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 159, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 410, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nThe left half of the image is a uniform solid **red**, and the right half is a uniform solid **blue**.\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "\n\nThe shop has 17 boxes with 23 bolts each, giving a total of 17 \u00d7 23 = 391 bolts. After using 58 bolts, the remaining number is 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 154, "effort": "low", "kind": "reasoning", "reasoning_chars": 263, "repetition": 2, "valid": true}
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts per box = 391 bolts.\n\nThen subtract the bolts used: 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 150, "effort": "medium", "kind": "reasoning", "reasoning_chars": 266, "repetition": 2, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58, the number remaining is 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 157, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 373, "repetition": 2, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 2, "valid": true}
+{"answer": "\n\nThe image is split vertically into two solid color blocks. The left half is a uniform red (RGB approximately 255, 0, 0), and the right half is a uniform blue (RGB approximately 0, 0, 255).\n\nFINAL: red, blue", "kind": "image", "repetition": 2, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = **391 bolts**. After using 58 bolts, we subtract: 391 \u2212 58 = **333 bolts** remain.\n\nFINAL: 333", "completion_tokens": 148, "effort": "low", "kind": "reasoning", "reasoning_chars": 282, "repetition": 3, "valid": true}
+{"answer": "\n\nThe shop starts with 17 \u00d7 23 = 391 bolts. After using 58 bolts, the remaining count is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 149, "effort": "medium", "kind": "reasoning", "reasoning_chars": 302, "repetition": 3, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts in total. After using 58, 391 \u2212 58 = 333 remain.\nFINAL: 333", "completion_tokens": 219, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 505, "repetition": 3, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 3, "valid": true}
+{"answer": "\n\nThe image is split vertically into two solid-color regions.\n\n- **Left side:** A solid red field (pure red, RGB \u2248 255, 0, 0).\n- **Right side:** A solid blue field (pure blue, RGB \u2248 0, 0, 255).\n\nThus, the solid color on the left is red and the solid color on the right is blue.\n\nFINAL: red, blue", "kind": "image", "repetition": 3, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "runs": 3, "valid": true}
+QWEN38_SEMANTIC_ADMISSION_PASS
+SHORT_START
+{"content": "\n\n11", "elapsed_seconds": 0.936, "finish_reason": "stop", "kind": "short", "reasoning_content": "We need answer user's simple arithmetic: What is 5 + 6? Give final answer as one numeral. Need final only numeral likely 11. Ensure no extra.\n", "usage": {"completion_tokens": 42, "completion_tokens_details": {"reasoning_tokens": 37}, "prompt_tokens": 68, "prompt_tokens_details": null, "total_tokens": 110}}
+CONTEXT_START length=2848
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.025, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2848, "reasoning": "", "requested_input_tokens": 2848, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2848, "prompt_tokens_details": null, "total_tokens": 2855}, "valid": true}
+CONTEXT_START length=2849
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.082, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2849, "reasoning": "", "requested_input_tokens": 2849, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2849, "prompt_tokens_details": null, "total_tokens": 2856}, "valid": true}
+CONTEXT_START length=131072
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 50.433, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 131072, "reasoning": "", "requested_input_tokens": 131072, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 131072, "prompt_tokens_details": null, "total_tokens": 131079}, "valid": true}
+CONTEXT_START length=262000
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 72.294, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 262000, "reasoning": "", "requested_input_tokens": 262000, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 262000, "prompt_tokens_details": null, "total_tokens": 262007}, "valid": true}
+{"kind": "summary", "lengths": [2848, 2849, 131072, 262000], "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "needle": "739184", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+{"accept_length": 2.262983425414365, "corpus_sha256": "cc9230856e9dab760645436993ec44669c3168e2edc3cfbc8a897c72de0ffff4", "counter_deltas": {"accepted_per_position": {"0": 1743.0, "1": 1068.0, "2": 621.0}, "accepted_tokens": 3432.0, "draft_tokens": 8145.0, "drafts": 2715.0}, "engine_steps": 2715.0, "max_tokens": 512, "model": "Qwen3.8-Flash-Next-NVFP4-4p89", "output_repeatable_across_waves": false, "output_sha256_by_prompt": {"prompt-0": ["2fee382c23879edaea649e74eb300fa0591b35702a7899c9b1d07cd3059fbfbd", "61679cf7a78a64f2fe254fca6126e36d0eb719281fdc97ba64a748d3e9d24129", "c05587398f6af19842400dc5a94210abe252aa25fe42278ba210b86313057267"], "prompt-1": ["86ac399556b70074833175b53446a3b35b8c290b1fcdf0d81160ba6cd488b391", "8d02c535df550045014f5c482d3ad11db291633f9f4e5afff9b0c73a1a14a183", "b8c02fe571adb4fec155853bdd4d64592f700e032f4bfb2b963d8afdac114b3c"], "prompt-2": ["04db1d0416c5a88940895083788ffc67f90bd90bd8c2b112d4cf8d06f18ac8ec", "3456299ebb69a2223de3f0ab7662d7b24ed396b1a49648b8b4c6d7c162bdb60f", "c1aabcf5f995e06380ba1a4d1713f5401882a4bc71ea40b78d7de8f1a1517dc0"], "prompt-3": ["1a34fc785633cf147eefb8d94d34fb3fd0405df05bf74feaf82e26154ceeed2a", "5a42c9c6f309b64f77aa61e19d3fbba16146db98b5f7ee7565e752f71002ddd6", "9d67cce667cf14c8c621187accb0e3982197947877c5cfc9a87712e760b0e239"]}, "output_tokens": 6144, "requests": [{"elapsed_seconds": 16.977807, "output_sha256": "2fee382c23879edaea649e74eb300fa0591b35702a7899c9b1d07cd3059fbfbd", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 0}, {"elapsed_seconds": 15.218126, "output_sha256": "86ac399556b70074833175b53446a3b35b8c290b1fcdf0d81160ba6cd488b391", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 0}, {"elapsed_seconds": 18.09422, "output_sha256": "c1aabcf5f995e06380ba1a4d1713f5401882a4bc71ea40b78d7de8f1a1517dc0", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 0}, {"elapsed_seconds": 17.646423, "output_sha256": "9d67cce667cf14c8c621187accb0e3982197947877c5cfc9a87712e760b0e239", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 0}, {"elapsed_seconds": 16.591767, "output_sha256": "c05587398f6af19842400dc5a94210abe252aa25fe42278ba210b86313057267", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 1}, {"elapsed_seconds": 15.550765, "output_sha256": "8d02c535df550045014f5c482d3ad11db291633f9f4e5afff9b0c73a1a14a183", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 1}, {"elapsed_seconds": 17.889476, "output_sha256": "3456299ebb69a2223de3f0ab7662d7b24ed396b1a49648b8b4c6d7c162bdb60f", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 1}, {"elapsed_seconds": 17.273955, "output_sha256": "5a42c9c6f309b64f77aa61e19d3fbba16146db98b5f7ee7565e752f71002ddd6", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 1}, {"elapsed_seconds": 16.472317, "output_sha256": "61679cf7a78a64f2fe254fca6126e36d0eb719281fdc97ba64a748d3e9d24129", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 2}, {"elapsed_seconds": 14.469476, "output_sha256": "b8c02fe571adb4fec155853bdd4d64592f700e032f4bfb2b963d8afdac114b3c", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 2}, {"elapsed_seconds": 17.696688, "output_sha256": "04db1d0416c5a88940895083788ffc67f90bd90bd8c2b112d4cf8d06f18ac8ec", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 2}, {"elapsed_seconds": 17.413764, "output_sha256": "1a34fc785633cf147eefb8d94d34fb3fd0405df05bf74feaf82e26154ceeed2a", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 2}], "valid": true, "waves": 3}
+phase 0 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.526315789473684
+phase 1 c3: padded (1 padded request rows) tokens=12 graph=16 overlap=3 acceptance_length=2.6140749148694664
+phase 2 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.4935064935064934
+phase 3 c2: uniform tokens=8 graph=8 overlap=2 acceptance_length=2.5695142378559463
+phase 4 c4: uniform tokens=16 graph=16 overlap=4 acceptance_length=2.632164242942686
+phase 5 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.47588424437299
+{"collapsed_phases": [], "coverage_basis": "predicted from concurrency, spec window, and capture sizes; not confirmed from engine runtime evidence", "final_phase_acceptance_length": 2.47588424437299, "kind": "summary", "max_acceptance_length": 2.632164242942686, "min_acceptance_length": 2.47588424437299, "overlap_ok": true, "padded_transition_predicted": true, "phases": [1, 3, 1, 2, 4, 1], "valid": true}
+true
+{"label": "r29-aligned-mtp3-restored", "step": "fresh", "ttft_s": 10.37, "total_s": 10.452, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "r29-aligned-mtp3-restored", "step": "extension", "ttft_s": 1.365, "total_s": 1.449, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+{"label": "r29-aligned-mtp3-restored", "step": "verbatim_repeat", "ttft_s": 1.292, "total_s": 1.387, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 28480.0, "answer": "739184"}
+{"label": "r29-aligned-mtp3-restored", "step": "extension_repeat", "ttft_s": 1.312, "total_s": 1.455, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+CORRECTNESS-BATTERY-OK 2026-09-09T09:59:13-04:00
+QWEN-R29-QUALIFICATION-COMPLETE 2026-09-09T09:59:13-04:00
+Aligned MTP3 left on dusty/kirby. GLM and DS4 untouched. Results require review before any promotion claim.

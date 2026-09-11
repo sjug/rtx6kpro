@@ -1,0 +1,17 @@
+== identical burst vs distinct ==
+warm c1: n=1 wall=3.9s agg_tok/s=51.1 per_req_s=[3.9]
+c4 distinct: n=4 wall=8.4s agg_tok/s=95.7 per_req_s=[7.7, 8.0, 8.3, 8.4]
+c4 identical: n=4 wall=6.6s agg_tok/s=121.2 per_req_s=[6.4, 6.5, 6.6, 6.4]
+c4 distinct again: n=4 wall=7.6s agg_tok/s=105.6 per_req_s=[6.7, 6.8, 6.5, 7.6]
+== fresh / extension / verbatim-repeat ==
+A: 4 fresh distinct: n=4 wall=6.4s agg_tok/s=124.5 per_req_s=[6.1, 6.3, 6.1, 6.4]
+B: 4 extensions of A (multi-turn): n=4 wall=7.2s agg_tok/s=110.4 per_req_s=[6.8, 7.1, 7.0, 7.2]
+C: 4 fresh distinct after B: n=4 wall=7.2s agg_tok/s=110.4 per_req_s=[6.1, 6.5, 7.2, 7.1]
+D: repeat A verbatim: n=4 wall=6.8s agg_tok/s=118.0 per_req_s=[5.7, 6.4, 6.8, 6.8]
+E: 4 fresh distinct after D: n=4 wall=6.5s agg_tok/s=122.5 per_req_s=[6.4, 6.0, 6.3, 6.5]
+== repeat head-of-line ==
+repeat   ttft=   0.4s total=   1.9s
+fresh0   ttft=   0.4s total=   1.9s
+fresh1   ttft=   0.3s total=   1.9s
+long0    ttft=   0.3s total=  15.8s
+long1    ttft=   0.3s total=  16.0s

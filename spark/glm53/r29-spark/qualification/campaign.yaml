@@ -1,0 +1,26 @@
+id: "2026-09-jj-r29-vs-r28"
+status: "active"
+objective: "Qualify R29 Spark and compare Qwen against R28 on dusty/kirby with matched serving settings."
+baseline: "jj-r28-aligned-sm121-tp2-mtp3"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+  checkpoint_revision: "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+  nodes: [dusty, kirby]
+  tensor_parallel: 2
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  harness_sha256: "2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3"
+conclusion: null
+notes: |
+  R28 baseline receipts live in the 2026-09-jj-r28-vs-r27 campaign and remain
+  immutable. R29's initial grid uses the same harness bytes and settings.
+  Image IDs, rendered commands, startup KV and correctness receipts are retained
+  under spark/glm53/r29-spark/qualification. R29-only tuning is a separate arm.
+  Cross-boot changes are observations, not repeatability claims. If a meaningful
+  delta appears, repeat matched cells and, where needed, an R28 control boot.
+  MTP0 boundary and auto checkpoint controls do not replace the aligned MTP3 grid.

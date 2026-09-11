@@ -5,7 +5,8 @@ serving on sparky/buddy/rocky/lucky. See qualification/GLM-QUALIFICATION.md.
 Qwen remains on its previously qualified original R29 image on dusty/kirby.
 The corrected image fixes GLM launcher metadata; the two image IDs are recorded
 separately. R28 GLM containers and images remain available for rollback.
-No production DS4 changes. Artifacts are not yet committed.
+No production DS4 changes. Implementation is preserved in commit 43b34e2;
+qualification and build receipts are archived separately.
 
 ## Execution order
 

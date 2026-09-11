@@ -1,0 +1,41 @@
+id: "2026-09-jj-r29-vs-r28"
+status: "completed"
+objective: "Qualify GLM R29 aligned on four Sparks against the historical R28 standard grid."
+baseline: "jj-r28-aligned-sm121-tp4-dcp1-mtp3-native1m"
+shared_configuration:
+  model_family: "glm-5.3-flash"
+  model_variant: "nvfp4"
+  checkpoint_revision: "46aaae8a82032f77100f2f03e9cc11b391df3b4d"
+  nodes: [sparky, buddy, rocky, lucky]
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  speculative_tokens: 3
+  draft_head: "bf16"
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 1048576
+  max_num_seqs: 8
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  kv_cache_dtype: "fp8"
+  kda_prefill_backend: "flashkda"
+  nccl_proto: "LL,Simple"
+conclusion: "Corrected R29 passes aligned TP4/DCP1/MTP3 qualification. Engine throughput and prefill are near R28 parity. The initial c1 output deficit did not repeat at that magnitude; explicit clear_thinking=true showed no demonstrated performance benefit on standard histories. Historical R28 control, not multi-boot proof."
+notes: |
+  Original image ee996ef8 was rejected before GLM startup due to stale launcher
+  hash metadata. No model or benchmark ran on it. Corrected candidate image ID
+  is recorded in each run's metadata and the metadata-rebuild receipts.
+  Historical single-boot R28 comparison; not proof of repeatability.
+  Standard run_bench.sh duration 30, concurrency 1/2/4, client token limit 6412288.
+  No clear_thinking override, no automatic checkpoint policy, no draft-head change.
+  Correctness precedes timing. Long needle timings may include prefix reuse.
+  R28 image and stopped containers retained for rollback. Qwen was paused for
+  rebuilding and restored to its original qualified image; DS4 was untouched.
+  Completed 2026-09-09 14:39:33 EDT. Corrected R29 remains serving on all four nodes.
+  Follow-up authorized: unchanged c1 repeat, then a separate full-grid arm with
+  request chat_template_kwargs clear_thinking=true. No server-default change.
+  These follow-ups do not invalidate the completed qualification above.
+  Both follow-ups completed: unchanged c1 repeat output 51.46 tok/s (R28 51.69),
+  acceptance 2.586. Initial 3.6% output deficit did not repeat at that magnitude.
+  Explicit true grid output c1/c2/c4: 50.94/80.93/119.36 tok/s; all cells valid.
+  Standard histories contain no prior reasoning to clear. Tokenization control
+  confirms identical inputs for that structure; no causal true-setting gain shown.

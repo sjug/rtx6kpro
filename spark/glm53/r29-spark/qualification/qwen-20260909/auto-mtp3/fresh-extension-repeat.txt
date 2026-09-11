@@ -1,0 +1,5 @@
+A: 4 fresh distinct: n=4 wall=6.2s agg_tok/s=129.5 per_req_s=[6.2, 6.1, 6.2, 5.6]
+B: 4 extensions of A (multi-turn): n=4 wall=6.5s agg_tok/s=122.2 per_req_s=[5.7, 6.4, 6.2, 6.5]
+C: 4 fresh distinct after B: n=4 wall=6.1s agg_tok/s=132.0 per_req_s=[5.2, 6.1, 5.8, 6.1]
+D: repeat A verbatim: n=4 wall=5.5s agg_tok/s=145.9 per_req_s=[4.9, 5.3, 5.2, 5.5]
+E: 4 fresh distinct after D: n=4 wall=6.0s agg_tok/s=134.4 per_req_s=[5.8, 5.6, 5.5, 6.0]
