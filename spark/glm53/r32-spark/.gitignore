@@ -1,0 +1,7 @@
+.compose/
+build.log
+build.done
+*.tar
+__pycache__/
+build-receipts/
+inputs/*.bundle

@@ -1,0 +1,2287 @@
+diff --git a/tests/kernels/moe/test_b12x.py b/tests/kernels/moe/test_b12x.py
+index 207909740fac6ebe5c0c69fbc5c7abc8730fc40a..a5f90d9f3e72ff128e1e401fc730d783987f6f57 100644
+--- a/tests/kernels/moe/test_b12x.py
++++ b/tests/kernels/moe/test_b12x.py
+@@ -740,6 +740,7 @@ def test_b12x_moe_warmup_runs_each_planner_regime_once(
+     planned_tokens = []
+     launched_tokens = []
+     launched_dtypes = []
++    launched_buffers = []
+     launched_resources = []
+     synchronized = []
+ 
+@@ -769,6 +770,12 @@ def test_b12x_moe_warmup_runs_each_planner_regime_once(
+     def fake_run(**kwargs):
+         launched_tokens.append(kwargs["hidden_states"].shape[0])
+         launched_dtypes.append(kwargs["topk_ids"].dtype)
++        launched_buffers.append(
++            tuple(
++                kwargs[name].data_ptr()
++                for name in ("hidden_states", "output", "topk_weights", "scratch")
++            )
++        )
+         launched_resources.append(
+             tuple(
+                 weakref.ref(kwargs[name])
+@@ -801,6 +808,12 @@ def test_b12x_moe_warmup_runs_each_planner_regime_once(
+     assert planned_tokens == [1, 3, 8]
+     assert launched_tokens == [1, 1, 3, 3, 8, 8]
+     assert launched_dtypes == [torch.int32, torch.int64] * 3
++    # Both route-id dtypes of one regime run on the same input, output,
++    # weight and scratch buffers; regimes do not share buffers.
++    assert launched_buffers[0] == launched_buffers[1]
++    assert launched_buffers[2] == launched_buffers[3]
++    assert launched_buffers[4] == launched_buffers[5]
++    assert len({launched_buffers[0], launched_buffers[2], launched_buffers[4]}) == 3
+     assert synchronized == [True]
+ 
+ 
+diff --git a/tests/kernels/test_glm_pool_tail_selection.py b/tests/kernels/test_glm_pool_tail_selection.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..47d61500d683aba50116d287ba0c69dab1a1d130
+--- /dev/null
++++ b/tests/kernels/test_glm_pool_tail_selection.py
+@@ -0,0 +1,224 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""Check the active prefix consumed by sparse attention after pool expansion."""
++
++import os
++
++import pytest
++import torch
++
++from vllm.models.glm5next.nvidia.ops.glm_kpool import expand_pool_ids
++from vllm.v1.attention.backends.mla.sparse_utils import (
++    triton_convert_req_index_to_global_index,
++    triton_filter_and_convert_dcp_index,
++)
++
++LENGTHS = (1, 2, 3, 4, 5, 7, 8, 15, 2047, 2048, 2049, 2051, 262173)
++
++
++def _device():
++    if os.environ.get("B12X_GLM53_GPU_TEST") != "1":
++        pytest.skip("set B12X_GLM53_GPU_TEST=1 to run GPU tests")
++    if not torch.cuda.is_available():
++        pytest.skip("CUDA is required")
++    return torch.device("cuda")
++
++
++def _selection(length, changed=False):
++    complete = length // 4
++    count = min(complete, 512)
++    # Dense complete prefixes below top-k; distinct selected pools above top-k.
++    first = complete - count if changed else 0
++    pools = list(range(first, first + count))
++    tokens = [4 * pool + offset for pool in pools for offset in range(4)]
++    return pools, tokens + list(range(4 * complete, length))
++
++
++@pytest.mark.parametrize("length", LENGTHS)
++@pytest.mark.parametrize("route", ("dcp1_cache", "dcp1_prefill", "dcp4"))
++@pytest.mark.parametrize("block_size,interleave", ((64, 4), (64, 64), (2048, 2048)))
++@pytest.mark.parametrize("replay", (False, True), ids=("eager", "graph"))
++def test_pool_tail_active_prefix(length, route, block_size, interleave, replay):
++    device = _device()
++    # Include a padding row and change request order and page mapping on replay.
++    pools = torch.full((2, 512), -1, dtype=torch.int32, device=device)
++    positions = torch.full((2,), -1, dtype=torch.int64, device=device)
++    expanded = torch.empty((2, 2051), dtype=torch.int32, device=device)
++    requests = torch.tensor([1, 0], dtype=torch.int32, device=device)
++    pages = (max(LENGTHS) + block_size - 1) // block_size + 1
++    table = torch.empty((2, pages), dtype=torch.int32, device=device)
++    stride = block_size + 16
++    workspace_ids = torch.tensor([1, -1], dtype=torch.int32, device=device)
++    starts = torch.tensor([31, 4099], dtype=torch.int32, device=device)
++
++    def stage(n, changed):
++        selected, expected = _selection(n, changed)
++        pools.fill_(-1)
++        pools[0, : len(selected)] = torch.tensor(
++            selected, dtype=torch.int32, device=device
++        )
++        positions.copy_(torch.tensor([n - 1, -1], device=device))
++        requests.copy_(torch.tensor([int(not changed), int(changed)], device=device))
++        mapping = torch.arange(2 * pages, dtype=torch.int32, device=device)
++        if changed:
++            mapping = mapping.flip(0)
++        table.copy_(mapping.reshape(2, pages) + 7)
++        starts.copy_(torch.tensor([31, 8197 if changed else 4099], device=device))
++        return expected
++
++    def run():
++        expand_pool_ids(pools, positions, expanded)
++        common = dict(
++            BLOCK_SIZE=block_size,
++            BLOCK_STRIDE_ROWS=stride,
++            NUM_TOPK_TOKENS=2051,
++            return_valid_counts=True,
++        )
++        if route == "dcp4":
++            return [
++                triton_filter_and_convert_dcp_index(
++                    requests, table, expanded, 4, rank, interleave, **common
++                )
++                for rank in range(4)
++            ]
++        return [
++            triton_convert_req_index_to_global_index(
++                requests,
++                table,
++                expanded,
++                HAS_PREFILL_WORKSPACE=route == "dcp1_prefill",
++                prefill_workspace_request_ids=workspace_ids,
++                prefill_workspace_starts=starts,
++                **common
++            )
++        ]
++
++    def check(results, expected):
++        logical = expanded[0].cpu().tolist()
++        assert sorted(t for t in logical if t >= 0) == sorted(expected)
++        assert torch.all(expanded[1] == -1)
++        mapping = table[requests[0].item()].cpu().tolist()
++        inverse = {page: i for i, page in enumerate(mapping)}
++        union = []
++        for rank, (output, counts) in enumerate(results):
++            count = counts[0].item()
++            active = output[0, :count].cpu().tolist()
++            assert all(slot >= 0 for slot in active), (length, route, rank, active)
++            assert torch.all(output[0, count:] == -1)
++            assert counts[1].item() == 0
++            assert torch.all(output[1] == -1)
++            decoded = []
++            for slot in active:
++                if route == "dcp1_prefill":
++                    token = slot - starts[1].item()
++                else:
++                    page, offset = divmod(slot, stride)
++                    assert offset < block_size
++                    local = inverse[page] * block_size + offset
++                    token = local
++                    if route == "dcp4":
++                        token = ((local // interleave) * 4 + rank) * interleave
++                        token += local % interleave
++                decoded.append(token)
++            owned = [
++                t for t in expected if route != "dcp4" or (t // interleave) % 4 == rank
++            ]
++            assert count == len(owned)
++            assert sorted(decoded) == sorted(owned)
++            assert len(decoded) == len(set(decoded))
++            union.extend(decoded)
++        assert sorted(union) == sorted(expected)
++        assert len(union) == len(set(union))
++
++    expected = stage(length, False)
++    results = run()
++    if not replay:
++        check(results, expected)
++        return
++    torch.cuda.synchronize()
++    graph = torch.cuda.CUDAGraph()
++    with torch.cuda.graph(graph):
++        results = run()
++    # Start with a changed input so a short baseline failure tests live replay.
++    for n, changed in ((length, True), (7, False), (5, True), (length, False)):
++        expected = stage(n, changed)
++        graph.replay()
++        graph.replay()
++        check(results, expected)
++
++
++@torch.inference_mode()
++def test_five_token_tail_changes_b12x_attention():
++    device = _device()
++    from b12x.attention import sparse_mla
++    from b12x.attention._shared.mla.reference import (
++        sparse_mla_reference,
++    )
++
++    from b12x.attention._shared.mla.traits import ModelType, ScaleFormat
++
++    pools = torch.full((1, 512), -1, dtype=torch.int32, device=device)
++    pools[0, 0] = 0
++    expanded = torch.empty((1, 2051), dtype=torch.int32, device=device)
++    expand_pool_ids(pools, torch.tensor([4], device=device), expanded)
++    selected, counts = triton_convert_req_index_to_global_index(
++        torch.zeros(1, dtype=torch.int32, device=device),
++        torch.zeros((1, 1), dtype=torch.int32, device=device),
++        expanded,
++        NUM_TOPK_TOKENS=2051,
++        return_valid_counts=True,
++    )
++    # MLA shares the latent key/value. Only the final token has nonzero values.
++    keys = torch.zeros((64, 512), dtype=torch.bfloat16, device=device)
++    keys[4] = 2
++    cache = torch.empty((1, 64, 528), dtype=torch.uint8, device=device)
++    sparse_mla.concat_and_cache_glm_next_mla(
++        keys, cache, torch.arange(64, dtype=torch.int64, device=device)
++    )
++    query = torch.zeros((1, 16, 512), dtype=torch.bfloat16, device=device)
++    query[..., 0] = 1
++    scale = 256**-0.5
++    plan = sparse_mla.plan(
++        sparse_mla.Caps(
++            device=device,
++            num_q_heads=16,
++            max_q_rows=1,
++            max_width=2051,
++            kv_dtype=torch.uint8,
++            max_batch=1,
++            softmax_scale=scale,
++            max_kv_rows=5,
++            head_dim=512,
++            v_head_dim=512,
++            page_size=64,
++            model_type=ModelType.GLM_NEXT,
++            scale_format=ScaleFormat.ARBITRARY_FP32,
++            cache_record_bytes=528,
++            fp8_rope=False,
++            latent_scale_per_token=False,
++            mode="decode",
++        )
++    )
++    spec = plan.scratch_specs()[0]
++    binding = sparse_mla.bind(
++        plan,
++        scratch=torch.empty(spec.shape, dtype=spec.dtype, device=device),
++        q=query,
++        selected_indices=selected,
++        kv_cache=cache,
++        cache_lengths=torch.tensor([5], dtype=torch.int32, device=device),
++        selected_lengths=counts,
++    )
++    actual = sparse_mla.run(binding)
++    oracle_indices = torch.full_like(selected, -1)
++    oracle_indices[0, :5] = torch.arange(5, dtype=torch.int32, device=device)
++    expected = sparse_mla_reference(
++        q_all=query,
++        kv_cache=cache.view(64, 1, 528),
++        page_table_1=oracle_indices,
++        active_token_counts=torch.tensor([5], dtype=torch.int32, device=device),
++        sm_scale=scale,
++        v_head_dim=512,
++    )
++    assert expected.float().min().item() > 0.3
++    torch.testing.assert_close(actual.float(), expected.float(), rtol=0.05, atol=0.05)
+diff --git a/tests/models/test_glm5next_pooled_indexer.py b/tests/models/test_glm5next_pooled_indexer.py
+index 8044ff68ea37e74e9700cee6d0b401266e916d3e..ce8810466f6a963182160e000de1729d02a35bec 100644
+--- a/tests/models/test_glm5next_pooled_indexer.py
++++ b/tests/models/test_glm5next_pooled_indexer.py
+@@ -1289,9 +1289,9 @@ def test_glm53_pool_expansion_appends_only_the_incomplete_tail() -> None:
+ 
+     expand_pool_ids(pool_ids, positions, output)
+ 
+-    assert torch.all(output[0, :2048] == -1)
++    assert torch.all(output[0, 3:] == -1)
+     assert torch.equal(
+-        output[0, 2048:].cpu(), torch.tensor([0, 1, 2], dtype=torch.int32)
++        output[0, :3].cpu(), torch.tensor([0, 1, 2], dtype=torch.int32)
+     )
+     assert torch.equal(output[1, :8].cpu(), torch.tensor([4, 5, 6, 7, 0, 1, 2, 3]))
+     assert torch.all(output[1, 8:] == -1)
+diff --git a/tests/v1/core/test_boundary_admission.py b/tests/v1/core/test_boundary_admission.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..3dbcde27129fbbdcb2b325dcb4885cc1372a181a
+--- /dev/null
++++ b/tests/v1/core/test_boundary_admission.py
+@@ -0,0 +1,386 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""CPU ownership and scheduler-progress checks for the installed admission guard."""
++
++import inspect
++from dataclasses import replace
++
++import pytest
++import torch
++
++from tests.v1.core.test_prefix_caching import make_kv_cache_manager, make_request
++from vllm.utils.hashing import sha256
++from vllm.v1.core.boundary_checkpoint import BoundaryCheckpointCache
++from vllm.v1.kv_cache_interface import (
++    KVCacheConfig,
++    KVCacheGroupSpec,
++    MambaSpec,
++    MLAAttentionSpec,
++)
++from vllm.v1.request import RequestStatus
++
++pytestmark = pytest.mark.cpu_test
++
++
++def manager():
++    attention = MLAAttentionSpec(
++        block_size=64,
++        num_kv_heads=1,
++        head_size=1,
++        dtype=torch.uint8,
++        model_version="glm5_next",
++    )
++    recurrent = MambaSpec(
++        block_size=16,
++        shapes=((1,),),
++        dtypes=(torch.uint8,),
++        mamba_cache_mode="align",
++        num_speculative_blocks=3,
++    )
++    groups = [KVCacheGroupSpec(["attention"], attention)]
++    groups += [KVCacheGroupSpec([f"recurrent-{i}"], recurrent) for i in range(3)]
++    return make_kv_cache_manager(
++        KVCacheConfig(num_blocks=128, kv_cache_tensors=[], kv_cache_groups=groups),
++        max_model_len=512,
++        max_in_flight_tokens=32,
++        enable_caching=True,
++        use_eagle=True,
++        num_prefill_lookahead=1,
++        dcp_world_size=1,
++        scheduler_block_size=64,
++        hash_block_size=16,
++        enable_boundary_checkpoints=True,
++    )
++
++
++def request(name, salt="a", length=140):
++    result = make_request(name, list(range(length)), 16, sha256, cache_salt=salt)
++    result.recurrent_instruction_boundary = 10
++    result.max_tokens = result.sampling_params.max_tokens = 256
++    return result
++
++
++def drain(cache):
++    _, copies = cache.take_kv_cache_block_copies()
++    cache.block_pool.free_blocks(copies)
++
++
++def seed(cache, salt):
++    producer = request("producer-" + salt, salt)
++    cache.get_computed_blocks(producer)
++    assert cache.allocate_slots(producer, 10, num_lookahead_tokens=3) is not None
++    producer.num_computed_tokens = 10
++    drain(cache)
++    assert cache.publish_boundary_checkpoint(producer, 10, kind="instruction")
++    assert cache.allocate_slots(producer, 130, num_lookahead_tokens=3) is not None
++    producer.num_computed_tokens = 140
++    drain(cache)
++    checkpoint = cache.publish_boundary_checkpoint(producer, 140, kind="prompt")
++    producer.append_output_token_ids([900, 901, 902, 903, 904])
++    assert cache.allocate_slots(producer, 4, num_lookahead_tokens=3) is not None
++    producer.num_computed_tokens = 144
++    producer.status = RequestStatus.FINISHED_STOPPED
++    assert cache.publish_boundary_checkpoint(producer, 144, kind="response")
++    cache.free(producer)
++    return checkpoint
++
++
++def pending_kwargs(cache, requests=()):
++    """Keep baseline execution compatible with the queued-request API."""
++    parameters = inspect.signature(cache.allocate_slots).parameters
++    if "pending_boundary_requests" in parameters:
++        return {"pending_boundary_requests": tuple(requests)}
++    return {}
++
++
++def queue_matching(scheduler, producer):
++    """Queue a future consumer of the checkpoint used by pressure fixtures."""
++    queued = make_request(
++        "queued-" + producer.request_id,
++        list(producer.prompt_token_ids),
++        scheduler.block_size,
++        sha256,
++    )
++    scheduler.add_request(queued)
++    return queued
++
++
++def restore(cache, req, can_defer=False, pending=()):
++    cache.new_step_starts()
++    blocks, hit, _ = cache.get_computed_blocks(req)
++    result = cache.allocate_slots(
++        req,
++        1,
++        num_new_computed_tokens=hit,
++        new_computed_blocks=blocks,
++        num_lookahead_tokens=3,
++        can_defer_boundary_restore=can_defer,
++        **pending_kwargs(cache, pending),
++    )
++    if result is not None:
++        req.num_computed_tokens = hit
++        req.status = RequestStatus.RUNNING
++    return result
++
++
++def victim_at_head(cache, checkpoint):
++    block = next(
++        cache.block_pool.blocks[i]
++        for i in checkpoint.dependencies
++        if cache.block_pool.blocks[i].ref_cnt == 0
++    )
++    queue = cache.block_pool.free_block_queue
++    queue.remove(block)
++    queue.prepend_n([block])
++    return block
++
++
++@pytest.mark.parametrize("case", ["defer", "no_runnable", "idle", "cold"])
++def test_guard_only_defers_exact_restore_with_runnable_reader(case):
++    cache = manager()
++    seed(cache, "a")
++    other = seed(cache, "b")
++    active = request("active")
++    if case != "idle":
++        assert restore(cache, active) is not None
++        drain(cache)
++    victim_at_head(cache, other)
++    waiting = request("waiting", "c" if case == "cold" else "a")
++    before = [b.ref_cnt for b in cache.block_pool.blocks]
++    free_before = [
++        b.block_id for b in cache.block_pool.free_block_queue.get_all_free_blocks()
++    ]
++    result = restore(
++        cache,
++        waiting,
++        can_defer=case != "no_runnable",
++        pending=[request("queued-b", "b")],
++    )
++    if case == "defer":
++        assert result is None
++        assert before == [b.ref_cnt for b in cache.block_pool.blocks]
++        assert free_before == [
++            b.block_id for b in cache.block_pool.free_block_queue.get_all_free_blocks()
++        ]
++        assert waiting.request_id not in cache._boundary_readers
++        assert waiting.request_id not in cache._boundary_allocations
++        cache.free(active)
++        assert restore(cache, waiting, can_defer=True) is not None
++    else:
++        assert result is not None
++        assert other.checkpoint_id not in cache.boundary_checkpoints._entries
++    drain(cache)
++    cache.free(waiting)
++    if active.request_id in cache._boundary_allocations:
++        cache.free(active)
++    assert cache.block_pool.get_num_free_blocks() == 127
++
++
++@pytest.mark.parametrize("action", ["replace", "discard"])
++def test_pending_copy_pins_survive_reader_release_and_id_reuse(action):
++    cache = manager()
++    seed(cache, "a")
++    req = request("reused-id")
++    assert restore(cache, req) is not None
++    drain(cache)
++    assert len(req.boundary_checkpoint_blocks) == 3
++    assert all(i > 0 for slot in req.boundary_checkpoint_blocks for i in slot)
++    old = cache._boundary_readers[req.request_id]
++    new = replace(old, checkpoint_id=cache.boundary_checkpoints.next_id())
++    cache.boundary_checkpoints.stage(req, new, num_ranks=2)
++    assert not cache.boundary_checkpoints.acknowledge(new.checkpoint_id, 0)
++    assert new.checkpoint_id in cache.boundary_checkpoints._pending
++    if action == "replace":
++        assert cache.boundary_checkpoints.acknowledge(new.checkpoint_id, 1)
++        assert old.checkpoint_id not in cache.boundary_checkpoints._entries
++        assert cache._boundary_readers[req.request_id] is old
++        assert all(cache.block_pool.blocks[i].ref_cnt > 0 for i in old.dependencies)
++    cache.free(req)
++    if action == "discard":
++        assert all(cache.block_pool.blocks[i].ref_cnt > 0 for i in new.dependencies)
++        cache.boundary_checkpoints.discard(new.checkpoint_id)
++    assert cache.block_pool.get_num_free_blocks() == 127
++    reused = request("reused-id")
++    assert restore(cache, reused, can_defer=True) is not None
++    assert len(cache._boundary_allocations[reused.request_id]) == 15
++    drain(cache)
++    cache.free(reused)
++    assert cache.block_pool.get_num_free_blocks() == 127
++    assert not cache._boundary_allocations and not cache._boundary_readers
++
++
++@pytest.fixture(autouse=True)
++def initialize_hash(tmp_path, monkeypatch):
++    import json
++    import sys
++    from functools import partial
++
++    from tests.v1.core.utils import create_scheduler
++
++    (tmp_path / "config.json").write_text(
++        json.dumps(
++            dict(
++                architectures=["OPTForCausalLM"],
++                model_type="opt",
++                hidden_size=64,
++                ffn_dim=256,
++                num_hidden_layers=2,
++                num_attention_heads=2,
++                max_position_embeddings=2048,
++                vocab_size=50272,
++                word_embed_proj_dim=64,
++                torch_dtype="float16",
++            )
++        )
++    )
++    monkeypatch.setattr(
++        sys.modules[__name__],
++        "make_scheduler",
++        partial(
++            create_scheduler,
++            model=str(tmp_path),
++            skip_tokenizer_init=True,
++            device="cpu",
++        ),
++    )
++    from vllm.v1.core.kv_cache_utils import init_none_hash
++
++    init_none_hash(sha256)
++
++
++def make_scheduler(**kwargs):
++    from tests.v1.core.utils import create_scheduler
++
++    return create_scheduler(**kwargs)
++
++
++@pytest.mark.parametrize("release", ["move_victim", "finish_reader"])
++@pytest.mark.parametrize("fairness", [None, 0.4])
++def test_actual_scheduler_runs_decode_after_guard_defers_restore(fairness, release):
++    from tests.v1.core.utils import create_requests
++
++    scheduler = make_scheduler(
++        enable_prefix_caching=True,
++        use_v2_model_runner=True,
++        async_scheduling=True,
++        num_speculative_tokens=3,
++        speculative_method="ngram_gpu",
++        prefill_compute_share=fairness,
++    )
++    assert (scheduler.compute_share_controller is not None) == (fairness is not None)
++    cache = scheduler.kv_cache_manager
++    cache.boundary_checkpoints = BoundaryCheckpointCache(cache.block_pool)
++    producer, first, second = create_requests(
++        num_requests=3,
++        num_tokens=32,
++        same_prompt=True,
++        req_ids=["producer", "first", "second"],
++    )
++    (unrelated,) = create_requests(num_requests=1, num_tokens=48, req_ids=["unrelated"])
++    for req in (producer, unrelated):
++        cache.get_computed_blocks(req)
++        assert cache.allocate_slots(req, req.num_prompt_tokens) is not None
++        checkpoint = cache.publish_boundary_checkpoint(
++            req, req.num_prompt_tokens, kind="prompt"
++        )
++        cache.free(req)
++    scheduler.add_request(first)
++    assert scheduler.schedule().boundary_logits_only
++    scheduler.add_request(second)
++    assert scheduler.schedule().num_scheduled_tokens == {"first": 4}
++    future = queue_matching(scheduler, unrelated)
++    victim = victim_at_head(cache, checkpoint)
++    blocked = scheduler.schedule()
++    assert not blocked.boundary_logits_only
++    assert blocked.num_scheduled_tokens == {"first": 4}
++    assert second.status == RequestStatus.WAITING
++    assert checkpoint.checkpoint_id in cache.boundary_checkpoints._entries
++    if release == "move_victim":
++        queue = cache.block_pool.free_block_queue
++        queue.remove(victim)
++        queue.append(victim)
++    else:
++        # Reader completion must unblock admission without rearranging the victim.
++        scheduler.finish_requests([first.request_id], RequestStatus.FINISHED_STOPPED)
++    admitted = scheduler.schedule()
++    assert admitted.boundary_logits_only
++    assert admitted.num_scheduled_tokens == {"second": 1}
++    assert future.status == RequestStatus.WAITING
++    scheduler.finish_requests(
++        [second.request_id] + ([first.request_id] if release == "move_victim" else []),
++        RequestStatus.FINISHED_ABORTED,
++    )
++    final = scheduler.schedule()
++    assert final.boundary_logits_only
++    assert final.num_scheduled_tokens == {future.request_id: 1}
++    assert future.status == RequestStatus.RUNNING
++    assert scheduler.max_num_running_reqs == 16
++
++
++@pytest.mark.parametrize(
++    "status", [RequestStatus.FINISHED_STOPPED, RequestStatus.FINISHED_LENGTH_CAPPED]
++)
++def test_response_checkpoint_remains_reusable_after_stop_or_length_cap(status):
++    cache = manager()
++    seed(cache, "a")
++    req = request("response-producer")
++    req.sampling_params.max_tokens = 3
++    assert restore(cache, req) is not None
++    drain(cache)
++    req.append_output_token_ids([9010, 9011, 9012])
++    assert cache.allocate_slots(req, 2, num_lookahead_tokens=3) is not None
++    req.num_computed_tokens += 2
++    req.status = status
++    checkpoint = cache.publish_boundary_checkpoint(
++        req, req.num_tokens - 1, kind="response"
++    )
++    assert checkpoint is not None and checkpoint.kind == "response"
++    cache.free(req)
++    appended = make_request(
++        "appended", list(req.all_token_ids), 16, sha256, cache_salt="a"
++    )
++    assert cache.get_computed_blocks(appended)[1] == 142
++    assert cache.block_pool.get_num_free_blocks() == 127
++
++
++@pytest.mark.parametrize("can_defer", [False, True])
++def test_future_working_reserve_blocks_beyond_immediate_allocation(can_defer):
++    cache = manager()
++    seed(cache, "a")
++    checkpoint = seed(cache, "b")
++    active = request("active")
++    assert restore(cache, active) is not None
++    drain(cache)
++    waiting = request("waiting")
++    cache.get_computed_blocks(waiting)
++    dependencies = waiting.boundary_checkpoint.dependencies
++    queue = cache.block_pool.free_block_queue
++    ordered = queue.get_all_free_blocks()
++    # Keep 35 expendable IDs before the first published dependency.
++    expendable = [
++        b
++        for b in ordered
++        if b.block_id not in dependencies
++        and not cache.boundary_checkpoints.contains_block(b.block_id)
++    ]
++    victim = next(b for b in ordered if b.block_id in checkpoint.dependencies)
++    assert len(expendable) >= 35
++    prefix = expendable[:35] + [victim]
++    for block in prefix:
++        queue.remove(block)
++    queue.prepend_n(prefix)
++    before = [b.block_id for b in queue.get_all_free_blocks()]
++    result = restore(
++        cache, waiting, can_defer=can_defer, pending=[request("queued-b", "b")]
++    )
++    if can_defer:
++        assert result is None
++        assert before == [b.block_id for b in queue.get_all_free_blocks()]
++        assert waiting.request_id not in cache._boundary_readers
++    else:
++        assert result is not None
++        assert checkpoint.checkpoint_id in cache.boundary_checkpoints._entries
++        cache.free(waiting)
++    drain(cache)
++    cache.free(active)
++    assert cache.block_pool.get_num_free_blocks() == 127
+diff --git a/tests/v1/core/test_boundary_admission_aged_cache.py b/tests/v1/core/test_boundary_admission_aged_cache.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..680e71c4d618e50aeab609c07e744e9798d7c765
+--- /dev/null
++++ b/tests/v1/core/test_boundary_admission_aged_cache.py
+@@ -0,0 +1,103 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""Old checkpoints must not serialize otherwise admissible cached readers."""
++
++import json
++import inspect
++import pytest
++from tests.v1.core import test_boundary_admission as base
++from tests.v1.core import test_boundary_admission_horizon as horizon
++from tests.v1.core.test_boundary_admission import initialize_hash as initialize_hash
++from vllm.v1.request import RequestStatus
++
++pytestmark = pytest.mark.cpu_test
++
++
++def aged_probe(defer):
++    cache = horizon.manager()
++    for i in range(300):
++        horizon.seed(cache, str(i), lookahead=3)
++    admitted = []
++    waiting = [horizon.request("warm-" + str(i), str(i)) for i in (298, 299)]
++    for req in waiting:
++        cache.new_step_starts()
++        blocks, hit, _ = cache.get_computed_blocks(req)
++        assert hit == 8192
++        options = {}
++        if (
++            "pending_boundary_requests"
++            in inspect.signature(cache.allocate_slots).parameters
++        ):
++            options["pending_boundary_requests"] = waiting
++        allocation = cache.allocate_slots(
++            req,
++            1,
++            hit,
++            blocks,
++            num_lookahead_tokens=3,
++            can_defer_boundary_restore=defer,
++            **options,
++        )
++        if allocation is None:
++            break
++        req.num_computed_tokens = hit
++        req.status = RequestStatus.RUNNING
++        admitted.append(req)
++        base.drain(cache)
++    count = len(admitted)
++    for req in admitted:
++        cache.free(req)
++    assert cache.block_pool.get_num_free_blocks() == 1933
++    return count
++
++
++def test_aged_cache_admits_two_warm_readers():
++    guarded, unguarded = aged_probe(True), aged_probe(False)
++    print(
++        "PR721_PROBE "
++        + json.dumps(
++            dict(cold_requests=300, admitted=guarded, unguarded_admitted=unguarded)
++        )
++    )
++    assert unguarded == 2
++    assert guarded == 2, "Aged-cache guard serialized two warm readers"
++
++
++def test_real_scheduler_admits_past_unrelated_old_checkpoint():
++    from tests.v1.core.utils import create_requests
++
++    scheduler = base.make_scheduler(
++        enable_prefix_caching=True,
++        use_v2_model_runner=True,
++        async_scheduling=True,
++        num_speculative_tokens=3,
++        speculative_method="ngram_gpu",
++    )
++    cache = scheduler.kv_cache_manager
++    cache.boundary_checkpoints = base.BoundaryCheckpointCache(cache.block_pool)
++    producer, first, second = create_requests(
++        num_requests=3,
++        num_tokens=32,
++        same_prompt=True,
++        req_ids=["producer", "first", "second"],
++    )
++    (old,) = create_requests(num_requests=1, num_tokens=48, req_ids=["old"])
++    for req in (producer, old):
++        cache.get_computed_blocks(req)
++        assert cache.allocate_slots(req, req.num_prompt_tokens) is not None
++        checkpoint = cache.publish_boundary_checkpoint(
++            req, req.num_prompt_tokens, kind="prompt"
++        )
++        cache.free(req)
++    scheduler.add_request(first)
++    assert scheduler.schedule().boundary_logits_only
++    scheduler.add_request(second)
++    assert scheduler.schedule().num_scheduled_tokens == {"first": 4}
++    base.victim_at_head(cache, checkpoint)
++    step = scheduler.schedule()
++    assert step.boundary_logits_only, (
++        "An unrelated old checkpoint blocked the queue head"
++    )
++    assert step.num_scheduled_tokens == {"second": 1}
++    assert first.status == second.status == RequestStatus.RUNNING
++    assert scheduler.max_num_running_reqs == 16
+diff --git a/tests/v1/core/test_boundary_admission_continuation.py b/tests/v1/core/test_boundary_admission_continuation.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..5b41f2d712717a3a46ec64a7b4d45b6645a5b70f
+--- /dev/null
++++ b/tests/v1/core/test_boundary_admission_continuation.py
+@@ -0,0 +1,333 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""Continuation admission, scheduler fallback, and recurrent lifetime checks."""
++
++import pytest
++import torch
++
++from tests.v1.core import test_boundary_admission as base
++from tests.v1.core.test_boundary_admission import initialize_hash as initialize_hash
++from vllm.v1.core.kv_cache_utils import KVCacheBlock
++from vllm.v1.kv_cache_interface import (
++    KVCacheConfig,
++    KVCacheGroupSpec,
++    MambaSpec,
++    MLAAttentionSpec,
++)
++from vllm.v1.request import RequestStatus
++
++pytestmark = pytest.mark.cpu_test
++
++
++@pytest.mark.parametrize("case", ["defer", "idle", "no_runnable", "cold", "external"])
++@pytest.mark.parametrize("length", [166, 272, 480])
++def test_continuation_guard_bypasses_only_without_local_reader_progress(case, length):
++    cache = base.manager()
++    base.seed(cache, "a")
++    other = base.seed(cache, "b")
++    active = base.request("active")
++    if case != "idle":
++        assert base.restore(cache, active) is not None
++        base.drain(cache)
++    base.victim_at_head(cache, other)
++    req = base.request("continuation", "c" if case == "cold" else "a", length)
++    cached, hit, _ = cache.get_computed_blocks(req)
++    before = [
++        (b.block_id, b.ref_cnt)
++        for b in cache.block_pool.free_block_queue.get_all_free_blocks()
++    ]
++    blocks = cache.allocate_slots(
++        req,
++        min(32, length - hit),
++        hit,
++        cached,
++        num_external_computed_tokens=1 if case == "external" else 0,
++        num_lookahead_tokens=3,
++        can_defer_boundary_restore=case != "no_runnable",
++        **base.pending_kwargs(cache, [base.request("queued-b", "b")]),
++    )
++    if case == "defer":
++        assert hit == 140
++        assert blocks is None
++        assert before == [
++            (b.block_id, b.ref_cnt)
++            for b in cache.block_pool.free_block_queue.get_all_free_blocks()
++        ]
++        assert req.request_id not in cache._boundary_readers
++        assert req.request_id not in cache._boundary_allocations
++    else:
++        assert blocks is not None
++        base.drain(cache)
++        cache.free(req)
++    if case != "idle":
++        cache.free(active)
++    assert cache.block_pool.get_num_free_blocks() == 127
++
++
++@pytest.mark.parametrize("fairness", [None, 0.4])
++@pytest.mark.parametrize("length", [58, 256])
++def test_nonisolated_continuation_deferral_serves_existing_decoder(
++    fairness, length, monkeypatch
++):
++    from tests.v1.core.utils import create_requests
++
++    scheduler = base.make_scheduler(
++        enable_prefix_caching=True,
++        use_v2_model_runner=True,
++        async_scheduling=True,
++        num_speculative_tokens=3,
++        speculative_method="ngram_gpu",
++        prefill_compute_share=fairness,
++    )
++    assert (scheduler.compute_share_controller is not None) == (fairness is not None)
++    cache = scheduler.kv_cache_manager
++    cache.boundary_checkpoints = base.BoundaryCheckpointCache(cache.block_pool)
++    producer, first = create_requests(
++        num_requests=2, num_tokens=32, same_prompt=True, req_ids=["producer", "first"]
++    )
++    (unrelated,) = create_requests(num_requests=1, num_tokens=48, req_ids=["unrelated"])
++    for req in (producer, unrelated):
++        cache.get_computed_blocks(req)
++        assert cache.allocate_slots(req, req.num_prompt_tokens) is not None
++        checkpoint = cache.publish_boundary_checkpoint(
++            req, req.num_prompt_tokens, kind="prompt"
++        )
++        cache.free(req)
++    scheduler.add_request(first)
++    assert scheduler.schedule().boundary_logits_only
++    assert scheduler.schedule().num_scheduled_tokens == {"first": 4}
++    continuation = base.make_request(
++        "continuation",
++        list(producer.prompt_token_ids) + [1234] * (length - 32),
++        scheduler.block_size,
++        base.sha256,
++    )
++    scheduler.add_request(continuation)
++    first.is_prefill_chunk = False
++    if scheduler.compute_share_controller is not None:
++        # Force the prefill turn whose empty admission must fall back to decode.
++        monkeypatch.setattr(
++            scheduler.compute_share_controller, "select", lambda **kwargs: "prefill"
++        )
++    base.queue_matching(scheduler, unrelated)
++    base.victim_at_head(cache, checkpoint)
++    assert not scheduler._has_waiting_boundary_logits()
++    output = scheduler.schedule()
++    assert not output.boundary_logits_only
++    assert output.num_scheduled_tokens == {"first": 4}
++    assert continuation.status == RequestStatus.WAITING
++    assert continuation.request_id not in cache._boundary_readers
++    assert checkpoint.checkpoint_id in cache.boundary_checkpoints._entries
++    assert scheduler.max_num_running_reqs == 16
++
++
++@pytest.mark.parametrize("tail", [0, 1, 252, 255])
++@pytest.mark.parametrize("append", [26, 257, 8193, 16385])
++@pytest.mark.parametrize("inflight", [1, 2])
++@pytest.mark.parametrize("checkpoints", [0, 1])
++def test_continuation_prefill_source_and_two_batch_state_bound(
++    tail, append, inflight, checkpoints
++):
++    attention = MLAAttentionSpec(
++        block_size=2048,
++        num_kv_heads=1,
++        head_size=1,
++        dtype=torch.uint8,
++        model_version="glm5_next",
++    )
++    recurrent = MambaSpec(
++        block_size=256,
++        shapes=((1,),),
++        dtypes=(torch.uint8,),
++        mamba_cache_mode="align",
++        num_speculative_blocks=3,
++        num_prefill_checkpoint_blocks=checkpoints,
++    )
++    groups = [KVCacheGroupSpec(["attention"], attention)]
++    groups += [KVCacheGroupSpec([f"recurrent-{i}"], recurrent) for i in range(3)]
++    cache = base.make_kv_cache_manager(
++        KVCacheConfig(num_blocks=256, kv_cache_tensors=[], kv_cache_groups=groups),
++        max_model_len=32768,
++        max_in_flight_tokens=8192,
++        enable_caching=True,
++        use_eagle=True,
++        num_prefill_lookahead=1,
++        dcp_world_size=1,
++        scheduler_block_size=2048,
++        hash_block_size=256,
++        enable_boundary_checkpoints=True,
++    )
++    prefix = 2048 + tail
++    producer = base.make_request("producer", list(range(prefix)), 256, base.sha256)
++    cache.get_computed_blocks(producer)
++    assert cache.allocate_slots(producer, prefix, num_lookahead_tokens=3) is not None
++    producer.num_computed_tokens = prefix
++    base.drain(cache)
++    checkpoint = cache.publish_boundary_checkpoint(producer, prefix, kind="prompt")
++    cache.free(producer)
++    req = base.make_request(
++        "continuation", list(range(prefix + append)), 256, base.sha256
++    )
++    cached, hit, _ = cache.get_computed_blocks(req)
++    assert hit == prefix
++    pending = []
++    while req.num_computed_tokens < req.num_prompt_tokens:
++        cache.new_step_starts()
++        start = req.num_computed_tokens or hit
++        count = min(4096, req.num_prompt_tokens - start)
++        protected: list[KVCacheBlock] = []
++        if req.num_computed_tokens:
++            processed = req.num_computed_tokens - req.num_in_flight_tokens
++            for manager in cache.coordinator.single_type_managers[1:]:
++                protected.extend(
++                    b
++                    for b in manager.req_to_blocks[req.request_id][
++                        max(0, (processed - 1) // 256) :
++                    ]
++                    if not b.is_null
++                )
++        blocks = cache.allocate_slots(
++            req,
++            count,
++            hit if not req.num_computed_tokens else 0,
++            cached if not req.num_computed_tokens else None,
++            num_lookahead_tokens=3,
++            can_defer_boundary_restore=True,
++        )
++        assert blocks is not None
++        assert all(b.ref_cnt > 0 for b in protected)
++        req.num_computed_tokens = start + count
++        req.num_in_flight_tokens += count
++        req.status = RequestStatus.RUNNING
++        held = cache.take_kv_cache_block_copies()[1]
++        pending.append((count, held))
++        for manager in cache.coordinator.single_type_managers[1:]:
++            table = manager.req_to_blocks[req.request_id]
++            assert (
++                sum(not b.is_null for b in table)
++                <= recurrent.num_speculative_blocks + 3
++            )
++            assert all(b.is_null or b.ref_cnt > 0 for b in table)
++        assert all(
++            cache.block_pool.blocks[i].ref_cnt > 0 for i in checkpoint.dependencies
++        )
++        if len(pending) >= inflight:
++            count, held = pending.pop(0)
++            req.num_in_flight_tokens -= count
++            cache.block_pool.free_blocks(held)
++    for count, held in pending:
++        req.num_in_flight_tokens -= count
++        cache.block_pool.free_blocks(held)
++    assert req.num_in_flight_tokens == 0
++    assert cache.publish_boundary_checkpoint(req, req.num_prompt_tokens, kind="prompt")
++    cache.free(req)
++    assert cache.block_pool.get_num_free_blocks() == 255
++    assert not cache._boundary_readers and not cache._boundary_allocations
++
++
++@pytest.mark.parametrize("length", [166, 480])
++@pytest.mark.parametrize("can_defer", [False, True])
++def test_continuation_reserve_includes_cached_source_and_future_growth(
++    length, can_defer
++):
++    cache = base.manager()
++    base.seed(cache, "a")
++    checkpoint = base.seed(cache, "b")
++    active = base.request("active")
++    assert base.restore(cache, active) is not None
++    base.drain(cache)
++    req = base.request("continuation", length=length)
++    cached, hit, _ = cache.get_computed_blocks(req)
++    dependencies = req.boundary_checkpoint.dependencies
++    queue = cache.block_pool.free_block_queue
++    ordered = queue.get_all_free_blocks()
++    expendable = [
++        b
++        for b in ordered
++        if b.block_id not in dependencies
++        and not cache.boundary_checkpoints.contains_block(b.block_id)
++    ]
++    victim = next(b for b in ordered if b.block_id in checkpoint.dependencies)
++    assert len(expendable) >= 40
++    prefix = expendable[:40] + [victim]
++    for block in prefix:
++        queue.remove(block)
++    queue.prepend_n(prefix)
++    before = [b.block_id for b in queue.get_all_free_blocks()]
++    result = cache.allocate_slots(
++        req,
++        length - hit,
++        hit,
++        cached,
++        num_lookahead_tokens=3,
++        can_defer_boundary_restore=can_defer,
++        **base.pending_kwargs(cache, [base.request("queued-b", "b")]),
++    )
++    if can_defer:
++        assert result is None
++        assert before == [b.block_id for b in queue.get_all_free_blocks()]
++        assert req.request_id not in cache._boundary_readers
++    else:
++        assert result is not None
++        assert checkpoint.checkpoint_id in cache.boundary_checkpoints._entries
++        base.drain(cache)
++        cache.free(req)
++    cache.free(active)
++    assert cache.block_pool.get_num_free_blocks() == 127
++
++
++@pytest.mark.parametrize("length", [58, 512])
++def test_same_pass_continuations_use_already_scheduled_prefill_progress(length):
++    from tests.v1.core.utils import create_requests
++
++    scheduler = base.make_scheduler(
++        enable_prefix_caching=True,
++        use_v2_model_runner=True,
++        async_scheduling=True,
++        num_speculative_tokens=3,
++        speculative_method="ngram_gpu",
++    )
++    cache = scheduler.kv_cache_manager
++    cache.boundary_checkpoints = base.BoundaryCheckpointCache(cache.block_pool)
++    (producer,) = create_requests(num_requests=1, num_tokens=32, req_ids=["producer"])
++    (unrelated,) = create_requests(num_requests=1, num_tokens=48, req_ids=["unrelated"])
++    for req in (producer, unrelated):
++        cache.get_computed_blocks(req)
++        assert cache.allocate_slots(req, req.num_prompt_tokens) is not None
++        checkpoint = cache.publish_boundary_checkpoint(
++            req, req.num_prompt_tokens, kind="prompt"
++        )
++        cache.free(req)
++    queue = cache.block_pool.free_block_queue
++    ordered = queue.get_all_free_blocks()
++    expendable = [
++        b for b in ordered if not cache.boundary_checkpoints.contains_block(b.block_id)
++    ]
++    victim = next(b for b in ordered if b.block_id in checkpoint.dependencies)
++    prefix = expendable[:64] + [victim]
++    assert len(prefix) == 65
++    for block in prefix:
++        queue.remove(block)
++    queue.prepend_n(prefix)
++    first, second = [
++        base.make_request(
++            name,
++            list(producer.prompt_token_ids) + [1234] * (length - 32),
++            scheduler.block_size,
++            base.sha256,
++        )
++        for name in ["first", "second"]
++    ]
++    first.max_tokens = second.max_tokens = scheduler.max_model_len
++    scheduler.add_request(first)
++    scheduler.add_request(second)
++    base.queue_matching(scheduler, unrelated)
++    assert not scheduler.running
++    output = scheduler.schedule()
++    assert not output.boundary_logits_only
++    assert output.num_scheduled_tokens == {"first": length - 32}
++    assert second.status == RequestStatus.WAITING
++    assert first.request_id in cache._boundary_readers
++    assert second.request_id not in cache._boundary_readers
++    assert checkpoint.checkpoint_id in cache.boundary_checkpoints._entries
++    assert scheduler.max_num_running_reqs == 16
+diff --git a/tests/v1/core/test_boundary_admission_horizon.py b/tests/v1/core/test_boundary_admission_horizon.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..18faf1c33b79b3c87b37c671f33ff1ef707ccdca
+--- /dev/null
++++ b/tests/v1/core/test_boundary_admission_horizon.py
+@@ -0,0 +1,357 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""Per-reader attention horizons, low-pressure concurrency, and release fences."""
++
++import pytest
++import torch
++
++from tests.v1.core import test_boundary_admission as base
++from tests.v1.core.test_boundary_admission import initialize_hash as initialize_hash
++from vllm.v1.kv_cache_interface import (
++    KVCacheConfig,
++    KVCacheGroupSpec,
++    MambaSpec,
++    MLAAttentionSpec,
++)
++from vllm.v1.request import RequestStatus
++
++pytestmark = pytest.mark.cpu_test
++
++
++def manager(spec=3, **kwargs):
++    attention = MLAAttentionSpec(
++        block_size=2048,
++        num_kv_heads=1,
++        head_size=1,
++        dtype=torch.uint8,
++        model_version="glm5_next",
++    )
++    recurrent = MambaSpec(
++        block_size=256,
++        shapes=((1,),),
++        dtypes=(torch.uint8,),
++        mamba_cache_mode="align",
++        num_speculative_blocks=spec,
++    )
++    groups = [KVCacheGroupSpec(["attention"], attention)]
++    groups += [KVCacheGroupSpec([str(i)], recurrent) for i in range(3)]
++    return base.make_kv_cache_manager(
++        KVCacheConfig(num_blocks=1934, kv_cache_tensors=[], kv_cache_groups=groups),
++        max_model_len=524288,
++        max_in_flight_tokens=8192,
++        enable_caching=True,
++        use_eagle=True,
++        num_prefill_lookahead=1,
++        dcp_world_size=1,
++        scheduler_block_size=2048,
++        hash_block_size=256,
++        enable_boundary_checkpoints=True,
++        **kwargs,
++    )
++
++
++def request(name, salt="0", length=8192, cap=4096):
++    req = base.make_request(
++        name, list(range(length)), 256, base.sha256, cache_salt=salt
++    )
++    req.max_tokens = cap
++    req.sampling_params.max_tokens = cap
++    return req
++
++
++def seed(cache, salt="0", length=8192, lookahead=4):
++    req = request("producer-" + salt, salt, length)
++    cache.get_computed_blocks(req)
++    assert cache.allocate_slots(req, length, num_lookahead_tokens=lookahead) is not None
++    req.num_computed_tokens = length
++    base.drain(cache)
++    checkpoint = cache.publish_boundary_checkpoint(req, length, kind="prompt")
++    cache.free(req)
++    return checkpoint
++
++
++def restore(cache, req, lookahead=4, defer=True, pending=()):
++    cache.new_step_starts()
++    blocks, hit, _ = cache.get_computed_blocks(req)
++    assert hit
++    allocated = cache.allocate_slots(
++        req,
++        max(1, req.num_prompt_tokens - hit),
++        hit,
++        blocks,
++        num_lookahead_tokens=lookahead,
++        can_defer_boundary_restore=defer,
++        **base.pending_kwargs(cache, pending),
++    )
++    if allocated is not None:
++        req.num_computed_tokens = req.num_prompt_tokens
++        req.status = RequestStatus.RUNNING
++    return allocated
++
++
++def test_all_16_short_warm_readers_admit_without_checkpoint_loss():
++    cache = manager()
++    for index in range(16):
++        seed(cache, str(index))
++    published = set(cache.boundary_checkpoints._entries)
++    active = []
++    for index in range(16):
++        req = request("warm-" + str(index), str(index))
++        allocated = restore(cache, req)
++        assert allocated is not None, (
++            len(active),
++            cache.block_pool.get_num_free_blocks(),
++        )
++        base.drain(cache)
++        active.append(req)
++    assert len(active) == 16
++    assert published == set(cache.boundary_checkpoints._entries)
++    assert cache.block_pool.get_num_free_blocks() >= 1400
++    for req in active:
++        cache.free(req)
++    assert not cache._boundary_reader_horizons
++    assert cache.block_pool.get_num_free_blocks() == 1933
++
++
++@pytest.mark.parametrize("cap", [0, 1, 4096, 524288])
++@pytest.mark.parametrize("batches", [1, 2])
++@pytest.mark.parametrize("spec,lookahead", [(0, 0), (3, 3), (3, 4), (7, 8)])
++def test_horizon_uses_full_prompt_output_cap_and_checked_spec_margin(
++    cap, batches, spec, lookahead
++):
++    cache = manager(
++        spec, max_concurrent_batches=batches, num_lookahead_tokens=lookahead
++    )
++    seed(cache, lookahead=lookahead)
++    req = request("reader", length=8192 + 257, cap=cap)
++    assert restore(cache, req, lookahead) is not None
++    margin = max(lookahead, spec + 1)
++    horizon = min(
++        cache.max_model_len,
++        req.num_prompt_tokens + cap + batches * (margin + 1) + margin,
++    )
++    assert cache._boundary_reader_horizons[req.request_id] == horizon
++    # At the output limit, every optimistic batch and drafter slot must fit.
++    assert horizon >= min(
++        cache.max_model_len,
++        req.num_prompt_tokens + cap + batches * (spec + 1) + lookahead,
++    )
++    base.drain(cache)
++    cache.free(req)
++    assert not cache._boundary_reader_horizons
++
++
++@pytest.mark.parametrize(
++    "status",
++    [
++        RequestStatus.FINISHED_STOPPED,
++        RequestStatus.FINISHED_LENGTH_CAPPED,
++        RequestStatus.FINISHED_ABORTED,
++        RequestStatus.PREEMPTED,
++    ],
++)
++@pytest.mark.parametrize("deferred", [False, True])
++def test_horizon_cleanup_matches_reader_release_and_id_reuse(status, deferred):
++    cache = manager()
++    seed(cache)
++    req = request("reused")
++    assert restore(cache, req) is not None
++    assert req.request_id in cache._boundary_reader_horizons
++    held = cache.take_kv_cache_block_copies()[1]
++    req.status = status
++    if deferred:
++        blocks = cache.pop_blocks_for_free(req)
++        assert blocks and all(b.ref_cnt > 0 for b in blocks if not b.is_null)
++        assert req.request_id not in cache._boundary_reader_horizons
++        assert req.request_id not in cache._boundary_readers
++        cache.block_pool.free_blocks(reversed(blocks))
++    else:
++        cache.free(req)
++    cache.block_pool.free_blocks(held)
++    assert not cache._boundary_reader_horizons and not cache._boundary_readers
++    reused = request("reused", cap=1)
++    assert restore(cache, reused) is not None
++    assert cache._boundary_reader_horizons["reused"] < 8300
++    base.drain(cache)
++    cache.free(reused)
++    assert not cache._boundary_reader_horizons
++    assert cache.block_pool.get_num_free_blocks() == 1933
++
++
++def test_deferred_admission_and_failed_acquire_never_leave_a_horizon(monkeypatch):
++    cache = manager()
++    seed(cache)
++    victim = seed(cache, "other")
++    first = request("first")
++    assert restore(cache, first) is not None
++    base.drain(cache)
++    base.victim_at_head(cache, victim)
++    waiting = request("waiting")
++    assert restore(cache, waiting, pending=[request("queued-other", "other")]) is None
++    assert set(cache._boundary_reader_horizons) == {first.request_id}
++    cache.free(first)
++    monkeypatch.setattr(
++        cache.boundary_checkpoints, "acquire", lambda checkpoint_id: None
++    )
++    assert restore(cache, waiting, defer=False) is None
++    assert not cache._boundary_reader_horizons and not cache._boundary_readers
++
++
++@pytest.mark.parametrize("async_scheduling", [False, True])
++def test_scheduler_binds_actual_lookahead_and_batch_count(async_scheduling):
++    scheduler = base.make_scheduler(
++        enable_prefix_caching=True,
++        use_v2_model_runner=True,
++        async_scheduling=async_scheduling,
++        num_speculative_tokens=3,
++        speculative_method="ngram_gpu",
++    )
++    cache = scheduler.kv_cache_manager
++    assert (
++        cache._boundary_restore_max_concurrent_batches
++        == scheduler.vllm_config.max_concurrent_batches
++    )
++    assert cache._boundary_restore_lookahead >= scheduler.num_lookahead_tokens
++    assert scheduler.max_num_running_reqs == 16
++
++
++@pytest.mark.parametrize("cap", [1, 4096])
++@pytest.mark.parametrize("batches", [1, 2])
++@pytest.mark.parametrize("spec,lookahead", [(3, 3), (3, 4), (7, 8)])
++def test_real_allocations_fit_horizon_at_output_page_boundary(
++    cap, batches, spec, lookahead
++):
++    cache = manager(
++        spec, max_concurrent_batches=batches, num_lookahead_tokens=lookahead
++    )
++    prompt = 8192 if cap == 4096 else 8191
++    seed(cache, length=prompt, lookahead=lookahead)
++    req = request("reader", length=prompt, cap=cap)
++    assert restore(cache, req, lookahead) is not None
++    base.drain(cache)
++    if cap > 1:
++        req.append_output_token_ids([9000] * (cap - 1))
++        assert (
++            cache.allocate_slots(req, cap - 1, num_lookahead_tokens=lookahead)
++            is not None
++        )
++        req.num_computed_tokens += cap - 1
++        base.drain(cache)
++    pending = []
++    for _ in range(batches):
++        assert (
++            cache.allocate_slots(req, spec + 1, num_lookahead_tokens=lookahead)
++            is not None
++        )
++        req.num_computed_tokens += spec + 1
++        req.num_in_flight_tokens += spec + 1
++        pending.extend(cache.take_kv_cache_block_copies()[1])
++        attention = cache.coordinator.single_type_managers[0]
++        table = attention.req_to_blocks[req.request_id]
++        assert (
++            len(table)
++            <= (cache._boundary_reader_horizons[req.request_id] + 2047) // 2048
++        )
++        assert all(b.ref_cnt > 0 for b in table if not b.is_null)
++    # A plain prompt-plus-cap bound would miss this extra attention page.
++    assert len(table) > (prompt + cap) // 2048
++    blocks = cache.pop_blocks_for_free(req)
++    assert not cache._boundary_reader_horizons
++    assert all(b.ref_cnt > 0 for b in blocks if not b.is_null)
++    cache.block_pool.free_blocks(pending)
++    cache.block_pool.free_blocks(reversed(blocks))
++    assert cache.block_pool.get_num_free_blocks() == 1933
++
++
++@pytest.mark.parametrize("action", ["abort", "preempt"])
++def test_scheduler_abort_and_preemption_clear_reader_horizon(action):
++    import time
++
++    from tests.v1.core import test_boundary_admission_review as review
++
++    scheduler, first, _ = review.scheduler_state()
++    cache = scheduler.kv_cache_manager
++    assert first.request_id in cache._boundary_reader_horizons
++    if action == "preempt":
++        scheduler.running.remove(first)
++        scheduler._preempt_request(first, time.monotonic())
++    else:
++        scheduler.finish_requests([first.request_id], RequestStatus.FINISHED_ABORTED)
++    assert first.request_id not in cache._boundary_readers
++    assert first.request_id not in cache._boundary_reader_horizons
++    for _, blocks in scheduler.deferred_frees:
++        assert all(b.ref_cnt > 0 for b in blocks if not b.is_null)
++
++
++@pytest.mark.parametrize("defer", [False, True])
++@pytest.mark.parametrize("concurrency", [2, 4, 16])
++@pytest.mark.parametrize("cap", [4096, 65536])
++def test_aged_cache_keeps_explicit_warm_queue_concurrent(concurrency, cap, defer):
++    cache = manager()
++    for index in range(300):
++        seed(cache, str(index), lookahead=3)
++    queued = [
++        request(f"warm-{index}", str(index), cap=cap)
++        for index in range(300 - concurrency, 300)
++    ]
++    active = []
++    try:
++        for index, req in enumerate(queued):
++            # Match the scheduler snapshot, including the incoming queue head.
++            assert (
++                restore(cache, req, lookahead=3, defer=defer, pending=queued[index:])
++                is not None
++            )
++            base.drain(cache)
++            active.append(req)
++        assert len(active) == concurrency
++        assert len(cache._boundary_readers) == concurrency
++    finally:
++        for req in active:
++            cache.free(req)
++    assert cache.block_pool.get_num_free_blocks() == 1933
++    assert not cache._boundary_readers and not cache._boundary_reader_horizons
++
++
++@pytest.mark.parametrize("pressure", [80, 95])
++@pytest.mark.parametrize("defer", [False, True])
++@pytest.mark.parametrize("status", [RequestStatus.WAITING, RequestStatus.PREEMPTED])
++def test_queued_checkpoint_pressure_preserves_admission_control(
++    pressure, defer, status
++):
++    cache = manager()
++    seed(cache)
++    checkpoint = seed(cache, "future")
++    active = request("active")
++    assert restore(cache, active) is not None
++    base.drain(cache)
++    queue = cache.block_pool.free_block_queue
++    expendable = [
++        block
++        for block in queue.get_all_free_blocks()
++        if not cache.boundary_checkpoints.contains_block(block.block_id)
++    ]
++    # Hold actual blocks to model occupancy, then place a queued dependency first.
++    held = expendable[: 1933 * pressure // 100]
++    assert len(held) == 1933 * pressure // 100
++    cache.block_pool.touch(held)
++    base.victim_at_head(cache, checkpoint)
++    future = request("future-reader", "future")
++    future.status = status
++    waiting = request("waiting")
++    before = [(b.block_id, b.ref_cnt) for b in queue.get_all_free_blocks()]
++    result = restore(cache, waiting, defer=defer, pending=[future])
++    if defer:
++        assert result is None
++        assert before == [(b.block_id, b.ref_cnt) for b in queue.get_all_free_blocks()]
++        assert checkpoint.checkpoint_id in cache.boundary_checkpoints._entries
++        assert waiting.request_id not in cache._boundary_readers
++    else:
++        # The same physical pressure permits immediate allocation without the guard.
++        assert result is not None
++        assert checkpoint.checkpoint_id not in cache.boundary_checkpoints._entries
++        base.drain(cache)
++        cache.free(waiting)
++    cache.block_pool.free_blocks(held)
++    cache.free(active)
++    assert cache.block_pool.get_num_free_blocks() == 1933
+diff --git a/tests/v1/core/test_boundary_admission_review.py b/tests/v1/core/test_boundary_admission_review.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..b45c7b2dbd5c85566182fc8618253cff6a450f99
+--- /dev/null
++++ b/tests/v1/core/test_boundary_admission_review.py
+@@ -0,0 +1,248 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""Independent CPU probes of reserve geometry and scheduler behavior."""
++
++import time
++
++import pytest
++import torch
++
++from tests.v1.core import test_boundary_admission as base
++from tests.v1.core.test_boundary_admission import initialize_hash as initialize_hash
++from vllm.v1.kv_cache_interface import (
++    KVCacheConfig,
++    KVCacheGroupSpec,
++    MambaSpec,
++    MLAAttentionSpec,
++)
++from vllm.v1.request import RequestStatus
++
++pytestmark = pytest.mark.cpu_test
++
++
++@pytest.mark.parametrize("accepted", [1, 2, 3, 4])
++@pytest.mark.parametrize("tail", [0, 1, 252, 253, 254, 255])
++@pytest.mark.parametrize("checkpoints", [0, 1])
++def test_recurrent_reserve_across_acceptance_and_block_edges(
++    accepted, tail, checkpoints
++):
++    attention = MLAAttentionSpec(
++        block_size=2048,
++        num_kv_heads=1,
++        head_size=1,
++        dtype=torch.uint8,
++        model_version="glm5_next",
++    )
++    recurrent = MambaSpec(
++        block_size=256,
++        shapes=((1,),),
++        dtypes=(torch.uint8,),
++        mamba_cache_mode="align",
++        num_speculative_blocks=3,
++        num_prefill_checkpoint_blocks=checkpoints,
++    )
++    groups = [KVCacheGroupSpec(["attention"], attention)]
++    groups += [KVCacheGroupSpec([f"recurrent-{i}"], recurrent) for i in range(3)]
++    cache = base.make_kv_cache_manager(
++        KVCacheConfig(num_blocks=128, kv_cache_tensors=[], kv_cache_groups=groups),
++        max_model_len=4096,
++        max_in_flight_tokens=8192,
++        enable_caching=True,
++        use_eagle=True,
++        num_prefill_lookahead=1,
++        dcp_world_size=1,
++        scheduler_block_size=2048,
++        hash_block_size=256,
++        enable_boundary_checkpoints=True,
++    )
++    producer = base.request("producer", length=512 + tail)
++    cache.get_computed_blocks(producer)
++    assert (
++        cache.allocate_slots(producer, producer.num_tokens, num_lookahead_tokens=3)
++        is not None
++    )
++    producer.num_computed_tokens = producer.num_tokens
++    base.drain(cache)
++    assert cache.publish_boundary_checkpoint(
++        producer, producer.num_tokens, kind="prompt"
++    )
++    cache.free(producer)
++    req = base.request("reader", length=512 + tail)
++    assert base.restore(cache, req) is not None
++    req.append_output_token_ids([10000])
++    pending = 0
++    held = cache.take_kv_cache_block_copies()[1]
++    for step in range(600):
++        cache.new_step_starts()
++        assert cache.allocate_slots(req, 4, num_lookahead_tokens=3) is not None
++        req.num_computed_tokens += 4
++        req.num_in_flight_tokens += 4
++        new_held = cache.take_kv_cache_block_copies()[1]
++        for manager in cache.coordinator.single_type_managers[1:]:
++            blocks = manager.req_to_blocks[req.request_id]
++            assert sum(not b.is_null for b in blocks) <= 6
++            assert all(b.is_null or b.ref_cnt > 0 for b in blocks)
++        if pending:
++            req.num_in_flight_tokens -= 4
++            req.num_computed_tokens -= 4 - accepted
++            req.append_output_token_ids([10000 + step] * accepted)
++        cache.block_pool.free_blocks(held)
++        held = new_held
++        pending = 4
++        cache.cache_blocks(req, min(req.num_computed_tokens, req.num_tokens))
++    cache.free(req)
++    cache.block_pool.free_blocks(held)
++    assert cache.block_pool.get_num_free_blocks() == 127
++    assert not cache._boundary_readers
++
++
++def scheduler_state():
++    from tests.v1.core.utils import create_requests
++
++    scheduler = base.make_scheduler(
++        enable_prefix_caching=True,
++        use_v2_model_runner=True,
++        async_scheduling=True,
++        num_speculative_tokens=3,
++        speculative_method="ngram_gpu",
++    )
++    cache = scheduler.kv_cache_manager
++    cache.boundary_checkpoints = base.BoundaryCheckpointCache(cache.block_pool)
++    producer, first, second = create_requests(
++        num_requests=3,
++        num_tokens=32,
++        same_prompt=True,
++        req_ids=["producer", "first", "second"],
++    )
++    (unrelated,) = create_requests(num_requests=1, num_tokens=48, req_ids=["unrelated"])
++    for req in (producer, unrelated):
++        cache.get_computed_blocks(req)
++        assert cache.allocate_slots(req, req.num_prompt_tokens) is not None
++        checkpoint = cache.publish_boundary_checkpoint(
++            req, req.num_prompt_tokens, kind="prompt"
++        )
++        cache.free(req)
++    scheduler.add_request(first)
++    assert scheduler.schedule().boundary_logits_only
++    scheduler.add_request(second)
++    assert scheduler.schedule().num_scheduled_tokens == {"first": 4}
++    base.queue_matching(scheduler, unrelated)
++    base.victim_at_head(cache, checkpoint)
++    return scheduler, first, second
++
++
++@pytest.mark.parametrize(
++    "scope",
++    [
++        "supported",
++        "dcp2",
++        "pp2",
++        "three_batches",
++        "all_mode",
++        "two_checkpoints",
++        "wide_spec",
++    ],
++)
++def test_actual_caller_scope(scope, monkeypatch):
++    scheduler, first, second = scheduler_state()
++    cache = scheduler.kv_cache_manager
++    if scope == "dcp2":
++        monkeypatch.setattr(
++            scheduler.parallel_config, "decode_context_parallel_size", 2
++        )
++    if scope == "pp2":
++        monkeypatch.setattr(scheduler, "use_pp", True)
++    if scope == "three_batches":
++        monkeypatch.setattr(
++            type(scheduler.vllm_config), "max_concurrent_batches", property(lambda _: 3)
++        )
++    if scope in ("all_mode", "two_checkpoints", "wide_spec"):
++        manager = cache.coordinator.single_type_managers[0]
++        monkeypatch.setattr(
++            manager,
++            "kv_cache_spec",
++            MambaSpec(
++                block_size=256,
++                shapes=((1,),),
++                dtypes=(torch.uint8,),
++                mamba_cache_mode="all" if scope == "all_mode" else "align",
++                num_speculative_blocks=3,
++                num_prefill_checkpoint_blocks=2 if scope == "two_checkpoints" else 0,
++            ),
++        )
++        monkeypatch.setattr(manager, "block_size", 4 if scope == "wide_spec" else 256)
++    calls = []
++
++    class Captured(Exception):
++        pass
++
++    def capture(*args, **kwargs):
++        calls.append(kwargs["can_defer_boundary_restore"])
++        raise Captured
++
++    monkeypatch.setattr(cache, "allocate_slots", capture)
++    with pytest.raises(Captured):
++        scheduler.schedule()
++    assert calls == [scope == "supported"]
++
++
++def test_deferred_head_blocks_later_cold_request():
++    from tests.v1.core.utils import create_requests
++
++    scheduler, first, second = scheduler_state()
++    (cold,) = create_requests(num_requests=1, num_tokens=24, req_ids=["later-cold"])
++    scheduler.add_request(cold)
++    output = scheduler.schedule()
++    assert output.num_scheduled_tokens == {"first": 4}
++    assert second.status == cold.status == RequestStatus.WAITING
++    assert scheduler.max_num_running_reqs == 16
++
++
++def test_coarse_runnable_can_return_empty_while_output_is_pending():
++    scheduler, first, second = scheduler_state()
++    first.num_output_placeholders = 4
++    first.num_computed_tokens = first.num_prompt_tokens + first.max_tokens + 2
++    assert scheduler._request_is_runnable_decode(
++        first, scheduling_step=scheduler.current_step + 1
++    )
++    assert scheduler.schedule().num_scheduled_tokens == {}
++    assert second.status == RequestStatus.WAITING
++
++
++def test_preemption_removes_reader_bookkeeping():
++    scheduler, first, second = scheduler_state()
++    cache = scheduler.kv_cache_manager
++    scheduler.running.remove(first)
++    scheduler._preempt_request(first, time.monotonic())
++    assert first.request_id not in cache._boundary_readers
++    assert first.request_id not in cache._boundary_allocations
++    assert not cache._boundary_readers
++
++
++@pytest.mark.parametrize("case", ["supported", "connector", "idle", "no_progress"])
++def test_scheduler_deferral_requires_local_progress(case, monkeypatch):
++    from unittest.mock import Mock
++
++    scheduler, first, second = scheduler_state()
++    cache = scheduler.kv_cache_manager
++    if case == "connector":
++        connector = Mock()
++        connector.get_num_new_matched_tokens.return_value = (0, False)
++        connector.build_connector_meta.return_value = None
++        connector.boundary_checkpoint_external_tokens.return_value = 0
++        monkeypatch.setattr(scheduler, "connector", connector)
++    elif case == "idle":
++        scheduler.finish_requests([first.request_id], RequestStatus.FINISHED_ABORTED)
++    elif case == "no_progress":
++        first.next_decode_eligible_step = scheduler.current_step + 100
++
++    output = scheduler.schedule()
++    if case == "supported":
++        assert output.num_scheduled_tokens == {"first": 4}
++        assert second.status == RequestStatus.WAITING
++        assert second.request_id not in cache._boundary_readers
++    else:
++        assert output.boundary_logits_only
++        assert output.num_scheduled_tokens == {"second": 1}
++        assert second.request_id in cache._boundary_readers
++    assert scheduler.max_num_running_reqs == 16
+diff --git a/tests/v1/core/test_mamba_sparse_cleanup.py b/tests/v1/core/test_mamba_sparse_cleanup.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..5dda11edcdb9b41dce91c5d4f8427d78a7909ad8
+--- /dev/null
++++ b/tests/v1/core/test_mamba_sparse_cleanup.py
+@@ -0,0 +1,84 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++import pytest
++import torch
++
++from vllm.v1.core.block_pool import BlockPool
++from vllm.v1.core.single_type_kv_cache_manager import MambaManager
++from vllm.v1.kv_cache_interface import MambaSpec
++
++
++class CountedBlocks(list):
++    reads = 0
++
++    def __getitem__(self, index):
++        self.reads += 1
++        return super().__getitem__(index)
++
++
++def make_manager(draft_slots):
++    return MambaManager(
++        MambaSpec(block_size=16, shapes=((1,),), dtypes=(torch.float32,),
++                  mamba_cache_mode="align", num_speculative_blocks=draft_slots),
++        BlockPool(128, enable_caching=True, hash_block_size=16),
++        enable_caching=True, kv_cache_group_id=0, scheduler_block_size=64,
++    )
++
++
++@pytest.mark.parametrize("draft_slots", [0, 3, 7])
++@pytest.mark.parametrize("chunk", [64, 256])
++def test_async_sparse_cleanup(draft_slots, chunk):
++    manager = make_manager(draft_slots)
++    pool = manager.block_pool
++    rid = "async"
++    endpoints = []
++    for step in range(1, 7):
++        computed = (step - 1) * chunk
++        processed = max(0, computed - chunk)
++        manager.remove_skipped_blocks(rid, processed)
++        before = list(manager.req_to_blocks[rid])
++        limit = max(0, (processed - 1) // 16)
++        assert all(b.is_null for b in before[:limit])
++        for index, block in endpoints:
++            if index >= limit:
++                assert before[index] is block and block.ref_cnt == 1
++            else:
++                assert before[index].is_null
++        manager.get_num_blocks_to_allocate(
++            rid, step * chunk, (), computed, computed, step * chunk)
++        manager.allocate_new_blocks(rid, step * chunk, step * chunk)
++        table = manager.req_to_blocks[rid]
++        index = step * chunk // 16 - 1
++        endpoints = [(i, b) for i, b in endpoints if i >= limit]
++        endpoints.append((index, table[index]))
++        assert all(not b.is_null and b.ref_cnt == 1 for b in table[index:])
++        assert sum(not b.is_null for b in table) <= 3 + draft_slots
++    manager.free(rid)
++    assert pool.get_num_free_blocks() == 127
++    # Reusing an ID after teardown must not inherit its old cleanup cursor.
++    manager.get_num_blocks_to_allocate(rid, chunk, (), 0, 0, chunk)
++    manager.allocate_new_blocks(rid, chunk, chunk)
++    manager.remove_skipped_blocks(rid, chunk + 16)
++    assert all(b.is_null for b in manager.req_to_blocks[rid][:chunk // 16])
++    manager.free(rid)
++    assert pool.get_num_free_blocks() == 127
++
++
++def test_cleanup_does_not_rescan_history_or_advance_past_table():
++    manager = make_manager(3)
++    rid = "bounded"
++    manager.remove_skipped_blocks(rid, 16000)
++    blocks = CountedBlocks([manager.block_pool.null_block] * 1000)
++    old, current = manager.block_pool.get_new_blocks(2)
++    blocks[10], blocks[999] = old, current
++    manager.req_to_blocks[rid] = blocks
++    manager.remove_skipped_blocks(rid, 16000)
++    assert old.ref_cnt == 0
++    assert current.ref_cnt == 1
++    blocks.reads = 0
++    for _ in range(100):
++        manager.remove_skipped_blocks(rid, 16000)
++        manager.remove_skipped_blocks(rid, 15999)
++    assert blocks.reads == 0
++    manager.free(rid)
++    assert manager.block_pool.get_num_free_blocks() == 127
+diff --git a/tests/v1/core/test_single_type_kv_cache_manager.py b/tests/v1/core/test_single_type_kv_cache_manager.py
+index 074a3faf870ded101b4bd4ebb017f1280d4213fc..df8567054d0368951e82ac4e79161d253c1290bf 100644
+--- a/tests/v1/core/test_single_type_kv_cache_manager.py
++++ b/tests/v1/core/test_single_type_kv_cache_manager.py
+@@ -101,6 +101,82 @@ def test_mamba_speculative_block_relocation_requires_exclusive_ownership():
+         manager._relocate_speculative_block([pinned_block], 0)
+ 
+ 
++def test_mamba_retirement_crosses_null_gaps():
++    spec = MambaSpec(
++        block_size=4,
++        shapes=((1, 1),),
++        dtypes=(torch.float32,),
++        mamba_cache_mode="align",
++    )
++    pool = BlockPool(num_gpu_blocks=8, enable_caching=False, hash_block_size=4)
++    manager = MambaManager(
++        spec,
++        block_pool=pool,
++        enable_caching=False,
++        kv_cache_group_id=0,
++        scheduler_block_size=4,
++    )
++    old, committed, in_flight = pool.get_new_blocks(3)
++    manager.req_to_blocks["r"] = [old, pool.null_block, committed, in_flight]
++
++    # The state at token 12 and the following in-flight state must survive.
++    for _ in range(2):
++        manager.remove_skipped_blocks("r", processed_computed_tokens=12)
++        assert manager.req_to_blocks["r"] == [
++            pool.null_block,
++            pool.null_block,
++            committed,
++            in_flight,
++        ]
++        assert old.ref_cnt == 0
++        assert committed.ref_cnt == in_flight.ref_cnt == 1
++        assert pool.get_num_free_blocks() == 5
++
++    manager.free("r")
++    manager.req_to_blocks["r"] = pool.get_new_blocks(2)
++    manager.remove_skipped_blocks("r", processed_computed_tokens=5)
++    assert manager.req_to_blocks["r"][0].is_null
++    assert manager.req_to_blocks["r"][1].ref_cnt == 1
++
++
++@pytest.mark.parametrize("block_size", [3584, 4608])
++@pytest.mark.parametrize("in_flight_chunks", [0, 1, 2])
++def test_mamba_retirement_bounds_prefill_states(block_size, in_flight_chunks):
++    spec = MambaSpec(
++        block_size=block_size,
++        shapes=((1, 1),),
++        dtypes=(torch.float32,),
++        mamba_cache_mode="align",
++        num_speculative_blocks=5,
++    )
++    pool = BlockPool(num_gpu_blocks=1000, enable_caching=True, hash_block_size=256)
++    manager = MambaManager(
++        spec,
++        block_pool=pool,
++        enable_caching=True,
++        kv_cache_group_id=0,
++        scheduler_block_size=block_size,
++    )
++    initial_free = pool.get_num_free_blocks()
++    chunk = 8192 // block_size * block_size
++    peak_held = 0
++    # Replay full prefill chunks with an async committed-token lag.
++    for target in range(chunk, 480031 + 1, chunk):
++        computed = target - chunk
++        committed = max(0, computed - in_flight_chunks * chunk)
++        manager.remove_skipped_blocks("r", committed)
++        manager.get_num_blocks_to_allocate(
++            "r", target + 5, [], computed, computed, target
++        )
++        manager.allocate_new_blocks("r", target + 5, target)
++        peak_held = max(peak_held, initial_free - pool.get_num_free_blocks())
++
++    # Five speculative blocks, current/previous states, and bounded in-flight states.
++    assert peak_held == 7 + in_flight_chunks
++    manager.free("r")
++    assert pool.get_num_free_blocks() == initial_free
++
++
+ def get_sliding_window_manager(
+     sliding_window_spec,
+     block_pool,
+diff --git a/vllm/model_executor/layers/fused_moe/b12x.py b/vllm/model_executor/layers/fused_moe/b12x.py
+index 290cae842330889cd747e2fefb12b05bc99311c5..ec08a5b24d261de53d98b4b4fc52d72c781aafd1 100644
+--- a/vllm/model_executor/layers/fused_moe/b12x.py
++++ b/vllm/model_executor/layers/fused_moe/b12x.py
+@@ -672,18 +672,31 @@ class B12xExperts(mk.FusedMoEExpertsModular):
+                 activation=activation,
+                 apply_router_weight_on_input=apply_router_weight_on_input,
+             )
++            # One buffer set per token count serves both route-id dtypes: the
++            # launches are stream-ordered, so the second reads the same zero
++            # input and overwrites the same output and scratch after the
++            # first completes. The retained set stays one input, one output
++            # and one scratch per regime instead of doubling with the dtypes;
++            # its allocator footprint bounds the KV budget of launches that
++            # retain the warmed allocator high-water.
++            scratch = torch.empty(
++                (_b12x_scratch_nbytes(plan),),
++                dtype=torch.uint8,
++                device=device,
++            )
++            hidden_states = torch.zeros(
++                (tokens, int(prepared.hidden_size)),
++                dtype=dtype,
++                device=device,
++            )
++            output = torch.empty_like(hidden_states)
++            topk_weights = torch.full(
++                (tokens, topk),
++                1.0 / topk,
++                dtype=torch.float32,
++                device=device,
++            )
+             for route_ids_dtype in (torch.int32, torch.int64):
+-                scratch = torch.empty(
+-                    (_b12x_scratch_nbytes(plan),),
+-                    dtype=torch.uint8,
+-                    device=device,
+-                )
+-                hidden_states = torch.zeros(
+-                    (tokens, int(prepared.hidden_size)),
+-                    dtype=dtype,
+-                    device=device,
+-                )
+-                output = torch.empty_like(hidden_states)
+                 topk_ids = (
+                     torch.arange(topk, device=device, dtype=route_ids_dtype)
+                     .unsqueeze(0)
+@@ -691,12 +704,6 @@ class B12xExperts(mk.FusedMoEExpertsModular):
+                     .contiguous()
+                 )
+                 topk_ids.remainder_(int(prepared.num_experts))
+-                topk_weights = torch.full(
+-                    (tokens, topk),
+-                    1.0 / topk,
+-                    dtype=torch.float32,
+-                    device=device,
+-                )
+                 # B12X warmup launches may outlive the Python call that
+                 # submits them. Retain every caller-owned input, output, and
+                 # scratch tensor until device completion so the allocator
+diff --git a/vllm/models/glm5next/nvidia/ops/glm_kpool.py b/vllm/models/glm5next/nvidia/ops/glm_kpool.py
+index ba900613bc964695204a2b59b78669e5a0b5cd37..7161e4db5cf5a35dbf708443cfc08f162b38b524 100644
+--- a/vllm/models/glm5next/nvidia/ops/glm_kpool.py
++++ b/vllm/models/glm5next/nvidia/ops/glm_kpool.py
+@@ -897,7 +897,8 @@ def _expand_pool_ids_kernel(
+     sequence_length = tl.load(positions + row).to(tl.int64) + 1
+     complete_pools = sequence_length // POOL_SIZE
+     tail_start = complete_pools * POOL_SIZE
+-    history = column < HISTORY_TOKENS
++    live_history = tl.minimum(HISTORY_TOKENS, complete_pools * POOL_SIZE)
++    history = column < live_history
+     pool_column = column // POOL_SIZE
+     pool_offset = column % POOL_SIZE
+     pool_id = tl.load(
+@@ -906,7 +907,7 @@ def _expand_pool_ids_kernel(
+         other=-1,
+     ).to(tl.int64)
+     history_value = tl.where(pool_id >= 0, pool_id * POOL_SIZE + pool_offset, -1)
+-    tail_offset = column - HISTORY_TOKENS
++    tail_offset = column - live_history
+     tail_count = sequence_length - tail_start
+     in_tail = (tail_offset >= 0) & (tail_offset < tail_count)
+     tail_value = tl.where(in_tail, tail_start + tail_offset, -1)
+diff --git a/vllm/v1/core/kv_cache_manager.py b/vllm/v1/core/kv_cache_manager.py
+index b6b7a76f5f9b1c6c80b444c1fa654f78f31225c5..79a4f283c6ffcec15210b3359e5c4e858ddc1c00 100644
+--- a/vllm/v1/core/kv_cache_manager.py
++++ b/vllm/v1/core/kv_cache_manager.py
+@@ -2,7 +2,7 @@
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ 
+ import itertools
+-from collections.abc import Sequence
++from collections.abc import Iterable, Sequence
+ from dataclasses import dataclass
+ from typing import Literal, overload
+ 
+@@ -142,6 +142,8 @@ class KVCacheManager:
+         metrics_collector: KVCacheMetricsCollector | None = None,
+         watermark: float = 0.0,
+         enable_boundary_checkpoints: bool = False,
++        max_concurrent_batches: int = 2,
++        num_lookahead_tokens: int = 0,
+     ) -> None:
+         self.max_model_len = max_model_len
+         # When unset, fall back to `max_model_len` so the recycling-aware cap
+@@ -207,6 +209,21 @@ class KVCacheManager:
+         self._boundary_allocations: dict[str, list[KVCacheBlock]] = {}
+         self._boundary_readers: dict[str, BoundaryCheckpoint] = {}
+         self._boundary_imports: set[int] = set()
++        self._boundary_reader_horizons: dict[str, int] = {}
++        assert max_concurrent_batches > 0 and num_lookahead_tokens >= 0
++        self._boundary_restore_max_concurrent_batches = max_concurrent_batches
++        self._boundary_restore_lookahead = max(
++            num_lookahead_tokens,
++            # Include the extra DFlash drafter slot for direct manager callers.
++            max(
++                (
++                    manager.kv_cache_spec.num_speculative_blocks + 1
++                    for manager in self.coordinator.single_type_managers
++                    if isinstance(manager.kv_cache_spec, MambaSpec)
++                ),
++                default=0,
++            ),
++        )
+         if self.boundary_checkpoints is not None:
+             logger.info(
+                 "Request-boundary recurrent checkpoint caching is enabled. "
+@@ -385,6 +402,26 @@ class KVCacheManager:
+         # Per-group lookups do not detect an uncached shared prefix (boundary 0).
+         return blocks, num_local, 0, min(per_group_hits) < num_local
+ 
++    def _pending_boundary_blocks(self, requests: Iterable[Request]) -> set[int]:
++        """Find queued reuse dependencies without acquiring reader pins."""
++        protected: set[int] = set()
++        cache = self.boundary_checkpoints
++        if cache is None:
++            return protected
++        for request in requests:
++            if (
++                request.num_computed_tokens != 0
++                or request.request_id in self._boundary_readers
++                or request.status
++                not in (RequestStatus.WAITING, RequestStatus.PREEMPTED)
++                or not self.prefix_cache_lookup_enabled(request)
++            ):
++                continue
++            checkpoint = cache.find(request, request.num_tokens)
++            if checkpoint is not None:
++                protected.update(checkpoint.dependencies)
++        return protected
++
+     def allocate_slots(
+         self,
+         request: Request,
+@@ -398,6 +435,8 @@ class KVCacheManager:
+         full_sequence_must_fit: bool = False,
+         reserved_blocks: int = 0,
+         has_scheduled_reqs: bool = True,
++        can_defer_boundary_restore: bool = False,
++        pending_boundary_requests: Iterable[Request] = (),
+     ) -> KVCacheBlocks | None:
+         """Add slots for a request with new tokens to append.
+ 
+@@ -431,6 +470,12 @@ class KVCacheManager:
+             has_scheduled_reqs: Whether any requests are already scheduled to run
+                 this step, controls whether watermark is applied.
+ 
++            can_defer_boundary_restore: Whether scheduled work or eligible
++                decode can progress while a local boundary restore waits.
++            pending_boundary_requests: Bounded queued requests whose cached
++                prefixes should survive admission. Unrelated old checkpoints
++                remain eligible for normal eviction.
++
+         Blocks layout:
+         ```
+         ----------------------------------------------------------------------
+@@ -600,6 +645,77 @@ class KVCacheManager:
+             # Cannot allocate new blocks
+             return None
+ 
++        checkpoint = request.boundary_checkpoint
++        lookahead = max(self._boundary_restore_lookahead, num_lookahead_tokens)
++        # Outstanding batches can hold optimistic spec tokens at the output
++        # limit. The drafter also writes beyond the target query range.
++        boundary_horizon = min(
++            self.max_model_len,
++            request.num_prompt_tokens
++            + request.max_tokens
++            + self._boundary_restore_max_concurrent_batches * (lookahead + 1)
++            + lookahead,
++        )
++        if (
++            checkpoint is not None
++            and 0 < checkpoint.num_tokens <= request.num_tokens
++            and request.num_computed_tokens == 0
++            and request.request_id not in self._boundary_readers
++            and self._boundary_readers
++            and can_defer_boundary_restore
++            and num_new_computed_tokens == checkpoint.num_tokens
++            and new_computed_blocks is not None
++            and num_external_computed_tokens == 0
++            and (
++                protected_blocks := self._pending_boundary_blocks(
++                    pending_boundary_requests
++                )
++            )
++        ):
++            # Existing warm readers can finish while this restore waits.
++            # Predict FIFO after acquiring the incoming reader's dependencies.
++            dependencies = checkpoint.dependencies
++            free_hits = sum(
++                self.block_pool.blocks[i].ref_cnt == 0 for i in dependencies
++            )
++            new_ids = num_blocks_to_allocate + boundary_blocks - free_hits
++            assert new_ids >= 0
++            for manager in self.coordinator.single_type_managers:
++                spec = manager.kv_cache_spec
++                for rid in (*self._boundary_readers, request.request_id):
++                    blocks = manager.req_to_blocks.get(rid, ())
++                    if isinstance(spec, MambaSpec):
++                        target = spec.num_speculative_blocks + 3
++                        # Initial allocation already pays for cached-source
++                        # CoW and checkpoint states. Budget growth conservatively.
++                        live = (
++                            spec.num_speculative_blocks + 1
++                            if rid == request.request_id
++                            else sum(not block.is_null for block in blocks)
++                        )
++                    else:
++                        horizon = (
++                            boundary_horizon
++                            if rid == request.request_id
++                            else self._boundary_reader_horizons[rid]
++                        )
++                        target = cdiv(horizon, manager.block_size)
++                        live = (
++                            cdiv(num_tokens_need_slot, manager.block_size)
++                            if rid == request.request_id
++                            else len(blocks)
++                        )
++                    new_ids += max(0, target - live)
++            assert self.boundary_checkpoints is not None
++            for block in self.block_pool.free_block_queue.iter_blocks_after(None):
++                if new_ids == 0:
++                    break
++                if block.block_id in dependencies:
++                    continue
++                if block.block_id in protected_blocks:
++                    return None
++                new_ids -= 1
++
+         if (
+             request.boundary_checkpoint is not None
+             and request.request_id not in self._boundary_readers
+@@ -612,6 +728,7 @@ class KVCacheManager:
+                 request.boundary_checkpoint = None
+                 return None
+             self._boundary_readers[request.request_id] = checkpoint
++            self._boundary_reader_horizons[request.request_id] = boundary_horizon
+ 
+         if (
+             new_computed_block_list is not self.empty_kv_cache_blocks.blocks
+@@ -683,6 +800,7 @@ class KVCacheManager:
+     def _pop_boundary_blocks(self, request: Request) -> list[KVCacheBlock]:
+         blocks = self._boundary_allocations.pop(request.request_id, [])
+         reader = self._boundary_readers.pop(request.request_id, None)
++        self._boundary_reader_horizons.pop(request.request_id, None)
+         if reader is not None:
+             blocks.extend(self.block_pool.blocks[i] for i in reader.dependencies)
+         request.boundary_checkpoint = None
+diff --git a/vllm/v1/core/sched/scheduler.py b/vllm/v1/core/sched/scheduler.py
+index 6b6347b824fcd735a405e3e1c6228e5227ed080d..3c113fe73e76f1dfdfb2584dbf9a2f6281ed2b23 100644
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -362,6 +362,8 @@ class Scheduler(SchedulerInterface):
+             metrics_collector=self.kv_metrics_collector,
+             watermark=self.scheduler_config.watermark,
+             enable_boundary_checkpoints=vllm_config.use_request_boundary_checkpoints,
++            max_concurrent_batches=vllm_config.max_concurrent_batches,
++            num_lookahead_tokens=self.num_lookahead_tokens,
+         )
+         # Bind GPU block pool to the KV connector. This must happen after
+         # kv_cache_manager is constructed so block_pool is available.
+@@ -1602,6 +1604,37 @@ class Scheduler(SchedulerInterface):
+                     full_sequence_must_fit=self.scheduler_reserve_full_isl,
+                     reserved_blocks=reserved_blocks,
+                     has_scheduled_reqs=bool(self.running),
++                    pending_boundary_requests=itertools.islice(
++                        itertools.chain(self.skipped_waiting, self.waiting),
++                        self.max_num_running_reqs,
++                    ),
++                    can_defer_boundary_restore=(
++                        request.boundary_checkpoint is not None
++                        and not load_kv_async
++                        and num_external_computed_tokens == 0
++                        # External imports need separate admission accounting.
++                        and self.connector is None
++                        and self.parallel_config.decode_context_parallel_size == 1
++                        and not self.use_pp
++                        and self.vllm_config.max_concurrent_batches <= 2
++                        and all(
++                            not isinstance(manager.kv_cache_spec, MambaSpec)
++                            or (
++                                manager.kv_cache_spec.mamba_cache_mode == "align"
++                                and manager.kv_cache_spec.num_prefill_checkpoint_blocks
++                                <= 1
++                                and 2 * (self.num_spec_tokens + 1) <= manager.block_size
++                            )
++                            for manager in (
++                                self.kv_cache_manager.coordinator.single_type_managers
++                            )
++                        )
++                        and any(
++                            self._request_is_runnable_decode(r)
++                            or r.request_id in num_scheduled_tokens
++                            for r in self.running
++                        )
++                    ),
+                 )
+ 
+                 if new_blocks is None:
+diff --git a/vllm/v1/core/single_type_kv_cache_manager.py b/vllm/v1/core/single_type_kv_cache_manager.py
+index d2352e8d6582c7ba1069b427e2fea6d2ee510661..728a4d5bf66fb5db52be079bc3349b8275e729c9 100644
+--- a/vllm/v1/core/single_type_kv_cache_manager.py
++++ b/vllm/v1/core/single_type_kv_cache_manager.py
+@@ -1712,6 +1712,7 @@ class MambaManager(SingleTypeKVCacheManager):
+             # Mapping from request ID to the index of the block
+             # allocated in the previous step
+             self.last_state_block_idx: dict[str, int] = {}
++            self._num_retired_blocks: dict[str, int] = {}
+             # The set of the requests that have been allocated blocks
+             self._allocated_block_reqs: set[str] = set()
+             # Number of internal checkpoint blocks required by each request's
+@@ -1866,6 +1867,27 @@ class MambaManager(SingleTypeKVCacheManager):
+ 
+         return mask
+ 
++    def _remove_blocks_in_range(
++        self, request_id: str, first_block: int, last_block: int
++    ) -> None:
++        if self.mamba_cache_mode != "align":
++            return super()._remove_blocks_in_range(request_id, first_block, last_block)
++        blocks = self.req_to_blocks.get(request_id, [])
++        first_block = max(first_block, self._num_retired_blocks.get(request_id, 0))
++        last_block = min(last_block, len(blocks))
++        if first_block >= last_block:
++            return
++        freed: list[KVCacheBlock] = []
++        # Mamba prefill leaves null gaps between states awaiting retirement.
++        for i in range(last_block - 1, first_block - 1, -1):
++            if blocks[i].is_null:
++                continue
++            freed.append(blocks[i])
++            blocks[i] = self._null_block
++        if freed:
++            self.block_pool.free_blocks(freed)
++        self._num_retired_blocks[request_id] = last_block
++
+     def remove_skipped_blocks(
+         self,
+         request_id: str,
+@@ -2170,6 +2192,7 @@ class MambaManager(SingleTypeKVCacheManager):
+         if self.mamba_cache_mode == "align":
+             self._allocated_block_reqs.discard(request_id)
+             self.last_state_block_idx.pop(request_id, None)
++            self._num_retired_blocks.pop(request_id, None)
+             self._num_checkpoint_blocks.pop(request_id, None)
+             self._packed_prefill_checkpoint_reqs.discard(request_id)
+             self._producer_partial_tail_reqs.pop(request_id, None)

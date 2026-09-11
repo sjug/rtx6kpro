@@ -1,0 +1,1377 @@
+diff --git a/lmcache/integration/vllm/checkpoint_copy.py b/lmcache/integration/vllm/checkpoint_copy.py
+index c665b257361412643a16d5999601c87fe38f04c5..72b4bc895a3ae89af0bbedd97a05a1cc899a394b 100644
+--- a/lmcache/integration/vllm/checkpoint_copy.py
++++ b/lmcache/integration/vllm/checkpoint_copy.py
+@@ -114,6 +114,10 @@ class CheckpointPageCopier:
+             lease,
+             tuple(tuple(group.page_bytes for _ in group.positions) for group in groups),
+         )
++        if job.direction == "RETRIEVE" and any(
++            page is None for group in buffers for page in group
++        ):
++            raise ValueError("Checkpoint retrieval cannot omit payload pages")
+         # One enqueue burst per lease prevents interleaving producer waits with
+         # another task's copies on the shared stream. No model-thread barrier.
+         with (
+@@ -126,6 +130,8 @@ class CheckpointPageCopier:
+                     self._stream.wait_event(job.producer_event)
+                 for ids, pages in zip(job.block_ids, buffers, strict=True):
+                     for block, page in zip(ids, pages, strict=True):
++                        if page is None:
++                            continue
+                         if job.direction == "STORE":
+                             page.copy_(self._pool[block], non_blocking=True)
+                         else:
+diff --git a/lmcache/integration/vllm/checkpoint_scheduler.py b/lmcache/integration/vllm/checkpoint_scheduler.py
+index a0909aab2bc722541c6bfe22ba1d0ecac3979c1d..9223b079876f3ba73bb51ecd12072c4f19ad3101 100644
+--- a/lmcache/integration/vllm/checkpoint_scheduler.py
++++ b/lmcache/integration/vllm/checkpoint_scheduler.py
+@@ -11,6 +11,7 @@ import uuid
+ from lmcache.logging import init_logger
+ from lmcache.v1.multiprocess.checkpoint_identity import (
+     CheckpointTokenRoots,
++    checkpoint_generation,
+     checkpoint_namespace,
+ )
+ from lmcache.v1.multiprocess.checkpoint_index import CheckpointManifest
+@@ -225,15 +226,24 @@ class CheckpointSchedulerBridge:
+         if pinned is None:
+             return
+         try:
++            roots = self._roots(request)
+             positions = self._manager.boundary_checkpoint_page_positions(
+                 checkpoint.num_tokens
+             )
++            content_keys, auxiliary_key = self._page_content_keys(
++                roots,
++                checkpoint.num_tokens,
++                positions,
++                checkpoint.draft_prefix_len,
++                checkpoint.kind,
++            )
+             page_bytes = self._layout["page_bytes"]
+             groups = [
+                 {
+                     "name": f"engine-kv-group:{i}",
+                     "page_bytes": page_bytes,
+                     "positions": list(pages),
++                    "content_keys": list(content_keys[i]),
+                 }
+                 for i, pages in enumerate(positions)
+             ]
+@@ -242,23 +252,26 @@ class CheckpointSchedulerBridge:
+                     "name": "target-draft-auxiliary",
+                     "page_bytes": page_bytes,
+                     "positions": [0],
++                    "content_keys": [auxiliary_key],
+                 }
+             )
++            prefix = roots.prefix(checkpoint.num_tokens)
++            payload = json.dumps(
++                {
++                    "schema_version": 2,
++                    "worker_layout": self._layout,
++                    "page_groups": groups,
++                    "draft_prefix_len": checkpoint.draft_prefix_len,
++                    "kind": checkpoint.kind,
++                },
++                sort_keys=True,
++                separators=(",", ":"),
++            ).encode()
+             manifest = CheckpointManifest(
+-                uuid.uuid4().hex,
+-                self._roots(request).prefix(checkpoint.num_tokens),
++                checkpoint_generation(prefix, payload),
++                prefix,
+                 self._world_size,
+-                json.dumps(
+-                    {
+-                        "schema_version": 1,
+-                        "worker_layout": self._layout,
+-                        "page_groups": groups,
+-                        "draft_prefix_len": checkpoint.draft_prefix_len,
+-                        "kind": checkpoint.kind,
+-                    },
+-                    sort_keys=True,
+-                    separators=(",", ":"),
+-                ).encode(),
++                payload,
+             )
+             task = self._make_task(manifest, checkpoint, "STORE")
+             self._tasks[task.task_id] = _PendingTask(
+@@ -273,6 +286,51 @@ class CheckpointSchedulerBridge:
+             self._cache.release(pinned)
+             raise
+ 
++    def _page_content_keys(
++        self,
++        roots: CheckpointTokenRoots,
++        num_tokens: int,
++        positions: tuple[tuple[int, ...], ...],
++        draft_prefix_len: int,
++        kind: str,
++    ) -> tuple[tuple[tuple[str, ...], ...], str]:
++        """Authenticate reusable attention pages and unique recurrent endpoints."""
++        # Import against the source-locked vLLM boundary allocator only when
++        # semantic checkpoint storage is active.
++        # Third Party
++        from vllm.v1.kv_cache_interface import MambaSpec, iter_layer_specs
++
++        managers = self._manager.coordinator.single_type_managers
++        specs = self._manager.kv_cache_config.kv_cache_groups
++        if len(managers) != len(positions) or len(specs) != len(positions):
++            raise ValueError("Checkpoint cache-group geometry changed during store")
++        boundaries: list[tuple[int, str]] = []
++        widths = []
++        for group_id, (manager, spec, pages) in enumerate(
++            zip(managers, specs, positions, strict=True)
++        ):
++            recurrent = all(
++                isinstance(layer_spec, MambaSpec)
++                for layer_spec in iter_layer_specs(spec.kv_cache_spec)
++            )
++            widths.append(len(pages))
++            for position in pages:
++                page_end = (
++                    num_tokens
++                    if recurrent
++                    else min((position + 1) * manager.block_size, num_tokens)
++                )
++                boundaries.append(
++                    (
++                        page_end,
++                        f"{'recurrent' if recurrent else 'attention'}:{group_id}",
++                    )
++                )
++        boundaries.append((num_tokens, f"auxiliary:{draft_prefix_len}:{kind}"))
++        flat_keys = iter(roots.content_keys(boundaries))
++        keys = tuple(tuple(next(flat_keys) for _ in range(width)) for width in widths)
++        return keys, next(flat_keys)
++
+     def take_tasks(self) -> list[CheckpointEngineTask]:
+         """Return each admitted collective copy exactly once, without waiting on RPC."""
+         tasks = []
+diff --git a/lmcache/v1/distributed/admission.py b/lmcache/v1/distributed/admission.py
+index 48666d5de3f3358e07c64140f1e0c3598182b987..4638f37f0ccd332aa0a01f37ae076aec7df99751 100644
+--- a/lmcache/v1/distributed/admission.py
++++ b/lmcache/v1/distributed/admission.py
+@@ -18,6 +18,7 @@ class AdmissionFailure(str, Enum):
+     """Stable failure reasons returned by grouped store admission."""
+ 
+     CAPACITY = "capacity"
++    BUSY = "busy"
+     CONFLICT = "conflict"
+     INVALID_LAYOUT = "invalid_layout"
+     TIMEOUT = "capacity_timeout"
+@@ -76,7 +77,8 @@ def reserve_with_eviction_backpressure(
+     """Retry capacity failures until eviction, shutdown, or a deadline.
+ 
+     ``attempt`` must abort every partial reservation before returning failure.
+-    Conflict and layout failures return immediately without requesting eviction.
++    Conflict, busy-writer and layout failures return immediately without
++    requesting eviction.
+ 
+     Args:
+         attempt: Atomic reservation attempt.
+diff --git a/lmcache/v1/distributed/config.py b/lmcache/v1/distributed/config.py
+index 2c085b839563bd7a6b6277f6a03817ae09b51888..2b077e82835cba8680fb1a505ac3784412c06b5a 100644
+--- a/lmcache/v1/distributed/config.py
++++ b/lmcache/v1/distributed/config.py
+@@ -295,7 +295,8 @@ class EvictionConfig:
+ 
+     emergency_evict_for_prefetch: bool = field(default=False)
+     """ Allow non-warm L2 prefetches to synchronously make room in L1 by
+-    evicting LRU objects through the fail-closed writeback path. """
++    evicting eligible LRU objects. Write-through discards unlocked RAM copies;
++    writeback persists each eviction batch before releasing it. """
+ 
+ 
+ @dataclass
+@@ -374,12 +375,6 @@ def validate_storage_manager_config(config: StorageManagerConfig) -> None:
+     """
+     if config.eviction_config.periodic_flush_interval < 0:
+         raise ValueError("periodic_flush_interval must be >= 0")
+-    if (
+-        config.eviction_config.emergency_evict_for_prefetch
+-        and not config.eviction_config.write_back_on_evict
+-    ):
+-        raise ValueError("emergency_evict_for_prefetch requires write_back_on_evict")
+-
+     if (
+         config.l1_manager_config.gds_l1_config is not None
+         and config.l1_manager_config.memory_config.devdax_path
+@@ -582,7 +577,7 @@ def add_storage_manager_args(
+         "--emergency-evict-for-prefetch",
+         action="store_true",
+         help="Allow non-warm L2 prefetches to make room in L1 by evicting "
+-        "LRU objects through --write-back-on-evict.",
++        "eligible LRU objects. With --write-back-on-evict, persist victims first.",
+     )
+     eviction_group.add_argument(
+         "--store-admission-timeout-seconds",
+diff --git a/lmcache/v1/distributed/storage_controllers/eviction_controller.py b/lmcache/v1/distributed/storage_controllers/eviction_controller.py
+index 1b144c22736130667905d0f815c252aeaefb75bb..2389e04912e83ad09300755933d19f547d066dee 100644
+--- a/lmcache/v1/distributed/storage_controllers/eviction_controller.py
++++ b/lmcache/v1/distributed/storage_controllers/eviction_controller.py
+@@ -422,11 +422,12 @@ class L1EvictionController(EvictionController):
+         requester: str = "",
+         cache_salt: str | None = None,
+     ) -> int:
+-        """Synchronously make room in L1 through bounded durable eviction.
++        """Synchronously make room in L1 through bounded, ownership-safe eviction.
+ 
+         The normal LRU policy chooses victims. A hard deadline bounds lock
+         acquisition and L2 persistence, and deadline exhaustion does not count
+         as a backend failure for the normal writeback circuit breaker.
++        Write-through uses ordinary discard eviction without issuing L2 writes.
+         """
+         deadline = time.monotonic() + self._EMERGENCY_FLUSH_TIMEOUT_SECONDS
+         if not self._emergency_evict_lock.acquire(
+@@ -440,9 +441,8 @@ class L1EvictionController(EvictionController):
+             free = max(0, total - used)
+             if free >= target_free_bytes:
+                 return free
+-            if (
+-                not self._write_back_enabled
+-                or not self.has_bounded_l2_flush_adapter()
++            if self._write_back_enabled and (
++                not self.has_bounded_l2_flush_adapter()
+                 or time.monotonic() < self._sync_flush_backoff_until
+             ):
+                 return free
+@@ -483,7 +483,11 @@ class L1EvictionController(EvictionController):
+                     )
+                 actions = self._eviction_policy.get_eviction_actions(
+                     min(1.0, need_keys / max(1, tracked)),
+-                    key_eligible_filter=self._is_writeback_evictable,
++                    key_eligible_filter=(
++                        self._is_writeback_evictable
++                        if self._write_back_enabled
++                        else self._l1_manager.is_key_evictable
++                    ),
+                     cache_salt=cache_salt,
+                 )
+                 if not actions:
+@@ -491,7 +495,10 @@ class L1EvictionController(EvictionController):
+ 
+                 free_before_pass = free
+                 for action in actions:
+-                    if action.destination == EvictionDestination.L2_CACHE:
++                    if (
++                        self._write_back_enabled
++                        and action.destination == EvictionDestination.L2_CACHE
++                    ):
+                         outcome = self._flush_to_l2_then_delete(
+                             action.keys,
+                             deadline=deadline,
+diff --git a/lmcache/v1/distributed/storage_manager.py b/lmcache/v1/distributed/storage_manager.py
+index 4f93820f136112f481f6d50252cbe46e60ee1743..45933f97c9425f442c5586c27f95d2b015959d70 100644
+--- a/lmcache/v1/distributed/storage_manager.py
++++ b/lmcache/v1/distributed/storage_manager.py
+@@ -212,8 +212,10 @@ class StorageManager:
+                 "periodic_flush_interval is enabled but no L2 adapter exposes "
+                 "a timeout-capable store_objects_sync; periodic backup is idle"
+             )
+-        if self._eviction_config.emergency_evict_for_prefetch and not (
+-            self._eviction_controller.has_bounded_l2_flush_adapter()
++        if (
++            self._eviction_config.emergency_evict_for_prefetch
++            and self._eviction_config.write_back_on_evict
++            and not self._eviction_controller.has_bounded_l2_flush_adapter()
+         ):
+             logger.warning(
+                 "emergency_evict_for_prefetch is enabled but no L2 adapter "
+@@ -1313,6 +1315,7 @@ class StorageManager:
+         if not (
+             self._eviction_config.write_back_on_evict
+             or self._eviction_config.periodic_flush_interval > 0
++            or self._eviction_config.emergency_evict_for_prefetch
+         ):
+             return
+         with self._adapters_lock:
+@@ -1321,7 +1324,8 @@ class StorageManager:
+         if self._eviction_config.emergency_evict_for_prefetch:
+             self._prefetch_controller.set_l1_eviction_controller(
+                 self._eviction_controller
+-                if self._eviction_controller.has_bounded_l2_flush_adapter()
++                if not self._eviction_config.write_back_on_evict
++                or self._eviction_controller.has_bounded_l2_flush_adapter()
+                 else None
+             )
+ 
+diff --git a/lmcache/v1/multiprocess/checkpoint_identity.py b/lmcache/v1/multiprocess/checkpoint_identity.py
+index 1a59c50329ece1131658baa54bf48742ab3236b7..fc30b33cd803ddea67270fcb4ea99d09058297c7 100644
+--- a/lmcache/v1/multiprocess/checkpoint_identity.py
++++ b/lmcache/v1/multiprocess/checkpoint_identity.py
+@@ -13,6 +13,58 @@ import sys
+ from lmcache.v1.multiprocess.checkpoint_index import CheckpointPrefix
+ 
+ 
++def _content_digest(prefix: CheckpointPrefix, discriminator: bytes) -> str:
++    encoded = json.dumps(
++        {
++            "namespace": prefix.namespace,
++            "start_tokens": prefix.start_tokens,
++            "prefix_hash": prefix.prefix_hash.hex(),
++            "tail_tokens": prefix.tail_tokens,
++        },
++        sort_keys=True,
++        separators=(",", ":"),
++        allow_nan=False,
++    ).encode()
++    return hashlib.sha256(
++        b"lmcache-recurrent-content-v1\0" + discriminator + b"\0" + encoded
++    ).hexdigest()
++
++
++def checkpoint_page_content_key(prefix: CheckpointPrefix, discriminator: str) -> str:
++    """Return a stable SHA256 key for one semantically immutable cache page.
++
++    ``prefix`` must end at the last token represented by the page. The caller's
++    discriminator separates attention pages from endpoint and auxiliary state;
++    rank and storage-group isolation are added by the storage layer.
++    """
++    return _content_digest(prefix, discriminator.encode())
++
++
++def checkpoint_generation(prefix: CheckpointPrefix, payload: bytes) -> str:
++    """Return an idempotent generation ID for one exact immutable manifest.
++
++    Args:
++        prefix: Authenticated exact token-prefix identity.
++        payload: Canonical manifest payload describing the byte layout.
++
++    Returns:
++        A stable versioned SHA256 identifier no longer than the wire limit.
++
++    Generation identity is metadata-only and intentionally excludes transient
++    request IDs, GPU block addresses, and storage capacity. Publishing the same
++    token prefix and byte layout again can therefore stop before reserving SHM
++    or copying GPU pages, including after a durable-index restart.
++    """
++    prefix_digest = _content_digest(prefix, "manifest".encode())
++    digest = hashlib.sha256(
++        b"lmcache-recurrent-generation-v1\0"
++        + bytes.fromhex(prefix_digest)
++        + b"\0"
++        + payload
++    ).hexdigest()
++    return f"recurrent-content-v1:{digest}"
++
++
+ def checkpoint_namespace(identity: dict[str, object], cache_salt: str) -> str:
+     """Authenticate the execution contract and a request's cache isolation salt.
+ 
+@@ -64,6 +116,7 @@ class CheckpointTokenRoots:
+     namespace: str
+     roots: tuple[CheckpointPrefix, ...]
+     chunk_tokens: int
++    end_hashes: tuple[bytes, ...]
+ 
+     @classmethod
+     def build(
+@@ -88,6 +141,7 @@ class CheckpointTokenRoots:
+             b"lmcache-recurrent-token-roots-v1\0" + chunk_tokens.to_bytes(4, "little")
+         ).digest()
+         roots = []
++        end_hashes = []
+         for start in range(0, len(token_ids), chunk_tokens):
+             tail = tuple(token_ids[start : start + chunk_tokens])
+             root = CheckpointPrefix(namespace, start, chain, tail)
+@@ -98,7 +152,8 @@ class CheckpointTokenRoots:
+             if sys.byteorder != "little":
+                 packed.byteswap()
+             chain = hashlib.sha256(chain + packed.tobytes()).digest()
+-        return cls(namespace, tuple(roots), chunk_tokens)
++            end_hashes.append(chain)
++        return cls(namespace, tuple(roots), chunk_tokens, tuple(end_hashes))
+ 
+     def prefix(self, num_tokens: int) -> CheckpointPrefix:
+         """Return the exact stored key for a nonempty covered token prefix.
+@@ -121,3 +176,47 @@ class CheckpointTokenRoots:
+             root.prefix_hash,
+             root.tail_tokens[: num_tokens - root.start_tokens],
+         )
++
++    def content_key(self, num_tokens: int, discriminator: str) -> str:
++        """Hash an exact token boundary without serializing preceding pages.
++
++        Full hash chunks reuse the chain digest produced by :meth:`build`.
++        Only a final partial chunk is packed once per call, keeping page-key
++        generation linear with a small constant even for long prompts.
++        """
++        return self.content_keys(((num_tokens, discriminator),))[0]
++
++    def content_keys(self, boundaries: Sequence[tuple[int, str]]) -> tuple[str, ...]:
++        """Hash several page identities, reusing each token-boundary digest."""
++        digests: dict[int, bytes] = {}
++        keys = []
++        for num_tokens, discriminator in boundaries:
++            token_digest = digests.get(num_tokens)
++            if token_digest is None:
++                token_digest = self._token_digest(num_tokens)
++                digests[num_tokens] = token_digest
++            encoded = json.dumps(
++                [self.namespace, num_tokens, discriminator],
++                separators=(",", ":"),
++                ensure_ascii=False,
++            ).encode()
++            keys.append(
++                hashlib.sha256(
++                    b"lmcache-recurrent-page-v1\0" + token_digest + b"\0" + encoded
++                ).hexdigest()
++            )
++        return tuple(keys)
++
++    def _token_digest(self, num_tokens: int) -> bytes:
++        if num_tokens <= 0 or not self.roots or num_tokens > self.roots[-1].num_tokens:
++            raise ValueError("Checkpoint boundary is outside the token sequence")
++        root_index = (num_tokens - 1) // self.chunk_tokens
++        if num_tokens == self.roots[root_index].num_tokens:
++            return self.end_hashes[root_index]
++        prefix = self.prefix(num_tokens)
++        packed = array("I", prefix.tail_tokens)
++        if packed.itemsize != 4:
++            raise ValueError("Checkpoint tokens require 32-bit unsigned integers")
++        if sys.byteorder != "little":
++            packed.byteswap()
++        return hashlib.sha256(prefix.prefix_hash + packed.tobytes()).digest()
+diff --git a/lmcache/v1/multiprocess/checkpoint_index.py b/lmcache/v1/multiprocess/checkpoint_index.py
+index 242e84fe0ab53778ccd65ed9c1614290f95ab789..0ccc0eda941faf3fa69f867902da446422161dd5 100644
+--- a/lmcache/v1/multiprocess/checkpoint_index.py
++++ b/lmcache/v1/multiprocess/checkpoint_index.py
+@@ -55,10 +55,11 @@ class CheckpointPrefix:
+ class CheckpointManifest:
+     """One all-rank payload generation for an exact token prefix.
+ 
+-    ``generation`` is a caller-generated, globally unique identifier shared by
+-    all producer ranks. ``payload`` is versioned JSON describing immutable
+-    storage object keys and layouts; consumers validate its schema separately.
+-    The directory never merges manifests or payloads from different generations.
++    ``generation`` is an immutable identifier shared by all producer ranks; it
++    may be content-derived to make exact publication idempotent. ``payload`` is
++    versioned JSON describing immutable storage object keys and layouts;
++    consumers validate its schema separately. The directory never merges
++    manifests or payloads from different generations.
+     """
+ 
+     generation: str
+@@ -74,7 +75,7 @@ class CheckpointManifest:
+         if not self.payload or len(self.payload) > 16 * 1024 * 1024:
+             raise ValueError("checkpoint manifest must contain at most 16 MiB")
+         decoded = json.loads(self.payload)
+-        if not isinstance(decoded, dict) or decoded.get("schema_version") != 1:
++        if not isinstance(decoded, dict) or decoded.get("schema_version") not in (1, 2):
+             raise ValueError("unsupported checkpoint manifest schema")
+ 
+ 
+@@ -150,8 +151,10 @@ class CheckpointIndex:
+             manifest: Immutable generation and expected rank count.
+ 
+         Returns:
+-            False if the unpublished-generation capacity is exhausted; True on
+-            admission or an identical pending registration.
++            False if the unpublished-generation capacity is exhausted or the
++            identical manifest is already pending/published; True only when a
++            new generation is admitted. Duplicate suppression happens before
++            any SHM reservation or GPU copy.
+ 
+         Raises:
+             ValueError: If the generation is reused for a different manifest or
+@@ -162,12 +165,25 @@ class CheckpointIndex:
+             if pending is not None:
+                 if pending.manifest != manifest:
+                     raise ValueError("checkpoint generation changed during store")
+-                return True
+-            if self._db.execute(
+-                "SELECT 1 FROM checkpoints WHERE generation=?",
++                return False
++            published = self._db.execute(
++                "SELECT namespace,start_tokens,prefix_hash,tail,world_size,payload "
++                "FROM checkpoints WHERE generation=?",
+                 (manifest.generation,),
+-            ).fetchone():
+-                raise ValueError("checkpoint generation is already published")
++            ).fetchone()
++            if published is not None:
++                prefix = manifest.prefix
++                expected = (
++                    prefix.namespace,
++                    prefix.start_tokens,
++                    prefix.prefix_hash,
++                    json.dumps(prefix.tail_tokens).encode(),
++                    manifest.world_size,
++                    manifest.payload,
++                )
++                if published != expected:
++                    raise ValueError("checkpoint generation changed after publication")
++                return False
+             if len(self._pending) >= self._max_pending:
+                 return False
+             self._pending[manifest.generation] = _PendingManifest(manifest)
+diff --git a/lmcache/v1/multiprocess/checkpoint_storage.py b/lmcache/v1/multiprocess/checkpoint_storage.py
+index f99965fa1430f45075430ccb8b8dfe254dc79c38..113713759465a2faf8abdbacffa2d689a7712681 100644
+--- a/lmcache/v1/multiprocess/checkpoint_storage.py
++++ b/lmcache/v1/multiprocess/checkpoint_storage.py
+@@ -52,6 +52,7 @@ class CheckpointPageGroup:
+     name: str
+     page_bytes: int
+     positions: tuple[int, ...]
++    content_keys: tuple[str, ...] = ()
+ 
+     def __post_init__(self) -> None:
+         if not self.name or len(self.name) > 256:
+@@ -67,6 +68,17 @@ class CheckpointPageGroup:
+             raise ValueError(
+                 "checkpoint page positions must be nonempty and increasing"
+             )
++        if self.content_keys and (
++            len(self.content_keys) != len(self.positions)
++            or any(
++                len(key) != 64
++                or any(character not in "0123456789abcdef" for character in key)
++                for key in self.content_keys
++            )
++        ):
++            raise ValueError(
++                "checkpoint content keys must be one lowercase SHA256 per page"
++            )
+ 
+ 
+ def checkpoint_page_groups(
+@@ -90,7 +102,12 @@ def checkpoint_page_groups(
+         raise ValueError("checkpoint manifest requires 1..4096 storage groups")
+     try:
+         groups = tuple(
+-            CheckpointPageGroup(row["name"], row["page_bytes"], tuple(row["positions"]))
++            CheckpointPageGroup(
++                row["name"],
++                row["page_bytes"],
++                tuple(row["positions"]),
++                tuple(row.get("content_keys", ())),
++            )
+             for row in rows
+         )
+     except (KeyError, TypeError) as exc:
+@@ -110,16 +127,18 @@ def checkpoint_object_keys(
+         rank: Physical tensor-parallel worker rank in the manifest's world.
+ 
+     Returns:
+-        Per-group keys ordered by logical page position. Each key includes the
+-        generation, rank, storage role and namespace; generations cannot mix.
+-        Rank/storage pairs have separate eviction namespaces because their
+-        logical positions are not aligned distributed token-chunk families.
+-        The manifest and complete-payload retrieval enforce generation atomicity.
++        Per-group keys ordered by logical page position. Schema-1 keys include
++        the generation; schema-2 keys include authenticated page content. Both
++        include rank, storage role and namespace. Rank/storage pairs have
++        separate eviction namespaces because their logical positions are not
++        aligned distributed token-chunk families. The manifest and complete-
++        payload retrieval enforce generation atomicity.
+ 
+     Compatibility:
+-        Version-2 payload keys intentionally miss version-1 filesystem objects.
+-        Missing payloads invalidate their manifest and require recomputation;
+-        neither mixed generations nor partially restored state are returned.
++        Schema-1 manifests retain generation-scoped v2 object keys. Schema-2
++        manifests use content-addressed v3 keys and intentionally miss the old
++        filesystem objects. Missing payloads invalidate their manifest and
++        require recomputation; generations never return partial state.
+ 
+     Raises:
+         ValueError: If rank or the manifest's byte layout is invalid.
+@@ -127,6 +146,9 @@ def checkpoint_object_keys(
+     if not 0 <= rank < manifest.world_size:
+         raise ValueError("checkpoint payload rank is out of range")
+     groups = checkpoint_page_groups(manifest)
++    payload_version = json.loads(manifest.payload).get("schema_version")
++    if payload_version == 2 and any(not group.content_keys for group in groups):
++        raise ValueError("version-2 checkpoint groups require content keys")
+     namespaces = tuple(
+         hashlib.sha256(
+             json.dumps([manifest.prefix.namespace, rank, group_id, group.name]).encode()
+@@ -136,14 +158,19 @@ def checkpoint_object_keys(
+     return tuple(
+         tuple(
+             ObjectKey(
+-                hashlib.sha256(
+-                    json.dumps([manifest.generation, group.name, position]).encode()
+-                ).digest(),
+-                f"recurrent-checkpoint-v2-{namespaces[group_id]}",
++                (
++                    bytes.fromhex(group.content_keys[page_id])
++                    if group.content_keys
++                    else hashlib.sha256(
++                        json.dumps([manifest.generation, group.name, position]).encode()
++                    ).digest()
++                ),
++                f"recurrent-checkpoint-v{3 if group.content_keys else 2}-"
++                f"{namespaces[group_id]}",
+                 rank,
+                 group_id,
+             )
+-            for position in group.positions
++            for page_id, position in enumerate(group.positions)
+         )
+         for group_id, group in enumerate(groups)
+     )
+@@ -169,7 +196,7 @@ class CheckpointSlots:
+     """Pinned SHM descriptors grouped in the manifest's storage/page order."""
+ 
+     lease_id: str
+-    groups: tuple[tuple[ShmSlotDescriptor, ...], ...]
++    groups: tuple[tuple[ShmSlotDescriptor | None, ...], ...]
+ 
+ 
+ @dataclass
+@@ -223,7 +250,7 @@ class CheckpointPayloadStore:
+ 
+     def prepare_store(
+         self, manifest: CheckpointManifest, rank: int
+-    ) -> CheckpointSlots | None:
++    ) -> CheckpointSlots | AdmissionFailure | None:
+         """Reserve all pages for one rank or release the partial reservation.
+ 
+         Args:
+@@ -231,8 +258,10 @@ class CheckpointPayloadStore:
+             rank: Producer rank.
+ 
+         Returns:
+-            A pinned writable lease, or None if any page cannot be reserved.
+-            Admission failure cancels publication of the whole generation.
++            A pinned writable lease, ``AdmissionFailure.BUSY`` when an
++            immutable page has another writer, or None for a terminal miss.
++            Busy admission retains the pending generation so the producer can
++            retry; a terminal miss cancels its publication.
+ 
+         Raises:
+             ValueError: For invalid layouts or a duplicate producer rank.
+@@ -256,10 +285,12 @@ class CheckpointPayloadStore:
+             self._store_ranks.add(identity)
+         reserved: list[ObjectKey] = []
+ 
+-        def attempt() -> AdmissionAttempt[tuple[tuple[ShmSlotDescriptor, ...], ...]]:
++        def attempt() -> AdmissionAttempt[
++            tuple[tuple[ShmSlotDescriptor | None, ...], ...]
++        ]:
+             if not self._index.is_pending(manifest):
+                 return AdmissionAttempt.failure(AdmissionFailure.CONFLICT)
+-            slots = []
++            slots: list[tuple[ShmSlotDescriptor | None, ...]] = []
+             for group, keys in zip(groups, key_groups, strict=True):
+                 detailed = self._storage.reserve_write_detailed(
+                     list(keys),
+@@ -272,26 +303,52 @@ class CheckpointPayloadStore:
+                     if obj is not None
+                 }
+                 reserved.extend(objects)
+-                if len(objects) != len(keys):
++                existing_candidates = [
++                    key
++                    for key in keys
++                    if detailed.get(key, (L1Error.KEY_NOT_EXIST, None))[0]
++                    is L1Error.KEY_NOT_WRITABLE
++                ]
++                readable = set(self._storage.get_readable_keys(existing_candidates))
++                if len(objects) + len(readable) != len(keys):
+                     self._storage.abort_write(reserved)
+                     reserved.clear()
+-                    missing = [key for key in keys if key not in objects]
+-                    capacity_only = all(
+-                        detailed.get(key, (L1Error.KEY_NOT_WRITABLE, None))[0]
+-                        is L1Error.OUT_OF_MEMORY
++                    missing = [
++                        key
++                        for key in keys
++                        if key not in objects and key not in readable
++                    ]
++                    errors = [
++                        detailed.get(key, (L1Error.KEY_NOT_EXIST, None))[0]
+                         for key in missing
++                    ]
++                    capacity_only = all(
++                        error is L1Error.OUT_OF_MEMORY for error in errors
++                    )
++                    busy_only = all(
++                        error is L1Error.KEY_NOT_WRITABLE for error in errors
+                     )
+                     return AdmissionAttempt.failure(
+                         AdmissionFailure.CAPACITY
+                         if capacity_only
+-                        else AdmissionFailure.CONFLICT
++                        else (
++                            AdmissionFailure.BUSY
++                            if busy_only
++                            else AdmissionFailure.CONFLICT
++                        )
+                     )
+                 slots.append(
+-                    tuple(_slot(objects[key], group.page_bytes) for key in keys)
++                    tuple(
++                        _slot(objects[key], group.page_bytes)
++                        if key in objects
++                        else None
++                        for key in keys
++                    )
+                 )
+             return AdmissionAttempt.success(tuple(slots))
+ 
+         admitted = False
++        retryable = False
+         try:
+             outcome = reserve_with_eviction_backpressure(
+                 attempt=attempt,
+@@ -307,7 +364,8 @@ class CheckpointPayloadStore:
+                 on_timeout=self._storage.record_admission_timeout,
+             )
+             if outcome.value is None:
+-                return None
++                retryable = outcome.failure is AdmissionFailure.BUSY
++                return AdmissionFailure.BUSY if retryable else None
+             lease_id = uuid.uuid4().hex
+             with self._lock:
+                 self._stores[lease_id] = _StoreLease(manifest, rank, reserved)
+@@ -319,7 +377,8 @@ class CheckpointPayloadStore:
+                     self._storage.abort_write(reserved)
+                 finally:
+                     try:
+-                        self._index.abort(manifest.generation)
++                        if not retryable:
++                            self._index.abort(manifest.generation)
+                     finally:
+                         with self._lock:
+                             self._store_ranks.discard(identity)
+diff --git a/lmcache/v1/multiprocess/checkpoint_transfer.py b/lmcache/v1/multiprocess/checkpoint_transfer.py
+index 4ef45a455f5a66adac517010342ea8515870c6a1..7d67e8fe08ade428d7da152c7a558ac406bc4f50 100644
+--- a/lmcache/v1/multiprocess/checkpoint_transfer.py
++++ b/lmcache/v1/multiprocess/checkpoint_transfer.py
+@@ -199,7 +199,7 @@ class CheckpointTransferWorker:
+                 timeout=self._rpc_timeout
+             )
+ 
+-        if lease.status == "miss":
++        if lease.status in ("miss", "busy"):
+             return
+         if store:
+             call(RequestType.CHECKPOINT_FINISH_STORE, lease.lease_id, False)
+@@ -227,6 +227,16 @@ class CheckpointTransferWorker:
+             else RequestType.CHECKPOINT_BEGIN_RETRIEVE
+         )
+         lease: CheckpointLeaseResponse = self._call(request, job.manifest, job.rank)
++        if store:
++            deadline = time.monotonic() + self._rpc_timeout
++            retry_delay = 0.001
++            while lease.status == "busy":
++                remaining = deadline - time.monotonic()
++                if self._closing or remaining <= 0:
++                    return False
++                time.sleep(min(retry_delay, remaining))
++                lease = self._call(request, job.manifest, job.rank)
++                retry_delay = min(retry_delay * 2, 0.01)
+         if not store:
+             # Poll in the background; the scheduler can continue serving other
+             # requests. A pending lookup owns no worker-visible byte slots yet.
+diff --git a/lmcache/v1/multiprocess/modules/checkpoint.py b/lmcache/v1/multiprocess/modules/checkpoint.py
+index 71e37753b4c66e75a7a96aa85598e7deeb1a741e..af236f42fece51fa8af691927325c036f4af41a8 100644
+--- a/lmcache/v1/multiprocess/modules/checkpoint.py
++++ b/lmcache/v1/multiprocess/modules/checkpoint.py
+@@ -5,6 +5,7 @@
+ from pathlib import Path
+ 
+ # First Party
++from lmcache.v1.distributed.admission import AdmissionFailure
+ from lmcache.v1.multiprocess.checkpoint_index import (
+     CheckpointIndex,
+     CheckpointManifest,
+@@ -29,7 +30,10 @@ def _ready(slots: CheckpointSlots) -> CheckpointLeaseResponse:
+         "ready",
+         slots.lease_id,
+         tuple(
+-            tuple((slot.offset, slot.length) for slot in group)
++            tuple(
++                (slot.offset, slot.length) if slot is not None else (-1, 0)
++                for slot in group
++            )
+             for group in slots.groups
+         ),
+     )
+@@ -132,8 +136,14 @@ class CheckpointModule:
+ 
+         Invalid layouts, ranks or duplicate active rank stores raise ValueError.
+         """
+-        slots = self._payloads.prepare_store(manifest, rank)
+-        return _ready(slots) if slots is not None else CheckpointLeaseResponse("miss")
++        admission = self._payloads.prepare_store(manifest, rank)
++        if admission is AdmissionFailure.BUSY:
++            return CheckpointLeaseResponse("busy")
++        return (
++            _ready(admission)
++            if isinstance(admission, CheckpointSlots)
++            else CheckpointLeaseResponse("miss")
++        )
+ 
+     def finish_store(self, lease_id: str, success: bool) -> bool:
+         """Finish drained D2H work; True means all ranks published the manifest."""
+diff --git a/lmcache/v1/multiprocess/protocols/checkpoint.py b/lmcache/v1/multiprocess/protocols/checkpoint.py
+index 67012610499a0d2d353ca94921bbca6867e4232c..0dfeff2862652e0b56a9e30bafc6fcc21b9a5089 100644
+--- a/lmcache/v1/multiprocess/protocols/checkpoint.py
++++ b/lmcache/v1/multiprocess/protocols/checkpoint.py
+@@ -31,12 +31,16 @@ class CheckpointCapabilities:
+ class CheckpointLeaseResponse:
+     """Transfer admission with per-group byte offsets and lengths in SHM.
+ 
+-    ``pending`` requires polling; ``miss`` permits no copy. Only ``ready``
+-    includes pinned slots. A worker must validate slot widths against its
+-    manifest and keep the lease until every submitted copy has completed.
++    ``pending`` requires retrieval polling. ``busy`` asks a store producer to
++    retry because another generation is writing shared immutable content;
++    ``miss`` permits no copy. Only ``ready`` includes pinned slots. A store
++    slot of ``(-1, 0)`` means that immutable content is already resident and
++    needs no producer copy; retrieval never uses that marker. A worker must
++    validate slot widths against its manifest and keep the lease until every
++    submitted copy has completed.
+     """
+ 
+-    status: Literal["pending", "miss", "ready"]
++    status: Literal["pending", "busy", "miss", "ready"]
+     lease_id: str = ""
+     slots: tuple[tuple[tuple[int, int], ...], ...] = ()
+ 
+diff --git a/lmcache/v1/multiprocess/transfer_context/shm.py b/lmcache/v1/multiprocess/transfer_context/shm.py
+index d288e8e889434eb9e8576c1e3c08bdb99d5bb552..cec80f9e21805de3a9d8c2c0083b1c4a81b4bc0a 100644
+--- a/lmcache/v1/multiprocess/transfer_context/shm.py
++++ b/lmcache/v1/multiprocess/transfer_context/shm.py
+@@ -153,7 +153,7 @@ class EngineDrivenContextShm(EngineDrivenContext):
+         capabilities: CheckpointCapabilities,
+         lease: CheckpointLeaseResponse,
+         page_sizes: tuple[tuple[int, ...], ...],
+-    ) -> tuple[tuple[torch.Tensor, ...], ...]:
++    ) -> tuple[tuple[torch.Tensor | None, ...], ...]:
+         """Borrow validated uint8 views from an already registered SHM pool.
+ 
+         Args:
+@@ -187,6 +187,8 @@ class EngineDrivenContextShm(EngineDrivenContext):
+                     "Checkpoint lease page counts disagree with the manifest"
+                 )
+             for (offset, size), expected in zip(slots, sizes, strict=True):
++                if (offset, size) == (-1, 0):
++                    continue
+                 if (
+                     offset < 0
+                     or size <= 0
+@@ -203,7 +205,11 @@ class EngineDrivenContextShm(EngineDrivenContext):
+             raise ValueError("Checkpoint SHM pages must not overlap")
+         return tuple(
+             tuple(
+-                self._make_tensor_view(offset, size, [size], "uint8")
++                (
++                    None
++                    if (offset, size) == (-1, 0)
++                    else self._make_tensor_view(offset, size, [size], "uint8")
++                )
+                 for offset, size in group
+             )
+             for group in lease.slots
+diff --git a/lmcache/v1/multiprocess/transfer_context/worker_transfer.py b/lmcache/v1/multiprocess/transfer_context/worker_transfer.py
+index ef6b390f9a9da8daa592212c24638212d6519a10..6edca1ce3c29fff98c388b7cab7d422fd5cbdb58 100644
+--- a/lmcache/v1/multiprocess/transfer_context/worker_transfer.py
++++ b/lmcache/v1/multiprocess/transfer_context/worker_transfer.py
+@@ -983,7 +983,7 @@ class EngineDrivenTransferContext(TransferContext):
+         capabilities: CheckpointCapabilities,
+         lease: CheckpointLeaseResponse,
+         page_sizes: tuple[tuple[int, ...], ...],
+-    ) -> tuple[tuple[torch.Tensor, ...], ...]:
++    ) -> tuple[tuple[torch.Tensor | None, ...], ...]:
+         """Borrow checkpoint bytes from the worker's registered SHM mapping.
+ 
+         Args:
+diff --git a/tests/v1/distributed/test_l1_write_back_eviction.py b/tests/v1/distributed/test_l1_write_back_eviction.py
+index 490d7ee3967c450114a95538a07e8117be9715c4..9ba9052f5de0178830bbe1518d6cb0d7c0ec8093 100644
+--- a/tests/v1/distributed/test_l1_write_back_eviction.py
++++ b/tests/v1/distributed/test_l1_write_back_eviction.py
+@@ -240,20 +240,46 @@ def test_emergency_prefetch_defaults_off_and_cli_is_plumbed() -> None:
+     assert config.emergency_evict_for_prefetch is True
+ 
+ 
+-def test_emergency_prefetch_requires_writeback() -> None:
+-    with pytest.raises(ValueError, match="requires write_back_on_evict"):
+-        StorageManagerConfig(
+-            l1_manager_config=L1ManagerConfig(
+-                memory_config=L1MemoryManagerConfig(
+-                    size_in_bytes=POOL_BYTES,
+-                    use_lazy=False,
+-                )
+-            ),
+-            eviction_config=EvictionConfig(
+-                eviction_policy="LRU",
+-                emergency_evict_for_prefetch=True,
+-            ),
+-        )
++def test_emergency_prefetch_accepts_write_through() -> None:
++    config = StorageManagerConfig(
++        l1_manager_config=L1ManagerConfig(
++            memory_config=L1MemoryManagerConfig(
++                size_in_bytes=POOL_BYTES,
++                use_lazy=False,
++            )
++        ),
++        eviction_config=EvictionConfig(
++            eviction_policy="LRU",
++            emergency_evict_for_prefetch=True,
++        ),
++    )
++    assert config.eviction_config.write_back_on_evict is False
++    assert config.eviction_config.emergency_evict_for_prefetch is True
++
++
++def test_emergency_write_through_preserves_readers_and_writers(
++    l1_manager: L1Manager,
++) -> None:
++    adapter = _SyncStoreAdapter()
++    controller = _controller(l1_manager, {0: adapter}, enabled=False)
++    keys = _make_keys(8)
++    _store_keys(l1_manager, keys[:7])
++    assert l1_manager.reserve_read(keys[:1])[keys[0]][0] == L1Error.SUCCESS
++    pending = l1_manager.reserve_write(keys[7:], [False], OBJECT_LAYOUT)
++    assert pending[keys[7]][0] == L1Error.SUCCESS
++
++    free = controller.emergency_evict_bytes(3 * 1024 * 1024, requester="write-through")
++
++    assert free >= 3 * 1024 * 1024
++    assert adapter.stored_batches == []
++    assert l1_manager.unsafe_read(keys[:1])[keys[0]][0] == L1Error.SUCCESS
++    status = l1_manager.report_status()
++    assert status["read_locked_count"] == 1
++    assert status["write_locked_count"] == 1
++    assert status["total_object_count"] < len(keys)
++    l1_manager.finish_read(keys[:1])
++    l1_manager.finish_write(keys[7:])
++    assert _readable_keys(l1_manager, [keys[0], keys[7]]) == [keys[0], keys[7]]
+ 
+ 
+ def test_disabled_controller_keeps_discard_behavior(l1_manager: L1Manager) -> None:
+@@ -1051,8 +1077,10 @@ def test_storage_manager_reconnects_emergency_evictor_on_adapter_changes(
+         manager.close()
+ 
+ 
++@pytest.mark.parametrize("writeback", [False, True])
+ def test_storage_manager_emergency_prefetch_restores_under_l1_pressure(
+     tmp_path,
++    writeback: bool,
+ ) -> None:
+     pytest.importorskip("lmcache.lmcache_fs")
+     config = StorageManagerConfig(
+@@ -1067,7 +1095,7 @@ def test_storage_manager_emergency_prefetch_restores_under_l1_pressure(
+         eviction_config=EvictionConfig(
+             eviction_policy="LRU",
+             trigger_watermark=1.0,
+-            write_back_on_evict=True,
++            write_back_on_evict=writeback,
+             emergency_evict_for_prefetch=True,
+         ),
+         l2_adapter_config=L2AdaptersConfig(
+diff --git a/tests/v1/multiprocess/test_checkpoint_identity.py b/tests/v1/multiprocess/test_checkpoint_identity.py
+index d86367834ebd0a887354913a5f5f0f94db009764..0ecff316d6e12b031458dd40839f703119584050 100644
+--- a/tests/v1/multiprocess/test_checkpoint_identity.py
++++ b/tests/v1/multiprocess/test_checkpoint_identity.py
+@@ -13,7 +13,9 @@ import pytest
+ # First Party
+ from lmcache.v1.multiprocess.checkpoint_identity import (
+     CheckpointTokenRoots,
++    checkpoint_generation,
+     checkpoint_namespace,
++    checkpoint_page_content_key,
+ )
+ from lmcache.v1.multiprocess.checkpoint_index import CheckpointIndex, CheckpointManifest
+ 
+@@ -76,3 +78,45 @@ def test_token_roots_match_arbitrary_boundaries_without_quadratic_tails() -> Non
+ def test_token_root_rejects_non_token_wire_values(tokens: list[object]) -> None:
+     with pytest.raises(ValueError, match="wire limits"):
+         CheckpointTokenRoots.build("authenticated", cast(list[int], tokens))
++
++
++def test_generation_is_content_stable_and_manifest_sensitive() -> None:
++    prefix = CheckpointTokenRoots.build("authenticated", range(5000)).prefix(4500)
++    payload = b'{"schema_version":1,"layout":"a"}'
++    generation = checkpoint_generation(prefix, payload)
++    assert generation == checkpoint_generation(prefix, payload)
++    assert generation != checkpoint_generation(prefix, payload + b" ")
++    assert generation != checkpoint_generation(
++        replace(prefix, tail_tokens=prefix.tail_tokens[:-1]), payload
++    )
++    assert len(generation) <= 128
++
++
++def test_page_content_key_is_prefix_stable_and_role_separated() -> None:
++    roots = CheckpointTokenRoots.build("authenticated", range(9000))
++    prefix = roots.prefix(8192)
++    key = checkpoint_page_content_key(prefix, "attention:0")
++    assert key == checkpoint_page_content_key(prefix, "attention:0")
++    assert key != checkpoint_page_content_key(roots.prefix(8193), "attention:0")
++    assert key != checkpoint_page_content_key(prefix, "recurrent:0")
++    assert len(key) == 64
++
++
++def test_token_roots_content_key_is_stable_at_full_and_partial_chunks() -> None:
++    roots = CheckpointTokenRoots.build("authenticated", range(9000))
++    for boundary in (4096, 4097, 8192, 9000):
++        key = roots.content_key(boundary, "attention:0")
++        assert key == roots.content_key(boundary, "attention:0")
++        assert key != roots.content_key(boundary, "attention:1")
++        assert len(key) == 64
++    changed = CheckpointTokenRoots.build("authenticated", [*range(8999), 42])
++    assert roots.content_key(8192, "attention:0") == changed.content_key(
++        8192, "attention:0"
++    )
++    assert roots.content_key(9000, "attention:0") != changed.content_key(
++        9000, "attention:0"
++    )
++    assert roots.content_keys(((9000, "attention:0"), (9000, "auxiliary"))) == (
++        roots.content_key(9000, "attention:0"),
++        roots.content_key(9000, "auxiliary"),
++    )
+diff --git a/tests/v1/multiprocess/test_checkpoint_index.py b/tests/v1/multiprocess/test_checkpoint_index.py
+index 4d6f14b7fb5e2fbedf8c8feffe6512f03c3fff71..78dd96ac2c0e39bc365f14954634c59319ac3f87 100644
+--- a/tests/v1/multiprocess/test_checkpoint_index.py
++++ b/tests/v1/multiprocess/test_checkpoint_index.py
+@@ -40,7 +40,7 @@ def test_only_complete_distinct_rank_set_is_visible() -> None:
+     index = CheckpointIndex()
+     entry = manifest()
+     assert index.begin(entry)
+-    assert index.begin(entry)
++    assert not index.begin(entry)
+     for rank in (0, 0, 1, 2, 2):
+         assert not index.acknowledge(entry.generation, rank)
+         assert index.find((entry.prefix,)) is None
+@@ -52,6 +52,24 @@ def test_only_complete_distinct_rank_set_is_visible() -> None:
+     index.close()
+ 
+ 
++def test_identical_published_manifest_is_idempotent_across_restart(
++    tmp_path: Path,
++) -> None:
++    path = tmp_path / "checkpoint-index.sqlite3"
++    entry = manifest("recurrent-content-v1:" + "a" * 64)
++    index = CheckpointIndex(path)
++    publish(index, entry)
++    assert not index.begin(entry)
++    index.close()
++
++    index = CheckpointIndex(path)
++    assert not index.begin(entry)
++    with pytest.raises(ValueError, match="changed after publication"):
++        index.begin(replace(entry, payload=b'{"schema_version":1,"changed":true}'))
++    assert index.find((entry.prefix,)) == entry
++    index.close()
++
++
+ def test_restart_keeps_complete_manifest_but_discards_pending(tmp_path: Path) -> None:
+     path = tmp_path / "checkpoint-index.sqlite3"
+     entry = manifest()
+diff --git a/tests/v1/multiprocess/test_checkpoint_storage.py b/tests/v1/multiprocess/test_checkpoint_storage.py
+index c4c2d156bb395b7a0cf9add0175e3930f79807f9..b7c75e511b01565f4981e7f223882cd7c0de8555 100644
+--- a/tests/v1/multiprocess/test_checkpoint_storage.py
++++ b/tests/v1/multiprocess/test_checkpoint_storage.py
+@@ -9,6 +9,7 @@ from mmap import mmap
+ from pathlib import Path
+ from types import SimpleNamespace
+ from typing import Any, Literal, cast
++import hashlib
+ import json
+ import threading
+ import time
+@@ -21,6 +22,7 @@ import pytest
+ import zmq
+ 
+ # First Party
++from lmcache.v1.distributed.admission import AdmissionFailure
+ from lmcache.v1.distributed.api import ObjectKey
+ from lmcache.v1.distributed.config import (
+     EvictionConfig,
+@@ -66,6 +68,7 @@ from lmcache.v1.multiprocess.protocol import (
+     get_handler_type,
+     get_payload_classes,
+ )
++from lmcache.v1.multiprocess.protocols.checkpoint import CheckpointLeaseResponse
+ from lmcache.v1.multiprocess.server import MPCacheServer
+ 
+ 
+@@ -140,6 +143,51 @@ def make_manifest() -> CheckpointManifest:
+     )
+ 
+ 
++def make_content_manifest(
++    generation: str,
++    *,
++    prefix_token: int,
++    attention_keys: tuple[str, ...],
++) -> CheckpointManifest:
++    """Build a v2 manifest whose attention pages can span generations."""
++    unique = lambda label: hashlib.sha256(label.encode()).hexdigest()
++    return CheckpointManifest(
++        generation,
++        CheckpointPrefix(
++            "weights-and-layout-and-salt",
++            4096,
++            b"a" * 32,
++            (1, 2, prefix_token),
++        ),
++        1,
++        json.dumps(
++            {
++                "schema_version": 2,
++                "page_groups": [
++                    {
++                        "name": "target.attention.0",
++                        "page_bytes": 128,
++                        "positions": [0, 1, 2],
++                        "content_keys": list(attention_keys),
++                    },
++                    {
++                        "name": "target.recurrent.0",
++                        "page_bytes": 256,
++                        "positions": [16],
++                        "content_keys": [unique(f"recurrent-{prefix_token}")],
++                    },
++                    {
++                        "name": "target-draft-auxiliary",
++                        "page_bytes": 96,
++                        "positions": [0],
++                        "content_keys": [unique(f"auxiliary-{prefix_token}")],
++                    },
++                ],
++            }
++        ).encode(),
++    )
++
++
+ @contextmanager
+ def open_checkpoint_rpc() -> Iterator[
+     tuple[MessageQueueClient, CheckpointModule, mmap, str]
+@@ -231,6 +279,148 @@ def test_checkpoint_rpc_roundtrip_uses_metadata_and_shared_bytes() -> None:
+         assert status["store_leases"] == status["retrieve_leases"] == 0
+ 
+ 
++def test_content_addressed_pages_skip_resident_duplicate_copies(store) -> None:
++    service, index, _storage, mapping = store
++    shared = tuple(
++        hashlib.sha256(f"attention-{i}".encode()).hexdigest() for i in range(3)
++    )
++    first = make_content_manifest(
++        "recurrent-content-v1:" + "1" * 64,
++        prefix_token=3,
++        attention_keys=shared,
++    )
++    second = make_content_manifest(
++        "recurrent-content-v1:" + "2" * 64,
++        prefix_token=4,
++        attention_keys=shared,
++    )
++
++    assert index.begin(first)
++    first_lease = service.prepare_store(first, 0)
++    assert first_lease is not None
++    assert all(slot is not None for group in first_lease.groups for slot in group)
++    for group_id, group in enumerate(first_lease.groups):
++        for slot in group:
++            assert slot is not None
++            mapping[slot.offset : slot.offset + slot.length] = (
++                bytes([group_id + 1]) * slot.length
++            )
++    assert service.finish_store(first_lease.lease_id, True)
++
++    assert index.begin(second)
++    second_lease = service.prepare_store(second, 0)
++    assert second_lease is not None
++    assert second_lease.groups[0] == (None, None, None)
++    assert all(slot is not None for group in second_lease.groups[1:] for slot in group)
++    for group_id, group in enumerate(second_lease.groups[1:], start=1):
++        for slot in group:
++            assert slot is not None
++            mapping[slot.offset : slot.offset + slot.length] = (
++                bytes([group_id + 1]) * slot.length
++            )
++    assert service.finish_store(second_lease.lease_id, True)
++    assert checkpoint_object_keys(first, 0)[0] == checkpoint_object_keys(second, 0)[0]
++    assert checkpoint_object_keys(first, 0)[1:] != checkpoint_object_keys(second, 0)[1:]
++
++
++@pytest.mark.parametrize("first_succeeds", [True, False])
++def test_content_addressed_pages_coalesce_with_inflight_writer(
++    store, first_succeeds: bool
++) -> None:
++    """Overlapping boundary generations wait for shared immutable pages.
++
++    A successful owner makes the shared attention pages no-copy objects for the
++    waiter. If the owner aborts, the waiter reserves and writes those pages.
++    Neither outcome may discard the waiter's complete generation.
++    """
++    service, index, _storage, mapping = store
++    shared = tuple(
++        hashlib.sha256(f"inflight-attention-{i}".encode()).hexdigest() for i in range(3)
++    )
++    first = make_content_manifest(
++        "recurrent-content-v1:" + "3" * 64,
++        prefix_token=31,
++        attention_keys=shared,
++    )
++    second = make_content_manifest(
++        "recurrent-content-v1:" + "4" * 64,
++        prefix_token=32,
++        attention_keys=shared,
++    )
++
++    assert index.begin(first)
++    assert index.begin(second)
++    first_lease = service.prepare_store(first, 0)
++    assert first_lease is not None
++    fill(mapping, first_lease, 1)
++
++    assert service.prepare_store(second, 0) is AdmissionFailure.BUSY
++    assert service.finish_store(first_lease.lease_id, first_succeeds) is first_succeeds
++    second_lease = service.prepare_store(second, 0)
++
++    assert second_lease is not None
++    if first_succeeds:
++        assert second_lease.groups[0] == (None, None, None)
++    else:
++        assert all(slot is not None for slot in second_lease.groups[0])
++    for group_id, group in enumerate(second_lease.groups):
++        for slot in group:
++            if slot is not None:
++                mapping[slot.offset : slot.offset + slot.length] = (
++                    bytes([group_id + 2]) * slot.length
++                )
++    assert service.finish_store(second_lease.lease_id, True)
++    assert index.find((second.prefix,)) == second
++
++
++def test_transfer_worker_retries_inflight_content_without_blocking_rpc() -> None:
++    """A producer retries busy content while the owning GPU copy completes."""
++    with open_checkpoint_rpc() as (client, module, mapping, _name):
++        shared = tuple(
++            hashlib.sha256(f"worker-inflight-{i}".encode()).hexdigest()
++            for i in range(3)
++        )
++        first = make_content_manifest(
++            "recurrent-content-v1:" + "5" * 64,
++            prefix_token=41,
++            attention_keys=shared,
++        )
++        second = make_content_manifest(
++            "recurrent-content-v1:" + "6" * 64,
++            prefix_token=42,
++            attention_keys=shared,
++        )
++        first_started = threading.Event()
++        release_first = threading.Event()
++
++        def copy_pages(
++            job: CheckpointTransferJob, lease: CheckpointLeaseResponse
++        ) -> None:
++            if job.manifest == first:
++                first_started.set()
++                assert release_first.wait(timeout=5)
++            for group_id, group in enumerate(lease.slots):
++                for offset, size in group:
++                    if offset >= 0:
++                        mapping[offset : offset + size] = bytes([group_id + 3]) * size
++
++        worker = CheckpointTransferWorker(client, copy_pages, workers=2)
++        assert module.begin(first)
++        assert module.begin(second)
++        first_result = worker.submit(CheckpointTransferJob(first, 0, "STORE", ()))
++        assert first_result is not None and first_started.wait(timeout=5)
++        second_result = worker.submit(CheckpointTransferJob(second, 0, "STORE", ()))
++        assert second_result is not None
++        time.sleep(0.05)
++        assert not second_result.done()
++        release_first.set()
++        assert first_result.result(timeout=5)
++        assert second_result.result(timeout=5)
++        assert module.find((first.prefix,)) == first
++        assert module.find((second.prefix,)) == second
++        worker.close()
++
++
+ def test_background_checkpoint_copy_retains_lease_until_callback_drains() -> None:
+     """A blocked copy is not published and cannot surrender its buffer to close."""
+     with open_checkpoint_rpc() as (client, module, mapping, _name):
+@@ -308,7 +498,7 @@ def test_checkpoint_lease_budget_never_recycles_live_copy_buffers(store) -> None
+     entry = make_manifest()
+     assert index.begin(entry)
+     lease = service.prepare_store(entry, 0)
+-    assert lease is not None
++    assert isinstance(lease, CheckpointSlots)
+     assert service.begin_retrieve(entry, 0) is None
+     assert service.prepare_store(entry, 1) is None
+     assert service.report_status()["store_leases"] == 1
+@@ -570,6 +760,7 @@ def test_payload_capacity_miss_preserves_a_pinned_checkpoint(store: Any) -> None
+         assert index.find((entry.prefix,)) == entry
+         for group_id, group in enumerate(read.groups):
+             for page_id, slot in enumerate(group):
++                assert slot is not None
+                 assert mapping[slot.offset : slot.offset + slot.length] == (
+                     bytes([group_id * 4 + page_id]) * slot.length
+                 )
+@@ -584,6 +775,7 @@ def test_payload_capacity_miss_preserves_a_pinned_checkpoint(store: Any) -> None
+ def fill(mapping: mmap, lease: CheckpointSlots, rank: int) -> None:
+     for group_id, group in enumerate(lease.groups):
+         for page_id, slot in enumerate(group):
++            assert slot is not None
+             mapping[slot.offset : slot.offset + slot.length] = (
+                 bytes([rank * 16 + group_id * 4 + page_id]) * slot.length
+             )
+@@ -608,7 +800,7 @@ def publish_all(
+     assert index.begin(entry)
+     for rank in range(entry.world_size):
+         lease = service.prepare_store(entry, rank)
+-        assert lease is not None
++        assert isinstance(lease, CheckpointSlots)
+         fill(mapping, lease, rank)
+         assert service.finish_store(lease.lease_id, True) == (
+             rank == entry.world_size - 1
+@@ -625,6 +817,7 @@ def test_shm_roundtrip_all_ranks_groups_and_read_lease_lifetime(store: Any) -> N
+         assert isinstance(lease, CheckpointSlots)
+         for group_id, group in enumerate(lease.groups):
+             for page_id, slot in enumerate(group):
++                assert slot is not None
+                 assert (
+                     mapping[slot.offset : slot.offset + slot.length]
+                     == bytes([rank * 16 + group_id * 4 + page_id]) * slot.length
+@@ -668,6 +861,7 @@ def test_http_nonforced_clear_preserves_checkpoint_read_and_write_leases(
+         assert isinstance(lease, CheckpointSlots)
+         for group_id, group in enumerate(lease.groups):
+             for page_id, slot in enumerate(group):
++                assert slot is not None
+                 assert mapping[slot.offset : slot.offset + slot.length] == (
+                     bytes([group_id * 4 + page_id]) * slot.length
+                 )
+@@ -843,6 +1037,7 @@ def test_sustained_checkpoint_stores_reclaim_capacity_without_losing_a_read(
+         service.finish_retrieve(restored.lease_id)
+         for group_id, group in enumerate(pinned.groups):
+             for page_id, slot in enumerate(group):
++                assert slot is not None
+                 assert mapping[slot.offset : slot.offset + slot.length] == (
+                     bytes([group_id * 4 + page_id]) * slot.length
+                 )
+@@ -884,6 +1079,7 @@ def test_filesystem_restore_after_directory_and_storage_restart(
+             assert isinstance(lease, CheckpointSlots)
+             for group_id, group in enumerate(lease.groups):
+                 for page_id, slot in enumerate(group):
++                    assert slot is not None
+                     assert (
+                         mapping[slot.offset : slot.offset + slot.length]
+                         == bytes([rank * 16 + group_id * 4 + page_id]) * slot.length
+diff --git a/tests/v1/multiprocess/test_engine_driven_transfer.py b/tests/v1/multiprocess/test_engine_driven_transfer.py
+index e2a433b7b892ad6c3ecbc7d4d1919dac2c2a03bc..9e1b38f0dcccb8acd4ed64ff604139885f8cd3b9 100644
+--- a/tests/v1/multiprocess/test_engine_driven_transfer.py
++++ b/tests/v1/multiprocess/test_engine_driven_transfer.py
+@@ -3074,6 +3074,7 @@ def test_checkpoint_shm_views_validate_identity_bounds_and_nonoverlap() -> None:
+             )
+             sizes = ((128,), (128,))
+             views = context.checkpoint_slot_views(capability, lease, sizes)
++            assert views[0][0] is not None
+             views[0][0].fill_(37)
+             with shm_open_pool_as_mmap(name, 4096) as mapping:
+                 assert mapping[:128] == bytes([37]) * 128

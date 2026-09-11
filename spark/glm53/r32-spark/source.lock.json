@@ -1,0 +1,110 @@
+{
+  "release": "jj-r32-spark-sm121",
+  "status": "authored, not built or qualified",
+  "upstream_lock_sha256": "16bba062c83574820d3a097414d672deef8d6079b1abe1c7f989980424654901",
+  "base_image_id": "0b15723cb87646bb4628c5cd67aa2a7c879ac5a27105109ea5db06c30113dc0b",
+  "base_source_lock_sha256": "3fb73885dd8f5b5e40de1342c63aeac37c075e6cee3a86548f9abff889b88754",
+  "runtime": {
+    "checkpoint_policy": "aligned",
+    "lmcache_enabled": false,
+    "glm_mtp_head": "bf16",
+    "loader": "instanttensor",
+    "cuda_arch": "12.1a",
+    "nccl": "retain R29 image and runner contract"
+  },
+  "flashinfer": {
+    "retained_spark_commit": "1ac6942776b383c6b03c7a5805a22e72a3e3349f",
+    "upstream_commit": "803c4664f4771ddc418f20a57f752469a237a825",
+    "reason": "reuse qualified SM121 build; upstream artifact is not an ARM wheel"
+  },
+  "vllm": {
+    "commit": "5576927057cf71b6ec61d120932338b333efa089",
+    "upstream_tree": "6a2da27b08a1f062b00719c17cffdfa087ae4210",
+    "upstream_package_tree": "75f447909573a7043c6abd6fde0206907ab6f2b1",
+    "spark_overlay_sha256": "992cbae5b9f7fd358fe01f20659c9a7985406d37bdafa129940bfe7e33afaea4",
+    "native_changed_paths": [],
+    "rebuild_native": [],
+    "native_inputs": {
+      "csrc": "b0ef9c9361a4b22d6f90840192210a9d0c1e5049",
+      "cmake": "5273499598e0571f12e325130239cb70626d0c63",
+      "CMakeLists.txt": "1c3b2e49607cc386a407b0a80fdc0c4dea97469b",
+      "setup.py": "ae64a13daa0f1facc255afcdb4ffcad264776b98",
+      "requirements": "d6e1c8e13cd4c4358ab422e3ef006d3f9f23e18b",
+      "pyproject.toml": "0766645fc7481da0ec439208128b838b3348d94c"
+    },
+    "base_tree": "ec2025d80cdade8a1083e1ce61f0607bb227f5d1",
+    "tree": "80a18accc688cdee2974f4c5e03e9416b2896087",
+    "package_tree": "00eef6adee7b0405d9f0b107f927dd1301d29e4a",
+    "patch": "patches/vllm/r29-to-r32.patch",
+    "patch_sha256": "a589cca76f300515cca255e79df34d30449bc0eaa458e38f631d117cc140767b",
+    "changed_paths": "patches/vllm/changed-paths.txt",
+    "changed_paths_sha256": "2d6b4eefabd65eca2b9ca337dc8ded37c8f155ed793d2f2318d04c3915a23b21",
+    "changed_paths_count": 15
+  },
+  "b12x": {
+    "commit": "3edbcbce70f491741b82f5eab9c1b30b39447228",
+    "upstream_tree": "c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e",
+    "upstream_package_tree": "d76de6c4ceaa9c2feb49edaf8c2f77d5a29ab5cb",
+    "rebuild_native": [],
+    "base_tree": "c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e",
+    "tree": "c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e",
+    "package_tree": "d76de6c4ceaa9c2feb49edaf8c2f77d5a29ab5cb",
+    "patch": "patches/b12x/r29-to-r32.patch",
+    "patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "changed_paths": "patches/b12x/changed-paths.txt",
+    "changed_paths_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "changed_paths_count": 0
+  },
+  "lmcache": {
+    "commit": "35ad809fdddd430c3970777a2ff3d984bf8d1963",
+    "upstream_tree": "dc1dad48e97cb849fcccf4be289e86bf8449988d",
+    "upstream_package_tree": "65712f842365a0e3944a8350e4a8c7f14bff6a11",
+    "version": "0.5.5.dev0+glm53checkpoints.35ad809f",
+    "rebuild_native": [],
+    "native_inputs": {
+      "csrc": "2d55e15439d2be27f4f681bc8e38984f3099713c",
+      "rust": "d45546d7ac182f0d9df214f4d648ed8bc0b568de",
+      "setup_extensions": "980e1e54e5c325f0d96cda43ccbcaed55e356a19",
+      "CMakeLists.txt": "ca2d359c83c370b782694e597368d2b9e7302603",
+      "setup.py": "7f0f2dd50f4f2ce31d52a81ec805fc237812143d",
+      "pyproject.toml": "5b8f63a92c2355c45b721cb41bd9861e6ea63e2e",
+      "MANIFEST.in": "168e3219f7816fd7c15f1cef43db17a67e644455",
+      "requirements": "b7e7f6374c9e2978b2656641b8112b00c5e87d17"
+    },
+    "base_tree": "cd8a219da05eec6c7d6c24712f9ee1a9186c3567",
+    "tree": "dc1dad48e97cb849fcccf4be289e86bf8449988d",
+    "package_tree": "65712f842365a0e3944a8350e4a8c7f14bff6a11",
+    "patch": "patches/lmcache/r29-to-r32.patch",
+    "patch_sha256": "3a3ac5adaf17314967709e293fca6c2f4d79d73fd59a7521c78c08a10ca1e7a3",
+    "changed_paths": "patches/lmcache/changed-paths.txt",
+    "changed_paths_sha256": "f1b9a47ccb463669d76919744056766eca917486381a70a91109920c4dee798d",
+    "changed_paths_count": 19
+  },
+  "flashkda": {
+    "base_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "patch_sha256": "a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a",
+    "spark_extension_sha256": "69347e79224ee3a48d1d3604d302dc275a595188b89db53be2a09593dbd07d98",
+    "spark_digest_source": "qualified R29 image label and runtime byte verification"
+  },
+  "native_reuse": {
+    "stable_sha256": "8ee9441cd0c1468e4f21ba75dae55d76fe30381b0949f9e9745ba9d7da4f3d32",
+    "base_receipt": "r29-spark/build-receipts/20260909T173029Z-765802/native.txt",
+    "base_receipt_input": "inputs/r29-native.txt",
+    "base_receipt_sha256": "08abdfc89815f986457a8633d889cc146d1809bad650a23645eac197004abac9",
+    "lmcache_wheel_tag": "cp312-cp312-linux_aarch64",
+    "policy": "preserve all vLLM, LMCache, interposer and RoCEnante native bytes"
+  },
+  "native_build_contract": {
+    "cuda_arch": "12.1a",
+    "cmake_arch": "121a",
+    "torch": "2.13.0",
+    "cuda": "13.3",
+    "cxx11_abi": 1,
+    "dockerfile_sha256": "d8a9e9442ba0482a87998c0442c1b9506b4a9396771067696aa7a4efdcc1ca95"
+  },
+  "cache_fingerprint": "cu133-torch213-jj-r32-sm121-73328be0e661052073fd",
+  "launchers": {
+    "serve-glm53-flash-jj-r32-spark.sh": "faff3f38b5fbdca59ce50c963f068127cbd4f731653c6045af51dc11af1dc4db",
+    "serve-qwen38-flash-next-jj-r32-spark.sh": "5b0bd5465056f8a9357cf92f1a45692ef381d4e8bb251c8f92a76eb0a0634b2d"
+  }
+}

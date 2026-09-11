@@ -1,0 +1,15 @@
+tests/kernels/moe/test_b12x.py
+tests/kernels/test_glm_pool_tail_selection.py
+tests/models/test_glm5next_pooled_indexer.py
+tests/v1/core/test_boundary_admission.py
+tests/v1/core/test_boundary_admission_aged_cache.py
+tests/v1/core/test_boundary_admission_continuation.py
+tests/v1/core/test_boundary_admission_horizon.py
+tests/v1/core/test_boundary_admission_review.py
+tests/v1/core/test_mamba_sparse_cleanup.py
+tests/v1/core/test_single_type_kv_cache_manager.py
+vllm/model_executor/layers/fused_moe/b12x.py
+vllm/models/glm5next/nvidia/ops/glm_kpool.py
+vllm/v1/core/kv_cache_manager.py
+vllm/v1/core/sched/scheduler.py
+vllm/v1/core/single_type_kv_cache_manager.py
