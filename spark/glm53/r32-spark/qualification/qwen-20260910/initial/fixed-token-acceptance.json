@@ -1,0 +1,129 @@
+{
+  "accept_length": 2.2747130692336173,
+  "corpus_sha256": "cc9230856e9dab760645436993ec44669c3168e2edc3cfbc8a897c72de0ffff4",
+  "counter_deltas": {
+    "accepted_per_position": {
+      "0": 1751.0,
+      "1": 1065.0,
+      "2": 627.0
+    },
+    "accepted_tokens": 3443.0,
+    "draft_tokens": 8097.0,
+    "drafts": 2699.0
+  },
+  "engine_steps": 2701.0,
+  "max_tokens": 512,
+  "model": "Qwen3.8-Flash-Next-NVFP4-4p89",
+  "output_repeatable_across_waves": false,
+  "output_sha256_by_prompt": {
+    "prompt-0": [
+      "5e5ab6443b510fe22fef10a62bbca75d1a5b0325ab3ca6d3522746132ddf5d0a",
+      "b16724280ebfd7fd6e6fca0464b2b62cf47374273433d5d77f9e35933f15f8dd",
+      "ea4dfdb85008fddd9ede351fec624cb60afad9f71aa6adb5ba4bd12850ecf286"
+    ],
+    "prompt-1": [
+      "ab21c9e26841c0a29b02ba3576401d47fbee5ea345a26ba22bd731c966d252de",
+      "c08baa5645397cd0ed3359f5d3680d52d99b7ee46dd1b6ef4d82321d6c760fea",
+      "ca03b68dae6ca77bf5902487448c646a2e6a42a76ddb67c45005b3d622f097de"
+    ],
+    "prompt-2": [
+      "35a28806918549ec6c9db83e56ccfa392ac48e5e2ba29f30b1082157f7d1e75b",
+      "acf72c740141ef3e2ecdcc2fe7c795c28e6d3853d479fb8e4452ea245373d1e2",
+      "cf2f42c3d72ddcf6e3feb3a871c0ec08c9e1d4adc55686075f31296b60351a92"
+    ],
+    "prompt-3": [
+      "500d924fb976fab089bf971c9d1b45221830c07999e10bebe0d6cc7dd4172d41",
+      "6ac504cd917ae6628cc2a428eda3cfa2403de393f6ad02ffa13bd801ed68e88f",
+      "b698e5a6ebd2186a295361767db94e084bf5ad107a7af32413667e425f3ac373"
+    ]
+  },
+  "output_tokens": 6144,
+  "requests": [
+    {
+      "elapsed_seconds": 17.342846,
+      "output_sha256": "b16724280ebfd7fd6e6fca0464b2b62cf47374273433d5d77f9e35933f15f8dd",
+      "output_tokens": 512,
+      "prompt_id": "prompt-0",
+      "wave": 0
+    },
+    {
+      "elapsed_seconds": 16.337715,
+      "output_sha256": "ca03b68dae6ca77bf5902487448c646a2e6a42a76ddb67c45005b3d622f097de",
+      "output_tokens": 512,
+      "prompt_id": "prompt-1",
+      "wave": 0
+    },
+    {
+      "elapsed_seconds": 18.685837,
+      "output_sha256": "35a28806918549ec6c9db83e56ccfa392ac48e5e2ba29f30b1082157f7d1e75b",
+      "output_tokens": 512,
+      "prompt_id": "prompt-2",
+      "wave": 0
+    },
+    {
+      "elapsed_seconds": 17.687367,
+      "output_sha256": "6ac504cd917ae6628cc2a428eda3cfa2403de393f6ad02ffa13bd801ed68e88f",
+      "output_tokens": 512,
+      "prompt_id": "prompt-3",
+      "wave": 0
+    },
+    {
+      "elapsed_seconds": 16.513341,
+      "output_sha256": "ea4dfdb85008fddd9ede351fec624cb60afad9f71aa6adb5ba4bd12850ecf286",
+      "output_tokens": 512,
+      "prompt_id": "prompt-0",
+      "wave": 1
+    },
+    {
+      "elapsed_seconds": 14.658562,
+      "output_sha256": "ab21c9e26841c0a29b02ba3576401d47fbee5ea345a26ba22bd731c966d252de",
+      "output_tokens": 512,
+      "prompt_id": "prompt-1",
+      "wave": 1
+    },
+    {
+      "elapsed_seconds": 17.230202,
+      "output_sha256": "cf2f42c3d72ddcf6e3feb3a871c0ec08c9e1d4adc55686075f31296b60351a92",
+      "output_tokens": 512,
+      "prompt_id": "prompt-2",
+      "wave": 1
+    },
+    {
+      "elapsed_seconds": 17.364166,
+      "output_sha256": "b698e5a6ebd2186a295361767db94e084bf5ad107a7af32413667e425f3ac373",
+      "output_tokens": 512,
+      "prompt_id": "prompt-3",
+      "wave": 1
+    },
+    {
+      "elapsed_seconds": 16.280881,
+      "output_sha256": "5e5ab6443b510fe22fef10a62bbca75d1a5b0325ab3ca6d3522746132ddf5d0a",
+      "output_tokens": 512,
+      "prompt_id": "prompt-0",
+      "wave": 2
+    },
+    {
+      "elapsed_seconds": 16.205126,
+      "output_sha256": "c08baa5645397cd0ed3359f5d3680d52d99b7ee46dd1b6ef4d82321d6c760fea",
+      "output_tokens": 512,
+      "prompt_id": "prompt-1",
+      "wave": 2
+    },
+    {
+      "elapsed_seconds": 17.11884,
+      "output_sha256": "acf72c740141ef3e2ecdcc2fe7c795c28e6d3853d479fb8e4452ea245373d1e2",
+      "output_tokens": 512,
+      "prompt_id": "prompt-2",
+      "wave": 2
+    },
+    {
+      "elapsed_seconds": 17.573178,
+      "output_sha256": "500d924fb976fab089bf971c9d1b45221830c07999e10bebe0d6cc7dd4172d41",
+      "output_tokens": 512,
+      "prompt_id": "prompt-3",
+      "wave": 2
+    }
+  ],
+  "valid": true,
+  "waves": 3
+}

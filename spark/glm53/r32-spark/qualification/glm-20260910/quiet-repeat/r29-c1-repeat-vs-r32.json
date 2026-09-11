@@ -1,0 +1,164 @@
+{
+  "comparison": "R29 aligned versus R32 aligned; boot identities are recorded in the input metadata",
+  "repeatable_gain_proven": false,
+  "grids_valid": true,
+  "inputs": {
+    "r29": {
+      "path": "/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r29-vs-r28/throughput/20260909T164052-0400__jj-r29-aligned-sm121-tp4-dcp1-mtp3-native1m__r02.json",
+      "sha256": "f048ade37e7735186433fb4e131d15088ff370f04fb87c424627cc47e9ea7329"
+    },
+    "r32": {
+      "path": "/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r32-vs-r29/throughput/20260910T160142-0400__jj-r32-aligned-sm121-tp4-dcp1-mtp3-native1m__r02.json",
+      "sha256": "785cdd3816beb35bb2de438c28bd73ac91754536a8ecc1e5bc155a1aaf453fcb"
+    }
+  },
+  "summary": [
+    {
+      "concurrency": 1,
+      "server_steps_per_s": {
+        "r29": 19.900961388134892,
+        "r32": 20.101770255313266,
+        "change_pct": 1.0090410370731995
+      },
+      "aggregate_tps": {
+        "r29": 51.455612334807874,
+        "r32": 52.79587190771578,
+        "change_pct": 2.604690746243965
+      },
+      "server_accept_len_effective": {
+        "r29": 2.585584250491843,
+        "r32": 2.626428978003111,
+        "change_pct": 1.5797097891317335
+      }
+    }
+  ],
+  "cells": [
+    {
+      "concurrency": 1,
+      "context_tokens": 0,
+      "server_steps_per_s": {
+        "r29": 20.003454714646534,
+        "r32": 20.20152044996994,
+        "change_pct": 0.9901576410118018
+      },
+      "aggregate_tps": {
+        "r29": 50.742096792820035,
+        "r32": 52.603959191505886,
+        "change_pct": 3.669265789878251
+      },
+      "server_accept_len_effective": {
+        "r29": 2.5366666666666666,
+        "r32": 2.603960396039604,
+        "change_pct": 2.652840842559945
+      }
+    },
+    {
+      "concurrency": 1,
+      "context_tokens": 16384,
+      "server_steps_per_s": {
+        "r29": 19.947041041023507,
+        "r32": 20.177157982379985,
+        "change_pct": 1.1536394840879538
+      },
+      "aggregate_tps": {
+        "r29": 53.636859521681934,
+        "r32": 55.628924817536884,
+        "change_pct": 3.713985706134948
+      },
+      "server_accept_len_effective": {
+        "r29": 2.688963210702341,
+        "r32": 2.7570247933884295,
+        "change_pct": 2.531145923276168
+      }
+    },
+    {
+      "concurrency": 1,
+      "context_tokens": 32768,
+      "server_steps_per_s": {
+        "r29": 20.100049355668716,
+        "r32": 20.140605561170815,
+        "change_pct": 0.20177167122557016
+      },
+      "aggregate_tps": {
+        "r29": 50.40012375749768,
+        "r32": 54.286267969513396,
+        "change_pct": 7.710584661883102
+      },
+      "server_accept_len_effective": {
+        "r29": 2.5074626865671643,
+        "r32": 2.6953642384105962,
+        "change_pct": 7.493692841374955
+      }
+    },
+    {
+      "concurrency": 1,
+      "context_tokens": 65536,
+      "server_steps_per_s": {
+        "r29": 19.75386140587812,
+        "r32": 20.022245646576323,
+        "change_pct": 1.3586419140226402
+      },
+      "aggregate_tps": {
+        "r29": 51.053053971272846,
+        "r32": 52.0912090905094,
+        "change_pct": 2.0334828937377925
+      },
+      "server_accept_len_effective": {
+        "r29": 2.5844594594594597,
+        "r32": 2.6016666666666666,
+        "change_pct": 0.6657952069716755
+      }
+    },
+    {
+      "concurrency": 1,
+      "context_tokens": 131072,
+      "server_steps_per_s": {
+        "r29": 19.703241052430908,
+        "r32": 19.968349255049628,
+        "change_pct": 1.3455055536967686
+      },
+      "aggregate_tps": {
+        "r29": 51.508472802040195,
+        "r32": 49.57084364316994,
+        "change_pct": -3.76176782859986
+      },
+      "server_accept_len_effective": {
+        "r29": 2.6142131979695433,
+        "r32": 2.4824707846410683,
+        "change_pct": -5.039467072953318
+      }
+    }
+  ],
+  "prefill": [
+    {
+      "context_tokens": 8192,
+      "r29": 2781.0,
+      "r32": 2780.0,
+      "change_pct": -0.03595828838547366
+    },
+    {
+      "context_tokens": 16384,
+      "r29": 2933.0,
+      "r32": 2946.0,
+      "change_pct": 0.44323218547561716
+    },
+    {
+      "context_tokens": 32768,
+      "r29": 2951.0,
+      "r32": 2944.0,
+      "change_pct": -0.23720772619451047
+    },
+    {
+      "context_tokens": 65536,
+      "r29": 2926.0,
+      "r32": 2938.0,
+      "change_pct": 0.41011619958988277
+    },
+    {
+      "context_tokens": 131072,
+      "r29": 2869.0,
+      "r32": 2873.0,
+      "change_pct": 0.13942140118508028
+    }
+  ]
+}

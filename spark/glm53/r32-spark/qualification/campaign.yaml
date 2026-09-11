@@ -1,0 +1,38 @@
+id: "2026-09-jj-r32-vs-r29"
+status: "completed"
+objective: "Qualify R32 Spark and compare Qwen against R29 on dusty/kirby with matched serving settings."
+baseline: "jj-r29-aligned-sm121-tp2-mtp3"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+  checkpoint_revision: "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+  nodes: [dusty, kirby]
+  tensor_parallel: 2
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  harness_sha256: "2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3"
+conclusion: "Aligned Qwen correctness passed, including MTP0 boundaries and two MTP3 batteries. Two complete R32 grids and a fresh R29 C4 control show no demonstrated material overall regression. Fresh-control C4 output is -1.18%, steps -0.54%, acceptance -0.65%; prefill differs by at most 0.72%. No repeatable speedup or statistical equivalence is claimed. The 128K C4 acceptance/output variation remains unresolved; auto and GLM are not qualified by this campaign."
+notes: |
+  R29 baseline receipts live in the 2026-09-jj-r29-vs-r28 campaign and remain
+  immutable. R32's initial grid uses the same harness bytes and settings.
+  Image IDs, rendered commands, startup KV and correctness receipts are retained
+  under spark/glm53/r32-spark/qualification. R32-only tuning is a separate arm.
+  Cross-boot changes are observations, not repeatability claims. If a meaningful
+  delta appears, repeat matched cells and, where needed, an R29 control boot.
+  MTP0 boundaries do not replace the aligned MTP3 grid. Auto is deferred until
+  the five frozen boundary-admission suites run and the aligned baseline passes.
+  R32 repetition 2 did not reproduce the engine or prefill dips from repetition
+  1. C4 output remains lower against the historical R29 boot, with lower
+  acceptance but higher engine steps. A contemporary R29 C4-only control uses
+  the same five contexts, duration, warmup and prefill scouts. Full correctness
+  and the fixed-token acceptance corpus run before measurement on every arm.
+  The control is a C4-only follow-up rather than the full grid's C1/C2-before-C4
+  ordering. It omits the additional identical/HOL probes before those grids.
+  R29 fixed-token acceptance fell from historical 2.3768 to 2.2917; R32 measured
+  2.2747 and 2.2588. Historical acceptance is not a stable release constant.
+  Sampler JIT warnings occurred on both releases; precise placement against
+  the timed cell versus warmup is unresolved, not an R32-specific finding.

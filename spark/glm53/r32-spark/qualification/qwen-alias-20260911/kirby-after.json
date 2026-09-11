@@ -1,0 +1,32 @@
+{
+  "image": "74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c",
+  "running": true,
+  "oom_killed": false,
+  "started_at": "2026-09-11T13:22:40.037611015-04:00",
+  "args": [
+    "--",
+    "/usr/local/bin/serve-qwen38-flash-next-jj-r32-spark.sh",
+    "--nnodes",
+    "2",
+    "--node-rank",
+    "1",
+    "--master-addr",
+    "10.11.1.1",
+    "--master-port",
+    "25000",
+    "--headless",
+    "--recurrent-checkpoint-policy",
+    "aligned"
+  ],
+  "profile": [
+    "MAX_NUM_BATCHED_TOKENS=4096",
+    "MAX_MODEL_LEN=262144",
+    "MAX_NUM_SEQS=4",
+    "GPU_MEMORY_UTILIZATION=0.85",
+    "TP=2",
+    "SERVED_MODEL_NAME=Qwen3.8-Flash-Next",
+    "NCCL_PROTO=LL,Simple",
+    "MODEL_REVISION=c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d",
+    "NUM_SPECULATIVE_TOKENS=3"
+  ]
+}

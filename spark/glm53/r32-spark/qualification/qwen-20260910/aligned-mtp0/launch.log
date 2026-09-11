@@ -1,0 +1,29 @@
+START aligned-mtp0 2026-09-10T11:26:43-04:00 image=74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c
+qwen38-flash-next-nvfp4-jj-r32-tp2 stopped and removed on kirby
+qwen38-flash-next-nvfp4-jj-r32-tp2 stopped and removed on dusty
+d91775cf6dbaeb4882fcfd8457a76482b7322af8df80c9237dc0c104ded2e8ed
+qwen38-flash-next-nvfp4-jj-r32-tp2 ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+5cfc464a1910361c9b79abd899329ac29a84c28205348548f1cd8197ea79ca0a
+qwen38-flash-next-nvfp4-jj-r32-tp2 ROLE=head rank=0/2 model=Qwen3.8-Flash-Next-NVFP4-4p89
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+PROFILE-READY aligned-mtp0 2026-09-10T11:30:27-04:00

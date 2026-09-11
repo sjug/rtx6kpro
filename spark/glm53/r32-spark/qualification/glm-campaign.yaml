@@ -1,0 +1,53 @@
+id: "2026-09-jj-r32-vs-r29"
+status: "completed"
+objective: "Qualify GLM R32 aligned on four Sparks against corrected R29 with matched settings."
+baseline: "jj-r29-aligned-sm121-tp4-dcp1-mtp3-native1m"
+shared_configuration:
+  model_family: "glm-5.3-flash"
+  model_variant: "nvfp4"
+  checkpoint_revision: "46aaae8a82032f77100f2f03e9cc11b391df3b4d"
+  nodes: [sparky, buddy, rocky, lucky]
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  speculative_tokens: 3
+  draft_head: "bf16"
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 1048576
+  max_num_seqs: 8
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  kv_cache_dtype: "fp8"
+  kda_prefill_backend: "flashkda"
+  nccl_proto: "LL,Simple"
+conclusion: "R32 aligned/MTP3 qualified. Correctness and quiet 15-cell repeat passed; no material overall regression demonstrated. R32 remains serving; the first traffic-contaminated grid stays excluded."
+notes: |
+  GLM transfer, cutover and qualification authorized after the Qwen review.
+  Corrected R29 image 0b15723c was the running baseline and is retained stopped as rollback.
+  Standard run_bench.sh duration 30, concurrency 1/2/4, client limit 6412288.
+  No clear_thinking override, automatic checkpoint policy or draft-head change.
+  Short-history incomplete-pool correctness is explicitly checked on R32;
+  exact R29 output equality is not the criterion for a corrected attention path.
+  Log prefix reuse, per-rank boot KV and clocks. Long needles can be cache-warm.
+  Historical R29 numbers are not proof of multi-boot performance repeatability.
+  R32 image 74e53e710bef is serving on all four nodes. Semantic 15/15,
+  short-pool 7/7, prefix pairs/triples and exact retrieval through 1048000 passed.
+  Run 20260910T145615-0400 r01 completed but is excluded as a clean full-grid
+  comparison: separate Pi traffic began around 15:03:51, overlapping seven
+  cells from C4/16K onward. C4/16K and C2/64K are capacity_limited.
+  A new fused_recurrent_kda_fwd_kernel compiled at 15:04:02 on all four ranks.
+  C1 and prefill scouts preceded that interference. C1 output 52.6031 tok/s,
+  steps 19.9608, acceptance 2.6353; compare R29 C1 repeat 51.4556/19.9010/2.5856.
+  Prefill 2739/2944/2944/2930/2859 tok/s at 8/16/32/64/128K, within 0.35% of R29.
+  After the user stopped Pi traffic, run 20260910T160142-0400 r02 repeated the
+  full grid on the same containers, without a restart or configuration change.
+  All 15 cells passed; measured running counts matched concurrency exactly,
+  with zero new JIT warnings or runtime errors. Final completion and all four
+  rank health checks passed at 16:14:16 EDT.
+  Quiet R32 geomeans C1/C2/C4 output 52.7959/82.3413/120.5124 tok/s,
+  steps 20.1018/31.2435/45.3211. Versus the full R29 baseline, engine changes
+  are +0.91/+0.53/-0.68 percent; C2/C4 output changes +1.05/-0.70 percent.
+  Versus the stronger R29 C1 repeat, output is +2.60 percent and steps +1.01.
+  Quiet prefill 2780/2946/2944/2938/2873 tok/s at 8/16/32/64/128K.
+  Individual output/acceptance variation remains; this is not proof of a
+  repeatable speedup or universal per-cell output parity. R29 remains stopped
+  as rollback. Qwen and DS4 were not changed by this GLM continuation.
