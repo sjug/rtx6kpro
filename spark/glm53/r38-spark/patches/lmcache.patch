@@ -1,0 +1,189 @@
+diff --git a/csrc/storage_backends/fs/connector.cpp b/csrc/storage_backends/fs/connector.cpp
+index ff7bd5befc0fe83d8fd81a43bdd4a5cefcd1c458..52efa82c3bd1b5e038c63f495ee4439ed2d26b03 100644
+--- a/csrc/storage_backends/fs/connector.cpp
++++ b/csrc/storage_backends/fs/connector.cpp
+@@ -534,22 +534,31 @@ bool FSConnector::do_single_exists(WorkerFSConn& conn, const std::string& key) {
+ bool FSConnector::do_single_delete(WorkerFSConn& conn, const std::string& key) {
+   const auto relative_path = key_to_relative_path(key);
+   auto file_path = conn.base_path / relative_path;
+-  std::error_code ec;
++  const auto remove_or_missing = [](const std::filesystem::path& path) {
++    std::error_code ec;
++    std::filesystem::remove(path, ec);
++    if (ec) {
++      throw std::runtime_error("delete failed for " + path.string() + ": " +
++                               ec.message());
++    }
++  };
+   const bool canonical_fits =
+       path_is_representable(file_path, conn.name_max, conn.path_max);
+-  if (canonical_fits && std::filesystem::remove(file_path, ec)) return true;
++  bool representable = canonical_fits;
++  if (canonical_fits) remove_or_missing(file_path);
+   if (relative_path.has_parent_path()) {
+     const auto legacy_path = conn.base_path / key_to_filename(key);
+-    ec.clear();
+-    if (path_is_representable(legacy_path, conn.name_max, conn.path_max) &&
+-        std::filesystem::remove(legacy_path, ec)) {
+-      return true;
++    if (path_is_representable(legacy_path, conn.name_max, conn.path_max)) {
++      remove_or_missing(legacy_path);
++      representable = true;
+     }
+   }
+-  if (!canonical_fits) {
++  if (!representable) {
+     require_representable_path(file_path, conn.name_max, conn.path_max);
+   }
+-  return false;
++  // Both readable representations must be absent before retiring the byte
++  // ledger. An already-missing file satisfies the same idempotent contract.
++  return true;
+ }
+ 
+ }  // namespace connector
+diff --git a/lmcache/v1/distributed/l2_adapters/native_connector_l2_adapter.py b/lmcache/v1/distributed/l2_adapters/native_connector_l2_adapter.py
+index 88aa14f93b7a8abab45587792fb5626af2bf11e5..2ed9fb7d106df8a11dee5d25214b3bcf300e6896 100644
+--- a/lmcache/v1/distributed/l2_adapters/native_connector_l2_adapter.py
++++ b/lmcache/v1/distributed/l2_adapters/native_connector_l2_adapter.py
+@@ -450,8 +450,8 @@ class NativeConnectorL2Adapter(L2AdapterInterface):
+         tracking stays in sync.
+ 
+         No-op if the connector does not expose ``submit_batch_delete``
+-        or if the key list is empty. Keys with a pending or completed lookup
+-        lock are skipped so an in-flight prefetch cannot race the unlink.
++        or if the key list is empty. Keys with a pending store or a pending or
++        completed lookup lock are skipped so active I/O cannot race the unlink.
+         """
+         if not keys or not self._has_delete:
+             return
+@@ -468,12 +468,14 @@ class NativeConnectorL2Adapter(L2AdapterInterface):
+             for op_type, _task_id, _num_keys, op_keys in self._pending_ops.values():
+                 if op_type == self._OP_LOOKUP and op_keys is not None:
+                     protected_keys.update(op_keys)
++            for store in self._pending_store_sizes.values():
++                protected_keys.update(store.keys)
+ 
+             delete_keys = [key for key in keys if key not in protected_keys]
+             skipped_count = len(keys) - len(delete_keys)
+             if skipped_count:
+                 logger.info(
+-                    "delete(): skipping %d lookup-pending or locked keys; %d remain",
++                    "delete(): skipping %d I/O-pending or locked keys; %d remain",
+                     skipped_count,
+                     len(delete_keys),
+                 )
+diff --git a/tests/v1/distributed/test_native_connector_l2_adapter.py b/tests/v1/distributed/test_native_connector_l2_adapter.py
+index 001009fe396874c40101c06ff3d31794b379e14f..41de03b32a43a2bb12c4900af22d01e1f18a9533 100644
+--- a/tests/v1/distributed/test_native_connector_l2_adapter.py
++++ b/tests/v1/distributed/test_native_connector_l2_adapter.py
+@@ -1310,6 +1310,30 @@ class TestDeleteInterface:
+         finally:
+             adapter.close()
+ 
++    def test_delete_skips_store_that_has_not_completed(self):
++        client = MockNativeConnector()
++        client.suppress_set_completion = True
++        adapter = NativeConnectorL2Adapter(client)
++        key = create_object_key(1)
++        try:
++            adapter.submit_store_task([key], [create_memory_obj()])
++            assert adapter.has_inflight_store_for_keys([key])
++
++            adapter.delete([key])
++
++            task_id = adapter.submit_lookup_and_lock_task([key], {0: _EMPTY_LAYOUT})
++            assert wait_for_event_fd(
++                adapter.get_lookup_and_lock_event_fd(), timeout=5.0
++            )
++            assert adapter.query_lookup_and_lock_result(task_id).test(0) is True
++            adapter.submit_unlock([key])
++
++            client.complete_suppressed_sets()
++            assert wait_for_event_fd(adapter.get_store_event_fd(), timeout=5.0)
++            adapter.pop_completed_store_tasks()
++        finally:
++            adapter.close()
++
+     def test_delete_batch(self, adapter):
+         keys = [create_object_key(i) for i in range(5)]
+         objs = [create_memory_obj(fill_value=float(i)) for i in range(5)]
+diff --git a/tests/v1/storage_backend/test_fs_native_connector.py b/tests/v1/storage_backend/test_fs_native_connector.py
+index b3ede6c992c0d964b04a5848c48f9360c29124b6..c7daa1562d9e745c63d123016546e2f0f51bc537 100644
+--- a/tests/v1/storage_backend/test_fs_native_connector.py
++++ b/tests/v1/storage_backend/test_fs_native_connector.py
+@@ -446,6 +446,74 @@ def test_restart_restores_compiled_fs_usage_and_evicts_oldest(tmp_path) -> None:
+         adapter.close()
+ 
+ 
++@pytest.mark.parametrize("model_name", ["restart/model", "org/" + "model" * 60])
++def test_delete_reconciles_missing_file_from_usage_ledger(
++    tmp_path, model_name: str
++) -> None:
++    """Deleting an already-missing native object retires its tracked bytes."""
++    LMCacheFSClient = _import_fs_client()
++    key = ObjectKey(
++        chunk_hash=ObjectKey.IntHash2Bytes(1),
++        model_name=model_name,
++        kv_rank=0,
++        cache_salt="tenant-a",
++    )
++    objects: Any = [_BufferObj(b"payload")]
++    writer = NativeConnectorL2Adapter(LMCacheFSClient(str(tmp_path), 1))
++    try:
++        assert writer.store_objects_sync([key], objects) == (
++            True,
++            1,
++            7,
++        )
++    finally:
++        writer.close()
++
++    adapter = create_l2_adapter(
++        FSNativeL2AdapterConfig(
++            base_path=str(tmp_path),
++            num_workers=1,
++            max_capacity_gb=10 / (1024**3),
++        )
++    )
++    try:
++        (tmp_path / _object_key_to_relative_path(key)).unlink()
++        assert adapter.get_usage().total_bytes_used == 7
++
++        adapter.delete([key])
++
++        assert adapter.get_usage().total_bytes_used == 0
++        assert adapter.get_existing_key_sizes() == {}
++    finally:
++        adapter.close()
++
++
++@pytest.mark.parametrize("model_name", ["restart/model", "org/" + "model" * 60])
++def test_delete_error_does_not_retire_tracked_bytes(tmp_path, model_name: str) -> None:
++    """A nonempty directory at an object path is an error, not a missing key."""
++    LMCacheFSClient = _import_fs_client()
++    key = ObjectKey(
++        chunk_hash=ObjectKey.IntHash2Bytes(2),
++        model_name=model_name,
++        kv_rank=0,
++        cache_salt="tenant-a",
++    )
++    objects: Any = [_BufferObj(b"payload")]
++    adapter = NativeConnectorL2Adapter(LMCacheFSClient(str(tmp_path), 1))
++    try:
++        assert adapter.store_objects_sync([key], objects) == (True, 1, 7)
++        path = tmp_path / _object_key_to_relative_path(key)
++        path.unlink()
++        path.mkdir()
++        (path / "unrelated").write_bytes(b"must not remove")
++        adapter.delete([key])
++        assert adapter.get_usage().total_bytes_used == 7
++        assert adapter.get_existing_key_sizes() == {key: 7}
++        assert (path / "unrelated").read_bytes() == b"must not remove"
++    finally:
++        adapter.close()
++
++
+ def test_odirect_read_does_not_split_for_read_ahead(tmp_path) -> None:
+     """O_DIRECT reads should ignore read_ahead_size and use one aligned read."""
+     if not hasattr(os, "O_DIRECT"):

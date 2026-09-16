@@ -1,0 +1,97 @@
+diff --git a/tests/v1/worker/test_async_verified_draft_counts.py b/tests/v1/worker/test_async_verified_draft_counts.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..1b7fd72884888a161660b5743aade58e8ca26cfc
+--- /dev/null
++++ b/tests/v1/worker/test_async_verified_draft_counts.py
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++
++import pytest
++import torch
++
++from vllm.v1.outputs import ModelRunnerOutput
++from vllm.v1.worker.gpu.async_utils import AsyncOutput
++from vllm.v1.worker.gpu.sample.output import SamplerOutput
++
++
++@pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA streams")
++@pytest.mark.parametrize(
++    "deferred", [True, False], ids=["deferred-delivery", "cuda-copy"]
++)
++def test_verified_counts_belong_to_output_step(monkeypatch, deferred):
++    """A subsequent verifier step may reuse capacity storage before CPU delivery."""
++    main_stream = torch.cuda.current_stream()
++    copy_stream = torch.cuda.Stream()
++    capacities = torch.tensor([3, 1], dtype=torch.int32, device="cuda")
++    sampled_ids = torch.tensor([[7, 8, 9, 10], [11, 12, -1, -1]], device="cuda")
++    num_sampled = torch.tensor([4, 2], dtype=torch.int32, device="cuda")
++    pending_copies = []
++
++    def defer_copy(source):
++        # Delay CPU delivery deterministically, without relying on GPU timing.
++        # A reference is deliberately retained to test storage ownership, not
++        # allocator lifetime; production enqueues these copies on copy_stream.
++        destination = torch.empty_like(source, device="cpu").numpy()
++        pending_copies.append((source, destination))
++        return destination
++
++    if deferred:
++        monkeypatch.setattr(
++            "vllm.v1.worker.gpu.async_utils.async_copy_to_np", defer_copy
++        )
++    else:
++        torch.accelerator.synchronize()
++        with torch.cuda.stream(copy_stream):
++            torch.cuda._sleep(100_000_000)
++    output = AsyncOutput(
++        model_runner_output=ModelRunnerOutput(
++            req_ids=["a", "b"],
++            req_id_to_index={"a": 0, "b": 1},
++            sampled_token_ids=[],
++            logprobs=None,
++            prompt_logprobs_dict={},
++        ),
++        sampler_output=SamplerOutput(sampled_ids, None, None, num_sampled),
++        num_sampled_tokens=num_sampled,
++        main_stream=main_stream,
++        copy_stream=copy_stream,
++        num_verified_draft_tokens=capacities,
++    )
++    capacities.copy_(torch.tensor([0, 2], dtype=torch.int32, device="cuda"))
++    torch.accelerator.synchronize()
++    for source, destination in pending_copies:
++        destination[:] = source.cpu().numpy()
++    result = output.get_output()
++    assert result.sampled_token_ids == [[7, 8, 9, 10], [11, 12]]
++    assert result.num_verified_draft_tokens == [3, 1]
+diff --git a/vllm/v1/worker/gpu/async_utils.py b/vllm/v1/worker/gpu/async_utils.py
+index 7912f5570cc1429964b6a387caaa6eb825287975..2772fd46206b029cf990ba10b94344a40a353d7b 100644
+--- a/vllm/v1/worker/gpu/async_utils.py
++++ b/vllm/v1/worker/gpu/async_utils.py
+@@ -133,6 +133,14 @@ class AsyncOutput(AsyncModelRunnerOutput):
+         self.num_sampled_tokens = num_sampled_tokens
+         self.routed_experts = routed_experts
+         self.boundary_checkpoint_tokens = boundary_checkpoint_tokens
++        # Adaptive verification reuses its capacity buffer on the model stream.
++        # Snapshot it before handing it to the independent output-copy stream,
++        # and keep that snapshot alive until CPU delivery completes.
++        self.num_verified_draft_tokens = (
++            num_verified_draft_tokens.clone()
++            if num_verified_draft_tokens is not None
++            else None
++        )
+         # Blocking (sleep) event to avoid busy-polling the CUDA driver lock.
+         self.copy_event = torch.cuda.Event(blocking=True)
+         self._has_fault: torch.Tensor | None = None
+@@ -156,8 +164,8 @@ class AsyncOutput(AsyncModelRunnerOutput):
+                 else None
+             )
+             self.num_verified_draft_tokens_np = (
+-                async_copy_to_np(num_verified_draft_tokens)
+-                if num_verified_draft_tokens is not None
++                async_copy_to_np(self.num_verified_draft_tokens)
++                if self.num_verified_draft_tokens is not None
+                 else None
+             )
+             self.sampling_mask_tensors: SamplingMaskTensors | None = None
