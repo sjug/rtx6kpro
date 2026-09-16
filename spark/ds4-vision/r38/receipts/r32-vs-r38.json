@@ -1,0 +1,94 @@
+{
+  "scope": "Historical qualified R32 versus current R38, same checkpoint and profile; not a repeatability study",
+  "baseline": "/home/jugs/git/llm-inference-bench/results/runs/deepseek-v4-flash/vision-exp/2026-09-jj-r32-vision-spark-admission/throughput/20260910T194509-0400__jj-r32-sm121-tp2-dspark-k3-dglin-524k__r01.json",
+  "candidate": "/home/jugs/git/llm-inference-bench/results/runs/deepseek-v4-flash/vision-exp/2026-09-jj-r38-vs-r32/throughput/20260915T152722-0400__jj-r38-sm121-tp2-dspark-k3-dglin-524k__r01.json",
+  "candidate_sha256": "c4df4495701dff6e024984e57e06769b593a461b789de766dccbee5819df1d98",
+  "summary": [
+    {
+      "concurrency": 1,
+      "aggregate_tps": {
+        "r32": 34.4832734648716,
+        "r38": 36.20282016759712,
+        "change_pct": 4.986610985402051
+      },
+      "server_steps_per_s": {
+        "r32": 16.03663748400007,
+        "r38": 17.3457675817576,
+        "change_pct": 8.163370276740745
+      },
+      "server_accept_len_effective": {
+        "r32": 2.1502807866846108,
+        "r38": 2.087127017986296,
+        "change_pct": -2.937001022814678
+      }
+    },
+    {
+      "concurrency": 2,
+      "aggregate_tps": {
+        "r32": 57.79890508511409,
+        "r38": 56.00796184097811,
+        "change_pct": -3.0985764202603128
+      },
+      "server_steps_per_s": {
+        "r32": 26.26125416056516,
+        "r38": 26.332399070823623,
+        "change_pct": 0.2709120814393451
+      },
+      "server_accept_len_effective": {
+        "r32": 2.200919450827562,
+        "r38": 2.1269600878499184,
+        "change_pct": -3.3603848132576664
+      }
+    },
+    {
+      "concurrency": 4,
+      "aggregate_tps": {
+        "r32": 79.74904380038879,
+        "r38": 79.03417974340381,
+        "change_pct": -0.8963920103848277
+      },
+      "server_steps_per_s": {
+        "r32": 37.81407562745396,
+        "r38": 37.25311655752498,
+        "change_pct": -1.483466303541492
+      },
+      "server_accept_len_effective": {
+        "r32": 2.108977741148034,
+        "r38": 2.121545444965977,
+        "change_pct": 0.5959144837205388
+      }
+    }
+  ],
+  "prefill": [
+    {
+      "context_tokens": 8192,
+      "r32": 1578.0,
+      "r38": 2104.0,
+      "change_pct": 33.33333333333333
+    },
+    {
+      "context_tokens": 16384,
+      "r32": 2280.0,
+      "r38": 2253.0,
+      "change_pct": -1.1842105263157876
+    },
+    {
+      "context_tokens": 32768,
+      "r32": 2242.0,
+      "r38": 2219.0,
+      "change_pct": -1.0258697591436272
+    },
+    {
+      "context_tokens": 65536,
+      "r32": 1893.0,
+      "r38": 2142.0,
+      "change_pct": 13.153724247226627
+    },
+    {
+      "context_tokens": 131072,
+      "r32": 1571.0,
+      "r38": 2003.0,
+      "change_pct": 27.498408656906427
+    }
+  ]
+}

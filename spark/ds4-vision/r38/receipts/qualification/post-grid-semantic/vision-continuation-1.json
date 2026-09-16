@@ -1,0 +1,52 @@
+{
+  "label": "vision-continuation-1",
+  "elapsed_s": 2.1366062960005365,
+  "response": {
+    "id": "chatcmpl-a322d71e03cec581",
+    "object": "chat.completion",
+    "created": 1789501221,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "blue",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": "1.  **Analyze the user's request:** The user asks \"Which color was on the right?\" based on the previous image.\n2.  **Review the previous context:** The image showed a red square on the left and a blue square on the right. The previous answer was \"red, blue\".\n3.  **Determine the answer:** The color on the right is blue.\n4.  **Format the output:** The user requested \"Reply with only the color name.\""
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.26.1rc0+jj.r38.spark.vllm2d38757-tp2-b4af6e29",
+    "usage": {
+      "prompt_tokens": 262,
+      "total_tokens": 363,
+      "completion_tokens": 101,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 256,
+        "multimodal_tokens": {
+          "image": 115
+        }
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 98
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}

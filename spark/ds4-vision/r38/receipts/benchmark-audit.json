@@ -1,0 +1,103 @@
+{
+  "grid": "/home/jugs/git/llm-inference-bench/results/runs/deepseek-v4-flash/vision-exp/2026-09-jj-r38-vs-r32/throughput/20260915T152722-0400__jj-r38-sm121-tp2-dspark-k3-dglin-524k__r01.json",
+  "start": "2026-09-15T15:27:27-04:00",
+  "end": "2026-09-15T15:40:14.321590-04:00",
+  "timing_note": "Per-cell ready/done events have one-second precision. Node nvidia-smi telemetry is authoritative; benchmark hardware summaries are not used for Spark clocks.",
+  "nodes": {
+    "rusty": {
+      "samples": 767,
+      "decode_samples": 449,
+      "decode_mean_sm_mhz": 2418.0,
+      "decode_clock_event_samples": 0,
+      "benchmark_clock_event_samples": 2,
+      "maximum_temperature_c": 88.0,
+      "jit_events": [
+        {
+          "timestamp": "2026-09-15T15:36:27.066874-04:00",
+          "message": "2026-09-15T15:36:27.066874000-04:00 (Worker_TP0 pid=297) [b12x cute.compile] compile-start number=104 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=8d62ccbb92386af5 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:36:27.067018-04:00",
+          "message": "2026-09-15T15:36:27.067018000-04:00 (Worker_TP0 pid=297) WARNING 09-15 19:36:27 [jit_monitor.py:141] CuTeDSL JIT compilation during inference: call_extra_pertok. This causes a latency spike; consider extending warmup to cover this shape/config.",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:37:41.572877-04:00",
+          "message": "2026-09-15T15:37:41.572877000-04:00 (Worker_TP0 pid=297) [b12x cute.compile] compile-start number=105 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=05ccd5d35fa4f875 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:38:20.238348-04:00",
+          "message": "2026-09-15T15:38:20.238348000-04:00 (Worker_TP0 pid=297) [b12x cute.compile] compile-start number=106 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=5e92fd602a692e14 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:38:58.690573-04:00",
+          "message": "2026-09-15T15:38:58.690573000-04:00 (Worker_TP0 pid=297) [b12x cute.compile] compile-start number=107 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=00fcff4d36d658a2 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:39:36.695269-04:00",
+          "message": "2026-09-15T15:39:36.695269000-04:00 (Worker_TP0 pid=297) [b12x cute.compile] compile-start number=108 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=13b7237f6e8aeb6c kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:39:37.509783-04:00",
+          "message": "2026-09-15T15:39:37.509783000-04:00 (Worker_TP0 pid=297) [b12x cute.compile] compile-start number=109 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=5efb2171c52dbe59 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        }
+      ],
+      "foreign_client_posts": [],
+      "error_lines": []
+    },
+    "toby": {
+      "samples": 767,
+      "decode_samples": 450,
+      "decode_mean_sm_mhz": 2492.8444444444444,
+      "decode_clock_event_samples": 0,
+      "benchmark_clock_event_samples": 0,
+      "maximum_temperature_c": 84.0,
+      "jit_events": [
+        {
+          "timestamp": "2026-09-15T15:36:27.063925-04:00",
+          "message": "2026-09-15T15:36:27.063925000-04:00 (Worker_TP1 pid=272) [b12x cute.compile] compile-start number=104 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=57974b73064d1377 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:36:27.064398-04:00",
+          "message": "2026-09-15T15:36:27.064398000-04:00 (Worker_TP1 pid=272) WARNING 09-15 19:36:27 [jit_monitor.py:141] CuTeDSL JIT compilation during inference: call_extra_pertok. This causes a latency spike; consider extending warmup to cover this shape/config.",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:37:41.576497-04:00",
+          "message": "2026-09-15T15:37:41.576497000-04:00 (Worker_TP1 pid=272) [b12x cute.compile] compile-start number=105 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=5c58669d26303179 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:38:20.236778-04:00",
+          "message": "2026-09-15T15:38:20.236778000-04:00 (Worker_TP1 pid=272) [b12x cute.compile] compile-start number=106 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=d38bc36e952ecf9f kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:38:58.680991-04:00",
+          "message": "2026-09-15T15:38:58.680991000-04:00 (Worker_TP1 pid=272) [b12x cute.compile] compile-start number=107 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=2bc6744ad325cf6d kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:39:36.688429-04:00",
+          "message": "2026-09-15T15:39:36.688429000-04:00 (Worker_TP1 pid=272) [b12x cute.compile] compile-start number=108 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=b11a51811a390afb kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        },
+        {
+          "timestamp": "2026-09-15T15:39:37.509059-04:00",
+          "message": "2026-09-15T15:39:37.509059000-04:00 (Worker_TP1 pid=272) [b12x cute.compile] compile-start number=109 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_extra_pertok cache_key=a957fc1dc8538e51 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 0], ['compute_mode', 0], ['scale_format', 0]",
+          "inside_decode_window": false
+        }
+      ],
+      "foreign_client_posts": [],
+      "error_lines": []
+    }
+  },
+  "cells": 15
+}

@@ -1,0 +1,86 @@
+true
+run-node.sh: OK
+launch-in-container.sh: OK
+runtime-preflight.py: OK
+verify-model.py: OK
+{"status": "MODEL-VERIFIED", "revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "hashed": false, "snapshot": "/home/jugs/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380"}
+true
+run-node.sh: OK
+launch-in-container.sh: OK
+runtime-preflight.py: OK
+verify-model.py: OK
+{"status": "MODEL-VERIFIED", "revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "hashed": false, "snapshot": "/home/jugs/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380"}
+{"status": "MODEL-VERIFIED", "revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "hashed": false, "snapshot": "/home/jugs/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380"}
+run-node.sh: OK
+launch-in-container.sh: OK
+runtime-preflight.py: OK
+verify-model.py: OK
+9982b72184bf215236bed29c6a8ef707754403745447b464b1ebcd77414f80be
+{"status": "MODEL-VERIFIED", "revision": "6821d6ad3681a4b137b066b76094fa82ebd0a380", "hashed": false, "snapshot": "/home/jugs/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380"}
+run-node.sh: OK
+launch-in-container.sh: OK
+runtime-preflight.py: OK
+verify-model.py: OK
+c906adac4f036ff83f1176f4dab91f8a5f0d6a93073b781e5ef4e4d6509ed721
+curl: (7) Failed to connect to rusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 2 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to rusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+true
+FIRST-COMPLETION-PASS 2026-09-15T15:15:24-04:00
+{"label": "default-max-arithmetic-0", "valid": true, "answer": "333", "elapsed_s": 4.358000745000027, "usage": {"prompt_tokens": 113, "total_tokens": 143, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+{"label": "nonthinking-0", "valid": true, "answer": "133", "elapsed_s": 0.2917952879997756, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-0", "valid": true, "answer": "red, blue", "elapsed_s": 1.863325039999836, "usage": {"prompt_tokens": 241, "total_tokens": 293, "completion_tokens": 52, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 47}}}
+{"label": "vision-continuation-0", "valid": true, "answer": "blue", "elapsed_s": 2.861102586000925, "usage": {"prompt_tokens": 262, "total_tokens": 383, "completion_tokens": 121, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 118}}}
+{"label": "default-max-arithmetic-1", "valid": true, "answer": "333", "elapsed_s": 1.120247961000132, "usage": {"prompt_tokens": 113, "total_tokens": 151, "completion_tokens": 38, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 35}}}
+{"label": "nonthinking-1", "valid": true, "answer": "133", "elapsed_s": 0.33496330700108956, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-1", "valid": true, "answer": "red, blue", "elapsed_s": 1.4633842339990224, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "vision-continuation-1", "valid": true, "answer": "blue", "elapsed_s": 3.0042348400002084, "usage": {"prompt_tokens": 262, "total_tokens": 413, "completion_tokens": 151, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 148}}}
+{"label": "default-max-arithmetic-2", "valid": true, "answer": "333", "elapsed_s": 1.0353562569998758, "usage": {"prompt_tokens": 113, "total_tokens": 151, "completion_tokens": 38, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 35}}}
+{"label": "nonthinking-2", "valid": true, "answer": "133", "elapsed_s": 0.29453406799984805, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-2", "valid": true, "answer": "red, blue", "elapsed_s": 1.4326848319997225, "usage": {"prompt_tokens": 241, "total_tokens": 296, "completion_tokens": 55, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 50}}}
+{"label": "vision-continuation-2", "valid": true, "answer": "blue", "elapsed_s": 2.534830446000342, "usage": {"prompt_tokens": 262, "total_tokens": 403, "completion_tokens": 141, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 138}}}
+{"label": "tool-round-trip", "valid": true, "answer": "391", "elapsed_s": 0.4524809259983158, "usage": {"prompt_tokens": 492, "total_tokens": 495, "completion_tokens": 3, "prompt_tokens_details": {"cached_tokens": 256, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "concurrent-0", "valid": true, "answer": "red, blue", "elapsed_s": 2.0708786570012307, "usage": {"prompt_tokens": 241, "total_tokens": 286, "completion_tokens": 45, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 40}}}
+{"label": "concurrent-1", "valid": true, "answer": "42", "elapsed_s": 1.8476644210004451, "usage": {"prompt_tokens": 108, "total_tokens": 137, "completion_tokens": 29, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 26}}}
+{"label": "concurrent-2", "valid": true, "answer": "red, blue", "elapsed_s": 2.255269369999951, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "concurrent-3", "valid": true, "answer": "84", "elapsed_s": 1.8473377039990737, "usage": {"prompt_tokens": 108, "total_tokens": 138, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+{"label": "needle-16384", "valid": true, "answer": "739184", "elapsed_s": 10.492352510000273, "usage": {"prompt_tokens": 16384, "total_tokens": 16387, "completion_tokens": 3, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 16384, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "needle-524000", "valid": true, "answer": "739184", "elapsed_s": 336.51033977800034, "usage": {"prompt_tokens": 524000, "total_tokens": 524003, "completion_tokens": 3, "prompt_tokens_details": {"cached_tokens": 16128, "created_cache_tokens": 507648, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+VISION-QUALIFICATION-PASS

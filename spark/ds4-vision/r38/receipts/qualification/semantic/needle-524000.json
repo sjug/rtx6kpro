@@ -1,0 +1,50 @@
+{
+  "label": "needle-524000",
+  "elapsed_s": 336.51033977800034,
+  "response": {
+    "id": "chatcmpl-b38654b9619cb0a6",
+    "object": "chat.completion",
+    "created": 1789499763,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "739184",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.26.1rc0+jj.r38.spark.vllm2d38757-tp2-b4af6e29",
+    "usage": {
+      "prompt_tokens": 524000,
+      "total_tokens": 524003,
+      "completion_tokens": 3,
+      "prompt_tokens_details": {
+        "cached_tokens": 16128,
+        "created_cache_tokens": 507648,
+        "multimodal_tokens": null
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}
