@@ -1,0 +1,162 @@
+START 2026-09-15T15:08:33-04:00
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+true
+READY 2026-09-15T15:12:34-04:00
+true
+true
+true
+true
+== short-prompt pool tails 2026-09-15T15:12:36-04:00 ==
+{"kind": "short_pool_semantic", "prompt_tokens": 128, "pool_size": 4, "tail_tokens": 0, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 2.9525233209988073, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 129, "pool_size": 4, "tail_tokens": 1, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 0.9304863239995029, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2047, "pool_size": 4, "tail_tokens": 3, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.235153771998739, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2048, "pool_size": 4, "tail_tokens": 0, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.2178290939991712, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2049, "pool_size": 4, "tail_tokens": 1, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.769179985001756, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2050, "pool_size": 4, "tail_tokens": 2, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.2265186559998256, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2051, "pool_size": 4, "tail_tokens": 3, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.4198511600006896, "valid": true}
+GLM_R38_SHORT_POOL_SEMANTIC_PASS cases=7
+== semantic x3 2026-09-15T15:12:47-04:00 ==
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 1, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 52, "effort": "high", "kind": "reasoning", "reasoning_chars": 30, "repetition": 1, "valid": true}
+{"answer": "17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 62, "effort": "max", "kind": "reasoning", "reasoning_chars": 104, "repetition": 1, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 1, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 2, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 54, "effort": "high", "kind": "reasoning", "reasoning_chars": 28, "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 62, "effort": "max", "kind": "reasoning", "reasoning_chars": 104, "repetition": 2, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 2, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 3, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 52, "effort": "high", "kind": "reasoning", "reasoning_chars": 30, "repetition": 3, "valid": true}
+{"answer": "17 \u00d7 23 = 391, and 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 111, "effort": "max", "kind": "reasoning", "reasoning_chars": 249, "repetition": 3, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 3, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "GLM-5.3-Flash", "runs": 3, "valid": true}
+GLM53_SEMANTIC_ADMISSION_PASS
+== concurrency 2026-09-15T15:13:00-04:00 ==
+== identical burst vs distinct ==
+warm c1: n=1 wall=4.0s agg_tok/s=49.8 per_req_s=[4.0]
+c4 distinct: n=4 wall=6.9s agg_tok/s=115.3 per_req_s=[6.7, 6.9, 6.9, 6.6]
+c4 identical: n=4 wall=6.6s agg_tok/s=121.8 per_req_s=[6.3, 5.8, 6.5, 6.6]
+c4 distinct again: n=4 wall=7.1s agg_tok/s=112.8 per_req_s=[6.9, 7.0, 6.5, 7.1]
+== fresh / extension / verbatim-repeat ==
+A: 4 fresh distinct: n=4 wall=6.1s agg_tok/s=131.0 per_req_s=[6.0, 6.1, 6.0, 5.6]
+B: 4 extensions of A (multi-turn): n=4 wall=8.4s agg_tok/s=94.9 per_req_s=[8.4, 7.9, 8.1, 8.0]
+C: 4 fresh distinct after B: n=4 wall=6.7s agg_tok/s=119.9 per_req_s=[6.3, 6.7, 6.4, 6.4]
+D: repeat A verbatim: n=4 wall=6.4s agg_tok/s=125.2 per_req_s=[5.7, 6.4, 6.1, 5.9]
+E: 4 fresh distinct after D: n=4 wall=6.0s agg_tok/s=133.8 per_req_s=[5.5, 5.8, 5.7, 6.0]
+== repeat head-of-line ==
+repeat   ttft=   0.7s total=   2.1s
+fresh0   ttft=   0.6s total=   1.9s
+fresh1   ttft=   0.4s total=   1.8s
+long1    ttft=   0.3s total=  15.7s
+long0    ttft=   0.3s total=  15.8s
+== frozen prefix pairs 2026-09-15T15:14:15-04:00 ==
+2026-09-15T15:14:15.432607-04:00 r38-aligned-long-unaligned-base 131072
+{"arm": "r38-aligned", "pair": "long-unaligned", "stage": "base", "common_prefix_tokens": 131049, "prompt_tokens": 131072, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-15T15:14:15.432607-04:00", "finished_at": "2026-09-15T15:15:03.569362-04:00", "elapsed_seconds": 47.12211357999877, "cached_tokens": 0.0, "fresh_tokens": 131072.0, "usage": {"prompt_tokens": 131072, "total_tokens": 131143, "completion_tokens": 71, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-15T15:15:03.578748-04:00 r38-aligned-long-unaligned-extension 262144
+{"arm": "r38-aligned", "pair": "long-unaligned", "stage": "extension", "common_prefix_tokens": 131049, "prompt_tokens": 262144, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-15T15:15:03.578748-04:00", "finished_at": "2026-09-15T15:15:54.902516-04:00", "elapsed_seconds": 50.307859391999955, "cached_tokens": 126976.0, "fresh_tokens": 135168.0, "usage": {"prompt_tokens": 262144, "total_tokens": 262190, "completion_tokens": 46, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-15T15:15:54.916571-04:00 r38-aligned-long-aligned-base 131095
+{"arm": "r38-aligned", "pair": "long-aligned", "stage": "base", "common_prefix_tokens": 131072, "prompt_tokens": 131095, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-15T15:15:54.916571-04:00", "finished_at": "2026-09-15T15:16:40.638701-04:00", "elapsed_seconds": 44.71038430000044, "cached_tokens": 0.0, "fresh_tokens": 131095.0, "usage": {"prompt_tokens": 131095, "total_tokens": 131153, "completion_tokens": 58, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-15T15:16:40.647120-04:00 r38-aligned-long-aligned-extension 262144
+{"arm": "r38-aligned", "pair": "long-aligned", "stage": "extension", "common_prefix_tokens": 131072, "prompt_tokens": 262144, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-15T15:16:40.647120-04:00", "finished_at": "2026-09-15T15:17:31.371006-04:00", "elapsed_seconds": 49.71101306499986, "cached_tokens": 129024.0, "fresh_tokens": 133120.0, "usage": {"prompt_tokens": 262144, "total_tokens": 262203, "completion_tokens": 59, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-15T15:17:31.383256-04:00 r38-aligned-short-unaligned-base 4096
+{"arm": "r38-aligned", "pair": "short-unaligned", "stage": "base", "common_prefix_tokens": 4073, "prompt_tokens": 4096, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-15T15:17:31.383256-04:00", "finished_at": "2026-09-15T15:17:34.301789-04:00", "elapsed_seconds": 1.9096228620001057, "cached_tokens": 0.0, "fresh_tokens": 4096.0, "usage": {"prompt_tokens": 4096, "total_tokens": 4124, "completion_tokens": 28, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+2026-09-15T15:17:34.309209-04:00 r38-aligned-short-unaligned-extension 8192
+{"arm": "r38-aligned", "pair": "short-unaligned", "stage": "extension", "common_prefix_tokens": 4073, "prompt_tokens": 8192, "corpus_sha256": "31580c2d9f3e9d6c219d495969cae45b15c45bf8ae88fafd00dd39aa4c5f89b9", "started_at": "2026-09-15T15:17:34.309209-04:00", "finished_at": "2026-09-15T15:17:39.018272-04:00", "elapsed_seconds": 3.700647740999557, "cached_tokens": 0.0, "fresh_tokens": 8192.0, "usage": {"prompt_tokens": 8192, "total_tokens": 8246, "completion_tokens": 54, "prompt_tokens_details": null, "completion_tokens_details": null}, "valid": true, "isolated": true}
+MATRIX COMPLETE r38-aligned
+== prefix triples 2026-09-15T15:17:39-04:00 ==
+2026-09-15T15:17:39.187948-04:00 triple-short-budget16-first START
+{"name": "short-budget16", "stage": "first", "started_at": "2026-09-15T15:17:39.187948-04:00", "elapsed_seconds": 1.7238938489990687, "max_tokens": 16, "prompt_tokens": 4096, "finish_reason": "length", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "5e02c32a286bf56a3b9f3da230333c41124e10481d278f27d7a5f63e6bb2b6ea", "usage": {"prompt_tokens": 4096, "total_tokens": 4112, "completion_tokens": 16, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-15T15:17:41.925348-04:00 triple-short-budget16-repeat START
+{"name": "short-budget16", "stage": "repeat", "started_at": "2026-09-15T15:17:41.925348-04:00", "elapsed_seconds": 2.119794259999253, "max_tokens": 64, "prompt_tokens": 4096, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "5e02c32a286bf56a3b9f3da230333c41124e10481d278f27d7a5f63e6bb2b6ea", "usage": {"prompt_tokens": 4096, "total_tokens": 4134, "completion_tokens": 38, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-15T15:17:45.060389-04:00 triple-short-budget16-extension START
+{"name": "short-budget16", "stage": "extension", "started_at": "2026-09-15T15:17:45.060389-04:00", "elapsed_seconds": 3.8935957699995924, "max_tokens": 128, "prompt_tokens": 8192, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 8192.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "5e02c32a286bf56a3b9f3da230333c41124e10481d278f27d7a5f63e6bb2b6ea", "usage": {"prompt_tokens": 8192, "total_tokens": 8249, "completion_tokens": 57, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+TRIPLE COMPLETE short-budget16
+2026-09-15T15:17:50.033659-04:00 triple-short-normal-first START
+{"name": "short-normal", "stage": "first", "started_at": "2026-09-15T15:17:50.033659-04:00", "elapsed_seconds": 2.2164440729993657, "max_tokens": 128, "prompt_tokens": 4096, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "cfd93f03b0c072aec21887e16a5566d4c809d56b2aba1812465a4dabc9be8fd3", "usage": {"prompt_tokens": 4096, "total_tokens": 4140, "completion_tokens": 44, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-15T15:17:53.265496-04:00 triple-short-normal-repeat START
+{"name": "short-normal", "stage": "repeat", "started_at": "2026-09-15T15:17:53.265496-04:00", "elapsed_seconds": 2.5707041589994333, "max_tokens": 64, "prompt_tokens": 4096, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 4096.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "cfd93f03b0c072aec21887e16a5566d4c809d56b2aba1812465a4dabc9be8fd3", "usage": {"prompt_tokens": 4096, "total_tokens": 4153, "completion_tokens": 57, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-15T15:17:56.850668-04:00 triple-short-normal-extension START
+{"name": "short-normal", "stage": "extension", "started_at": "2026-09-15T15:17:56.850668-04:00", "elapsed_seconds": 3.5012376489994494, "max_tokens": 128, "prompt_tokens": 8192, "finish_reason": "stop", "needle_present": true, "cache_hits": 0.0, "cache_queries": 8192.0, "isolated": true, "common_prefix_tokens": 4073, "corpus_sha256": "cfd93f03b0c072aec21887e16a5566d4c809d56b2aba1812465a4dabc9be8fd3", "usage": {"prompt_tokens": 8192, "total_tokens": 8236, "completion_tokens": 44, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+TRIPLE COMPLETE short-normal
+2026-09-15T15:18:08.769106-04:00 triple-long-budget16-first START
+{"name": "long-budget16", "stage": "first", "started_at": "2026-09-15T15:18:08.769106-04:00", "elapsed_seconds": 91.6784181460007, "max_tokens": 16, "prompt_tokens": 262000, "finish_reason": "length", "needle_present": true, "cache_hits": 0.0, "cache_queries": 262000.0, "isolated": true, "common_prefix_tokens": 261977, "corpus_sha256": "61afc9c816607b11d1e7a67adb2aed19a9e158a4065c59fbf213128fc4ba334f", "usage": {"prompt_tokens": 262000, "total_tokens": 262016, "completion_tokens": 16, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-15T15:19:41.479600-04:00 triple-long-budget16-repeat START
+{"name": "long-budget16", "stage": "repeat", "started_at": "2026-09-15T15:19:41.479600-04:00", "elapsed_seconds": 2.8953608720003103, "max_tokens": 64, "prompt_tokens": 262000, "finish_reason": "stop", "needle_present": true, "cache_hits": 258048.0, "cache_queries": 262000.0, "isolated": true, "common_prefix_tokens": 261977, "corpus_sha256": "61afc9c816607b11d1e7a67adb2aed19a9e158a4065c59fbf213128fc4ba334f", "usage": {"prompt_tokens": 262000, "total_tokens": 262056, "completion_tokens": 56, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+2026-09-15T15:19:45.406767-04:00 triple-long-budget16-extension START
+{"name": "long-budget16", "stage": "extension", "started_at": "2026-09-15T15:19:45.406767-04:00", "elapsed_seconds": 387.22201537100045, "max_tokens": 128, "prompt_tokens": 1048000, "finish_reason": "stop", "needle_present": true, "cache_hits": 258048.0, "cache_queries": 1048000.0, "isolated": true, "common_prefix_tokens": 261977, "corpus_sha256": "61afc9c816607b11d1e7a67adb2aed19a9e158a4065c59fbf213128fc4ba334f", "usage": {"prompt_tokens": 1048000, "total_tokens": 1048058, "completion_tokens": 58, "prompt_tokens_details": null, "completion_tokens_details": {"reasoning_tokens": 0}}}
+TRIPLE COMPLETE long-budget16
+== native context 2026-09-15T15:26:13-04:00 ==
+CONTEXT_START length=2048
+{"kind": "context_needle", "prompt_tokens": 2048, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.1770490589988185, "finish_reason": "stop", "text": "739526", "valid": true}
+CONTEXT_START length=2049
+{"kind": "context_needle", "prompt_tokens": 2049, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.392702219000057, "finish_reason": "stop", "text": "739526", "valid": true}
+CONTEXT_START length=262000
+{"kind": "context_needle", "prompt_tokens": 262000, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 2.6320559260002483, "finish_reason": "stop", "text": "739526", "valid": true}
+CONTEXT_START length=1048000
+{"kind": "context_needle", "prompt_tokens": 1048000, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 5.1509186399998725, "finish_reason": "stop", "text": "739526", "valid": true}
+GLM_NATIVE_CONTEXT_PASS
+true
+== standard grid 2026-09-15T15:26:28-04:00 ==
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+─────────────────────────────────
+host=http://sparky:8000 model=GLM-5.3-Flash concurrency=1,2,4
+campaign=2026-09-jj-r38-vs-r32 workload=throughput variant=jj-r38-aligned-sm121-tp4-dcp1-mtp3-native1m repetition=1
+output=/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r38-vs-r32/throughput/20260915T152628-0400__jj-r38-aligned-sm121-tp4-dcp1-mtp3-native1m__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: GLM-5.3-Flash @ http://sparky:8000                                    │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+jj.r38.spark.vllm2d38757  Models: ['GLM-5.3-Flash']
+Model context length: 1,048,576 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=qcoczxyatjbt, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.18 chars/token (from 8k probe)
+  8k: 50,598 chars (~8,191 tokens)
+  16k: 101,196 chars (~16,383 tokens)
+  32k: 202,393 chars (~32,767 tokens)
+  64k: 404,786 chars (~65,535 tokens)
+  128k: 809,572 chars (~131,071 tokens)
+Done.
+

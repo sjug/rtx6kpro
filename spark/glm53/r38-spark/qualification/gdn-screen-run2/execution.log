@@ -1,0 +1,57 @@
+START 2026-09-15T19:58:33-04:00
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+/home/jugs/git/llm-inference-bench/run_bench.sh: OK
+true
+true
+qwen38-flash-next-nvfp4-jj-r32-tp2
+qwen38-flash-next-nvfp4-jj-r32-tp2
+024d2c176a0d49a0d0b298f8fb66f9c84edaa36c78e8c746b745a3f95e8af5dc
+qwen38-flash-next-r38-gdn-screen-b12x ROLE=worker rank=1/2 model=Qwen3.8-Flash-Next
+82168a5d08c427955a1d919393443d079055231eaa8728403e90ba3f4ff434d9
+qwen38-flash-next-r38-gdn-screen-b12x ROLE=head rank=0/2 model=Qwen3.8-Flash-Next
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+qwen38-flash-next-r38-gdn-screen-b12x
+time="2026-09-15T20:03:52-04:00" level=warning msg="StopSignal SIGTERM failed to stop container qwen38-flash-next-r38-gdn-screen-b12x in 60 seconds, resorting to SIGKILL"
+qwen38-flash-next-r38-gdn-screen-b12x
+qwen38-flash-next-nvfp4-jj-r32-tp2
+qwen38-flash-next-nvfp4-jj-r32-tp2
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+R32-RESTORED 2026-09-15T20:06:52-04:00

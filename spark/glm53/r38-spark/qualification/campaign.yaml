@@ -1,0 +1,36 @@
+id: "2026-09-jj-r38-vs-r32"
+status: "completed"
+objective: "Qualify R38 Qwen on dusty/kirby against qualified R32, retaining the serving contract."
+baseline: "jj-r32-aligned-sm121-tp2-mtp3"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+  checkpoint_revision: "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+  nodes: [dusty, kirby]
+  tensor_parallel: 2
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  harness_sha256: "2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3"
+notes: |
+  Completed three R38 MTP3 boots, the R38 MTP0 boundary battery, and a
+  fresh matched R32 control. All correctness gates and four standard grids
+  passed. R38 has a repeatable approximately 2-3% long-prefill cost under
+  this profile; no material decode regression is established. The user
+  selected R32 for Qwen. R32 restoration passed at 2026-09-15T15:13:39-04:00.
+  GLM qualification proceeds independently by explicit subsequent approval.
+  llm_decode_bench.py is pinned below; run_bench.sh wrapper SHA256 is
+  5c79b9760a2381b4b5233f5bbc8f1f279841b46f596dc718a127eaa8eea3e4f2.
+  The canonical run_bench.sh grid is unchanged: concurrency 1/2/4, five contexts,
+  30-second duration and integrated prefill scouts. R32 baseline is its clean
+  second-boot 20260910T120516-0400 r02 receipt. R38 runs two MTP3 boots with the
+  MTP0 boundary battery between them. Engine steps, output, acceptance and
+  prefill are reported separately. Historical comparisons are not proof of
+  repeatable gains. No kernel cause for the prefill difference is asserted.
+  Qwen's public alias changed to Qwen3.8-Flash-Next after the R32 baseline.
+  Both runs pin the same checkpoint revision; raw historical receipts are
+  immutable. The comparator permits only this documented identity-equivalent
+  alias change, not a checkpoint or benchmark-protocol change.

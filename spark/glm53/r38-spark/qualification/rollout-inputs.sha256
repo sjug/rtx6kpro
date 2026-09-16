@@ -1,0 +1,4 @@
+e45abd0620d65a247ee5b1a0fb6930c531debd9bc6629a81fe683b77fb2cafd7  spark/glm53/r38-spark/run-glm53-flash-jj-r38-spark-tp4-node.sh
+69cd51386b436ba7efd6a232a4098212246468438dec6a9f98b8e2187d8cf750  spark/glm53/r38-spark/run-qwen38-flash-next-jj-r38-spark-tp2-node.sh
+1014b0945ae23147e2dbd831d694df4efe40cf5db2f0525a3fd68fa114aa44e5  spark/glm53/r38-spark/launchers/serve-glm53-flash-jj-r38-spark.sh
+cdaf64ded643ae677e04dac81ede0803851e89555f2583d0af7f612cf7ae6aee  spark/glm53/r38-spark/launchers/serve-qwen38-flash-next-jj-r38-spark.sh

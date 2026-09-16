@@ -1,0 +1,5 @@
+warm c1: n=1 wall=4.0s agg_tok/s=50.2 per_req_s=[4.0]
+c4 distinct: n=4 wall=6.2s agg_tok/s=129.8 per_req_s=[6.1, 6.1, 5.7, 6.2]
+c4 identical: n=4 wall=6.1s agg_tok/s=132.2 per_req_s=[5.8, 5.8, 6.1, 6.0]
+c4 distinct again: n=4 wall=6.3s agg_tok/s=126.8 per_req_s=[6.2, 6.0, 6.3, 6.1]
+c1: n=1 wall=4.1s agg_tok/s=48.7 per_req_s=[4.1]

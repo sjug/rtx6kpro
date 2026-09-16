@@ -1,0 +1,39 @@
+id: "2026-09-jj-r38-vs-r32"
+status: "completed"
+objective: "Qualify R38 GLM independently on sparky/buddy/rocky/lucky; Qwen remains on R32."
+baseline: "jj-r32-aligned-sm121-tp4-dcp1-mtp3-native1m"
+shared_configuration:
+  checkpoint_revision: "46aaae8a82032f77100f2f03e9cc11b391df3b4d"
+  nodes: [sparky, buddy, rocky, lucky]
+  tensor_parallel: 4
+  decode_context_parallel: 1
+  speculative_tokens: 3
+  draft_head: "bf16"
+  recurrent_checkpoint_policy: "aligned"
+  max_model_len: 1048576
+  max_num_seqs: 8
+  gpu_memory_utilization: 0.85
+notes: |
+  On 2026-09-15 the user explicitly authorized GLM qualification independently
+  of the Qwen performance verdict, while retaining Qwen on R32.
+  Same R32 launch settings, RoCEnante, BF16 head, InstantTensor BUFFERED,
+  LMCache disabled, no clear_thinking override, no RTX-only tuning.
+  The baseline is quiet R32 20260910T160142-0400 r02, not contaminated r01.
+  Semantic and short-pool correctness, concurrency, frozen prefix pairs and
+  triples, native context through 1048000 and the unchanged run_bench.sh
+  15-cell grid are required. Record per-rank KV, timestamps, JIT and clocks.
+  Long-needle latency may include prefix reuse, so it is not cold prefill.
+  R32 containers remain stopped rollback after a successful R38 qualification.
+  Three partial timing attempts are excluded because independent Pi requests
+  overlapped them. Timing resumed only after the user explicitly confirmed
+  that the active turn had finished, not on idle counters alone.
+  Isolated repetition4 completed on 2026-09-15 at 16:05:41 EDT, with all
+  15 cells matching requested concurrency and no measured JIT, server errors
+  or clock-event samples. Correctness, cache and native-context gates passed.
+  R38 engine-step geometric means are 20.438/31.916/46.003 at C1/C2/C4,
+  versus R32 20.102/31.243/45.321 (+1.67/+2.15/+1.50 percent).
+  Prefill scouts are within 1 percent of R32. These are single-clean-sweep
+  differences, not proven repeatable gains. R38 remains serving on the GLM
+  cluster, with R32 retained as stopped rollback. Qwen remains on R32.
+  Accepted raw grid SHA256:
+  87545df132270c92a899675bb4c7159d40e75a35aa40c72a23381d3f95b072d5.

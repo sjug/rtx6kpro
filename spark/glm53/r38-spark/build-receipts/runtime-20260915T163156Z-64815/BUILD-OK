@@ -1,0 +1,1 @@
+BUILD-OK image=localhost/voipmonitor/vllm:jj-r38-spark-sm121 id=sha256:ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5 lock=9a0dc0bb8eac7d3ccf5778765146651d35982810d8fb1ed9e39832f855247be0

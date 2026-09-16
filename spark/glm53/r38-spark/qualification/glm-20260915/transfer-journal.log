@@ -1,0 +1,2 @@
+Sep 15 15:00:44 rusty systemd[1812]: Started jj-r38-transfer-glm.service - /bin/bash qualification/distribute-image.sh glm.
+Sep 15 15:02:39 rusty systemd[1812]: jj-r38-transfer-glm.service: Consumed 2min 18.324s CPU time, 93.0M memory peak, 0B memory swap peak.

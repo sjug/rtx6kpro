@@ -1,0 +1,566 @@
+qwen38-flash-next-nvfp4-jj-r38-tp2
+qwen38-flash-next-nvfp4-jj-r38-tp2
+qwen38-flash-next-nvfp4-jj-r32-tp2
+qwen38-flash-next-nvfp4-jj-r32-tp2
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+true
+true
+true
+CONTROL-READY contrast-r32 2026-09-15T14:26:54-04:00
+START contrast-r32 2026-09-15T14:26:54-04:00
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = 391 bolts total. After using 58 bolts, the remaining count is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 148, "effort": "low", "kind": "reasoning", "reasoning_chars": 268, "repetition": 1, "valid": true}
+{"answer": "\n\nThere are 17 boxes with 23 bolts each, giving a total of 17 \u00d7 23 = 391 bolts. After the shop uses 58 bolts, the remaining number is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 141, "effort": "medium", "kind": "reasoning", "reasoning_chars": 237, "repetition": 1, "valid": true}
+{"answer": "\n\nTotal bolts = 17 \u00d7 23 = 391. Remaining = 391 \u2212 58 = 333.\nFINAL: 333", "completion_tokens": 232, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 553, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nThe image is split vertically into two solid blocks. The left half is a pure red (RGB 255, 0, 0), and the right half is a pure blue (RGB 0, 0, 255).\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "\n\n**Solution:**\n\n1. Find the total number of bolts: 17 boxes \u00d7 23 bolts per box = 391 bolts.\n2. Subtract the bolts used: 391 \u2212 58 = 333 bolts.\n\nSo, **333 bolts** remain.\n\nFINAL: 333", "completion_tokens": 159, "effort": "low", "kind": "reasoning", "reasoning_chars": 249, "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes, each containing 23 bolts, giving a total of 17 \u00d7 23 = 391 bolts. After using 58 bolts, we subtract: 391 \u2212 58 = 333 bolts remaining.\n\nFINAL: 333", "completion_tokens": 163, "effort": "medium", "kind": "reasoning", "reasoning_chars": 278, "repetition": 2, "valid": true}
+{"answer": "\n\n17 boxes \u00d7 23 bolts = 391 bolts total.\n391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 148, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 352, "repetition": 2, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 2, "valid": true}
+{"answer": "\n\nThe solid color on the left is **red**, and the solid color on the right is **blue**.\n\nFINAL: red, blue", "kind": "image", "repetition": 2, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop has 17 boxes \u00d7 23 bolts = 391 total bolts. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 108, "effort": "low", "kind": "reasoning", "reasoning_chars": 121, "repetition": 3, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = 391 bolts. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 145, "effort": "medium", "kind": "reasoning", "reasoning_chars": 270, "repetition": 3, "valid": true}
+{"answer": "\n\n17 boxes \u00d7 23 bolts = 391 bolts total; 391 \u2212 58 = 333 bolts remain.\nFINAL: 333", "completion_tokens": 191, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 467, "repetition": 3, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 3, "valid": true}
+{"answer": "\n\nThe image is split into two equal vertical halves. The left half is filled with a solid pure red, and the right half is filled with a solid pure blue.\n\nFINAL: red, blue", "kind": "image", "repetition": 3, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next", "runs": 3, "valid": true}
+QWEN38_SEMANTIC_ADMISSION_PASS
+SHORT_START
+{"content": "\n\n11", "elapsed_seconds": 0.705, "finish_reason": "stop", "kind": "short", "reasoning_content": "We need answer simple arithmetic. Need final one numeral. 5+6=11. Ensure final only numeral.\n", "usage": {"completion_tokens": 30, "completion_tokens_details": {"reasoning_tokens": 25}, "prompt_tokens": 68, "prompt_tokens_details": null, "total_tokens": 98}}
+CONTEXT_START length=2848
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.03, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2848, "reasoning": "", "requested_input_tokens": 2848, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2848, "prompt_tokens_details": null, "total_tokens": 2855}, "valid": true}
+CONTEXT_START length=2849
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.093, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2849, "reasoning": "", "requested_input_tokens": 2849, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2849, "prompt_tokens_details": null, "total_tokens": 2856}, "valid": true}
+CONTEXT_START length=131072
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 50.284, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 131072, "reasoning": "", "requested_input_tokens": 131072, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 131072, "prompt_tokens_details": null, "total_tokens": 131079}, "valid": true}
+CONTEXT_START length=262000
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 72.095, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 262000, "reasoning": "", "requested_input_tokens": 262000, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 262000, "prompt_tokens_details": null, "total_tokens": 262007}, "valid": true}
+{"kind": "summary", "lengths": [2848, 2849, 131072, 262000], "model": "Qwen3.8-Flash-Next", "needle": "739184", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+{"accept_length": 2.2349945434703526, "corpus_sha256": "cc9230856e9dab760645436993ec44669c3168e2edc3cfbc8a897c72de0ffff4", "counter_deltas": {"accepted_per_position": {"0": 1754.0, "1": 1049.0, "2": 592.0}, "accepted_tokens": 3395.0, "draft_tokens": 8235.0, "drafts": 2745.0}, "engine_steps": 2749.0, "max_tokens": 512, "model": "Qwen3.8-Flash-Next", "output_repeatable_across_waves": false, "output_sha256_by_prompt": {"prompt-0": ["5a4b12d37187d9d4654be35c7ee573a2ff85d7e7e476670dbdb5765f03017dfc", "7d2244b4b0e4eca7d6078e8ddde4c85eef322d11ec043979b19e7e8a02dd3f8c", "d19887989af463ac9eba7e03a11c3b5ae39a4563563df98e656e39656e876ef9"], "prompt-1": ["1539db50f9aeb5185784c5db5bf4d0e3107e7fcc5ab27e056d06de17be0f0fd5", "91feb62765af7fec63c368d34458f393399d650010adfc838b8a85f1d5596ff5", "9a6e3baeb9a8583f0a56292bf65261057be054eb56ffea32b52557664f7b06ee"], "prompt-2": ["102ee44e5c329e8dbf47c7bd77f4fc9d78567d9ed860fd9e24ee92e9635c39bd", "95f4fff4b7d9e5aa59a948568cc0f65d1858e16d767874df5652e15e96fe4f04", "ee2975d5edc6da1451222831e1e90531e23389dc5f01781d60073f7c06b1a9d1"], "prompt-3": ["72687c5f9acd50e1e997caa0b9e02362a608abaf6ed75af095e27db66acb36aa", "e11b982c9dc00aa3c2d3e2e77bfd672ee1771e4d46a3de5f81d986492f9dc7b7", "f8e7e6cf79614a137aea0b486607c949cd26597befd06b5ae133ec0bb846e58f"]}, "output_tokens": 6144, "requests": [{"elapsed_seconds": 16.143008, "output_sha256": "5a4b12d37187d9d4654be35c7ee573a2ff85d7e7e476670dbdb5765f03017dfc", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 0}, {"elapsed_seconds": 15.258753, "output_sha256": "91feb62765af7fec63c368d34458f393399d650010adfc838b8a85f1d5596ff5", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 0}, {"elapsed_seconds": 17.756609, "output_sha256": "102ee44e5c329e8dbf47c7bd77f4fc9d78567d9ed860fd9e24ee92e9635c39bd", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 0}, {"elapsed_seconds": 17.476419, "output_sha256": "72687c5f9acd50e1e997caa0b9e02362a608abaf6ed75af095e27db66acb36aa", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 0}, {"elapsed_seconds": 17.301725, "output_sha256": "d19887989af463ac9eba7e03a11c3b5ae39a4563563df98e656e39656e876ef9", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 1}, {"elapsed_seconds": 15.5583, "output_sha256": "9a6e3baeb9a8583f0a56292bf65261057be054eb56ffea32b52557664f7b06ee", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 1}, {"elapsed_seconds": 18.783149, "output_sha256": "ee2975d5edc6da1451222831e1e90531e23389dc5f01781d60073f7c06b1a9d1", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 1}, {"elapsed_seconds": 18.370372, "output_sha256": "e11b982c9dc00aa3c2d3e2e77bfd672ee1771e4d46a3de5f81d986492f9dc7b7", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 1}, {"elapsed_seconds": 15.918784, "output_sha256": "7d2244b4b0e4eca7d6078e8ddde4c85eef322d11ec043979b19e7e8a02dd3f8c", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 2}, {"elapsed_seconds": 15.646669, "output_sha256": "1539db50f9aeb5185784c5db5bf4d0e3107e7fcc5ab27e056d06de17be0f0fd5", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 2}, {"elapsed_seconds": 17.836065, "output_sha256": "95f4fff4b7d9e5aa59a948568cc0f65d1858e16d767874df5652e15e96fe4f04", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 2}, {"elapsed_seconds": 16.70752, "output_sha256": "f8e7e6cf79614a137aea0b486607c949cd26597befd06b5ae133ec0bb846e58f", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 2}], "valid": true, "waves": 3}
+phase 0 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.4967532467532467
+phase 1 c3: padded (1 padded request rows) tokens=12 graph=16 overlap=3 acceptance_length=2.6589861751152073
+phase 2 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.463022508038585
+phase 3 c2: uniform tokens=8 graph=8 overlap=2 acceptance_length=2.6374570446735395
+phase 4 c4: uniform tokens=16 graph=16 overlap=4 acceptance_length=2.651423641069888
+phase 5 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.533112582781457
+{"collapsed_phases": [], "coverage_basis": "predicted from concurrency, spec window, and capture sizes; not confirmed from engine runtime evidence", "final_phase_acceptance_length": 2.533112582781457, "kind": "summary", "max_acceptance_length": 2.6589861751152073, "min_acceptance_length": 2.463022508038585, "overlap_ok": true, "padded_transition_predicted": true, "phases": [1, 3, 1, 2, 4, 1], "valid": true}
+true
+{"label": "r32-contrast-r32", "step": "fresh", "ttft_s": 10.338, "total_s": 10.419, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "r32-contrast-r32", "step": "extension", "ttft_s": 1.338, "total_s": 1.423, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+{"label": "r32-contrast-r32", "step": "verbatim_repeat", "ttft_s": 1.29, "total_s": 1.383, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 28480.0, "answer": "739184"}
+{"label": "r32-contrast-r32", "step": "extension_repeat", "ttft_s": 1.311, "total_s": 1.405, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+CORRECTNESS-BATTERY-OK 2026-09-15T14:32:38-04:00
+true
+true
+warm c1: n=1 wall=4.0s agg_tok/s=50.2 per_req_s=[4.0]
+c4 distinct: n=4 wall=6.2s agg_tok/s=129.8 per_req_s=[6.1, 6.1, 5.7, 6.2]
+c4 identical: n=4 wall=6.1s agg_tok/s=132.2 per_req_s=[5.8, 5.8, 6.1, 6.0]
+c4 distinct again: n=4 wall=6.3s agg_tok/s=126.8 per_req_s=[6.2, 6.0, 6.3, 6.1]
+c1: n=1 wall=4.1s agg_tok/s=48.7 per_req_s=[4.1]
+A: 4 fresh distinct: n=4 wall=5.4s agg_tok/s=147.5 per_req_s=[5.3, 5.2, 5.2, 5.4]
+B: 4 extensions of A (multi-turn): n=4 wall=6.0s agg_tok/s=132.4 per_req_s=[6.0, 4.4, 6.0, 5.6]
+C: 4 fresh distinct after B: n=4 wall=5.7s agg_tok/s=140.9 per_req_s=[5.5, 5.5, 5.6, 5.7]
+D: repeat A verbatim: n=4 wall=5.6s agg_tok/s=143.0 per_req_s=[5.6, 5.4, 5.4, 5.3]
+E: 4 fresh distinct after D: n=4 wall=5.9s agg_tok/s=136.2 per_req_s=[5.8, 5.9, 5.3, 5.6]
+{"content_preview": "# The Anatomy of Fire: The Geology of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Earth. Born from the ", "content_sha256": "d224fb18ff687c5bb318fdc4232a0625afe6a0f35624b5fadd7e8325e7a2afb0", "finish_reason": "length", "label": "seed", "policy": "aligned", "timestamp": "2026-09-15T14:33:36.457792-04:00", "total_s": 1.3355526070008636, "ttft_s": 0.24475090500163788, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 53, "total_tokens": 113}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of civilization, but for millennia, humanity was at the mercy of its ", "content_sha256": "1721b35a65994ca12e8734b1e92c052b33f3d467f0ee8b3db6d46615b941b374", "finish_reason": "length", "label": "long0", "policy": "aligned", "timestamp": "2026-09-15T14:33:52.320665-04:00", "total_s": 14.795635225000296, "ttft_s": 0.2761991469997156, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 52, "total_tokens": 652}}
+{"content_preview": "# The Arteries of Civilization: A History of Canals\n\nBefore the advent of the steam engine, the railroad, and the internal combustion engine, water was the prim", "content_sha256": "02154d813998a9f9f9dd0c6ad2db2b0241320e9722db698b1381aa2f2fb94692", "finish_reason": "length", "label": "long1", "policy": "aligned", "timestamp": "2026-09-15T14:33:52.320763-04:00", "total_s": 15.861066188999757, "ttft_s": 0.275885474999086, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 50, "total_tokens": 650}}
+{"content_preview": "# The Anatomy of Fire: A Detailed Geological Portrait of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically significant landforms o", "content_sha256": "aab8d7c0a07177a8fe66257f425e138c989ddf72fb63300b007c63c2d2ddbd12", "finish_reason": "length", "label": "repeat", "policy": "aligned", "timestamp": "2026-09-15T14:33:52.320784-04:00", "total_s": 1.884743669999807, "ttft_s": 0.2791426629992202, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 53, "total_tokens": 113}}
+{"content_preview": "# Spanning the Divide: A History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or cable", "content_sha256": "bc2e011a2529ab7173115da3d8fbd14b4a766377c44a787c013a4db32615a2c0", "finish_reason": "length", "label": "fresh0", "policy": "aligned", "timestamp": "2026-09-15T14:33:52.320797-04:00", "total_s": 2.099160458001279, "ttft_s": 0.31462804400143796, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 45, "total_tokens": 105}}
+{"content_preview": "**Spanning the Divide: A Brief History of Bridges**\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, ", "content_sha256": "0e6385ed49434471d007c4df6ba0bfa9c6b88fbc0c2e29e7eb8b5e737e556732", "finish_reason": "length", "label": "fresh1", "policy": "aligned", "timestamp": "2026-09-15T14:33:52.320809-04:00", "total_s": 1.8713748539994413, "ttft_s": 0.2662794509997184, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 46, "total_tokens": 106}}
+{"fresh_max_ttft_s": 0.31462804400143796, "kind": "summary", "policy": "aligned", "repeat_ttft_s": 0.2791426629992202, "streams_complete": true, "timestamp": "2026-09-15T14:33:52.320830-04:00"}
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+BENCHMARK-START 2026-09-15T14:33:52-04:00
+─────────────────────────────────
+host=http://dusty:8000 model=Qwen3.8-Flash-Next concurrency=1,2,4
+campaign=2026-09-jj-r38-vs-r32 workload=throughput variant=jj-r32-aligned-sm121-tp2-mtp3 repetition=1
+output=/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r38-vs-r32/throughput/20260915T143352-0400__jj-r32-aligned-sm121-tp2-mtp3__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: Qwen3.8-Flash-Next @ http://dusty:8000                                │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+glm53.jj.r32.spark.vllm00eef6a  Models: 
+['Qwen3.8-Flash-Next']
+KV cache budget (vLLM metrics): 80,689,536 tokens (28332 blocks × 2848)
+Model context length: 262,144 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=agslodalejjw, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.17 chars/token (cached, source=8k)
+  8k: 50,508 chars (~8,191 tokens)
+  16k: 101,016 chars (~16,383 tokens)
+  32k: 202,032 chars (~32,767 tokens)
+  64k: 404,065 chars (~65,535 tokens)
+  128k: 808,131 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,195       2.70          3,032              —             —   1  
+  16k        16,169       5.40          2,995      3,017 (1)             —   1  
+  32k        32,149      11.05          2,908      2,933 (1)             —   1  
+  64k        64,104      23.33          2,748      2,763 (1)             —   1  
+  128k      128,019      51.56          2,483      2,495 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                              
+╭────────────┬─────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │           2 │            4 │
+├────────────┼─────────────┼─────────────┼──────────────┤
+│ 0          │ 41.9 254/23 │ 74.0 283/26 │ 122.3 554/32 │
+│ 16k        │  46.0 2k/22 │  74.5 2k/27 │  125.3 4k/33 │
+│ 32k        │  45.5 1k/22 │  75.8 2k/26 │  116.4 4k/34 │
+│ 64k        │  44.4 2k/22 │  77.1 3k/26 │  119.9 5k/36 │
+│ 128k       │  42.9 3k/23 │  79.3 4k/26 │  122.7 7k/35 │
+╰────────────┴─────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 41.9 │ 37.0 │ 30.6 │
+│ 16k        │ 46.0 │ 37.3 │ 31.3 │
+│ 32k        │ 45.5 │ 37.9 │ 29.1 │
+│ 64k        │ 44.4 │ 38.6 │ 30.0 │
+│ 128k       │ 42.9 │ 39.6 │ 30.7 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬──────┬────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼──────┼────┼───────────────┤
+│ 0  │ │ sust… │    11/13% │    1% │ 168/175 │ 40C │  69C │ 3… │     2727/3443 │
+│ 1… │ │ sust… │    11/13% │    0% │ 165/174 │ 40C │  68C │ 3… │     2704/3380 │
+│ 3… │ │ sust… │    11/13% │    0% │ 164/167 │ 40C │  68C │ 3… │     2671/3469 │
+│ 6… │ │ sust… │    11/13% │    0% │ 165/169 │ 40C │  56C │ 3… │     2882/3262 │
+│ 1… │ │ sust… │    11/13% │    0% │ 162/174 │ 39C │  69C │ 3… │     2781/3301 │
+│ 0  │ │ sust… │    11/14% │    1% │ 162/169 │ 40C │  69C │ 3… │     2778/3301 │
+│ 0  │ │ sust… │    11/13% │    0% │ 163/172 │ 40C │  68C │ 3… │     2671/3451 │
+│ 1… │ │ sust… │    11/13% │    0% │ 162/163 │ 39C │  69C │ 3… │     2872/3225 │
+│ 1… │ │ sust… │    11/13% │    0% │ 163/171 │ 40C │  69C │ 3… │     2808/3408 │
+│ 3… │ │ sust… │    11/13% │    0% │ 166/175 │ 40C │  68C │ 3… │     2619/3435 │
+│ 3… │ │ sust… │    11/13% │    1% │ 163/167 │ 40C │  68C │ 3… │     2777/3295 │
+│ 6… │ │ sust… │    11/13% │    0% │ 162/163 │ 39C │  69C │ 3… │     2721/3339 │
+│ 6… │ │ sust… │    11/13% │    0% │ 162/166 │ 39C │  67C │ 3… │     2896/3386 │
+│ 1… │ │ sust… │    11/13% │    0% │ 161/163 │ 39C │  68C │ 3… │     2788/3292 │
+│ 1… │ │ sust… │    11/13% │    0% │ 163/171 │ 39C │  70C │ 3… │     2787/3313 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴──────┴────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ───────────────────────╮
+│ avg 164 W | max 183 W | limit 600 W | over 13m 01s | 367 samples │
+╰──────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,195 │   2.70 │ 3,032 │ 1 │
+│ 16k  │  16,169 │   5.40 │ 2,995 │ 1 │
+│ 32k  │  32,149 │  11.05 │ 2,908 │ 1 │
+│ 64k  │  64,104 │  23.33 │ 2,748 │ 1 │
+│ 128k │ 128,019 │  51.56 │ 2,483 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s              
+╭────────────┬──────┬──────┬───────╮
+│ ctx \ conc │    1 │    2 │     4 │
+├────────────┼──────┼──────┼───────┤
+│ 0          │ 41.9 │ 74.0 │ 122.3 │
+│ 16k        │ 46.0 │ 74.5 │ 125.3 │
+│ 32k        │ 45.5 │ 75.8 │ 116.4 │
+│ 64k        │ 44.4 │ 77.1 │ 119.9 │
+│ 128k       │ 42.9 │ 79.3 │ 122.7 │
+╰────────────┴──────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 22.2 (1.89) │ 37.1 (1.99) │ 58.6 (2.09) │
+│ 16k        │ 22.1 (2.09) │ 36.5 (2.04) │ 58.8 (2.13) │
+│ 32k        │ 22.1 (2.06) │ 37.7 (2.01) │ 59.0 (1.97) │
+│ 64k        │ 21.8 (2.04) │ 36.5 (2.11) │ 56.6 (2.12) │
+│ 128k       │ 21.5 (2.00) │ 35.4 (2.24) │ 53.8 (2.28) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/20
+26-09-jj-r38-vs-r32/throughput/20260915T143352-0400__jj-r32-aligned-sm121-tp2-mt
+p3__r01.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r38-vs-r32/throughput/20260915T143352-0400__jj-r32-aligned-sm121-tp2-mtp3__r01.json
+─────────────────────────────────
+BENCHMARK-END 2026-09-15T14:46:55-04:00
+qwen38-flash-next-nvfp4-jj-r32-tp2
+qwen38-flash-next-nvfp4-jj-r32-tp2
+qwen38-flash-next-nvfp4-jj-r38-tp2
+qwen38-flash-next-nvfp4-jj-r38-tp2
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to dusty:8000 after 0 ms: Could not connect to server
+true
+true
+true
+CONTROL-READY contrast-r38-return 2026-09-15T14:50:02-04:00
+START contrast-r38-return 2026-09-15T14:50:02-04:00
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts = 391 bolts. Then subtract the bolts used: 391 \u2212 58 = 333 bolts remaining.\n\nFINAL: 333", "completion_tokens": 150, "effort": "low", "kind": "reasoning", "reasoning_chars": 293, "repetition": 1, "valid": true}
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts per box = 391 bolts.\n\nThen, subtract the bolts used: 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 170, "effort": "medium", "kind": "reasoning", "reasoning_chars": 344, "repetition": 1, "valid": true}
+{"answer": "\n\n17 \u00d7 23 = 391 bolts total.  \n391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 248, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 656, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nThe image is divided vertically into two equal halves. The left half is filled with a uniform, saturated red hue (no gradients, patterns, or other tones). The right half is filled with a uniform, saturated blue hue. Therefore, the solid color on the left is red, and the solid color on the right is blue.\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "\n\n**Solution:**\n\n- Total bolts: 17 boxes \u00d7 23 bolts = 391 bolts\n- After using 58: 391 \u2212 58 = 333 bolts remain\n\nFINAL: 333", "completion_tokens": 135, "effort": "low", "kind": "reasoning", "reasoning_chars": 261, "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes, each containing 23 bolts, giving a total of 17 \u00d7 23 = 391 bolts. After using 58 bolts, the remaining number is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 163, "effort": "medium", "kind": "reasoning", "reasoning_chars": 278, "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop has 17 \u00d7 23 = 391 bolts total. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 161, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 362, "repetition": 2, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 2, "valid": true}
+{"answer": "\n\nThe left half of the image is a solid **red**, and the right half is a solid **blue**.\n\nFINAL: red, blue", "kind": "image", "repetition": 2, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = 391 bolts in total. After using 58 bolts, the remaining number is 391 \u2212 58 = 333 bolts.\n\nFINAL: 333", "completion_tokens": 149, "effort": "low", "kind": "reasoning", "reasoning_chars": 270, "repetition": 3, "valid": true}
+{"answer": "\n\nTo find the remaining bolts, first calculate the total number of bolts: 17 boxes \u00d7 23 bolts per box = 391 bolts. Then subtract the bolts used: 391 \u2212 58 = 333 bolts remaining.\n\nFINAL: 333", "completion_tokens": 153, "effort": "medium", "kind": "reasoning", "reasoning_chars": 270, "repetition": 3, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58 bolts, 391 \u2212 58 = 333 remain.\nFINAL: 333", "completion_tokens": 248, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 647, "repetition": 3, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 3, "valid": true}
+{"answer": "\n\nThe left half of the image is filled with a solid red color, while the right half is filled with a solid blue color.\n\nFINAL: red, blue", "kind": "image", "repetition": 3, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next", "runs": 3, "valid": true}
+QWEN38_SEMANTIC_ADMISSION_PASS
+SHORT_START
+{"content": "\n\n11", "elapsed_seconds": 0.882, "finish_reason": "stop", "kind": "short", "reasoning_content": "We need answer user's simple arithmetic: What is 5 + 6? Give final answer as one numeral. Need final only numeral likely 11. Ensure no extra.\n", "usage": {"completion_tokens": 42, "completion_tokens_details": {"reasoning_tokens": 37}, "prompt_tokens": 68, "prompt_tokens_details": null, "total_tokens": 110}}
+CONTEXT_START length=2848
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.055, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2848, "reasoning": "", "requested_input_tokens": 2848, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2848, "prompt_tokens_details": null, "total_tokens": 2855}, "valid": true}
+CONTEXT_START length=2849
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.097, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2849, "reasoning": "", "requested_input_tokens": 2849, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2849, "prompt_tokens_details": null, "total_tokens": 2856}, "valid": true}
+CONTEXT_START length=131072
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 51.797, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 131072, "reasoning": "", "requested_input_tokens": 131072, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 131072, "prompt_tokens_details": null, "total_tokens": 131079}, "valid": true}
+CONTEXT_START length=262000
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 74.475, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 262000, "reasoning": "", "requested_input_tokens": 262000, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 262000, "prompt_tokens_details": null, "total_tokens": 262007}, "valid": true}
+{"kind": "summary", "lengths": [2848, 2849, 131072, 262000], "model": "Qwen3.8-Flash-Next", "needle": "739184", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+{"accept_length": 2.1942857142857144, "corpus_sha256": "cc9230856e9dab760645436993ec44669c3168e2edc3cfbc8a897c72de0ffff4", "counter_deltas": {"accepted_per_position": {"0": 1748.0, "1": 1015.0, "2": 581.0}, "accepted_tokens": 3344.0, "draft_tokens": 8394.0, "drafts": 2798.0}, "engine_steps": 2800.0, "max_tokens": 512, "model": "Qwen3.8-Flash-Next", "output_repeatable_across_waves": false, "output_sha256_by_prompt": {"prompt-0": ["6a753d00e6e2e2911f9c69d96b37b6fb264429e7732e65be2d7e84bdd3f0124f", "7444e6042b58885e32d8851f739eb6ca4e78cbbb7e7c91ff9ba0efbdccd3399c", "d4efe1d99d690f56c9b58a6c5534a102b0da3b712a19752ea4a2379df511d394"], "prompt-1": ["8f5aa263ee3ae93d4520c70accce3961aeee7057fbed29fb2de32cdb11aaf525", "b9903217fba081140d655de73aa4cdc7eeec77f99f3897ba1c5780cdefc9b65b", "f9debacbcd6434c970a69e53e257260c95e28ee8c6004b8a6663abe762bd1921"], "prompt-2": ["4e34ae031a86fdc1fb4d20aa06522dbc009bc16c72449c004d577f97933fb8a6", "9f4c4bb2ea5bacb55042db8b2ffa5e67a69859f17948a6c93e58bbbf12970885", "fd367429d8a913662fbdc67de086dcd4b3fddb46efd52d7a6f4bc8cc1fa101de"], "prompt-3": ["0ab6260de3127db770730a9eb41914ac3eeb548a8d7443b01cbb6d0735c6309b", "add0aebee732c1dc81701861ff2bdfb7c44bfa71487dfdab38d4a8dbea45461b", "f4d43aa5acb4e281d0dd3fbddf4a3913d66299c0909d7e6165adb25bac8322c9"]}, "output_tokens": 6144, "requests": [{"elapsed_seconds": 16.656626, "output_sha256": "d4efe1d99d690f56c9b58a6c5534a102b0da3b712a19752ea4a2379df511d394", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 0}, {"elapsed_seconds": 15.712944, "output_sha256": "f9debacbcd6434c970a69e53e257260c95e28ee8c6004b8a6663abe762bd1921", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 0}, {"elapsed_seconds": 17.483639, "output_sha256": "9f4c4bb2ea5bacb55042db8b2ffa5e67a69859f17948a6c93e58bbbf12970885", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 0}, {"elapsed_seconds": 18.12369, "output_sha256": "0ab6260de3127db770730a9eb41914ac3eeb548a8d7443b01cbb6d0735c6309b", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 0}, {"elapsed_seconds": 16.492248, "output_sha256": "7444e6042b58885e32d8851f739eb6ca4e78cbbb7e7c91ff9ba0efbdccd3399c", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 1}, {"elapsed_seconds": 16.968749, "output_sha256": "b9903217fba081140d655de73aa4cdc7eeec77f99f3897ba1c5780cdefc9b65b", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 1}, {"elapsed_seconds": 18.691456, "output_sha256": "4e34ae031a86fdc1fb4d20aa06522dbc009bc16c72449c004d577f97933fb8a6", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 1}, {"elapsed_seconds": 17.257748, "output_sha256": "f4d43aa5acb4e281d0dd3fbddf4a3913d66299c0909d7e6165adb25bac8322c9", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 1}, {"elapsed_seconds": 18.498921, "output_sha256": "6a753d00e6e2e2911f9c69d96b37b6fb264429e7732e65be2d7e84bdd3f0124f", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 2}, {"elapsed_seconds": 16.710511, "output_sha256": "8f5aa263ee3ae93d4520c70accce3961aeee7057fbed29fb2de32cdb11aaf525", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 2}, {"elapsed_seconds": 18.724253, "output_sha256": "fd367429d8a913662fbdc67de086dcd4b3fddb46efd52d7a6f4bc8cc1fa101de", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 2}, {"elapsed_seconds": 18.387528, "output_sha256": "add0aebee732c1dc81701861ff2bdfb7c44bfa71487dfdab38d4a8dbea45461b", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 2}], "valid": true, "waves": 3}
+phase 0 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.5164473684210527
+phase 1 c3: padded (1 padded request rows) tokens=12 graph=16 overlap=3 acceptance_length=2.613378684807256
+phase 2 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.4412698412698415
+phase 3 c2: uniform tokens=8 graph=8 overlap=2 acceptance_length=2.5652173913043477
+phase 4 c4: uniform tokens=16 graph=16 overlap=4 acceptance_length=2.6172208013640237
+phase 5 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.482200647249191
+{"collapsed_phases": [], "coverage_basis": "predicted from concurrency, spec window, and capture sizes; not confirmed from engine runtime evidence", "final_phase_acceptance_length": 2.482200647249191, "kind": "summary", "max_acceptance_length": 2.6172208013640237, "min_acceptance_length": 2.4412698412698415, "overlap_ok": true, "padded_transition_predicted": true, "phases": [1, 3, 1, 2, 4, 1], "valid": true}
+true
+{"label": "r38-contrast-r38-return", "step": "fresh", "ttft_s": 10.581, "total_s": 10.664, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "r38-contrast-r38-return", "step": "extension", "ttft_s": 1.358, "total_s": 1.439, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+{"label": "r38-contrast-r38-return", "step": "verbatim_repeat", "ttft_s": 1.315, "total_s": 1.409, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 28480.0, "answer": "739184"}
+{"label": "r38-contrast-r38-return", "step": "extension_repeat", "ttft_s": 1.337, "total_s": 1.476, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+CORRECTNESS-BATTERY-OK 2026-09-15T14:55:56-04:00
+true
+true
+warm c1: n=1 wall=4.2s agg_tok/s=48.1 per_req_s=[4.2]
+c4 distinct: n=4 wall=6.3s agg_tok/s=126.7 per_req_s=[6.3, 6.0, 6.1, 5.9]
+c4 identical: n=4 wall=6.1s agg_tok/s=130.4 per_req_s=[6.1, 5.9, 6.0, 6.0]
+c4 distinct again: n=4 wall=6.4s agg_tok/s=124.4 per_req_s=[6.2, 5.6, 6.4, 6.3]
+c1: n=1 wall=4.2s agg_tok/s=47.6 per_req_s=[4.2]
+A: 4 fresh distinct: n=4 wall=5.8s agg_tok/s=138.4 per_req_s=[5.4, 5.8, 5.2, 5.5]
+B: 4 extensions of A (multi-turn): n=4 wall=6.4s agg_tok/s=125.9 per_req_s=[6.2, 6.2, 6.3, 6.4]
+C: 4 fresh distinct after B: n=4 wall=5.7s agg_tok/s=140.9 per_req_s=[5.4, 5.3, 5.6, 5.7]
+D: repeat A verbatim: n=4 wall=5.9s agg_tok/s=135.6 per_req_s=[5.9, 5.8, 5.5, 5.3]
+E: 4 fresh distinct after D: n=4 wall=5.7s agg_tok/s=139.3 per_req_s=[5.7, 5.5, 5.4, 5.2]
+{"content_preview": "# The Anatomy of Fire: A Geological Portrait of a Volcanic Island\n\nTo stand on the shores of a volcanic island is to stand upon the raw, cooling skin of the Ear", "content_sha256": "27d0edd793045762aa84731f8ec707e72d3e0a4a4fb3f0d4480f6aa1ab57c5fb", "finish_reason": "length", "label": "seed", "policy": "aligned", "timestamp": "2026-09-15T14:56:55.601989-04:00", "total_s": 1.4748806560000958, "ttft_s": 0.20536501000060525, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 55, "total_tokens": 115}}
+{"content_preview": "**The Arteries of Industry: A History of Canals**\n\nBefore the advent of the steam engine, the railroad, or the internal combustion engine, the movement of heavy", "content_sha256": "e3f416d6922899d24e59b6728ed7d9969d41269687b96b48020337eddb6e1e9f", "finish_reason": "length", "label": "long0", "policy": "aligned", "timestamp": "2026-09-15T14:57:11.146633-04:00", "total_s": 14.917569601999276, "ttft_s": 0.23693589799950132, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 46, "total_tokens": 646}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of human civilization. From the earliest river valleys of Mesopotamia", "content_sha256": "0ebb0676540134a8384f68a263578c65a00303e114fae27fa52ff1e7e0229cc0", "finish_reason": "length", "label": "long1", "policy": "aligned", "timestamp": "2026-09-15T14:57:11.146723-04:00", "total_s": 15.543096819999846, "ttft_s": 0.23686053500023263, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 47, "total_tokens": 647}}
+{"content_preview": "# The Anatomy of Fire: A Geological Portrait of a Volcanic Island\n\nTo stand upon the shores of a volcanic island is to stand upon the raw, unfinished edge of th", "content_sha256": "d03adf61af41a233b9fd5579fc650a76bf1981197e69fbef31079acadad1bc2f", "finish_reason": "length", "label": "repeat", "policy": "aligned", "timestamp": "2026-09-15T14:57:11.146739-04:00", "total_s": 2.042689343001257, "ttft_s": 0.2817569609997008, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 55, "total_tokens": 115}}
+{"content_preview": "**Spanning the Divide: A History of Bridges**\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or con", "content_sha256": "33515c320d72a50ca3df7d6f09d0e741ca63b72fada6e91e47c94efb7174bd75", "finish_reason": "length", "label": "fresh0", "policy": "aligned", "timestamp": "2026-09-15T14:57:11.146750-04:00", "total_s": 1.8522053149990825, "ttft_s": 0.297622992999095, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 50, "total_tokens": 110}}
+{"content_preview": "**Spanning Time: The Evolutionary History of Bridges**\n\nBridges are among the most enduring symbols of human ingenuity. They are not merely structures of stone,", "content_sha256": "f4f02486526d0c93f0d5460d1d860a4f102430b2f58523a24fa5d761e1561876", "finish_reason": "length", "label": "fresh1", "policy": "aligned", "timestamp": "2026-09-15T14:57:11.146759-04:00", "total_s": 1.7861270760004118, "ttft_s": 0.30005465100111905, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 48, "total_tokens": 108}}
+{"fresh_max_ttft_s": 0.30005465100111905, "kind": "summary", "policy": "aligned", "repeat_ttft_s": 0.2817569609997008, "streams_complete": true, "timestamp": "2026-09-15T14:57:11.146775-04:00"}
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+BENCHMARK-START 2026-09-15T14:57:11-04:00
+─────────────────────────────────
+host=http://dusty:8000 model=Qwen3.8-Flash-Next concurrency=1,2,4
+campaign=2026-09-jj-r38-vs-r32 workload=throughput variant=jj-r38-aligned-sm121-tp2-mtp3 repetition=3
+output=/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r38-vs-r32/throughput/20260915T145711-0400__jj-r38-aligned-sm121-tp2-mtp3__r03.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: Qwen3.8-Flash-Next @ http://dusty:8000                                │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+jj.r38.spark.vllm2d38757  Models: ['Qwen3.8-Flash-Next']
+KV cache budget (vLLM metrics): 80,774,976 tokens (28362 blocks × 2848)
+Model context length: 262,144 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=rsmbdiwcermm, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.17 chars/token (cached, source=8k)
+  8k: 50,508 chars (~8,191 tokens)
+  16k: 101,016 chars (~16,383 tokens)
+  32k: 202,032 chars (~32,767 tokens)
+  64k: 404,065 chars (~65,535 tokens)
+  128k: 808,131 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,195       2.77          2,957              —             —   1  
+  16k        16,169       5.57          2,904      2,924 (1)             —   1  
+  32k        32,149      11.32          2,839      2,856 (1)             —   1  
+  64k        64,104      23.95          2,677      2,690 (1)             —   1  
+  128k      128,019      52.85          2,422      2,433 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                              
+╭────────────┬─────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │           2 │            4 │
+├────────────┼─────────────┼─────────────┼──────────────┤
+│ 0          │ 48.2 212/21 │ 74.2 223/26 │ 119.7 228/33 │
+│ 16k        │  45.0 2k/22 │  77.3 3k/26 │  116.7 4k/36 │
+│ 32k        │  48.5 1k/20 │  79.8 2k/26 │  111.6 4k/36 │
+│ 64k        │  43.6 2k/23 │  77.4 3k/26 │  113.6 5k/38 │
+│ 128k       │  44.3 3k/22 │  80.4 4k/26 │  113.6 7k/38 │
+╰────────────┴─────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 48.2 │ 37.1 │ 29.9 │
+│ 16k        │ 45.0 │ 38.6 │ 29.2 │
+│ 32k        │ 48.5 │ 39.9 │ 27.9 │
+│ 64k        │ 43.6 │ 38.7 │ 28.4 │
+│ 128k       │ 44.3 │ 40.2 │ 28.4 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬──────┬────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼──────┼────┼───────────────┤
+│ 0  │ │ sust… │    11/13% │    1% │ 167/173 │ 39C │  68C │ 3… │     2762/3356 │
+│ 1… │ │ sust… │    11/13% │    1% │ 165/173 │ 40C │  69C │ 3… │     2761/3351 │
+│ 3… │ │ sust… │    11/13% │    1% │ 165/173 │ 40C │  68C │ 3… │     2724/3369 │
+│ 6… │ │ sust… │    11/13% │    1% │ 165/173 │ 40C │  69C │ 3… │     2707/3412 │
+│ 1… │ │ sust… │    11/13% │    1% │ 168/178 │ 40C │  69C │ 3… │     2772/3509 │
+│ 0  │ │ sust… │    11/13% │    1% │ 165/175 │ 40C │  70C │ 3… │     2873/3380 │
+│ 0  │ │ sust… │    11/13% │    1% │ 165/169 │ 40C │  68C │ 3… │     2781/3322 │
+│ 1… │ │ sust… │    11/13% │    1% │ 168/171 │ 40C │  69C │ 3… │     2697/3402 │
+│ 1… │ │ sust… │    11/13% │    1% │ 168/173 │ 40C │  69C │ 3… │     2858/3313 │
+│ 3… │ │ sust… │    11/13% │    1% │ 166/168 │ 40C │  69C │ 3… │     2852/3366 │
+│ 3… │ │ sust… │    11/13% │    1% │ 171/178 │ 40C │  69C │ 3… │     2748/3544 │
+│ 6… │ │ sust… │    11/13% │    1% │ 169/174 │ 40C │  68C │ 3… │     2801/3481 │
+│ 6… │ │ sust… │    11/13% │    1% │ 169/175 │ 40C │  68C │ 3… │     2754/3391 │
+│ 1… │ │ sust… │    11/13% │    1% │ 168/177 │ 40C │  69C │ 3… │     2899/3369 │
+│ 1… │ │ sust… │    11/13% │    1% │ 168/174 │ 40C │  69C │ 3… │     2954/3300 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴──────┴────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ───────────────────────╮
+│ avg 167 W | max 187 W | limit 600 W | over 13m 03s | 368 samples │
+╰──────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,195 │   2.77 │ 2,957 │ 1 │
+│ 16k  │  16,169 │   5.57 │ 2,904 │ 1 │
+│ 32k  │  32,149 │  11.32 │ 2,839 │ 1 │
+│ 64k  │  64,104 │  23.95 │ 2,677 │ 1 │
+│ 128k │ 128,019 │  52.85 │ 2,422 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s              
+╭────────────┬──────┬──────┬───────╮
+│ ctx \ conc │    1 │    2 │     4 │
+├────────────┼──────┼──────┼───────┤
+│ 0          │ 48.2 │ 74.2 │ 119.7 │
+│ 16k        │ 45.0 │ 77.3 │ 116.7 │
+│ 32k        │ 48.5 │ 79.8 │ 111.6 │
+│ 64k        │ 43.6 │ 77.4 │ 113.6 │
+│ 128k       │ 44.3 │ 80.4 │ 113.6 │
+╰────────────┴──────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 22.2 (2.17) │ 36.6 (2.03) │ 58.5 (2.05) │
+│ 16k        │ 21.8 (2.06) │ 36.2 (2.13) │ 56.0 (2.08) │
+│ 32k        │ 21.9 (2.21) │ 37.1 (2.15) │ 55.6 (2.01) │
+│ 64k        │ 21.6 (2.02) │ 35.9 (2.16) │ 55.2 (2.06) │
+│ 128k       │ 21.1 (2.10) │ 35.4 (2.27) │ 57.1 (1.99) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/20
+26-09-jj-r38-vs-r32/throughput/20260915T145711-0400__jj-r38-aligned-sm121-tp2-mt
+p3__r03.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/llm-inference-bench/results/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-r38-vs-r32/throughput/20260915T145711-0400__jj-r38-aligned-sm121-tp2-mtp3__r03.json
+─────────────────────────────────
+BENCHMARK-END 2026-09-15T15:10:17-04:00
+FRESH-CONTROL-COMPLETE 2026-09-15T15:10:19-04:00
+R38 MTP3 remains serving as the candidate; compare receipts before GLM.

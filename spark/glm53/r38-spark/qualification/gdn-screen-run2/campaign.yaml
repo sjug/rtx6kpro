@@ -1,0 +1,34 @@
+id: "2026-09-r38-qwen-gdn-prefill-screen"
+status: "active"
+objective: "Does selecting FlashInfer GDN prefill recover the repeatable R38 Qwen prefill deficit on GB10?"
+baseline: "r38-b12x"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+  image_id: "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5"
+  checkpoint_revision: "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+  nodes: [dusty, kirby]
+  tensor_parallel_size: 2
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  max_model_len: 262144
+  max_num_batched_tokens: 4096
+  max_num_seqs: 4
+  gpu_memory_utilization: 0.85
+conclusion: null
+notes: |
+  Authorized matched backend screen, not a prefill-only causal isolation.
+  B12X arm retains --gdn-decode-kernel b12x. FlashInfer arm replaces it
+  with --gdn-prefill-backend flashinfer and unsets VLLM_GDN_DECODE_KERNEL.
+  Decode selection and graph/metadata handling also change. Record the
+  actual selected backend from each boot. Image is unchanged; an experiment
+  launcher bind mount has its own SHA and in-container self-check.
+  A/B/A/B, two independent boots per arm. Each boot runs correctness,
+  a prefill warmup pass, then the measured prefill pass. Odd repetitions
+  are seed/warmup-only and excluded from the verdict, even repetitions
+  are measured. run_bench.sh uses its normal unique randomized prefixes,
+  so prompts follow the same construction but are not token-identical.
+  Standard contexts are 8K,16K,32K,64K,128K. Client and server prefill
+  counters, cache hits, clocks and logs accompany the comparison.
+  No benchmark source modification, production launcher edit or build.
+  Restore the preserved qualified R32 pair after the experiment.

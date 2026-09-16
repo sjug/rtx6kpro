@@ -1,0 +1,38 @@
+id: "2026-09-r38-qwen-flashinfer-direct"
+status: "completed"
+objective: "Screen R38 FlashInfer GDN prefill against existing qualified R38 B12X measurements."
+baseline: "archived-r38-b12x"
+shared_configuration:
+  model_family: "qwen3.8-flash-next"
+  model_variant: "nvfp4-4p89"
+  image_id: "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5"
+  checkpoint_revision: "c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d"
+  nodes: [dusty, kirby]
+  tensor_parallel_size: 2
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  max_model_len: 262144
+  max_num_batched_tokens: 4096
+  max_num_seqs: 4
+  gpu_memory_utilization: 0.85
+conclusion: "Rejected at correctness: all three bounded greedy arithmetic requests returned garbled output. No benchmark or new R38 control measurement ran. FlashInfer prefill plus CUDA decode is not a prefill-only test."
+notes: |
+  User explicitly declined further R38 control measurements. Compare with the
+  archived R38 runs; do not launch an additional control benchmark.
+  The original R38 containers passed a separate startup replay immediately
+  before this experiment. FlashInfer uses the already staged experimental
+  launcher, SHA 1caa57eece7fd7470a3ad07190bb72507fc56e89ed7075b825030ba46ed99af0.
+  This replaces --gdn-decode-kernel b12x with --gdn-prefill-backend flashinfer.
+  Decode also changes; record the resolved backend from both ranks. This is
+  not a recurrence-only causal test or a production promotion.
+  Run correctness before timing. The first standalone prefill pass seeds the
+  shapes and is excluded from the comparison. The second pass is measured.
+  Standard contexts: 8K,16K,32K,64K,128K; duration 10 seconds per context.
+  A long request can exhaust the duration with only one sample. Record counts.
+  Standalone prefill and historical grid scouts share client/server timing
+  metrics but differ in sampling protocol. This is a screening comparison,
+  not a fully contemporaneous matched experiment. No control is rerun.
+  RESULTS_REPO points to rtx6kpro, not the benchmark source or results repo.
+  Benchmark source is read-only; decline its self-update prompt and redirect
+  calibration and output files into this workspace. Preserve raw JSON bytes.
+  Restore the qualified R32 pair after this experiment. GLM and DS4 untouched.

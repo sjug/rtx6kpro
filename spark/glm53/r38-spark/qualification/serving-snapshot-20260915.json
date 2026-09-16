@@ -1,0 +1,70 @@
+{
+  "recorded_at": "2026-09-15T15:48:18-04:00",
+  "note": "GLM performance qualification pending quiet window; Qwen R32 retained and DSv4 R38 qualified.",
+  "nodes": [
+    {
+      "node": "dusty",
+      "name": "qwen38-flash-next-nvfp4-jj-r32-tp2",
+      "image": "74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:10:43.855543012 -0400 EDT"
+    },
+    {
+      "node": "kirby",
+      "name": "qwen38-flash-next-nvfp4-jj-r32-tp2",
+      "image": "74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:10:42.970286258 -0400 EDT"
+    },
+    {
+      "node": "sparky",
+      "name": "glm53-flash-nvfp4-jj-r38-spark-tp4",
+      "image": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:08:33.619073745 -0400 EDT"
+    },
+    {
+      "node": "buddy",
+      "name": "glm53-flash-nvfp4-jj-r38-spark-tp4",
+      "image": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:08:31.878839604 -0400 EDT"
+    },
+    {
+      "node": "rocky",
+      "name": "glm53-flash-nvfp4-jj-r38-spark-tp4",
+      "image": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:08:32.420386223 -0400 EDT"
+    },
+    {
+      "node": "lucky",
+      "name": "glm53-flash-nvfp4-jj-r38-spark-tp4",
+      "image": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:08:32.941769007 -0400 EDT"
+    },
+    {
+      "node": "rusty",
+      "name": "ds4-vision-jj-r38-tp2",
+      "image": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:08:39.62536286 -0400 EDT"
+    },
+    {
+      "node": "toby",
+      "name": "ds4-vision-jj-r38-tp2",
+      "image": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+      "running": true,
+      "oom_killed": false,
+      "started_at": "2026-09-15 15:08:38.519988639 -0400 EDT"
+    }
+  ]
+}

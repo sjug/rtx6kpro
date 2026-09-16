@@ -1,0 +1,37 @@
+─────────────────────────────────
+host=http://sparky:8000 model=GLM-5.3-Flash concurrency=1,2,4
+campaign=2026-09-jj-r38-vs-r32 workload=throughput variant=jj-r38-aligned-sm121-tp4-dcp1-mtp3-native1m repetition=2
+output=/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r38-vs-r32/throughput/20260915T153438-0400__jj-r38-aligned-sm121-tp4-dcp1-mtp3-native1m__r02.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: ╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: GLM-5.3-Flash @ http://sparky:8000                                    │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+jj.r38.spark.vllm2d38757  Models: ['GLM-5.3-Flash']
+Model context length: 1,048,576 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=uwjtndmiskdi, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.18 chars/token (cached, source=8k)
+  8k: 50,598 chars (~8,191 tokens)
+  16k: 101,196 chars (~16,383 tokens)
+  32k: 202,393 chars (~32,767 tokens)
+  64k: 404,786 chars (~65,535 tokens)
+  128k: 809,572 chars (~131,071 tokens)
+Done.
+

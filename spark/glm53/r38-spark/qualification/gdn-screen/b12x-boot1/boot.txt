@@ -1,0 +1,3 @@
+arm=b12x
+boot=1
+started=2026-09-15T23:55:20Z

@@ -1,0 +1,468 @@
+2026-09-15T19:59:07.386178000-04:00 WARNING 09-15 23:59:07 [argparse_utils.py:441] Found duplicate keys --recurrent-checkpoint-policy
+2026-09-15T19:59:07.387055000-04:00 WARNING 09-15 23:59:07 [envs.py:2361] Unknown vLLM environment variable detected: VLLM_CACHE_DIR
+2026-09-15T19:59:02.993841000-04:00 W0915 23:59:02.992000 51 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-15T19:59:03.019798000-04:00 W0915 23:59:03.019000 51 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-15T19:59:07.406763000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:07.406890000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:07.412875000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:07.413009000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:07.418850000-04:00 INFO 09-15 23:59:07 [model.py:686] Resolved architecture: Qwen3_8FlashNextForConditionalGeneration
+2026-09-15T19:59:07.418999000-04:00 INFO 09-15 23:59:07 [model.py:2043] Using max model len 262144
+2026-09-15T19:59:07.413053000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.088340000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.088710000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.094272000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.904099000-04:00 INFO 09-15 23:59:09 [cache.py:356] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+2026-09-15T19:59:09.904285000-04:00 INFO 09-15 23:59:09 [arg_utils.py:2351] Inferred data_parallel_rank 0 from node_rank 1
+2026-09-15T19:59:09.094337000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.094377000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.906649000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.906803000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.912748000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.914521000-04:00 INFO 09-15 23:59:09 [model.py:686] Resolved architecture: Qwen3_8FlashNextMTP
+2026-09-15T19:59:09.914684000-04:00 INFO 09-15 23:59:09 [model.py:2043] Using max model len 262144
+2026-09-15T19:59:09.912908000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.912953000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-15T19:59:09.914952000-04:00 WARNING 09-15 23:59:09 [speculative.py:1366] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+2026-09-15T19:59:09.915115000-04:00 INFO 09-15 23:59:09 [scheduler.py:339] Chunked prefill is enabled with max_num_batched_tokens=4096.
+2026-09-15T19:59:09.915558000-04:00 WARNING 09-15 23:59:09 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+2026-09-15T19:59:09.915710000-04:00 WARNING 09-15 23:59:09 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+2026-09-15T19:59:09.915775000-04:00 WARNING 09-15 23:59:09 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+2026-09-15T19:59:09.915814000-04:00 WARNING 09-15 23:59:09 [modelopt.py:1695] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+2026-09-15T19:59:09.915850000-04:00 INFO 09-15 23:59:09 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-15T19:59:09.915885000-04:00 WARNING 09-15 23:59:09 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-15T19:59:09.964844000-04:00 INFO 09-15 23:59:09 [compilation.py:329] Enabled custom fusions: act_quant
+2026-09-15T19:59:09.965009000-04:00 INFO 09-15 23:59:09 [serve.py:242] Launching vLLM (v0.26.1rc0+jj.r38.spark.vllm2d38757) headless multiproc executor, with head node address 10.11.1.1:25000 for torch.distributed process group.
+2026-09-15T19:59:13.520573000-04:00 W0915 23:59:13.519000 228 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-15T19:59:13.533165000-04:00 W0915 23:59:13.532000 228 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-15T19:59:16.490621000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T19:59:16.491052000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T19:59:16.496524000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T19:59:17.066940000-04:00 (Worker pid=228) INFO 09-15 23:59:17 [parallel_state.py:1647] world_size=2 rank=1 local_rank=0 distributed_init_method=tcp://10.11.1.1:25000 backend=nccl
+2026-09-15T19:59:32.929066000-04:00 (Worker pid=228) INFO 09-15 23:59:32 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-09-15T19:59:16.496593000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T19:59:16.496638000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T19:59:33.377781000-04:00 
+2026-09-15T19:59:33.377915000-04:00 [2026-09-15 23:59:33] kirby:228:228 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-15T19:59:33.384560000-04:00 
+2026-09-15T19:59:33.384686000-04:00 [2026-09-15 23:59:33] kirby:228:228 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-15T19:59:34.738104000-04:00 (Worker pid=228) WARNING 09-15 23:59:34 [symm_mem.py:67] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+2026-09-15T19:59:34.772425000-04:00 (Worker pid=228) WARNING 09-15 23:59:34 [flashinfer_all_reduce.py:383] FlashInfer All Reduce is disabled because it is not supported for world_size=2.
+2026-09-15T19:59:34.803116000-04:00 (Worker pid=228) INFO 09-15 23:59:34 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-09-15T19:59:36.035187000-04:00 (Worker pid=228) INFO 09-15 23:59:36 [parallel_state.py:1991] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank 1, EPLB rank N/A
+2026-09-15T19:59:36.035486000-04:00 (Worker pid=228) INFO 09-15 23:59:36 [gpu_worker.py:421] Using V2 Model Runner
+2026-09-15T19:59:36.549027000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:36 [model_runner.py:390] Loading model from scratch...
+2026-09-15T19:59:38.104643000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [__init__.py:869] Using B12xMxfp8LinearKernel for MXFP8 GEMM
+2026-09-15T19:59:38.122898000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [cuda.py:551] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+2026-09-15T19:59:38.125732000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [mm_encoder_attention.py:375] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+2026-09-15T19:59:38.126508000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [__init__.py:1101] Using MarlinNvFp4LinearKernel for NVFP4 GEMM
+2026-09-15T19:59:38.226414000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [qwen_gdn_linear_attn.py:311] Using b12x CuTeDSL GDN prefill kernel (requested=b12x, head_k_dim=128).
+2026-09-15T19:59:38.247421000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [qwen_gdn_linear_attn.py:699] GDN decode kernel: b12x
+2026-09-15T19:59:38.448232000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [nvfp4.py:261] Using 'B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTEDSL_BATCHED', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+2026-09-15T19:59:38.478436000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:38 [mamba_utils.py:37] VLLM_SSM_CONV_STATE_LAYOUT env detected. Setting SSM conv state layout to DS.
+2026-09-15T19:59:41.101724000-04:00 (Worker_TP1 pid=228) INFO 09-15 23:59:41 [vocab_parallel_embedding.py:392] Quantizing LM head shards to MXFP8 with BF16 activations.
+2026-09-15T20:00:38.024494000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:38 [default_loader.py:493] Loading weights took 56.58 seconds
+2026-09-15T20:00:38.051516000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [marlin.py:34] Your GPU does not have native support for FP4 computation but FP4 quantization is being used. Weight-only FP4 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.
+2026-09-15T20:00:38.051672000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [marlin_utils.py:238] Marlin requires thread-tile padding for some weight shapes in this model. Activations and/or outputs of the padded layers are padded/sliced on every forward; performance may be degraded.
+2026-09-15T20:00:38.237936000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:38 [nvfp4.py:613] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-15T20:00:38.466155000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:38 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-15T20:00:38.466290000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-15T20:00:38.560808000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+2026-09-15T20:00:38.560936000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+2026-09-15T20:00:38.560974000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+2026-09-15T20:00:38.560999000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:38 [modelopt.py:1695] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+2026-09-15T20:00:38.561622000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:38 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-15T20:00:38.989920000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:38 [vocab_parallel_embedding.py:392] Quantizing LM head shards to NVFP4 with BF16 activations.
+2026-09-15T20:00:39.412596000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:39 [weight_utils.py:667] Safetensors index filter selected 2/35 checkpoint shards.
+2026-09-15T20:00:40.765398000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:40 [default_loader.py:493] Loading weights took 1.33 seconds
+2026-09-15T20:00:41.350442000-04:00 (Worker_TP1 pid=228) WARNING 09-16 00:00:41 [speculator.py:196] Draft model Qwen3_8FlashNextMTP does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+2026-09-15T20:00:42.053547000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:42 [model_runner.py:412] Model loading took 51.85 GiB memory and 65.739257 seconds
+2026-09-15T20:00:42.134192000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:42 [interface.py:1029] Setting attention block size to 2848 tokens to ensure that attention page size is >= mamba page size.
+2026-09-15T20:00:42.134329000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:42 [interface.py:1062] Padding mamba page size by 0.38% to ensure that mamba page size and attention page size are exactly equal.
+2026-09-15T20:00:42.162961000-04:00 WARNING 09-16 00:00:42 [torch_utils.py:266] OMP_NUM_THREADS=16 is set; leaving Torch threads at 16 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+2026-09-15T20:00:42.533710000-04:00 (Worker_TP1 pid=228) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T20:00:42.533889000-04:00 (Worker_TP1 pid=228) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T20:00:44.038088000-04:00 (Worker_TP1 pid=228) [transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+2026-09-15T20:00:45.124295000-04:00 (Worker_TP1 pid=228) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T20:00:46.894843000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:00:46 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 1 image items of the maximum feature size.
+2026-09-15T20:01:00.364505000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:00 [caching.py:343] reconstructed serializable fn from standalone compile artifacts. num_artifacts=9 num_submods=52
+2026-09-15T20:00:45.124615000-04:00 (Worker_TP1 pid=228) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_section', 'mrope_interleaved'}
+2026-09-15T20:01:00.402988000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:00 [decorators.py:313] Directly load AOT compilation from path /cache/jit/cu133-torch213-jj-r38-sm121-ea978a65fbbc668ea72b/vllm/torch_compile_cache/torch_aot_compile/bfdd0e9d95aa48647d59c248ac16180b4f5b2a35c5f14b62ea49848218536ca5/rank_1_0/model
+2026-09-15T20:01:00.403127000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:00 [monitor.py:53] torch.compile took 0.27 s in total
+2026-09-15T20:01:02.132562000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:02 [monitor.py:81] Initial profiling/warmup run took 1.73 s
+2026-09-15T20:01:02.198871000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:02 [caching.py:343] reconstructed serializable fn from standalone compile artifacts. num_artifacts=2 num_submods=2
+2026-09-15T20:01:02.204824000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:02 [decorators.py:313] Directly load AOT compilation from path /cache/jit/cu133-torch213-jj-r38-sm121-ea978a65fbbc668ea72b/vllm/torch_compile_cache/torch_aot_compile/c6e9feca36ef05611e1d1c12eda73cb2083cdb5ea72762e9a8bc3aca334809e8/rank_1_0/model
+2026-09-15T20:01:02.204951000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:01:02 [monitor.py:53] torch.compile took 0.05 s in total
+2026-09-15T20:01:02.555985000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] WorkerProc hit an exception.
+2026-09-15T20:01:02.556140000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] Traceback (most recent call last):
+2026-09-15T20:01:02.556185000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/executor/multiproc_executor.py", line 1047, in _execute_worker_rpc
+2026-09-15T20:01:02.556229000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     output = func(*args, **kwargs)
+2026-09-15T20:01:02.556278000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.556314000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.556349000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.556382000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.556413000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu_worker.py", line 549, in determine_available_memory
+2026-09-15T20:01:02.556444000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self.model_runner.profile_run()
+2026-09-15T20:01:02.556476000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.556506000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.556538000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.556570000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/model_runner.py", line 929, in profile_run
+2026-09-15T20:01:02.556605000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     hidden_states, sample_hidden_states = self._dummy_run(
+2026-09-15T20:01:02.556659000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                                           ^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.556694000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.556722000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.556753000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.556778000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/eplb_utils.py", line 27, in wrapper
+2026-09-15T20:01:02.556811000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = fn(self, *args, **kwargs)
+2026-09-15T20:01:02.556842000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.556876000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/model_runner.py", line 853, in _dummy_run
+2026-09-15T20:01:02.556915000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self.speculator.propose(
+2026-09-15T20:01:02.556943000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.556972000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.557000000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557027000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py", line 355, in propose
+2026-09-15T20:01:02.557061000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self._prefill(
+2026-09-15T20:01:02.557091000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py", line 515, in _prefill
+2026-09-15T20:01:02.557125000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     last_hidden_states, hidden_states = self._run_model(
+2026-09-15T20:01:02.557158000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                                         ^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557193000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.557221000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.557248000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557283000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py", line 471, in _run_model
+2026-09-15T20:01:02.557318000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     ret_hidden_states = self.model(**model_inputs)
+2026-09-15T20:01:02.557354000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557390000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/decorators.py", line 575, in __call__
+2026-09-15T20:01:02.557423000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     output = self.aot_compiled_fn(self, *args, **kwargs)
+2026-09-15T20:01:02.557456000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557487000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/aot_compile.py", line 244, in __call__
+2026-09-15T20:01:02.557521000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.fn(*args, **kwargs)
+2026-09-15T20:01:02.557550000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557583000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/models/qwen3_8_flash_next/mtp.py", line 573, in forward
+2026-09-15T20:01:02.557618000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     def forward(
+2026-09-15T20:01:02.557660000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/caching.py", line 225, in __call__
+2026-09-15T20:01:02.557695000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.optimized_call(*args, **kwargs)
+2026-09-15T20:01:02.557729000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557763000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "<string>", line 22, in execution_fn
+2026-09-15T20:01:02.557797000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/cuda_graph.py", line 268, in __call__
+2026-09-15T20:01:02.557826000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.runnable(*args, **kwargs)
+2026-09-15T20:01:02.557855000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557890000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/piecewise_backend.py", line 380, in __call__
+2026-09-15T20:01:02.557920000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return range_entry.runnable(*args)
+2026-09-15T20:01:02.557950000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.557983000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/piecewise_backend.py", line 198, in compiled_graph_wrapper
+2026-09-15T20:01:02.558010000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     graph_output = compiled_graph(*args)
+2026-09-15T20:01:02.558039000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                    ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558072000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_inductor/standalone_compile.py", line 321, in __call__
+2026-09-15T20:01:02.558108000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.inner_fn(*args)
+2026-09-15T20:01:02.558142000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558175000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/aot_compile_types.py", line 221, in __call__
+2026-09-15T20:01:02.558208000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.compiled_fn(*args, **kwargs)
+2026-09-15T20:01:02.558242000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558274000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/aot_autograd_result.py", line 742, in forward
+2026-09-15T20:01:02.558307000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return compiled_fn(list(runtime_args))
+2026-09-15T20:01:02.558340000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558374000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2548, in __call__
+2026-09-15T20:01:02.558408000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.compiled_fn(*args, **kwargs)
+2026-09-15T20:01:02.558438000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558467000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1141, in runtime_wrapper
+2026-09-15T20:01:02.558500000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = _codegen_runtime_wrapper(
+2026-09-15T20:01:02.558532000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558562000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 9, in _runtime_wrapper
+2026-09-15T20:01:02.558592000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_inductor/output_code.py", line 763, in __call__
+2026-09-15T20:01:02.558632000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.current_callable(inputs)
+2026-09-15T20:01:02.558665000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558698000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_inductor/utils.py", line 3835, in run
+2026-09-15T20:01:02.558725000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     out = model(new_inputs)
+2026-09-15T20:01:02.558755000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]           ^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558788000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/cache/jit/cu133-torch213-jj-r38-sm121-ea978a65fbbc668ea72b/vllm/torch_compile_cache/torch_aot_compile/c6e9feca36ef05611e1d1c12eda73cb2083cdb5ea72762e9a8bc3aca334809e8/inductor_cache/ur/curqvcfygt3p7ttnkku2b2nzsndscestbsxgie7nnwkjqulrbdxu.py", line 326, in call
+2026-09-15T20:01:02.558818000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     buf13 = torch.ops.vllm.moe_forward_shared.default(reinterpret_tensor(arg11_1, (s18, 2560), (2560, 1), 0), reinterpret_tensor(arg11_1, (s18, 2560), (2560, 1), 0), reinterpret_tensor(arg11_1, (s18, 2560), (2560, 1), 0), None, arg12_1, 0, torch.bfloat16)
+2026-09-15T20:01:02.558848000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558884000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 875, in __call__
+2026-09-15T20:01:02.558917000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._op(*args, **kwargs)
+2026-09-15T20:01:02.558946000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.558976000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+2026-09-15T20:01:02.559009000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return disable_fn(*args, **kwargs)
+2026-09-15T20:01:02.559039000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559069000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+2026-09-15T20:01:02.559103000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return fn(*args, **kwargs)
+2026-09-15T20:01:02.559137000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559167000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 432, in __torch_dispatch__
+2026-09-15T20:01:02.559196000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     res = func(*args, **kwargs)
+2026-09-15T20:01:02.559229000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]           ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559259000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 875, in __call__
+2026-09-15T20:01:02.559288000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._op(*args, **kwargs)
+2026-09-15T20:01:02.559326000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559355000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py", line 170, in _moe_forward_shared
+2026-09-15T20:01:02.559391000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     layer._forward_impl(
+2026-09-15T20:01:02.559426000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py", line 941, in _forward_impl
+2026-09-15T20:01:02.559457000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     shared_output, hidden_states = self._apply_quant_method(
+2026-09-15T20:01:02.559490000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559520000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py", line 639, in _apply_quant_method
+2026-09-15T20:01:02.559553000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     fused_out = self.routed_experts.forward_modular(
+2026-09-15T20:01:02.559586000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559616000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/routed_experts.py", line 1268, in forward_modular
+2026-09-15T20:01:02.559654000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.quant_method.apply(
+2026-09-15T20:01:02.559688000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559719000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/quantization/modelopt.py", line 1657, in apply
+2026-09-15T20:01:02.559749000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.moe_kernel.apply(
+2026-09-15T20:01:02.559782000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559816000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 1767, in apply
+2026-09-15T20:01:02.559849000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.impl.apply(
+2026-09-15T20:01:02.559875000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559908000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 1534, in apply
+2026-09-15T20:01:02.559934000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     fused_out = self._fused_experts(
+2026-09-15T20:01:02.559967000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                 ^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.559999000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 1377, in _fused_experts
+2026-09-15T20:01:02.560034000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self.fused_experts.apply(
+2026-09-15T20:01:02.560067000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/b12x.py", line 800, in apply
+2026-09-15T20:01:02.560100000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     _run_b12x_moe_plan(
+2026-09-15T20:01:02.560167000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/b12x.py", line 123, in _run_b12x_moe_plan
+2026-09-15T20:01:02.560203000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     fused_moe.run(binding=binding)
+2026-09-15T20:01:02.560234000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/fused_moe/_impl.py", line 13097, in b12x_moe_fp4
+2026-09-15T20:01:02.560265000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = run_w4a16_moe(
+2026-09-15T20:01:02.560297000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^
+2026-09-15T20:01:02.560327000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/_shared/kernels/w4a16/kernel.py", line 12889, in run_w4a16_moe
+2026-09-15T20:01:02.560354000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     torch.ops.b12x.w4a16_topk_sum_launch(
+2026-09-15T20:01:02.560385000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 1279, in __call__
+2026-09-15T20:01:02.560419000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._op(*args, **kwargs)
+2026-09-15T20:01:02.560446000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.560475000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py", line 441, in backend_impl
+2026-09-15T20:01:02.560505000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = self._backend_fns[device_type](*args, **kwargs)
+2026-09-15T20:01:02.560537000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.560565000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+2026-09-15T20:01:02.560594000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return disable_fn(*args, **kwargs)
+2026-09-15T20:01:02.560621000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.560657000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+2026-09-15T20:01:02.560684000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return fn(*args, **kwargs)
+2026-09-15T20:01:02.560714000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.560744000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py", line 502, in wrapped_fn
+2026-09-15T20:01:02.560773000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return fn(*args, **kwargs)
+2026-09-15T20:01:02.560799000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.560828000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/_shared/kernels/w4a16/kernel.py", line 11074, in _w4a16_topk_sum_launch_op
+2026-09-15T20:01:02.560858000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     _w4a16_topk_sum_launch_flat(
+2026-09-15T20:01:02.560887000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/_shared/kernels/w4a16/kernel.py", line 11017, in _w4a16_topk_sum_launch_flat
+2026-09-15T20:01:02.560916000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     sum_kernel.compiled(
+2026-09-15T20:01:02.560948000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1398, in __call__
+2026-09-15T20:01:02.560980000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.run_compiled_program(exe_args)
+2026-09-15T20:01:02.561009000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.561038000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1415, in run_compiled_program
+2026-09-15T20:01:02.561068000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._default_executor.run_compiled_program(exe_args)
+2026-09-15T20:01:02.561097000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.561126000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1079, in run_compiled_program
+2026-09-15T20:01:02.561158000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     raise e
+2026-09-15T20:01:02.561189000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1077, in run_compiled_program
+2026-09-15T20:01:02.561218000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     raise cuda_helpers.create_cuda_runtime_error(error_code)
+2026-09-15T20:01:02.561249000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] cutlass.base_dsl.common.DSLCudaRuntimeError: 
+2026-09-15T20:01:02.561279000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [91m[1merror:[0m CUDA_ERROR_ILLEGAL_INSTRUCTION (error code: 715) 
+2026-09-15T20:01:02.561305000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [91m❌ A running kernel executed an illegal instruction.[0m
+2026-09-15T20:01:02.561335000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.561363000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [93mThis is a fault inside the kernel, not an architecture mismatch.[0m
+2026-09-15T20:01:02.561391000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.561422000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]  
+2026-09-15T20:01:02.561450000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.561479000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [0m
+2026-09-15T20:01:02.561507000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [94m= note:[0m error code 715
+2026-09-15T20:01:02.561536000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [94m= note:[0m 
+2026-09-15T20:01:02.561565000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - [1mError name: CUDA_ERROR_ILLEGAL_INSTRUCTION
+2026-09-15T20:01:02.561594000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Error code: 715
+2026-09-15T20:01:02.561622000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - CUDA_TOOLKIT_PATH: not set
+2026-09-15T20:01:02.561661000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Target SM ARCH: unknown (unspecified)[0m
+2026-09-15T20:01:02.561691000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.561721000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [94m📊 GPU Information:[0m
+2026-09-15T20:01:02.561750000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [1m- CUDA devices available: 1 (current: <CUdevice 0>)
+2026-09-15T20:01:02.561780000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Architecture: [94mBlackwell[0m ([92msm_121a[0m)
+2026-09-15T20:01:02.561812000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Compatible SM archs: [92msm_121a[0m
+2026-09-15T20:01:02.561843000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Total Memory: [94m121.69 GB[0m
+2026-09-15T20:01:02.561874000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.561903000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [92msuggestion:[0m 1. Inspect the kernel for an in-device fault (out-of-bounds access, failed device-side
+2026-09-15T20:01:02.561931000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]               assert, or an unsupported instruction at the launch config)
+2026-09-15T20:01:02.561960000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [92msuggestion:[0m 2. Re-run under compute-sanitizer to localize the faulting instruction
+2026-09-15T20:01:02.561994000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.562023000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] Traceback (most recent call last):
+2026-09-15T20:01:02.562053000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/executor/multiproc_executor.py", line 1047, in _execute_worker_rpc
+2026-09-15T20:01:02.562079000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     output = func(*args, **kwargs)
+2026-09-15T20:01:02.562106000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562132000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.562158000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.562187000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562215000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu_worker.py", line 549, in determine_available_memory
+2026-09-15T20:01:02.562247000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self.model_runner.profile_run()
+2026-09-15T20:01:02.562275000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.562302000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.562331000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562356000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/model_runner.py", line 929, in profile_run
+2026-09-15T20:01:02.562385000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     hidden_states, sample_hidden_states = self._dummy_run(
+2026-09-15T20:01:02.562414000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                                           ^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562443000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.562478000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.562508000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562536000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/eplb_utils.py", line 27, in wrapper
+2026-09-15T20:01:02.562562000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = fn(self, *args, **kwargs)
+2026-09-15T20:01:02.562591000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562619000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/model_runner.py", line 853, in _dummy_run
+2026-09-15T20:01:02.562656000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self.speculator.propose(
+2026-09-15T20:01:02.562689000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.562717000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.562746000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562772000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py", line 355, in propose
+2026-09-15T20:01:02.562801000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self._prefill(
+2026-09-15T20:01:02.562830000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py", line 515, in _prefill
+2026-09-15T20:01:02.562858000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     last_hidden_states, hidden_states = self._run_model(
+2026-09-15T20:01:02.562885000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                                         ^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562914000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+2026-09-15T20:01:02.562942000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return func(*args, **kwargs)
+2026-09-15T20:01:02.562973000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.562999000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/v1/worker/gpu/spec_decode/autoregressive/speculator.py", line 471, in _run_model
+2026-09-15T20:01:02.563028000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     ret_hidden_states = self.model(**model_inputs)
+2026-09-15T20:01:02.563056000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563085000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/decorators.py", line 575, in __call__
+2026-09-15T20:01:02.563111000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     output = self.aot_compiled_fn(self, *args, **kwargs)
+2026-09-15T20:01:02.563138000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563164000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/aot_compile.py", line 244, in __call__
+2026-09-15T20:01:02.563193000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.fn(*args, **kwargs)
+2026-09-15T20:01:02.563219000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563252000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/models/qwen3_8_flash_next/mtp.py", line 573, in forward
+2026-09-15T20:01:02.563282000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     def forward(
+2026-09-15T20:01:02.563310000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/caching.py", line 225, in __call__
+2026-09-15T20:01:02.563339000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.optimized_call(*args, **kwargs)
+2026-09-15T20:01:02.563364000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563392000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "<string>", line 22, in execution_fn
+2026-09-15T20:01:02.563420000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/cuda_graph.py", line 268, in __call__
+2026-09-15T20:01:02.563446000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.runnable(*args, **kwargs)
+2026-09-15T20:01:02.563474000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563500000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/piecewise_backend.py", line 380, in __call__
+2026-09-15T20:01:02.563531000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return range_entry.runnable(*args)
+2026-09-15T20:01:02.563559000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563585000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/compilation/piecewise_backend.py", line 198, in compiled_graph_wrapper
+2026-09-15T20:01:02.563616000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     graph_output = compiled_graph(*args)
+2026-09-15T20:01:02.563654000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                    ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563687000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_inductor/standalone_compile.py", line 321, in __call__
+2026-09-15T20:01:02.563716000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.inner_fn(*args)
+2026-09-15T20:01:02.563742000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563767000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/aot_compile_types.py", line 221, in __call__
+2026-09-15T20:01:02.563793000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.compiled_fn(*args, **kwargs)
+2026-09-15T20:01:02.563818000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563843000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/aot_autograd_result.py", line 742, in forward
+2026-09-15T20:01:02.563872000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return compiled_fn(list(runtime_args))
+2026-09-15T20:01:02.563903000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.563932000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2548, in __call__
+2026-09-15T20:01:02.563961000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.compiled_fn(*args, **kwargs)
+2026-09-15T20:01:02.563989000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564014000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1141, in runtime_wrapper
+2026-09-15T20:01:02.564048000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = _codegen_runtime_wrapper(
+2026-09-15T20:01:02.564082000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564108000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/subclass_codegen.py:codegen(runtime_wrapper_orchestration)", line 9, in _runtime_wrapper
+2026-09-15T20:01:02.564141000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_inductor/output_code.py", line 763, in __call__
+2026-09-15T20:01:02.564167000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.current_callable(inputs)
+2026-09-15T20:01:02.564192000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564220000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_inductor/utils.py", line 3835, in run
+2026-09-15T20:01:02.564249000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     out = model(new_inputs)
+2026-09-15T20:01:02.564275000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]           ^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564303000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/cache/jit/cu133-torch213-jj-r38-sm121-ea978a65fbbc668ea72b/vllm/torch_compile_cache/torch_aot_compile/c6e9feca36ef05611e1d1c12eda73cb2083cdb5ea72762e9a8bc3aca334809e8/inductor_cache/ur/curqvcfygt3p7ttnkku2b2nzsndscestbsxgie7nnwkjqulrbdxu.py", line 326, in call
+2026-09-15T20:01:02.564336000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     buf13 = torch.ops.vllm.moe_forward_shared.default(reinterpret_tensor(arg11_1, (s18, 2560), (2560, 1), 0), reinterpret_tensor(arg11_1, (s18, 2560), (2560, 1), 0), reinterpret_tensor(arg11_1, (s18, 2560), (2560, 1), 0), None, arg12_1, 0, torch.bfloat16)
+2026-09-15T20:01:02.564365000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564391000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 875, in __call__
+2026-09-15T20:01:02.564419000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._op(*args, **kwargs)
+2026-09-15T20:01:02.564448000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564476000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+2026-09-15T20:01:02.564502000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return disable_fn(*args, **kwargs)
+2026-09-15T20:01:02.564528000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564553000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+2026-09-15T20:01:02.564586000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return fn(*args, **kwargs)
+2026-09-15T20:01:02.564614000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564644000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 432, in __torch_dispatch__
+2026-09-15T20:01:02.564678000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     res = func(*args, **kwargs)
+2026-09-15T20:01:02.564707000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]           ^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564736000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 875, in __call__
+2026-09-15T20:01:02.564763000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._op(*args, **kwargs)
+2026-09-15T20:01:02.564790000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564816000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py", line 170, in _moe_forward_shared
+2026-09-15T20:01:02.564841000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     layer._forward_impl(
+2026-09-15T20:01:02.564868000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py", line 941, in _forward_impl
+2026-09-15T20:01:02.564897000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     shared_output, hidden_states = self._apply_quant_method(
+2026-09-15T20:01:02.564923000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.564948000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py", line 639, in _apply_quant_method
+2026-09-15T20:01:02.564973000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     fused_out = self.routed_experts.forward_modular(
+2026-09-15T20:01:02.564999000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565027000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/routed_experts.py", line 1268, in forward_modular
+2026-09-15T20:01:02.565053000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.quant_method.apply(
+2026-09-15T20:01:02.565080000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565108000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/quantization/modelopt.py", line 1657, in apply
+2026-09-15T20:01:02.565137000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.moe_kernel.apply(
+2026-09-15T20:01:02.565163000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565188000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 1767, in apply
+2026-09-15T20:01:02.565217000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.impl.apply(
+2026-09-15T20:01:02.565243000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565272000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 1534, in apply
+2026-09-15T20:01:02.565298000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     fused_out = self._fused_experts(
+2026-09-15T20:01:02.565332000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]                 ^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565360000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 1377, in _fused_experts
+2026-09-15T20:01:02.565386000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     self.fused_experts.apply(
+2026-09-15T20:01:02.565412000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/b12x.py", line 800, in apply
+2026-09-15T20:01:02.565439000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     _run_b12x_moe_plan(
+2026-09-15T20:01:02.565464000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/vllm/vllm/model_executor/layers/fused_moe/b12x.py", line 123, in _run_b12x_moe_plan
+2026-09-15T20:01:02.565494000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     fused_moe.run(binding=binding)
+2026-09-15T20:01:02.565521000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/fused_moe/_impl.py", line 13097, in b12x_moe_fp4
+2026-09-15T20:01:02.565550000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = run_w4a16_moe(
+2026-09-15T20:01:02.565579000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565610000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/_shared/kernels/w4a16/kernel.py", line 12889, in run_w4a16_moe
+2026-09-15T20:01:02.565642000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     torch.ops.b12x.w4a16_topk_sum_launch(
+2026-09-15T20:01:02.565674000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 1279, in __call__
+2026-09-15T20:01:02.565701000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._op(*args, **kwargs)
+2026-09-15T20:01:02.565727000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565756000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py", line 441, in backend_impl
+2026-09-15T20:01:02.565790000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     result = self._backend_fns[device_type](*args, **kwargs)
+2026-09-15T20:01:02.565816000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565842000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+2026-09-15T20:01:02.565868000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return disable_fn(*args, **kwargs)
+2026-09-15T20:01:02.565894000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.565924000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+2026-09-15T20:01:02.565954000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return fn(*args, **kwargs)
+2026-09-15T20:01:02.565979000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.566010000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py", line 502, in wrapped_fn
+2026-09-15T20:01:02.566040000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return fn(*args, **kwargs)
+2026-09-15T20:01:02.566066000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.566092000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/_shared/kernels/w4a16/kernel.py", line 11074, in _w4a16_topk_sum_launch_op
+2026-09-15T20:01:02.566122000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     _w4a16_topk_sum_launch_flat(
+2026-09-15T20:01:02.566148000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/jovian-judgement/b12x/b12x/moe/_shared/kernels/w4a16/kernel.py", line 11017, in _w4a16_topk_sum_launch_flat
+2026-09-15T20:01:02.566178000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     sum_kernel.compiled(
+2026-09-15T20:01:02.566207000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1398, in __call__
+2026-09-15T20:01:02.566234000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self.run_compiled_program(exe_args)
+2026-09-15T20:01:02.566264000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.566293000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1415, in run_compiled_program
+2026-09-15T20:01:02.566319000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     return self._default_executor.run_compiled_program(exe_args)
+2026-09-15T20:01:02.566352000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-09-15T20:01:02.566381000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1079, in run_compiled_program
+2026-09-15T20:01:02.566408000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     raise e
+2026-09-15T20:01:02.566437000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   File "/opt/venv/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/jit_executor.py", line 1077, in run_compiled_program
+2026-09-15T20:01:02.566466000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]     raise cuda_helpers.create_cuda_runtime_error(error_code)
+2026-09-15T20:01:02.566492000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] cutlass.base_dsl.common.DSLCudaRuntimeError: 
+2026-09-15T20:01:02.566521000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [91m[1merror:[0m CUDA_ERROR_ILLEGAL_INSTRUCTION (error code: 715) 
+2026-09-15T20:01:02.566547000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [91m❌ A running kernel executed an illegal instruction.[0m
+2026-09-15T20:01:02.566576000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.566602000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [93mThis is a fault inside the kernel, not an architecture mismatch.[0m
+2026-09-15T20:01:02.566644000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.566673000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]  
+2026-09-15T20:01:02.566707000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.566735000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [0m
+2026-09-15T20:01:02.566761000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [94m= note:[0m error code 715
+2026-09-15T20:01:02.566791000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [94m= note:[0m 
+2026-09-15T20:01:02.566819000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - [1mError name: CUDA_ERROR_ILLEGAL_INSTRUCTION
+2026-09-15T20:01:02.566848000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Error code: 715
+2026-09-15T20:01:02.566877000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - CUDA_TOOLKIT_PATH: not set
+2026-09-15T20:01:02.566904000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Target SM ARCH: unknown (unspecified)[0m
+2026-09-15T20:01:02.566930000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.566956000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [94m📊 GPU Information:[0m
+2026-09-15T20:01:02.566985000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] [1m- CUDA devices available: 1 (current: <CUdevice 0>)
+2026-09-15T20:01:02.567013000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Architecture: [94mBlackwell[0m ([92msm_121a[0m)
+2026-09-15T20:01:02.567043000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Compatible SM archs: [92msm_121a[0m
+2026-09-15T20:01:02.567073000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] - Total Memory: [94m121.69 GB[0m
+2026-09-15T20:01:02.567102000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.567131000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [92msuggestion:[0m 1. Inspect the kernel for an in-device fault (out-of-bounds access, failed device-side
+2026-09-15T20:01:02.567160000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]               assert, or an unsupported instruction at the launch config)
+2026-09-15T20:01:02.567189000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055]   [92msuggestion:[0m 2. Re-run under compute-sanitizer to localize the faulting instruction
+2026-09-15T20:01:02.567216000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:01:02.567244000-04:00 (Worker_TP1 pid=228) ERROR 09-16 00:01:02 [multiproc_executor.py:1055] 
+2026-09-15T20:02:38.345361000-04:00 INFO 09-16 00:02:38 [multiproc_executor.py:472] [shutdown] Executor: waiting for worker exit count=1
+2026-09-15T20:02:38.345697000-04:00 (Worker_TP1 pid=228) INFO 09-16 00:02:38 [multiproc_executor.py:836] Parent process exited, terminating worker queues
+2026-09-15T20:02:43.372162000-04:00 WARNING 09-16 00:02:43 [multiproc_executor.py:484] [shutdown] Executor: workers still running after grace period; sending SIGTERM count=1

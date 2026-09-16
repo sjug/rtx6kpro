@@ -1,0 +1,54 @@
+{
+  "grid": "/home/jugs/git/llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r38-vs-r32/throughput/20260915T155309-0400__jj-r38-aligned-sm121-tp4-dcp1-mtp3-native1m__r04.json",
+  "start": "2026-09-15T15:53:10-04:00",
+  "end": "2026-09-15T16:05:39.063114-04:00",
+  "cells": 15,
+  "timing_note": "Ready/done events have one-second precision. Node telemetry, not workstation hardware summaries, is used. Matching request counts and a live socket-owner check additionally screen same-address interference.",
+  "nodes": {
+    "sparky": {
+      "samples": 749,
+      "decode_samples": 450,
+      "decode_mean_sm_mhz": 2469.362222222222,
+      "decode_clock_event_samples": 0,
+      "benchmark_clock_event_samples": 0,
+      "maximum_temperature_c": 81.0,
+      "jit_events": [],
+      "foreign_address_posts": [],
+      "error_lines": []
+    },
+    "buddy": {
+      "samples": 748,
+      "decode_samples": 450,
+      "decode_mean_sm_mhz": 2485.511111111111,
+      "decode_clock_event_samples": 0,
+      "benchmark_clock_event_samples": 0,
+      "maximum_temperature_c": 84.0,
+      "jit_events": [],
+      "foreign_address_posts": [],
+      "error_lines": []
+    },
+    "rocky": {
+      "samples": 749,
+      "decode_samples": 450,
+      "decode_mean_sm_mhz": 2528.288888888889,
+      "decode_clock_event_samples": 0,
+      "benchmark_clock_event_samples": 0,
+      "maximum_temperature_c": 81.0,
+      "jit_events": [],
+      "foreign_address_posts": [],
+      "error_lines": []
+    },
+    "lucky": {
+      "samples": 748,
+      "decode_samples": 450,
+      "decode_mean_sm_mhz": 2439.693333333333,
+      "decode_clock_event_samples": 0,
+      "benchmark_clock_event_samples": 0,
+      "maximum_temperature_c": 82.0,
+      "jit_events": [],
+      "foreign_address_posts": [],
+      "error_lines": []
+    }
+  },
+  "all_cells_matched_concurrency": true
+}

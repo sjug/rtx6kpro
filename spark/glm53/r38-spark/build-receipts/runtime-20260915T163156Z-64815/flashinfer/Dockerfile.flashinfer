@@ -1,0 +1,41 @@
+# Pinned R38 FlashInfer source, rebuilt on ARM with the qualified Spark arch.
+ARG BASE_IMAGE=74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c
+FROM ${BASE_IMAGE} AS wheels
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+# Preserve JJ r11's effective policy: 20 Ninja jobs, one NVCC thread each.
+# FlashInfer reads FLASHINFER_NVCC_THREADS, not the generic NVCC_THREADS.
+ENV TORCH_CUDA_ARCH_LIST=12.1a FLASHINFER_CUDA_ARCH_LIST=12.1a \
+    FLASHINFER_LOCAL_VERSION=cu133 FLASHINFER_DISABLE_VERSION_CHECK=1 \
+    FLASHINFER_ENABLE_SM90=0 BUILD_NVEP=0 BUILD_NCCL_EP=0 BUILD_NIXL_EP=0 \
+    MAX_JOBS=20 FLASHINFER_NVCC_THREADS=1 PYTHONUNBUFFERED=1 PYTHONOPTIMIZE=0
+RUN test "$(uname -m)" = aarch64 && command -v uv \
+    && uv run --no-project --python /opt/venv/bin/python python -c \
+       'import torch; assert torch.__version__ == "2.13.0"; assert torch.version.cuda == "13.3"'
+RUN git init /build/flashinfer \
+    && git -C /build/flashinfer remote add origin https://github.com/voipmonitor/flashinfer.git \
+    && git -C /build/flashinfer fetch --depth=1 origin 803c4664f4771ddc418f20a57f752469a237a825 \
+    && git -C /build/flashinfer checkout --detach FETCH_HEAD \
+    && test "$(git -C /build/flashinfer rev-parse HEAD)" = 803c4664f4771ddc418f20a57f752469a237a825 \
+    && git -C /build/flashinfer submodule update --init --recursive --jobs 4
+WORKDIR /build/flashinfer
+RUN mkdir -p /artifacts/flashinfer \
+    && uv build --offline --python /opt/venv/bin/python --wheel --no-build-isolation --out-dir /artifacts/flashinfer . \
+    && uv build --offline --python /opt/venv/bin/python --wheel --no-build-isolation --out-dir /artifacts/flashinfer ./flashinfer-jit-cache \
+    && test "$(find /artifacts/flashinfer -maxdepth 1 -name 'flashinfer_python-*.whl' | wc -l)" = 1 \
+    && test "$(find /artifacts/flashinfer -maxdepth 1 -name 'flashinfer_jit_cache-*aarch64.whl' | wc -l)" = 1 \
+    && git submodule status --recursive > /artifacts/flashinfer/submodules.txt \
+    && cd /artifacts/flashinfer && sha256sum *.whl > SHA256SUMS
+ARG FLASHINFER_RECIPE_SHA256
+ARG FLASHINFER_BUILD_SCRIPT_SHA256
+COPY Dockerfile.flashinfer build-flashinfer.sh /artifacts/flashinfer/build-inputs/
+RUN cd /artifacts/flashinfer/build-inputs \
+    && printf '%s  %s\n' "$FLASHINFER_RECIPE_SHA256" Dockerfile.flashinfer \
+       "$FLASHINFER_BUILD_SCRIPT_SHA256" build-flashinfer.sh > recipe.sha256 \
+    && sha256sum -c recipe.sha256 \
+    && printf 'base=%s\narch=12.1a\ncommit=803c4664f4771ddc418f20a57f752469a237a825\n' \
+       74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c > inputs.txt
+LABEL local-inference.flashinfer.commit="803c4664f4771ddc418f20a57f752469a237a825" \
+      local-inference.flashinfer.arch="12.1a" \
+      local-inference.flashinfer.recipe.sha256="${FLASHINFER_RECIPE_SHA256}" \
+      local-inference.flashinfer.build-script.sha256="${FLASHINFER_BUILD_SCRIPT_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

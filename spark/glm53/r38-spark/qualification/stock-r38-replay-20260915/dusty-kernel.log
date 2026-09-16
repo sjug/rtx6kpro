@@ -1,0 +1,4 @@
+Sep 15 20:47:33 dusty kernel: overlayfs: fs on '4' does not support file handles, falling back to xino=off.
+Sep 15 20:48:43 dusty kernel: audit: type=1400 audit(1789519723.508:165): apparmor="DENIED" operation="capable" class="cap" profile="ubuntu_pro_esm_cache_systemd_detect_virt" pid=437447 comm="systemd-detect-" capability=38  capname="perfmon"
+Sep 15 20:48:43 dusty kernel: audit: type=1400 audit(1789519723.509:166): apparmor="DENIED" operation="capable" class="cap" profile="ubuntu_pro_esm_cache//cloud_id" pid=437307 comm="cloud-id" capability=38  capname="perfmon"
+Sep 15 20:49:49 dusty kernel: NVRM: nvCheckOkFailedNoLog: Check failed: Out of memory [NV_ERR_NO_MEMORY] (0x00000051) returned from _memdescAllocInternal(pMemDesc) @ mem_desc.c:1359
