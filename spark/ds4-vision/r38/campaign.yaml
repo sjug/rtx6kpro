@@ -1,0 +1,30 @@
+id: "2026-09-jj-r38-vs-r32"
+status: "completed"
+objective: "Qualify the R38 image on the previously qualified Vision Exp checkpoint and rusty/toby profile."
+baseline: "jj-r32-sm121-tp2-dspark-k3-dglin-524k"
+shared_configuration:
+  checkpoint_revision: "6821d6ad3681a4b137b066b76094fa82ebd0a380"
+  nodes: [rusty, toby]
+  tensor_parallel: 2
+  decode_context_parallel: 1
+  speculative_method: "dspark"
+  speculative_tokens: 3
+  max_model_len: 524288
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+notes: |
+  The image source launcher is byte-identical to R32. Keep its NCCL-only
+  LL/Simple f1-pair transport and DGLIN profile unchanged. No channel pin,
+  RoCEnante, external cache or fixed KV byte allocation is introduced.
+  First meaningful completion precedes vision, tools, mixed requests and
+  exact 16K/524K retrieval, then the canonical 15-cell run_bench.sh sweep
+  and post-grid semantic checks. Historical R32 comparison is provisional,
+  not a multi-boot performance proof. Record actual backends and boot KV.
+  Completed 2026-09-15 15:40:35 EDT. Meaningful text/vision/tool/mixed-load
+  checks passed before and after all 15 benchmark cells, with exact 16K/524K
+  retrieval before timing. R38 remains serving on rusty/toby; R32 retained.
+  Engine steps geometric means C1/C2/C4: 17.346/26.332/37.253 versus
+  historical R32 16.037/26.261/37.814. No repeatable gain is claimed.
+  Admission controller's rank-zero logging mistake was corrected without
+  a restart; benchmark-status.txt records the successful resumed result.
