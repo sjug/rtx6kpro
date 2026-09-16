@@ -1,0 +1,4 @@
+.compose/
+build-receipts/
+__pycache__/
+*.pyc

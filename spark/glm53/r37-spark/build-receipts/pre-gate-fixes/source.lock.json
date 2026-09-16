@@ -1,0 +1,152 @@
+{
+  "release": "jj-r37-spark-sm121",
+  "upstream_document_commit": "7a36aecdf0627f4e1efbd878532d630b3489a494",
+  "upstream_recipe_commit": "9ae14bdf2f483656726f2fa0a83b9e03d2159422",
+  "upstream_lock": {
+    "file": "upstream-r37.source.lock",
+    "sha256": "0729ad2c79d932aa8cd581a3b89f1f1b9cc9f0b9707547969ed989739323570b"
+  },
+  "base_image_id": "74e53e710bef141f6f68e722582569f9c6aa388bce405ad6f1423566a2300c9c",
+  "base_source_lock_sha256": "c28c09ef0fabe37d5ebd46a35aceee875a996cd3d5dafd813976050ce3940207",
+  "base_lock": {
+    "file": "inputs/r32-source.lock.json",
+    "sha256": "c28c09ef0fabe37d5ebd46a35aceee875a996cd3d5dafd813976050ce3940207"
+  },
+  "spark_overlay": {
+    "file": "patches/spark-overlay.patch",
+    "sha256": "992cbae5b9f7fd358fe01f20659c9a7985406d37bdafa129940bfe7e33afaea4"
+  },
+  "runtime": {
+    "torch": "2.13.0",
+    "cuda": "13.3",
+    "arch": "12.1a",
+    "lmcache_enabled": false,
+    "checkpoint_policy": "aligned",
+    "loader": "instanttensor",
+    "glm_draft_head": "bf16"
+  },
+  "flashkda": {
+    "base_commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "patch_sha256": "a9537532cf231babc942fa592666893268ca0617b24daeb8e78d3249e8c1d58a",
+    "spark_extension_sha256": "69347e79224ee3a48d1d3604d302dc275a595188b89db53be2a09593dbd07d98",
+    "spark_digest_source": "qualified R29 image label and runtime byte verification"
+  },
+  "stable_native_sha256": "8ee9441cd0c1468e4f21ba75dae55d76fe30381b0949f9e9745ba9d7da4f3d32",
+  "vllm": {
+    "commit": "c687594b8a8082e18af9fe2f64eb5f9ee442e251",
+    "upstream_tree": "3fb88fdfd0b5acdd4460076c6443a4299e5edf7d",
+    "base_tree": "80a18accc688cdee2974f4c5e03e9416b2896087",
+    "tree": "61e4d99858fefebc8cbe460d8643b0e04e3ab6bc",
+    "package_tree": "f3610aba2d19913d7da26f3440398cfc70284bcc",
+    "patch": {
+      "file": "patches/vllm.patch",
+      "sha256": "02998c4829a6408e6b3e31b034c730b3a97d35e5486c7333ff32c7aa6fe9f3c1"
+    },
+    "changed_paths": {
+      "file": "patches/vllm-changed-paths.txt",
+      "sha256": "8c94dfb8f219f7476cbd241836922a449bd2f9721956de895e1979bcdffee8e8"
+    },
+    "changed_paths_count": 155,
+    "native_changed_paths": [],
+    "native_inputs": {
+      "csrc": "b0ef9c9361a4b22d6f90840192210a9d0c1e5049",
+      "cmake": "5273499598e0571f12e325130239cb70626d0c63",
+      "CMakeLists.txt": "1c3b2e49607cc386a407b0a80fdc0c4dea97469b",
+      "setup.py": "ae64a13daa0f1facc255afcdb4ffcad264776b98",
+      "requirements": "d6e1c8e13cd4c4358ab422e3ef006d3f9f23e18b",
+      "pyproject.toml": "0766645fc7481da0ec439208128b838b3348d94c"
+    },
+    "version": "0.26.1rc0+jj.r37.spark.vllmf3610ab"
+  },
+  "b12x": {
+    "commit": "f1c4e9dd5b1d841c10cda70ee49c3190cf3db0be",
+    "upstream_tree": "480ea232d52fff4271b0412470d4ec340196735a",
+    "base_tree": "c4bfeee9f3c9457400d191c870eb2e44fbcd5c2e",
+    "tree": "480ea232d52fff4271b0412470d4ec340196735a",
+    "package_tree": "c1c5a88592d551463b62cd1eb7cbad7777b7c9c3",
+    "patch": {
+      "file": "patches/b12x.patch",
+      "sha256": "57ed75d1f79f87bcd25f2ba687f395ac45d6855f7f62048092a2dd3e1be46669"
+    },
+    "changed_paths": {
+      "file": "patches/b12x-changed-paths.txt",
+      "sha256": "68887599b47e358c82a2504a5da5d869fe9a96ddb52e06e2a7f40de6a9d4f830"
+    },
+    "changed_paths_count": 326,
+    "native_changed_paths": [
+      "b12x/loader/_ple_reader.c",
+      "b12x/loader/_storage.c"
+    ]
+  },
+  "lmcache": {
+    "commit": "29bc5a2efde737c436b04499eb62cd1776cebeec",
+    "upstream_tree": "5a88a1ea9d2627c76288d056e7193f7454669b64",
+    "base_tree": "dc1dad48e97cb849fcccf4be289e86bf8449988d",
+    "tree": "5a88a1ea9d2627c76288d056e7193f7454669b64",
+    "package_tree": "e7c1cc7b6969d2677d7fb0c88254f9021f252020",
+    "patch": {
+      "file": "patches/lmcache.patch",
+      "sha256": "16a7ce0af014e2df8c085ef4eeded11629d7500c90716ef4d8bebc9636ef24b2"
+    },
+    "changed_paths": {
+      "file": "patches/lmcache-changed-paths.txt",
+      "sha256": "2af5f6ece286cf290864ca9b14f0480e977902efdb4f27dcab1c38a5b1c1c409"
+    },
+    "changed_paths_count": 4,
+    "native_changed_paths": [
+      "csrc/storage_backends/fs/connector.cpp"
+    ],
+    "version": "0.5.5.dev0+glm53checkpoints.29bc5a2e",
+    "native_policy": "rebuild CPU extensions; retain source-identical CUDA and interposer"
+  },
+  "upstream_inputs": {
+    "dependency-python-patches.json": {
+      "file": "inputs/upstream/dependency-python-patches.json",
+      "sha256": "ef77bc52553a8d69bbb2215822fcbc52b45b18a8839ac0697a562e25d6655a1e"
+    },
+    "install_dependency_python_patches.py": {
+      "file": "inputs/upstream/install_dependency_python_patches.py",
+      "sha256": "911230f50577705628731f44d73512b35fe8bf35005d9f5347523a7c0107c402"
+    },
+    "torch-schema-enumeration.patch": {
+      "file": "inputs/upstream/torch-schema-enumeration.patch",
+      "sha256": "8ff8a4b59e2aba45b5792dbf8232259e1a3eded926c4849b69ed38c3acd3a0a3"
+    },
+    "torch-mutable-argument-metadata.patch": {
+      "file": "inputs/upstream/torch-mutable-argument-metadata.patch",
+      "sha256": "e0fb907364eb38f278b853dd7c59007649e95a9273196357383adb153721ec2e"
+    },
+    "cutlass-sentinel-identity.patch": {
+      "file": "inputs/upstream/cutlass-sentinel-identity.patch",
+      "sha256": "e49fa3e768eb9468020f5e9bfe115b2177ae7fc1c747c23defffe669c3ae2a9f"
+    },
+    "pack_lmcache_native_reuse.py": {
+      "file": "inputs/upstream/pack_lmcache_native_reuse.py",
+      "sha256": "2099c99c098a3fef4fccc4c49d2cc067c46b4c2ccf62940ed58bc5bab0ad81f9"
+    },
+    "tests/test_dependency_python_patches.py": {
+      "file": "inputs/upstream/tests/test_dependency_python_patches.py",
+      "sha256": "511e2f60b71b042dee8c680bc9f2dc03fc9709dd019052e276f4f42522c42260"
+    }
+  },
+  "flashinfer": {
+    "commit": "803c4664f4771ddc418f20a57f752469a237a825",
+    "tree": "8728cfffc16c122e3536b63dc3456fdcdb9db272",
+    "arch": "12.1a",
+    "version": "0.6.18+cu133",
+    "regression_test": {
+      "file": "tests/test_sparse_mla_sm120.py",
+      "sha256": "81ad7c3aab547bf55e6942240e035eeb91cffc0f0c791e2a4e8681852c44d2a6"
+    }
+  },
+  "launchers": {
+    "serve-glm53-flash-jj-r37-spark.sh": "6fd504b88ad7927bf0d27fba6809d21997cf9b06cf4b8f6c78f6d8578ec9b343",
+    "serve-qwen38-flash-next-jj-r37-spark.sh": "b95bdc3e06ae939f5720eb9eb8af4bf5e60992c6c21a281773bbfe39484b9deb"
+  },
+  "native_build_inputs": {
+    "Dockerfile": "e2f6774972f79b3e599c15827030c0f3fbfe51156a73b320ef020bfcea9c5321",
+    "Dockerfile.flashinfer": "19e497746c7d8630f138c27f5ca25ba3285e6daa09fe88ff07b0794318605b75",
+    "repack_lmcache.py": "7636d352e59994262becf0a64a0a9bab87ebaae396078e89b236f090b60b403b"
+  },
+  "cache_fingerprint": "cu133-torch213-jj-r37-sm121-e07fa1efcd07575a6d3d"
+}

@@ -1,0 +1,10 @@
+**
+!Dockerfile*
+!build-flashinfer.sh
+!*.py
+!*.json
+!*.lock
+!patches/**
+!inputs/**
+!launchers/**
+!tests/**
