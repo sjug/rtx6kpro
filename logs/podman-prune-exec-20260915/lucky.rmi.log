@@ -1,0 +1,48 @@
+cmd: podman rm glm53-flash-nvfp4-jj-r28-spark-tp4
+rc=0
+glm53-flash-nvfp4-jj-r28-spark-tp4
+
+cmd: podman rmi cd93d80b3f95 ef669fa1cde3 bb9cb676e464 907c1265f308 fd26f5b9a2c1 1e2051dade83 f306b92934d4 d3776a397fd7 ad037c9f8714 fa19b0b1423b edf3e0c8c62d 276f00868134 5f4691ed91c9 69f83ec7efff 3055794c5160 5ac378214692 b8b163757819 6c3586c535b7 777bd6bbdfef
+rc=125
+Untagged: localhost/voipmonitor/vllm:jj-r28-spark-sm121
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r27-spark-sm121-vllmf3c3fef-b12x95fdcb1-lmcachefe5442f-cu133-torch213-20260906-r1
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r26-spark-sm121-vllm59c9787-b12x00248b0-lmcachefe5442f-cu133-torch213-20260905-r1
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r17p1-rocenante-spark-sm121-vllm8c5b282-b12x3c9d909-lmcachec867e17-cu133-torch213-20260903-r1-dev
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r17-stock-spark-sm121-vllmbd8e2ab-b12x5ee3a5a-lmcachec867e17-cu133-torch213-20260903-r1-dev
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r15-spark-sm121-vllm7e389bd-b12x2a69d69-lmcache9086bfb-cu133-torch213-20260902-r1-dev
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r12-spark-sm121-vllm12a8897-b12xaace94c-lmcache9086bfb-cu133-torch213-20260901-r2-dev
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r18-spark-sm121-vllmf560085-b12x75787c7-fi1ac6942-cu133-torch213-20260818
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818b
+Untagged: localhost/voipmonitor/vllm:infernal-invocation-r17-spark-sm121-vllme879345-b12xc0a44a1-fi1ac6942-cu133-torch213-20260818
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm17b78ef-b12xcd3ce19-fi1ac6942-cu132-20260818
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm6dbe127-si9c34ff8-fi7ad08da-cu132-20260730
+Deleted: cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1
+Deleted: ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae
+Deleted: bb9cb676e464425acb945118bc541fd917fa7eb7f3024418f1733b70de31e8b8
+Deleted: fd26f5b9a2c14e5e1a44a73805c9c6dfa4d69e1c649b5d1cc0d4f7fe702efa3a
+Deleted: 1e2051dade83f41fa46ee7d1dd4432c1a3e2cf0ca50dd21b5b892b597a4fcb68
+Deleted: f306b92934d4d9c57778e7bd782de44b68e23ba12c28b4ea52b080e40c363fbf
+Deleted: d3776a397fd7e656a731696eca403474ceb5a8f48fe2eb861533a46ca3b7533c
+Deleted: ad037c9f87148a2858a86d5687ef39a97ebceca89646f798f39bc270bed73c6e
+Deleted: fa19b0b1423bcfa3bd7485e6a96f2dbcadbc861ccb6adba1286ad7a001ba9ff0
+Deleted: edf3e0c8c62dad35b19200396574705ba9121654f83de8d6e5049d7da7e54ea3
+Deleted: 276f00868134ed3116ffaf44db975f1b4d8803c7f528c8f772bdaae43506fbd6
+Deleted: 5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80
+Deleted: 69f83ec7efff842b460e610809e7029959e4c81d01ac490517dbee2fa599b351
+Deleted: 3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79
+Deleted: 5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc
+Deleted: b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14
+Deleted: 6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c
+Deleted: 777bd6bbdfef405573a2da50aaeeef37b4198923cd28c4b442b38b6fe343db8f
+Error: unable to delete image "907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a" by ID with more than one tag ([localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1 localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1-scratch]): please force removal
+
+cmd: podman rmi 907c1265f308
+rc=125
+Error: unable to delete image "907c1265f308ea87c77d98e0b787455af228a5dbdfa228b1c7653a48d3433e0a" by ID with more than one tag ([localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1 localhost/voipmonitor/vllm:glm53-jj-r22-spark-sm121-vllm4fbb1c2-b12xe1edb6d-lmcache976a97f-cu133-torch213-20260904-r1-scratch]): please force removal
+

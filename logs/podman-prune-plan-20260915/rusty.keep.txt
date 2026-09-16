@@ -1,0 +1,4 @@
+# ID      role      created                     tags
+ea031e1d3d05  serving   2026-09-15 16:33  localhost/voipmonitor/build-candidates:jj-r38-runtime-20260915T163156Z-64815, localhost/voipmonitor/vllm:jj-r38-spark-sm121
+45614cd3d6e8  recent    2026-09-15 16:31  localhost/voipmonitor/build-components:jj-r38-flashinfer-20260915T160431Z-59162
+7bada1125097  recent    2026-09-12 04:22  localhost/sol-h3-spark/stage2:ce7b6f6a735ad6e2

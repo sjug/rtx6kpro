@@ -1,0 +1,1 @@
+ssh -n kirby "podman rmi cd93d80b3f95 ef669fa1cde3 bb9cb676e464 d464f3b466fa 276f00868134 69f83ec7efff"

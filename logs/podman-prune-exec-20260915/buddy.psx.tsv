@@ -1,0 +1,3 @@
+0b15723cb876	localhost/voipmonitor/vllm:jj-r29-spark-sm121	exited	glm53-flash-nvfp4-jj-r29-spark-tp4
+74e53e710bef	localhost/voipmonitor/vllm:jj-r32-spark-sm121	exited	glm53-flash-nvfp4-jj-r32-spark-tp4
+ea031e1d3d05	localhost/voipmonitor/vllm:jj-r38-spark-sm121	running	glm53-flash-nvfp4-jj-r38-spark-tp4

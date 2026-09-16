@@ -1,0 +1,3 @@
+# status: OK (86 already absent)
+# would-remove: 1 images (+86 already absent); rm-containers: 0
+ssh -n dusty "podman rmi ee996ef8e531"

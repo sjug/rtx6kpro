@@ -1,0 +1,3 @@
+# status: OK (18 already absent)
+# would-remove: 1 images (+18 already absent); rm-containers: 0
+ssh -n rocky "podman rmi 907c1265f308"

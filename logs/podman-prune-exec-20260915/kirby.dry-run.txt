@@ -1,0 +1,3 @@
+# status: OK (6 already absent)
+# would-remove: 0 images (+6 already absent); rm-containers: 0
+ssh -n kirby "podman rmi "

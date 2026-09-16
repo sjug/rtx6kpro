@@ -1,0 +1,49 @@
+cmd: podman rmi 5f4691ed91c9 69f83ec7efff 3055794c5160 5ac378214692 b8b163757819 dfad43d4b2de 6c3586c535b7 777bd6bbdfef 2dc397ccf5dd 83c03df2d236 e17c0d62009c 1cc876901bfb fa34c82d5098 18196de8525d 86c323024209 45c2fb6f72c7 132858481974 6dee37f8af25 a60741b76f22 f48058737ff9 4a062ad1cb95 4cec256d3b2a
+rc=0
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm9eb28db-b12xcd3ce19-fi1ac6942-cu132-20260817
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm44700e3-b12x06db0f4-fi1ac6942-cu132-20260808
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r28-spark-sm121-vllm47d1950-si200c1db-fi7ad08da-cu132-20260804
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3p1-spark-sm121-vllm41ae549-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p3-spark-sm121-vllm92b27a4-si2b9bf2a-fi7ad08da-cu132-20260803
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm9e70264-si9c34ff8-fi7ad08da-cu132-20260730
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p2-spark-sm121-vllm6dbe127-si9c34ff8-fi7ad08da-cu132-20260730
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p1-ds4-spark-sm121-vllm2167295-si6a92bcc-fi7ad08da-cu132-20260722
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20p0-ds4-spark-sm121-vllm2167295-si6a92bcc-fi801d57a-cu132-20260722
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v19-dspark-spark-sm121-vllm371085e-b12xc7dc733-fice40d25-cu132-20260719
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v18p5-quantfix-spark-sm121-vllm4966149-b12x6b10833-fi7ad08da-cu132-20260718
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v18p4-grid48-spark-sm121-vllmdf7a0b7-b12x6b10833-fi801d57a-cu132-20260718
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v18p3-spark-sm121-vllm264bce1-b12xbc85ef3-fi801d57a-cu132-20260718
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v18p2-spark-sm121-vllm264bce1-b12xbc85ef3-fi801d57a-cu132-20260718
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v18p1-spark-sm121-vllm264bce1-b12xbc85ef3-fi801d57a-cu132-20260718
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v18-spark-sm121-vllm264bce1-b12xbc85ef3-fi801d57a-cu132-20260718
+Untagged: localhost/voipmonitor/vllm:fathomless-firmament-v16p3-spark-sm121-vllm6a5a106-b12xfe06f49-fic0700ff-cu132-20260716
+Untagged: localhost/voipmonitor/vllm:fathomless-firmament-v16p2-spark-sm121-vllm8f86f42-b12x1bcc652-fi3245a18-cu132-20260716
+Untagged: localhost/voipmonitor/vllm:fathomless-firmament-v16p1-spark-sm121-vllm8f86f42-b12x1bcc652-fi801d57a-cu132-20260716
+Deleted: 5f4691ed91c94c679133d260c8e359ad46bbccc8f327dab18c560bbe3b33ea80
+Deleted: 69f83ec7efff842b460e610809e7029959e4c81d01ac490517dbee2fa599b351
+Deleted: 3055794c516098cf406aa030ca64acb4b63c7894710ef3558bb0b44e0c4a3e79
+Deleted: 5ac37821469267eceac56c839bc13a55d5825c3c9844b8ab79f5270129bf05fc
+Deleted: b8b163757819f1598e9da164034c4d4fdc6fedfb0f6d605adeba02335b12ea14
+Deleted: dfad43d4b2dea816eef6a2f9835fba3faf9c589f5912c912ca7efcbb6d5e7866
+Deleted: 6c3586c535b78ffe7378db40abc488852531ebb1878f53bd270084acf1fa709c
+Deleted: 777bd6bbdfef405573a2da50aaeeef37b4198923cd28c4b442b38b6fe343db8f
+Deleted: 2dc397ccf5dd8e7f7b749ec648fbd7ee22c41902002f166d6886eb334784e71e
+Deleted: 83c03df2d23695ee7f87d8504c78a87698343e6c1399b508dea8fdeb3a56744a
+Deleted: e17c0d62009c64209d7fc29de06572aefc2b48a281d80dac95a2c23b80d1e843
+Deleted: 1cc876901bfb64953cd4e7f6f208ba5bc6d4a7638cac198139dc2538203df3fa
+Deleted: fa34c82d5098da323b46440a6a3b1a1e3fb49cde7ebc35b78ec26e9891cee3aa
+Deleted: 18196de8525d60b3b667f9d354e28014a60a94d20261bb763481ce36d4c9dbc7
+Deleted: 86c3230242090309bdead8ca5db3939c052cd0c23149d7c471701550cf3c9135
+Deleted: 45c2fb6f72c75487bd31013eba7c1c28985e452058a06b78fb386d8aa73007a4
+Deleted: 13285848197483b1a202ad3ca48c8886dd34e17b7d72ddfe5ddf68d884088ab2
+Deleted: 6dee37f8af2512942beb00b00e5eadb1b47d10251ae499ba27ac1ac881e5f855
+Deleted: a60741b76f224c516f3a34f6f2dd3e1545b7d4b3c9db67b8369cd4b161928799
+Deleted: f48058737ff938f8c8a557828c1ea4468359578b0adb4fb817536b1e35719980
+Deleted: 4a062ad1cb95794e0e83276cb814501f8017c76a75c4c676a852b595fe50ec9a
+Deleted: 4cec256d3b2aa4e1a518339de29609730faf56c7d2266ecc6f49d10872631772
+
+cmd: podman rmi 
+rc=125
+Error: image name or ID must be specified
+

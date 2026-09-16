@@ -1,0 +1,4 @@
+# ID      role      created                     tags
+74e53e710bef  serving   2026-09-10 14:50  localhost/voipmonitor/vllm:jj-r32-spark-sm121
+ea031e1d3d05  recent    2026-09-15 16:33  localhost/voipmonitor/vllm:jj-r38-spark-sm121
+0b15723cb876  recent    2026-09-09 17:46  localhost/voipmonitor/vllm:jj-r29-spark-sm121

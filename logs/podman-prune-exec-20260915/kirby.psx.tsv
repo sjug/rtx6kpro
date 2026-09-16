@@ -1,0 +1,3 @@
+ee996ef8e531	localhost/voipmonitor/vllm:jj-r29-spark-sm121	exited	qwen38-flash-next-nvfp4-jj-r29-tp2
+74e53e710bef	localhost/voipmonitor/vllm:jj-r32-spark-sm121	running	qwen38-flash-next-nvfp4-jj-r32-tp2
+ea031e1d3d05	localhost/voipmonitor/vllm:jj-r38-spark-sm121	exited	qwen38-flash-next-nvfp4-jj-r38-tp2

@@ -1,0 +1,4 @@
+localhost/voipmonitor/vllm:jj-r28-spark-sm121	exited	qwen38-flash-next-nvfp4-jj-r28-tp2
+localhost/voipmonitor/vllm:jj-r29-spark-sm121	exited	qwen38-flash-next-nvfp4-jj-r29-tp2
+localhost/voipmonitor/vllm:jj-r32-spark-sm121	running	qwen38-flash-next-nvfp4-jj-r32-tp2
+localhost/voipmonitor/vllm:jj-r38-spark-sm121	exited	qwen38-flash-next-nvfp4-jj-r38-tp2

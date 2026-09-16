@@ -1,0 +1,3 @@
+# status: OK (22 already absent)
+# would-remove: 0 images (+22 already absent); rm-containers: 0
+ssh -n toby "podman rmi "

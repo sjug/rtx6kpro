@@ -1,0 +1,5 @@
+/dev/nvme0n1p2  3.7T  2.3T  1.3T  64% /
+TYPE           TOTAL       ACTIVE      SIZE        RECLAIMABLE
+Images         22          3           164.2GB     163.7GB (100%)
+Containers     3           1           47.43MB     31.53MB (66%)
+Local Volumes  0           0           0B          0B (0%)

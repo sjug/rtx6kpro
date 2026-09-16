@@ -1,0 +1,23 @@
+cmd: podman rm qwen38-flash-next-nvfp4-jj-r28-tp2
+rc=0
+qwen38-flash-next-nvfp4-jj-r28-tp2
+
+cmd: podman rmi cd93d80b3f95 ef669fa1cde3 bb9cb676e464 d464f3b466fa 276f00868134 69f83ec7efff
+rc=0
+Untagged: localhost/voipmonitor/vllm:jj-r28-spark-sm121
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r27-spark-sm121-vllmf3c3fef-b12x95fdcb1-lmcachefe5442f-cu133-torch213-20260906-r1
+Untagged: localhost/voipmonitor/vllm:glm53-jj-r26-spark-sm121-vllm59c9787-b12x00248b0-lmcachefe5442f-cu133-torch213-20260905-r1
+Untagged: docker.io/vllm/vllm-openai@sha256:3b0e188ffceb3d07e09c3cb5215433a0020eacf02d7f882ed3a8bfd15454477e
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r34-spark-sm121-vllm17b78ef-b12xcd3ce19-fi1ac6942-cu132-20260818
+Untagged: localhost/voipmonitor/vllm:gilded-gnosis-v20-r33-spark-sm121-vllm28e8eaf-b12x06db0f4-fi1ac6942-cu132-20260808
+Deleted: cd93d80b3f9547f70e1e4608cd42af7c4b0f2ff33d92d5e520913cc9bab2d8d1
+Deleted: ef669fa1cde3e99936c02575eca8f610990bb6c64dd1bbfcb04fd42dde87afae
+Deleted: bb9cb676e464425acb945118bc541fd917fa7eb7f3024418f1733b70de31e8b8
+Deleted: d464f3b466fa9c45ddbff8a812e80564503b6879a9fd95c1a47514f3f0df5a4a
+Deleted: 276f00868134ed3116ffaf44db975f1b4d8803c7f528c8f772bdaae43506fbd6
+Deleted: 69f83ec7efff842b460e610809e7029959e4c81d01ac490517dbee2fa599b351
+
+cmd: podman rmi 
+rc=125
+Error: image name or ID must be specified
+
