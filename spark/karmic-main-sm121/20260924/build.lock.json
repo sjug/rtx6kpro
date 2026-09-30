@@ -1,0 +1,16 @@
+{
+  "base_image_id": "1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc",
+  "base_lock_sha256": "62ccdd39c0e359510c23e25570d51bceb2cbbc81a689b2ff007c11d25c872c25",
+  "cache_fingerprint": "karmic-main-20260924-f4e2c141b0d9321153de",
+  "nccl_component": {
+    "image_id": "886976fe71ebc1ab0defe88edc7ffa283cda2230e11036a9309b2c91e6401939",
+    "library_sha256": "044746e929293451ce47c59d255437a6b42403565a23acd55f28392ea8b7fe8c",
+    "source_lock_sha256": "9020dc211b3000bd54337dd75011bf547b7016eeb9428e763de7e6be590ddd84"
+  },
+  "nccl_lock_sha256": "9020dc211b3000bd54337dd75011bf547b7016eeb9428e763de7e6be590ddd84",
+  "publication": "karmic-kraken-20260924-291c78003da67f8d",
+  "qsa865_patch_sha256": "4a70945def2dda5540d04c4a18cf138f3908ae5329745b62753a5c106061f113",
+  "recipe_commit": "626f7af3205cee128c65de44891fa04825ec3df6",
+  "refresh_sha256": "c55470082ddb0c516c8921546a9bd8fbf1a94cefff281165ff770fc96d2895b5",
+  "runtime_lock_sha256": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+}

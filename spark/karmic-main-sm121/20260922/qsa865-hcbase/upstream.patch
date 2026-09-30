@@ -1,0 +1,182 @@
+diff --git a/tests/models/qwen4_exp/test_b12x_qsa.py b/tests/models/qwen4_exp/test_b12x_qsa.py
+index 39da98b5a1..c3ea49f9ab 100644
+--- a/tests/models/qwen4_exp/test_b12x_qsa.py
++++ b/tests/models/qwen4_exp/test_b12x_qsa.py
+@@ -789,6 +789,47 @@ def test_qsa_bind_uses_shared_workspace_with_smaller_profile_cache(
+         assert owner.get_b12x_preparation_units(owner, workload) == ()
+ 
+ 
++def test_qsa_capture_metadata_covers_max_model_len() -> None:
++    """A PIECEWISE capture must not size QSA metadata for dummy lengths.
++
++    Breakable PIECEWISE graphs record B12X QSA context selection and staging.
++    A context chosen for the dummy batch's few tokens bakes a too-narrow block
++    table, and replays at long positions read past it (b12x#416).
++    """
++    builder = Qwen4ExpQSAMetadataBuilder.__new__(Qwen4ExpQSAMetadataBuilder)
++    builder._request_ids = torch.empty(8, dtype=torch.int32)
++    builder.max_speculative_tokens = 3
++    builder._capture_state_slot_ids = torch.arange(2, dtype=torch.int32)
++    builder._capture_state_is_fresh = torch.ones(2, dtype=torch.bool)
++    builder._capture_num_accepted_tokens = torch.ones(2, dtype=torch.int32)
++    builder._capture_is_prefilling = torch.zeros(2, dtype=torch.bool)
++    common = CommonAttentionMetadata(
++        query_start_loc=torch.tensor([0, 4, 8], dtype=torch.int32),
++        query_start_loc_cpu=torch.tensor([0, 4, 8], dtype=torch.int32),
++        seq_lens=torch.tensor([7, 7], dtype=torch.int32),
++        num_reqs=2,
++        num_actual_tokens=8,
++        max_query_len=4,
++        max_seq_len=7,
++        block_table_tensor=torch.zeros((2, 1), dtype=torch.int32),
++        slot_mapping=torch.full((8,), -1, dtype=torch.int64),
++        is_prefilling=torch.zeros(2, dtype=torch.bool),
++    )
++    common._token_to_req_indices_cache = torch.tensor(
++        [0, 0, 0, 0, 1, 1, 1, 1], dtype=torch.int32
++    )
++
++    eager = builder.build(common_prefix_len=0, common_attn_metadata=common)
++    captured = builder.build(
++        common_prefix_len=0,
++        common_attn_metadata=common,
++        qsa_max_seq_len=1_048_576,
++    )
++
++    assert eager.max_seq_len == 7
++    assert captured.max_seq_len == 1_048_576
++
++
+ def test_qsa_registers_piecewise_splitting_op_once() -> None:
+     compilation_config = SimpleNamespace(
+         static_forward_context={},
+diff --git a/tests/v1/cudagraph/test_cudagraph_manager.py b/tests/v1/cudagraph/test_cudagraph_manager.py
+index ca4f1fe33d..16764d043b 100644
+--- a/tests/v1/cudagraph/test_cudagraph_manager.py
++++ b/tests/v1/cudagraph/test_cudagraph_manager.py
+@@ -236,6 +236,42 @@ def test_piecewise_capture_uses_pcp_dummy_slot_mappings():
+     block_tables.get_dummy_slot_mappings.assert_not_called()
+ 
+ 
++@pytest.mark.parametrize("full_cudagraph", [False, True])
++def test_capture_marks_dummy_batch_for_every_graph_mode(full_cudagraph):
++    """Operations recorded in PIECEWISE graphs can size metadata for replay."""
++    num_reqs = 8
++    num_tokens = 56
++    input_buffers = InputBuffers(num_reqs, num_tokens, torch.device("cpu"))
++    block_tables = MagicMock()
++    block_tables.cp_size = 1
++    block_tables.get_dummy_block_tables.return_value = ()
++    block_tables.get_dummy_slot_mappings.return_value = torch.zeros(
++        1, num_tokens, dtype=torch.int64
++    )
++    model_state = MagicMock()
++    model_state.prepare_attn.return_value = {}
++    kv_cache_config = KVCacheConfig(
++        num_blocks=0,
++        kv_cache_tensors=[],
++        kv_cache_groups=[],
++    )
++
++    gpu_cudagraph_utils.prepare_inputs_to_capture(
++        num_reqs,
++        num_tokens,
++        model_state,
++        input_buffers,
++        block_tables,
++        [],
++        kv_cache_config,
++        full_cudagraph=full_cudagraph,
++    )
++
++    input_batch = model_state.prepare_attn.call_args.args[0]
++    assert input_batch.cudagraph_capture is True
++    assert model_state.prepare_attn.call_args.kwargs["for_capture"] is full_cudagraph
++
++
+ def test_capture_synchronizes_auxiliary_warmup_streams(monkeypatch):
+     """CUDA graph capture starts only after warmup work has completed."""
+     lifecycle: list[str] = []
+diff --git a/vllm/models/qwen4_exp/nvidia/b12x_qsa.py b/vllm/models/qwen4_exp/nvidia/b12x_qsa.py
+index cd958edab1..76ae1dabd8 100644
+--- a/vllm/models/qwen4_exp/nvidia/b12x_qsa.py
++++ b/vllm/models/qwen4_exp/nvidia/b12x_qsa.py
+@@ -248,6 +248,7 @@ class Qwen4ExpQSAMetadataBuilder(B12xPagedMetadataBuilder):
+         qsa_state_is_fresh: torch.Tensor | None = None,
+         qsa_num_accepted_tokens: torch.Tensor | None = None,
+         qsa_is_prefilling: torch.Tensor | None = None,
++        qsa_max_seq_len: int | None = None,
+     ) -> Qwen4ExpQSAMetadata:
+         del common_prefix_len, fast_build
+         cm = common_attn_metadata
+@@ -281,7 +282,7 @@ class Qwen4ExpQSAMetadataBuilder(B12xPagedMetadataBuilder):
+             num_actual_tokens=cm.num_actual_tokens,
+             max_query_len=cm.max_query_len,
+             query_start_loc=cm.query_start_loc,
+-            max_seq_len=cm.max_seq_len,
++            max_seq_len=cm.max_seq_len if qsa_max_seq_len is None else qsa_max_seq_len,
+             seq_lens=cm.seq_lens,
+             block_table=cm.block_table_tensor,
+             slot_mapping=cm.slot_mapping,
+diff --git a/vllm/models/qwen4_exp/nvidia/model_state.py b/vllm/models/qwen4_exp/nvidia/model_state.py
+index 82c9726f00..183468978f 100644
+--- a/vllm/models/qwen4_exp/nvidia/model_state.py
++++ b/vllm/models/qwen4_exp/nvidia/model_state.py
+@@ -37,6 +37,9 @@ class Qwen4ExpAttnMetadata(MambaHybridAttnMetadata):
+     qsa_state_is_fresh: torch.Tensor | None = None
+     qsa_num_accepted_tokens: torch.Tensor | None = None
+     qsa_is_prefilling: torch.Tensor | None = None
++    # Set during CUDA graph capture: B12X QSA selects and stages its context
++    # inside PIECEWISE graphs, so the captured context must cover max_model_len.
++    qsa_max_seq_len: int | None = None
+ 
+     def get_extra_attn_kwargs(
+         self,
+@@ -55,6 +58,7 @@ class Qwen4ExpAttnMetadata(MambaHybridAttnMetadata):
+             qsa_state_is_fresh=self.qsa_state_is_fresh[:num_reqs],
+             qsa_num_accepted_tokens=self.qsa_num_accepted_tokens[:num_reqs],
+             qsa_is_prefilling=self.qsa_is_prefilling[:num_reqs],
++            qsa_max_seq_len=self.qsa_max_seq_len,
+         )
+         return kwargs
+ 
+@@ -374,6 +378,11 @@ class Qwen4ExpModelState(MambaHybridModelState):
+             qsa_state_is_fresh=qsa_state_is_fresh,
+             qsa_num_accepted_tokens=qsa_num_accepted_tokens,
+             qsa_is_prefilling=qsa_is_prefilling,
++            qsa_max_seq_len=(
++                self.max_model_len
++                if for_capture or input_batch.cudagraph_capture
++                else None
++            ),
+         )
+         attn_metadata = build_attn_metadata(
+             attn_groups=attn_groups,
+diff --git a/vllm/v1/worker/gpu/cudagraph_utils.py b/vllm/v1/worker/gpu/cudagraph_utils.py
+index 35878124f5..ea5d19cddf 100644
+--- a/vllm/v1/worker/gpu/cudagraph_utils.py
++++ b/vllm/v1/worker/gpu/cudagraph_utils.py
+@@ -1087,6 +1087,7 @@ def prepare_inputs_to_capture(
+         input_batch = pcp_manager.prepare_inputs_to_capture(input_batch)
+ 
+     input_batch.uniform_decode_graph = full_cudagraph and uniform_decode_graph
++    input_batch.cudagraph_capture = True
+ 
+     block_table_provider = pcp_manager or block_tables
+     input_block_tables = block_table_provider.get_dummy_block_tables(num_reqs)
+diff --git a/vllm/v1/worker/gpu/input_batch.py b/vllm/v1/worker/gpu/input_batch.py
+index 78e9f3095d..81b24b8b5e 100644
+--- a/vllm/v1/worker/gpu/input_batch.py
++++ b/vllm/v1/worker/gpu/input_batch.py
+@@ -127,6 +127,11 @@ class InputBatch:
+     # from dummy query lengths: a mixed graph may be captured with uniform rows.
+     uniform_decode_graph: bool = False
+ 
++    # Dummy batch for any CUDA graph capture, FULL or PIECEWISE. Operations
++    # recorded inside a PIECEWISE graph must size their metadata for every
++    # replay, not for the dummy sequence lengths.
++    cudagraph_capture: bool = False
++
+     @classmethod
+     def make_dummy(
+         cls,

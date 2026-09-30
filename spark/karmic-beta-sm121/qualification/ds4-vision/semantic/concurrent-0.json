@@ -1,0 +1,52 @@
+{
+  "label": "concurrent-0",
+  "elapsed_s": 3.432437516981736,
+  "response": {
+    "id": "chatcmpl-80d4bdd75fd4dcff",
+    "object": "chat.completion",
+    "created": 1789957216,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "red, blue",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": "The user wants me to identify the solid colors on the left and right of the image.\nLeft side: red.\nRight side: blue.\nOrder: left, right.\nOutput: red, blue."
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.1.dev1+g57a80980b.d20260920-tp2-ff69be8e",
+    "usage": {
+      "prompt_tokens": 241,
+      "total_tokens": 286,
+      "completion_tokens": 45,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 0,
+        "multimodal_tokens": {
+          "image": 115
+        }
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 40
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}

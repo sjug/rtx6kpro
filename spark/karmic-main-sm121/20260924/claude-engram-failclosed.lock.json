@@ -1,0 +1,44 @@
+{
+  "base": "ring-fix candidate e7b273407022 (these five files equal the pinned blobs there)",
+  "inputs": {
+    "claude-engram-failclosed-async_utils.py": "f40c9ac1d3e53efb8d865963bca398b42885e1cdd1cf22ea01b5b15c02b1097c",
+    "claude-engram-failclosed-engram.py": "29b8924c3eba45bc56acc780003bc5c537351fa6c047d1da51a12e1b30c43a39",
+    "claude-engram-failclosed-model.py": "0a78c845785167e1b70c4e9425a6a3cbaee5113a0e5f52e5bd5ebdee286f5477",
+    "claude-engram-failclosed-model_runner.py": "6806fb5da6739920f9e705f85fa0430cab30c05b1a2cdb2d945bf8f536fbbae1",
+    "claude-engram-failclosed-model_state.py": "f1741fb36f5606843d1e82a14de15c34114576e735bd8ac6dea0873d10bc8cad",
+    "claude-engram-failclosed.patch": "b3627cdcc25cc51b400677119aba8a4b808b7e10bab270adfe198f2059fde6ce",
+    "claude_prepare_engram_failclosed.py": "31309c0ad8892320cb72217a8a91faf7684fd3987658721a48eed95977a596ef",
+    "claude_test_engram_failclosed.py": "0402acdf86a779d82e22f67c30addd0842e3804d89f0609864bb7beb3717eb25",
+    "claude_test_engram_failclosed_torch.py": "a0e0cb3347e6b1a5d1697dbee1afc71481375efa0db2caab76b17dcdd4dcf471"
+  },
+  "kind": "engram-fail-closed-proposal",
+  "status": "proposed-for-review-not-built-not-applied",
+  "targets": {
+    "vllm/models/deepseek_v4_1/common/engram.py": {
+      "input_sha256": "253ca7f2eeee522128a8aea969498e8ce41a70ada1a52e445e652963217e4241",
+      "output_sha256": "29b8924c3eba45bc56acc780003bc5c537351fa6c047d1da51a12e1b30c43a39",
+      "source": "claude-engram-failclosed-engram.py"
+    },
+    "vllm/models/deepseek_v4_1/nvidia/model.py": {
+      "input_sha256": "22f0cc096c59ee31075db560060c1a7c963f598534eefc99ff2e1790acc0cd70",
+      "output_sha256": "0a78c845785167e1b70c4e9425a6a3cbaee5113a0e5f52e5bd5ebdee286f5477",
+      "source": "claude-engram-failclosed-model.py"
+    },
+    "vllm/models/deepseek_v4_1/nvidia/model_state.py": {
+      "input_sha256": "7004e7fc0834627a2975a138f7b997806e5a86bab11c80b18997292c59b5aa02",
+      "output_sha256": "f1741fb36f5606843d1e82a14de15c34114576e735bd8ac6dea0873d10bc8cad",
+      "source": "claude-engram-failclosed-model_state.py"
+    },
+    "vllm/v1/worker/gpu/async_utils.py": {
+      "input_sha256": "1d40d7079cff89d9c4aaae27a74734490e1d98132106fbadcbdbe22c46cf53db",
+      "output_sha256": "f40c9ac1d3e53efb8d865963bca398b42885e1cdd1cf22ea01b5b15c02b1097c",
+      "source": "claude-engram-failclosed-async_utils.py"
+    },
+    "vllm/v1/worker/gpu/model_runner.py": {
+      "input_sha256": "9322af06b06072d2aa75aaa8aa8068dbca6218b51a21c0cc0bcfe8d72b883ba9",
+      "output_sha256": "6806fb5da6739920f9e705f85fa0430cab30c05b1a2cdb2d945bf8f536fbbae1",
+      "source": "claude-engram-failclosed-model_runner.py"
+    }
+  },
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1"
+}

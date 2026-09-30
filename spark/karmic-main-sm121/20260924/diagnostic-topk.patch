@@ -1,0 +1,26 @@
+--- a/b12x/attention/dsa_indexer/mxfp4.py
++++ b/b12x/attention/dsa_indexer/mxfp4.py
+@@ -46,6 +46,7 @@
+ )
+ from ..._lib.utils import current_cuda_stream, make_ptr
+ from .tiled_topk import run_row_topk
++from .deterministic_topk import repair_topk
+ 
+ MXFP4_INDEX_PAGE_SIZE = 64
+ MXFP4_INDEX_PAGE_BYTES = 64 * 68
+@@ -1331,6 +1332,7 @@
+                  output_values=s["values"], output_indices=s["indices"],
+                  output_gather_table=rt.candidate_indices,
+                  launcher=None if launchers is None else launchers[("topk", caps.topk)][0])
++    repair_topk(s["logits"], s["lengths"], s["values"], s["indices"], gather=rt.candidate_indices)
+     out_values = binding.output_scores if binding.output_scores is not None else s["sorted_values"]
+     launch("sort", (caps.topk, False),
+            (s["indices"], s["values"], binding.output_indices, out_values,
+@@ -1344,6 +1346,7 @@
+                      topk=caps.candidate_topk_blocks,
+                      output_values=s["block_values"], output_indices=s["block_indices"],
+                      launcher=None if launchers is None else launchers[("topk", caps.candidate_topk_blocks)][0])
++        repair_topk(s["block_logits"], s["block_lengths"], s["block_values"], s["block_indices"])
+         launch("sort", (caps.candidate_topk_blocks, True),
+                (s["block_indices"], s["block_values"], rt.candidate_output,
+                 s["block_values"], rt.cache_lengths, rt.active_width,

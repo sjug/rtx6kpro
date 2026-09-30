@@ -1,0 +1,18 @@
+FROM ghcr.io/astral-sh/uv@sha256:2f0a1c36ce6323e61bc81d39e692319669c03e385b592d670b6ba36dc884e3aa AS uv
+FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+COPY --from=uv /uv /usr/local/bin/uv
+ENV UV_LINK_MODE=copy UV_NO_CONFIG=1 PYTHONUNBUFFERED=1
+RUN test "$(uname -m)" = aarch64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends libibverbs-dev liburing-dev libaio-dev libnuma-dev \
+    && uv venv --python /usr/bin/python3 --system-site-packages /opt/venv
+COPY runtime-arm64.lock runtime-arm64.in /opt/karmic-build/
+COPY runtime-inputs /opt/karmic-build/runtime-inputs
+RUN uv pip install --python /opt/venv/bin/python --require-hashes --no-deps \
+      -r /opt/karmic-build/runtime-arm64.lock
+RUN /opt/venv/bin/python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py \
+      --help
+ARG RECIPE_SHA256
+LABEL local-inference.runtime-deps.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

@@ -1,0 +1,490 @@
+--- a/vllm/vllm/models/deepseek_v4_1/claude_act_trace.py
++++ b/vllm/vllm/models/deepseek_v4_1/claude_act_trace.py
+@@ -46,6 +46,36 @@
+ moe pattern selects a module without both callsites (the v1 kit silently
+ ignored a pattern naming a method, not a module).
+ 
++MoE capture (v3, "moe" seams plus optional "capture" key). For every armed
++runner the seams also record the routed call's inputs, without adding any
++kernel inside the shared/routed overlap window: a forward hook on the
++runner's gate and an instance wrapper of `runner.router.select_experts` only
++keep Python references while the custom op runs; their digests are enqueued
++after it returns. Per runner and step, in call order:
++  NAME#input        hidden_states handed to the op (digest before the op)
++  NAME#logits       gate output (router logits, fp32)
++  NAME#topk_weights / NAME#topk_ids   the router's selection
++  NAME#input_after  hidden_states again after the op (in-place write check)
++  NAME#shared, NAME#routed, NAME#pre_reduce, NAME#post_reduce   as in v2.
++"capture": {"rows": [254, 256], "moe": ["layers.1[0-3].ffn.experts"]}
++arms a device-side latch per process: the first #routed digest for each
++(rows, runner) becomes that pair's reference; the first later call whose
++#routed digest differs from its reference copies the call's input, logits,
++top-k weights and ids and routed output into preallocated device buffers
++(torch.where with a device predicate; no host synchronization) and latches.
++The reference also stores the step's `<input>` token-id digest, and a call
++latches only when its step has that same digest, so a different prompt with
++the same row count never latches. Each record carries a raw `<capture>` entry [latched, epoch]; once the writer
++thread sees a latch, the next step start freezes the buffers and copies them
++on the transport stream to pinned memory, and the writer saves
++<out_dir>/<node>-<pid>-g<generation>-capture.pt. One latch per capture
++generation (a new arm token or trigger rewrite starts a new generation).
++Step records carry {generation, state}; `type: capture` status lines record
++fetching, saved, error and discarded states, and a latch word that reaches the
++writer after its generation was disarmed is written as latched-discarded. If the first
++occurrence of a pair was itself the faulty one, the capture holds the first
++modal call instead; the saved reference and trace digests tell which.
++
+ Default patterns are SPARSE checkpoints, to keep the added launches small
+ enough not to mask the race: the outputs of decoder layers 0, 1, 2, 8, 14,
+ 19, 20 and 39 (all five carried tensors) and of the two Engram modules, plus
+@@ -113,7 +143,7 @@
+ MAX_TOKENS_CAP = 2048
+ CAPACITY = 2048          # digests per step
+ SLOTS = 8                # steps in flight between the forward and the writer
+-KEYS = {'arm', 'min_tokens', 'max_tokens', 'post', 'pre', 'moe'}
++KEYS = {'arm', 'min_tokens', 'max_tokens', 'post', 'pre', 'moe', 'capture'}
+ ARM = re.compile(r'[a-z0-9][a-z0-9-]{7,63}\Z')
+ SPARSE_POST = ['layers.0', 'layers.1', 'layers.2', 'layers.8', 'layers.14', 'layers.19',
+                'layers.20', 'layers.39', 'layers.1.engram', 'layers.14.engram']
+@@ -126,7 +156,7 @@
+ def parse_config(text: str) -> dict:
+     spec = json.loads(text)
+     if not isinstance(spec, dict) or not set(spec) <= KEYS or not {'arm', 'min_tokens', 'max_tokens'} <= set(spec):
+-        raise ValueError('trigger needs arm, min_tokens and max_tokens; optional post, pre and moe')
++        raise ValueError('trigger needs arm, min_tokens and max_tokens; optional post, pre, moe, capture')
+     if not isinstance(spec['arm'], str) or not ARM.match(spec['arm']):
+         raise ValueError('arm must be 8-64 characters of [a-z0-9-]')
+     low, high = spec['min_tokens'], spec['max_tokens']
+@@ -136,6 +166,16 @@
+         value = spec.setdefault(key, list(SPARSE_POST) if key == 'post' else [])
+         if not isinstance(value, list) or not all(isinstance(p, str) and p for p in value):
+             raise ValueError(key + ' must be a list of name patterns')
++    capture = spec.setdefault('capture', None)
++    if capture is not None:
++        if not isinstance(capture, dict) or set(capture) != {'rows', 'moe'}:
++            raise ValueError('capture needs exactly rows and moe')
++        rows, moe = capture['rows'], capture['moe']
++        if (not isinstance(rows, list) or not rows or len(set(rows)) != len(rows)
++                or not all(type(r) is int and low <= r <= high for r in rows)):
++            raise ValueError('capture rows must be distinct ints inside the row window')
++        if not isinstance(moe, list) or not moe or not all(isinstance(p, str) and p for p in moe):
++            raise ValueError('capture moe must be a list of runner patterns')
+     return spec
+ 
+ 
+@@ -211,6 +251,11 @@
+         self.sink(meta)
+         self.free[slot] = True
+ 
++    def fetch(self, pairs, callback):
++        for source, host in pairs:
++            host.copy_(source)
++        callback()
++
+ 
+ class CudaTransport:
+     """Pinned-memory copy on a side stream; a writer thread finishes records."""
+@@ -238,9 +283,29 @@
+             done.record(self.stream)
+         self.pending.put((slot, count, meta, end, done))
+ 
++    def fetch(self, pairs, callback):
++        """Copy device tensors to preallocated pinned tensors after all work
++        already enqueued on the current stream; the writer runs callback."""
++        ready = torch.cuda.Event()
++        ready.record()
++        self.stream.wait_event(ready)
++        with torch.cuda.stream(self.stream):
++            for source, host in pairs:
++                host.copy_(source, non_blocking=True)
++            done = torch.cuda.Event()
++            done.record(self.stream)
++        self.pending.put((None, callback, None, None, done))
++
+     def _writer(self):
+         while True:
+             slot, count, meta, end, done = self.pending.get()
++            if slot is None:
++                try:
++                    done.synchronize()
++                    count()
++                except Exception as error:
++                    print(f'[DS41-ACT-TRACE] capture fetch error: {error!r}', flush=True)
++                continue
+             try:
+                 done.synchronize()
+                 meta['gpu_ms'] = self.start[slot].elapsed_time(end)
+@@ -252,7 +317,9 @@
+                 self.free[slot] = True
+ 
+ 
+-SEAMS = ('#shared', '#routed', '#pre_reduce', '#post_reduce')
++SEAMS = ('#input', '#logits', '#topk_weights', '#topk_ids', '#input_after',
++         '#shared', '#routed', '#pre_reduce', '#post_reduce')
++CAPTURE_FIELDS = ('input', 'logits', 'topk_weights', 'topk_ids', 'routed')
+ 
+ 
+ class MoeSeams:
+@@ -267,20 +334,55 @@
+     def __init__(self, tracer, name, runner):
+         entry = vars(runner).get('_forward_entry')
+         reduce = getattr(type(runner), '_maybe_reduce_final_output', None)
++        gate = getattr(runner, 'gate', None)
++        router = getattr(runner, 'router', None)
+         if (not callable(entry) or not callable(reduce) or getattr(entry, '_claude_seam', False)
+-                or '_maybe_reduce_final_output' in vars(runner)):
+-            raise ValueError(f'{name} does not expose both MoE runner callsites')
+-        self.runner, self.entry = runner, entry
++                or '_maybe_reduce_final_output' in vars(runner)
++                or not isinstance(gate, torch.nn.Module)
++                or not callable(getattr(router, 'select_experts', None))
++                or 'select_experts' in vars(router)):
++            raise ValueError(f'{name} does not expose the MoE runner callsites')
++        self.runner, self.entry, self.router = runner, entry, router
+         bound = runner._maybe_reduce_final_output
++        select = router.select_experts
++        stash = {}
++
++        # Inside the overlap window only references are kept: no kernel.
++        def gate_hook(module, args, output):
++            if tracer.active:
++                stash['logits'] = output[0] if isinstance(output, tuple) else output
++
++        def select_experts(*args, **kwargs):
++            result = select(*args, **kwargs)
++            if tracer.active:
++                stash['route'] = result
++            return result
+ 
+         def forward_entry(*args, **kwargs):
++            active = tracer.active
++            hidden = args[0] if args else kwargs.get('hidden_states')
++            if active:
++                stash.clear()
++                if isinstance(hidden, torch.Tensor):
++                    tracer._record(name + '#input', hidden)
+             result = entry(*args, **kwargs)
+-            if tracer.active:
++            if active and tracer.active:
++                logits = stash.pop('logits', None)
++                weights, ids = stash.pop('route', (None, None))
++                stash.clear()
++                for suffix, tensor in (('#logits', logits), ('#topk_weights', weights),
++                                       ('#topk_ids', ids), ('#input_after', hidden)):
++                    if isinstance(tensor, torch.Tensor):
++                        tracer._record(name + suffix, tensor)
+                 shared, routed = result if isinstance(result, tuple) else (None, result)
+                 if isinstance(shared, torch.Tensor):
+                     tracer._record(name + '#shared', shared)
+                 if isinstance(routed, torch.Tensor):
+-                    tracer._record(name + '#routed', routed)
++                    routed_digest = tracer._record(name + '#routed', routed)
++                    if tracer.capture is not None:
++                        tracer.capture.observe(name, {'input': hidden, 'logits': logits,
++                                                      'topk_weights': weights, 'topk_ids': ids,
++                                                      'routed': routed}, routed_digest)
+             return result
+ 
+         def reduce_final_output(states, *args, **kwargs):
+@@ -292,12 +394,151 @@
+             return result
+ 
+         forward_entry._claude_seam = reduce_final_output._claude_seam = True
++        select_experts._claude_seam = True
++        self.gate_handle = gate.register_forward_hook(gate_hook)
++        router.select_experts = select_experts
+         runner._forward_entry = forward_entry
+         runner._maybe_reduce_final_output = reduce_final_output
+ 
+     def remove(self):
+         self.runner._forward_entry = self.entry
+         vars(self.runner).pop('_maybe_reduce_final_output', None)
++        vars(self.router).pop('select_experts', None)
++        self.gate_handle.remove()
++
++
++class Capture:
++    """Device-latched copy of the first routed call that disagrees with its
++    (rows, runner) reference digest. Forward-path work is device-only.
++
++    Lifecycle (`state`): armed -> allocated -> latched (writer saw the latch
++    word of this generation) -> fetching -> saved, or error, or discarded
++    (disarmed before a save). Every state change after allocation is written
++    as a `type: capture` status line to the receipts, and every step record
++    carries {generation, state}, so a missing save is visible, never silent.
++    """
++
++    FIELDS = ('latched', 'epoch', 'rows', 'runner', 'seq', 'ref0', 'ref1', 'digest0', 'digest1')
++
++    def __init__(self, tracer, rows, names, generation, arm):
++        self.tracer, self.rows, self.names = tracer, sorted(rows), sorted(names)
++        self.generation, self.arm, self.session = generation, arm, tracer.session
++        self.state, self.error, self.path = 'armed', None, None
++        self.allocated = self.ready = self.frozen = False
++        self.latched_epoch = None
++
++    def status(self):
++        return {'generation': self.generation, 'state': self.state, 'error': self.error}
++
++    def matches(self, meta):
++        """True when a queued step record belongs to this very capture."""
++        info = meta.get('capture') or {}
++        return (meta.get('arm') == self.arm and meta.get('session') == self.session
++                and info.get('generation') == self.generation and self.allocated)
++
++    def fail(self, where, error):
++        self.frozen = True
++        self.state, self.error = 'error', f'{where}: {error!r}'
++        self.tracer._status(self, {'where': where})
++        print(f'[DS41-ACT-TRACE] capture generation {self.generation} failed in {where}: {error!r}',
++              flush=True)
++
++    def _allocate(self, tensors, rows):
++        device = tensors['routed'].device
++        top = max(self.rows)
++        self.spec = {k: (t.dtype, tuple(t.shape[1:]), t.numel() // rows * t.element_size())
++                     for k, t in tensors.items()}
++        self.buf = {k: torch.zeros(top * per_row, dtype=torch.uint8, device=device)
++                    for k, (_, _, per_row) in self.spec.items()}
++        self.ref = torch.zeros(len(self.rows), len(self.names), 2, dtype=torch.int64, device=device)
++        self.ref_input = torch.zeros(len(self.rows), len(self.names), 2, dtype=torch.int64, device=device)
++        self.seen = torch.zeros(len(self.rows), len(self.names), dtype=torch.bool, device=device)
++        # [latched, epoch, rows, runner index, seq, ref0, ref1, digest0, digest1]
++        self.meta = torch.zeros(9, dtype=torch.int64, device=device)
++        self.info = torch.zeros(5, dtype=torch.int64, device=device)
++        self.allocated, self.state = True, 'allocated'
++
++    def observe(self, name, tensors, routed_digest):
++        if self.frozen or name not in self.names:
++            return
++        if any(not isinstance(t, torch.Tensor) for t in tensors.values()):
++            return
++        rows = tensors['routed'].shape[0]
++        if rows not in self.rows:
++            return
++        try:                                   # a diagnostic must never fail the forward
++            self._observe(name, tensors, routed_digest, rows)
++        except Exception as error:
++            self.fail('observe', error)
++
++    def _observe(self, name, tensors, routed_digest, rows):
++        if not self.allocated:
++            self._allocate(tensors, rows)
++        r, l = self.rows.index(rows), self.names.index(name)
++        step_input = self.tracer.input_digest
++        ref = torch.where(self.seen[r, l], self.ref[r, l], routed_digest)
++        ref_input = torch.where(self.seen[r, l], self.ref_input[r, l], step_input)
++        self.ref[r, l].copy_(ref)
++        self.ref_input[r, l].copy_(ref_input)
++        self.seen[r, l].fill_(True)
++        # Same prompt (token-id digest) as the reference, different routed bytes.
++        hit = ((routed_digest != ref).any() & (step_input == ref_input).all()
++               & (self.meta[0] == 0))
++        for key, tensor in tensors.items():
++            source = tensor.detach().contiguous().reshape(-1).view(torch.uint8)
++            if source.numel() > self.buf[key].numel():
++                raise ValueError(f'{key} needs {source.numel()} bytes, buffer holds {self.buf[key].numel()}')
++            target = self.buf[key][:source.numel()]
++            target.copy_(torch.where(hit, source, target))
++        epoch = self.tracer.epoch if type(self.tracer.epoch) is int else -1
++        for index, value in enumerate((1, epoch, rows, l, self.tracer.seq)):
++            self.info[index].fill_(value)
++        self.meta[:5].copy_(torch.where(hit, self.info, self.meta[:5]))
++        self.meta[5:7].copy_(torch.where(hit, ref, self.meta[5:7]))
++        self.meta[7:9].copy_(torch.where(hit, routed_digest, self.meta[7:9]))
++
++    def freeze_and_fetch(self, transport, path, identity):
++        """Forward thread, once: stop updating and copy everything to host."""
++        self.frozen, self.state, self.path = True, 'fetching', path
++        self.tracer._status(self, {})
++        try:
++            pin = torch.cuda.is_available()
++            host = {k: torch.empty_like(b, device='cpu', pin_memory=pin) for k, b in self.buf.items()}
++            extra = {k: torch.empty_like(getattr(self, k), device='cpu', pin_memory=pin)
++                     for k in ('ref', 'ref_input', 'seen', 'meta')}
++            pairs = ([(self.buf[k], host[k]) for k in host]
++                     + [(getattr(self, k), extra[k]) for k in extra])
++        except Exception as error:
++            self.fail('fetch', error)
++            return
++
++        def save():
++            try:
++                meta = dict(zip(self.FIELDS, extra['meta'].tolist()))
++                if not meta['latched']:
++                    raise RuntimeError('fetched latch word is clear')
++                rows = meta['rows']
++                tensors = {k: host[k][:rows * per_row].view(dtype).view(rows, *tail)
++                           for k, (dtype, tail, per_row) in self.spec.items()}
++                record = dict(identity, generation=self.generation, meta=meta,
++                              runner=self.names[meta['runner']], names=self.names, row_values=self.rows,
++                              ref=extra['ref'], ref_input=extra['ref_input'], seen=extra['seen'],
++                              tensors=tensors)
++                temporary = path + '.tmp'
++                torch.save(record, temporary)
++                os.replace(temporary, path)
++            except Exception as error:
++                self.fail('save', error)
++                return
++            self.state = 'saved'
++            self.tracer._status(self, {'path': path, 'epoch': meta['epoch'], 'rows': meta['rows'],
++                                       'runner': record['runner']})
++            print(f'[DS41-ACT-TRACE] capture saved {path}', flush=True)
++
++        try:
++            transport.fetch(pairs, save)
++        except Exception as error:
++            self.fail('fetch', error)
+ 
+ 
+ class Tracer:
+@@ -308,6 +549,8 @@
+         self.session = f'{os.getpid()}-{uuid.uuid4().hex[:12]}'
+         self.config, self.mtime, self.handles = None, None, []
+         self.seams = 0
++        self.capture = None
++        self.capture_generation = 0
+         self.seq = self.dropped = 0
+         self.active = False
+         self.slot = self.count = 0
+@@ -338,6 +581,7 @@
+             self.config = None
+             return
+         hits = {(key, p): 0 for key in ('post', 'pre', 'moe') for p in config[key]}
++        seam_names = []
+         try:
+             for name, module in self.model.named_modules():
+                 if not name:
+@@ -362,9 +606,20 @@
+                 if moe:
+                     self.handles.append(MoeSeams(self, name, module))
+                     self.seams += 1
++                    seam_names.append(name)
+             unmatched = sorted(f'{key}:{p}' for (key, p), n in hits.items() if n == 0)
+             if unmatched:
+                 raise ValueError(f'patterns match no hook site: {unmatched}')
++            if config['capture'] is not None:
++                captured = {}
++                for pattern in config['capture']['moe']:
++                    chosen = [n for n in seam_names if matches(n, pattern)]
++                    if not chosen:
++                        raise ValueError(f'capture pattern selects no armed MoE seam: {pattern}')
++                    captured.update(dict.fromkeys(chosen))
++                self.capture_generation += 1
++                self.capture = Capture(self, config['capture']['rows'], captured,
++                                       self.capture_generation, config['arm'])
+         except Exception as error:
+             self._disarm()
+             print(f'[DS41-ACT-TRACE] trigger refused: {error!r}', flush=True)
+@@ -379,7 +634,21 @@
+     def _disarm(self):
+         for handle in reversed(self.handles):
+             handle.remove()
+-        self.handles, self.seams = [], 0
++        capture = self.capture
++        if capture is not None and capture.state in ('allocated', 'latched'):
++            capture.frozen, capture.state = True, 'discarded'
++            self._status(capture, {'latched_epoch': capture.latched_epoch})
++        self.handles, self.seams, self.capture = [], 0, None
++
++    def _status(self, capture, extra):
++        """Append a capture status line to this process's receipts (any thread)."""
++        try:
++            self._identity()
++            self._append({'type': 'capture', 'arm': capture.arm, 'session': capture.session,
++                          'rank': self.rank, 'node': self.node, 'pid': os.getpid(),
++                          'wall': time.time(), **capture.status(), **extra})
++        except Exception as error:
++            print(f'[DS41-ACT-TRACE] capture status not written: {error!r}', flush=True)
+ 
+     def _identity(self):
+         if self.rank is None:
+@@ -391,11 +660,31 @@
+         if self.node is None:
+             self.node = os.environ.get('DS41_NODE', 'unknown')
+ 
+-    def _sink(self, meta):
++    def _append(self, record):
+         os.makedirs(self.out_dir, exist_ok=True)
+         path = os.path.join(self.out_dir, f'{self.node}-{os.getpid()}.jsonl')
+         with self.lock, open(path, 'a', encoding='utf-8') as stream:
+-            stream.write(json.dumps(meta, sort_keys=True) + '\n')
++            stream.write(json.dumps(record, sort_keys=True) + '\n')
++
++    def _sink(self, meta):
++        """Writer thread: persist a step record; mark only its own capture ready."""
++        self._append(meta)
++        if '<capture>' not in meta['names']:
++            return
++        latched, epoch = meta['hashes'][meta['names'].index('<capture>')]
++        if not latched:
++            return
++        capture = self.capture
++        if capture is not None and capture.matches(meta):
++            if capture.state == 'allocated':
++                capture.latched_epoch, capture.state = epoch, 'latched'
++                capture.ready = True           # read by the forward thread at the next step
++        else:
++            info = meta.get('capture') or {}
++            self._append({'type': 'capture', 'arm': meta.get('arm'), 'session': meta.get('session'),
++                          'rank': meta.get('rank'), 'node': meta.get('node'), 'pid': os.getpid(),
++                          'wall': time.time(), 'generation': info.get('generation'),
++                          'state': 'latched-discarded', 'error': None, 'latched_epoch': epoch})
+ 
+     # ---- forward path: device work only, no host synchronization -------------------
+     def _begin(self, module, args, kwargs):
+@@ -406,6 +695,13 @@
+         self._refresh()
+         if self.config is None:
+             return
++        capture = self.capture
++        if capture is not None and capture.ready and not capture.frozen and self.transport is not None:
++            self._identity()
++            capture.freeze_and_fetch(
++                self.transport,
++                os.path.join(self.out_dir, f'{self.node}-{os.getpid()}-g{capture.generation}-capture.pt'),
++                {'arm': capture.arm, 'session': self.session, 'rank': self.rank, 'node': self.node})
+         ids = kwargs.get('input_ids', args[0] if args else None)
+         positions = kwargs.get('positions', args[1] if len(args) > 1 else None)
+         embeds = kwargs.get('inputs_embeds')
+@@ -431,15 +727,20 @@
+         self.epoch = epoch if type(epoch) is int else None
+         self.active = True
+         self.transport.begin(slot)
+-        self._record('<input>', source)
++        self.input_digest = self._record('<input>', source)
+         if isinstance(positions, torch.Tensor):
+             self._record('<positions>', positions)
+ 
+     def _record(self, name, tensor):
++        value = digest(tensor)
++        self._store(name, value)
++        return value
++
++    def _store(self, name, value):
+         if self.count >= self.transport.acc.shape[1]:
+             self.overflow = True
+             return
+-        self.transport.acc[self.slot, self.count].copy_(digest(tensor))
++        self.transport.acc[self.slot, self.count].copy_(value)
+         self.names.append(name)
+         self.count += 1
+ 
+@@ -463,12 +764,16 @@
+             return
+         for suffix, tensor in _tensors(output):
+             self._record('<output>' + suffix, tensor)
++        capture = self.capture
++        if capture is not None and capture.allocated and not capture.frozen:
++            self._store('<capture>', capture.meta[0:2])   # raw [latched, epoch], not a digest
+         self.active = False
+         self._identity()
+         meta = {'type': 'step', 'arm': self.config['arm'], 'session': self.session,
+                 'epoch': self.epoch, 'rank': self.rank, 'node': self.node, 'pid': os.getpid(),
+                 'seq': self.seq, 'rows': self.rows, 'wall': self.wall, 'names': list(self.names),
+-                'dropped_before': self.dropped, 'overflow': self.overflow, 'seam_runners': self.seams}
++                'dropped_before': self.dropped, 'overflow': self.overflow, 'seam_runners': self.seams,
++                'capture': None if capture is None else capture.status()}
+         self.transport.submit(self.slot, self.count, meta)
+ 
+ 

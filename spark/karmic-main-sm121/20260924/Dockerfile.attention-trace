@@ -1,0 +1,18 @@
+FROM 30ef9c2d529e9df0a3ea348c773d8ff55284389a90a40922ac1b0d93ccffdd9b
+ARG TRACE_LOCK
+ARG TRACE_CACHE
+COPY attention-trace.lock.json trace-patched-attention.py trace_attention.py install_attention_trace.py /opt/ds41-attention-trace/
+RUN /opt/venv/bin/python /opt/ds41-attention-trace/install_attention_trace.py
+ENV XDG_CACHE_HOME=/cache/jit/${TRACE_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${TRACE_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${TRACE_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${TRACE_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${TRACE_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${TRACE_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${TRACE_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${TRACE_CACHE}/cute-dsl
+LABEL local-inference.ds41.diagnostic.kind="attention-trace" \
+    local-inference.ds41.diagnostic.lock.sha256="${TRACE_LOCK}" \
+    local-inference.cache.fingerprint="${TRACE_CACHE}" \
+    local-inference.status="diagnostic-only-not-qualified" \
+    org.opencontainers.image.title="DS4.1 attention boundary trace diagnostic"

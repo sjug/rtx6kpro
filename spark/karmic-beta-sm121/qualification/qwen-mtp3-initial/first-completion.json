@@ -1,0 +1,58 @@
+{
+  "request": {
+    "model": "Qwen3.8-Flash-Next",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is 17 * 23 - 58? Reply with only the integer answer."
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 128,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "response": {
+    "id": "chatcmpl-af1d5ef9c41c503c",
+    "object": "chat.completion",
+    "created": 1789952303,
+    "model": "Qwen3.8-Flash-Next",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "333",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.1.dev1+g57a80980b.d20260920-tp2-0405ce1b",
+    "usage": {
+      "prompt_tokens": 33,
+      "total_tokens": 37,
+      "completion_tokens": 4,
+      "prompt_tokens_details": null,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  }
+}

@@ -1,0 +1,5 @@
+*
+!Dockerfile
+!upstream.patch
+!source.lock.json
+!install.py

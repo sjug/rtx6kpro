@@ -1,0 +1,21 @@
+{
+  "b12x_tree": "33ecd859e9ab087449b230409c835c5552c5336f",
+  "base_b12x_tree": "d10fbf9c5772edf1beed5e02fc504f589895c044",
+  "base_image_id": "d880b1297eda5d788bd45c2f85a0b42e9dbcdde856117a10ec6ec3f92d7b5937",
+  "moe_dependency": {
+    "b12x_tree": "d10fbf9c5772edf1beed5e02fc504f589895c044",
+    "base_b12x_tree": "19e40c53ad4d8fa52d32177e4f72c73c780c3cce",
+    "base_image_id": "eb3adc203432f2e54738c5977b65bc6a618ba4fdb76f23dd510df5910365e08d",
+    "input_sha256": "251a4dce3c8f07d52fc3512b32b61c71f2059964fbeb263e6fa5a4969f8eda0c",
+    "output_sha256": "081d6d5488dc49296ef8032def94e06f38cf0a7c2db944df681b621335aa6b8c",
+    "patch_sha256": "4608cbf7577f2f7817a72e3844b86362478a89179d3bb26cdbdfa63b205420e0",
+    "scope": "Declaration-only repair for dynamic deterministic ordered reduction; kernel arithmetic unchanged",
+    "target_path": "b12x/moe/fused_moe/_preparation.py"
+  },
+  "scope": "Deterministic DSA tie selection plus declaration of existing deterministic MoE reducer",
+  "selector_input_sha256": "13cbc9cb2841bb9050c420b767d7f65d77fe2299159ea5688d9de00aacf4c461",
+  "selector_output_sha256": "f2d0fadae632f4b2af233ca2c53122e7fbcb78a92dc5d16479e541330cf9052d",
+  "selector_patch_sha256": "7d77a7fb6f2abdf6967621c445147fa968782f295fb3c6c4cf605ba536764ec0",
+  "selector_path": "b12x/attention/dsa_indexer/tiled_topk.py",
+  "upstream_b12x_commit": "a7d7d29b2ef8869086e0ceaa787321f17544e3c9"
+}

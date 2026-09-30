@@ -1,0 +1,44 @@
+FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+ENV CUDA_HOME=/usr/local/cuda
+RUN test "$(uname -m)" = aarch64 \
+    && git init /build/nccl \
+    && git -C /build/nccl remote add origin https://github.com/local-inference-lab/nccl-canonical.git \
+    && git -C /build/nccl fetch --depth=1 origin 93fe05d9f9b6963ef841166a69cd0b30e4efe97b \
+    && git -C /build/nccl checkout --detach FETCH_HEAD \
+    && test "$(git -C /build/nccl rev-parse HEAD)" = 93fe05d9f9b6963ef841166a69cd0b30e4efe97b
+WORKDIR /build/nccl
+# Native ARM64 compiler and explicit GB10 SASS. Do not inherit workstation
+# -march/-mtune options, channel counts or host-specific package RPATHs.
+RUN mkdir -p /artifacts/nccl/lib /artifacts/nccl/include \
+    && env -u CXXFLAGS -u CFLAGS -u LDFLAGS make -j20 src.build VERBOSE=1 \
+       CUDA_HOME=/usr/local/cuda \
+       NVCC_GENCODE='-gencode=arch=compute_121,code=sm_121' \
+       2>&1 | tee /artifacts/nccl/compile.log \
+    && ! grep -Eq -- '-m(arch|tune|cpu)=' /artifacts/nccl/compile.log \
+    && test -f build/lib/libnccl.so.2.31.2 \
+    && install -m 0755 build/lib/libnccl.so.2.31.2 /artifacts/nccl/lib/ \
+    && cp -a build/include/. /artifacts/nccl/include/ \
+    && ln -s libnccl.so.2.31.2 /artifacts/nccl/lib/libnccl.so.2 \
+    && ln -s libnccl.so.2 /artifacts/nccl/lib/libnccl.so \
+    && readelf -h /artifacts/nccl/lib/libnccl.so.2.31.2 > /artifacts/nccl/elf.txt \
+    && grep -Eq 'Machine:.*AArch64' /artifacts/nccl/elf.txt \
+    && ldd /artifacts/nccl/lib/libnccl.so.2.31.2 > /artifacts/nccl/ldd.txt \
+    && ! grep -q 'not found' /artifacts/nccl/ldd.txt
+RUN python - <<'PY'
+import ctypes
+library = ctypes.CDLL('/artifacts/nccl/lib/libnccl.so.2.31.2')
+version = ctypes.c_int()
+if library.ncclGetVersion(ctypes.byref(version)) != 0 or version.value != 23102:
+    raise RuntimeError('NCCL version gate failed')
+print('NCCL_ARM64_LINKAGE_PASS; distributed GPU gate remains pending')
+PY
+RUN cuobjdump --list-elf /artifacts/nccl/lib/libnccl.so.2.31.2 > /artifacts/nccl/cubins.txt \
+    && grep -Eq 'sm_121([^[:alnum:]_]|$)' /artifacts/nccl/cubins.txt \
+    && cd /artifacts/nccl && sha256sum lib/libnccl.so.2.31.2 > SHA256SUMS
+ARG RECIPE_SHA256
+COPY Dockerfile.nccl /artifacts/nccl/Dockerfile.nccl
+RUN test "$(sha256sum /artifacts/nccl/Dockerfile.nccl | cut -d' ' -f1)" = "$RECIPE_SHA256"
+LABEL local-inference.nccl.commit="93fe05d9f9b6963ef841166a69cd0b30e4efe97b" \
+      local-inference.nccl.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

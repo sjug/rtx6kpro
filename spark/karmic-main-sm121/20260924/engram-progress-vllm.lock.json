@@ -1,0 +1,35 @@
+{
+  "kind": "engram-prequeued-host-io-vllm-proposal",
+  "status": "unbuilt-unqualified-pending-native-api-review",
+  "failclosed_lock_sha256": "4693deea006f58687f62a83e7a8227fc83f0067c643941376a0ff5d1b76d3deb",
+  "targets": {
+    "vllm/models/deepseek_v4_1/common/engram.py": {
+      "source": "engram-progress-engram.py",
+      "failclosed_sha256": "29b8924c3eba45bc56acc780003bc5c537351fa6c047d1da51a12e1b30c43a39",
+      "output_sha256": "0d0fca1eaace801e1d98c617d2be64432e6adcfca0a1bacb262d4905a9291f29"
+    },
+    "vllm/models/deepseek_v4_1/nvidia/model.py": {
+      "source": "engram-progress-model.py",
+      "failclosed_sha256": "0a78c845785167e1b70c4e9425a6a3cbaee5113a0e5f52e5bd5ebdee286f5477",
+      "output_sha256": "e8c08fa6df8bcc5d88791b597c7a029449cf4a7354cccbb58df2147b804921ba"
+    },
+    "vllm/models/deepseek_v4_1/nvidia/model_state.py": {
+      "source": "engram-progress-model_state.py",
+      "failclosed_sha256": "f1741fb36f5606843d1e82a14de15c34114576e735bd8ac6dea0873d10bc8cad",
+      "output_sha256": "f1741fb36f5606843d1e82a14de15c34114576e735bd8ac6dea0873d10bc8cad"
+    },
+    "vllm/v1/worker/gpu/async_utils.py": {
+      "source": "engram-progress-async_utils.py",
+      "failclosed_sha256": "f40c9ac1d3e53efb8d865963bca398b42885e1cdd1cf22ea01b5b15c02b1097c",
+      "output_sha256": "f40c9ac1d3e53efb8d865963bca398b42885e1cdd1cf22ea01b5b15c02b1097c"
+    },
+    "vllm/v1/worker/gpu/model_runner.py": {
+      "source": "engram-progress-model_runner.py",
+      "failclosed_sha256": "6806fb5da6739920f9e705f85fa0430cab30c05b1a2cdb2d945bf8f536fbbae1",
+      "output_sha256": "6806fb5da6739920f9e705f85fa0430cab30c05b1a2cdb2d945bf8f536fbbae1"
+    }
+  },
+  "native_lock_sha256": "334eedf4692c8be65832bfef7277aa67a4416dac8d46142f0ea5783684e4779e",
+  "patch_sha256": "1fc065404508b6e4819b6aeb3299c52690faf477f5d195013dc125eda6e68335",
+  "preparer_sha256": "c3cab3aaeca80e77a0fec37bc6b5760e3e44c2c713cf65725c245e9e60c65b19"
+}

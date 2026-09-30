@@ -1,0 +1,87 @@
+diff -ruN a/launch_contract.py b/launch_contract.py
+--- a/launch_contract.py	2026-09-26 23:37:31.909029734 -0400
++++ b/launch_contract.py	2026-09-26 23:37:31.923212157 -0400
+@@ -50,8 +50,15 @@
+ # from the release, everything else passing, same geometry. Root-cause discrimination only.
+ MHC8192_SELECTOR = 'transplant2-mhc8192-release-into-233036Z'
+ MHC8192_CACHE_ROOT = 'git/ds41-r38/karmic-main-20260924/selection-transplant-cache-mhc8192-233036Z'
++# One-key split of that pair, 2026-09-27: exactly one of the two mHC 8192-row records from the release,
++# everything else passing, same geometry. Root-cause discrimination only, never a profile.
++MHC_PRE8192_SELECTOR = 'transplant1-mhc-pre8192-release-into-233036Z'
++MHC_PRE8192_CACHE_ROOT = 'git/ds41-r38/karmic-main-20260924/selection-transplant-cache-mhc-pre8192-233036Z'
++MHC_EXPANDED8192_SELECTOR = 'transplant1-mhc-expanded8192-release-into-233036Z'
++MHC_EXPANDED8192_CACHE_ROOT = 'git/ds41-r38/karmic-main-20260924/selection-transplant-cache-mhc-expanded8192-233036Z'
+ SELECTION_ROOTS = {REPLAY_SELECTOR: REPLAY_CACHE_ROOT, TRANSPLANT_SELECTOR: TRANSPLANT_CACHE_ROOT,
+-                   MHC8192_SELECTOR: MHC8192_CACHE_ROOT}
++                   MHC8192_SELECTOR: MHC8192_CACHE_ROOT, MHC_PRE8192_SELECTOR: MHC_PRE8192_CACHE_ROOT,
++                   MHC_EXPANDED8192_SELECTOR: MHC_EXPANDED8192_CACHE_ROOT}
+ 
+ 
+ def validate_chunking_image(pin, env):
+diff -ruN a/seed_selection_transplant.py b/seed_selection_transplant.py
+--- a/seed_selection_transplant.py	2026-09-26 23:37:31.911221538 -0400
++++ b/seed_selection_transplant.py	2026-09-26 23:37:40.425343073 -0400
+@@ -44,7 +44,16 @@
+     'mhc8192': {'selector': 'transplant2-mhc8192-release-into-233036Z',
+                 'host_root': '/home/jugs/git/ds41-r38/karmic-main-20260924/selection-transplant-cache-mhc8192-233036Z',
+                 'count': 2, 'keys_sha256': 'd22ef4017be3bbd839e069d806cf0cc0f9388618b224476b2443a2d91ad60012'},
++    # One-key split of the pair above: exactly one release record each.
++    'mhc-pre8192': {'selector': 'transplant1-mhc-pre8192-release-into-233036Z',
++                    'host_root': '/home/jugs/git/ds41-r38/karmic-main-20260924/selection-transplant-cache-mhc-pre8192-233036Z',
++                    'count': 1, 'keys_sha256': '44d51d40d8ffad5a1e31bb27d8d20b4e26620dd466b1a920822f3217f92c11b2'},
++    'mhc-expanded8192': {'selector': 'transplant1-mhc-expanded8192-release-into-233036Z',
++                         'host_root': '/home/jugs/git/ds41-r38/karmic-main-20260924/selection-transplant-cache-mhc-expanded8192-233036Z',
++                         'count': 1, 'keys_sha256': 'e8f3ee60f8d71f8cbb912bc22a7da48729ed150fec5da6a06e7de30ff2533a93'},
+ }
++MHC_SUBSETS = {'mhc8192': tuple(MHC8192_KEYS), 'mhc-pre8192': ('mhc.pre.8192',),
++               'mhc-expanded8192': ('mhc.pre.expanded.8192',)}
+ # First-token references (token-0 full top-20 record) the transplant is compared against.
+ REFERENCES = {
+     'passing-anchor': 'receipts/decision-row-matched8192-nccl-standard-upstream-capture-20260926T233036Z/unarmed-1/trial.json',
+@@ -85,14 +94,16 @@
+     payload, changed, metadata = transplant(passing, release)
+     if name == 'transplant275':
+         return payload, changed, metadata
+-    if name != 'mhc8192':
++    if name not in MHC_SUBSETS:
+         raise ValueError('Unknown transplant set: ' + repr(name))
+     from claude_compare_selections import mhc_key
+     rebuilt = {'mhc.pre.8192': mhc_key('pre', 8192), 'mhc.pre.expanded.8192': mhc_key('pre', 8192, True)}
+     if rebuilt != MHC8192_KEYS:
+         raise RuntimeError('mHC 8192 keys no longer rebuild from source')
+-    keys = set(MHC8192_KEYS.values())
+-    if not keys <= changed or keys_digest(keys) != SETS['mhc8192']['keys_sha256']:
++    if keys_digest(set(MHC8192_KEYS.values())) != SETS['mhc8192']['keys_sha256']:
++        raise RuntimeError('mHC 8192 pair digest changed')
++    keys = {MHC8192_KEYS[label] for label in MHC_SUBSETS[name]}
++    if not keys <= changed or keys_digest(keys) != SETS[name]['keys_sha256']:
+         raise RuntimeError('mHC 8192 keys are not inside the frozen 275 set')
+     records = {k: (release['records'][k] if k in keys else passing['records'][k]) for k in passing['records']}
+     return {'identity': passing['identity'], 'records': records}, keys, metadata
+diff -ruN a/start_moe_repaired.py b/start_moe_repaired.py
+--- a/start_moe_repaired.py	2026-09-26 23:37:31.910147032 -0400
++++ b/start_moe_repaired.py	2026-09-26 23:37:31.923253846 -0400
+@@ -30,8 +30,9 @@
+ parser.add_argument('--nccl-arm', choices=('standard-upstream',),
+                     help='Precision image only: ordinary launch NCCL settings on the matched profile, '
+                          'recorded as an explicit arm; never combined with --nccl-geometry')
+-parser.add_argument('--transplant-set', choices=('275', 'mhc8192'), default='275',
+-                    help='selection-transplant arm only: the frozen 275-record set, or only the two mHC 8192 records')
++parser.add_argument('--transplant-set', choices=('275', 'mhc8192', 'mhc-pre8192', 'mhc-expanded8192'), default='275',
++                    help='selection-transplant arm only: the frozen 275-record set, only the two mHC 8192 records, '
++                         'or exactly one of them (mhc.pre or mhc.pre.expanded)')
+ args = parser.parse_args()
+ matched_capture = args.arm in ('decision-row', 'window', 'indexer', 'precision') and args.decision_row_blocks == '81389'
+ if args.arm in ('window', 'indexer', 'precision') and not matched_capture:
+@@ -124,7 +125,10 @@
+         overrides += ' DS41_SELECTION_REPLAY=standard8192-233036Z'
+     if args.arm == 'selection-transplant':
+         overrides += ' DS41_SELECTION_REPLAY=' + {'275': 'transplant275-release-into-233036Z',
+-                                                  'mhc8192': 'transplant2-mhc8192-release-into-233036Z'}[args.transplant_set]
++                                                  'mhc8192': 'transplant2-mhc8192-release-into-233036Z',
++                                                  'mhc-pre8192': 'transplant1-mhc-pre8192-release-into-233036Z',
++                                                  'mhc-expanded8192': 'transplant1-mhc-expanded8192-release-into-233036Z',
++                                                  }[args.transplant_set]
+     if args.decision_row_blocks:
+         overrides += ' DS41_DECISION_ROW_BLOCKS=' + args.decision_row_blocks
+     if getattr(args, 'nccl_geometry', None):

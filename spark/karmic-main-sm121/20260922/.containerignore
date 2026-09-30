@@ -1,0 +1,10 @@
+*
+!Dockerfile
+!contracts.py
+!install.py
+!source.lock.json
+!payload/
+!payload/*.tar
+!inherited/
+!inherited/launchers/
+!inherited/launchers/*.sh

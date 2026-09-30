@@ -1,0 +1,20 @@
+FROM ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5
+ARG ROUTER_LOCK
+ARG ROUTER_CACHE
+ARG ROUTER_B12X_TREE
+COPY . /opt/ds41-router-release/
+RUN /opt/venv/bin/python /opt/ds41-router-release/install_router_release.py
+ENV XDG_CACHE_HOME=/cache/jit/${ROUTER_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${ROUTER_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${ROUTER_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${ROUTER_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${ROUTER_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${ROUTER_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${ROUTER_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${ROUTER_CACHE}/cute-dsl
+LABEL local-inference.ds41.diagnostic.kind="router-stage-release-candidate" \
+    local-inference.ds41.diagnostic.lock.sha256="${ROUTER_LOCK}" \
+    local-inference.cache.fingerprint="${ROUTER_CACHE}" \
+    b12x.source-tree="${ROUTER_B12X_TREE}" \
+    local-inference.status="candidate-not-qualified" \
+    org.opencontainers.image.title="DS4.1 router stage-release fence candidate"

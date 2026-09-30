@@ -1,0 +1,20 @@
+FROM eb3adc203432f2e54738c5977b65bc6a618ba4fdb76f23dd510df5910365e08d
+ARG PATCH_TREE
+ARG PATCH_LOCK
+ARG PATCH_CACHE
+COPY moe-dependency.lock.json moe-dependency.patch moe-dependency-preparation.py runtime.lock.json install_moe_dependency.py /opt/ds41-moe-dependency/
+RUN /opt/venv/bin/python /opt/ds41-moe-dependency/install_moe_dependency.py
+ENV XDG_CACHE_HOME=/cache/jit/${PATCH_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${PATCH_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${PATCH_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${PATCH_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${PATCH_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${PATCH_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${PATCH_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${PATCH_CACHE}/cute-dsl
+LABEL b12x.source-tree="${PATCH_TREE}" \
+    local-inference.ds41.diagnostic.kind="moe-dependency" \
+    local-inference.ds41.diagnostic.lock.sha256="${PATCH_LOCK}" \
+    local-inference.cache.fingerprint="${PATCH_CACHE}" \
+    local-inference.status="determinism-control-not-qualified" \
+    org.opencontainers.image.title="DS4.1 deterministic MoE dependency control"

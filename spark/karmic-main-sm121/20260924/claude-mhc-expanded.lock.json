@@ -1,0 +1,73 @@
+{
+ "base_image_id": "1989e16daf38d2966b03a2e2abcb878263fb7d17183c8d6c5b084a51fbed7e8f",
+ "base_inventory": "/opt/ds41-precision-release/preserved-files.json",
+ "base_kind": "precision-release-candidate",
+ "base_lock": "ds41-precision-release.lock.json",
+ "base_lock_sha256": "4b1afffe455d634cbadc82353a64beb3c96bbaf89b595c948c00dbfa3b1f1c32",
+ "base_trees": {
+  "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+  "vllm": "0a446838b6cc8d5ad3de0d4e2020e117813d1d57"
+ },
+ "build_args": [
+  "MHC_EXPANDED_LOCK"
+ ],
+ "capture_schema": "claude-mhc-expanded-v2",
+ "image_kind_label": "mhc-expanded-capture",
+ "inputs": {
+  "Dockerfile.claude-mhc-expanded": "be7045e67019b60ee50bca2272d61a34e5f9abaed1224c6422b82296f15078cf",
+  "claude-mhc-expanded-capture.py": "019503aca0659c81d10f6656bc9fc092cef79668925486d206dd73c9c4d51e35",
+  "claude-mhc-expanded-install.py": "9787422dcc28c5399b2476f0f8a40f1415cab5457ef44a5585c4aa2bdcbc6b75",
+  "claude-mhc-expanded-model.py": "8d89e5ce40d2c48d6d3be5debfaa0c26907f9ef3c74830afb142b3841596ad23"
+ },
+ "install_dir": "/opt/ds41-mhc-expanded",
+ "install_pass_marker": "MHC-EXPANDED-INSTALL-PASS",
+ "kind": "mhc-expanded-capture",
+ "memory_plan": {
+  "device_digest_transient_bound_bytes": 15728640,
+  "digest_table_bytes": 224,
+  "hidden": 5120,
+  "max_peak_bytes": 107729344,
+  "ranks": [
+   {
+    "host_allocation_bytes": 86123008,
+    "host_registered_bytes": 86118912,
+    "peak_bytes": 101852096,
+    "rank": 0
+   },
+   {
+    "host_allocation_bytes": 84135936,
+    "host_registered_bytes": 84131840,
+    "peak_bytes": 99865024,
+    "rank": 1
+   },
+   {
+    "host_allocation_bytes": 84135936,
+    "host_registered_bytes": 84131840,
+    "peak_bytes": 99865024,
+    "rank": 2
+   },
+   {
+    "host_allocation_bytes": 92000256,
+    "host_registered_bytes": 91996160,
+    "peak_bytes": 107729344,
+    "rank": 3
+   }
+  ],
+  "rows": 8192,
+  "world": 4
+ },
+ "scope": "expanded mHC pre inputs and served outputs on engram layers of the decision forward; adds copies after producers; operator evidence only, not a serving or numerical-policy input",
+ "status": "diagnostic-only-not-built-not-qualified",
+ "targets": {
+  "vllm/vllm/models/deepseek_v4_1/claude_mhc_expanded.py": {
+   "input_sha256": null,
+   "output_sha256": "019503aca0659c81d10f6656bc9fc092cef79668925486d206dd73c9c4d51e35",
+   "source": "claude-mhc-expanded-capture.py"
+  },
+  "vllm/vllm/models/deepseek_v4_1/nvidia/model.py": {
+   "input_sha256": "e8c08fa6df8bcc5d88791b597c7a029449cf4a7354cccbb58df2147b804921ba",
+   "output_sha256": "8d89e5ce40d2c48d6d3be5debfaa0c26907f9ef3c74830afb142b3841596ad23",
+   "source": "claude-mhc-expanded-model.py"
+  }
+ }
+}

@@ -1,0 +1,19 @@
+{
+  "status": "candidate-preparation-not-build-qualified",
+  "recipe_commit": "23d674e8f658dae2db75399c48430693c196b258",
+  "publication": "jovian-judgement-20260920-2d28f356c192a540",
+  "sources": {
+    "vllm": {"commit": "8e1f1e587f8d24faf606f334a1c4bdaaa6bd4368", "tree": "d9f35de1ed5e47dd006f6d420dd25707fb284eae"},
+    "b12x": {"commit": "0f3a8cbfd1c11d27f04e3ab37a802d522f4f1c68", "tree": "ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e"},
+    "flashinfer": {"commit": "2206a14e46387a56c093860a46bbbdd00596b75b", "tree": "dbbe29fea63e3135dbd980132cacb168473363ef"},
+    "LMCache": {"commit": "688bee14e157b64623d93c07fc0d4db93470e12f", "tree": "fa24eb3adba2015056d76a42fcd6f660e590460e"}
+  },
+  "remote_sources": {
+    "flashkda": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+    "instanttensor": "95d4729b6d6a991bb8de61877147a9d9d9100b23",
+    "nccl": "93fe05d9f9b6963ef841166a69cd0b30e4efe97b"
+  },
+  "parallelism": {"MAX_JOBS": 20, "NVCC_THREADS": 1, "FLASHINFER_NVCC_THREADS": 1},
+  "native_reuse": {"vllm": false, "flashkda": false},
+  "qualification": {"built": false, "gpu_gates_passed": false, "models_qualified": []}
+}

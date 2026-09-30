@@ -1,0 +1,280 @@
+diff --git a/vllm/v1/worker/b12x_startup.py b/vllm/v1/worker/b12x_startup.py
+--- a/vllm/v1/worker/b12x_startup.py
++++ b/vllm/v1/worker/b12x_startup.py
+@@ -14,6 +14,10 @@
+ import pickle
+ import time
+ from contextlib import nullcontext
++from typing import TYPE_CHECKING
++
++if TYPE_CHECKING:
++    from b12x.preparation import TuningCacheRequirement
+ 
+ 
+ _CONTROL_GROUPS: dict[tuple[int, int], object] = {}
+@@ -71,6 +75,7 @@
+             self._control = dist.PrefixStore(f"stage-{sequence}", group.store)
+         self._authorized_key: str | None = None
+         self._authorized_tuning = None
++        self._authorized_cache: tuple[TuningCacheRequirement, ...] | None = None
+         self._stop = False
+         self._error: dict[str, object] | None = None
+         self._last_progress = None
+@@ -110,7 +115,9 @@
+             return self._advance(cancel_tuning=cancel_tuning)
+         finally:
+             self._timing.add("advance", time.perf_counter() - started)
+-            self._timing.record("progress", periodic=not self._global_done, round=self._round)
++            self._timing.record(
++                "progress", periodic=not self._global_done, round=self._round
++            )
+             self._last_advance_end = time.perf_counter()
+ 
+     def _advance(self, *, cancel_tuning: bool = False) -> dict[str, object]:
+@@ -126,7 +133,7 @@
+                 self._error = pickle.loads(self._control.get("failed"))
+                 self._safe_close()
+         try:
+-            with (self._timing.span("local") if self._timing else nullcontext()):
++            with self._timing.span("local") if self._timing else nullcontext():
+                 self._advance_local()
+         except BaseException as error:
+             self._record_error(error)
+@@ -144,17 +151,25 @@
+             self._round += 1
+             return self._outcome()
+ 
+-        if not (self._local_done or self._error or self._ready() or self._ready_tuning()):
++        if not (
++            self._local_done
++            or self._error
++            or self._ready()
++            or self._ready_tuning()
++            or self._ready_cache()
++        ):
+             return self._outcome()
+ 
+-        with (self._timing.span("control_exchange") if self._timing else nullcontext()):
++        with self._timing.span("control_exchange") if self._timing else nullcontext():
+             decision = self._exchange()
+         if self._timing:
+             self._timing.record(
+-                "exchange", round=self._round,
++                "exchange",
++                round=self._round,
+                 local_results=len(self._ready_tuning()),
+                 selected_results=len(decision["tuning"]),
+-                collective=decision["collective"], done=decision["done"],
++                collective=decision["collective"],
++                done=decision["done"],
+             )
+         self._stop |= decision["stop"]
+         if decision["error"] is not None:
+@@ -162,6 +177,11 @@
+             self._stop = True
+             self._safe_close()
+         else:
++            cache = self._ready_cache()
++            if cache is not None:
++                self._authorized_cache = (
++                    () if self._stop else decision["caches"][cache.ranks]
++                )
+             authorization = decision["collective"]
+             self._authorized_key = (
+                 authorization[0]
+@@ -172,7 +192,9 @@
+                 from b12x.preparation import TuningRequirement
+ 
+                 self._authorized_tuning = tuple(
+-                    TuningRequirement(_unscoped_key(key), ranks, assignment, latency, index)
++                    TuningRequirement(
++                        _unscoped_key(key), ranks, assignment, latency, index
++                    )
+                     for key, ranks, assignment, latency, index in decision["tuning"]
+                     if self.global_rank in ranks
+                 )
+@@ -198,7 +220,14 @@
+                 decision = self._decision(gathered)
+             except Exception as error:
+                 self._record_error(error)
+-                decision = dict(stop=True, error=self._error, collective=None, tuning=(), done=False)
++                decision = dict(
++                    stop=True,
++                    error=self._error,
++                    collective=None,
++                    tuning=(),
++                    caches={},
++                    done=False,
++                )
+             self._control.set(f"{prefix}/decision", pickle.dumps(decision))
+         return pickle.loads(self._control.get(f"{prefix}/decision"))
+ 
+@@ -210,16 +239,20 @@
+         if self._control is not None:
+             stop |= self._control.check(["stop"])
+         tuning = () if stop else _authorize_tuning(gathered, self.world_ranks)
++        caches = {} if stop else _authorize_caches(gathered, self.world_ranks)
+         if not stop:
+             authorized = {item[0] for item in tuning}
+             pending = {item[0] for entry in gathered for item in entry["tuning"]}
+             if authorized != pending:
+-                raise RuntimeError("preparation ranks reached incompatible tuning boundaries")
++                raise RuntimeError(
++                    "preparation ranks reached incompatible tuning boundaries"
++                )
+         return dict(
+             stop=stop,
+             error=error,
+             collective=None if error else _authorize_ready(gathered, self.world_ranks),
+             tuning=tuning,
++            caches=caches,
+             done=all(entry["local_done"] for entry in gathered)
+             and (error is None or all(entry["cleanup_complete"] for entry in gathered)),
+         )
+@@ -243,17 +276,24 @@
+             raise RuntimeError("active preparation has no job")
+         if self._stop:
+             job.session.cancel_tuning()
+-        progress = job.advance(
+-            collective_key=self._authorized_key,
+-            tuning=self._authorized_tuning,
+-        )
++        kwargs = dict(
++            collective_key=self._authorized_key, tuning=self._authorized_tuning
++        )
++        if self._authorized_cache is not None:
++            kwargs["cache"] = self._authorized_cache
++        progress = job.advance(**kwargs)
+         self._authorized_key = None
+         self._authorized_tuning = None
++        self._authorized_cache = None
+         self._last_progress = progress
+         if progress.pending_compilation:
+             pool = job.session._pool
+             if pool is not None:
+-                with (self._timing.span("compiler_wait") if self._timing else nullcontext()):
++                with (
++                    self._timing.span("compiler_wait")
++                    if self._timing
++                    else nullcontext()
++                ):
+                     pool.wait_for_progress(timeout=0.05)
+         if not progress.done:
+             return
+@@ -278,8 +318,7 @@
+         if self._last_progress is None:
+             return ()
+         return tuple(
+-            (item.key, item.ranks)
+-            for item in self._last_progress.ready_collectives
++            (item.key, item.ranks) for item in self._last_progress.ready_collectives
+         )
+ 
+     def _ready_tuning(self) -> tuple[tuple[object, ...], ...]:
+@@ -304,10 +343,14 @@
+             "stop": self._stop,
+             "ready": self._ready(),
+             "tuning": self._ready_tuning(),
++            "cache": self._ready_cache(),
+             "local_done": self._local_done,
+             "error": self._error,
+             "cleanup_complete": self._cleanup_complete,
+         }
++
++    def _ready_cache(self):
++        return getattr(self._last_progress, "ready_cache", None)
+ 
+     def _validate_domain(self, gathered: list[dict[str, object]]) -> None:
+         if len(gathered) != len(self.world_ranks):
+@@ -505,3 +548,25 @@
+         latency_us, candidate_index, _, assignment = min(candidates)
+         winners.append((key, participants_by_key[key], assignment, latency_us, candidate_index))
+     return tuple(winners)
++
++
++def _authorize_caches(gathered, world_ranks):
++    groups: dict[tuple[int, ...], dict[int, TuningCacheRequirement]] = {}
++    for entry in gathered:
++        cache = entry.get("cache")
++        if cache is None:
++            continue
++        rank = int(entry["global_rank"])
++        if rank not in cache.ranks or not set(cache.ranks) <= set(world_ranks):
++            raise RuntimeError("preparation tuning cache has an invalid rank set")
++        groups.setdefault(cache.ranks, {})[rank] = cache
++    for ranks, snapshots in groups.items():
++        if set(snapshots) != set(ranks):
++            raise RuntimeError(
++                "preparation ranks reached incompatible tuning cache boundaries"
++            )
++    return {
++        ranks: tuple(snapshots[rank] for rank in ranks)
++        for ranks, snapshots in groups.items()
++    }
++
+diff --git a/tests/v1/executor/test_b12x_startup.py b/tests/v1/executor/test_b12x_startup.py
+--- a/tests/v1/executor/test_b12x_startup.py
++++ b/tests/v1/executor/test_b12x_startup.py
+@@ -47,13 +47,15 @@
+         self.events_session = None
+         self.keys = []
+         self.tunings = []
++        self.caches = []
+ 
+     def cancel(self):
+         self.events.append("cancel")
+ 
+-    def advance(self, *, collective_key=None, tuning=None):
++    def advance(self, *, collective_key=None, tuning=None, cache=None):
+         self.keys.append(collective_key)
+         self.tunings.append(tuning)
++        self.caches.append(cache)
+         self.events.append("advance")
+         return next(self.progress)
+ 
+@@ -623,3 +625,45 @@
+     decision = pickle.loads(store.get("stage-0/round-0/decision"))
+     assert decision["tuning"] == ()
+     assert decision["collective"] == ("comm", (0, 1))
++
++
++@pytest.mark.parametrize("cancel", (False, True))
++def test_tuning_caches_exchange_before_races_with_empty_world_rank(cancel):
++    from b12x.preparation import PreparationProgress, TuningCacheRequirement
++
++    caches = tuple(
++        TuningCacheRequirement((0, 1), {"model": "test"}, {str(rank): {}})
++        for rank in range(2)
++    )
++    coordinators, jobs, store = _coordinators(
++        [
++            [
++                PreparationProgress(False, False, (), False, ready_cache=cache),
++                _progress(done=True),
++            ]
++            for cache in caches
++        ]
++        + [[]]
++    )
++    if cancel:
++        store.set("stage-0/stop", b"1")
++    with ThreadPoolExecutor(max_workers=3) as pool:
++        outcomes = list(pool.map(_finish, coordinators))
++    assert all(item["done"] and not item["error"] for item in outcomes)
++    for job in jobs[:2]:
++        assert job.caches[1] == (() if cancel else caches)
++
++
++def test_missing_cache_participant_fails_all_ranks_without_hanging():
++    from b12x.preparation import PreparationProgress, TuningCacheRequirement
++
++    cache = TuningCacheRequirement((0, 1), {}, {})
++    coordinators, _, _ = _coordinators(
++        [[PreparationProgress(False, False, (), False, ready_cache=cache)], []]
++    )
++    with ThreadPoolExecutor(max_workers=2) as pool:
++        outcomes = list(pool.map(_finish, coordinators))
++    assert all(
++        "tuning cache boundaries" in item["error"]["message"] for item in outcomes
++    )
++

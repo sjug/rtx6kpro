@@ -1,0 +1,34 @@
+FROM ghcr.io/astral-sh/uv@sha256:2f0a1c36ce6323e61bc81d39e692319669c03e385b592d670b6ba36dc884e3aa AS uv
+FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+COPY --from=uv /uv /usr/local/bin/uv
+ENV PATH=/build-venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    TORCH_CUDA_ARCH_LIST=12.1a BUILD_WITH_CUDA=1 LMCACHE_CUDA_MAJOR=13 \
+    ENABLE_CXX11_ABI=1 MAX_JOBS=20 NVCC_THREADS=1 PYTHONUNBUFFERED=1 \
+    SETUPTOOLS_SCM_PRETEND_VERSION_FOR_LMCACHE=0.5.3.dev365+lil.cu134.g688bee14e157
+# This is a fresh wheel including GPU extensions, not the old CPU-only refresh.
+COPY vllm-build-requirements.lock /build/build-requirements.lock
+RUN test "$(uname -m)" = aarch64 \
+    && uv venv --python /usr/bin/python3 --system-site-packages /build-venv \
+    && uv pip install --python /build-venv/bin/python --require-hashes --no-deps \
+       -r /build/build-requirements.lock
+RUN git init /build/lmcache \
+    && git -C /build/lmcache remote add origin https://github.com/local-inference-lab/LMCache.git \
+    && git -C /build/lmcache fetch --depth=1 origin 688bee14e157b64623d93c07fc0d4db93470e12f \
+    && git -C /build/lmcache checkout --detach FETCH_HEAD \
+    && test "$(git -C /build/lmcache rev-parse HEAD^{tree})" = fa24eb3adba2015056d76a42fcd6f660e590460e
+WORKDIR /build/lmcache
+RUN env -u PYTHONPATH uv build --wheel --no-build-isolation --python /build-venv/bin/python \
+       --out-dir /artifacts/lmcache . \
+    && python ci/lil_wheels/normalize_wheel.py --wheel /artifacts/lmcache/lmcache-*.whl \
+       --torch-version 2.14.0a0+4fdf77b940.nv26.8.63802676 \
+       --source-date-epoch "$(git show -s --format=%ct HEAD)" \
+    && test "$(find /artifacts/lmcache -maxdepth 1 -name '*aarch64.whl' | wc -l)" = 1 \
+    && cd /artifacts/lmcache && sha256sum *.whl > SHA256SUMS
+ARG RECIPE_SHA256
+COPY Dockerfile.lmcache vllm-build-requirements.lock /artifacts/lmcache/build-inputs/
+RUN test "$(sha256sum /artifacts/lmcache/build-inputs/Dockerfile.lmcache | cut -d' ' -f1)" = "$RECIPE_SHA256" \
+    && cd /artifacts/lmcache/build-inputs && sha256sum * > /artifacts/lmcache/build-inputs.sha256
+LABEL local-inference.lmcache.commit="688bee14e157b64623d93c07fc0d4db93470e12f" \
+      local-inference.lmcache.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

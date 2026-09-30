@@ -1,0 +1,366 @@
+"""DIAGNOSTIC ONLY: layer-2 index-weight projection capture (schema ds41-indexer-capture-v1).
+
+Installed as vllm/models/deepseek_v4_1/ds41_indexer_capture.py in a labelled
+indexer-capture derivative of the reviewed window-capture image (c4a51be4),
+beside the unchanged decision-row and window helpers. One guarded call site in
+DeepseekV4Attention._forward, inside the vllm::dsv41_b12x_attention custom-op
+body after weight_scale.scale_index_weights, on layer 2 only:
+
+  _indexer_capture.capture(self, metadata=..., positions=..., hidden_input=hidden_states, kv_norm=kv,
+                           q_rotated=q, index_query_rotated=iq, raw_weights=weights, scaled_weights=iw,
+                           projection_weight=self.indexer.weights_proj.weight)
+
+Pure observation: every argument is a producer tensor the forward already
+holds; the hook copies and never computes, reorders or replaces anything.
+
+Lifecycle is independent of the other helpers (the window helper finishes at
+layer 1). Same trigger file and validation as before:
+  trigger   /cache/claude-decision-row.json  {"token", "prompt_tokens": 524288, "chunk_rows": 8192|4096,
+                                              "indexer": true | false (optional; absent means armed)}
+  output    /cache/claude-decision-row/<node>-rank<k>-<token>-indexer.pt
+  receipts  /cache/claude-decision-row/<token>-rank<k>.indexer-consumed | .indexer-aborted
+Arming happens on the first eligible layer-2 forward after the trigger appears
+(never under graph capture); pinned staging is allocated then, so no allocation
+happens on the decision chunk. Target: one prefill request whose original SWA
+metadata has num_actual_tokens == chunk_rows and max_seq_len == prompt_tokens;
+captured rows are the last WINDOW = 128 rows, positions prompt_tokens - 128 ..
+prompt_tokens - 1. Copies are non_blocking D2H into pinned staging on the
+current stream; an event recorded after the copies gates a waiter thread that
+saves from host memory and writes the consumed receipt. Any geometry or dtype
+surprise aborts with a durable .indexer-aborted receipt (fail open for serving).
+
+Plan record: the B12xLinearMethod.apply lookup for weights_proj is replicated
+on the host exactly as the runtime performs it (first (dtype, rows), then
+(dtype, capacity)) against the same plans dictionary, and the matched key, the
+plan handle, its query and its prepared selection (config and source) are
+recorded. This is the plan the projection just used; no capacity fallback is
+assumed.
+
+Stated limit: hooks add copies after producers, so timing changes. Equal
+responses and equal decision-row and window tensors against the uninstrumented
+runs show no observed output perturbation; they do not prove hidden numerics
+were untouched.
+"""
+import dataclasses
+import hashlib
+import json
+import os
+import re
+import threading
+import time
+
+import torch
+
+TRIGGER = '/cache/claude-decision-row.json'
+OUT_DIR = '/cache/claude-decision-row'
+SOURCE_LOCK = '/opt/ds41-indexer/ds41-indexer.lock.json'
+SCHEMA = 'ds41-indexer-capture-v1'
+LAYER, WINDOW, KV_DIM, HEAD_DIM, INDEX_HEAD_DIM, DEFAULT_CHUNK, POLL_SECONDS = 2, 128, 512, 512, 128, 8192, 1.0
+FIELDS = ('positions', 'hidden_input', 'kv_norm', 'q_rotated', 'index_query_rotated', 'raw_weights',
+          'scaled_weights', 'projection_weight')
+TOKEN = re.compile(r'^[a-z0-9-]{8,64}$')
+_IMPORTED_AT = time.time()
+_state = {'armed': None, 'checked': 0.0, 'done': set()}
+
+
+def _log(message):
+    print(f'DS41-INDEXER {message}', flush=True)
+
+
+def _rank():
+    from vllm.distributed import get_tensor_model_parallel_rank
+    return get_tensor_model_parallel_rank()
+
+
+def _world_size():
+    from vllm.distributed import get_tensor_model_parallel_world_size
+    return get_tensor_model_parallel_world_size()
+
+
+def _source_trees():
+    try:
+        with open(SOURCE_LOCK) as stream:
+            return json.load(stream)['trees']
+    except (OSError, ValueError, KeyError):
+        return None
+
+
+def _capturing():
+    return torch.cuda.is_current_stream_capturing()
+
+
+def trigger_spec(spec):
+    """The validated trigger for this helper, or None when it must not arm."""
+    if not isinstance(spec, dict):
+        return None
+    token = spec.get('token')
+    chunk_rows = spec.get('chunk_rows', DEFAULT_CHUNK)
+    if (not isinstance(token, str) or not TOKEN.match(token) or spec.get('prompt_tokens') != 524288
+            or type(chunk_rows) is not int or chunk_rows not in (8192, 4096)):
+        return None
+    if spec.get('indexer', True) is not True:
+        return None
+    return {'token': token, 'prompt_tokens': 524288, 'chunk_rows': chunk_rows}
+
+
+def _read_trigger(rank):
+    try:
+        if os.stat(TRIGGER).st_mtime <= _IMPORTED_AT:
+            return None
+        with open(TRIGGER) as stream:
+            spec = trigger_spec(json.load(stream))
+    except (OSError, ValueError):
+        return None
+    if spec is None or spec['token'] in _state['done']:
+        return None
+    if os.path.exists(os.path.join(OUT_DIR, f'{spec["token"]}-rank{rank}.indexer-consumed')):
+        _state['done'].add(spec['token'])
+        return None
+    return spec
+
+
+def _abort(error, token=None):
+    """Fail open for serving: log, disarm, never save; production kernels already ran."""
+    session = _state['armed']
+    token = token or (session.token if session is not None else None)
+    if session is not None:
+        session.fired = True
+    _state['armed'] = None
+    if token:
+        _state['done'].add(token)
+    _log(f'aborted token={token} {type(error).__name__}: {error}')
+    if token and session is not None:
+        try:
+            os.makedirs(OUT_DIR, exist_ok=True)
+            with open(os.path.join(OUT_DIR, f'{token}-rank{session.rank}.indexer-aborted'), 'a') as stream:
+                stream.write(json.dumps({'error': f'{type(error).__name__}: {error}', 'unix': time.time()}) + '\n')
+        except OSError as failure:
+            _log(f'abort receipt not written: {failure}')
+
+
+def _asdict(value):
+    """JSON-safe view of a dataclass, mapping or scalar (plan queries and configs); never raises."""
+    try:
+        if dataclasses.is_dataclass(value) and not isinstance(value, type):
+            return {k: _asdict(v) for k, v in dataclasses.asdict(value).items()}
+        if hasattr(value, 'to_dict'):
+            return _asdict(value.to_dict())
+        if isinstance(value, dict):
+            return {str(k): _asdict(v) for k, v in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [_asdict(v) for v in value]
+        if value is None or isinstance(value, (bool, int, float, str)):
+            return value
+        return repr(value)
+    except Exception as error:                                   # a record, never a failure
+        return f'<unrecorded {type(error).__name__}>'
+
+
+def selected_plan(linear, x):
+    """The plan B12xLinearMethod.apply selects for `x`: (dtype, rows) first, then (dtype, capacity)."""
+    plans = linear.b12x_linear_plans
+    rows_key = (x.dtype, int(x.shape[0]))
+    plan, lookup = plans.get(rows_key), 'rows'
+    capacity = getattr(linear, 'b12x_linear_capacity', None)
+    if plan is None:
+        plan, lookup = plans[(x.dtype, capacity)], 'capacity'
+    selection = getattr(plan, 'selection', None)
+    return {'lookup': lookup, 'rows': int(x.shape[0]), 'dtype': str(x.dtype).removeprefix('torch.'),
+            'capacity': capacity, 'plan_handle': getattr(plan, 'handle', None),
+            'query': _asdict(getattr(plan, 'query', None)),
+            'selection': None if selection is None else {'config': _asdict(getattr(selection, 'config', None)),
+                                                          'source': getattr(selection, 'source', None)},
+            'available_keys': sorted([str(d).removeprefix('torch.'), int(r)] for d, r in plans)}
+
+
+def plan_problems(plan, *, rows, hidden, index_heads):
+    """Why a plan record cannot serve as evidence of the selected projection plan (empty when complete)."""
+    problems = []
+    if not isinstance(plan, dict):
+        return ['plan record missing']
+    if plan.get('lookup') not in ('rows', 'capacity') or plan.get('rows') != rows or plan.get('dtype') != 'bfloat16':
+        problems.append('plan lookup/rows/dtype do not describe this chunk')
+    if not isinstance(plan.get('plan_handle'), int):
+        problems.append('plan handle missing')
+    query = plan.get('query')
+    if not isinstance(query, dict) or any(not isinstance(query.get(k), int) for k in ('max_rows', 'in_features', 'out_features')):
+        problems.append('plan query missing or incomplete')
+    else:
+        if (query['in_features'], query['out_features']) != (hidden, index_heads):
+            problems.append('plan query geometry differs from the projection')
+        expected_rows = rows if plan.get('lookup') == 'rows' else plan.get('capacity')
+        if query['max_rows'] != expected_rows:
+            problems.append('plan query max_rows differs from the matched key')
+    selection = plan.get('selection')
+    config = selection.get('config') if isinstance(selection, dict) else None
+    if not isinstance(config, dict) or not isinstance(config.get('backend'), str) or not config['backend']:
+        problems.append('plan selection/backend missing')
+    elif not isinstance(selection.get('source'), str):
+        problems.append('plan selection source missing')
+    return problems
+
+
+def _pinned(shape, dtype):
+    return torch.empty(shape, dtype=dtype, pin_memory=True)
+
+
+class _Session:
+    """One armed token on one rank: pinned staging preallocated at arm, one capture, event waiter, save."""
+
+    def __init__(self, spec, rank, layer):
+        self.token, self.rank, self.prompt_tokens = spec['token'], rank, spec['prompt_tokens']
+        self.rows = spec['chunk_rows']
+        self.fired, self.event, self.waiter, self.plan = False, None, None, None
+        self.started = time.time()
+        self.world_size = _world_size()
+        hidden, heads = int(layer.hidden_size), int(layer.n_local_heads)
+        index_heads = int(layer.indexer.heads)
+        weight = layer.indexer.weights_proj.weight
+        if tuple(weight.shape) != (index_heads, hidden):
+            raise RuntimeError(f'weights_proj weight has shape {tuple(weight.shape)}, expected {(index_heads, hidden)}')
+        self.dims = {'hidden': hidden, 'heads': heads, 'index_heads': index_heads}
+        self.staged = {
+            'positions': _pinned((WINDOW,), torch.int64),
+            'hidden_input': _pinned((WINDOW, hidden), torch.bfloat16),
+            'kv_norm': _pinned((WINDOW, KV_DIM), torch.bfloat16),
+            'q_rotated': _pinned((WINDOW, heads, HEAD_DIM), torch.bfloat16),
+            'index_query_rotated': _pinned((WINDOW, index_heads, INDEX_HEAD_DIM), torch.bfloat16),
+            'raw_weights': _pinned((WINDOW, index_heads), torch.bfloat16),
+            'scaled_weights': _pinned((WINDOW, index_heads), torch.bfloat16),
+            'projection_weight': _pinned((index_heads, hidden), torch.bfloat16),
+        }
+
+    def _d2h(self, name, value):
+        staged = self.staged[name]
+        if tuple(value.shape) != tuple(staged.shape) or value.dtype != staged.dtype:
+            raise RuntimeError(f'{name} has shape {tuple(value.shape)} {value.dtype}, '
+                               f'staging expects {tuple(staged.shape)} {staged.dtype}')
+        staged.copy_(value, non_blocking=True)
+
+    def _tail(self, tensor, name):
+        if tensor.shape[0] != self.rows:
+            raise RuntimeError(f'{name} has {tensor.shape[0]} rows, expected {self.rows}')
+        return tensor[self.rows - WINDOW:self.rows]
+
+    def capture(self, layer, *, positions, hidden_input, kv_norm, q_rotated, index_query_rotated,
+                raw_weights, scaled_weights, projection_weight):
+        self.plan = selected_plan(layer.indexer.weights_proj, hidden_input)
+        self._d2h('positions', self._tail(positions, 'positions').to(torch.int64))
+        self._d2h('hidden_input', self._tail(hidden_input, 'hidden_input'))
+        self._d2h('kv_norm', self._tail(kv_norm, 'kv_norm'))
+        self._d2h('q_rotated', self._tail(q_rotated, 'q_rotated'))
+        self._d2h('index_query_rotated', self._tail(index_query_rotated, 'index_query_rotated'))
+        self._d2h('raw_weights', self._tail(raw_weights, 'raw_weights'))
+        self._d2h('scaled_weights', self._tail(scaled_weights, 'scaled_weights'))
+        self._d2h('projection_weight', projection_weight)
+        self.fired = True
+        self.event = torch.cuda.Event()
+        self.event.record()
+        self.waiter = threading.Thread(target=self.complete, name='ds41-indexer-waiter', daemon=True)
+        self.waiter.start()
+
+    def complete(self):
+        try:
+            self.event.synchronize()
+            self.save()
+        except BaseException as error:
+            _log(f'error token={self.token} rank={self.rank} {type(error).__name__}: {error}')
+        finally:
+            _state['done'].add(self.token)
+            _state['armed'] = None
+
+    def save(self):
+        problems = []
+        s = {k: v.clone() for k, v in self.staged.items()}
+        last = self.prompt_tokens - 1
+        if not torch.equal(s['positions'], torch.arange(last - WINDOW + 1, last + 1, dtype=torch.int64)):
+            problems.append(f'captured positions are not the final {WINDOW} of the request')
+        problems += plan_problems(self.plan, rows=self.rows, hidden=self.dims['hidden'], index_heads=self.dims['index_heads'])
+        weight_bytes = s['projection_weight'].contiguous().view(torch.uint8).flatten()
+        node = os.environ.get('DS41_NODE')
+        meta = {'rank': self.rank, 'node': node, 'generation': self.token, 'kit_sha256': os.environ.get('DS41_KIT_SHA256'),
+                'source_trees': _source_trees(), 'prompt_tokens': self.prompt_tokens, 'chunk_rows': self.rows,
+                'layer': LAYER, 'window_rows': WINDOW, 'batch_requests': 1, 'row_position': last,
+                'tp_world_size': self.world_size, **self.dims, 'problems': problems, 'pid': os.getpid(),
+                'armed_unix': self.started, 'saved_unix': time.time(),
+                'decision_row_file': f'{node}-rank{self.rank}-{self.token}.pt',
+                'window_file': f'{node}-rank{self.rank}-{self.token}-window.pt'}
+        entry = dict(s, layer_id=LAYER, chunk_rows=self.rows, chunk_row_start=self.rows - WINDOW, plan=self.plan,
+                     projection_weight_sha256=hashlib.sha256(bytes(weight_bytes.tolist())).hexdigest())
+        os.makedirs(OUT_DIR, exist_ok=True)
+        path = os.path.join(OUT_DIR, f'{node}-rank{self.rank}-{self.token}-indexer.pt')
+        torch.save({'schema': SCHEMA, 'meta': meta, 'layer': entry}, path + '.tmp')
+        os.replace(path + '.tmp', path)
+        with open(path, 'rb') as stream:
+            digest = hashlib.sha256(stream.read()).hexdigest()
+        with open(os.path.join(OUT_DIR, f'{self.token}-rank{self.rank}.indexer-consumed'), 'x') as stream:
+            stream.write(json.dumps({'file': path, 'sha256': digest, 'problems': problems}) + '\n')
+        _log(f'saved token={self.token} rank={self.rank} file={path} sha256={digest} problems={len(problems)}')
+
+
+def capture(layer, *, metadata, positions, hidden_input, kv_norm, q_rotated, index_query_rotated,
+            raw_weights, scaled_weights, projection_weight):
+    """The single guarded call site: never raises, no device work unless armed and on the decision chunk."""
+    try:
+        _capture(layer, metadata, positions, hidden_input, kv_norm, q_rotated, index_query_rotated,
+                 raw_weights, scaled_weights, projection_weight)
+    except Exception as error:                                   # a diagnostic must not kill the serving forward
+        _abort(error)
+
+
+def _capture(layer, metadata, positions, hidden_input, kv_norm, q_rotated, index_query_rotated,
+             raw_weights, scaled_weights, projection_weight):
+    if _capturing() or getattr(layer, 'layer_id', None) != LAYER or getattr(layer, 'is_draft', False):
+        return
+    state = _state
+    if state['armed'] is None:
+        now = time.monotonic()
+        if now - state['checked'] < POLL_SECONDS:
+            return
+        state['checked'] = now
+        rank = _rank()
+        spec = _read_trigger(rank)
+        if spec is None:
+            return
+        state['armed'] = _Session(spec, rank, layer)
+        _log(f'armed token={spec["token"]} rank={rank} layer={LAYER} rows={WINDOW}')
+    session = state['armed']
+    if session.fired:
+        return
+    original = metadata[layer.swa_cache_layer.prefix]
+    if original.is_decode or original.num_reqs != 1 or original.max_seq_len != session.prompt_tokens:
+        return
+    if original.num_actual_tokens != session.rows:
+        raise RuntimeError(f'final chunk rows {original.num_actual_tokens} differ from armed {session.rows}')
+    session.capture(layer, positions=positions, hidden_input=hidden_input, kv_norm=kv_norm, q_rotated=q_rotated,
+                    index_query_rotated=index_query_rotated, raw_weights=raw_weights, scaled_weights=scaled_weights,
+                    projection_weight=projection_weight)
+
+
+def validate(capture_dict):
+    """Offline schema check for comparators (CPU tensors); returns meta or raises ValueError."""
+    if capture_dict.get('schema') != SCHEMA:
+        raise ValueError('unsupported capture schema')
+    meta, entry = capture_dict['meta'], capture_dict['layer']
+    rows = meta['chunk_rows']
+    if (rows not in (8192, 4096) or meta['prompt_tokens'] != 524288 or meta['row_position'] != 524287
+            or meta['layer'] != LAYER or meta['window_rows'] != WINDOW or meta['batch_requests'] != 1 or meta['problems']):
+        raise ValueError('capture geometry or reported problems')
+    if entry['layer_id'] != LAYER or entry['chunk_rows'] != rows or entry['chunk_row_start'] != rows - WINDOW:
+        raise ValueError('wrong layer geometry')
+    if not torch.equal(entry['positions'], torch.arange(524288 - WINDOW, 524288, dtype=torch.int64)):
+        raise ValueError('positions are not the final window')
+    h, heads, ih = meta['hidden'], meta['heads'], meta['index_heads']
+    shapes = {'hidden_input': (WINDOW, h), 'kv_norm': (WINDOW, KV_DIM), 'q_rotated': (WINDOW, heads, HEAD_DIM),
+              'index_query_rotated': (WINDOW, ih, INDEX_HEAD_DIM), 'raw_weights': (WINDOW, ih),
+              'scaled_weights': (WINDOW, ih), 'projection_weight': (ih, h)}
+    for name, shape in shapes.items():
+        t = entry[name]
+        if t.device.type != 'cpu' or tuple(t.shape) != shape or t.dtype != torch.bfloat16:
+            raise ValueError(f'{name} has shape {tuple(t.shape)} {t.dtype}, expected {shape} bfloat16')
+        if not torch.isfinite(t.float()).all():
+            raise ValueError(f'{name} is not finite')
+    problems = plan_problems(entry.get('plan'), rows=rows, hidden=h, index_heads=ih)
+    if problems:
+        raise ValueError('plan record is not evidence: ' + '; '.join(problems))
+    return meta

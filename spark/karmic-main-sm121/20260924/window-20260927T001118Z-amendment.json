@@ -1,0 +1,51 @@
+{
+  "prior_candidate": {
+    "build_lock_sha256": "028851c384d90185385d87db036263a0c3894ed2f667217fdde77d62d2802c92",
+    "diagnostic": {
+      "b12x_tree": "03a4e0b363d17c291516678689ae72d3e266749e",
+      "kind": "window-capture",
+      "lock_sha256": "59100837bbd6fdee5a9c2d689ae44ebd8b1d4b01838f5067dc3cc08706cea63b",
+      "vllm_tree": "9e339e969493cded736d3cbb53aad2d1c1e7143b"
+    },
+    "image_id": "c4a51be481c1c8130a691e72c880c3fa3b751dbddc9b2da7aa6702cc8a0039f9",
+    "recipe_sha256": "7d8a4c01ff2e1506e627bf5622ae16d7aa4dd09428e86bdd06c177564e22ed67",
+    "source_lock_sha256": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+  },
+  "prior_manifest": {
+    "candidate.json": "1bf2d9e5e51e5ac23286fdf7c529a639d6e5246ca68d91ad36d0c2451de9998f",
+    "diagnostic_overlay.py": "cdf279cd36398d18134f1c5e19aa79956d63c63fa18f0acced6a55820a22b148",
+    "gate_ds41.py": "6727ef7ec8b5dc4279ec4ce7d51dac7fc36ae31594fe8cfacd62842003479dc8",
+    "launch_contract.py": "4e9f961696266bf859ee26472ac4d1e22a64539727bf6ad2784502db2e33507e",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "df767ed6254285ced9690104509675246721e3004f12ff3204b00c12c24ce22b",
+    "runtime.py": "72aaa0205bac39b50c6af5bac882a93289ecb0d678bfb155c97230da33751b96",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "trace_attention_ops.py": "0b769e53487cf794aaecb0231385580d5a1e49c4044b3a218e579bfa784f81a9",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  },
+  "candidate": {
+    "build_lock_sha256": "028851c384d90185385d87db036263a0c3894ed2f667217fdde77d62d2802c92",
+    "diagnostic": {
+      "b12x_tree": "03a4e0b363d17c291516678689ae72d3e266749e",
+      "kind": "router-stage-release-candidate",
+      "lock_sha256": "7122753a3206df8b1ff23b1fa1b0727daf4e1378f940a4ab7358dfeb76065a77",
+      "vllm_tree": "ce1b9bcdb91706251314d3c1ea955887c779901c"
+    },
+    "image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+    "recipe_sha256": "7d8a4c01ff2e1506e627bf5622ae16d7aa4dd09428e86bdd06c177564e22ed67",
+    "source_lock_sha256": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+  },
+  "manifest": {
+    "candidate.json": "f0521ece6cc8d1ab97f6a5d7d904f9a26e2d95172ba9ef77cc8903ba909df15b",
+    "diagnostic_overlay.py": "cdf279cd36398d18134f1c5e19aa79956d63c63fa18f0acced6a55820a22b148",
+    "gate_ds41.py": "6727ef7ec8b5dc4279ec4ce7d51dac7fc36ae31594fe8cfacd62842003479dc8",
+    "launch_contract.py": "4e9f961696266bf859ee26472ac4d1e22a64539727bf6ad2784502db2e33507e",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "df767ed6254285ced9690104509675246721e3004f12ff3204b00c12c24ce22b",
+    "runtime.py": "72aaa0205bac39b50c6af5bac882a93289ecb0d678bfb155c97230da33751b96",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "trace_attention_ops.py": "0b769e53487cf794aaecb0231385580d5a1e49c4044b3a218e579bfa784f81a9",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  },
+  "scope": "restore exact router parent"
+}

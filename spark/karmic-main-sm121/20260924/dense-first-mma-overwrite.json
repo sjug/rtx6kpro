@@ -1,0 +1,7 @@
+{
+  "base_revision": "a7d7d29b2ef8869086e0ceaa787321f17544e3c9",
+  "base_sha256": "0c4d630e2d4c1a444c6046629ad84c3ce6a2c6674e564c8903abbfcb32a6b880",
+  "source_sha256": "857ae315be9df26393dd025a152979a00573a7548741809794885b45e047dd71",
+  "patch_sha256": "6bc118fb5e9853163514016437c470b78f58ebd86a0e3a0b391bca212f6a522e",
+  "scope": "isolated diagnostic only; not a qualified fix"
+}

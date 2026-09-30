@@ -1,0 +1,16 @@
+{
+  "scope": "User-approved diagnostic capture only; normal serving remains automatic KV",
+  "approval": "Yes to the temporary 80927-block KV pin for the diagnostic capture boot",
+  "image_kind": "decision-row-capture",
+  "environment": {"DS41_DECISION_ROW_BLOCKS": "80927"},
+  "model_arguments": ["--num-gpu-blocks-override", "80927"],
+  "startup_arguments": ["--arm", "decision-row", "--decision-row-blocks", "80927"],
+  "prior_runtime_manifest_sha256": "3d120e9003d983b5cb4ba2f14373e8285f67d23d721df89d26c5e9818faba181",
+  "updated_runtime_manifest_sha256_before_image_selection": "e3ad33e2598513386cfa5b53d595ab14e52ec0613de9ab3cfee711076446e9d5",
+  "prior_files": {
+    "launch_contract.py": "d8b706ceb4bced6045bce39f4b5e602dee7d02869688d0c30809cbec955a428d",
+    "run_node.py": "6273bfc259c7a295eac9994c8c940244508c9be349ae34222300a37b9de88817",
+    "runtime.py": "7722a2f5ef8034dd27373cd6f2b077a61bc529ee12fb658ac6b2fdfb9ec09ca2"
+  },
+  "acceptance": "Actual eight-plan regime and complete response signature must match retained B2 before interpreting the capture; this diagnostic is not promotion"
+}

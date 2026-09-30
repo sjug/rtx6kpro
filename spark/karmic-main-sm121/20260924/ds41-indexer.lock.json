@@ -1,0 +1,66 @@
+{
+  "base_image_id": "c4a51be481c1c8130a691e72c880c3fa3b751dbddc9b2da7aa6702cc8a0039f9",
+  "base_kind": "window-capture",
+  "base_lock": "claude-window.lock.json",
+  "base_lock_sha256": "59100837bbd6fdee5a9c2d689ae44ebd8b1d4b01838f5067dc3cc08706cea63b",
+  "base_parent_image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+  "base_router_target": {
+    "path": "b12x/gemm/bf16_gemv/_prefill.py",
+    "sha256": "ca888af42b16eb27be445814154f98a3765cb5b054e7b0b77408f76939e801e8"
+  },
+  "base_trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "9e339e969493cded736d3cbb53aad2d1c1e7143b"
+  },
+  "build_args": [
+    "DECISION_LOCK",
+    "DECISION_CACHE"
+  ],
+  "capture_schema": "ds41-indexer-capture-v1",
+  "decision_row_lock_sha256": "3eb16ccca36e78ebbf133fb238ed8b0ffc261316c71ada958ab810ef8f07e8b4",
+  "decision_row_schema": "claude-decision-row-v3",
+  "image_kind_label": "indexer-capture",
+  "inherited_helper_provenance": {
+    "decision_read_path": "/opt/ds41-decision-row/claude-decision-row.lock.json",
+    "disposition": "metadata-only: the unchanged decision-row and window helpers keep their bytes; the lock files they read for source_trees are replaced by provenance stubs naming this image's trees and the indexer lock, with the originals preserved beside them",
+    "original_decision_stub": "claude-decision-row.lock.original.json",
+    "original_window_lock": "claude-window.lock.original.json",
+    "window_read_path": "/opt/ds41-window/claude-window.lock.json"
+  },
+  "inputs": {
+    "Dockerfile.ds41-indexer": "dd4fc8b9d612d3d995a87a1338d138339dc8a9238d03211c9b63ede5211d8958",
+    "ds41-indexer-attention.py": "7ad2c9796fc0b8694e86651cd7b42a666a28aae34ccefb4646062e1cd152907b",
+    "ds41-indexer.patch": "084c70e9efd7466757fc120a9f5aece8cfad9ebe3cd70e32e93d000f496f9534",
+    "ds41_indexer_capture.py": "1928448a2cea54061e72c70ee71e1ee288335ac8e04f63df09c49efa4a012192",
+    "ds41_indexer_install.py": "4435255e18a24393ec77a3f9284f269a26802f59d025144c0ac4eb278c75c70f",
+    "ds41_indexer_prepare.py": "93f1a403e9da9f4036ecca05c4e05ba439f48f5401b8440cf2b27b0fc2978274",
+    "test_ds41_indexer_capture.py": "ac4568a6bb0298b5c866dc612040f401edad2326b0b643356addfa6b3a8bfe68"
+  },
+  "install_dir": "/opt/ds41-indexer",
+  "install_pass_marker": "INDEXER-INSTALL-PASS",
+  "kind": "indexer-capture-diagnostic",
+  "preserved": {
+    "vllm/vllm/models/deepseek_v4_1/claude_decision_row.py": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+    "vllm/vllm/models/deepseek_v4_1/claude_window.py": "94dc1747d8e3843e89052576af4de59d8f132ebf8515da9d27608f3f646aa9b0"
+  },
+  "router_lock_sha256": "7122753a3206df8b1ff23b1fa1b0727daf4e1378f940a4ab7358dfeb76065a77",
+  "scope": "layer-2 index-weight observation (hidden input, normalized KV, rotated q and index query, raw and scaled index weights, projection weight, selected gemv plan) on top of the window-capture image; one guarded call, copies only; not numerics, determinism, performance or gate evidence",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/attention.py": {
+      "input_sha256": "72bee917698de5245d6731f25107f73b51cd29be249541989be8147ca6403c45",
+      "output_sha256": "7ad2c9796fc0b8694e86651cd7b42a666a28aae34ccefb4646062e1cd152907b",
+      "source": "ds41-indexer-attention.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/ds41_indexer_capture.py": {
+      "input_sha256": null,
+      "output_sha256": "1928448a2cea54061e72c70ee71e1ee288335ac8e04f63df09c49efa4a012192",
+      "source": "ds41_indexer_capture.py"
+    }
+  },
+  "trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "c959c4f44c7c76fc4e71e3ac59fe1073ce0838d4"
+  },
+  "window_schema": "claude-window-v1"
+}

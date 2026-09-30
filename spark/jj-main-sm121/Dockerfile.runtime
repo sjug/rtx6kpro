@@ -1,0 +1,57 @@
+ARG VLLM_COMPONENT_IMAGE
+FROM ${VLLM_COMPONENT_IMAGE} AS vllm
+RUN git -C /build/vllm archive 182f7f4ac37b980a3bb81e74797a78e9dbf822cb > /artifacts/vllm/source.tar
+FROM 358f888657b631b53a0706a3e5c88a680c0e363f48502fac49af2dbfcf135c73 AS flashinfer
+FROM ee19802e04c9ee6923dbb7a3f19147e4eae82edd015c14618a931eb9e51bd719 AS nccl
+FROM bc4722058e7d27f8683546fc7cd234c8acdfe829abce9964dbca882fb4c1cd2f AS lmcache
+FROM ecfffd85f816b5a82bea260e68977b1256ca15d1c741ef3a48f945dfa9a9a5ee AS instanttensor
+FROM ad008e629e810957ba8c8b18b89712717816f52b35960bddf6f9b495bdab7673
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+ENV PATH=/opt/venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    PYTHONPATH=/opt/jovian-judgement/vllm:/opt/jovian-judgement/b12x \
+    PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    PYTHONOPTIMIZE=0 CUDA_DEVICE_ORDER=PCI_BUS_ID \
+    NCCL_NET_PLUGIN=none NCCL_TUNER_PLUGIN=none \
+    LMCACHE_ENABLED=0 VLLM_PLUGINS="" B12X_ROCE_CACHE_DIR=/opt/b12x-roce-cache \
+    LD_PRELOAD=/opt/nccl/lib/libnccl.so.2.31.2 \
+    VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2 \
+    LD_LIBRARY_PATH=/opt/nccl/lib:/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+COPY --from=nccl /artifacts/nccl/lib/ /opt/nccl/lib/
+COPY --from=vllm /artifacts/vllm/ /opt/jj-main-build/components/vllm/
+COPY --from=flashinfer /artifacts/flashinfer/ /opt/jj-main-build/components/flashinfer/
+COPY --from=lmcache /artifacts/lmcache/ /opt/jj-main-build/components/lmcache/
+COPY --from=instanttensor /artifacts/instanttensor/ /opt/jj-main-build/components/instanttensor/
+RUN for component in vllm flashinfer lmcache instanttensor; do \
+      (cd /opt/jj-main-build/components/$component && sha256sum -c SHA256SUMS); \
+    done \
+    && uv pip install --python /opt/venv/bin/python --no-index --no-deps /opt/jj-main-build/components/*/*.whl \
+    && mkdir -p /opt/jovian-judgement/vllm \
+    && tar -xf /opt/jj-main-build/components/vllm/source.tar -C /opt/jovian-judgement/vllm
+RUN git init /opt/jovian-judgement/b12x \
+    && git -C /opt/jovian-judgement/b12x remote add origin https://github.com/local-inference-lab/sparkinfer.git \
+    && git -C /opt/jovian-judgement/b12x fetch --depth=1 origin 0f3a8cbfd1c11d27f04e3ab37a802d522f4f1c68 \
+    && git -C /opt/jovian-judgement/b12x checkout --detach FETCH_HEAD \
+    && test "$(git -C /opt/jovian-judgement/b12x rev-parse HEAD^{tree})" = ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e \
+    && uv pip install --python /opt/venv/bin/python --no-deps --no-build-isolation /opt/jovian-judgement/b12x
+COPY install_runtime_payload.py /opt/jj-main-build/
+RUN python /opt/jj-main-build/install_runtime_payload.py
+RUN python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py \
+      --manifest /opt/karmic-build/runtime-inputs/tools/jovian_wheel_runtime/ngc-python-patches.json \
+    && python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py \
+      --manifest /opt/karmic-build/runtime-inputs/tools/jovian_wheel_runtime/ngc-venv-python-patches.json
+RUN python -c 'from b12x.comm.roce import _proxy; lib = _proxy.load(); print("RoCE proxy ABI", lib.roce_abi_version())' \
+    && CC=/bin/false python -c 'from b12x.comm.roce import _proxy; _proxy.load(); print("RoCE prebuilt load passed")'
+COPY build.lock.json source-selection.json /opt/jj-main-build/
+ARG RECIPE_SHA256
+LABEL local-inference.runtime.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="candidate-not-model-qualified" \
+      vllm.source-tree="182f7f4ac37b980a3bb81e74797a78e9dbf822cb" \
+      b12x.source-tree="ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e" \
+      local-inference.flashkda.commit="3b225bf26bb8e218928a1fe14751cb48cf31d11b" \
+      local-inference.flashinfer.commit="2206a14e46387a56c093860a46bbbdd00596b75b" \
+      local-inference.lmcache.commit="688bee14e157b64623d93c07fc0d4db93470e12f" \
+      local-inference.nccl.commit="93fe05d9f9b6963ef841166a69cd0b30e4efe97b" \
+      lmcache.default="disabled"
+WORKDIR /opt/jovian-judgement/vllm
+ENTRYPOINT []
+CMD ["python", "-m", "vllm.entrypoints.cli.main", "--help"]

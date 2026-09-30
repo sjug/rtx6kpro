@@ -1,0 +1,8 @@
+{
+  "parent_image_id": "f30dc6d9a2a6f6fc0ac9ff8cddb04d9f631f4a87b48ca7cac69254802fe83233",
+  "serving_image_id": "9b23ca237881b90856adcea7f20be5c9937036b74863d668515ca1e58b4a6103",
+  "glm_launcher_sha256": "3ca22e172d4efc8d5c3ce59fae9b3226b386079d9a4cadb51c1752ae760754a1",
+  "scope": "GLM launcher preflight filename and proxy path only; native/source/cache identity inherited unchanged",
+  "gates": ["native-smoke", "real-launcher-preflight-and-serve-help"],
+  "qualification": "pending"
+}

@@ -1,0 +1,31 @@
+{
+  "base_diagnostic_lock_sha256": "7afb601bd0d89a97d58343ef1757bfb966e9d5f89c11a1c4146bd68f102061bf",
+  "base_image_id": "14abc3e66a45eacbd7478c1c1f6a69ecd345df6bffb8cd81ea972a5c4b304d7f",
+  "inputs": {
+    "Dockerfile.claude-moe-capture": "7f14301c35deeef97151d8f63669f4d09cbb4214e23d77bc913dbcd1911dc35f",
+    "claude-moe-capture-act_analyze.py": "40125f33e65ad43e2ca1550e32d94bf485bdeda4a35b0ccb0aee54e4abb80ae6",
+    "claude-moe-capture-act_trace.py": "9e4ef6f243a3c91e3de8dc2005a09b5bc0c82004ce56c2e156b663dea578e65c",
+    "claude-moe-capture.patch": "c9f33f54d486becf06da0f82cdf52ce3ee7e0e213ca19bc6660fc6576b5730d3",
+    "claude_gate_moe_capture_cuda.py": "7b809c9e630b528c005033bc2d1cdc3030098dde1315d4e3be1cf707d146578a",
+    "claude_install_moe_capture.py": "ea123eeeedf17852dc6106c473c4734054640643f4a2da2aa3e4fe9b8f478a9b",
+    "claude_prepare_moe_capture.py": "f9c8b38cff8e9980fd33e17d3a3a42f08c573db592fb95f3503339b049060714",
+    "claude_test_moe_capture.py": "064447dc3f8de6c1ad89f1eace9892d978d79c43e4c8e98bba7a2aa690247028"
+  },
+  "kind": "moe-capture-diagnostic",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/claude_act_trace.py": {
+      "input_sha256": "b48383e7576620067f9027580be905b15d1e0da33f2262f58f2f8cd47cbfb16c",
+      "output_sha256": "9e4ef6f243a3c91e3de8dc2005a09b5bc0c82004ce56c2e156b663dea578e65c",
+      "source": "claude-moe-capture-act_trace.py"
+    }
+  },
+  "verify_unchanged": {
+    "vllm/vllm/model_executor/layers/fused_moe/layer.py": "57d0d03ea2067aafe8c4bdcae00b8db9bc06cda4860844825e8b496d7b7106f9",
+    "vllm/vllm/model_executor/layers/fused_moe/router/fused_moe_router.py": "0daa0dc05b931d66767feca444a4cd57ecf140f59b40ea0e8ad213eef6da2b36",
+    "vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py": "e04db3217620335edc2341be711eb6df32160a2d44ab279ce28821308eb2747c",
+    "vllm/vllm/model_executor/layers/fused_moe/runner/shared_experts.py": "0226f655186944e45a11be7198b666e6697362ece587fba54eb35b953c79ed88",
+    "vllm/vllm/models/deepseek_v4/nvidia/model.py": "109236e3b5868f74922f9d270a2d82776f498855b284666279613002b65016ea"
+  },
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1"
+}

@@ -1,0 +1,19 @@
+{
+  "b12x_tree": "2d34ffa9a1cb4380b766e2752fe6d3705841d81e",
+  "base_image_id": "3413799408e09ad3a1bb4ea2297384fa03927ca8b4e8e72f2af61aef8951d54c",
+  "input_sha256": "7004e7fc0834627a2975a138f7b997806e5a86bab11c80b18997292c59b5aa02",
+  "inputs": {
+    "Dockerfile.stale-probe": "d454770e25c34fc0c3c51f9e1e5ae498e99b7ae327516c67a10468ddf45df8b7",
+    "build_stale_probe.py": "b1871e5629cbbb9d2363d1d5f6859d1b9b3ffe94be89361a22480a14bf796637",
+    "claude-stale-state-model_state.patch": "031b1a72642eff80b930ca76ff2e0c108710445dbcbba114cf24251bdd4d58a9",
+    "claude_stale_state_probe.py": "a0871b855b91136f8d8cacb87d289251da1a36d0c7a1a72d9075bff437ed972a",
+    "claude_test_stale_state_probe_torch.py": "bea22b5ba3ea7bf53ec1c098cde23d12286a8ee1fd33a781bbb76c8d9f8c0a8e",
+    "install_stale_probe.py": "cdd429877e1ea78fa75835096552da4b5132ccde20815663b4c48305c9547052",
+    "prepare_stale_probe_image.py": "c86bfce16bae013b340da1ceb6b76f30d83f0797ec8dafc7a09122fc596de95c",
+    "stale-probe-model_state.py": "ba4a27d50f4399f9cc545f9f4daf4ba81a6972387e0451986641b31164bf9a0d"
+  },
+  "output_sha256": "ba4a27d50f4399f9cc545f9f4daf4ba81a6972387e0451986641b31164bf9a0d",
+  "source_path": "vllm/models/deepseek_v4_1/nvidia/model_state.py",
+  "status": "diagnostic-only-not-qualified",
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1"
+}

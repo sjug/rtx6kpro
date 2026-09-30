@@ -1,0 +1,34 @@
+campaign: 2026-09-jj-main-sm121-qualification
+status: completed_qualification_not_promoted
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89
+revision: c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d
+hosts: [dusty, kirby]
+candidate_image_id: 6633e678fee74f5e1060290a01df812d34d10edcf30e34dd1c9bf7db88260ef3
+failed_parent_image_id: e7926f763859ba5800cc24198ef297a12322fdaac93b55ac89b88abe02c1b1fb
+upstream_backport: 0f60770e859ec95fd161b2a64c4925dfcfbd86ed
+baseline: qualified R32 on the same pair
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+notes: >-
+  No benchmark ran on the original candidate: its pinned vLLM coordinator
+  lacked the cache-agreement handshake required by the pinned B12X multi-rank
+  tuning protocol. The authorized retry backports the matching upstream fix,
+  preserves autotuning and all native artifacts, and uses separate receipts.
+  Fresh CUDA 13.4/Torch 2.14 ARM64 foundation and pinned JJ-main sources.
+  No claim that either alone causes a performance change. Correctness precedes
+  timing. The existing run_bench.sh is used unchanged with RESULTS_REPO pointing
+  at rtx6kpro; neither benchmark source nor its separate results repository is
+  modified. Engine steps, acceptance and output throughput are reported separately.
+  Retry correctness and all 15 grid cells passed. Single-boot steps improved
+  2.1-4.1 percent versus the existing R32 return grid; prefill scouts were
+  1.6-3.8 percent slower. Startup memory pressure remains unresolved. No production
+  promotion, repeatability claim or changes to GLM and DS4.

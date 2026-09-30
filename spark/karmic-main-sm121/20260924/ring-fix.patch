@@ -1,0 +1,17 @@
+--- a/vllm/models/deepseek_v4_1/sparse_mla.py
++++ b/vllm/models/deepseek_v4_1/sparse_mla.py
+@@ -69,8 +69,12 @@
+     end = tl.load(Starts + lo + 1, valid, other=0)
+     seq = tl.load(Seq + lo, valid, other=0)
+     pos = seq.to(tl.int64) - (end - start) + t - start
+-    input_slot = tl.load(InputSlots + t, t < nt, other=-1)
+-    valid = valid & (pos >= 0) & (input_slot >= 0)
++    valid = valid & (pos >= 0)
++    if not CIRCULAR:
++        # CircularBufferSpec disables generic slot mapping. Its
++        # request-owned ring is addressed from Table and pos below.
++        input_slot = tl.load(InputSlots + t, t < nt, other=-1)
++        valid = valid & (input_slot >= 0)
+     logical = pos // RATIO
+     page_col = tl.full((B,), 0, tl.int64) if CIRCULAR else logical // PAGE
+     valid = valid & (page_col < table_width)

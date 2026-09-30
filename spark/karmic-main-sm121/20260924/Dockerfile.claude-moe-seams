@@ -1,0 +1,17 @@
+# DIAGNOSTIC ONLY. Never a serving candidate: activation digests plus MoE
+# seams (rank-local shared/routed partials, collective input and output).
+# Base: activation-digest diagnostic 0b5c65a81b25 over Engram repair ee03505df7a3.
+FROM 0b5c65a81b2544b2ebe4d1450076f654e21feb43703931601778a645c829c5ba
+ARG TRACE_LOCK
+ARG TRACE_CACHE
+COPY claude-moe-seams.lock.json claude_prepare_moe_seams.py claude-moe-seams-act_trace.py claude_install_moe_seams.py Dockerfile.claude-moe-seams claude-moe-seams-act_analyze.py claude_test_moe_seams.py claude-moe-seams.patch /opt/ds41-moe-seams/
+RUN /opt/venv/bin/python /opt/ds41-moe-seams/claude_install_moe_seams.py
+# B12X bytes are unchanged: its compile cache and native loader build are the
+# candidate's. vLLM and Inductor output goes to a separate directory.
+ENV VLLM_CACHE_ROOT=/cache/jit/${TRACE_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${TRACE_CACHE}/inductor
+LABEL local-inference.ds41.diagnostic.kind="activation-digest-moe-seams" \
+    local-inference.ds41.diagnostic.lock.sha256="${TRACE_LOCK}" \
+    local-inference.ds41.diagnostic.base-image="0b5c65a81b2544b2ebe4d1450076f654e21feb43703931601778a645c829c5ba" \
+    local-inference.status="diagnostic-only-not-qualified" \
+    org.opencontainers.image.title="DS4.1 Engram repair with activation-digest and MoE-seam diagnostic"

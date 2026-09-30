@@ -1,0 +1,6 @@
+true
+true
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+BENCHMARK-START 2026-09-22T13:36:52-04:00
+/home/jugs/git/llm-inference-bench/run_bench.sh: OK
+error: create /home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-jj-main-sm121-qualification/campaign.yaml before recording runs

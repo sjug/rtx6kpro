@@ -1,0 +1,70 @@
+START 2026-09-21T11:16:45-04:00
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+true
+READY 2026-09-21T11:22:34-04:00
+true
+true
+true
+true
+== short-prompt pool tails 2026-09-21T11:22:35-04:00 ==
+{"kind": "short_pool_semantic", "prompt_tokens": 128, "pool_size": 4, "tail_tokens": 0, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.3057937260018662, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 129, "pool_size": 4, "tail_tokens": 1, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.2311923009692691, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2047, "pool_size": 4, "tail_tokens": 3, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.6229106180253439, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2048, "pool_size": 4, "tail_tokens": 0, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.223891250032466, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2049, "pool_size": 4, "tail_tokens": 1, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.4793838289915584, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2050, "pool_size": 4, "tail_tokens": 2, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.8114786240039393, "valid": true}
+{"kind": "short_pool_semantic", "prompt_tokens": 2051, "pool_size": 4, "tail_tokens": 3, "needle": "739526", "needle_token_offset": 34, "elapsed_seconds": 1.2300328020355664, "valid": true}
+GLM_R38_SHORT_POOL_SEMANTIC_PASS cases=7
+== semantic x3 2026-09-21T11:22:45-04:00 ==
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 39, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 1, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 55, "effort": "high", "kind": "reasoning", "reasoning_chars": 30, "repetition": 1, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 60, "effort": "max", "kind": "reasoning", "reasoning_chars": 99, "repetition": 1, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 1, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "17 \u00d7 23 = 391 (since 17 \u00d7 20 = 340, plus 17 \u00d7 3 = 51). Then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 59, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 2, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 54, "effort": "high", "kind": "reasoning", "reasoning_chars": 28, "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 60, "effort": "max", "kind": "reasoning", "reasoning_chars": 99, "repetition": 2, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 2, "valid": true}
+{"answer": "FINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "17 \u00d7 23 = 391 (since 17 \u00d7 20 = 340, plus 17 \u00d7 3 = 51, giving 340 + 51 = 391).\n\nThen 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 70, "effort": "low", "kind": "reasoning", "reasoning_chars": 24, "repetition": 3, "valid": true}
+{"answer": "**Step 1:** 17 \u00d7 23 = 391\n**Step 2:** 391 \u2212 58 = 333\n\nFINAL: 333", "completion_tokens": 52, "effort": "high", "kind": "reasoning", "reasoning_chars": 30, "repetition": 3, "valid": true}
+{"answer": "17 \u00d7 23 = 391, then 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 60, "effort": "max", "kind": "reasoning", "reasoning_chars": 99, "repetition": 3, "valid": true}
+{"answer": "FINAL: red, blue", "kind": "vision", "repetition": 3, "valid": true}
+Traceback (most recent call last):
+  File "/home/jugs/git/rtx6kpro/spark/glm53/verify-semantic-admission.py", line 239, in <module>
+    main()
+    ~~~~^^
+  File "/home/jugs/git/rtx6kpro/spark/glm53/verify-semantic-admission.py", line 223, in main
+    receipt = gate(endpoint, args.model)
+  File "/home/jugs/git/rtx6kpro/spark/glm53/verify-semantic-admission.py", line 195, in tool_gate
+    raise AssertionError(f"tool round trip failed: {choice}")
+AssertionError: tool round trip failed: {'index': 0, 'message': {'role': 'assistant', 'content': '17 × 23 = 391\n\nFINAL: 391', 'refusal': None, 'annotations': None, 'audio': None, 'function_call': None, 'reasoning': None}, 'logprobs': None, 'finish_reason': 'stop', 'stop_reason': 154827, 'token_ids': None, 'routed_experts': None}

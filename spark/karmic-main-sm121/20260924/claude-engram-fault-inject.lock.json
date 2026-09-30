@@ -1,0 +1,44 @@
+{
+  "base_image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+  "base_kind": "router-stage-release-candidate",
+  "base_lock": "router-release.lock.json",
+  "base_lock_sha256": "7122753a3206df8b1ff23b1fa1b0727daf4e1378f940a4ab7358dfeb76065a77",
+  "base_parent_image_id": "ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5",
+  "base_router_target": {
+    "path": "b12x/gemm/bf16_gemv/_prefill.py",
+    "sha256": "ca888af42b16eb27be445814154f98a3765cb5b054e7b0b77408f76939e801e8"
+  },
+  "base_trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "ce1b9bcdb91706251314d3c1ea955887c779901c"
+  },
+  "inputs": {
+    "Dockerfile.claude-engram-fault-inject": "7f0d0a3ad1d2574129f7c6b58921170c67a3fa305923cd0246ad35ec8b09c502",
+    "claude-engram-fault-inject-model.py": "97aa32a83cb638f9a26791d5e49eb7c6d4508c7e9686b2c0cb629a11a01e31f6",
+    "claude-engram-fault-inject.patch": "9b51eda3d26c6152c50ef472cec07d7b0b9d8b3de40e36e7024a23f2e8aadc66",
+    "claude_classify_fault_inject.py": "2a64bb7a13b70f8b21b14ecb5f1a50bdb3cd8df60f09fad7bed43822e7b40b92",
+    "claude_engram_fault_inject.py": "148930dc765551788880d3ded73dbd260f168d133de2fc009108476b6cf5389c",
+    "claude_install_engram_fault_inject.py": "1207a70c2b699e5440ed474df4935d3bc0a267ab865c822196cbd3497d781841",
+    "claude_prepare_engram_fault_inject.py": "eb504bba882349224626bdf91a2e84129d60a81ef4b49ac8e63d5d5155262b48",
+    "claude_test_engram_fault_inject.py": "1129ed7b4cbd5711826e7ee08fac76d6e5277404fffdbff3c0453717f3c68513"
+  },
+  "kind": "engram-fault-inject-diagnostic",
+  "scope": "cross-rank fail-closed Engram publication test only; not numerics, determinism, performance or router-fence evidence",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/claude_engram_fault_inject.py": {
+      "input_sha256": null,
+      "output_sha256": "148930dc765551788880d3ded73dbd260f168d133de2fc009108476b6cf5389c",
+      "source": "claude_engram_fault_inject.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/nvidia/model.py": {
+      "input_sha256": "e8c08fa6df8bcc5d88791b597c7a029449cf4a7354cccbb58df2147b804921ba",
+      "output_sha256": "97aa32a83cb638f9a26791d5e49eb7c6d4508c7e9686b2c0cb629a11a01e31f6",
+      "source": "claude-engram-fault-inject-model.py"
+    }
+  },
+  "trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "3c2f8f85f612655be144c623a02f506b065cfc7a"
+  }
+}

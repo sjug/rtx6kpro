@@ -1,0 +1,10 @@
+{
+  "b12x_tree": "d10fbf9c5772edf1beed5e02fc504f589895c044",
+  "base_b12x_tree": "19e40c53ad4d8fa52d32177e4f72c73c780c3cce",
+  "base_image_id": "eb3adc203432f2e54738c5977b65bc6a618ba4fdb76f23dd510df5910365e08d",
+  "input_sha256": "251a4dce3c8f07d52fc3512b32b61c71f2059964fbeb263e6fa5a4969f8eda0c",
+  "output_sha256": "081d6d5488dc49296ef8032def94e06f38cf0a7c2db944df681b621335aa6b8c",
+  "patch_sha256": "4608cbf7577f2f7817a72e3844b86362478a89179d3bb26cdbdfa63b205420e0",
+  "scope": "Declaration-only repair for dynamic deterministic ordered reduction; kernel arithmetic unchanged",
+  "target_path": "b12x/moe/fused_moe/_preparation.py"
+}

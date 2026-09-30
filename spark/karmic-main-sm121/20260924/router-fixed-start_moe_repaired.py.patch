@@ -1,0 +1,39 @@
+--- a/start_moe_repaired.py
++++ b/start_moe_repaired.py
+@@ -20,14 +20,18 @@
+ parser.add_argument('--trace-prefix', default='ops')
+ parser.add_argument('--trace-pairs')
+ parser.add_argument('--dense-replay', action='store_true')
++parser.add_argument('--fixed-router-blocks', action='store_true', help='Diagnostic only: freeze KV geometry at 79000 blocks in both router arms')
+ args = parser.parse_args()
++if args.fixed_router_blocks and args.arm not in ('engram-repair', 'router-fence'):
++    parser.error('Fixed router blocks require the clean parent or router candidate')
+ if args.cuda_module_loading and args.arm != 'engram-timing':
+     parser.error('Loading-policy control is restricted to the timing diagnostic')
+ if (args.trace_pairs or args.dense_replay) and not args.ops_trace:
+     parser.error('Trace options require --ops-trace')
+ stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+ since = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+-out = ROOT / 'receipts' / f'{args.arm}-{stamp}'
++profile_label = args.arm + ('-fixed79000' if args.fixed_router_blocks else '')
++out = ROOT / 'receipts' / f'{profile_label}-{stamp}'
+ out.mkdir(exist_ok=False)
+ print('RECEIPTS', out, flush=True)
+ digest = kit_digest()
+@@ -54,6 +58,8 @@
+ 
+ def launch_command(node):
+     overrides = 'B12X_DYNAMIC_DETERMINISTIC_OUTPUT=1'
++    if args.fixed_router_blocks:
++        overrides += ' DS41_ROUTER_CONTROL_BLOCKS=79000'
+     if args.cuda_module_loading:
+         overrides += ' CUDA_MODULE_LOADING=' + args.cuda_module_loading
+     if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence'):
+@@ -62,6 +68,7 @@
+         overrides += ' VLLM_DS41_L2_PREFETCH=0'
+     # Clear remote-shell overrides before applying the explicit repaired profile.
+     clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence') else 'env'
++    clean += ' -u DS41_ROUTER_CONTROL_BLOCKS'
+     return f'cd {REMOTE} && {clean} {overrides} python3 run_node.py --node {node}'
+ 
+ for node in NODES:

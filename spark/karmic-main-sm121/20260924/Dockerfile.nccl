@@ -1,0 +1,42 @@
+FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+ENV CUDA_HOME=/usr/local/cuda
+ARG SOURCE_SHA256
+ARG RECIPE_SHA256
+COPY nccl-source.tar /build/nccl-source.tar
+COPY Dockerfile.nccl nccl.lock.json /artifacts/nccl/
+RUN test "$(uname -m)" = aarch64 \
+    && test "$(sha256sum /build/nccl-source.tar | cut -d' ' -f1)" = "$SOURCE_SHA256" \
+    && test "$(sha256sum /artifacts/nccl/Dockerfile.nccl | cut -d' ' -f1)" = "$RECIPE_SHA256" \
+    && mkdir -p /build/nccl /artifacts/nccl/lib /artifacts/nccl/include \
+    && tar -xf /build/nccl-source.tar -C /build/nccl
+WORKDIR /build/nccl
+# Preserve the measured Spark build policy: twenty jobs, native ARM64 compiler.
+# No host-specific flags, ring patch, channel pin or compile-time autotuning.
+RUN env -u CXXFLAGS -u CFLAGS -u LDFLAGS make -j20 src.build VERBOSE=1 \
+       CUDA_HOME=/usr/local/cuda NVCC_GENCODE='-gencode=arch=compute_121,code=sm_121' \
+       2>&1 | tee /artifacts/nccl/compile.log \
+    && ! grep -Eq -- '-m(arch|tune|cpu)=' /artifacts/nccl/compile.log \
+    && install -m 0755 build/lib/libnccl.so.2.30.7 /artifacts/nccl/lib/ \
+    && cp -a build/include/. /artifacts/nccl/include/ \
+    && ln -s libnccl.so.2.30.7 /artifacts/nccl/lib/libnccl.so.2 \
+    && ln -s libnccl.so.2 /artifacts/nccl/lib/libnccl.so \
+    && readelf -h /artifacts/nccl/lib/libnccl.so.2.30.7 > /artifacts/nccl/elf.txt \
+    && grep -Eq 'Machine:.*AArch64' /artifacts/nccl/elf.txt \
+    && ldd /artifacts/nccl/lib/libnccl.so.2.30.7 > /artifacts/nccl/ldd.txt \
+    && ! grep -q 'not found' /artifacts/nccl/ldd.txt \
+    && cuobjdump --list-elf /artifacts/nccl/lib/libnccl.so.2.30.7 > /artifacts/nccl/cubins.txt \
+    && grep -Eq 'sm_121([^[:alnum:]_]|$)' /artifacts/nccl/cubins.txt \
+    && cd /artifacts/nccl && sha256sum lib/libnccl.so.2.30.7 > SHA256SUMS
+RUN python - <<'PY'
+import ctypes
+library = ctypes.CDLL('/artifacts/nccl/lib/libnccl.so.2.30.7')
+version = ctypes.c_int()
+if library.ncclGetVersion(ctypes.byref(version)) != 0 or version.value != 23007:
+    raise RuntimeError('NCCL version gate failed')
+print('NCCL_ARM64_LINKAGE_PASS; switched TP4 GPU qualification remains pending')
+PY
+LABEL local-inference.nccl.commit="73cf112295c33aee2b895f329f592f2a9b4b0f97" \
+      local-inference.nccl.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.nccl.source.sha256="${SOURCE_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

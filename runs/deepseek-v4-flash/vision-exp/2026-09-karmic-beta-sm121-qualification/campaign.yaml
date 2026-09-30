@@ -1,0 +1,40 @@
+id: 2026-09-karmic-beta-sm121-qualification
+status: completed_promoted
+objective: Full DS4 Vision qualification of the September 29 Karmic beta Spark image, aiming for the best serving configuration rather than R38 reproduction.
+candidate_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+publication: karmic-kraken-beta-20260929-7476365edc3d8ee5
+kit: spark/karmic-beta-sm121/20260929/ds4-vision
+baselines:
+  - serving R38p ab3ed5285a81c9fd4df3c9001021c420368e7667177470aa2e055420f89ecdcf, 2026-09-r38p-grammar-qualification r01 (b12x-a8-dglin)
+  - R38p b12x-k3 arm, 2026-09-28-vision-dense-depth-evaluation (b12x-a8), the fastest measured GB10 configuration
+shared_configuration:
+  checkpoint_revision: 6821d6ad3681a4b137b066b76094fa82ebd0a380
+  nodes: [rusty, toby]
+  tensor_parallel: 2
+  decode_context_parallel: 1
+  speculative_method: dspark
+  speculative_tokens: 3
+  backend: b12x-a8
+  max_model_len: 524288
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+notes: >-
+  Upstream beta launcher defaults apply (FlashInfer autotune on, reasoning_effort
+  high, default multimodal processor cache); GB10-specific utilization, NCCL
+  protocol and context kept. Backend b12x-a8 (B12X linears) chosen over the
+  upstream native-dense default because the September 28 GB10 evaluation measured
+  it about 3 percent faster in engine steps on R38p. The September 29 quick prefill
+  probe on this image used b12x-a8-dglin; see
+  spark/karmic-beta-sm121/20260929/ds4-vision/PREFILL-20260929.md. Fresh boot for this
+  pass. Unchanged run_bench.sh; no benchmark repository edits. One candidate boot
+  versus historical baselines.
+  Result: correctness battery, 16K and 524K retrieval, 32 structured cases and post-grid
+  semantics passed; 15 valid cells. Versus R38p b12x-k3 (same backend): output +2.7/+0.8/+4.2
+  percent and steps -0.2/-1.5/+3.2 percent at c1/c2/c4; prefill +2.5 percent at 8K, -3.0 to
+  -3.1 percent from 16K to 128K. KV 1525210 tokens (R38 1516572). Zero kernel NV_ERR/Xid/OOM.
+  Rusty thermal 0x20 samples during 524K prefill and two during the grid. One boot. See
+  spark/karmic-beta-sm121/20260929/ds4-vision/QUALIFICATION.md.
+  Promoted to production by the user on 2026-09-29; previous containers retained stopped for rollback.
+  2026-09-29: production max_model_len raised to native 1048576 (user rule); restart only, no
+  new needle or grid; KV pool 2200602 tokens (2.10 full 1M requests), completion ok, no kernel events.

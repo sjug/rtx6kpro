@@ -1,0 +1,25 @@
+FROM e7926f763859ba5800cc24198ef297a12322fdaac93b55ac89b88abe02c1b1fb
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+COPY cache-agreement.patch cache-agreement.lock.json install_cache_backport.py /opt/jj-main-build/cache-agreement/
+RUN /opt/venv/bin/python /opt/jj-main-build/cache-agreement/install_cache_backport.py
+# Source-derived cache identity. No engine policy, native library or launcher change.
+ENV XDG_CACHE_HOME=/cache/jit/jj-main-976a9ac502a7 \
+    VLLM_CACHE_ROOT=/cache/jit/jj-main-976a9ac502a7/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/inductor \
+    TRITON_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/b12x \
+    CUTE_DSL_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/cute-dsl \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/b12x/compile \
+    TORCH_EXTENSIONS_DIR=/cache/jit/jj-main-976a9ac502a7/torch-extensions \
+    TVM_FFI_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/tvm-ffi \
+    TVM_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/tvm \
+    DG_JIT_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/deep-gemm \
+    NUMBA_CACHE_DIR=/cache/jit/jj-main-976a9ac502a7/numba \
+    CUDA_CACHE_PATH=/cache/jit/jj-main-976a9ac502a7/cuda
+LABEL vllm.source-tree="976a9ac502a7bcdb25b18cb5597d21caafc97252" \
+      local-inference.parent-image="e7926f763859ba5800cc24198ef297a12322fdaac93b55ac89b88abe02c1b1fb" \
+      local-inference.cache.fingerprint="jj-main-976a9ac502a7" \
+      local-inference.cache-agreement.commit="0f60770e859ec95fd161b2a64c4925dfcfbd86ed" \
+      local-inference.cache-agreement.patch="0d90806b1abcba081391e9c8c76ec471ff8412bed49d8a1c362ca594a14b2c01" \
+      local-inference.status="candidate-not-model-qualified"

@@ -1,0 +1,9 @@
+**
+!Dockerfile.claude-decision-row
+!claude-decision-row-attention.py
+!claude-decision-row-capture.py
+!claude-decision-row.patch
+!claude_install_decision_row.py
+!claude_prepare_decision_row.py
+!claude_test_decision_row_capture.py
+!claude-decision-row.lock.json

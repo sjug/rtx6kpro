@@ -1,0 +1,11 @@
+--- a/vllm/models/deepseek_v4_1/nvidia/model_state.py
++++ b/vllm/models/deepseek_v4_1/nvidia/model_state.py
+@@ -128,6 +128,8 @@
+             for module in model.modules()
+             if isinstance(module, DeepseekV4Model) and module.disk_engram
+         )
++        from .claude_stale_state_probe import install as _stale_probe_install  # DIAGNOSTIC ONLY
++        _stale_probe_install(self, vllm_config)
+ 
+     def prepare_streaming_update(self, req_id: str) -> None:
+         """Keep decoder history when the runner refreshes a live request."""

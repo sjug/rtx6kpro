@@ -1,0 +1,120 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2569,58 +2569,6 @@
+                                 )
+                                 packed_b_lookahead_state.advance()
+ 
+-                        if k_block_idx == num_k_blocks - 1:
+-                            mainloop_pipeline.consumer_release(mainloop_consumer_state)
+-                            mainloop_consumer_state.advance()
+-
+-                            peek_ab_full_status = cutlass.Boolean(1)
+-                            peek_ab_full_status = mainloop_pipeline.consumer_try_wait(
+-                                mainloop_consumer_state
+-                            )
+-
+-                            tCsA_p = tCsA_copy_view[
+-                                None, None, None, mainloop_consumer_state.index
+-                            ]
+-                            tCsB_p = tCsB_copy_view[
+-                                None, None, None, mainloop_consumer_state.index
+-                            ]
+-                            if cutlass.const_expr(not (self.block_fp8 or self.a16)):
+-                                tCsSFA_p = tCsSFA_tile_copy_view[
+-                                    None, None, None, mainloop_consumer_state.index
+-                                ]
+-                                tCsSFB_p = tCsSFB_tile_copy_view[
+-                                    None, None, None, mainloop_consumer_state.index
+-                                ]
+-                            mainloop_pipeline.consumer_wait(
+-                                mainloop_consumer_state, peek_ab_full_status
+-                            )
+-                            if cutlass.const_expr(
+-                                self.b_packed and not self.packed_expand_ahead
+-                            ):
+-                                # Shallow-pipeline fallback (< 4 stages): the
+-                                # new stage just became full (packed bytes
+-                                # only); expand before the k_block_next=0
+-                                # ldmatrix of this stage later in this
+-                                # iteration. Reads of the PREVIOUS stage
+-                                # finished at the prior iteration's copies, so
+-                                # writing here is safe. The matching barrier
+-                                # sits AFTER the MMA block below: the last
+-                                # k-block's MMA reads only registers, so it
+-                                # overlaps expansion stragglers instead of
+-                                # waiting on the barrier first. (In expand-
+-                                # ahead mode this stage was already expanded
+-                                # at k_block 0; the consumer_wait above then
+-                                # returns immediately.)
+-                                _expand_packed_b_stage_smem(
+-                                    sb_base_addr,
+-                                    mainloop_consumer_state.index,
+-                                    Int32(tidx),
+-                                    self.tile_shape_mnk[1],
+-                                    self.tile_shape_mnk[2],
+-                                    self.num_mma_warps * self.num_threads_per_warp,
+-                                    self.mma_sync_barrier,
+-                                )
+-
+                         if cutlass.const_expr(self.a16):
+                             cute.gemm(tiled_mma, accumulators,
+                                       tCrA[None, None, k_block_idx],
+@@ -2691,6 +2639,58 @@
+                                     tile_coord_mnl,
+                                     k_tile_start + Int32(k_tile),
+                                 )
++                        if k_block_idx == num_k_blocks - 1:
++                            mainloop_pipeline.consumer_release(mainloop_consumer_state)
++                            mainloop_consumer_state.advance()
++
++                            peek_ab_full_status = cutlass.Boolean(1)
++                            peek_ab_full_status = mainloop_pipeline.consumer_try_wait(
++                                mainloop_consumer_state
++                            )
++
++                            tCsA_p = tCsA_copy_view[
++                                None, None, None, mainloop_consumer_state.index
++                            ]
++                            tCsB_p = tCsB_copy_view[
++                                None, None, None, mainloop_consumer_state.index
++                            ]
++                            if cutlass.const_expr(not (self.block_fp8 or self.a16)):
++                                tCsSFA_p = tCsSFA_tile_copy_view[
++                                    None, None, None, mainloop_consumer_state.index
++                                ]
++                                tCsSFB_p = tCsSFB_tile_copy_view[
++                                    None, None, None, mainloop_consumer_state.index
++                                ]
++                            mainloop_pipeline.consumer_wait(
++                                mainloop_consumer_state, peek_ab_full_status
++                            )
++                            if cutlass.const_expr(
++                                self.b_packed and not self.packed_expand_ahead
++                            ):
++                                # Shallow-pipeline fallback (< 4 stages): the
++                                # new stage just became full (packed bytes
++                                # only); expand before the k_block_next=0
++                                # ldmatrix of this stage later in this
++                                # iteration. Reads of the PREVIOUS stage
++                                # finished at the prior iteration's copies, so
++                                # writing here is safe. The matching barrier
++                                # sits AFTER the MMA block below: the last
++                                # k-block's MMA reads only registers, so it
++                                # overlaps expansion stragglers instead of
++                                # waiting on the barrier first. (In expand-
++                                # ahead mode this stage was already expanded
++                                # at k_block 0; the consumer_wait above then
++                                # returns immediately.)
++                                _expand_packed_b_stage_smem(
++                                    sb_base_addr,
++                                    mainloop_consumer_state.index,
++                                    Int32(tidx),
++                                    self.tile_shape_mnk[1],
++                                    self.tile_shape_mnk[2],
++                                    self.num_mma_warps * self.num_threads_per_warp,
++                                    self.mma_sync_barrier,
++                                )
++
+                         if cutlass.const_expr(self.b_packed):
+                             # Deferred expansion barrier (see expansion call
+                             # above): must precede the k_block_next=0 ldmatrix

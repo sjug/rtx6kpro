@@ -1,0 +1,353 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 235 items
+
+<Package tests/kernels>
+  <Module test_glm_pool_tail_selection.py>
+    Check the active prefix consumed by sparse attention after pool expansion.
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-1]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-3]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-4]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-5]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-7]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-8]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-15]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2047]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2048]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2049]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2051]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_cache-262173]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-1]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-3]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-4]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-5]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-7]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-8]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-15]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2047]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2048]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2049]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2051]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-262173]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-1]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-2]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-3]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-4]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-5]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-7]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-8]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-15]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-2047]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-2048]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-2049]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-2051]>
+    <Function test_pool_tail_active_prefix[eager-64-4-dcp4-262173]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-1]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-3]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-4]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-5]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-7]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-8]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-15]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2047]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2048]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2049]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2051]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_cache-262173]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-1]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-3]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-4]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-5]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-7]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-8]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-15]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2047]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2048]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2049]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2051]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-262173]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-1]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-2]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-3]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-4]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-5]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-7]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-8]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-15]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-2047]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-2048]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-2049]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-2051]>
+    <Function test_pool_tail_active_prefix[eager-64-64-dcp4-262173]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-1]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-3]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-4]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-5]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-7]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-8]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-15]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2047]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2048]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2049]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2051]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-262173]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-1]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-3]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-4]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-5]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-7]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-8]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-15]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2047]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2048]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2049]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2051]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-262173]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-1]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-2]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-3]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-4]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-5]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-7]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-8]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-15]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-2047]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-2048]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-2049]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-2051]>
+    <Function test_pool_tail_active_prefix[eager-2048-2048-dcp4-262173]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-1]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-3]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-4]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-5]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-7]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-8]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-15]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2047]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2048]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2049]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2051]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_cache-262173]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-1]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-3]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-4]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-5]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-7]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-8]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-15]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2047]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2048]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2049]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2051]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-262173]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-1]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-2]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-3]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-4]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-5]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-7]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-8]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-15]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-2047]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-2048]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-2049]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-2051]>
+    <Function test_pool_tail_active_prefix[graph-64-4-dcp4-262173]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-1]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-3]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-4]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-5]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-7]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-8]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-15]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2047]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2048]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2049]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2051]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_cache-262173]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-1]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-3]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-4]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-5]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-7]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-8]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-15]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2047]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2048]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2049]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2051]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-262173]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-1]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-2]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-3]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-4]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-5]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-7]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-8]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-15]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-2047]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-2048]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-2049]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-2051]>
+    <Function test_pool_tail_active_prefix[graph-64-64-dcp4-262173]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-1]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-3]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-4]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-5]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-7]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-8]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-15]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2047]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2048]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2049]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2051]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-262173]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-1]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-3]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-4]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-5]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-7]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-8]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-15]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2047]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2048]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2049]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2051]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-262173]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-1]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-2]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-3]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-4]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-5]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-7]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-8]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-15]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-2047]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-2048]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-2049]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-2051]>
+    <Function test_pool_tail_active_prefix[graph-2048-2048-dcp4-262173]>
+    <Function test_five_token_tail_changes_b12x_attention>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 235 tests collected in 7.76s =========================
+JJ-main-COLLECTION-PASS tests/kernels/test_glm_pool_tail_selection.py: 235 collected
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 7 items
+
+<Package tests/v1/core>
+  <Module test_mamba_sparse_cleanup.py>
+    <Function test_async_sparse_cleanup[64-0]>
+    <Function test_async_sparse_cleanup[64-3]>
+    <Function test_async_sparse_cleanup[64-7]>
+    <Function test_async_sparse_cleanup[256-0]>
+    <Function test_async_sparse_cleanup[256-3]>
+    <Function test_async_sparse_cleanup[256-7]>
+    <Function test_cleanup_does_not_rescan_history_or_advance_past_table>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 7 tests collected in 4.70s ==========================
+JJ-main-COLLECTION-PASS tests/v1/core/test_mamba_sparse_cleanup.py: 7 collected
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 6 items
+
+<Package tests/kernels/moe>
+  <Module test_b12x.py>
+    Tests for the b12x tensor-parallel MoE integration.
+    <Function test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-nvfp4]>
+    <Function test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]>
+    <Function test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a16]>
+    <Function test_b12x_moe_prefill_capacity_and_exact_decode_reuse[128-nvfp4]>
+    <Function test_b12x_moe_prefill_capacity_and_exact_decode_reuse[128-w4a8]>
+    <Function test_b12x_moe_prefill_capacity_and_exact_decode_reuse[128-w4a16]>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 6 tests collected in 4.16s ==========================
+JJ-main-COLLECTION-PASS tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse: 6 collected
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 1 item
+
+<Package tests/models>
+  <Module test_glm5next_pooled_indexer.py>
+    <Function test_glm53_pool_expansion_appends_only_the_incomplete_tail>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 1 test collected in 4.09s ===========================
+JJ-main-COLLECTION-PASS tests/models/test_glm5next_pooled_indexer.py::test_glm53_pool_expansion_appends_only_the_incomplete_tail: 1 collected
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 21 items / 14 deselected / 7 selected
+
+<Package tests/v1/core>
+  <Module test_single_type_kv_cache_manager.py>
+    <Function test_mamba_retirement_crosses_null_gaps>
+    <Function test_mamba_retirement_bounds_prefill_states[0-3584]>
+    <Function test_mamba_retirement_bounds_prefill_states[0-4608]>
+    <Function test_mamba_retirement_bounds_prefill_states[1-3584]>
+    <Function test_mamba_retirement_bounds_prefill_states[1-4608]>
+    <Function test_mamba_retirement_bounds_prefill_states[2-3584]>
+    <Function test_mamba_retirement_bounds_prefill_states[2-4608]>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 7/21 tests collected (14 deselected) in 4.67s =================
+JJ-main-COLLECTION-PASS tests/v1/core/test_single_type_kv_cache_manager.py: 7 collected

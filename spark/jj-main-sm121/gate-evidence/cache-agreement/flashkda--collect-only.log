@@ -1,0 +1,98 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 34 items / 22 deselected / 12 selected
+
+<Dir opt>
+  <Dir jj-main-build>
+    <Dir components>
+      <Dir vllm>
+        <Dir flashkda-tests>
+          <Module test_vsplit.py>
+            Exactness matrix for K2 dispatch and packed recurrent checkpoint export.
+            
+            Short fixed and varlen cases cover both sequence-offset dtypes, empty sequences,
+            all state input/output modes and both state dtypes against ``torch_ref``.
+            Packed-checkpoint cases additionally require unchanged native outputs and exact
+            independent prefix states, including 256-token checkpoints through long queries.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-4]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-64]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-4]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-64]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-4]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-64]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-4]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-64]>
+              Export several states per sequence, including empty checkpoint ranges.
+              
+              Four sequences select the V-split kernel; 64 sequences select the complete
+              value tile on a 188-SM GPU. Every exported state is checked against the
+              independent recurrence evaluated on that exact sequence prefix.
+            <Function test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-4]>
+              Check 256-token state exports through a 4096-token packed query.
+              
+              Empty and short sequences coexist with a long query. Both K2 dispatches
+              must preserve outputs and every checkpoint across repeated pipeline-stage
+              reuse, not just the first few chunks. The reference uses the identical
+              native recurrence without checkpoint export on each truncated prefix.
+            <Function test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-64]>
+              Check 256-token state exports through a 4096-token packed query.
+              
+              Empty and short sequences coexist with a long query. Both K2 dispatches
+              must preserve outputs and every checkpoint across repeated pipeline-stage
+              reuse, not just the first few chunks. The reference uses the identical
+              native recurrence without checkpoint export on each truncated prefix.
+            <Function test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-4]>
+              Check 256-token state exports through a 4096-token packed query.
+              
+              Empty and short sequences coexist with a long query. Both K2 dispatches
+              must preserve outputs and every checkpoint across repeated pipeline-stage
+              reuse, not just the first few chunks. The reference uses the identical
+              native recurrence without checkpoint export on each truncated prefix.
+            <Function test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-64]>
+              Check 256-token state exports through a 4096-token packed query.
+              
+              Empty and short sequences coexist with a long query. Both K2 dispatches
+              must preserve outputs and every checkpoint across repeated pipeline-stage
+              reuse, not just the first few chunks. The reference uses the identical
+              native recurrence without checkpoint export on each truncated prefix.
+
+=============== 12/34 tests collected (22 deselected) in 26.09s ================
+FLASHKDA-JJ-MAIN-COLLECTION-PASS collected=12 passed=0

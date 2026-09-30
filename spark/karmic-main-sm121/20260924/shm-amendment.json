@@ -1,0 +1,15 @@
+{
+  "gate_receipt_sha256": "474c7dc82e701c3ddfe39ec149e7e500b237be49ac73efd7a5e2f9c5c2d22a91",
+  "prior_manifest": {
+    "candidate.json": "960a0a7bfde113511c93c2409f78ba216df852cb59f14dea559259ea697f7f83",
+    "gate_ds41.py": "07c449cc3ed0259708a548541b8424548b42ed486bd03cb7107001f00301585a",
+    "launch_contract.py": "7c9ad87c1f387d6e9b634ad4170c2813efba16302261c1f455735dbf581bae8d",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "1e0bab54c1b1a2466f0863c2fd29583858422a3bb4c84addb016ca67eb6831d8",
+    "runtime.py": "736b91800b87b82923816915ee090d125f811fe41d8f239eefbae00dbde12326",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  },
+  "prior_manifest_sha256": "e5835c58524bee2d9ae5f6329f1ebe27d625bde1b9880cc7852c8021a52eb684",
+  "reason": "User approved upstream private shm 64g; unlimited tmpfs fails vLLM space check"
+}

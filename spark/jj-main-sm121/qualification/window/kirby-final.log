@@ -1,0 +1,103 @@
+2026-09-21T22:37:31.483111000-04:00 W0922 02:37:31.482000 90 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T22:37:31.483859000-04:00 W0922 02:37:31.482000 90 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T22:37:31.483945000-04:00 W0922 02:37:31.483000 90 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T22:37:35.194008000-04:00 W0922 02:37:35.193000 50 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T22:37:35.194403000-04:00 W0922 02:37:35.193000 50 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T22:37:35.194449000-04:00 W0922 02:37:35.194000 50 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T22:37:39.140184000-04:00 W0922 02:37:39.139000 50 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T22:37:39.169585000-04:00 W0922 02:37:39.169000 50 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T22:37:45.869766000-04:00 WARNING 09-22 02:37:45 [argparse_utils.py:441] Found duplicate keys --recurrent-checkpoint-policy
+2026-09-21T22:37:45.899807000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:45.899949000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:45.906128000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:45.906255000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:54.999806000-04:00 INFO 09-22 02:37:54 [model.py:686] Resolved architecture: Qwen3_8FlashNextForConditionalGeneration
+2026-09-21T22:37:55.000209000-04:00 INFO 09-22 02:37:54 [model.py:2043] Using max model len 262144
+2026-09-21T22:37:45.906285000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.154887000-04:00 [ERROR] `min_frames` is part of Qwen3VLVideoProcessorInitKwargs, but not documented. Make sure to add it to the docstring of the function in /opt/venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/video_processing_qwen3_vl.py.
+2026-09-21T22:37:55.155084000-04:00 [ERROR] `max_frames` is part of Qwen3VLVideoProcessorInitKwargs, but not documented. Make sure to add it to the docstring of the function in /opt/venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/video_processing_qwen3_vl.py.
+2026-09-21T22:37:55.169509000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.169669000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.176085000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.176208000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.176256000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.974967000-04:00 INFO 09-22 02:37:55 [cache.py:356] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+2026-09-21T22:37:55.975159000-04:00 INFO 09-22 02:37:55 [arg_utils.py:2351] Inferred data_parallel_rank 0 from node_rank 1
+2026-09-21T22:37:55.977555000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.977688000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.983540000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.983661000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:37:55.983713000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:38:02.014463000-04:00 INFO 09-22 02:38:02 [model.py:686] Resolved architecture: Qwen3_8FlashNextMTP
+2026-09-21T22:38:02.014857000-04:00 INFO 09-22 02:38:02 [model.py:2043] Using max model len 262144
+2026-09-21T22:38:02.014891000-04:00 WARNING 09-22 02:38:02 [speculative.py:1366] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+2026-09-21T22:38:02.014938000-04:00 INFO 09-22 02:38:02 [scheduler.py:339] Chunked prefill is enabled with max_num_batched_tokens=4096.
+2026-09-21T22:38:02.015302000-04:00 WARNING 09-22 02:38:02 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+2026-09-21T22:38:02.015339000-04:00 WARNING 09-22 02:38:02 [modelopt.py:1031] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+2026-09-21T22:38:02.015361000-04:00 WARNING 09-22 02:38:02 [modelopt.py:1031] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+2026-09-21T22:38:02.015386000-04:00 WARNING 09-22 02:38:02 [modelopt.py:1699] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+2026-09-21T22:38:02.015646000-04:00 INFO 09-22 02:38:02 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-21T22:38:02.015682000-04:00 WARNING 09-22 02:38:02 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T22:38:02.083085000-04:00 INFO 09-22 02:38:02 [compilation.py:329] Enabled custom fusions: act_quant
+2026-09-21T22:38:02.083200000-04:00 INFO 09-22 02:38:02 [serve.py:242] Launching vLLM (v0.1.dev1+g8e1f1e587.d20260922) headless multiproc executor, with head node address 10.11.1.1:25000 for torch.distributed process group.
+2026-09-21T22:38:03.224121000-04:00 W0922 02:38:03.223000 298 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T22:38:03.224568000-04:00 W0922 02:38:03.223000 298 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T22:38:03.224599000-04:00 W0922 02:38:03.224000 298 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T22:38:05.635021000-04:00 W0922 02:38:05.634000 298 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T22:38:05.647191000-04:00 W0922 02:38:05.647000 298 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T22:38:08.518202000-04:00 [ERROR] `min_frames` is part of Qwen3VLVideoProcessorInitKwargs, but not documented. Make sure to add it to the docstring of the function in /opt/venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/video_processing_qwen3_vl.py.
+2026-09-21T22:38:08.518525000-04:00 [ERROR] `max_frames` is part of Qwen3VLVideoProcessorInitKwargs, but not documented. Make sure to add it to the docstring of the function in /opt/venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/video_processing_qwen3_vl.py.
+2026-09-21T22:38:08.533878000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:38:08.534034000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:38:08.540205000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:38:09.123268000-04:00 (Worker pid=298) INFO 09-22 02:38:09 [parallel_state.py:1673] world_size=2 rank=1 local_rank=0 distributed_init_method=tcp://10.11.1.1:25000 backend=nccl
+2026-09-21T22:38:08.540330000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:38:08.540362000-04:00 [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:38:24.375368000-04:00 (Worker pid=298) INFO 09-22 02:38:24 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2
+2026-09-21T22:38:24.844387000-04:00 
+2026-09-21T22:38:24.844556000-04:00 [2026-09-22 02:38:24] kirby:298:298 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-21T22:38:24.853687000-04:00 
+2026-09-21T22:38:24.853805000-04:00 [2026-09-22 02:38:24] kirby:298:298 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-21T22:38:26.167577000-04:00 (Worker pid=298) WARNING 09-22 02:38:26 [symm_mem.py:67] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+2026-09-21T22:38:26.188379000-04:00 (Worker pid=298) WARNING 09-22 02:38:26 [flashinfer_all_reduce.py:383] FlashInfer All Reduce is disabled because it is not supported for world_size=2.
+2026-09-21T22:38:26.210676000-04:00 (Worker pid=298) INFO 09-22 02:38:26 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2
+2026-09-21T22:38:27.541248000-04:00 (Worker pid=298) INFO 09-22 02:38:27 [parallel_state.py:2017] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 1, EP rank 1, EPLB rank N/A
+2026-09-21T22:38:27.541549000-04:00 (Worker pid=298) INFO 09-22 02:38:27 [gpu_worker.py:429] Using V2 Model Runner
+2026-09-21T22:38:28.024682000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [model_runner.py:395] Loading model from scratch...
+2026-09-21T22:38:28.306444000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [__init__.py:869] Using B12xMxfp8LinearKernel for MXFP8 GEMM
+2026-09-21T22:38:28.314172000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [cuda.py:551] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+2026-09-21T22:38:28.316762000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [mm_encoder_attention.py:375] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+2026-09-21T22:38:28.317580000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [__init__.py:1101] Using B12xNvFp4LinearKernel for NVFP4 GEMM
+2026-09-21T22:38:28.407389000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [qwen_gdn_linear_attn.py:407] Using b12x CuTeDSL GDN prefill kernel (requested=b12x, head_k_dim=128).
+2026-09-21T22:38:28.431651000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [qwen_gdn_linear_attn.py:806] GDN decode kernel: b12x
+2026-09-21T22:38:28.610581000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [nvfp4.py:261] Using 'B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTEDSL_BATCHED', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+2026-09-21T22:38:28.637932000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:28 [mamba_utils.py:37] VLLM_SSM_CONV_STATE_LAYOUT env detected. Setting SSM conv state layout to DS.
+2026-09-21T22:38:30.770737000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:38:30 [vocab_parallel_embedding.py:417] Quantizing LM head shards to MXFP8 with BF16 activations.
+2026-09-21T22:39:33.861789000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:33 [default_loader.py:510] Loading weights took 62.78 seconds
+2026-09-21T22:39:33.948493000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:33 [nvfp4.py:618] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-21T22:39:34.093544000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:34 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-21T22:39:34.093691000-04:00 (Worker_TP1 pid=298) WARNING 09-22 02:39:34 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T22:39:34.202463000-04:00 (Worker_TP1 pid=298) WARNING 09-22 02:39:34 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+2026-09-21T22:39:34.202608000-04:00 (Worker_TP1 pid=298) WARNING 09-22 02:39:34 [modelopt.py:1031] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+2026-09-21T22:39:34.202649000-04:00 (Worker_TP1 pid=298) WARNING 09-22 02:39:34 [modelopt.py:1031] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+2026-09-21T22:39:34.202676000-04:00 (Worker_TP1 pid=298) WARNING 09-22 02:39:34 [modelopt.py:1699] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+2026-09-21T22:39:34.203333000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:34 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-21T22:39:34.220038000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:34 [vocab_parallel_embedding.py:417] Quantizing LM head shards to NVFP4 with BF16 activations.
+2026-09-21T22:39:34.593269000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:34 [weight_utils.py:667] Safetensors index filter selected 2/35 checkpoint shards.
+2026-09-21T22:39:35.739733000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:35 [default_loader.py:510] Loading weights took 1.13 seconds
+2026-09-21T22:39:36.398662000-04:00 (Worker_TP1 pid=298) WARNING 09-22 02:39:36 [speculator.py:196] Draft model Qwen3_8FlashNextMTP does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+2026-09-21T22:39:37.135446000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:37 [model_runner.py:417] Model loading took 51.55 GiB memory and 69.330231 seconds
+2026-09-21T22:39:37.206963000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:37 [interface.py:1029] Setting attention block size to 2848 tokens to ensure that attention page size is >= mamba page size.
+2026-09-21T22:39:37.207103000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:39:37 [interface.py:1062] Padding mamba page size by 0.38% to ensure that mamba page size and attention page size are exactly equal.
+2026-09-21T22:39:37.249712000-04:00 WARNING 09-22 02:39:37 [torch_utils.py:266] OMP_NUM_THREADS=16 is set; leaving Torch threads at 16 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+2026-09-21T22:39:37.278879000-04:00 (Worker_TP1 pid=298) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:47:56.725094000-04:00 INFO 09-22 02:47:56 [multiproc_executor.py:472] [shutdown] Executor: waiting for worker exit count=1
+2026-09-21T22:47:56.725437000-04:00 (Worker_TP1 pid=298) INFO 09-22 02:47:56 [multiproc_executor.py:838] Parent process exited, terminating worker queues
+2026-09-21T22:39:37.279023000-04:00 (Worker_TP1 pid=298) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:39:38.678670000-04:00 (Worker_TP1 pid=298) [transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+2026-09-21T22:39:39.696451000-04:00 (Worker_TP1 pid=298) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:39:39.696776000-04:00 (Worker_TP1 pid=298) [transformers] Unrecognized keys in `rope_parameters` for 'rope_type'='default': {'mrope_interleaved', 'mrope_section'}
+2026-09-21T22:48:01.749455000-04:00 WARNING 09-22 02:48:01 [multiproc_executor.py:484] [shutdown] Executor: workers still running after grace period; sending SIGTERM count=1
+2026-09-21T22:48:05.767497000-04:00 WARNING 09-22 02:48:05 [multiproc_executor.py:494] [shutdown] Executor: workers still running after SIGTERM; sending SIGKILL count=1
+2026-09-21T22:48:10.179147000-04:00 /usr/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+2026-09-21T22:48:10.179460000-04:00   warnings.warn('resource_tracker: There appear to be %d '

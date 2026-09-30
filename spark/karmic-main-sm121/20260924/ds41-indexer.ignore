@@ -1,0 +1,9 @@
+**
+!Dockerfile.ds41-indexer
+!ds41-indexer-attention.py
+!ds41-indexer.patch
+!ds41_indexer_capture.py
+!ds41_indexer_install.py
+!ds41_indexer_prepare.py
+!test_ds41_indexer_capture.py
+!ds41-indexer.lock.json

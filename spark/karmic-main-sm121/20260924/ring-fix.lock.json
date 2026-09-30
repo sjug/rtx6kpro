@@ -1,0 +1,21 @@
+{
+  "b12x_tree": "2d34ffa9a1cb4380b766e2752fe6d3705841d81e",
+  "base_image_id": "3413799408e09ad3a1bb4ea2297384fa03927ca8b4e8e72f2af61aef8951d54c",
+  "input_sha256": "f242c307d2d07de58605ca566231cf8be1677dfed8ecb12a856c1a48bfc69850",
+  "inputs": {
+    "Dockerfile.ring-fix": "cc573e80581b19f8aed83cf0cc0b2e34fce72fa1667a777b486fe0cf095c6fef",
+    "build_ring_fix.py": "d14a586e237068d8c9d88a465885ae65a0f708fff866b773172259dcc3e4f1f9",
+    "install_ring_fix.py": "ba649f0b1b6461e524c27c486602a7ba529a160acc3f4a2551f5979767366ff2",
+    "prepare_ring_fix.py": "732defb95abdad02b396f10b09a04625aa2ee7dc0c64fc8a909764d60d209503",
+    "ring-fix-sparse_mla.py": "8a8dffa8417f0fd8b9a96723d36ba5a842949b6dd674751a19e55ec9031a4c34",
+    "ring-fix.patch": "5219a3a5c889512e30621ca986286ad347ff63bcf2dbf38d584a7024d000c4c9",
+    "run_ring_regression.py": "855cffd7f80953208d3e3c5f3ad228e0dc3a7c8405c4e6c0f846c1d653638bdb",
+    "test_compressor_ring_mapping.py": "b07d868b443686f2c3c9f761ee4160ead59829f26da29b2f27a8a15a447f9dda"
+  },
+  "output_sha256": "8a8dffa8417f0fd8b9a96723d36ba5a842949b6dd674751a19e55ec9031a4c34",
+  "scope": "Restore circular compressor ring writes; generic mapping remains required for noncircular caches",
+  "source_path": "vllm/models/deepseek_v4_1/sparse_mla.py",
+  "upstream_plus_fix_tree": "a2b889cfcd3026ce98bdd0d61ff4961c0925c1dd",
+  "upstream_tree": "bb2eac10adfd1bd9c39b16d1564145f3e5fc10f8",
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1"
+}

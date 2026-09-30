@@ -1,0 +1,376 @@
+--- a/vllm/vllm/models/deepseek_v4_1/nvidia/model.py
++++ b/vllm/vllm/models/deepseek_v4_1/nvidia/model.py
+@@ -10,6 +10,9 @@
+ import torch
+ import torch.nn as nn
+ from b12x.sequence import engram as engram_native
++import vllm.models.deepseek_v4_1.claude_engram_timing as _cet
++
++_cet.install_b12x()
+ 
+ import vllm.envs as envs
+ from vllm.config import VllmConfig
+@@ -504,7 +507,9 @@
+     def _finish_engram_job(self) -> None:
+         job, self._engram_job = getattr(self, "_engram_job", None), None
+         if job is not None:
++            _cet.event("finish-wait-begin")
+             job.result()
++            _cet.event("finish-wait-end")
+ 
+     def _start_engram_job(self, bindings, counts) -> None:
+         self._engram_epoch += 1
+@@ -516,17 +521,26 @@
+         device = torch.accelerator.current_device_index()
+ 
+         def lookup():
+-            torch.accelerator.set_device_index(device)
+-            with torch.inference_mode(), torch.cuda.stream(stream):
+-                stream.wait_event(ready)
+-                engram_native.run_lookups(bindings, counts, clear_tail=False)
+-                self._engram_epochs[0:1].fill_(epoch)
++            _cet.event("lookup-begin")
++            try:
++                torch.accelerator.set_device_index(device)
++                _cet.event("lookup-device-set")
++                with torch.inference_mode(), torch.cuda.stream(stream):
++                    stream.wait_event(ready)
++                    _cet.event("lookup-ready-wait-enqueued")
++                    engram_native.run_lookups(bindings, counts, clear_tail=False)
++                    _cet.event("lookup-run-lookups-returned")
++                    self._engram_epochs[0:1].fill_(epoch)
++                    _cet.event("lookup-epoch-fill-enqueued", epoch=epoch)
++            finally:
++                _cet.job_end()
+ 
+         pool = getattr(self, "_engram_pool", None)
+         if pool is None:
+             pool = self._engram_pool = ThreadPoolExecutor(
+                 max_workers=1, thread_name_prefix="ds41-engram"
+             )
++        _cet.job_begin(epoch)
+         self._engram_job = pool.submit(lookup)
+ 
+     def prepare_disk_engram(self, input_ids, query_start_loc, lookback_token_ids):
+@@ -534,7 +548,9 @@
+             raise RuntimeError(
+                 "Disk Engram preparation must run outside compile/capture"
+             )
++        _cet.event("prepare-begin", tokens=input_ids.shape[0], last_epoch=self._engram_epoch)
+         self._finish_engram_job()
++        _cet.event("prepare-prev-job-done")
+         engrams = tuple(
+             layer.engram
+             for layer in islice(self.layers, self.start_layer, self.end_layer)
+@@ -553,6 +569,7 @@
+                 lookback_token_ids,
+                 hashes,
+             )
++            _cet.event("prepare-hash-launched")
+             # One batch lets the per-layer disk reads overlap on the host.
+             bindings = [
+                 engram.stage_disk(
+@@ -561,12 +578,15 @@
+                 for engram in engrams
+             ]
+             counts = [hashes.shape[0]] * len(bindings)
++            _cet.event("prepare-staged", tables=len(bindings), rows=hashes.shape[0])
+             if self._engram_overlap:
+                 self._start_engram_job(bindings, counts)
+             else:
+                 engram_native.run_lookups(bindings, counts, clear_tail=False)
++            _cet.event("prepare-dispatched", overlap=int(bool(self._engram_overlap)))
+             for engram in engrams:
+                 engram.finish_disk(hashes.shape[0])
++            _cet.event("prepare-end")
+         except BaseException:
+             for engram in engrams:
+                 try:
+--- a/b12x/b12x/sequence/engram/_impl.py
++++ b/b12x/b12x/sequence/engram/_impl.py
+@@ -37,7 +37,10 @@
+   return binding.hash_ids
+  def run_lookup(self, binding, prepared, *, clear_tail):
+   if self.operation != "lookup": raise ValueError("hash plan cannot run Engram lookup")
+-  if prepared: self.programs[0][(prepared,24,1)](binding.weight,binding.scale_bytes,binding.hash_ids,binding.num_tokens,binding.out,prepared)
++  if prepared:
++   _cet.event("kernel-launch-begin",prepared=prepared)
++   self.programs[0][(prepared,24,1)](binding.weight,binding.scale_bytes,binding.hash_ids,binding.num_tokens,binding.out,prepared)
++   _cet.event("kernel-launch-end")
+   if clear_tail and prepared<self.caps.max_tokens: binding.out[prepared:].zero_()
+   return binding.out
+ @dataclass(frozen=True)
+@@ -123,6 +126,7 @@
+   if not isinstance(b,LookupBinding): raise TypeError("lookup run requires an Engram lookup binding")
+   if not 0<=n<=b.hash_ids.shape[0]: raise ValueError("token count exceeds capacity")
+  disk=[i for i,b in enumerate(bindings) if b.disk_table is not None]
++ _cet.event("run-lookups-begin",disk=len(disk),counts=",".join(map(str,counts)))
+  if len(disk)<2: return tuple(run_lookup(b,n,clear_tail=clear_tail) for b,n in zip(bindings,counts))
+  from concurrent.futures import ThreadPoolExecutor
+  from contextlib import ExitStack
+@@ -132,13 +136,21 @@
+   caches={}
+   for i in disk:
+    bindings[i].disk_table._require_open()
++   _cet.event("txn-enter-begin",table=i)
+    caches[i]=stack.enter_context(bindings[i].disk_table._cache.transaction())
++   _cet.event("txn-entered",table=i,cache=f"{id(caches[i]):x}")
+    caches[i]._stage_ids(bindings[i].hash_ids,counts[i]*24)
+   futures=[_READ_POOL.submit(caches[i]._read_staged,counts[i]*24) for i in disk[1:]]
+   try: caches[disk[0]]._read_staged(counts[disk[0]]*24)
+-  finally: errors=[f.exception() for f in futures]
++  finally:
++   _cet.event("reads-primary-returned")
++   errors=[f.exception() for f in futures]
++   _cet.event("reads-joined")
+   for error in errors:
+    if error is not None: raise error
+   for b,n in zip(bindings,counts):
++   _cet.event("lookup-op-begin",rows=n)
+    lookup_op(b.plan.handle,b.weight,b.scale_bytes,b.hash_ids,b.num_tokens,b.out,n,clear_tail)
++   _cet.event("lookup-op-end")
++ _cet.event("run-lookups-end")
+  return tuple(b.out for b in bindings)
+--- a/b12x/b12x/sequence/_shared/disk_table.py
++++ b/b12x/b12x/sequence/_shared/disk_table.py
+@@ -337,15 +337,20 @@
+             )
+         if ids.numel() < count:
+             raise ValueError("disk row IDs do not cover the requested count")
++        _cet.event("stage-copy-begin", cache=f"{id(self):x}", count=count)
+         self.ids_host[:count].copy_(ids.view(-1)[:count], non_blocking=True)
+         self._ids_ready.record(self._transaction_stream)
++        _cet.event("stage-recorded", cache=f"{id(self):x}")
+ 
+     def _read_staged(self, count: int) -> None:
+         # Completes ID production and all prior cache readers before host writes.
+         with torch.cuda.device(self.device):
++            _cet.event("ids-sync-begin", cache=f"{id(self):x}", count=count)
+             self._ids_ready.synchronize()
++            _cet.event("ids-sync-end", cache=f"{id(self):x}")
+             if self._gds is not None:
+                 self._gds.read(self._ids_buffer, count, self._transaction_stream)
++                _cet.event("gds-read-returned", cache=f"{id(self):x}")
+                 return
+             self._native.ple_reader_run(
+                 self._reader,
+@@ -354,6 +359,7 @@
+                 self._scale_buffer,
+                 count,
+             )
++            _cet.event("read-returned", cache=f"{id(self):x}")
+ 
+     def stats(self) -> dict[str, int | float]:
+         self._require_open()
+--- /dev/null
++++ b/vllm/vllm/models/deepseek_v4_1/claude_engram_timing.py
+@@ -0,0 +1,209 @@
++"""Diagnostic-only timestamps for the DS4.1 disk-Engram host path.
++
++Installed as `vllm/models/deepseek_v4_1/claude_engram_timing.py` by
++`claude_install_engram_timing.py`. The patched DS4.1 model.py imports it and
++calls `install_b12x()` once; that binds timed copies of four B12X functions
++(`run_lookups`, `_State.run_lookup`, `DiskRowCache._stage_ids`,
++`DiskRowCache._read_staged`) compiled from the reviewed patched files in
++/opt/ds41-engram-timing. B12X files on disk stay byte-identical, so the B12X
++package fingerprint, which keys every CuTe disk-cache entry, is unchanged
++and the inherited compile cache still hits. The timed functions make the
++same calls in the same order as the pinned ones, and no CUDA call,
++synchronisation or wait is added; timing itself is not preserved (see
++Perturbation). When disabled (the default) an event still evaluates its
++arguments at the call site, reads the clock and checks a cached flag; the
++enable file is opened and read at most once per second.
++
++Enable:  touch /cache/ds41-engram-timing.enable
++         (file content containing "stacks" also arms faulthandler per job)
++Output:  /cache/ds41-engram-timing/<node>-<pid>.log     one line per event
++         /cache/ds41-engram-timing/<node>-<pid>.stacks  all-thread dumps
++
++Line format (space separated):
++  <monotonic_ns> node=<DS41_NODE> pid=<pid> tid=<native tid> thread=<name>
++  job=<epoch of the outstanding lookup job or -> <event> [key=value ...]
++
++Stack dumps: while a lookup job is outstanding and "stacks" is enabled,
++`faulthandler.dump_traceback_later(STACK_AFTER_S, repeat=True)` is armed by
++the main thread just before the job is submitted (so a lookup thread that is
++slow to start is covered) and cancelled in the lookup's `finally`, which runs
++before the job's future completes. Dumps therefore appear only for jobs
++outstanding longer than STACK_AFTER_S. faulthandler's watchdog is a C thread that writes
++Python frames of every thread without taking the GIL; it shows the last
++Python frame of each thread, not native frames, so a thread blocked inside a
++native call and a thread waiting for the GIL at that line look alike. The
++event timestamps do not separate them either: an event after a native call
++runs only once the thread holds the GIL again, so each segment is native
++time plus GIL reacquisition. They bound the segment, not its cause.
++
++Perturbation: every enabled event runs Python (string formatting) and one
++os.write on the calling thread, about 25 events per engine step across the
++main thread, the lookup thread and the read pool. The first enabled event in
++a process also creates the output directory and opens the log, and the first
++armed job opens the stacks file, so the measurement adds its own first-use
++filesystem work on exactly the path under test. None of this cost has been
++measured. Any added work changes thread interleaving and GIL hand-off, and
++the forward waits on this job with a fixed 5000 ms timeout, so enabling
++timing can move a stall across that threshold in either direction: a
++timeout may disappear or appear, not only shift. A run where the residual
++does not reproduce with timing enabled is not evidence that the stall is
++gone; compare with the same image and the enable file absent.
++"""
++from __future__ import annotations
++
++import ast
++import faulthandler
++import hashlib
++import json
++import os
++import threading
++import time
++
++KIT = '/opt/ds41-engram-timing'
++ENABLE = '/cache/ds41-engram-timing.enable'
++OUT_DIR = '/cache/ds41-engram-timing'
++STACK_AFTER_S = 3.0
++RECHECK_NS = 1_000_000_000
++
++_state = {'checked': -RECHECK_NS - 1, 'enabled': False, 'stacks': False,
++          'fd': None, 'stack_fd': None, 'job': '-', 'armed': False}
++_open_lock = threading.Lock()
++
++
++def _refresh(now: int) -> bool:
++    if now - _state['checked'] >= RECHECK_NS:
++        _state['checked'] = now
++        try:
++            with open(ENABLE, 'rb') as handle:
++                content = handle.read(256)
++            _state['enabled'], _state['stacks'] = True, b'stacks' in content
++        except OSError:
++            _state['enabled'] = _state['stacks'] = False
++    return _state['enabled']
++
++
++def _open(key: str, suffix: str):
++    if _state[key] is None:
++        with _open_lock:
++            if _state[key] is None:
++                os.makedirs(OUT_DIR, exist_ok=True)
++                name = f"{os.environ.get('DS41_NODE', 'unknown')}-{os.getpid()}{suffix}"
++                _state[key] = os.open(os.path.join(OUT_DIR, name),
++                                      os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o644)
++    return _state[key]
++
++
++def event(name: str, **fields) -> None:
++    """Append one timestamped line; never raises into the caller."""
++    now = time.monotonic_ns()
++    try:
++        if not _refresh(now):
++            return
++        thread = threading.current_thread()
++        extra = ''.join(f' {key}={value}' for key, value in fields.items())
++        line = (f"{now} node={os.environ.get('DS41_NODE', 'unknown')} pid={os.getpid()} "
++                f"tid={threading.get_native_id()} thread={thread.name} job={_state['job']} "
++                f"{name}{extra}\n")
++        os.write(_open('fd', '.log'), line.encode())
++    except Exception:  # diagnostics must not change serving behaviour
++        pass
++
++
++def job_begin(epoch: int) -> None:
++    """Mark the lookup job for `epoch` as outstanding; arm stack dumps if requested."""
++    _state['job'] = epoch
++    event('job-begin')
++    try:
++        if _state['enabled'] and _state['stacks'] and not _state['armed']:
++            faulthandler.dump_traceback_later(STACK_AFTER_S, repeat=True,
++                                              file=_open('stack_fd', '.stacks'), exit=False)
++            _state['armed'] = True
++    except Exception:
++        pass
++
++
++def job_end() -> None:
++    """Cancel stack dumps armed for this job; record the end."""
++    try:
++        if _state['armed']:
++            faulthandler.cancel_dump_traceback_later()
++            _state['armed'] = False
++    except Exception:
++        pass
++    event('job-end')
++    _state['job'] = '-'
++
++
++# (lock target, module, class or None, function names) bound by install_b12x.
++B12X_BINDINGS = (
++    ('b12x/b12x/sequence/engram/_impl.py', 'b12x.sequence.engram._impl', None, ('run_lookups',)),
++    ('b12x/b12x/sequence/engram/_impl.py', 'b12x.sequence.engram._impl', '_State', ('run_lookup',)),
++    ('b12x/b12x/sequence/_shared/disk_table.py', 'b12x.sequence._shared.disk_table', 'DiskRowCache',
++     ('_stage_ids', '_read_staged')),
++)
++_installed = []
++
++
++def _read(path: str) -> bytes:
++    with open(path, 'rb') as handle:
++        return handle.read()
++
++
++def _functions(source: str, path: str, owner, names):
++    """Compile only the named functions from the patched file, keeping its line numbers."""
++    tree = ast.parse(source, path)
++    scope = tree.body
++    if owner is not None:
++        (cls,) = [node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == owner]
++        scope = cls.body
++    found = [node for node in scope if isinstance(node, ast.FunctionDef) and node.name in names]
++    if sorted(node.name for node in found) != sorted(names):
++        raise RuntimeError(f'timing overlay: missing {names} in {path}')
++    return compile(ast.Module(body=found, type_ignores=[]), path, 'exec')
++
++
++def install_b12x(kit: str = KIT) -> None:
++    """Bind the timed B12X functions once per process; fail closed on any mismatch."""
++    if _installed:
++        return
++    import importlib
++    import sys
++    lock = json.loads(_read(os.path.join(kit, 'claude-engram-timing.lock.json')))
++    plan = []
++    for target, module_name, owner, names in B12X_BINDINGS:
++        entry = lock['targets'][target]
++        module = importlib.import_module(module_name)
++        live = _read(module.__file__)
++        if hashlib.sha256(live).hexdigest() != entry['input_sha256']:
++            raise RuntimeError('timing overlay: live B12X module is not the pinned input: ' + target)
++        path = os.path.join(kit, entry['source'])
++        patched = _read(path)
++        if hashlib.sha256(patched).hexdigest() != entry['output_sha256']:
++            raise RuntimeError('timing overlay: patched source digest mismatch: ' + target)
++        code = _functions(patched.decode(), path, owner, names)
++        namespace = dict(vars(module))       # compile against the module's own globals
++        exec(code, namespace)
++        plan.append((module, owner, names, namespace))
++    for module, owner, names, namespace in plan:
++        module._cet = sys.modules[__name__]
++        for name in names:
++            function = namespace[name]
++            # Functions must see the live module globals (for example the
++            # `global _READ_POOL` in run_lookups), not the scratch namespace.
++            function = type(function)(function.__code__, vars(module), function.__name__,
++                                      function.__defaults__, function.__closure__)
++            function.__kwdefaults__ = namespace[name].__kwdefaults__
++            function.__qualname__ = (owner + '.' + name) if owner else name
++            function.__module__ = module.__name__
++            if owner is None:
++                setattr(module, name, function)
++            else:
++                setattr(getattr(module, owner), name, function)
++    # run_lookups is re-exported: api imports it by value, and the package's
++    # lazy __getattr__ caches whatever api holds on first access.
++    impl = importlib.import_module('b12x.sequence.engram._impl')
++    api = importlib.import_module('b12x.sequence.engram.api')
++    package = importlib.import_module('b12x.sequence.engram')
++    api.run_lookups = impl.run_lookups
++    package.run_lookups = impl.run_lookups
++    _installed.append(True)

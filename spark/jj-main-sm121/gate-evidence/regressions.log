@@ -1,0 +1,417 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 235 items
+
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_five_token_tail_changes_b12x_attention [b12x cute.compile] compile-start number=1 target=b12x.attention._shared.mla.kv_cache.ConcatAndCacheGlmNextMlaKernel cache_key=689367e10144f7e9 kernel=attention.mla.glm_next_kv_cache version=1 params=[['kv_c', ['tensor', 'kv_c', 'torch.bfloat16', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kv_cache', ['tensor', 'kv_cache', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 528]], [['dim', 'dynamic', None], ['dim', 'exact', 528], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['slot_mapping', ['tensor', 'slot_mapping', 'torch.int64', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['block_size', 64]]
+[b12x cute.compile] compile-done number=1 duration_s=0.229 total_compile_s=0.229 target=b12x.attention._shared.mla.kv_cache.ConcatAndCacheGlmNextMlaKernel cache_key=689367e10144f7e9 kernel=attention.mla.glm_next_kv_cache version=1 params=[['kv_c', ['tensor', 'kv_c', 'torch.bfloat16', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kv_cache', ['tensor', 'kv_cache', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 528]], [['dim', 'dynamic', None], ['dim', 'exact', 528], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['slot_mapping', ['tensor', 'slot_mapping', 'torch.int64', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['block_size', 64]]
+[b12x cute.compile] compile-start number=2 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_pertok cache_key=936b5dcdc844150c kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 2], ['compute_mode', 0], ['scale_format', 1], ['fp8_rope', 0], ['latent_scale_per_token', 0], ['num_heads', 16], ['hpb', 16], ['valid_hpb', 16], ['head_block_offset', 0], ['grid_h_blocks', 1], ['num_splits', 33], ['chunks_per_split', 1], ['page_block_size', 64], ['topk_bucket', 4096], ['has_extra', 0], ['pbs_extra', 1], ['extra_topk_bucket', 0], ['per_token_len', 1], ['native_glm_h8', 0], ['native_dsv4_h8', 0], ['native_dsv4_h16', 0], ['native_dsv41_fp8', 0], ['vector_q', 1], ['v41_fp8_internal', 0], ['v41_heads_per_block', 16], ['q_all', ['tensor', 'q_all', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['swa_indices', ['tensor', 'swa_indices', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'bucket', 2051]], [['dim', 'exact', 2051], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_out', ['tensor', 'mid_out', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 8192], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_lse', ['tensor', 'mid_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33]], [['dim', 'exact', 1024], ['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['topk_length', ['tensor', 'topk_length', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]]]
+[b12x cute.compile] compile-done number=2 duration_s=0.471 total_compile_s=0.700 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_pertok cache_key=936b5dcdc844150c kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 2], ['compute_mode', 0], ['scale_format', 1], ['fp8_rope', 0], ['latent_scale_per_token', 0], ['num_heads', 16], ['hpb', 16], ['valid_hpb', 16], ['head_block_offset', 0], ['grid_h_blocks', 1], ['num_splits', 33], ['chunks_per_split', 1], ['page_block_size', 64], ['topk_bucket', 4096], ['has_extra', 0], ['pbs_extra', 1], ['extra_topk_bucket', 0], ['per_token_len', 1], ['native_glm_h8', 0], ['native_dsv4_h8', 0], ['native_dsv4_h16', 0], ['native_dsv41_fp8', 0], ['vector_q', 1], ['v41_fp8_internal', 0], ['v41_heads_per_block', 16], ['q_all', ['tensor', 'q_all', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['swa_indices', ['tensor', 'swa_indices', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'bucket', 2051]], [['dim', 'exact', 2051], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_out', ['tensor', 'mid_out', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 8192], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_lse', ['tensor', 'mid_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33]], [['dim', 'exact', 1024], ['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['topk_length', ['tensor', 'topk_length', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]]]
+[b12x cute.compile] compile-start number=3 target=b12x.attention._shared.mla.merge.SparseMLASplitDecodeMergeKernel cache_key=bf5d0a375f9de9f5 kernel=attention.mla.merge version=7 params=[['tmp_output', ['tensor', 'tmp_output', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 3]]], ['tmp_lse', ['tensor', 'tmp_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None]], [['dim', 'dynamic', None], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['num_chunks_ptr', [[1], [1], 'torch.int32', ['cuda', 0]]], ['output', ['tensor', 'output', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['tmp_output_dtype', 'torch.bfloat16'], ['output_dtype', 'torch.bfloat16'], ['static_num_chunks', 33], ['vector_output', 1], ['vector_partials', 1]]
+[b12x cute.compile] compile-done number=3 duration_s=0.118 total_compile_s=0.818 target=b12x.attention._shared.mla.merge.SparseMLASplitDecodeMergeKernel cache_key=bf5d0a375f9de9f5 kernel=attention.mla.merge version=7 params=[['tmp_output', ['tensor', 'tmp_output', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 3]]], ['tmp_lse', ['tensor', 'tmp_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None]], [['dim', 'dynamic', None], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['num_chunks_ptr', [[1], [1], 'torch.int32', ['cuda', 0]]], ['output', ['tensor', 'output', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['tmp_output_dtype', 'torch.bfloat16'], ['output_dtype', 'torch.bfloat16'], ['static_num_chunks', 33], ['vector_output', 1], ['vector_partials', 1]]
+PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================== 235 passed, 14 warnings in 13.41s =======================
+JJ-main-REGRESSION-PASS tests/kernels/test_glm_pool_tail_selection.py: 235 passed
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 7 items
+
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[64-0] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[64-3] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[64-7] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[256-0] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[256-3] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[256-7] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_cleanup_does_not_rescan_history_or_advance_past_table PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 7 passed, 14 warnings in 4.67s ========================
+JJ-main-REGRESSION-PASS tests/v1/core/test_mamba_sparse_cleanup.py: 7 passed
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 6 items
+
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-nvfp4] INFO 09-22 02:01:11 [scheduler.py:339] Chunked prefill is enabled with max_num_batched_tokens=2048.
+INFO 09-22 02:01:11 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+[b12x cute.compile] compile-start number=1 target=b12x.moe._shared.kernels.silu.MoEMicroKernelSilu cache_key=d11b4210e096feeb kernel=integration.tp_moe.micro_direct version=1 params=['legacy', 'integration.tp_moe.micro_direct', 1, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'micro_direct'], ['field', 'arg2', [16, 'silu', False, False, False, False, 0, False, False, False, 'modelopt', 0, False, 1, 'e4m3_k16', 'packed', 'w13', False, 0.0, 1.0, 0.0, 1, ['dataclass', 'b12x.moe._shared.kernels.micro', '_ShapeConfig', [['k_dim', 512], ['n', 128], ['two_n', 256], ['weight_E', 4], ['num_topk', 2], ['k_half', 256], ['n_half', 64], ['w1_sf_rows', 256], ['w1_sf_cols', 32], ['w2_sf_rows', 512], ['w2_sf_cols', 8], ['k_blocks', 32], ['k_segments', 1], ['k_segments_aligned', True], ['fc1_chunks', 2], ['fc1_chunks_per_block', 16], ['i_chunk', 64], ['rows_per_warp_fc1', 4], ['smem_xh_stride', 9], ['smem_xh_size', 260], ['inter_blocks', 4], ['inter_u32', 256], ['fc2_n_chunks', 1]]], 0, False, 32, 512]], ['field', 'arg3', ['repr', 'torch', 'dtype', 'torch.int32']]]]
+[b12x cute.compile] compile-done number=1 duration_s=0.695 total_compile_s=0.695 target=b12x.moe._shared.kernels.silu.MoEMicroKernelSilu cache_key=d11b4210e096feeb kernel=integration.tp_moe.micro_direct version=1 params=['legacy', 'integration.tp_moe.micro_direct', 1, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'micro_direct'], ['field', 'arg2', [16, 'silu', False, False, False, False, 0, False, False, False, 'modelopt', 0, False, 1, 'e4m3_k16', 'packed', 'w13', False, 0.0, 1.0, 0.0, 1, ['dataclass', 'b12x.moe._shared.kernels.micro', '_ShapeConfig', [['k_dim', 512], ['n', 128], ['two_n', 256], ['weight_E', 4], ['num_topk', 2], ['k_half', 256], ['n_half', 64], ['w1_sf_rows', 256], ['w1_sf_cols', 32], ['w2_sf_rows', 512], ['w2_sf_cols', 8], ['k_blocks', 32], ['k_segments', 1], ['k_segments_aligned', True], ['fc1_chunks', 2], ['fc1_chunks_per_block', 16], ['i_chunk', 64], ['rows_per_warp_fc1', 4], ['smem_xh_stride', 9], ['smem_xh_size', 260], ['inter_blocks', 4], ['inter_u32', 256], ['fc2_n_chunks', 1]]], 0, False, 32, 512]], ['field', 'arg3', ['repr', 'torch', 'dtype', 'torch.int32']]]]
+[b12x cute.compile] compile-start number=2 target=b12x.moe._shared.kernels.silu.MoEMicroKernelSilu cache_key=ea29eda3e6e339b7 kernel=integration.tp_moe.micro_direct version=1 params=['legacy', 'integration.tp_moe.micro_direct', 1, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'micro_direct'], ['field', 'arg2', [16, 'silu', False, False, False, False, 0, False, False, False, 'modelopt', 0, False, 1, 'e4m3_k16', 'packed', 'w13', False, 0.0, 1.0, 0.0, 1, ['dataclass', 'b12x.moe._shared.kernels.micro', '_ShapeConfig', [['k_dim', 512], ['n', 128], ['two_n', 256], ['weight_E', 4], ['num_topk', 2], ['k_half', 256], ['n_half', 64], ['w1_sf_rows', 256], ['w1_sf_cols', 32], ['w2_sf_rows', 512], ['w2_sf_cols', 8], ['k_blocks', 32], ['k_segments', 1], ['k_segments_aligned', True], ['fc1_chunks', 2], ['fc1_chunks_per_block', 16], ['i_chunk', 64], ['rows_per_warp_fc1', 4], ['smem_xh_stride', 9], ['smem_xh_size', 260], ['inter_blocks', 4], ['inter_u32', 256], ['fc2_n_chunks', 1]]], 0, False, 32, 512]], ['field', 'arg3', ['repr', 'torch', 'dtype', 'torch.int64']]]]
+[b12x cute.compile] compile-done number=2 duration_s=0.299 total_compile_s=0.993 target=b12x.moe._shared.kernels.silu.MoEMicroKernelSilu cache_key=ea29eda3e6e339b7 kernel=integration.tp_moe.micro_direct version=1 params=['legacy', 'integration.tp_moe.micro_direct', 1, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'micro_direct'], ['field', 'arg2', [16, 'silu', False, False, False, False, 0, False, False, False, 'modelopt', 0, False, 1, 'e4m3_k16', 'packed', 'w13', False, 0.0, 1.0, 0.0, 1, ['dataclass', 'b12x.moe._shared.kernels.micro', '_ShapeConfig', [['k_dim', 512], ['n', 128], ['two_n', 256], ['weight_E', 4], ['num_topk', 2], ['k_half', 256], ['n_half', 64], ['w1_sf_rows', 256], ['w1_sf_cols', 32], ['w2_sf_rows', 512], ['w2_sf_cols', 8], ['k_blocks', 32], ['k_segments', 1], ['k_segments_aligned', True], ['fc1_chunks', 2], ['fc1_chunks_per_block', 16], ['i_chunk', 64], ['rows_per_warp_fc1', 4], ['smem_xh_stride', 9], ['smem_xh_size', 260], ['inter_blocks', 4], ['inter_u32', 256], ['fc2_n_chunks', 1]]], 0, False, 32, 512]], ['field', 'arg3', ['repr', 'torch', 'dtype', 'torch.int64']]]]
+PASSED
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8] INFO 09-22 02:01:13 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+[b12x cute.compile] compile-start number=3 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=5996b318650fbb53 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 1], ['fc1_tasks', 8], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 16], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 4], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 8], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 8]
+[b12x cute.compile] compile-done number=3 duration_s=0.292 total_compile_s=1.285 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=5996b318650fbb53 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 1], ['fc1_tasks', 8], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 16], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 4], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 8], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 8]
+[b12x cute.compile] compile-start number=4 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=ec52b56be66a5319 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 1], ['fc1_tasks', 8], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 16], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 4], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 8], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 16]
+[b12x cute.compile] compile-done number=4 duration_s=0.142 total_compile_s=1.427 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=ec52b56be66a5319 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 1], ['fc1_tasks', 8], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 16], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 4], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 8], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 16]
+[b12x cute.compile] compile-start number=5 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=a59d91edfe7c4796 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 1], ['fc1_tasks', 6], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 12], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 3], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 6], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 6]
+[b12x cute.compile] compile-done number=5 duration_s=0.207 total_compile_s=1.634 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase1 cache_key=a59d91edfe7c4796 kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 1, [['fc1_ktg', 1], ['fc1_tasks', 6], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 12], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 3], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 6], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 6]
+[b12x cute.compile] compile-start number=6 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=3a998332b9c8803e kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 1], ['fc1_tasks', 6], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 12], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 3], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 6], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 12]
+[b12x cute.compile] compile-done number=6 duration_s=0.144 total_compile_s=1.778 target=b12x.moe._shared.kernels.tiny_decode.MoETinyDecodeKernelBackendPhase2 cache_key=3a998332b9c8803e kernel=integration.tp_moe.tiny_decode version=1 params=['tiny_decode', 'silu', 'w31', 2, [['fc1_ktg', 1], ['fc1_tasks', 6], ['fc2_kt_per_task', 1], ['fc2_ktg', 1], ['fc2_tasks', 12], ['k', 512], ['k2_tail_g32', 0], ['kt13', 4], ['kt2', 1], ['kt2_full', 1], ['m', 3], ['n', 128], ['n_pad128', 128], ['nt13', 1], ['nt2', 2], ['num_topk', 2], ['rt', 6], ['sfb13_bytes', 4096], ['sfb2_bytes', 2048], ['two_n', 256], ['w13_words', 16384], ['w2_words', 8192], ['weight_E', 4]], 12]
+PASSED
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a16] INFO 09-22 02:01:17 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+[b12x cute.compile] compile-start number=7 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=d24b4687b8fac3b0 kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-done number=7 duration_s=0.844 total_compile_s=2.622 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=d24b4687b8fac3b0 kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-start number=8 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=a05caffbb6e7cb1b kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, True, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-done number=8 duration_s=0.548 total_compile_s=3.170 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=a05caffbb6e7cb1b kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, True, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-start number=9 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=3e7d364e46a38f6a kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, True, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-done number=9 duration_s=0.524 total_compile_s=3.693 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=3e7d364e46a38f6a kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, True, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-start number=10 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=33ef718162c3901f kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, True, True, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-done number=10 duration_s=0.545 total_compile_s=4.239 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=33ef718162c3901f kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, True, True, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 128, 128, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 1, 1, True, 13344, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 8, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, True, False, False, False, False, 2, 1, True, 11296, 1, False, 1, True, False], 256, 48, 14368, 1]]
+[b12x cute.compile] compile-start number=11 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16TopKSumKernel cache_key=c5848f6dddd94ab8 kernel=moe.w4a16.topk_sum version=4 params=['w4a16_topk_sum', 'bf16', 2, 512, False, False, 0, 0, 'torch.int32', False, False, False]
+[b12x cute.compile] compile-done number=11 duration_s=0.094 total_compile_s=4.333 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16TopKSumKernel cache_key=c5848f6dddd94ab8 kernel=moe.w4a16.topk_sum version=4 params=['w4a16_topk_sum', 'bf16', 2, 512, False, False, 0, 0, 'torch.int32', False, False, False]
+[b12x cute.compile] compile-start number=12 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16TopKSumKernel cache_key=e252426f7c4b188f kernel=moe.w4a16.topk_sum version=4 params=['w4a16_topk_sum', 'bf16', 2, 512, False, False, 4, 4, 'torch.int32', True, False, False]
+[b12x cute.compile] compile-done number=12 duration_s=0.047 total_compile_s=4.380 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16TopKSumKernel cache_key=e252426f7c4b188f kernel=moe.w4a16.topk_sum version=4 params=['w4a16_topk_sum', 'bf16', 2, 512, False, False, 4, 4, 'torch.int32', True, False, False]
+PASSED
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[128-nvfp4] INFO 09-22 02:01:20 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+[b12x cute.compile] compile-start number=13 target=b12x.moe.fused_moe._impl._DynamicMoELaunch cache_key=c63e494bfed3f50b kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', False], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', False], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+[b12x cute.compile] compile-done number=13 duration_s=1.765 total_compile_s=6.144 target=b12x.moe.fused_moe._impl._DynamicMoELaunch cache_key=c63e494bfed3f50b kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', False], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', False], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+[b12x cute.compile] compile-start number=14 target=b12x.moe.fused_moe._impl._DynamicMoELaunch cache_key=31fc489ec23cbf55 kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int64']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', False], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', False], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+[b12x cute.compile] compile-done number=14 duration_s=1.158 total_compile_s=7.302 target=b12x.moe.fused_moe._impl._DynamicMoELaunch cache_key=31fc489ec23cbf55 kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'nvfp4'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int64']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', False], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', False], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', False], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+PASSED
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[128-w4a8] INFO 09-22 02:01:23 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+[b12x cute.compile] compile-start number=15 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=cce5412191704645 kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', True], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', True], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+[b12x cute.compile] compile-done number=15 duration_s=1.213 total_compile_s=8.515 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=cce5412191704645 kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int32']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', True], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', True], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+[b12x cute.compile] compile-start number=16 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=4978a19d8e6db198 kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int64']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', True], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', True], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+[b12x cute.compile] compile-done number=16 duration_s=1.315 total_compile_s=9.831 target=b12x.moe.fused_moe._impl._DynamicMoEW4A8Launch cache_key=4978a19d8e6db198 kernel=integration.tp_moe.dynamic version=9 params=['legacy', 'integration.tp_moe.dynamic', 9, [['field', 'arg0', 'w4a8_mx'], ['field', 'arg1', 'dynamic'], ['field', 'arg2', 4], ['field', 'arg3', 512], ['field', 'arg4', 128], ['field', 'arg5', 2], ['field', 'arg6', [64, 128]], ['field', 'arg7', ['repr', 'torch', 'dtype', 'torch.int64']], ['field', 'arg8', True], ['field', 'arg9', 'silu'], ['field', 'arg10', None], ['field', 'arg11', 1.0], ['field', 'arg12', 0.0], ['field', 'arg13', False], ['field', 'arg14', True], ['field', 'arg15', False], ['field', 'arg16', False], ['field', 'arg17', False], ['field', 'arg18', False], ['field', 'arg19', 'materialized_queue'], ['field', 'arg20', True], ['field', 'arg21', False], ['field', 'arg22', False], ['field', 'arg23', False], ['field', 'arg24', True], ['field', 'arg25', 0], ['field', 'arg26', False]]]
+PASSED
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[128-w4a16] INFO 09-22 02:01:26 [kernel.py:376] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+[b12x cute.compile] compile-start number=17 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=3992f0c1a45409d4 kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 4, False, 17920, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 4, False, 17920, 1, False, 1, True, False], 256, 48, 18944, 1]]
+[b12x cute.compile] compile-done number=17 duration_s=1.861 total_compile_s=11.691 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=3992f0c1a45409d4 kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, False, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 4, False, 17920, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 4, False, 17920, 1, False, 1, True, False], 256, 48, 18944, 1]]
+[b12x cute.compile] compile-start number=18 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=5e7bb51396559620 kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, True, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 4, False, 17920, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 4, False, 17920, 1, False, 1, True, False], 256, 48, 18944, 1]]
+[b12x cute.compile] compile-done number=18 duration_s=1.811 total_compile_s=13.503 target=b12x.moe._shared.kernels.w4a16.kernel.W4A16FusedMoeKernel cache_key=5e7bb51396559620 kernel=moe.w4a16.fused_moe version=8 params=['w4a16_fused_moe', 0, [512, 128, 256, None, True, 2, 'silu', True, False, False, False, 0.0, 1.0, 0.0, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, True, 'bf16', True, False, False, True, False, False, False, False, False, False, 'bf16', True, False, [256, 512, 256, 512, 32, False, None, True, 2, False, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 1, 4, False, 17920, 1, False, 1, True, False], [512, 128, 512, 128, 8, False, None, True, 1, True, 256, 64, 256, 64, 'bf16', False, 'packed', 3, 'sqg_e4m3', None, None, 'e4m3_k16', False, 'packed', 0, False, False, False, False, False, False, 2, 4, False, 17920, 1, False, 1, True, False], 256, 48, 18944, 1]]
+PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+  /opt/jovian-judgement/vllm/vllm/model_executor/layers/quantization/utils/mxfp4_utils.py:344: UserWarning: Logical operators 'and' and 'or' are deprecated for non-scalar tensors; please use '&' or '|' instead
+    full_mask_src = mask_src_quant and mask_n
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+  /opt/jovian-judgement/vllm/vllm/model_executor/layers/quantization/utils/mxfp4_utils.py:347: UserWarning: Logical operators 'and' and 'or' are deprecated for non-scalar tensors; please use '&' or '|' instead
+    full_mask_mxt = mask_mxt_quant and mask_n
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse[4-w4a8]
+  /opt/jovian-judgement/vllm/vllm/model_executor/layers/quantization/utils/mxfp4_utils.py:350: UserWarning: Logical operators 'and' and 'or' are deprecated for non-scalar tensors; please use '&' or '|' instead
+    full_scale_mask = scale_mask_k and mask_n
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 6 passed, 26 warnings in 23.39s ========================
+JJ-main-REGRESSION-PASS tests/kernels/moe/test_b12x.py::test_b12x_moe_prefill_capacity_and_exact_decode_reuse: 6 passed
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 1 item
+
+tests/models/test_glm5next_pooled_indexer.py::test_glm53_pool_expansion_appends_only_the_incomplete_tail PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 1 passed, 14 warnings in 4.75s ========================
+JJ-main-REGRESSION-PASS tests/models/test_glm5next_pooled_indexer.py::test_glm53_pool_expansion_appends_only_the_incomplete_tail: 1 passed
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 21 items / 14 deselected / 7 selected
+
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_crosses_null_gaps PASSED
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_bounds_prefill_states[0-3584] PASSED
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_bounds_prefill_states[0-4608] PASSED
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_bounds_prefill_states[1-3584] PASSED
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_bounds_prefill_states[1-4608] PASSED
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_bounds_prefill_states[2-3584] PASSED
+tests/v1/core/test_single_type_kv_cache_manager.py::test_mamba_retirement_bounds_prefill_states[2-4608] PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 7 passed, 14 deselected, 14 warnings in 4.79s =================
+JJ-main-REGRESSION-PASS tests/v1/core/test_single_type_kv_cache_manager.py: 7 passed

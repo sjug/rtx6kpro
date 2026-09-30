@@ -1,0 +1,11 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -1392,7 +1392,7 @@
+         tile_sched_params, grid = self._compute_grid(
+             c,
+             self.tile_shape_mnk,
+-            max_active_clusters,
++            1048576,
+             self.direct_one_m_tile_scheduler,
+             self.split_k_slices,
+             self.large_m_unroll,

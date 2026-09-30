@@ -1,0 +1,267 @@
+--- a/vllm/models/deepseek_v4_1/common/engram.py
++++ b/vllm/models/deepseek_v4_1/common/engram.py
+@@ -617,23 +617,31 @@
+ 
+ 
+ @triton.jit
+-def _wait_engram_rows(ready, expected, failed, timeout_ms):
+-    """Spin until the side-stream lookup publishes this step's epoch."""
++def _wait_engram_rows(ready, expected, failed, timeout_ms, flag):
++    """Spin until the side-stream lookup publishes this step's epoch.
++
++    Always writes this rank's timeout state (1 or 0) to ``flag``, element 0
++    of the row all-reduce input, so no earlier step's flag survives into
++    this step's reduction.
++    """
+     target = tl.load(expected)
+     timeout_ns = timeout_ms.to(tl.int64) * 1_000_000
+     start = tl.inline_asm_elementwise(
+         "mov.u64 $0, %globaltimer;", "=l", [], dtype=tl.int64, is_pure=False, pack=1
+     )
+     waiting = (tl.load(ready, volatile=True) < target).to(tl.int32)
++    timed_out = waiting * 0
+     while waiting != 0:
+         now = tl.inline_asm_elementwise(
+             "mov.u64 $0, %globaltimer;", "=l", [], dtype=tl.int64, is_pure=False, pack=1
+         )
+         if now - start > timeout_ns:
+             tl.store(failed, 1)
++            timed_out = 1
+             waiting = 0
+         else:
+             waiting = (tl.load(ready, volatile=True) < target).to(tl.int32)
++    tl.store(flag, timed_out.to(tl.bfloat16))
+ 
+ 
+ class Engram(nn.Module):
+@@ -666,6 +674,9 @@
+         self._disk_prepared_tokens = 0
+         # (ready, expected, failed) epochs when disk rows arrive asynchronously.
+         self.overlap_epochs: tuple[torch.Tensor, ...] | None = None
++        # Model-wide monotonic epoch of the last step whose rows were consumed
++        # unpublished on any TP rank; set together with overlap_epochs.
++        self.overlap_fault_epoch: torch.Tensor | None = None
+         projection_tp = getattr(layout, "projection_tp", False)
+         projection_cls = ColumnParallelLinear if projection_tp else ReplicatedLinear
+         self.wkv = projection_cls(
+@@ -690,15 +701,20 @@
+             persistent=False,
+         )
+         self.register_buffer(
+-            "staged_rows",
++            "engram_io_rows",
+             torch.empty(
+-                caps.max_tokens,
++                caps.max_tokens + 1,
+                 6144,
+                 dtype=torch.bfloat16,
+                 device=caps.device,
+             ),
+             persistent=False,
+         )
++        # Row 0 carries the per-step timeout flag through the row all-reduce.
++        # Lookups bind only the token rows after it, so no lookup (including a
++        # late one after a timeout) can write the flag.
++        self.engram_io_rows[0].zero_()
++        self.staged_rows = self.engram_io_rows[1:]
+         mix_caps = hyperconnection.Caps(
+             device=caps.device,
+             max_tokens=caps.max_tokens,
+@@ -857,7 +873,22 @@
+     def prepare_embeddings(self, hash_ids):
+         self.embed_tokens.lookup(hash_ids, self.staged_rows)
+ 
++    def _check_fault_io_alias(self) -> None:
++        """Host-only check that lookups still write inside engram_io_rows.
++
++        Called from invalidate_disk_output(), which every staging path
++        (disk, batched disk, dummy) runs eagerly before each forward.
++        Never called from forward: data_ptr() is not traceable.
++        """
++        if self.overlap_epochs is None:
++            return
++        if self.overlap_fault_epoch is None:
++            raise RuntimeError("Engram overlap requires a fault epoch buffer")
++        if self.staged_rows.data_ptr() != self.engram_io_rows[1:].data_ptr():
++            raise RuntimeError("Engram staged rows no longer alias the flag buffer")
++
+     def invalidate_disk_output(self, *, clear=False):
++        self._check_fault_io_alias()
+         self._disk_prepared = False
+         self._disk_prepared_tokens = 0
+         if clear:
+@@ -898,8 +929,20 @@
+         ):
+             raise RuntimeError("Disk Engram output is not prepared")
+         if self.overlap_epochs is not None:
+-            _wait_engram_rows[(1,)](*self.overlap_epochs, 5000)
+-        rows = tensor_model_parallel_all_reduce(self.staged_rows[: hash_ids.shape[0]])
++            io = self.engram_io_rows
++            fault = self.overlap_fault_epoch
++            _wait_engram_rows[(1,)](*self.overlap_epochs, 5000, io)
++            reduced = tensor_model_parallel_all_reduce(io[: hash_ids.shape[0] + 1])
++            # Nonzero or NaN sum: some TP rank consumed unpublished rows.
++            raised = reduced[0, :1] != 0
++            fault.copy_(
++                torch.where(raised, torch.maximum(fault, self.overlap_epochs[1]), fault)
++            )
++            rows = reduced[1:]
++        else:
++            rows = tensor_model_parallel_all_reduce(
++                self.staged_rows[: hash_ids.shape[0]]
++            )
+         kv = self.wkv(rows)
+         state = hidden_states.flatten(1)
+         out = torch.empty_like(state)
+--- a/vllm/models/deepseek_v4_1/nvidia/model.py
++++ b/vllm/models/deepseek_v4_1/nvidia/model.py
+@@ -473,9 +473,13 @@
+                     3, dtype=torch.int64, device=caps.device
+                 )
+                 epochs = tuple(self._engram_epochs[i : i + 1] for i in range(3))
++                self._engram_fault_epoch = torch.zeros(
++                    1, dtype=torch.int64, device=caps.device
++                )
+                 for layer in islice(self.layers, self.start_layer, self.end_layer):
+                     if getattr(layer, "engram", None) is not None:
+                         layer.engram.overlap_epochs = epochs
++                        layer.engram.overlap_fault_epoch = self._engram_fault_epoch
+ 
+         if get_pp_group().is_last_rank:
+             self.norm = RMSNorm(config.hidden_size, self.rms_norm_eps)
+@@ -591,6 +595,19 @@
+         for layer in islice(self.layers, self.start_layer, self.end_layer):
+             if getattr(layer, "engram", None) is not None:
+                 layer.engram.prepare_dummy_output(num_tokens)
++
++    def snapshot_engram_fault(self) -> torch.Tensor | None:
++        """Snapshot the Engram fault state on the current stream.
++
++        Returns a new int64 [fault_epoch, step_epoch]. fault_epoch is the
++        latest epoch whose rows any TP rank consumed unpublished (0 = none,
++        never reset); the runner calls this after sampling, so the snapshot
++        follows this step's forward in stream order.
++        """
++        fault = getattr(self, "_engram_fault_epoch", None)
++        if fault is None:
++            return None
++        return torch.cat((fault, self._engram_epochs[1:2]))
+ 
+     def embed_input_ids(self, input_ids: torch.Tensor) -> torch.Tensor:
+         return self.embed_tokens(input_ids)
+--- a/vllm/models/deepseek_v4_1/nvidia/model_state.py
++++ b/vllm/models/deepseek_v4_1/nvidia/model_state.py
+@@ -278,3 +278,14 @@
+         for model in self.disk_engram_models:
+             model.prepare_dummy_engram(num_tokens)
+         return model_inputs
++
++    def step_fault_snapshot(self) -> torch.Tensor | None:
++        """Per-step Engram fault record for the async output path, or None."""
++        snapshots = [
++            snapshot
++            for model in self.disk_engram_models
++            if (snapshot := model.snapshot_engram_fault()) is not None
++        ]
++        if not snapshots:
++            return None
++        return snapshots[0] if len(snapshots) == 1 else torch.cat(snapshots)
+--- a/vllm/v1/worker/gpu/async_utils.py
++++ b/vllm/v1/worker/gpu/async_utils.py
+@@ -22,6 +22,26 @@
+ 
+ if TYPE_CHECKING:
+     from vllm.v1.worker.gpu.input_batch import InputBatch
++
++
++def _check_model_fault(values: list[int]) -> None:
++    """Fail closed when a model reports any fault since process start.
++
++    ``values`` holds [fault_epoch, step_epoch] pairs; fault_epoch is
++    monotonic and never reset, so a fault in a step whose output was never
++    checked (warmup, dummy run) fails the next checked output instead of
++    being lost.
++    """
++    for i in range(0, len(values), 2):
++        fault_epoch, step_epoch = values[i : i + 2]
++        if fault_epoch > 0:
++            where = "this step" if fault_epoch == step_epoch else "an earlier step"
++            raise RuntimeError(
++                f"Model reported a fault in {where} (fault epoch {fault_epoch}, "
++                f"step epoch {step_epoch}): Engram rows were consumed before "
++                "publication on at least one tensor-parallel rank. Refusing to "
++                "emit outputs."
++            )
+ 
+ 
+ @dataclass(frozen=True)
+@@ -124,6 +144,7 @@
+         routed_experts: RoutedExpertsTensors | None = None,
+         boundary_checkpoint_tokens: torch.Tensor | None = None,
+         num_verified_draft_tokens: torch.Tensor | None = None,
++        model_fault: torch.Tensor | None = None,
+     ):
+         # NOTE(woosuk): We must retain references to the GPU tensors,
+         # as the copy operations are performed on a different CUDA stream than
+@@ -144,6 +165,9 @@
+         # Blocking (sleep) event to avoid busy-polling the CUDA driver lock.
+         self.copy_event = torch.cuda.Event(blocking=True)
+         self._has_fault: torch.Tensor | None = None
++        # Keep the device snapshot alive until the copy stream has read it.
++        self.model_fault = model_fault
++        self._model_fault: torch.Tensor | None = None
+ 
+         with stream(copy_stream, main_stream):
+             copy_stream.wait_stream(main_stream)
+@@ -183,10 +207,14 @@
+             if check_ep_fault:
+                 has_fault = get_ep_all2all_manager().query_fault()
+                 self._has_fault = has_fault.to("cpu", non_blocking=True)
++            if model_fault is not None:
++                self._model_fault = model_fault.to("cpu", non_blocking=True)
+             self.copy_event.record(copy_stream)
+ 
+     def get_output(self) -> ModelRunnerOutput:
+         self.copy_event.synchronize()
++        if self._model_fault is not None:
++            _check_model_fault(self._model_fault.tolist())
+ 
+         # NOTE(woosuk): The following code is to ensure compatibility with
+         # the existing model runner.
+--- a/vllm/v1/worker/gpu/model_runner.py
++++ b/vllm/v1/worker/gpu/model_runner.py
+@@ -2282,6 +2282,18 @@
+             )
+         return None
+ 
++    def _model_step_fault(self) -> torch.Tensor | None:
++        """Snapshot a model-reported step fault on the main stream, if any.
++
++        Called after sampling and before the next step is prepared; the
++        async output copies the snapshot with this step's results.
++        """
++        snapshot = getattr(self.model_state, "step_fault_snapshot", None)
++        if snapshot is None:
++            return None
++        with torch.cuda.stream(self.main_stream):
++            return snapshot()
++
+     @torch.inference_mode()
+     @step_eplb_after()
+     def sample_tokens(
+@@ -2392,6 +2404,7 @@
+                 main_stream=self.main_stream,
+                 copy_stream=self.output_copy_stream,
+                 check_ep_fault=self.check_ep_fault,
++                model_fault=self._model_step_fault(),
+                 routed_experts=routed_experts,
+                 num_verified_draft_tokens=num_verified_draft_tokens,
+             )
+@@ -2453,6 +2466,7 @@
+                 main_stream=self.main_stream,
+                 copy_stream=self.output_copy_stream,
+                 check_ep_fault=self.check_ep_fault,
++                model_fault=self._model_step_fault(),
+                 routed_experts=routed_experts,
+                 boundary_checkpoint_tokens=boundary_capture[0],
+                 num_verified_draft_tokens=num_verified_draft_tokens,

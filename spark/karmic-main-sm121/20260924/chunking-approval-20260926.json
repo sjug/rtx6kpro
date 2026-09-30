@@ -1,0 +1,12 @@
+{
+  "approval": "User replied Yes to diagnostic thresholds 7936 and 4096, prepared capacity 8192, temporary KV pin 81389 blocks",
+  "scope": "Two diagnostic restarts on dusty/toby/rusty/kirby only; not a serving default or promotion",
+  "thresholds": [7936, 4096],
+  "num_gpu_blocks_override": 81389,
+  "max_num_batched_tokens": 8192,
+  "image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+  "regime_reference": "receipts/needle-sensitivity-20260926T045954Z/regime-pre.json",
+  "regime_sha256": "d8793ca37b7bdc70e84b23dc9f63472a8b27c1fe5c413bd579bfda944227f2f4",
+  "untouched": ["sparky", "buddy", "rocky", "lucky"],
+  "normal_serving_kv": "automatic"
+}

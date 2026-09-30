@@ -1,0 +1,35 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -1879,7 +1879,7 @@
+             pipeline.Agent.Thread
+         )
+         mainloop_pipeline_consumer_group = pipeline.CooperativeGroup(
+-            pipeline.Agent.Thread, self.num_mma_warps
++            pipeline.Agent.Thread, self.num_mma_warps * self.num_threads_per_warp
+         )
+ 
+         cta_layout_vmnk = cute.make_layout((1, *cta_layout_mnk.shape))
+@@ -2570,7 +2570,10 @@
+                                 packed_b_lookahead_state.advance()
+ 
+                         if k_block_idx == num_k_blocks - 1:
+-                            mainloop_pipeline.consumer_release(mainloop_consumer_state)
++                            if cutlass.const_expr(self.load_path == "tma"):
++                                mainloop_pipeline.sync_object_empty.arrive(mainloop_consumer_state.index, mainloop_pipeline.consumer_mask)
++                            else:
++                                mainloop_pipeline.consumer_release(mainloop_consumer_state)
+                             mainloop_consumer_state.advance()
+ 
+                             peek_ab_full_status = cutlass.Boolean(1)
+@@ -2765,7 +2768,10 @@
+                     )
+ 
+                     if k_block_idx == num_k_blocks - 1:
+-                        mainloop_pipeline.consumer_release(mainloop_consumer_state)
++                        if cutlass.const_expr(self.load_path == "tma"):
++                            mainloop_pipeline.sync_object_empty.arrive(mainloop_consumer_state.index, mainloop_pipeline.consumer_mask)
++                        else:
++                            mainloop_pipeline.consumer_release(mainloop_consumer_state)
+                         mainloop_consumer_state.advance()
+ 
+                     if k_block_next > 0:

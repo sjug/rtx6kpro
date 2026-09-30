@@ -1,0 +1,37 @@
+# Packaging only: this parent has the fresh JJ-main native stack, not R38 binaries.
+ARG RUNTIME_IMAGE
+FROM ${RUNTIME_IMAGE}
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+ARG QWEN_LAUNCHER_INPUT_SHA256
+ARG GLM_LAUNCHER_INPUT_SHA256
+ARG CACHE_INPUT_SHA256
+ARG RECIPE_INPUT_SHA256
+COPY launchers/serve-qwen38-flash-next-jj-main-spark.sh /usr/local/bin/
+COPY launchers/serve-glm53-flash-jj-main-spark.sh /usr/local/bin/
+COPY source-selection.json spark-overlay.patch runtime-arm64.lock /opt/jj-main-build/
+ENV QWEN_LAUNCHER_SHA256=${QWEN_LAUNCHER_INPUT_SHA256} \
+    GLM_LAUNCHER_SHA256=${GLM_LAUNCHER_INPUT_SHA256} \
+    XDG_CACHE_HOME=/cache/jit/${CACHE_INPUT_SHA256} \
+    VLLM_CACHE_ROOT=/cache/jit/${CACHE_INPUT_SHA256}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/b12x \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/cute-dsl \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/b12x/compile \
+    TORCH_EXTENSIONS_DIR=/cache/jit/${CACHE_INPUT_SHA256}/torch-extensions \
+    TVM_FFI_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/tvm-ffi \
+    TVM_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/tvm \
+    DG_JIT_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/deep-gemm \
+    NUMBA_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/numba \
+    CUDA_CACHE_PATH=/cache/jit/${CACHE_INPUT_SHA256}/cuda \
+    TORCH_CUDA_ARCH_LIST=12.1a MAX_JOBS=20
+RUN echo "$QWEN_LAUNCHER_SHA256  /usr/local/bin/serve-qwen38-flash-next-jj-main-spark.sh" | sha256sum -c - \
+    && echo "$GLM_LAUNCHER_SHA256  /usr/local/bin/serve-glm53-flash-jj-main-spark.sh" | sha256sum -c - \
+    && chmod 755 /usr/local/bin/serve-*-jj-main-spark.sh
+LABEL org.opencontainers.image.title="JJ-main beta DGX Spark SM121" \
+      org.opencontainers.image.description="Fresh CUDA 13.4 Torch 2.14 ARM64 stack; model qualification required" \
+      local-inference.qwen.launcher.sha256="${QWEN_LAUNCHER_INPUT_SHA256}" \
+      local-inference.glm.launcher.sha256="${GLM_LAUNCHER_INPUT_SHA256}" \
+      local-inference.cache.fingerprint="${CACHE_INPUT_SHA256}" \
+      local-inference.serving.recipe.sha256="${RECIPE_INPUT_SHA256}"

@@ -1,0 +1,11 @@
+**
+!Dockerfile.claude-engram-timing
+!claude-engram-timing-_impl.py
+!claude-engram-timing-disk_table.py
+!claude-engram-timing-model.py
+!claude-engram-timing.patch
+!claude_engram_timing.py
+!claude_install_engram_timing.py
+!claude_prepare_engram_timing.py
+!claude_test_engram_timing.py
+!claude-engram-timing.lock.json

@@ -1,0 +1,1569 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="32" skipped="0" tests="32" time="9.103" timestamp="2026-09-22T19:24:10.831499+00:00" hostname="e91bf35c4916"><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-0]" time="0.126"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-1]" time="0.096"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-2]" time="0.098"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-3]" time="0.099"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-0]" time="0.092"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-1]" time="0.094"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-2]" time="0.097"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-3]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-0]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-1]" time="0.092"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-2]" time="0.095"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-3]" time="0.096"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{&quot;a&quot;:-ending3-0]" time="0.097"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{&quot;a&quot;:-ending3-1]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{&quot;a&quot;:-ending3-2]" time="0.091"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{&quot;a&quot;:-ending3-3]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-0]" time="0.095"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-1]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-2]" time="0.094"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{&quot;a&quot;:&quot;b&quot;}-ending0-3]" time="0.090"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-0]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-1]" time="0.094"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-2]" time="0.095"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{&quot;a&quot;:&quot;b&quot;}-ending1-3]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"}'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-0]" time="0.091"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-1]" time="0.092"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-2]" time="0.094"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{&quot;a&quot;:&quot;b&quot;-ending2-3]" time="0.094"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":"b"'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{&quot;a&quot;:-ending3-0]" time="0.092"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 0, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{&quot;a&quot;:-ending3-1]" time="0.093"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 1, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{&quot;a&quot;:-ending3-2]" time="0.095"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 2, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase><testcase classname="test_r38_baseline_grammar" name="test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{&quot;a&quot;:-ending3-3]" time="0.097"><failure message="pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig&#10;  Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.&#10;Please verify the following requirements:&#10;1. Provide a valid Hugging Face repository ID.&#10;2. Specify a local directory that contains a recognized configuration file.&#10;   - For Hugging Face models: ensure the presence of a 'config.json'.&#10;   - For Mistral models: ensure the presence of a 'params.json'.&#10; [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/value_error">num_verified = 3, num_valid = 3, prefix = '{"a":', ending = ['0', '}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+&gt;       tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+kit/test_r38_baseline_grammar.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+backend = 'xgrammar', prompt_str = '{"a":'
+
+    def _make_manager_and_request(backend: str, prompt_str: str = '{"a": "b"}'):
+        tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        prompt = tokenizer.encode(prompt_str)
+    
+        vllm_config = VllmConfig(
+&gt;           model_config=ModelConfig(tokenizer=TOKENIZER),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            structured_outputs_config=StructuredOutputsConfig(backend=backend),
+            speculative_config=SpeculativeConfig(
+                model="[ngram]", num_speculative_tokens=NUM_SPEC_TOKENS
+            ),
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'Qwen/Qwen3-0.6B'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'tokenizer': 'gpt2'}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+kit/test_r38_baseline_grammar.py:32: ValidationError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,43 @@
+{
+  "base_image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+  "base_kind": "router-stage-release-candidate",
+  "base_lock": "router-release.lock.json",
+  "base_lock_sha256": "7122753a3206df8b1ff23b1fa1b0727daf4e1378f940a4ab7358dfeb76065a77",
+  "base_parent_image_id": "ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5",
+  "base_router_target": {
+    "path": "b12x/gemm/bf16_gemv/_prefill.py",
+    "sha256": "ca888af42b16eb27be445814154f98a3765cb5b054e7b0b77408f76939e801e8"
+  },
+  "base_trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "ce1b9bcdb91706251314d3c1ea955887c779901c"
+  },
+  "inputs": {
+    "Dockerfile.claude-decision-row": "eb74cc266b2d2c0b5e3ba710d4872514010ebfdb58cac50bd77a9d71198c5098",
+    "claude-decision-row-attention.py": "8594274f59b3d7340690ae092f4efeb2986754b685c7bd4c964f851f9768e749",
+    "claude-decision-row-capture.py": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+    "claude-decision-row.patch": "6ab9043d1aa77a604fd03c49c1893085fbd8e73c3142248ea4254ef2808bc8fd",
+    "claude_install_decision_row.py": "45a62ba6f09e70dcae5e7f467734017c4f624bab0176f1b44031bb9ff64e6049",
+    "claude_prepare_decision_row.py": "16300becd8937f95e8802c554a88edc5b339ff43f810201a23b51ac92b73005c",
+    "claude_test_decision_row_capture.py": "2bb60d3363d7cd0242af3e0fad17426bcd25e0f619f6e5cedc0cc368b6b1e874"
+  },
+  "kind": "decision-row-capture-diagnostic",
+  "scope": "decision-row capture for the offline reference audit; adds copies after producers; not numerics, determinism, performance or router-fence evidence",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/attention.py": {
+      "input_sha256": "d3b92eb0e9d64de567185e24bc04d6001b76da5653cdaa4fb512f7f5a8432752",
+      "output_sha256": "8594274f59b3d7340690ae092f4efeb2986754b685c7bd4c964f851f9768e749",
+      "source": "claude-decision-row-attention.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/claude_decision_row.py": {
+      "input_sha256": null,
+      "output_sha256": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+      "source": "claude-decision-row-capture.py"
+    }
+  },
+  "trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "2b41bcf7aa274c96426cd49fbcc643cc168d9f78"
+  }
+}

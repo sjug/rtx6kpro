@@ -1,0 +1,18 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2571,6 +2571,7 @@
+ 
+                         if k_block_idx == num_k_blocks - 1:
+                             mainloop_pipeline.consumer_release(mainloop_consumer_state)
++                            cute.arch.fence_acq_rel_cta()
+                             mainloop_consumer_state.advance()
+ 
+                             peek_ab_full_status = cutlass.Boolean(1)
+@@ -2766,6 +2767,7 @@
+ 
+                     if k_block_idx == num_k_blocks - 1:
+                         mainloop_pipeline.consumer_release(mainloop_consumer_state)
++                        cute.arch.fence_acq_rel_cta()
+                         mainloop_consumer_state.advance()
+ 
+                     if k_block_next > 0:

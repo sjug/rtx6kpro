@@ -1,0 +1,17 @@
+# DIAGNOSTIC ONLY. Never a serving candidate: activation digests of eager
+# prefill steps for localizing the residual prefill divergence.
+# Base: Engram repair candidate ee03505df7a3.
+FROM ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5
+ARG TRACE_LOCK
+ARG TRACE_CACHE
+COPY claude-act-trace.lock.json claude_prepare_act_trace.py claude_act_trace.py claude_install_act_trace.py Dockerfile.claude-act-trace claude_act_analyze.py claude_test_act_trace.py claude-act-trace-model.py claude-act-trace.patch /opt/ds41-act-trace/
+RUN /opt/venv/bin/python /opt/ds41-act-trace/claude_install_act_trace.py
+# B12X bytes are unchanged: its compile cache and native loader build are the
+# candidate's. vLLM and Inductor output goes to a separate directory.
+ENV VLLM_CACHE_ROOT=/cache/jit/${TRACE_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${TRACE_CACHE}/inductor
+LABEL local-inference.ds41.diagnostic.kind="activation-digest" \
+    local-inference.ds41.diagnostic.lock.sha256="${TRACE_LOCK}" \
+    local-inference.ds41.diagnostic.base-image="ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5" \
+    local-inference.status="diagnostic-only-not-qualified" \
+    org.opencontainers.image.title="DS4.1 Engram repair with activation-digest diagnostic"

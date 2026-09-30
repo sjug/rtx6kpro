@@ -1,0 +1,181 @@
+diff -ruN a/distribute_diagnostic.py b/distribute_diagnostic.py
+--- a/distribute_diagnostic.py	2026-09-26 20:57:48.962242378 -0400
++++ b/distribute_diagnostic.py	2026-09-26 20:57:48.978745948 -0400
+@@ -11,6 +11,7 @@
+ KINDS = {'decision-row': 'claude-decision-row',
+          'precision': 'ds41-precision',
+          'precision-release': 'ds41-precision-release',
++         'ratio1': 'ds41-ratio1',
+          'indexer': 'ds41-indexer',
+          'window': 'claude-window',
+          'engram-fault': 'claude-engram-fault-inject'}
+diff -ruN a/launch_contract.py b/launch_contract.py
+--- a/launch_contract.py	2026-09-26 20:57:48.957524544 -0400
++++ b/launch_contract.py	2026-09-26 20:57:48.978703597 -0400
+@@ -30,6 +30,12 @@
+ # no ALGO/PROTO/channel override). Not new NCCL tuning. The explicit selector keeps these boots
+ # distinct from the tree arm and from earlier non-geometry receipts; precision-capture only.
+ STANDARD_NCCL_ARM = 'standard-upstream'
++# User-authorized ratio-1 compute-mode diagnostic, 2026-09-27 (ds41_ratio1_prepare.py): the precision
++# release control/return and the ratio-1 extend BF16 pin variant, each at the release boot's automatic
++# 80022-block capacity so attention plan identities match. Diagnostic only, never a serving default.
++PRECISION_RELEASE_LOCK = '4b1afffe455d634cbadc82353a64beb3c96bbaf89b595c948c00dbfa3b1f1c32'
++RATIO1_LOCK = 'ac3cab6925cf41dedcc596bf26ce8a7071318f1b2d3b57452fb6c5e7e5cafe1d'
++RATIO1_BLOCKS = '80022'
+ 
+ 
+ def validate_chunking_image(pin, env):
+@@ -38,6 +44,15 @@
+     if arm is not None and (arm != STANDARD_NCCL_ARM or diagnostic.get('kind') != 'precision-capture'
+                             or 'DS41_NCCL_GEOMETRY' in env):
+         raise ValueError('The standard NCCL arm is restricted to the precision-capture image without tree geometry')
++    if diagnostic.get('kind') == 'ratio1-bf16-diagnostic' or env.get('DS41_DECISION_ROW_BLOCKS') == RATIO1_BLOCKS:
++        allowed = {'precision-release-candidate': PRECISION_RELEASE_LOCK, 'ratio1-bf16-diagnostic': RATIO1_LOCK}
++        if (diagnostic.get('kind') not in allowed or diagnostic.get('lock_sha256') != allowed[diagnostic['kind']]
++                or env.get('DS41_DECISION_ROW_BLOCKS') != RATIO1_BLOCKS
++                or any(key in env for key in ('DS41_PREFILL_THRESHOLD', 'DS41_CHUNKING_BLOCKS',
++                                              'DS41_NCCL_GEOMETRY', 'DS41_NCCL_ARM'))
++                or 'diagnostic_overlay' in pin):
++            raise ValueError('The 80022-block pin is restricted to the ratio-1 compute-mode diagnostic sequence')
++        return
+     if diagnostic.get('kind') in ('indexer-capture', 'precision-capture'):
+         expected_lock = (PRECISION_CAPTURE_LOCK if diagnostic['kind'] == 'precision-capture'
+                          else INDEXER_CAPTURE_LOCK)
+@@ -110,8 +125,8 @@
+     # planning geometry; never impose this pin on normal serving.
+     decision_blocks = os.environ.get('DS41_DECISION_ROW_BLOCKS')
+     if decision_blocks is not None:
+-        if decision_blocks not in ('80927', '81389'):
+-            raise ValueError('DS41_DECISION_ROW_BLOCKS must be exactly 80927 or 81389')
++        if decision_blocks not in ('80927', '81389', RATIO1_BLOCKS):
++            raise ValueError('DS41_DECISION_ROW_BLOCKS must be exactly 80927, 81389 or 80022')
+         env['DS41_DECISION_ROW_BLOCKS'] = decision_blocks
+         model += ['--num-gpu-blocks-override', decision_blocks]
+     # User-approved matched chunking diagnostics, 2026-09-26. Keep preparation
+diff -ruN a/run_node.py b/run_node.py
+--- a/run_node.py	2026-09-26 20:57:48.958707652 -0400
++++ b/run_node.py	2026-09-26 20:57:48.978720670 -0400
+@@ -66,7 +66,8 @@
+     profile = render(node)
+     validate_chunking_image(pin, profile['env'])
+     if 'DS41_DECISION_ROW_BLOCKS' in profile['env']:
+-        require(pin.get('diagnostic', {}).get('kind') in ('decision-row-capture', 'window-capture', 'indexer-capture', 'precision-capture'),
++        require(pin.get('diagnostic', {}).get('kind') in ('decision-row-capture', 'window-capture', 'indexer-capture', 'precision-capture',
++                                                              'precision-release-candidate', 'ratio1-bf16-diagnostic'),
+                 'KV block pin is restricted to decision-row-capture or window-capture')
+     if 'DS41_NCCL_GEOMETRY' in profile['env']:
+         require(pin.get('diagnostic', {}).get('kind') in ('window-capture', 'indexer-capture', 'precision-capture'),
+diff -ruN a/runtime.py b/runtime.py
+--- a/runtime.py	2026-09-26 20:57:48.959805519 -0400
++++ b/runtime.py	2026-09-26 20:57:48.978734125 -0400
+@@ -57,7 +57,8 @@
+     pin = json.loads((ROOT / 'candidate.json').read_text())
+     validate_overlay(pin, ROOT, installed=True)
+     if 'DS41_DECISION_ROW_BLOCKS' in os.environ:
+-        require(pin.get('diagnostic', {}).get('kind') in ('decision-row-capture', 'window-capture', 'indexer-capture', 'precision-capture'),
++        require(pin.get('diagnostic', {}).get('kind') in ('decision-row-capture', 'window-capture', 'indexer-capture', 'precision-capture',
++                                                              'precision-release-candidate', 'ratio1-bf16-diagnostic'),
+                 'KV block pin is restricted to decision-row-capture or window-capture')
+     row = render(os.environ['DS41_NODE'])
+     validate_chunking_image(pin, row['env'])
+diff -ruN a/start_moe_repaired.py b/start_moe_repaired.py
+--- a/start_moe_repaired.py	2026-09-26 20:57:48.961005308 -0400
++++ b/start_moe_repaired.py	2026-09-26 20:57:59.594925879 -0400
+@@ -13,14 +13,14 @@
+ NODES = ('toby', 'rusty', 'kirby', 'dusty')
+ NAME = 'ds41-flash-karmic-main-tp4'
+ parser = argparse.ArgumentParser()
+-parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault'), default='moe-control-repaired')
++parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'engram-fault'), default='moe-control-repaired')
+ parser.add_argument('--lengths', default='256,513,514,1024,16384')
+ parser.add_argument('--cuda-module-loading', choices=('LAZY', 'EAGER'))
+ parser.add_argument('--ops-trace', action='store_true', help='After the short repro, collect the reviewed diagnostic operator traces')
+ parser.add_argument('--trace-prefix', default='ops')
+ parser.add_argument('--trace-pairs')
+ parser.add_argument('--dense-replay', action='store_true')
+-parser.add_argument('--decision-row-blocks', choices=('80927', '81389'),
++parser.add_argument('--decision-row-blocks', choices=('80927', '81389', '80022'),
+                     help='Approved diagnostic-only KV geometry, not a serving default')
+ parser.add_argument('--prefill-threshold', choices=('8192', '7936', '4096'),
+                     help='Approved router-image diagnostic, paired with 81389 KV blocks')
+@@ -47,11 +47,15 @@
+ if args.prefill_threshold and not matched_capture and (args.arm != 'router-fence' or args.decision_row_blocks
+                                                      or args.ops_trace or args.prefill_threshold == '8192'):
+     parser.error('Chunking threshold requires clean router-fence or the reviewed matched capture')
+-if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision'):
++if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag'):
+     parser.error('The 80927 block pin is restricted to the decision-row diagnostic')
+-if args.arm == 'precision-release' and (args.decision_row_blocks or args.prefill_threshold or args.nccl_geometry
++if args.decision_row_blocks == '80022' and args.arm not in ('precision-release', 'ratio1-diag'):
++    parser.error('The 80022-block pin is restricted to the ratio-1 compute-mode diagnostic sequence')
++if args.arm == 'ratio1-diag' and args.decision_row_blocks != '80022':
++    parser.error('The ratio-1 diagnostic requires the 80022-block pin')
++if args.arm in ('precision-release', 'ratio1-diag') and (args.decision_row_blocks not in (None, '80022') or args.prefill_threshold or args.nccl_geometry
+                                         or args.nccl_arm or args.ops_trace or args.cuda_module_loading):
+-    parser.error('The precision release runs the normal profile only: no KV, chunking, NCCL or trace controls')
++    parser.error('The precision release and ratio-1 diagnostic run the normal profile (only the 80022 KV pin): no chunking, NCCL or trace controls')
+ if args.cuda_module_loading and args.arm != 'engram-timing':
+     parser.error('Loading-policy control is restricted to the timing diagnostic')
+ if (args.trace_pairs or args.dense_replay) and not args.ops_trace:
+@@ -65,11 +69,13 @@
+     out = ROOT / 'receipts' / f'{args.arm}-geometry-{args.nccl_geometry}-chunk{args.prefill_threshold}-blocks81389-{stamp}'
+ if args.nccl_arm:
+     out = ROOT / 'receipts' / f'{args.arm}-nccl-{args.nccl_arm}-chunk{args.prefill_threshold}-blocks81389-{stamp}'
++if args.decision_row_blocks == '80022':
++    out = ROOT / 'receipts' / f'{args.arm}-blocks80022-{stamp}'
+ out.mkdir(exist_ok=False)
+ print('RECEIPTS', out, flush=True)
+ (out / 'launch-options.json').write_text(json.dumps(vars(args), indent=2) + '\n')
+ digest = kit_digest()
+-if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault'):
++if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'engram-fault'):
+     pin = json.loads((ROOT / 'candidate.json').read_text())
+     kind = {'dense-release': 'dense-release-fence', 'stale-probe': 'stale-state-probe',
+             'ring-fix': 'compressor-ring-mapping-fix',
+@@ -84,6 +90,7 @@
+             'indexer': 'indexer-capture',
+             'precision': 'precision-capture',
+             'precision-release': 'precision-release-candidate',
++            'ratio1-diag': 'ratio1-bf16-diagnostic',
+             'engram-fault': 'engram-fault-inject'}[args.arm]
+     if pin.get('diagnostic', {}).get('kind') != kind or 'diagnostic_overlay' in pin or args.ops_trace:
+         raise RuntimeError('Wrong image or overlay for ' + args.arm)
+@@ -110,12 +117,12 @@
+         overrides += ' DS41_NCCL_ARM=' + args.nccl_arm
+     if args.cuda_module_loading:
+         overrides += ' CUDA_MODULE_LOADING=' + args.cuda_module_loading
+-    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault'):
++    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'engram-fault'):
+         overrides += ' B12X_DENSE_SPLITK_TURBO=0'
+     if args.arm == 'combined-prefetch-off':
+         overrides += ' VLLM_DS41_L2_PREFETCH=0'
+     # Clear remote-shell overrides before applying the explicit repaired profile.
+-    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault') else 'env'
++    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'engram-fault') else 'env'
+     clean += ' -u DS41_DECISION_ROW_BLOCKS'
+     clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY -u DS41_NCCL_ARM'
+     return f'cd {REMOTE} && {clean} {overrides} python3 run_node.py --node {node}'
+@@ -139,16 +146,20 @@
+                                    stdout=stream, stderr=subprocess.STDOUT)
+         observers.append((node, process, stream))
+     subprocess.run([sys.executable, str(ROOT / 'watch-startup.py'), str(out)], check=True)
+-    if args.arm == 'precision-release':
+-        # One reviewed marker per worker rank, before any request reaches the release boot.
++    if args.arm in ('precision-release', 'ratio1-diag'):
++        # One reviewed marker per worker rank, before any request reaches the release boot; the
++        # ratio-1 pin marker must appear on the variant only.
+         import precision_release
++        from run_ratio1_arm import pin_marker_problems
+         for node in NODES:
+             marker = subprocess.run(['ssh', '-o', 'BatchMode=yes', node,
+-                                     f'podman logs {NAME} 2>&1 | grep -F DS41-PRECISION-APPLIED || true'],
++                                     f'podman logs {NAME} 2>&1 | grep -F -e DS41-PRECISION-APPLIED -e DS41-RATIO1-EXTEND-PIN || true'],
+                                     text=True, capture_output=True, check=True, timeout=60).stdout
+             (out / f'{node}-precision-marker.log').write_text(marker)
+             if precision_release.marker_problems(marker, node):
+                 raise RuntimeError(f'{node}: missing, duplicate or incorrect worker precision marker')
++            if pin_marker_problems(marker, args.arm == 'ratio1-diag'):
++                raise RuntimeError(f'{node}: ratio-1 pin marker missing on the variant or present on a release arm')
+         print('PRECISION-RELEASE-MARKERS-PASS', flush=True)
+     repro = subprocess.run([sys.executable, str(ROOT / 'probe_repeatability.py'),
+                     '--corpus', str(ROOT / 'receipts/determinism-corpus.json'),

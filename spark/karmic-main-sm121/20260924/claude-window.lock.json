@@ -1,0 +1,66 @@
+{
+  "base_image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+  "base_kind": "router-stage-release-candidate",
+  "base_lock": "router-release.lock.json",
+  "base_lock_sha256": "7122753a3206df8b1ff23b1fa1b0727daf4e1378f940a4ab7358dfeb76065a77",
+  "base_parent_image_id": "ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5",
+  "base_router_target": {
+    "path": "b12x/gemm/bf16_gemv/_prefill.py",
+    "sha256": "ca888af42b16eb27be445814154f98a3765cb5b054e7b0b77408f76939e801e8"
+  },
+  "base_trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "ce1b9bcdb91706251314d3c1ea955887c779901c"
+  },
+  "build_args": [
+    "DECISION_LOCK",
+    "DECISION_CACHE"
+  ],
+  "capture_schema": "claude-window-v1",
+  "decision_row_attention_sha256": "8594274f59b3d7340690ae092f4efeb2986754b685c7bd4c964f851f9768e749",
+  "decision_row_helper_sha256": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+  "decision_row_lock_sha256": "3eb16ccca36e78ebbf133fb238ed8b0ffc261316c71ada958ab810ef8f07e8b4",
+  "decision_row_schema": "claude-decision-row-v3",
+  "decision_row_trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "2b41bcf7aa274c96426cd49fbcc643cc168d9f78"
+  },
+  "image_kind_label": "window-capture",
+  "inputs": {
+    "Dockerfile.claude-window": "a504cf9dac0f218fa4c59a51b814573a9aa7a9e25675473eb25681050fd11ff5",
+    "claude-decision-row-capture.py": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+    "claude-window-attention.py": "72bee917698de5245d6731f25107f73b51cd29be249541989be8147ca6403c45",
+    "claude-window-capture.py": "94dc1747d8e3843e89052576af4de59d8f132ebf8515da9d27608f3f646aa9b0",
+    "claude-window-compare.py": "3af119d2a96534fea70c06b46f3054eaf8de0019aa5e1234519cd0d596c78611",
+    "claude-window-install.py": "50ac3f188f2ec8e471c7b7863ec6f3f87cc2af1cf5648ade7c19a8514a075fc4",
+    "claude-window-prepare.py": "063331d18c3a05eb1de0e9dd8d34a4c7afbacdb4115691d8ac9a8d4ef4e50946",
+    "claude-window-tests.py": "e023e5412d1fe6cba74c3f22eef439967ecc14e5ee798e86cf6e6ebdcf94bf0c",
+    "claude-window.patch": "a3309dbbfa801972c7ee68a7fab3d62570ca8c990068b8a0387d17bf5077a970"
+  },
+  "install_dir": "/opt/ds41-window",
+  "install_pass_marker": "WINDOW-INSTALL-PASS",
+  "kind": "window-capture-diagnostic",
+  "scope": "final-window capture through layers 0-1 beside the unchanged decision-row capture; adds copies at existing eager boundaries; not numerics, determinism, performance or router-fence evidence",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/attention.py": {
+      "input_sha256": "d3b92eb0e9d64de567185e24bc04d6001b76da5653cdaa4fb512f7f5a8432752",
+      "output_sha256": "72bee917698de5245d6731f25107f73b51cd29be249541989be8147ca6403c45",
+      "source": "claude-window-attention.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/claude_decision_row.py": {
+      "input_sha256": null,
+      "output_sha256": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+      "source": "claude-decision-row-capture.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/claude_window.py": {
+      "input_sha256": null,
+      "output_sha256": "94dc1747d8e3843e89052576af4de59d8f132ebf8515da9d27608f3f646aa9b0",
+      "source": "claude-window-capture.py"
+    }
+  },
+  "trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "9e339e969493cded736d3cbb53aad2d1c1e7143b"
+  }
+}

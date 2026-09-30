@@ -1,0 +1,20 @@
+FROM 30ef9c2d529e9df0a3ea348c773d8ff55284389a90a40922ac1b0d93ccffdd9b
+ARG DENSE_RELEASE_TREE
+ARG DENSE_RELEASE_LOCK
+ARG DENSE_RELEASE_CACHE
+COPY dense-release.lock.json dense_gemm-fence-before-release.py dense-fence-before-release.patch determinism.lock.json runtime.lock.json install_dense_release.py Dockerfile.dense-release prepare_dense_release_image.py /opt/ds41-dense-release/
+RUN /opt/venv/bin/python /opt/ds41-dense-release/install_dense_release.py
+ENV XDG_CACHE_HOME=/cache/jit/${DENSE_RELEASE_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${DENSE_RELEASE_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${DENSE_RELEASE_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${DENSE_RELEASE_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${DENSE_RELEASE_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${DENSE_RELEASE_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${DENSE_RELEASE_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${DENSE_RELEASE_CACHE}/cute-dsl
+LABEL b12x.source-tree="${DENSE_RELEASE_TREE}" \
+    local-inference.ds41.diagnostic.kind="dense-release-fence" \
+    local-inference.ds41.diagnostic.lock.sha256="${DENSE_RELEASE_LOCK}" \
+    local-inference.cache.fingerprint="${DENSE_RELEASE_CACHE}" \
+    local-inference.status="candidate-not-qualified" \
+    org.opencontainers.image.title="DS4.1 deterministic DSA, MoE and dense release fence candidate"

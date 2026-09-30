@@ -1,0 +1,28 @@
+id: 2026-09-karmic-sm121-qualification
+status: completed
+verdict: correctness_passed_performance_promotion_held
+objective: Qualify the pinned Karmic image against existing R38 Vision Exp results.
+candidate_image_id: f30dc6d9a2a6f6fc0ac9ff8cddb04d9f631f4a87b48ca7cac69254802fe83233
+shared_configuration:
+  checkpoint_revision: 6821d6ad3681a4b137b066b76094fa82ebd0a380
+  nodes: [rusty, toby]
+  tensor_parallel: 2
+  decode_context_parallel: 1
+  speculative_method: dspark
+  speculative_tokens: 3
+  max_model_len: 524288
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+notes: >-
+  Same R38 serving profile and unchanged correctness probes. Qwen and GLM remain
+  serving throughout this single-cluster window. R38 containers are retained
+  stopped for rollback. Meaningful output, vision, tools, mixed requests and
+  exact 16K/524K retrieval precede the standard 15-cell run_bench.sh sweep.
+  Benchmark source and its separate results repository are not modified.
+  Completed 2026-09-20 22:41 EDT with all 15 grid cells and post-grid semantic
+  checks passing. Historical R38 comparison shows C1/C2 steps near parity,
+  C4 steps -3.51 percent, and 32K to 128K prefill -5.41 to -17.87 percent.
+  Single candidate boot, brief clock-event flags and startup allocation warnings
+  retained; no causal claim or promotion. Candidate remains serving and R38
+  rollback containers remain stopped and intact.

@@ -1,0 +1,49 @@
+{
+  "b12x_commit": "a7d7d29b",
+  "inputs": {
+    "claude-ple-batch-__init__.py": "79ec1e03fde8c7c7047ced5c2aa70f467910a350a9ec7961f083c039160fb3d5",
+    "claude-ple-batch-_impl.py": "51e739832eb185682437d95413d42654d87c9e64a54350eb707e5e34b6c89527",
+    "claude-ple-batch-_ple_reader.c": "76b7863280c9e18d44a22763c4bd5aa6310e9da9b3b6ff3551d0e9e18c096538",
+    "claude-ple-batch-_storage.c": "7e1194ba442936f891979ec228aadaee4bfc20147dc7c26b73b2f95a3137899c",
+    "claude-ple-batch-api.py": "a887a298df0dcb5128364febd1e6fdfe41686b072aea015cd4ce5b910fd3ff77",
+    "claude-ple-batch-disk_table.py": "ed24feda69021bd31366f3cb4ab068527bc34e96fe6aeec7385981854b9a3d49",
+    "claude-ple-batch.patch": "b3703d0b8e96ced972c0ba56d4bd4a70e2a87a5482e33d2d0cea435bbf468d01",
+    "claude_prepare_ple_batch.py": "db8dd54e2c33efb1801da764991d917fc7bb11576bf8a1a372f6af3050e05dca",
+    "claude_test_ple_batch_native.py": "0ccd4f416235a142c2cedd8525bceb0161ad91bc68845f7c30336029fb406ff0",
+    "claude_test_ple_batch_python.py": "5e7416527fea5a960401a3d6656a5406b57f7b1add65dd88c8bd094916678da0"
+  },
+  "kind": "b12x-ple-batch-host-function-proposal",
+  "status": "proposed-for-review-not-built-not-applied",
+  "targets": {
+    "b12x/loader/_ple_reader.c": {
+      "input_sha256": "2ac80eddc4824b6fb610f3e00e5f49c6dfe62cae87ce409b748f847a32ece030",
+      "output_sha256": "76b7863280c9e18d44a22763c4bd5aa6310e9da9b3b6ff3551d0e9e18c096538",
+      "source": "claude-ple-batch-_ple_reader.c"
+    },
+    "b12x/loader/_storage.c": {
+      "input_sha256": "59ae964bc63b9df1b5d270a9d41d9931bbfba1a6b4dd4f08558e8e58cc170f4a",
+      "output_sha256": "7e1194ba442936f891979ec228aadaee4bfc20147dc7c26b73b2f95a3137899c",
+      "source": "claude-ple-batch-_storage.c"
+    },
+    "b12x/sequence/_shared/disk_table.py": {
+      "input_sha256": "2940f50e04be5cc4b9a097ec97a7d422cdd189de2f2496925fbabbb463d0323d",
+      "output_sha256": "ed24feda69021bd31366f3cb4ab068527bc34e96fe6aeec7385981854b9a3d49",
+      "source": "claude-ple-batch-disk_table.py"
+    },
+    "b12x/sequence/engram/__init__.py": {
+      "input_sha256": "5f223e221859a187f2762cfcc0d81ffb9457610cd1891084445c0643305f66b3",
+      "output_sha256": "79ec1e03fde8c7c7047ced5c2aa70f467910a350a9ec7961f083c039160fb3d5",
+      "source": "claude-ple-batch-__init__.py"
+    },
+    "b12x/sequence/engram/_impl.py": {
+      "input_sha256": "5b6eb4c74388141303ba0a1526c61448175ab2dc73ac74f4e20de048daaf4bbd",
+      "output_sha256": "51e739832eb185682437d95413d42654d87c9e64a54350eb707e5e34b6c89527",
+      "source": "claude-ple-batch-_impl.py"
+    },
+    "b12x/sequence/engram/api.py": {
+      "input_sha256": "ff31013886b089e2137b21b5b38b084438fcc70fb710b6c004c9c8f507c77858",
+      "output_sha256": "a887a298df0dcb5128364febd1e6fdfe41686b072aea015cd4ce5b910fd3ff77",
+      "source": "claude-ple-batch-api.py"
+    }
+  }
+}

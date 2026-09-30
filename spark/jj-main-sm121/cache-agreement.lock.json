@@ -1,0 +1,27 @@
+{
+  "base_image_id": "e7926f763859ba5800cc24198ef297a12322fdaac93b55ac89b88abe02c1b1fb",
+  "base_vllm_tree": "182f7f4ac37b980a3bb81e74797a78e9dbf822cb",
+  "upstream_fix": "0f60770e859ec95fd161b2a64c4925dfcfbd86ed",
+  "base_commit": "8e1f1e587f8d24faf606f334a1c4bdaaa6bd4368",
+  "vllm_tree": "976a9ac502a7bcdb25b18cb5597d21caafc97252",
+  "files": {
+    "vllm/v1/worker/b12x_startup.py": {
+      "before_sha256": "7e8f18873b5ac23f316dae492e59497b18f9828303b4e3563664d293eb9e0d1b",
+      "after_sha256": "46cf7c386de3860a094ef30503c9094013b09554dc0b9fc784e2f6043df5564c",
+      "definitions": [
+        "B12xPreparationCoordinator",
+        "_authorize_caches"
+      ]
+    },
+    "tests/v1/executor/test_b12x_startup.py": {
+      "before_sha256": "233a082ebd3173d6e310dddc8ddf389b88c96370fa00b4dbcda31986f4c59d3a",
+      "after_sha256": "38dd022edbf412f037cc16c08e9a1242b315732a91acbd114c6c9ec90279501d",
+      "definitions": [
+        "_Job",
+        "test_tuning_caches_exchange_before_races_with_empty_world_rank",
+        "test_missing_cache_participant_fails_all_ranks_without_hanging"
+      ]
+    }
+  },
+  "patch_sha256": "0d90806b1abcba081391e9c8c76ec471ff8412bed49d8a1c362ca594a14b2c01"
+}

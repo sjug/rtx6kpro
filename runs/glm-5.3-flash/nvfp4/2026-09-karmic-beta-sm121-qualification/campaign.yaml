@@ -1,0 +1,54 @@
+campaign: 2026-09-karmic-beta-sm121-qualification
+status: completed_promoted
+model: GLM-5.3-Flash
+checkpoint: local-inference-lab/GLM-5.3-Flash-NVFP4
+revision: 46aaae8a82032f77100f2f03e9cc11b391df3b4d
+hosts: [sparky, buddy, rocky, lucky]
+candidate_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+publication: karmic-kraken-beta-20260929-7476365edc3d8ee5
+kit: spark/karmic-beta-sm121/20260929/glm
+baseline_image_id: ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5
+baseline_receipt_sha256: 87545df132270c92a899675bb4c7159d40e75a35aa40c72a23381d3f95b072d5
+contract:
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  max_model_len: 1048576
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative: mtp 3, probabilistic draft, standard rejection, marlin draft MoE
+  mtp_draft_head: nvfp4
+  recurrent_checkpoint_policy: aligned
+  l2_prefetch: launcher SM121 default off
+  transport: RoCEnante plus PyNCCL, NCCL_PROTO=LL,Simple, both NCCL rails (corrected; the stopped attempt ran LL on one rail)
+  chat_template: upstream verbatim-content glm53-flash.jinja (blob 4c4c0bee)
+  chat_defaults: reasoning_effort max (user 2026-09-30; the 2026-09-29 grid ran high), clear_thinking false, temperature 1.0, top_p 0.95
+notes: >-
+  Best-configuration qualification, not R38 reproduction. Choices follow the
+  September 24 GB10 bisect (no-prefetch best; bf16 draft head 4.2 to 4.9 percent
+  slower in steps than nvfp4; queue and mHC PDL neutral; K5 rejected) and user rules
+  (native context, at most 4 sequences; production R38 ran 8). Allocator
+  expandable_segments set as in R38. Known sampled exact-format tool behaviour: the
+  September 24 fixed-input diagnostic passed 85/100 at temperature 1.
+  Tool gate (user decision 2026-09-29): a format-only miss with a correct answer triggers the
+  100-trial fixed-input diagnostic (probe_fixed_tool_response.py) and passes if comparable to the
+  85/100 baseline; any wrong answer or tool call fails.
+  Result 2026-09-29: stopped by the user during the long prefix triple. Passed first completion,
+  container contract, short pool 7/7, semantic x3 (all tool round trips exact), concurrency, prefix
+  matrix and short triples. Long triple 262,000-token cold first stage took 316.6 s versus 91.3 to
+  92.5 s on R27 through R38: the engine logged nothing for about 5 minutes while all four GPUs
+  spun at about 40 W with no memory pressure, then credited the prefill at once; the extension
+  stage stalled the same way. Root cause (follow-up): the kit runner set NCCL_PROTO=LL on a single
+  rail instead of the production LL,Simple dual-rail contract, so 32 MiB prefill all-reduces above the 2 MiB
+  RoCEnante cap ran NCCL LL; prefill was ~3.4x slow at every length (131K fresh 157 s vs 45-48 s), GPUs at
+  34-37 W vs 61-66 W. Runner corrected and confirmed 2026-09-29 21:13 (131K fresh 42.3/42.5 s).
+  Full battery on the corrected boot passed (receipts qualification/glm-dualrail): 262K cold 89.8 s, 1M
+  extension 380.5 s, needles to 1048000 exact, 15 valid cells. Versus R38 r04: output -5.4/-6.7/-5.4 percent,
+  steps +0.3/-2.3/-0.4 percent, acceptance -5.7/-4.5/-5.1 percent (NVFP4 draft head suspected, untested), prefill
+  -1.4 to +1.6 percent. Beta serving, R38 retained; decision is the user's. Beta containers stopped and retained; R38
+  restored. No native-context retrieval or grid ran.
+  2026-09-30 matched-defaults comparison (effort max, top_p 0.95, 4 slots, same cluster, receipts
+  qualification/glm-matched-defaults): beta vs R38 output +8.6/+2.3/+6.7 percent, steps +4.7/+3.1/+6.7 percent,
+  acceptance +3.7/-0.8/0.0 percent, prefill -4.1 to +0.5 percent. The 2026-09-29 decode gap was request-default drift.
+  R38 comparison tool gate 84/100 (format-only, rate rule pass); beta semantic exact. Beta (max) serving.
+  Promoted to production by the user on 2026-09-30; R38 containers stopped and retained for rollback.

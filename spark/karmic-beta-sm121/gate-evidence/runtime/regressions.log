@@ -1,0 +1,336 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0921 00:34:43.676000 51 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 00:34:43.676000 51 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 00:34:43.677000 51 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0921 00:34:46.993000 51 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 00:34:47.019000 51 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+WARNING 09-21 00:34:51 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+collected 235 items
+
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-4-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-64-64-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[eager-2048-2048-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-4-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-64-64-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_cache-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp1_prefill-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-1] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-3] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-4] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-5] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-7] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-8] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-15] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2047] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2048] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2049] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-2051] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_pool_tail_active_prefix[graph-2048-2048-dcp4-262173] PASSED
+tests/kernels/test_glm_pool_tail_selection.py::test_five_token_tail_changes_b12x_attention [b12x cute.compile] compile-start number=1 target=b12x.attention._shared.mla.kv_cache.ConcatAndCacheGlmNextMlaKernel cache_key=df79fc0af5588d51 kernel=attention.mla.glm_next_kv_cache version=1 params=[['kv_c', ['tensor', 'kv_c', 'torch.bfloat16', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kv_cache', ['tensor', 'kv_cache', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 528]], [['dim', 'dynamic', None], ['dim', 'exact', 528], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['slot_mapping', ['tensor', 'slot_mapping', 'torch.int64', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['block_size', 64]]
+[b12x cute.compile] compile-done number=1 duration_s=0.109 total_compile_s=0.109 target=b12x.attention._shared.mla.kv_cache.ConcatAndCacheGlmNextMlaKernel cache_key=df79fc0af5588d51 kernel=attention.mla.glm_next_kv_cache version=1 params=[['kv_c', ['tensor', 'kv_c', 'torch.bfloat16', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kv_cache', ['tensor', 'kv_cache', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 528]], [['dim', 'dynamic', None], ['dim', 'exact', 528], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['slot_mapping', ['tensor', 'slot_mapping', 'torch.int64', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['block_size', 64]]
+[b12x cute.compile] compile-start number=2 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_pertok cache_key=f6de0f96eb887e18 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 2], ['compute_mode', 0], ['scale_format', 1], ['fp8_rope', 0], ['latent_scale_per_token', 0], ['num_heads', 16], ['hpb', 16], ['valid_hpb', 16], ['head_block_offset', 0], ['grid_h_blocks', 1], ['num_splits', 33], ['chunks_per_split', 1], ['page_block_size', 64], ['topk_bucket', 4096], ['has_extra', 0], ['pbs_extra', 1], ['extra_topk_bucket', 0], ['per_token_len', 1], ['native_glm_h8', 0], ['native_dsv4_h8', 0], ['native_dsv4_h16', 0], ['native_dsv41_fp8', 0], ['vector_q', 1], ['v41_fp8_internal', 0], ['v41_heads_per_block', 16], ['q_all', ['tensor', 'q_all', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['swa_indices', ['tensor', 'swa_indices', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'bucket', 2051]], [['dim', 'exact', 2051], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_out', ['tensor', 'mid_out', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 8192], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_lse', ['tensor', 'mid_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33]], [['dim', 'exact', 1024], ['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['topk_length', ['tensor', 'topk_length', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]]]
+[b12x cute.compile] compile-done number=2 duration_s=0.677 total_compile_s=0.786 target=b12x.attention._shared.mla.kernel.UnifiedDecodeKernel.call_pertok cache_key=f6de0f96eb887e18 kernel=attention.mla.sm120.decode version=53 params=[['latent_scale_identity', 1], ['model_type', 2], ['compute_mode', 0], ['scale_format', 1], ['fp8_rope', 0], ['latent_scale_per_token', 0], ['num_heads', 16], ['hpb', 16], ['valid_hpb', 16], ['head_block_offset', 0], ['grid_h_blocks', 1], ['num_splits', 33], ['chunks_per_split', 1], ['page_block_size', 64], ['topk_bucket', 4096], ['has_extra', 0], ['pbs_extra', 1], ['extra_topk_bucket', 0], ['per_token_len', 1], ['native_glm_h8', 0], ['native_dsv4_h8', 0], ['native_dsv4_h16', 0], ['native_dsv41_fp8', 0], ['vector_q', 1], ['v41_fp8_internal', 0], ['v41_heads_per_block', 16], ['q_all', ['tensor', 'q_all', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['swa_indices', ['tensor', 'swa_indices', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'bucket', 2051]], [['dim', 'exact', 2051], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_out', ['tensor', 'mid_out', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 8192], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['mid_lse', ['tensor', 'mid_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'bucket', 33]], [['dim', 'exact', 1024], ['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['topk_length', ['tensor', 'topk_length', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]]]
+[b12x cute.compile] compile-start number=3 target=b12x.attention._shared.mla.merge.SparseMLASplitDecodeMergeKernel cache_key=9408adc851e8dda3 kernel=attention.mla.merge version=7 params=[['tmp_output', ['tensor', 'tmp_output', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 3]]], ['tmp_lse', ['tensor', 'tmp_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None]], [['dim', 'dynamic', None], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['num_chunks_ptr', [[1], [1], 'torch.int32', ['cuda', 0]]], ['output', ['tensor', 'output', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['tmp_output_dtype', 'torch.bfloat16'], ['output_dtype', 'torch.bfloat16'], ['static_num_chunks', 33], ['vector_output', 1], ['vector_partials', 1]]
+[b12x cute.compile] compile-done number=3 duration_s=0.121 total_compile_s=0.907 target=b12x.attention._shared.mla.merge.SparseMLASplitDecodeMergeKernel cache_key=9408adc851e8dda3 kernel=attention.mla.merge version=7 params=[['tmp_output', ['tensor', 'tmp_output', 'torch.bfloat16', 4, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 3]]], ['tmp_lse', ['tensor', 'tmp_lse', 'torch.float32', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'dynamic', None]], [['dim', 'dynamic', None], ['dim', 'dynamic', None], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['num_chunks_ptr', [[1], [1], 'torch.int32', ['cuda', 0]]], ['output', ['tensor', 'output', 'torch.bfloat16', 3, [['dim', 'dynamic', None], ['dim', 'exact', 16], ['dim', 'exact', 512]], [['dim', 'exact', 8192], ['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, ['leading_dim', 2]]], ['tmp_output_dtype', 'torch.bfloat16'], ['output_dtype', 'torch.bfloat16'], ['static_num_chunks', 33], ['vector_output', 1], ['vector_partials', 1]]
+PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================== 235 passed, 14 warnings in 14.84s =======================
+Karmic-REGRESSION-PASS tests/kernels/test_glm_pool_tail_selection.py: 235 passed
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0921 00:35:02.275000 242 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 00:35:02.275000 242 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 00:35:02.275000 242 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0921 00:35:04.425000 242 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 00:35:04.440000 242 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 7 items
+
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[64-0] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[64-3] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[64-7] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[256-0] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[256-3] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_async_sparse_cleanup[256-7] PASSED
+tests/v1/core/test_mamba_sparse_cleanup.py::test_cleanup_does_not_rescan_history_or_advance_past_table PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 7 passed, 14 warnings in 4.70s ========================
+Karmic-REGRESSION-PASS tests/v1/core/test_mamba_sparse_cleanup.py: 7 passed
+W0921 00:35:08.937000 306 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 00:35:08.937000 306 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 00:35:08.938000 306 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0921 00:35:11.173000 306 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 00:35:11.188000 306 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 0 items
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= 14 warnings in 3.59s =============================
+ERROR: not found: /opt/jovian-judgement/vllm/tests/kernels/moe/test_b12x.py::test_b12x_moe_warmup_runs_each_planner_regime_once
+(no match in any of [<Module test_b12x.py>])
+
+Traceback (most recent call last):
+  File "/gate/tests/run_r38_regressions.py", line 92, in <module>
+    main()
+  File "/gate/tests/run_r38_regressions.py", line 86, in main
+    run_case(args.case, args.collect_only_count)
+  File "/gate/tests/run_r38_regressions.py", line 66, in run_case
+    gate.verify(status)
+  File "/gate/tests/run_r38_regressions.py", line 41, in verify
+    raise RuntimeError(
+RuntimeError: Karmic matrix incomplete: expected=1, collected=0, passed=0, exit=4, invalid=[]
+Traceback (most recent call last):
+  File "/gate/tests/run_r38_regressions.py", line 92, in <module>
+    main()
+  File "/gate/tests/run_r38_regressions.py", line 88, in main
+    run_all(args.collect_only_count)
+  File "/gate/tests/run_r38_regressions.py", line 72, in run_all
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/venv/bin/python', '/gate/tests/run_r38_regressions.py', '--case', 'warmup']' returned non-zero exit status 1.

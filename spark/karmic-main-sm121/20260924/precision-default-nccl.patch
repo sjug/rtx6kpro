@@ -1,0 +1,287 @@
+diff -ru a/claude_run_decision_capture.py b/claude_run_decision_capture.py
+--- a/claude_run_decision_capture.py	2026-09-26 19:12:43.881669977 -0400
++++ b/claude_run_decision_capture.py	2026-09-26 19:13:14.827495850 -0400
+@@ -42,7 +42,8 @@
+ import uuid
+ 
+ from cache_metrics import idle_snapshot, finish
+-from launch_contract import NODES as CONTRACT_NODES, NCCL_GEOMETRY, NCCL_GEOMETRY_ENV, NCCL_TUNING_UNSET
++from launch_contract import (NODES as CONTRACT_NODES, NCCL_GEOMETRY, NCCL_GEOMETRY_ENV, NCCL_TUNING_UNSET,
++                             STANDARD_NCCL_ARM)
+ from prepare_decision_reference import exact_regime, signature, B2_IMAGE, PROMPT_SHA, build_reference
+ from runtime import kit_digest
+ 
+@@ -94,7 +95,7 @@
+     return {'token': token, 'prompt_tokens': PROMPT_TOKENS, 'chunk_rows': chunk_rows}
+ 
+ 
+-def profile_for(mode, chunk_rows=None, geometry=None):
++def profile_for(mode, chunk_rows=None, geometry=None, nccl_arm=None):
+     """The boot this driver expects: historical (80927 blocks, B2 regime, 8192 grid, no threshold) or
+     matched (81389 blocks, pinned 045954Z regime, explicit grid equal to the launcher's threshold).
+     `geometry` (user-approved 2026-09-26, window-capture kind only) is the NCCL geometry diagnostic
+@@ -104,17 +105,20 @@
+     and cross-grid invariance is a prediction for one boot's tree, not a cross-boot guarantee."""
+     if geometry is not None and (geometry != NCCL_GEOMETRY or mode != 'matched'):
+         raise ValueError('NCCL geometry is tree-simple-1ch on the matched profiles only')
++    if nccl_arm is not None and (nccl_arm != STANDARD_NCCL_ARM or mode != 'matched' or geometry is not None):
++        raise ValueError('The standard NCCL arm is standard-upstream on the matched profiles without tree geometry')
+     if mode == 'historical':
+         if chunk_rows not in (None, 8192):
+             raise ValueError('historical mode is the 8192 grid only')
+         return {'mode': mode, 'blocks': BLOCKS, 'chunk_rows': 8192, 'threshold': None,
+-                'regime_source': 'b2-reference', 'tag': '', 'geometry': None}
++                'regime_source': 'b2-reference', 'tag': '', 'geometry': None, 'nccl_arm': None}
+     if mode == 'matched':
+         if chunk_rows not in CHUNKS:
+             raise ValueError('matched mode needs an explicit chunk grid of 8192 or 4096')
+-        tag = f'matched{chunk_rows}-' + (f'geometry-{geometry}-' if geometry else '')
++        tag = (f'matched{chunk_rows}-' + (f'geometry-{geometry}-' if geometry else '')
++               + (f'nccl-{nccl_arm}-' if nccl_arm else ''))
+         return {'mode': mode, 'blocks': MATCHED_BLOCKS, 'chunk_rows': chunk_rows, 'threshold': chunk_rows,
+-                'regime_source': 'pinned-045954Z', 'tag': tag, 'geometry': geometry}
++                'regime_source': 'pinned-045954Z', 'tag': tag, 'geometry': geometry, 'nccl_arm': nccl_arm}
+     raise ValueError(f'unknown mode {mode!r}')
+ 
+ 
+@@ -128,6 +132,8 @@
+                 problems.append(f'NCCL geometry variable {name} is not {expected[name]!r}')
+         elif name in env:
+             problems.append(f'unexpected NCCL tuning variable {name} on this boot')
++    if env.get('DS41_NCCL_ARM') != profile.get('nccl_arm'):
++        problems.append(f'NCCL arm selector is {env.get("DS41_NCCL_ARM")!r}, expected {profile.get("nccl_arm")!r}')
+     return problems
+ 
+ 
+@@ -236,6 +242,8 @@
+     problems += check_geometry_env(env, profile)
+     if profile.get('geometry') and DIAGNOSTIC_KIND not in ('window-capture', 'indexer-capture', 'precision-capture'):
+         problems.append('NCCL geometry diagnostic is approved for the window-capture kind only')
++    if profile.get('nccl_arm') and DIAGNOSTIC_KIND != 'precision-capture':
++        problems.append('the standard NCCL arm is approved for the precision-capture kind only')
+     kit = container['Config']['Labels'].get('local-inference.ds41.kit.sha256')
+     if not kit or env.get('DS41_KIT_SHA256') != kit:
+         problems.append('kit digest label and environment differ')
+@@ -541,7 +549,7 @@
+ 
+ 
+ def phase_capture(a, preflight_only=False):
+-    profile = profile_for(a.mode, a.chunk_rows, getattr(a, 'nccl_geometry', None))
++    profile = profile_for(a.mode, a.chunk_rows, getattr(a, 'nccl_geometry', None), getattr(a, 'nccl_arm', None))
+     reference, spec, build, lock_sha, b2_cache_path = local_inputs(profile)
+     stamp = stamp_now()
+     token = token_for(stamp, None if profile['mode'] == 'historical' else profile['chunk_rows'])
+@@ -653,6 +661,7 @@
+                'capture_problems': {n: c['problems'] for n, c in captures.items()},
+                'mode': profile['mode'], 'chunk_rows': profile['chunk_rows'], 'blocks': profile['blocks'],
+                'regime_source': profile['regime_source'], 'nccl_geometry': profile.get('geometry'),
++               'nccl_arm': profile.get('nccl_arm'),
+                'regime_equals_reference': observed['regime'] == profile['regime'],
+                'regime_equals_b2': observed['regime'] == reference['regime'],
+                'regime_difference_from_b2': profile['regime_difference_from_b2'],
+@@ -757,12 +766,17 @@
+     parser.add_argument('--chunk-rows', type=int, choices=CHUNKS, help='matched: the prefill chunk grid of this boot')
+     parser.add_argument('--nccl-geometry', choices=(NCCL_GEOMETRY,),
+                         help='user-approved NCCL geometry diagnostic boot (window kind, matched mode only)')
++    parser.add_argument('--nccl-arm', choices=(STANDARD_NCCL_ARM,),
++                        help='precision kind, matched mode: ordinary launch NCCL settings as an explicit arm')
+     a = parser.parse_args(argv)
++    if a.nccl_arm and (a.kind != 'precision' or a.mode != 'matched' or a.nccl_geometry):
++        parser.error('The standard NCCL arm is approved for --kind precision --mode matched without --nccl-geometry')
+     if a.nccl_geometry and (a.kind not in ('window', 'indexer', 'precision') or a.mode != 'matched'):
+         parser.error('NCCL geometry is approved for --kind window --mode matched only')
+     if a.kind in ('indexer', 'precision'):
+-        if a.mode != 'matched' or a.nccl_geometry != NCCL_GEOMETRY:
+-            parser.error('Indexer capture requires the approved matched geometry arm')
++        if a.mode != 'matched' or (a.nccl_geometry != NCCL_GEOMETRY and not (a.kind == 'precision' and a.nccl_arm)):
++            parser.error('Indexer capture requires the approved matched geometry arm; '
++                         'precision alternatively --nccl-arm standard-upstream')
+         BUILD = ROOT / f'receipts/{a.kind}-build-receipt.json'
+         LOCK = ROOT / f'ds41-{a.kind}.lock.json'
+         DIAGNOSTIC_KIND = a.kind + '-capture'
+diff -ru a/launch_contract.py b/launch_contract.py
+--- a/launch_contract.py	2026-09-26 19:12:43.877603897 -0400
++++ b/launch_contract.py	2026-09-26 19:13:14.826836793 -0400
+@@ -25,16 +25,25 @@
+ NCCL_GEOMETRY_ENV = {'NCCL_ALGO': 'allreduce:tree', 'NCCL_PROTO': 'Simple',
+                      'NCCL_MIN_NCHANNELS': '1', 'NCCL_MAX_NCHANNELS': '1'}
+ NCCL_TUNING_UNSET = ['NCCL_PROTO', 'NCCL_MIN_NCHANNELS', 'NCCL_MAX_NCHANNELS']
++# User-requested precision diagnostic, 2026-09-26: the same precision-capture image on the matched
++# 81389-block 8192/4096 profiles with the ordinary launch NCCL settings (tuning unset list retained,
++# no ALGO/PROTO/channel override). Not new NCCL tuning. The explicit selector keeps these boots
++# distinct from the tree arm and from earlier non-geometry receipts; precision-capture only.
++STANDARD_NCCL_ARM = 'standard-upstream'
+ 
+ 
+ def validate_chunking_image(pin, env):
+     diagnostic = pin.get('diagnostic', {})
++    arm = env.get('DS41_NCCL_ARM')
++    if arm is not None and (arm != STANDARD_NCCL_ARM or diagnostic.get('kind') != 'precision-capture'
++                            or 'DS41_NCCL_GEOMETRY' in env):
++        raise ValueError('The standard NCCL arm is restricted to the precision-capture image without tree geometry')
+     if diagnostic.get('kind') in ('indexer-capture', 'precision-capture'):
+         expected_lock = (PRECISION_CAPTURE_LOCK if diagnostic['kind'] == 'precision-capture'
+                          else INDEXER_CAPTURE_LOCK)
+         if (len(expected_lock) != 64
+                 or diagnostic.get('lock_sha256') != expected_lock
+-                or env.get('DS41_NCCL_GEOMETRY') != NCCL_GEOMETRY
++                or not (env.get('DS41_NCCL_GEOMETRY') == NCCL_GEOMETRY or arm == STANDARD_NCCL_ARM)
+                 or env.get('DS41_DECISION_ROW_BLOCKS') != '81389'
+                 or env.get('DS41_PREFILL_THRESHOLD') not in ('8192', '4096')
+                 or 'diagnostic_overlay' in pin):
+@@ -139,6 +148,13 @@
+             raise ValueError('NCCL geometry diagnostic requires tree-simple-1ch on the matched 81389 capture profile')
+         env.update(NCCL_GEOMETRY_ENV, DS41_NCCL_GEOMETRY=geometry)
+         unset = []
++    # Standard NCCL arm: a recorded selector only; the ordinary unset list and cluster NCCL env stay.
++    arm = os.environ.get('DS41_NCCL_ARM')
++    if arm is not None:
++        if (arm != STANDARD_NCCL_ARM or geometry is not None or decision_blocks != '81389'
++                or threshold not in ('8192', '4096')):
++            raise ValueError('The standard NCCL arm requires the matched 81389 capture profile without tree geometry')
++        env['DS41_NCCL_ARM'] = arm
+     rank = NODES[node][0]
+     model += ['--distributed-executor-backend', 'mp', '--nnodes', '4',
+               '--node-rank', str(rank), '--master-addr', NODES['dusty'][1],
+diff -ru a/run_geometry_decision_cross.py b/run_geometry_decision_cross.py
+--- a/run_geometry_decision_cross.py	2026-09-26 19:12:43.883507577 -0400
++++ b/run_geometry_decision_cross.py	2026-09-26 19:13:47.432695238 -0400
+@@ -8,15 +8,17 @@
+ 
+ from audit_window_geometry import load_receipt, validate_geometry_grids, container, NODES, ROOT, ssh
+ from build_activation_trace import idle
++from precision_default_nccl import ARMS, GEOMETRY, load_grids
+ 
+ 
+ def main():
+     p = argparse.ArgumentParser(description=__doc__)
+     p.add_argument('--left', type=Path, required=True)
+     p.add_argument('--right', type=Path, required=True)
++    p.add_argument('--nccl', choices=ARMS, default=GEOMETRY, help='explicit NCCL arm of both receipts')
+     a = p.parse_args()
+-    left, right = [load_receipt(v, geometry=True) for v in (a.left, a.right)]
+-    validate_geometry_grids(left['summary'], right['summary'])
++    left, right = load_grids(a.left, a.right, a.nccl)
++    stem = 'geometry-decision-cross' if a.nccl == GEOMETRY else 'standard-decision-cross'
+     idle()
+     remote = right['summary']['remote_dir']
+     source = ROOT / 'compare_decision_grids.py'
+@@ -29,14 +31,14 @@
+             {'/gate': remote, '/left': left['summary']['remote_dir']},
+             ['/gate/' + source.name, '/left/captures/' + left['summary']['captures'][node],
+              '/gate/captures/' + right['summary']['captures'][node]], '24g')
+-    (right['path'] / 'geometry-decision-cross-invocation.json').write_text(json.dumps(
+-        {'comparator_sha256': digest, 'commands': commands}, indent=2) + '\n')
++    (right['path'] / f'{stem}-invocation.json').write_text(json.dumps(
++        {'comparator_sha256': digest, 'commands': commands, 'nccl': a.nccl}, indent=2) + '\n')
+     for node, command in commands.items():
+-        with (right['path'] / f'geometry-decision-cross-{node}.json').open('x') as out, \
+-                (right['path'] / f'geometry-decision-cross-{node}.stderr').open('x') as err:
++        with (right['path'] / f'{stem}-{node}.json').open('x') as out, \
++                (right['path'] / f'{stem}-{node}.stderr').open('x') as err:
+             subprocess.run(['ssh', '-o', 'BatchMode=yes', 'dusty', shlex.join(command)],
+                            stdout=out, stderr=err, check=True)
+-        print('GEOMETRY-DECISION-CROSS', node, flush=True)
++        print(stem.upper(), node, flush=True)
+ 
+ 
+ if __name__ == '__main__':
+diff -ru a/run_indexer_comparison.py b/run_indexer_comparison.py
+--- a/run_indexer_comparison.py	2026-09-26 19:12:43.882654772 -0400
++++ b/run_indexer_comparison.py	2026-09-26 19:13:47.432616940 -0400
+@@ -9,6 +9,7 @@
+ from audit_window_geometry import (load_receipt, validate_geometry_grids, container, NODES, ROOT, ssh,
+                                    STAGED, window_file, validate_within)
+ from build_activation_trace import idle
++from precision_default_nccl import ARMS, GEOMETRY, STANDARD_NCCL_ARM, load_grids
+ 
+ FILES = ('compare_indexer_inputs.py', 'ds41_indexer_capture.py', *STAGED)
+ 
+@@ -25,9 +26,11 @@
+     p.add_argument('--left', type=Path, required=True)
+     p.add_argument('--right', type=Path, required=True)
+     p.add_argument('--kind', choices=('indexer', 'precision'), default='indexer')
++    p.add_argument('--nccl', choices=ARMS, default=GEOMETRY, help='explicit NCCL arm of both receipts')
+     a = p.parse_args()
+-    left, right = [load_receipt(v, geometry=True) for v in (a.left, a.right)]
+-    validate_geometry_grids(left['summary'], right['summary'])
++    if a.nccl == STANDARD_NCCL_ARM and a.kind != 'precision':
++        p.error('The standard NCCL arm exists only for the precision kind')
++    left, right = load_grids(a.left, a.right, a.nccl)
+     build = json.loads((ROOT / f'receipts/{a.kind}-build-receipt.json').read_text())
+     lock_raw = (ROOT / f'ds41-{a.kind}.lock.json').read_bytes()
+     lock = json.loads(lock_raw)
+@@ -80,7 +83,7 @@
+             ['/gate/claude-window-compare.py', 'compare',
+              '/left/captures/' + window_file(left, node), '/gate/captures/' + window_file(right, node)], '24g')
+     (right['path'] / 'indexer-comparison-invocation.json').write_text(json.dumps(
+-        {'sources': sources, 'commands': commands, 'captures': captures}, indent=2) + '\n')
++        {'sources': sources, 'commands': commands, 'captures': captures, 'nccl': a.nccl}, indent=2) + '\n')
+     for node, command in commands.items():
+         with (right['path'] / f'indexer-comparison-{node}.json').open('x') as out, \
+                 (right['path'] / f'indexer-comparison-{node}.stderr').open('x') as err:
+diff -ru a/run_node.py b/run_node.py
+--- a/run_node.py	2026-09-26 19:12:43.879028515 -0400
++++ b/run_node.py	2026-09-26 19:13:14.826852983 -0400
+@@ -71,6 +71,9 @@
+     if 'DS41_NCCL_GEOMETRY' in profile['env']:
+         require(pin.get('diagnostic', {}).get('kind') in ('window-capture', 'indexer-capture', 'precision-capture'),
+                 'NCCL geometry diagnostic is restricted to window-capture')
++    if 'DS41_NCCL_ARM' in profile['env']:
++        require(pin.get('diagnostic', {}).get('kind') == 'precision-capture',
++                'Standard NCCL arm is restricted to precision-capture')
+     hf = Path.home() / '.cache/huggingface'
+     cache = Path.home() / '.cache/vllm-jj-ds41-tp4'
+     env = dict(profile['env'], DS41_NODE=node, DS41_KIT_SHA256=digest, PYTHONUNBUFFERED='1', PYTHONOPTIMIZE='0')
+diff -ru a/start_moe_repaired.py b/start_moe_repaired.py
+--- a/start_moe_repaired.py	2026-09-26 19:12:43.880413768 -0400
++++ b/start_moe_repaired.py	2026-09-26 19:13:14.826930961 -0400
+@@ -27,6 +27,9 @@
+ parser.add_argument('--nccl-geometry', choices=('tree-simple-1ch',),
+                     help='User-approved NCCL geometry diagnostic (PROPOSED-NCCL-GEOMETRY-20260926.md): '
+                          'matched window-capture arms only; changes every TP all-reduce order, never serving')
++parser.add_argument('--nccl-arm', choices=('standard-upstream',),
++                    help='Precision image only: ordinary launch NCCL settings on the matched profile, '
++                         'recorded as an explicit arm; never combined with --nccl-geometry')
+ args = parser.parse_args()
+ matched_capture = args.arm in ('decision-row', 'window', 'indexer', 'precision') and args.decision_row_blocks == '81389'
+ if args.arm in ('window', 'indexer', 'precision') and not matched_capture:
+@@ -34,6 +37,11 @@
+ if args.nccl_geometry and (args.arm not in ('window', 'indexer', 'precision') or not matched_capture
+                            or args.prefill_threshold not in ('8192', '4096') or args.ops_trace):
+     parser.error('NCCL geometry requires the matched window-capture profile with an explicit 8192/4096 threshold')
++if args.nccl_arm and (args.arm != 'precision' or not matched_capture or args.nccl_geometry
++                      or args.prefill_threshold not in ('8192', '4096') or args.ops_trace):
++    parser.error('The standard NCCL arm requires the matched precision profile without --nccl-geometry')
++if args.arm == 'precision' and not (args.nccl_geometry or args.nccl_arm):
++    parser.error('Precision requires an explicit NCCL arm: --nccl-geometry tree-simple-1ch or --nccl-arm standard-upstream')
+ if matched_capture and (args.prefill_threshold not in ('8192', '4096') or args.ops_trace):
+     parser.error('Matched capture requires threshold8192/4096 without operator tracing')
+ if args.prefill_threshold and not matched_capture and (args.arm != 'router-fence' or args.decision_row_blocks
+@@ -52,6 +60,8 @@
+     out = ROOT / 'receipts' / f'{args.arm}-chunk{args.prefill_threshold}-blocks81389-{stamp}'
+ if args.nccl_geometry:
+     out = ROOT / 'receipts' / f'{args.arm}-geometry-{args.nccl_geometry}-chunk{args.prefill_threshold}-blocks81389-{stamp}'
++if args.nccl_arm:
++    out = ROOT / 'receipts' / f'{args.arm}-nccl-{args.nccl_arm}-chunk{args.prefill_threshold}-blocks81389-{stamp}'
+ out.mkdir(exist_ok=False)
+ print('RECEIPTS', out, flush=True)
+ (out / 'launch-options.json').write_text(json.dumps(vars(args), indent=2) + '\n')
+@@ -92,6 +102,8 @@
+         overrides += ' DS41_DECISION_ROW_BLOCKS=' + args.decision_row_blocks
+     if getattr(args, 'nccl_geometry', None):
+         overrides += ' DS41_NCCL_GEOMETRY=' + args.nccl_geometry
++    if getattr(args, 'nccl_arm', None):
++        overrides += ' DS41_NCCL_ARM=' + args.nccl_arm
+     if args.cuda_module_loading:
+         overrides += ' CUDA_MODULE_LOADING=' + args.cuda_module_loading
+     if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'engram-fault'):
+@@ -101,7 +113,7 @@
+     # Clear remote-shell overrides before applying the explicit repaired profile.
+     clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'engram-fault') else 'env'
+     clean += ' -u DS41_DECISION_ROW_BLOCKS'
+-    clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY'
++    clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY -u DS41_NCCL_ARM'
+     return f'cd {REMOTE} && {clean} {overrides} python3 run_node.py --node {node}'
+ 
+ for node in NODES:

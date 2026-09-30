@@ -1,0 +1,91 @@
+{
+  "request": {
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Calculate 35 times 23 minus 58. Return JSON with answer as an integer and check as the string verified."
+      }
+    ],
+    "chat_template_kwargs": {
+      "thinking": false
+    },
+    "temperature": 0,
+    "max_tokens": 256,
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "calculation",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "answer": {
+              "type": "integer"
+            },
+            "check": {
+              "type": "string",
+              "enum": [
+                "verified"
+              ]
+            }
+          },
+          "required": [
+            "answer",
+            "check"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "started": 1790107324.2969158,
+  "response": {
+    "id": "chatcmpl-ab4f80e1c0ef1b66",
+    "object": "chat.completion",
+    "created": 1790107324,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"answer\": 747, \"check\": \"verified\"}",
+          "refusal": null,
+          "annotations": null,
+          "audio": null,
+          "function_call": null,
+          "reasoning": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop",
+        "stop_reason": null,
+        "token_ids": null,
+        "routed_experts": null
+      }
+    ],
+    "service_tier": null,
+    "system_fingerprint": "vllm-0.26.1rc0+jj.r38.spark.vllm2d38757-tp2-b4af6e29",
+    "usage": {
+      "prompt_tokens": 28,
+      "total_tokens": 41,
+      "completion_tokens": 13,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 0,
+        "multimodal_tokens": null
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "prompt_logprobs": null,
+    "prompt_token_ids": null,
+    "prompt_text": null,
+    "kv_transfer_params": null,
+    "ec_transfer_params": null,
+    "metrics": null
+  },
+  "passed": true,
+  "elapsed_s": 0.5321919918060303
+}

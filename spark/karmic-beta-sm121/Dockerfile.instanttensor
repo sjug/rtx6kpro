@@ -1,0 +1,35 @@
+FROM ghcr.io/astral-sh/uv@sha256:2f0a1c36ce6323e61bc81d39e692319669c03e385b592d670b6ba36dc884e3aa AS uv
+FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+COPY --from=uv /uv /usr/local/bin/uv
+ENV PATH=/build-venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    MAX_JOBS=20 CMAKE_BUILD_PARALLEL_LEVEL=20 PYTHONUNBUFFERED=1
+RUN test "$(uname -m)" = aarch64 \
+    && git init /build/instanttensor \
+    && git -C /build/instanttensor remote add origin https://github.com/local-inference-lab/InstantTensor.git \
+    && git -C /build/instanttensor fetch --depth=1 origin 95d4729b6d6a991bb8de61877147a9d9d9100b23 \
+    && git -C /build/instanttensor checkout --detach FETCH_HEAD \
+    && test "$(git -C /build/instanttensor rev-parse HEAD)" = 95d4729b6d6a991bb8de61877147a9d9d9100b23 \
+    && git -C /build/instanttensor submodule update --init --recursive --jobs 4
+# Keep the canonical libaio submodule. No temporary mirror/tree replacement.
+WORKDIR /build/instanttensor
+RUN uv venv --python /usr/bin/python3 --system-site-packages /build-venv \
+    && uv pip install --python /build-venv/bin/python --require-hashes --no-deps \
+       -r ci/lil_wheels/build-requirements.lock \
+    && test -f csrc/third_party/libaio/src/libaio.h \
+    && test -f csrc/third_party/liburing/src/include/liburing.h \
+    && env -u PYTHONPATH uv build --wheel --no-build-isolation \
+       --python /build-venv/bin/python --out-dir /artifacts/instanttensor . \
+    && python ci/lil_wheels/normalize_wheel.py --wheel /artifacts/instanttensor/instanttensor-*.whl \
+       --version 0.1.9+lil.cu134.g95d4729b6d6a \
+       --torch-version 2.14.0a0+4fdf77b940.nv26.8.63802676 \
+       --source-date-epoch "$(git show -s --format=%ct HEAD)" \
+    && test "$(find /artifacts/instanttensor -maxdepth 1 -name '*aarch64.whl' | wc -l)" = 1 \
+    && git submodule status --recursive > /artifacts/instanttensor/submodules.txt \
+    && cd /artifacts/instanttensor && sha256sum *.whl > SHA256SUMS
+ARG RECIPE_SHA256
+COPY Dockerfile.instanttensor /artifacts/instanttensor/Dockerfile.instanttensor
+RUN test "$(sha256sum /artifacts/instanttensor/Dockerfile.instanttensor | cut -d' ' -f1)" = "$RECIPE_SHA256"
+LABEL local-inference.instanttensor.commit="95d4729b6d6a991bb8de61877147a9d9d9100b23" \
+      local-inference.instanttensor.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

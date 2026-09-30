@@ -1,0 +1,11 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2431,7 +2431,7 @@
+                         tCsSFB_tile_copy_view = tCsSFB_copy_view_full
+                         tCrSFB_tile = tCrSFB_full
+                         tCrSFB_tile_copy_view = tCrSFB_copy_view_full
+-                accumulators.fill(0.0)
++                accumulators.fill(-0.0)
+                 if cutlass.const_expr(self.block_fp8):
+                     stage_accumulators.fill(0.0)
+ 

@@ -1,0 +1,17 @@
+--- a/launch_contract.py
++++ b/launch_contract.py
+@@ -46,6 +46,14 @@
+     del model[index:index + 2]
+     # Approved historical 524K replay after 500K admission passed.
+     model[model.index('--max-model-len') + 1] = '600000'
++    # Diagnostic only: identical cache geometry for the router-fence A/B.
++    # Explicitly retained in container environment and the rendered command.
++    control_blocks = os.environ.get('DS41_ROUTER_CONTROL_BLOCKS')
++    if control_blocks is not None:
++        if control_blocks != '79000':
++            raise ValueError('DS41_ROUTER_CONTROL_BLOCKS must be exactly 79000')
++        env['DS41_ROUTER_CONTROL_BLOCKS'] = control_blocks
++        model += ['--num-gpu-blocks-override', control_blocks]
+     rank = NODES[node][0]
+     model += ['--distributed-executor-backend', 'mp', '--nnodes', '4',
+               '--node-rank', str(rank), '--master-addr', NODES['dusty'][1],

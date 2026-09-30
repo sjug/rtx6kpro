@@ -1,0 +1,81 @@
+{
+  "dusty": {
+    "samples": 1586,
+    "whole_window_min_available_gib": 1.5715293884277344,
+    "peak_swap_consumed_since_observer_start_gib": 8.365348816,
+    "grid_samples": 754,
+    "grid_min_available_gib": 7.7110748291015625,
+    "grid_mean_sm_mhz": 2469.236074270557,
+    "grid_max_temp_c": 81,
+    "grid_nonzero_throttle_samples": [],
+    "grid_counters": {
+      "allocstall_normal": {
+        "first": 43449,
+        "last": 43449,
+        "delta": 0
+      },
+      "allocstall_movable": {
+        "first": 29165,
+        "last": 29165,
+        "delta": 0
+      },
+      "pgscan_direct": {
+        "first": 7538432,
+        "last": 7538432,
+        "delta": 0
+      },
+      "compact_stall": {
+        "first": 249978,
+        "last": 249978,
+        "delta": 0
+      }
+    },
+    "nv_memory_warning_count": 86,
+    "nv_memory_first": "2026-09-21T23:29:19-04:00 dusty kernel: NVRM: nvCheckOkFailedNoLog: Check failed: Out of memory [NV_ERR_NO_MEMORY] (0x00000051) returned from _memdescAllocInternal(pMemDesc) @ mem_desc.c:1359",
+    "nv_memory_last": "2026-09-21T23:34:10-04:00 dusty kernel: NVRM: nvCheckOkFailedNoLog: Check failed: Out of memory [NV_ERR_NO_MEMORY] (0x00000051) returned from _memdescAllocInternal(pMemDesc) @ mem_desc.c:1359",
+    "xids": [],
+    "jit_warnings": [
+      "2026-09-21T23:36:49.339177000-04:00 (Worker_TP0 pid=376) WARNING 09-22 03:36:49 [jit_monitor.py:141] Triton kernel JIT compilation during inference: layer_norm_fwd_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+      "2026-09-21T23:36:58.204732000-04:00 (Worker_TP0 pid=376) WARNING 09-22 03:36:58 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _bilinear_pos_embed_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    ]
+  },
+  "kirby": {
+    "samples": 1588,
+    "whole_window_min_available_gib": 1.6051445007324219,
+    "peak_swap_consumed_since_observer_start_gib": 7.618801117,
+    "grid_samples": 753,
+    "grid_min_available_gib": 10.199825286865234,
+    "grid_mean_sm_mhz": 2481.7569721115538,
+    "grid_max_temp_c": 84,
+    "grid_nonzero_throttle_samples": [],
+    "grid_counters": {
+      "allocstall_normal": {
+        "first": 32840,
+        "last": 32840,
+        "delta": 0
+      },
+      "allocstall_movable": {
+        "first": 5968,
+        "last": 5968,
+        "delta": 0
+      },
+      "pgscan_direct": {
+        "first": 3022963,
+        "last": 3022963,
+        "delta": 0
+      },
+      "compact_stall": {
+        "first": 51110,
+        "last": 51110,
+        "delta": 0
+      }
+    },
+    "nv_memory_warning_count": 11,
+    "nv_memory_first": "2026-09-21T23:29:30-04:00 kirby kernel: NVRM: nvCheckOkFailedNoLog: Check failed: Out of memory [NV_ERR_NO_MEMORY] (0x00000051) returned from _memdescAllocInternal(pMemDesc) @ mem_desc.c:1359",
+    "nv_memory_last": "2026-09-21T23:34:19-04:00 kirby kernel: NVRM: nvCheckOkFailedNoLog: Check failed: Out of memory [NV_ERR_NO_MEMORY] (0x00000051) returned from _memdescAllocInternal(pMemDesc) @ mem_desc.c:1359",
+    "xids": [],
+    "jit_warnings": [
+      "2026-09-21T23:36:49.289588000-04:00 (Worker_TP1 pid=295) WARNING 09-22 03:36:49 [jit_monitor.py:141] Triton kernel JIT compilation during inference: layer_norm_fwd_kernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 25 items
+
+tests/v1/executor/test_b12x_startup.py::test_tuning_authorization_selects_once_across_disjoint_rank_shards PASSED
+tests/v1/executor/test_b12x_startup.py::test_progress_aggregates_work_totals_and_preserves_rank_local_batch_counts PASSED
+tests/v1/executor/test_b12x_startup.py::test_progress_does_not_finish_until_every_rank_finishes PASSED
+tests/v1/executor/test_b12x_startup.py::test_progress_does_not_sum_replicated_fixed_candidate_count PASSED
+tests/v1/executor/test_b12x_startup.py::test_local_only_cancel_still_completes_and_primes PASSED
+tests/v1/executor/test_b12x_startup.py::test_default_only_batch_disables_tuning_for_job PASSED
+tests/v1/executor/test_b12x_startup.py::test_batches_run_in_order_and_finish_after_the_last PASSED
+tests/v1/executor/test_b12x_startup.py::test_pending_compilation_wait_is_bounded PASSED
+tests/v1/executor/test_b12x_startup.py::test_abort_closes_active_job_once PASSED
+tests/v1/executor/test_b12x_startup.py::test_attention_tuning_rendezvous_ignores_rank_local_device_ordinal[batched] PASSED
+tests/v1/executor/test_b12x_startup.py::test_attention_tuning_rendezvous_ignores_rank_local_device_ordinal[varlen] PASSED
+tests/v1/executor/test_b12x_startup.py::test_independent_work_never_waits_for_peer_progress PASSED
+tests/v1/executor/test_b12x_startup.py::test_all_local_winners_consolidate_once_with_empty_world_rank PASSED
+tests/v1/executor/test_b12x_startup.py::test_fixed_collective_authorization_waits_for_every_participant PASSED
+tests/v1/executor/test_b12x_startup.py::test_cancelled_consolidation_discards_every_partial_winner PASSED
+tests/v1/executor/test_b12x_startup.py::test_peer_failure_drains_every_rank_before_returning PASSED
+tests/v1/executor/test_b12x_startup.py::test_executor_runs_worker_on_calling_thread_and_cancels_without_step_rpcs PASSED
+tests/v1/executor/test_b12x_startup.py::test_candidate_progress_waits_for_every_expected_rank_to_finish_planning PASSED
+tests/v1/executor/test_b12x_startup.py::test_four_rank_candidate_fraction_uses_the_same_scope_for_both_counts[measured0] PASSED
+tests/v1/executor/test_b12x_startup.py::test_four_rank_candidate_fraction_uses_the_same_scope_for_both_counts[measured1] PASSED
+tests/v1/executor/test_b12x_startup.py::test_cancel_drains_pending_winners_then_orders_collective_warmup PASSED
+tests/v1/executor/test_b12x_startup.py::test_heuristic_warmup_is_local_on_each_rank PASSED
+tests/v1/executor/test_b12x_startup.py::test_tuning_caches_exchange_before_races_with_empty_world_rank[False] PASSED
+tests/v1/executor/test_b12x_startup.py::test_tuning_caches_exchange_before_races_with_empty_world_rank[True] PASSED
+tests/v1/executor/test_b12x_startup.py::test_missing_cache_participant_fails_all_ranks_without_hanging PASSED
+
+============================== 25 passed in 7.75s ==============================
+CACHE-AGREEMENT-GATE-PASS collect_only=False cases=25

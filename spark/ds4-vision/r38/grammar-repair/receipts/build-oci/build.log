@@ -1,0 +1,356 @@
+STEP 1/6: FROM ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5
+STEP 2/6: ARG GRAMMAR_LOCK_SHA256
+time="2026-09-22T15:31:38-04:00" level=warning msg="SHELL is not persisted in the OCI image format, [/bin/bash -euo pipefail -c] will be used for RUN subsequent instructions to build this image but will not be present in saved image which may affect any images that use this as a base. Must use `docker` format to persist in saved image"
+--> 11bbbf0d2ae0
+STEP 3/6: ARG GRAMMAR_RECIPE_SHA256
+time="2026-09-22T15:31:38-04:00" level=warning msg="SHELL is not persisted in the OCI image format, [/bin/bash -euo pipefail -c] will be used for RUN subsequent instructions to build this image but will not be present in saved image which may affect any images that use this as a base. Must use `docker` format to persist in saved image"
+--> ddb1f6efc1c3
+STEP 4/6: COPY upstream.patch source.lock.json install.py /opt/ds4-r38-grammar/
+time="2026-09-22T15:31:39-04:00" level=warning msg="SHELL is not persisted in the OCI image format, [/bin/bash -euo pipefail -c] will be used for RUN subsequent instructions to build this image but will not be present in saved image which may affect any images that use this as a base. Must use `docker` format to persist in saved image"
+--> 431c0ed42e26
+STEP 5/6: RUN /opt/venv/bin/python /opt/ds4-r38-grammar/install.py
+/etc/bash.bashrc: line 9: PS1: unbound variable
+EXACT-SEVEN-FILE-REFRESH-PASS
+time="2026-09-22T15:31:45-04:00" level=warning msg="SHELL is not persisted in the OCI image format, [/bin/bash -euo pipefail -c] will be used for RUN subsequent instructions to build this image but will not be present in saved image which may affect any images that use this as a base. Must use `docker` format to persist in saved image"
+--> eaf66b0c6d84
+STEP 6/6: LABEL local-inference.release.name="jj-r38p-spark-sm121"       local-inference.runtime.source-lock.sha256="${GRAMMAR_LOCK_SHA256}"       local-inference.runtime.source-lock.path="/opt/ds4-r38-grammar/source.lock.json"       local-inference.runtime.base-lock.path="/opt/glm53-flash/source.lock"       local-inference.recipe.sha256="${GRAMMAR_RECIPE_SHA256}"       local-inference.scope="DS4 Vision grammar repair, serving qualification required"       org.opencontainers.image.title="Jovian Judgement R38p Spark SM121"       org.opencontainers.image.version="r38p"       org.opencontainers.image.description="R38 plus 8e1f1e587f grammar repair only; native artifacts unchanged"       local-inference.vllm.tree="6b270cd2ef83746bd429d975f8dab942a58f2615"       local-inference.vllm.package-tree="319b5bf8cc5d3c2bb0d66b956764df7751db1834"       local-inference.vllm.source-patches="PR756@27f0745fc11f2346bacb646c2d4e1864f6dacd89;grammar@8e1f1e587f8d24faf606f334a1c4bdaaa6bd4368"       local-inference.grammar.base-image-id="ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5"
+COMMIT localhost/voipmonitor/vllm:jj-r38p-spark-sm121-build
+time="2026-09-22T15:31:45-04:00" level=warning msg="SHELL is not persisted in the OCI image format, [/bin/bash -euo pipefail -c] will be used for RUN subsequent instructions to build this image but will not be present in saved image which may affect any images that use this as a base. Must use `docker` format to persist in saved image"
+--> c8f0c92018f7
+Successfully tagged localhost/voipmonitor/vllm:jj-r38p-spark-sm121-build
+c8f0c92018f7d013e29b63f83fae8dca32cefe0d80fff06c12f5a2e6311d362a
+DS4-VISION-SM121-NATIVE-PREFLIGHT-PASS
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0922 19:31:54.620000 88 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0922 19:31:54.634000 88 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 32 items
+
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-0] INFO 09-22 19:32:03 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:03 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:03 [scheduler.py:339] Chunked prefill is enabled with max_num_batched_tokens=2048.
+ERROR 09-22 19:32:03 [repo_utils.py:119] Error retrieving safetensors: Cannot reach https://huggingface.co/Qwen/Qwen3-0.6B/resolve/main/model.safetensors: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable., retrying 1 of 2
+ERROR 09-22 19:32:05 [repo_utils.py:117] Error retrieving safetensors: Cannot reach https://huggingface.co/Qwen/Qwen3-0.6B/resolve/main/model.safetensors: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.
+WARNING 09-22 19:32:05 [config.py:1222] Could not retrieve safetensors metadata for Qwen/Qwen3-0.6B (Hub fetch failed and no local cache snapshot is available): The cached snapshot for 'Qwen/Qwen3-0.6B' (revision 'main', commit c1899de289a04d12100db370d81485cdf75e47ca) is incomplete: 1 file(s) are missing (model.safetensors). Outgoing traffic is disabled ('local_files_only=True'). Re-run the download with network access to complete the snapshot..
+WARNING 09-22 19:32:05 [vllm.py:1414] Async scheduling not supported with ngram-based speculative decoding and will be disabled.
+INFO 09-22 19:32:05 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+WARNING 09-22 19:32:05 [vllm.py:2059] max_num_scheduled_tokens is set to 2048 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+WARNING 09-22 19:32:05 [vllm.py:769] Model Runner V2 does not yet support ngram/ngram_gpu speculative decoding; using the V1 model runner instead.
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-1] INFO 09-22 19:32:06 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:06 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:06 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-2] INFO 09-22 19:32:07 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:07 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:07 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-3] INFO 09-22 19:32:07 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:07 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:07 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-0] INFO 09-22 19:32:07 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:07 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:07 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-1] INFO 09-22 19:32:07 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:07 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:07 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-2] INFO 09-22 19:32:07 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:07 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:07 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-3] INFO 09-22 19:32:08 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:08 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:08 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-0] INFO 09-22 19:32:08 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:08 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:08 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-1] INFO 09-22 19:32:08 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:08 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:08 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-2] INFO 09-22 19:32:08 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:08 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:08 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-3] INFO 09-22 19:32:08 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:08 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:08 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-0] INFO 09-22 19:32:08 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:08 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:08 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-1] INFO 09-22 19:32:09 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:09 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:09 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-2] INFO 09-22 19:32:09 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:09 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:09 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-3] INFO 09-22 19:32:09 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:09 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:09 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-0] INFO 09-22 19:32:09 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:09 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:09 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-1] INFO 09-22 19:32:09 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:09 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:09 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-2] INFO 09-22 19:32:10 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:10 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:10 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-3] INFO 09-22 19:32:10 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:10 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:10 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-0] INFO 09-22 19:32:10 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:10 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:10 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-1] INFO 09-22 19:32:10 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:10 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:10 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-2] INFO 09-22 19:32:10 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:10 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:10 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-3] INFO 09-22 19:32:11 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:11 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:11 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-0] INFO 09-22 19:32:11 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:11 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:11 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-1] INFO 09-22 19:32:11 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:11 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:11 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-2] INFO 09-22 19:32:11 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:11 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:11 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-3] INFO 09-22 19:32:11 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:11 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:11 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-0] INFO 09-22 19:32:11 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:11 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:11 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-1] INFO 09-22 19:32:12 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:12 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:12 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-2] INFO 09-22 19:32:12 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:12 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:12 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+tests/v1/spec_decode/test_mtp_structured_output.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-3] INFO 09-22 19:32:12 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:32:12 [model.py:2043] Using max model len 40960
+INFO 09-22 19:32:12 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+tests/v1/spec_decode/test_mtp_structured_output.py: 32 warnings
+  /usr/local/lib/python3.12/dist-packages/xgrammar/matcher.py:256: DeprecationWarning: max_rollback_tokens is deprecated. You don't need to set it and it's always unlimited (-1).
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 32 passed, 46 warnings in 21.25s =======================
+R38 REQUIRED PASS: 32 cases
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0922 19:32:18.180000 561 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0922 19:32:18.195000 561 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 2 items
+
+tests/v1/worker/test_gpu_batch_shard.py::test_shard_grammar_output[2] PASSED
+tests/v1/worker/test_gpu_batch_shard.py::test_shard_grammar_output[4] PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 2 passed, 14 warnings in 5.80s ========================
+R38 REQUIRED PASS: 2 cases
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0922 19:32:26.472000 626 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0922 19:32:26.487000 626 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 2 items
+
+tests/v1/worker/test_async_verified_draft_counts.py::test_verified_counts_belong_to_output_step[deferred-delivery] PASSED
+tests/v1/worker/test_async_verified_draft_counts.py::test_verified_counts_belong_to_output_step[cuda-copy] PASSED
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 2 passed, 14 warnings in 5.96s ========================
+R38 REQUIRED PASS: 2 cases
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0922 19:32:35.163000 693 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0922 19:32:35.177000 693 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 1 item
+
+tests/v1/core/test_scheduler.py::test_per_request_spec_decode_subtracts_invalid_drafts FAILED
+
+=================================== FAILURES ===================================
+____________ test_per_request_spec_decode_subtracts_invalid_drafts _____________
+
+    def test_per_request_spec_decode_subtracts_invalid_drafts():
+        # Grammar-invalidated drafts (num_invalid_spec_tokens, set by structured
+        # output) are excluded from the verified count, mirroring the aggregate.
+>       scheduler = create_scheduler(
+            num_speculative_tokens=3,
+            per_request_spec_decode_metrics="summary",
+        )
+
+tests/v1/core/test_scheduler.py:1790: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+model = 'facebook/opt-125m', max_num_seqs = 16, max_num_batched_tokens = 8192
+enable_chunked_prefill = True, enable_prefix_caching = False
+long_prefill_token_threshold = 0, prefill_compute_share = None
+prefill_compute_half_life = None, max_parallel_prefills = 1
+prefill_policy = 'round-robin', decode_refill_target = 'auto'
+scheduling_policy = 'fcfs', device = 'auto', disable_chunked_mm_input = False
+use_kv_connector = None, kv_role = 'kv_both', num_blocks = 10000
+block_size = 16, max_model_len = None, num_speculative_tokens = 3
+speculative_method = None, parallel_drafting = False
+skip_tokenizer_init = False, async_scheduling = False
+pipeline_parallel_size = 1, data_parallel_size = 1
+num_speculative_tokens_per_batch_size = None
+adaptive_speculative_tokens_window = None
+adaptive_speculative_tokens_initial = None, use_ec_connector = False
+ec_role = None, use_v2_model_runner = None, kv_cache_spec = None
+per_request_spec_decode_metrics = 'summary'
+
+    def create_scheduler(
+        model: str = "facebook/opt-125m",
+        max_num_seqs: int = 16,
+        max_num_batched_tokens: int = 8192,
+        enable_chunked_prefill: bool = True,
+        enable_prefix_caching: bool = False,
+        long_prefill_token_threshold: int = 0,
+        prefill_compute_share: PrefillComputeShare | None = None,
+        prefill_compute_half_life: PrefillComputeHalfLife | None = None,
+        max_parallel_prefills: MaxParallelPrefills = 1,
+        prefill_policy: PrefillPolicy = "round-robin",
+        decode_refill_target: DecodeRefillTarget = "auto",
+        scheduling_policy: SchedulerPolicy = "fcfs",
+        device: str = "auto",
+        disable_chunked_mm_input: bool = False,
+        use_kv_connector: None | bool | str | MockKVConfig = None,
+        kv_role: str = "kv_both",
+        num_blocks: int = 10000,
+        block_size: int = 16,
+        max_model_len: int | None = None,
+        num_speculative_tokens: int | None = None,
+        speculative_method: str | None = None,
+        parallel_drafting: bool = False,
+        skip_tokenizer_init: bool = False,
+        async_scheduling: bool = False,
+        pipeline_parallel_size: int = 1,
+        data_parallel_size: int = 1,
+        num_speculative_tokens_per_batch_size: list[tuple[int, int, int]] | None = None,
+        adaptive_speculative_tokens_window: int | None = None,
+        adaptive_speculative_tokens_initial: int | None = None,
+        use_ec_connector: bool = False,
+        ec_role: str | None = None,
+        use_v2_model_runner: bool | None = None,
+        kv_cache_spec: KVCacheSpec | None = None,
+        per_request_spec_decode_metrics: str = "none",
+    ) -> Scheduler | AsyncScheduler:
+        """Create scheduler under test.
+    
+        Args:
+          model: model under test
+          max_num_seqs: max sequences to schedule
+          max_num_batch_tokens: max num tokens to batch
+          enable_prefix_caching: optionally force APC config
+                                 (True/False) or use default
+                                 (False)
+    
+        Returns:
+          {class}`Scheduler` instance
+        """
+>       model_config = ModelConfig(
+            model=model,
+            trust_remote_code=True,
+            dtype="float16",
+            seed=42,
+            skip_tokenizer_init=skip_tokenizer_init,
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+E         Value error, Invalid repository ID or local directory specified: 'facebook/opt-125m'.
+E       Please verify the following requirements:
+E       1. Provide a valid Hugging Face repository ID.
+E       2. Specify a local directory that contains a recognized configuration file.
+E          - For Hugging Face models: ensure the presence of a 'config.json'.
+E          - For Mistral models: ensure the presence of a 'params.json'.
+E        [type=value_error, input_value=ArgsKwargs((), {'model': ...tokenizer_init': False}), input_type=ArgsKwargs]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+tests/v1/core/utils.py:109: ValidationError
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/v1/core/test_scheduler.py::test_per_request_spec_decode_subtracts_invalid_drafts - pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+  Value error, Invalid repository ID or local directory specified: 'facebook/opt-125m'.
+Please verify the following requirements:
+1. Provide a valid Hugging Face repository ID.
+2. Specify a local directory that contains a recognized configuration file.
+   - For Hugging Face models: ensure the presence of a 'config.json'.
+   - For Mistral models: ensure the presence of a 'params.json'.
+ [type=value_error, input_value=ArgsKwargs((), {'model': ...tokenizer_init': False}), input_type=ArgsKwargs]
+    For further information visit https://errors.pydantic.dev/2.13/v/value_error
+======================== 1 failed, 14 warnings in 5.73s ========================
+Traceback (most recent call last):
+  File "/opt/local-inference/r38-tests/run_required.py", line 37, in <module>
+    main()
+  File "/opt/local-inference/r38-tests/run_required.py", line 31, in main
+    raise RuntimeError(f"Incomplete gate: expected={args.count}, collected={gate.collected}, "
+RuntimeError: Incomplete gate: expected=1, collected=1, passed=0, invalid=['tests/v1/core/test_scheduler.py::test_per_request_spec_decode_subtracts_invalid_drafts'], exit=1
+Build/gate failed at line 37; candidate retained, serving tag not published

@@ -1,0 +1,12 @@
+{
+  "build_lock_sha256": "028851c384d90185385d87db036263a0c3894ed2f667217fdde77d62d2802c92",
+  "diagnostic": {
+    "b12x_tree": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "kind": "mhc-expanded-capture",
+    "lock_sha256": "aab479ea81fbdf5e96787e6a33493672190df50978d86d655ceb72dadf6ddf5b",
+    "base_image_id": "1989e16daf38d2966b03a2e2abcb878263fb7d17183c8d6c5b084a51fbed7e8f"
+  },
+  "image_id": "bbe5d4966717a96a0c791a43a03fcdcc64ccf73ee05f52418d7be2d06c03343c",
+  "recipe_sha256": "7d8a4c01ff2e1506e627bf5622ae16d7aa4dd09428e86bdd06c177564e22ed67",
+  "source_lock_sha256": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+}

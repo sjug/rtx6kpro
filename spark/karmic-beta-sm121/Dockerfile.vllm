@@ -1,0 +1,64 @@
+# Native component only. Runtime assembly and GPU/model gates are separate.
+FROM ghcr.io/astral-sh/uv@sha256:2f0a1c36ce6323e61bc81d39e692319669c03e385b592d670b6ba36dc884e3aa AS uv
+FROM docker.io/library/rust@sha256:8e45ae5b178fa788bbbd818b42a1f93a6e2c03e7144badd5e0a37087537177e1 AS rust
+FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+COPY --from=uv /uv /usr/local/bin/uv
+COPY --from=rust /usr/local/cargo /usr/local/cargo
+COPY --from=rust /usr/local/rustup /usr/local/rustup
+ENV PATH=/build-venv/bin:/usr/local/cargo/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    CARGO_HOME=/usr/local/cargo RUSTUP_HOME=/usr/local/rustup \
+    TORCH_CUDA_ARCH_LIST=12.1a CMAKE_CUDA_ARCHITECTURES=121a \
+    CMAKE_BUILD_PARALLEL_LEVEL=20 MAX_JOBS=20 NVCC_THREADS=1 \
+    VLLM_BUILD_CUTLASS_SCALED_MM_C2X=OFF CUTLASS_DSL_VERSION=4.6.2 \
+    TORCH_NIGHTLY=1 PYTHONUNBUFFERED=1 \
+    SETUPTOOLS_SCM_PRETEND_VERSION_FOR_VLLM=0.1.dev21559+g57a80980b.cu134.spark
+RUN test "$(uname -m)" = aarch64 \
+    && test "$(rustc --version | awk '{print $2}')" = 1.95.0 \
+    && apt-get update && apt-get install -y --no-install-recommends libdw-dev
+COPY vllm-build-requirements.lock /build/vllm-build-requirements.lock
+RUN uv venv --python /usr/bin/python3 --system-site-packages /build-venv \
+    && uv pip install --python /build-venv/bin/python --require-hashes --no-deps \
+       -r /build/vllm-build-requirements.lock
+RUN git init /build/vllm \
+    && git -C /build/vllm remote add origin https://github.com/local-inference-lab/vllm.git \
+    && git -C /build/vllm fetch --depth=1 origin 57a80980bbf4b40398de7ed851b23e55a3a4c50e \
+    && git -C /build/vllm checkout --detach FETCH_HEAD \
+    && test "$(git -C /build/vllm rev-parse HEAD^{tree})" = a431c22c423738bb8807c8b9e60a67db3bea1958
+COPY spark-overlay.patch /build/spark-overlay.patch
+RUN test "$(sha256sum /build/spark-overlay.patch | cut -d' ' -f1)" = 24e122925da51d6c349604e742773791457f4d975624c82f6e675796788bcdda \
+    && git -C /build/vllm diff --exit-code HEAD \
+    && git -C /build/vllm update-index --refresh \
+    && git -C /build/vllm apply --check --index /build/spark-overlay.patch \
+    && git -C /build/vllm apply --index /build/spark-overlay.patch \
+    && mkdir -p /artifacts/vllm \
+    && git -C /build/vllm write-tree > /artifacts/vllm/source-tree.txt \
+    && test "$(cat /artifacts/vllm/source-tree.txt)" = 02a457e2e933d0fb20d5786835110546acf7d8f2
+WORKDIR /build/vllm
+RUN python - <<'PY'
+import importlib.metadata as m
+import torch
+if (m.version('torch') != '2.14.0a0+4fdf77b940.nv26.8.63802676'
+    or torch.version.cuda != '13.4' or not torch._C._GLIBCXX_USE_CXX11_ABI
+    or m.version('nvidia-cutlass-dsl') != '4.6.2'):
+    raise RuntimeError('vLLM foundation contract mismatch')
+PY
+RUN env -u PYTHONPATH VLLM_TARGET_DEVICE=cuda \
+    CMAKE_ARGS='-DCMAKE_CUDA_ARCHITECTURES=121a -DVLLM_BUILD_CUTLASS_SCALED_MM_C2X=OFF' \
+    uv build --wheel --no-build-isolation --python /build-venv/bin/python \
+       --out-dir /artifacts/vllm . \
+    && python tools/jovian_wheel_release/normalize_wheel.py \
+       --wheel /artifacts/vllm/vllm-*.whl \
+       --torch-version 2.14.0a0+4fdf77b940.nv26.8.63802676 \
+       --torchvision-version 0.29.0a0+0bc41e67.nv26.8.63802676 \
+       --flashinfer-version 0.6.18 --cutlass-dsl-version 4.6.2 \
+       --source-date-epoch "$(git show -s --format=%ct HEAD)" \
+    && test "$(find /artifacts/vllm -maxdepth 1 -name '*aarch64.whl' | wc -l)" = 1 \
+    && cd /artifacts/vllm && sha256sum *.whl > SHA256SUMS
+ARG RECIPE_SHA256
+COPY Dockerfile.vllm vllm-build-requirements.lock spark-overlay.patch /artifacts/vllm/build-inputs/
+RUN test "$(sha256sum /artifacts/vllm/build-inputs/Dockerfile.vllm | cut -d' ' -f1)" = "$RECIPE_SHA256" \
+    && cd /artifacts/vllm/build-inputs && sha256sum * > /artifacts/vllm/build-inputs.sha256
+LABEL local-inference.vllm.commit="57a80980bbf4b40398de7ed851b23e55a3a4c50e" \
+      local-inference.vllm.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="build-component-not-serving-qualified"

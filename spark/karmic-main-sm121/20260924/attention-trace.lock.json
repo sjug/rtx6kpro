@@ -1,0 +1,9 @@
+{
+  "base_image_id": "30ef9c2d529e9df0a3ea348c773d8ff55284389a90a40922ac1b0d93ccffdd9b",
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1",
+  "source_path": "vllm/models/deepseek_v4_1/attention.py",
+  "input_sha256": "d3b92eb0e9d64de567185e24bc04d6001b76da5653cdaa4fb512f7f5a8432752",
+  "output_sha256": "b89f65b26cc60e4142a1677df7c4434183bdb6f28ddf102b33a82ef3c704ddee",
+  "helper_sha256": "37e8483e205bbf9c03faa71cb7c08ab9d4fa02240266b440bb80fe90752de34e",
+  "purpose": "diagnostic-only; snapshot copies can alter allocator history and timing"
+}

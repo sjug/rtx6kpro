@@ -1,0 +1,218 @@
+true
+true
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+BENCHMARK-START 2026-09-22T13:37:48-04:00
+/home/jugs/git/llm-inference-bench/run_bench.sh: OK
+─────────────────────────────────
+host=http://rusty:8000 model=DeepSeek-V4-Flash-Vision-Exp concurrency=1,2,4
+campaign=2026-09-jj-main-sm121-qualification workload=throughput variant=jj-main-sm121-tp2-dspark-k3-dglin-524k repetition=1
+output=/home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-jj-main-sm121-qualification/throughput/20260922T133748-0400__jj-main-sm121-tp2-dspark-k3-dglin-524k__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: Skipping update.
+
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-Vision-Exp @ http://rusty:8000                      │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.1.dev1+g8e1f1e587.d20260922  Models: 
+['DeepSeek-V4-Flash-Vision-Exp']
+Model context length: 524,288 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=qlmjirboukfl, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.18 chars/token (from 8k probe)
+  8k: 50,620 chars (~8,191 tokens)
+  16k: 101,241 chars (~16,383 tokens)
+  32k: 202,482 chars (~32,767 tokens)
+  64k: 404,965 chars (~65,535 tokens)
+  128k: 809,931 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,198       3.89          2,108              —             —   1  
+  16k        16,147       7.61          2,121      2,135 (1)             —   1  
+  32k        32,077      15.17          2,115      2,127 (1)             —   1  
+  64k        63,932      31.03          2,060      2,070 (1)             —   1  
+  128k      127,645      65.91          1,937      1,946 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                             
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 34.8 656/29 │ 57.9 702/34 │ 85.2 709/46 │
+│ 16k        │ 38.8 788/26 │ 57.0 816/35 │  82.0 1k/48 │
+│ 32k        │ 35.4 706/28 │ 58.3 689/34 │  83.6 1k/47 │
+│ 64k        │ 36.2 878/27 │ 56.1 923/36 │  82.5 1k/51 │
+│ 128k       │ 34.2 631/29 │ 57.5 853/35 │  79.3 1k/51 │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 34.8 │ 28.9 │ 21.3 │
+│ 16k        │ 38.8 │ 28.5 │ 20.5 │
+│ 32k        │ 35.4 │ 29.2 │ 20.9 │
+│ 64k        │ 36.2 │ 28.1 │ 20.6 │
+│ 128k       │ 34.2 │ 28.8 │ 19.8 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬──────┬────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼──────┼────┼───────────────┤
+│ 0  │ │ sust… │    11/13% │    0% │ 167/178 │ 40C │  70C │ 6… │     2792/3255 │
+│ 1… │ │ sust… │    11/13% │    0% │ 170/180 │ 41C │  68C │ 6… │     4004/3359 │
+│ 3… │ │ sust… │    10/13% │    0% │ 164/165 │ 40C │  68C │ 6… │     2906/3192 │
+│ 6… │ │ sust… │    10/13% │    0% │ 164/165 │ 40C │  68C │ 6… │     2689/3420 │
+│ 1… │ │ sust… │    11/13% │    0% │ 164/165 │ 40C │  69C │ 6… │     2760/3468 │
+│ 0  │ │ sust… │    10/13% │    0% │ 164/166 │ 40C │  69C │ 6… │     2763/3229 │
+│ 0  │ │ sust… │    10/13% │    0% │ 164/165 │ 40C │  68C │ 6… │     3044/3051 │
+│ 1… │ │ sust… │    11/13% │    0% │ 165/166 │ 40C │  68C │ 6… │     2805/3240 │
+│ 1… │ │ sust… │    10/13% │    0% │ 165/166 │ 40C │  69C │ 6… │     3014/3142 │
+│ 3… │ │ sust… │    11/13% │    0% │ 164/166 │ 40C │  68C │ 6… │     2659/3234 │
+│ 3… │ │ sust… │    10/13% │    0% │ 165/168 │ 40C │  71C │ 6… │     2745/3217 │
+│ 6… │ │ sust… │    10/13% │    0% │ 165/168 │ 40C │  70C │ 6… │     2810/3447 │
+│ 6… │ │ sust… │    11/13% │    0% │ 164/166 │ 40C │  71C │ 6… │     2731/3434 │
+│ 1… │ │ sust… │    10/13% │    0% │ 164/165 │ 40C │  70C │ 6… │     2883/3105 │
+│ 1… │ │ sust… │    10/13% │    0% │ 166/168 │ 40C │  69C │ 6… │     2799/3218 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴──────┴────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ───────────────────────╮
+│ avg 165 W | max 188 W | limit 600 W | over 12m 54s | 363 samples │
+╰──────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,198 │   3.89 │ 2,108 │ 1 │
+│ 16k  │  16,147 │   7.61 │ 2,121 │ 1 │
+│ 32k  │  32,077 │  15.17 │ 2,115 │ 1 │
+│ 64k  │  63,932 │  31.03 │ 2,060 │ 1 │
+│ 128k │ 127,645 │  65.91 │ 1,937 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s             
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 34.8 │ 57.9 │ 85.2 │
+│ 16k        │ 38.8 │ 57.0 │ 82.0 │
+│ 32k        │ 35.4 │ 58.3 │ 83.6 │
+│ 64k        │ 36.2 │ 56.1 │ 82.5 │
+│ 128k       │ 34.2 │ 57.5 │ 79.3 │
+╰────────────┴──────┴──────┴──────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 17.0 (2.05) │ 27.8 (2.08) │ 41.2 (2.07) │
+│ 16k        │ 16.9 (2.30) │ 27.1 (2.11) │ 38.4 (2.14) │
+│ 32k        │ 16.8 (2.10) │ 27.1 (2.15) │ 39.7 (2.11) │
+│ 64k        │ 16.7 (2.18) │ 26.9 (2.09) │ 38.1 (2.16) │
+│ 128k       │ 16.5 (2.07) │ 25.9 (2.22) │ 37.2 (2.13) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-jj-main-sm121-
+qualification/throughput/20260922T133748-0400__jj-main-sm121-tp2-dspark-k3-dglin
+-524k__r01.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-jj-main-sm121-qualification/throughput/20260922T133748-0400__jj-main-sm121-tp2-dspark-k3-dglin-524k__r01.json
+─────────────────────────────────
+BENCHMARK-END 2026-09-22T13:50:50-04:00
+{"label": "default-max-arithmetic-0", "valid": true, "answer": "333", "elapsed_s": 0.7831314310315065, "usage": {"prompt_tokens": 113, "total_tokens": 143, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+{"label": "nonthinking-0", "valid": true, "answer": "133", "elapsed_s": 0.27888323803199455, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-0", "valid": true, "answer": "red, blue", "elapsed_s": 1.456685830024071, "usage": {"prompt_tokens": 241, "total_tokens": 293, "completion_tokens": 52, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 47}}}
+{"label": "vision-continuation-0", "valid": true, "answer": "blue", "elapsed_s": 2.773970025999006, "usage": {"prompt_tokens": 262, "total_tokens": 410, "completion_tokens": 148, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 145}}}
+{"label": "default-max-arithmetic-1", "valid": true, "answer": "333", "elapsed_s": 1.0432488049846143, "usage": {"prompt_tokens": 113, "total_tokens": 151, "completion_tokens": 38, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 35}}}
+{"label": "nonthinking-1", "valid": true, "answer": "133", "elapsed_s": 0.27550669596530497, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-1", "valid": true, "answer": "red, blue", "elapsed_s": 1.2770516829914413, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "vision-continuation-1", "valid": true, "answer": "blue", "elapsed_s": 2.5693662450066768, "usage": {"prompt_tokens": 262, "total_tokens": 392, "completion_tokens": 130, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 127}}}
+{"label": "default-max-arithmetic-2", "valid": true, "answer": "333", "elapsed_s": 1.0585202319780365, "usage": {"prompt_tokens": 113, "total_tokens": 151, "completion_tokens": 38, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 35}}}
+{"label": "nonthinking-2", "valid": true, "answer": "133", "elapsed_s": 0.279835504014045, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-2", "valid": true, "answer": "red, blue", "elapsed_s": 1.3341020289808512, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "vision-continuation-2", "valid": true, "answer": "blue", "elapsed_s": 2.5813985380227678, "usage": {"prompt_tokens": 262, "total_tokens": 403, "completion_tokens": 141, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 138}}}
+{"label": "tool-round-trip", "valid": true, "answer": "391", "elapsed_s": 0.43713174702133983, "usage": {"prompt_tokens": 491, "total_tokens": 494, "completion_tokens": 3, "prompt_tokens_details": {"cached_tokens": 256, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "concurrent-0", "valid": true, "answer": "red, blue", "elapsed_s": 1.9393047869671136, "usage": {"prompt_tokens": 241, "total_tokens": 293, "completion_tokens": 52, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 47}}}
+{"label": "concurrent-1", "valid": true, "answer": "42", "elapsed_s": 1.5035488939611241, "usage": {"prompt_tokens": 108, "total_tokens": 138, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+{"label": "concurrent-2", "valid": true, "answer": "red, blue", "elapsed_s": 1.8703109049820341, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "concurrent-3", "valid": true, "answer": "84", "elapsed_s": 1.5033431059564464, "usage": {"prompt_tokens": 108, "total_tokens": 137, "completion_tokens": 29, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 26}}}
+VISION-QUALIFICATION-PASS
+true
+true
+DS4-JJ-MAIN-QUALIFICATION-COMPLETE 2026-09-22T13:51:12-04:00

@@ -1,0 +1,12 @@
+{
+  "recipe_commit": "8c5aa7f828689e6385fa309acd0cce168fb38ec7",
+  "files": {
+    "tools/jovian_wheel_runtime/qwen38-runtime.in": "4a04663754b551db5e7e198c78d2f308f4e72b622e5fd701123d2cdf66f44fb2",
+    "tools/jovian_wheel_runtime/qwen38-runtime.lock": "174fd5c7c60c6eebd1d2fa8474d03d1e7b2d3fa6dbada4e02ff68a0a67ad8a49",
+    "tools/jovian_wheel_runtime/ngc-python-patches.json": "16c4d69ca6b1713b5678f92887ca7616787ce9649561f3ff4355a05dbb89a9a6",
+    "tools/jovian_wheel_runtime/ngc-venv-python-patches.json": "c83e56e2a0bf919d0adb18bdaac27b2cca13181006d73d22007c0a35c739ef3b",
+    "recipes/glm53/install_dependency_python_patches.py": "ae3ca1272c79d1f36dc8758b676dec47d3a95bdc2e78b01cc7672f1f4ce4d067",
+    "recipes/glm53/torch-schema-enumeration.patch": "8ff8a4b59e2aba45b5792dbf8232259e1a3eded926c4849b69ed38c3acd3a0a3",
+    "recipes/glm53/cutlass-sentinel-identity.patch": "e49fa3e768eb9468020f5e9bfe115b2177ae7fc1c747c23defffe669c3ae2a9f"
+  }
+}

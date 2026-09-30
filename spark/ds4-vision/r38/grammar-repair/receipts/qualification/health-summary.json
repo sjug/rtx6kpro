@@ -1,0 +1,53 @@
+{
+  "benchmark_window": {
+    "start": "2026-09-22T16:02:08",
+    "end": "2026-09-22T16:15:54"
+  },
+  "nodes": {
+    "rusty": {
+      "post_grid_receipt_present": false,
+      "gpu_samples_in_benchmark_window": 826,
+      "mean_sm_clock_mhz": 2413.628329297821,
+      "nonzero_clock_event_samples": 1,
+      "min_available_gib_full_window": 2.6843948364257812,
+      "kernel_allocation_warnings": 3,
+      "kernel_xid_lines": [],
+      "engine_fault_lines": [],
+      "jit_warning_lines": [
+        "2026-09-22T15:55:34.026643000-04:00 (Worker_TP0 pid=225) INFO 09-22 19:55:34 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.",
+        "2026-09-22T15:56:01.421176000-04:00 (Worker_TP0 pid=225) WARNING 09-22 19:56:01 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_image_visibility_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:56:01.426236000-04:00 (Worker_TP0 pid=225) WARNING 09-22 19:56:01 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_swa_indices_and_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:56:23.636208000-04:00 (Worker_TP0 pid=225) WARNING 09-22 19:56:23 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _gather_shared_paged_supertile_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:56:32.367880000-04:00 (Worker_TP0 pid=225) WARNING 09-22 19:56:32 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_global_topk_indices_and_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:57:24.584622000-04:00 (Worker_TP0 pid=225) WARNING 09-22 19:57:24 [jit_monitor.py:141] Triton kernel JIT compilation during inference: BuildPrefillChunkMetadataKernel.kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T16:02:02.285028000-04:00 (Worker_TP0 pid=225) WARNING 09-22 20:02:02 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _apply_grammar_bitmask_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T16:02:19.174800000-04:00 (Worker_TP0 pid=225) WARNING 09-22 20:02:19 [jit_monitor.py:141] CuTeDSL JIT compilation during inference: DSAFusedIndexerKernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+      ],
+      "inference_clients": [
+        "192.168.2.2",
+        "192.168.2.33"
+      ]
+    },
+    "toby": {
+      "post_grid_receipt_present": false,
+      "gpu_samples_in_benchmark_window": 825,
+      "mean_sm_clock_mhz": 2488.110303030303,
+      "nonzero_clock_event_samples": 0,
+      "min_available_gib_full_window": 5.46246337890625,
+      "kernel_allocation_warnings": 0,
+      "kernel_xid_lines": [],
+      "engine_fault_lines": [],
+      "jit_warning_lines": [
+        "2026-09-22T15:55:33.975636000-04:00 (Worker_TP1 pid=199) INFO 09-22 19:55:33 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.",
+        "2026-09-22T15:56:01.439564000-04:00 (Worker_TP1 pid=199) WARNING 09-22 19:56:01 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_image_visibility_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:56:01.443585000-04:00 (Worker_TP1 pid=199) WARNING 09-22 19:56:01 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_swa_indices_and_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:56:23.639432000-04:00 (Worker_TP1 pid=199) WARNING 09-22 19:56:23 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _gather_shared_paged_supertile_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:56:32.370195000-04:00 (Worker_TP1 pid=199) WARNING 09-22 19:56:32 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _compute_global_topk_indices_and_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T15:57:24.583024000-04:00 (Worker_TP1 pid=199) WARNING 09-22 19:57:24 [jit_monitor.py:141] Triton kernel JIT compilation during inference: BuildPrefillChunkMetadataKernel.kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T16:02:02.283353000-04:00 (Worker_TP1 pid=199) WARNING 09-22 20:02:02 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _apply_grammar_bitmask_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.",
+        "2026-09-22T16:02:19.186013000-04:00 (Worker_TP1 pid=199) WARNING 09-22 20:02:19 [jit_monitor.py:141] CuTeDSL JIT compilation during inference: DSAFusedIndexerKernel. This causes a latency spike; consider extending warmup to cover this shape/config."
+      ],
+      "inference_clients": []
+    }
+  }
+}

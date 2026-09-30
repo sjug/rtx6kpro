@@ -1,0 +1,28 @@
+{
+  "base_image_id": "ee03505df7a3b5b251d657ab201f62ac9d74eb2aee033cc5a094d7996caab4c5",
+  "base_repair_lock_sha256": "c574e54e34eb38e3fb5a0c299c2da302555808f9baa33d18ef3628c8d2d2a398",
+  "inputs": {
+    "Dockerfile.claude-act-trace": "93e47f147375b1fdf524878412c2966017950e45fbcfc48599dd9f1f0649387c",
+    "claude-act-trace-model.py": "1051b15f38f2d949f807003c0033321e12c2c575ff8aa3d55f91599ef6664e96",
+    "claude-act-trace.patch": "1b7dfaaecfe7dd3d5417d25c112f3ccaf337d884f853dc3697e152a2a985062d",
+    "claude_act_analyze.py": "3366c88a59437cc14fd3effcdc49b89f911c4c12aad72e9a66e494b393978d3a",
+    "claude_act_trace.py": "799980138dd3449687a6d6312f5b9547192c033f788823bad53aaca93b525970",
+    "claude_install_act_trace.py": "a97d2c83fde2c18ae8c45fb1d427f296cb593169411b1f8c627ab7628626810c",
+    "claude_prepare_act_trace.py": "c7d0e4028b61d6650f59fbbc4f4721633a5689c43d4ccf15bf4ca3b006b33f9f",
+    "claude_test_act_trace.py": "ec79c5ff2d736c6dffd0b2f068bd9bc7007b822bc30a57db0baf8dc658527d69"
+  },
+  "kind": "activation-digest-diagnostic",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/claude_act_trace.py": {
+      "input_sha256": null,
+      "output_sha256": "799980138dd3449687a6d6312f5b9547192c033f788823bad53aaca93b525970",
+      "source": "claude_act_trace.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/nvidia/model.py": {
+      "input_sha256": "e8c08fa6df8bcc5d88791b597c7a029449cf4a7354cccbb58df2147b804921ba",
+      "output_sha256": "1051b15f38f2d949f807003c0033321e12c2c575ff8aa3d55f91599ef6664e96",
+      "source": "claude-act-trace-model.py"
+    }
+  }
+}

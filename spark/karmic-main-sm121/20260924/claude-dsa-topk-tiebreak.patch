@@ -1,0 +1,626 @@
+diff --git a/b12x/attention/dsa_indexer/tiled_topk.py b/b12x/attention/dsa_indexer/tiled_topk.py
+index c303e72..db3b39e 100644
+--- a/b12x/attention/dsa_indexer/tiled_topk.py
++++ b/b12x/attention/dsa_indexer/tiled_topk.py
+@@ -313,6 +313,261 @@ def _fallback_load_value(
+     return value
+ 
+ 
++@cute.jit
++def _logical_index_virtual(
++    carry_indices,
++    row_start: Int32,
++    output_index_offset: Int32,
++    carry_base: Int32,
++    chunk_len: Int32,
++    vidx: Int32,
++    is_first: cutlass.Constexpr[bool],
++) -> Int32:
++    """Logical (request-relative, never page-mapped) K index of a virtual candidate.
++
++    This is the deterministic tie key: among candidates whose fp32 keys are
++    equal at the selection boundary, the lowest logical index wins. Carried
++    entries pass their already-global logical index through, so a fold chunk
++    ranks ties exactly like a single global selection would.
++    """
++    gidx = Int32(0)
++    if cutlass.const_expr(is_first):
++        gidx = row_start + vidx + output_index_offset
++    else:
++        if vidx < chunk_len:
++            gidx = row_start + vidx + output_index_offset
++        else:
++            gidx = Int32(carry_indices[carry_base + (vidx - chunk_len)])
++    return gidx
++
++
++@cute.jit
++def _admit_smallest_index_ties(
++    tx: Int32,
++    rem: Int32,
++    tie_key: Uint32,
++    tie_mask: Uint32,
++    from_buffer: cutlass.Constexpr[bool],
++    cand: cute.Tensor,
++    num_cand: Int32,
++    s_hist0: cute.Tensor,
++    s_hist1: cute.Tensor,
++    s_out: cute.Tensor,
++    h0: Int32,
++    ctr: Int32,
++    sel: Int32,
++    pfx: Int32,
++    remp: Int32,
++    topk_static: Int32,
++    carry_indices,
++    row_start: Int32,
++    output_index_offset: Int32,
++    carry_base: Int32,
++    chunk_len: Int32,
++    flat: cutlass.Constexpr[bool],
++    flat_values,
++    input_tensor,
++    carry_values,
++    row_base: Int32,
++    block_q: cutlass.Constexpr[int],
++    block_k: cutlass.Constexpr[int],
++    is_tiled: cutlass.Constexpr[bool],
++    is_first: cutlass.Constexpr[bool],
++):
++    """Admit the ``rem`` tied candidates with the smallest logical indices.
++
++    A candidate is tied when ``(key32 & tie_mask) == tie_key``. The buffered
++    arm passes the round-3 low byte (its buffer already shares the upper 24 key
++    bits); the overflow fallback passes the full pivot key and re-scans the row.
++    Selection is a four-round ascending MSD radix over the 32-bit logical index
++    using deterministic integer histograms, so the admitted set never depends
++    on thread arrival order. Positions in ``s_out`` are still assigned with an
++    atomic counter; the caller canonicalizes order afterwards. Scalars: sel =
++    chosen bucket, pfx = locked index prefix, remp = remaining slots.
++    All 1024 threads must call this.
++    """
++    if tx == Int32(0):
++        _smem_st(pfx, Int32(0), Int32(0))
++        _smem_st(remp, Int32(0), rem)
++    cute.arch.sync_threads()
++    for q_round in cutlass.range_constexpr(4):
++        q_shift = Uint32(24 - q_round * 8)
++        q_prefix = Uint32(_smem_ld(pfx, Int32(0)))
++        q_remaining = Int32(_smem_ld(remp, Int32(0)))
++        if tx < Int32(256):
++            s_hist0[tx] = Int32(0)
++        cute.arch.sync_threads()
++        q_i = Int32(tx)
++        while q_i < num_cand:
++            q_vidx = q_i
++            if cutlass.const_expr(from_buffer):
++                q_vidx = Int32(cand[q_i])
++            q_key = _convert_to_uint32(
++                _fallback_load_value(
++                    flat,
++                    q_vidx,
++                    flat_values,
++                    input_tensor,
++                    carry_values,
++                    row_base,
++                    row_start,
++                    carry_base,
++                    chunk_len,
++                    block_q,
++                    block_k,
++                    is_tiled,
++                    is_first,
++                )
++            )
++            if (q_key & tie_mask) == tie_key:
++                q_gkey = Uint32(
++                    _logical_index_virtual(
++                        carry_indices,
++                        row_start,
++                        output_index_offset,
++                        carry_base,
++                        chunk_len,
++                        q_vidx,
++                        is_first,
++                    )
++                )
++                if cutlass.const_expr(q_round == 0):
++                    _smem_red_add(
++                        h0, Int32((q_gkey >> q_shift) & Uint32(0xFF)), Int32(1)
++                    )
++                else:
++                    q_mask = Uint32(0xFFFFFFFF) << Uint32(32 - q_round * 8)
++                    if (q_gkey & q_mask) == q_prefix:
++                        _smem_red_add(
++                            h0, Int32((q_gkey >> q_shift) & Uint32(0xFF)), Int32(1)
++                        )
++            q_i = q_i + Int32(_THREADS_PER_CTA)
++        cute.arch.sync_threads()
++        # Ascending inclusive prefix: s_hist0[b] = count of tied candidates
++        # whose current index byte is <= b (eight stages, result in s_hist0).
++        for q_stage in cutlass.range_constexpr(8):
++            q_j = Int32(1 << q_stage)
++            if tx < Int32(256):
++                if (q_stage & 1) == 0:
++                    q_v = Int32(s_hist0[tx])
++                    if tx >= q_j:
++                        q_v = q_v + Int32(s_hist0[tx - q_j])
++                    s_hist1[tx] = q_v
++                else:
++                    q_v = Int32(s_hist1[tx])
++                    if tx >= q_j:
++                        q_v = q_v + Int32(s_hist1[tx - q_j])
++                    s_hist0[tx] = q_v
++            cute.arch.sync_threads()
++        if tx < Int32(256):
++            q_inc = Int32(s_hist0[tx])
++            q_below = Int32(0)
++            if tx > Int32(0):
++                q_below = Int32(s_hist0[tx - Int32(1)])
++            if (q_inc >= q_remaining) & (q_below < q_remaining):
++                _smem_st(sel, Int32(0), Int32(tx))
++                _smem_st(remp, Int32(0), q_remaining - q_below)
++        cute.arch.sync_threads()
++        q_bucket = Uint32(_smem_ld(sel, Int32(0)))
++        # Admit every tied candidate in a lower bucket now; the final round also
++        # admits the (unique-index) candidate in the chosen bucket itself.
++        q_i = Int32(tx)
++        while q_i < num_cand:
++            q_vidx = q_i
++            if cutlass.const_expr(from_buffer):
++                q_vidx = Int32(cand[q_i])
++            q_key = _convert_to_uint32(
++                _fallback_load_value(
++                    flat,
++                    q_vidx,
++                    flat_values,
++                    input_tensor,
++                    carry_values,
++                    row_base,
++                    row_start,
++                    carry_base,
++                    chunk_len,
++                    block_q,
++                    block_k,
++                    is_tiled,
++                    is_first,
++                )
++            )
++            if (q_key & tie_mask) == tie_key:
++                q_gkey = Uint32(
++                    _logical_index_virtual(
++                        carry_indices,
++                        row_start,
++                        output_index_offset,
++                        carry_base,
++                        chunk_len,
++                        q_vidx,
++                        is_first,
++                    )
++                )
++                q_match = Int32(1)
++                if cutlass.const_expr(q_round != 0):
++                    q_mask = Uint32(0xFFFFFFFF) << Uint32(32 - q_round * 8)
++                    if (q_gkey & q_mask) != q_prefix:
++                        q_match = Int32(0)
++                if q_match != Int32(0):
++                    q_byte = (q_gkey >> q_shift) & Uint32(0xFF)
++                    q_admit = Int32(0)
++                    if q_byte < q_bucket:
++                        q_admit = Int32(1)
++                    if cutlass.const_expr(q_round == 3):
++                        if q_byte == q_bucket:
++                            q_admit = Int32(1)
++                    if q_admit != Int32(0):
++                        q_pos = _smem_xadd(ctr, Int32(0), Int32(1))
++                        if q_pos < topk_static:
++                            s_out[q_pos] = q_vidx
++            q_i = q_i + Int32(_THREADS_PER_CTA)
++        cute.arch.sync_threads()
++        if tx == Int32(0):
++            _smem_st(pfx, Int32(0), Int32(q_prefix | (q_bucket << q_shift)))
++        cute.arch.sync_threads()
++
++
++@cute.jit
++def _sort_out_by_index(
++    tx: Int32,
++    s_out: cute.Tensor,
++    n: cutlass.Constexpr[int],
++    log2n: cutlass.Constexpr[int],
++    per_thread: cutlass.Constexpr[int],
++):
++    """Bitonic sort of the selected virtual indices into ascending order.
++
++    Admission positions come from atomic counters, so without this the output
++    order (not the set) would still depend on arrival order. ``n`` is the
++    power-of-two top-k capacity; every slot holds a valid virtual index here.
++    All 1024 threads must call this.
++    """
++    for b_kk in cutlass.range_constexpr(log2n):
++        b_k = 2 << b_kk
++        for b_jj in cutlass.range_constexpr(b_kk + 1):
++            b_j = b_k >> (b_jj + 1)
++            for b_e in cutlass.range_constexpr(per_thread):
++                b_i = tx + Int32(b_e * _THREADS_PER_CTA)
++                if b_i < Int32(n):
++                    b_l = Int32(Uint32(b_i) ^ Uint32(b_j))
++                    if b_l > b_i:
++                        b_a = Int32(s_out[b_i])
++                        b_b = Int32(s_out[b_l])
++                        b_swap = Int32(0)
++                        if (Uint32(b_i) & Uint32(b_k)) == Uint32(0):
++                            if b_a > b_b:
++                                b_swap = Int32(1)
++                        else:
++                            if b_a < b_b:
++                                b_swap = Int32(1)
++                        if b_swap != Int32(0):
++                            s_out[b_i] = b_b
++                            s_out[b_l] = b_a
++            cute.arch.sync_threads()
++
++
+ @cute.jit
+ def _exact_overflow_fallback(
+     tx: Int32,
+@@ -481,6 +736,223 @@ def _exact_overflow_fallback(
+     cute.arch.sync_threads()
+ 
+ 
++@cute.jit
++def _exact_overflow_fallback_stable(
++    tx: Int32,
++    n_total: Int32,
++    topk_static: Int32,
++    s_hist0: cute.Tensor,
++    s_hist1: cute.Tensor,
++    s_out: cute.Tensor,
++    h0: Int32,
++    ctr: Int32,
++    thr: Int32,
++    ni0: Int32,
++    ni1: Int32,
++    lr: Int32,
++    flat: cutlass.Constexpr[bool],
++    flat_values,
++    input_tensor,
++    carry_values,
++    row_base: Int32,
++    row_start: Int32,
++    carry_base: Int32,
++    chunk_len: Int32,
++    block_q: cutlass.Constexpr[int],
++    block_k: cutlass.Constexpr[int],
++    is_tiled: cutlass.Constexpr[bool],
++    is_first: cutlass.Constexpr[bool],
++    carry_indices,
++    output_index_offset: Int32,
++):
++    """Exact overflow fallback of DSATiledTopkKernel with deterministic ties.
++
++    Copy of `_exact_overflow_fallback` (which fused_indexer.py keeps using
++    unchanged) whose final admission stage no longer depends on arrival order.
++
++    The buffered coarse+refine select drops winners when more than the candidate
++    buffer capacity share the coarse threshold bucket (clustered scores). When
++    that happens, redo the selection EXACTLY with a 4-round 8-bit MSD radix that
++    RE-SCANS the values each round filtered by the locked key prefix -- no
++    candidate buffer, so no overflow. Same convention as the buffered arm
++    (``_convert_to_uint32`` monotone key, byte=(key>>shift)&0xFF). Slower
++    (re-scans n_total per round on one CTA) but only taken on the rare clustered
++    case; it overwrites s_out[0:topk_static]. All 1024 threads must call this.
++    Scalars: ni0=prefix, thr=remaining_k, ni1=bucket, lr=next remaining_k,
++    ctr=output counter. Candidates equal to the final pivot are admitted by
++    lowest logical index (deterministic), never by thread arrival order.
++    """
++    if tx == Int32(0):
++        _smem_st(ni0, Int32(0), Int32(0))
++        _smem_st(thr, Int32(0), topk_static)
++    cute.arch.sync_threads()
++    for ex_round in cutlass.range_constexpr(4):
++        ex_shift = Uint32(24 - ex_round * 8)
++        ex_prefix = Uint32(_smem_ld(ni0, Int32(0)))
++        ex_remaining = Int32(_smem_ld(thr, Int32(0)))
++        if tx < Int32(256):
++            s_hist0[tx] = Int32(0)
++        cute.arch.sync_threads()
++        idx_base = Int32(tx)
++        while idx_base < n_total:
++            ex_key = _convert_to_uint32(
++                _fallback_load_value(
++                    flat,
++                    idx_base,
++                    flat_values,
++                    input_tensor,
++                    carry_values,
++                    row_base,
++                    row_start,
++                    carry_base,
++                    chunk_len,
++                    block_q,
++                    block_k,
++                    is_tiled,
++                    is_first,
++                )
++            )
++            if cutlass.const_expr(ex_round == 0):
++                _smem_red_add(h0, Int32((ex_key >> ex_shift) & Uint32(0xFF)), Int32(1))
++            else:
++                ex_mask = Uint32(0xFFFFFFFF) << Uint32(32 - ex_round * 8)
++                if (ex_key & ex_mask) == ex_prefix:
++                    _smem_red_add(
++                        h0, Int32((ex_key >> ex_shift) & Uint32(0xFF)), Int32(1)
++                    )
++            idx_base += Int32(_THREADS_PER_CTA)
++        cute.arch.sync_threads()
++        for ex_stage in cutlass.range_constexpr(8):
++            ex_j = Int32(1 << ex_stage)
++            if tx < Int32(256):
++                if (ex_stage & 1) == 0:
++                    ex_v = Int32(s_hist0[tx])
++                    if tx < Int32(256) - ex_j:
++                        ex_v = ex_v + Int32(s_hist0[tx + ex_j])
++                    s_hist1[tx] = ex_v
++                else:
++                    ex_v = Int32(s_hist1[tx])
++                    if tx < Int32(256) - ex_j:
++                        ex_v = ex_v + Int32(s_hist1[tx + ex_j])
++                    s_hist0[tx] = ex_v
++            cute.arch.sync_threads()
++        if tx == Int32(0):
++            _smem_st(ni1, Int32(0), Int32(0))
++            _smem_st(lr, Int32(0), ex_remaining)
++        cute.arch.sync_threads()
++        if tx < Int32(256):
++            ex_cge = Int32(s_hist0[tx])
++            ex_cgt = Int32(0)
++            if tx + Int32(1) < Int32(256):
++                ex_cgt = Int32(s_hist0[tx + Int32(1)])
++            if (ex_cge >= ex_remaining) & (ex_cgt < ex_remaining):
++                _smem_st(ni1, Int32(0), Int32(tx))
++                _smem_st(lr, Int32(0), ex_remaining - ex_cgt)
++        cute.arch.sync_threads()
++        if tx == Int32(0):
++            ex_bucket = Uint32(_smem_ld(ni1, Int32(0)))
++            _smem_st(ni0, Int32(0), Int32(ex_prefix | (ex_bucket << ex_shift)))
++            _smem_st(thr, Int32(0), _smem_ld(lr, Int32(0)))
++        cute.arch.sync_threads()
++    ex_pivot = Uint32(_smem_ld(ni0, Int32(0)))
++    if tx == Int32(0):
++        _smem_st(ctr, Int32(0), Int32(0))
++    cute.arch.sync_threads()
++    idx_base = Int32(tx)
++    while idx_base < n_total:
++        ex_key = _convert_to_uint32(
++            _fallback_load_value(
++                flat,
++                idx_base,
++                flat_values,
++                input_tensor,
++                carry_values,
++                row_base,
++                row_start,
++                carry_base,
++                chunk_len,
++                block_q,
++                block_k,
++                is_tiled,
++                is_first,
++            )
++        )
++        if ex_key > ex_pivot:
++            ex_pos = _smem_xadd(ctr, Int32(0), Int32(1))
++            if ex_pos < topk_static:
++                s_out[ex_pos] = idx_base
++        idx_base += Int32(_THREADS_PER_CTA)
++    cute.arch.sync_threads()
++    # s_hist0 still holds the final round's descending prefix counts, so the
++    # exact-key tie population at the pivot bucket is known without a rescan.
++    ex_bucket_lo = Int32(ex_pivot & Uint32(0xFF))
++    ex_tie_ge = Int32(s_hist0[ex_bucket_lo])
++    ex_tie_gt = Int32(0)
++    if ex_bucket_lo < Int32(255):
++        ex_tie_gt = Int32(s_hist0[ex_bucket_lo + Int32(1)])
++    ex_ties = ex_tie_ge - ex_tie_gt
++    ex_slots = Int32(_smem_ld(thr, Int32(0)))
++    if ex_ties > ex_slots:
++        _admit_smallest_index_ties(
++            tx,
++            ex_slots,
++            ex_pivot,
++            Uint32(0xFFFFFFFF),
++            False,
++            s_out,
++            n_total,
++            s_hist0,
++            s_hist1,
++            s_out,
++            h0,
++            ctr,
++            thr,
++            ni1,
++            lr,
++            topk_static,
++            carry_indices,
++            row_start,
++            output_index_offset,
++            carry_base,
++            chunk_len,
++            flat,
++            flat_values,
++            input_tensor,
++            carry_values,
++            row_base,
++            block_q,
++            block_k,
++            is_tiled,
++            is_first,
++        )
++    else:
++        idx_base = Int32(tx)
++        while idx_base < n_total:
++            ex_key = _convert_to_uint32(
++                _fallback_load_value(
++                    flat,
++                    idx_base,
++                    flat_values,
++                    input_tensor,
++                    carry_values,
++                    row_base,
++                    row_start,
++                    carry_base,
++                    chunk_len,
++                    block_q,
++                    block_k,
++                    is_tiled,
++                    is_first,
++                )
++            )
++            if ex_key == ex_pivot:
++                ex_pos = _smem_xadd(ctr, Int32(0), Int32(1))
++                if ex_pos < topk_static:
++                    s_out[ex_pos] = idx_base
++            idx_base += Int32(_THREADS_PER_CTA)
++    cute.arch.sync_threads()
++
++
+ def _to_kernel_tensor(tensor, dtype, *, assumed_align=16):
+     if compile_only_launches_enabled() and (
+         hasattr(tensor, "fake_mode") or tensor.device.type == "meta"
+@@ -577,6 +1049,10 @@ class DSATiledTopkKernel:
+         self.output_physical_slots = bool(output_physical_slots)
+         self.smem_candidate_capacity = int(smem_candidate_capacity)
+         self.write_values = bool(write_values)
++        self.topk_log2 = self.topk.bit_length() - 1
++        if (1 << self.topk_log2) != self.topk:
++            raise ValueError(f"top-k must be a power of two, got {self.topk}")
++        self.topk_per_thread = (self.topk + _THREADS_PER_CTA - 1) // _THREADS_PER_CTA
+         if self.smem_candidate_capacity < self.topk:
+             raise ValueError(
+                 "shared candidate capacity must cover top-k output capacity, got "
+@@ -1156,14 +1632,10 @@ class DSATiledTopkKernel:
+                                     pos = _smem_xadd(ctr, Int32(0), Int32(1))
+                                     s_out[pos] = c_idx
+                                 else:
+-                                    if Int32(bin) == sub_threshold:
+-                                        if cutlass.const_expr(round_idx == 3):
+-                                            old_rem = _smem_xadd(
+-                                                lr, Int32(0), Int32(-1)
+-                                            )
+-                                            if old_rem > Int32(0):
+-                                                s_out[topk_static - old_rem] = c_idx
+-                                        else:
++                                    # Round 3 exact-key ties are resolved below
++                                    # by lowest logical index, not arrival order.
++                                    if cutlass.const_expr(round_idx != 3):
++                                        if Int32(bin) == sub_threshold:
+                                             cand_pos = (
+                                                 _smem_xadd(ni0, Int32(0), Int32(1))
+                                                 if cutlass.const_expr(r_idx_next_is_0)
+@@ -1188,6 +1660,44 @@ class DSATiledTopkKernel:
+ 
+                             cute.arch.sync_threads()
+ 
++                            if cutlass.const_expr(round_idx == 3):
++                                # The buffer shares the upper 24 key bits, so the
++                                # low byte identifies exact fp32 ties. `topk` is
++                                # the remaining slot count; ties strictly exceed
++                                # it whenever this branch is reached.
++                                _admit_smallest_index_ties(
++                                    tx,
++                                    topk,
++                                    Uint32(sub_threshold),
++                                    Uint32(0xFF),
++                                    True,
++                                    s_cand0 if cutlass.const_expr(r_idx_is_0) else s_cand1,
++                                    num_input,
++                                    s_hist0,
++                                    s_hist1,
++                                    s_out,
++                                    h0,
++                                    ctr,
++                                    thr,
++                                    ni0 if cutlass.const_expr(r_idx_next_is_0) else ni1,
++                                    lr,
++                                    topk_static,
++                                    carry_indices,
++                                    row_start,
++                                    output_index_offset,
++                                    out_base,
++                                    length,
++                                    False,
++                                    input_tensor,
++                                    input_tensor,
++                                    carry_values,
++                                    row_base,
++                                    self.block_q,
++                                    self.block_k,
++                                    self.is_tiled,
++                                    self.is_first,
++                                )
++
+                 # Exact overflow fallback: the buffered refine above dropped
+                 # winners when more candidates than the buffer shared the coarse
+                 # threshold bucket. Redo the selection exactly by re-scanning.
+@@ -1201,7 +1711,7 @@ class DSATiledTopkKernel:
+                         s_out[reset_idx] = total_len - topk_static + reset_idx
+                         reset_idx = reset_idx + Int32(_THREADS_PER_CTA)
+                     cute.arch.sync_threads()
+-                    _exact_overflow_fallback(
++                    _exact_overflow_fallback_stable(
+                         tx,
+                         total_len,
+                         topk_static,
+@@ -1226,8 +1736,16 @@ class DSATiledTopkKernel:
+                         block_k=self.block_k,
+                         is_tiled=self.is_tiled,
+                         is_first=self.is_first,
++                        carry_indices=carry_indices,
++                        output_index_offset=output_index_offset,
+                     )
+ 
++            cute.arch.sync_threads()
++            # Canonical output order: ascending virtual index. Admission
++            # positions came from atomic counters and are not reproducible.
++            _sort_out_by_index(
++                tx, s_out, topk_capacity, self.topk_log2, self.topk_per_thread
++            )
+             cute.arch.sync_threads()
+             idx0 = Int32(tx)
+             if idx0 < topk_static:
+@@ -1652,6 +2170,7 @@ def run_tiled_topk(
+             block_q,
+             block_k,
+             bool(zero_row_start),
++            "tiled_topk_v2_stable_index_tiebreak",
+             bool(is_first),
+             bool(output_physical_slots),
+             extent_splits,
+@@ -1661,7 +2180,7 @@ def run_tiled_topk(
+     )
+     compile_spec = KernelCompileSpec.from_key(
+         "attention.indexer.tiled_topk",
+-        4,
++        5,
+         cache_key,
+         labels=(
+             "input",
+@@ -1859,7 +2378,7 @@ def run_row_topk(
+             "output_gather_table", output_gather_table_for_kernel, dynamic=True
+         ),
+         (
+-            "row_topk_v10_initialized_overflow_output",
++            "row_topk_v11_stable_index_tiebreak",
+             topk,
+             output_gather_table is not None,
+             smem_candidate_capacity,
+@@ -1868,7 +2387,7 @@ def run_row_topk(
+     )
+     compile_spec = KernelCompileSpec.from_key(
+         "attention.indexer.row_topk",
+-        4,
++        5,
+         cache_key,
+         labels=(
+             "logits",

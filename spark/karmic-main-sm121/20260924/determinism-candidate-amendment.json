@@ -1,0 +1,44 @@
+{
+  "candidate": {
+    "build_lock_sha256": "028851c384d90185385d87db036263a0c3894ed2f667217fdde77d62d2802c92",
+    "diagnostic": {
+      "b12x_tree": "33ecd859e9ab087449b230409c835c5552c5336f",
+      "kind": "determinism",
+      "lock_sha256": "37630aa80c42a4e066802721bf4f8ec31a143977fcee90c27ec107284e264e9e"
+    },
+    "image_id": "30ef9c2d529e9df0a3ea348c773d8ff55284389a90a40922ac1b0d93ccffdd9b",
+    "recipe_sha256": "7d8a4c01ff2e1506e627bf5622ae16d7aa4dd09428e86bdd06c177564e22ed67",
+    "source_lock_sha256": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+  },
+  "manifest": {
+    "candidate.json": "d0acdc3240f2e8dd71c17e162850559386504c11da31a907b8672b211758b633",
+    "gate_ds41.py": "6727ef7ec8b5dc4279ec4ce7d51dac7fc36ae31594fe8cfacd62842003479dc8",
+    "launch_contract.py": "dbc1930b581ae13eba20b96aa3553040c6ac36520839052613f124fc8f8dddbb",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "7b98e48af03b384a406bb98851d9588282cb4a872efb738fe0b2973e1a39f4da",
+    "runtime.py": "736b91800b87b82923816915ee090d125f811fe41d8f239eefbae00dbde12326",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  },
+  "prior_candidate": {
+    "build_lock_sha256": "028851c384d90185385d87db036263a0c3894ed2f667217fdde77d62d2802c92",
+    "diagnostic": {
+      "b12x_tree": "d10fbf9c5772edf1beed5e02fc504f589895c044",
+      "kind": "moe-dependency",
+      "lock_sha256": "6c1127b52cc0727d2eaac47e7b9f02b0744dd4ab271745f81395c642eb4c6d14"
+    },
+    "image_id": "d880b1297eda5d788bd45c2f85a0b42e9dbcdde856117a10ec6ec3f92d7b5937",
+    "recipe_sha256": "7d8a4c01ff2e1506e627bf5622ae16d7aa4dd09428e86bdd06c177564e22ed67",
+    "source_lock_sha256": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+  },
+  "prior_manifest": {
+    "candidate.json": "9250195591a0578c60c53e327184d635a6358398a7c389f031b1250434e3abb7",
+    "gate_ds41.py": "6727ef7ec8b5dc4279ec4ce7d51dac7fc36ae31594fe8cfacd62842003479dc8",
+    "launch_contract.py": "dbc1930b581ae13eba20b96aa3553040c6ac36520839052613f124fc8f8dddbb",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "7b98e48af03b384a406bb98851d9588282cb4a872efb738fe0b2973e1a39f4da",
+    "runtime.py": "736b91800b87b82923816915ee090d125f811fe41d8f239eefbae00dbde12326",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  }
+}

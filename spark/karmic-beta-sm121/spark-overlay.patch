@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -119,13 +119,13 @@
+    CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 13.4)
+   # Rubin (10.7) can run SM100 family code, but CUDA 13.4 also supports
+   # targeting it directly.
+-  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;10.7;11.0;12.0")
++  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;10.7;11.0;12.0;12.1")
+ elseif(DEFINED CMAKE_CUDA_COMPILER_VERSION AND
+    CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 13.0)
+    # starting from CUDA 12.9 and Blackwell (10.0), we use family-specific targets (10.0f, 12.0f, etc)
+    # to support the whole generation without specifying all sub-architectures
+    # see: https://developer.nvidia.com/blog/nvidia-blackwell-and-nvidia-cuda-12-9-introduce-family-specific-architecture-features/
+-  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;11.0;12.0")
++  set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;11.0;12.0;12.1")
+ elseif(DEFINED CMAKE_CUDA_COMPILER_VERSION AND
+    CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.8)
+   set(CUDA_SUPPORTED_ARCHS "7.5;8.0;8.6;8.7;8.9;9.0;10.0;10.1;10.3;12.0;12.1")
+diff --git a/vllm/models/glm5next/nvidia/mtp_draft_head.py b/vllm/models/glm5next/nvidia/mtp_draft_head.py
+--- a/vllm/models/glm5next/nvidia/mtp_draft_head.py
++++ b/vllm/models/glm5next/nvidia/mtp_draft_head.py
+@@ -95,10 +95,10 @@
+             raise TypeError("the shared target vocabulary head has no shard metadata")
+ 
+         major, minor = torch.cuda.get_device_capability(weight.device)
+-        if (major, minor) != (12, 0):
++        if (major, minor) not in ((12, 0), (12, 1)):
+             raise ValueError(
+                 "the NVFP4 W4A16 draft vocabulary head requires CUDA capability "
+-                f"12.0; got {major}.{minor}"
++                f"12.0 or 12.1; got {major}.{minor}"
+             )
+         import flashinfer
+ 

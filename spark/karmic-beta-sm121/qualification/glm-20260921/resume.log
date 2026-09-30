@@ -1,0 +1,31 @@
+true
+true
+true
+true
+3420573cbe07adb52da56e6618e5f2f88f79f0b4abdc575ca69d28794eb927f3
+glm53-flash-nvfp4-karmic-spark-tp4 ROLE=worker rank=1/4 host_ip=10.11.11.2 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+16d16c55f3f6402d10058c17a630f92eee1e8cbb739baa1db7c0adf0456cfc88
+glm53-flash-nvfp4-karmic-spark-tp4 ROLE=worker rank=2/4 host_ip=10.11.11.4 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+0493bee4eb9e1b724d912e4f1dfed1f43228c166004c6e828cd9577af727d81c
+glm53-flash-nvfp4-karmic-spark-tp4 ROLE=worker rank=3/4 host_ip=10.11.11.3 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+8b90ad2a84d225050bb438455eb40d307c070d401cb687cedc47f561e8dfb388
+glm53-flash-nvfp4-karmic-spark-tp4 ROLE=head rank=0/4 host_ip=10.11.11.1 model=GLM-5.3-Flash gpu_mem=0.85 speculator=mtp spec_tokens=3
+START 2026-09-21T10:58:43-04:00
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+curl: (7) Failed to connect to sparky:8000 after 1 ms: Could not connect to server
+buddy stopped or OOM-killed

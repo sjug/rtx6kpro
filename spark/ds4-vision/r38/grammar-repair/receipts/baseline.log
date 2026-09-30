@@ -1,0 +1,1447 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /kit
+plugins: typeguard-4.5.2, anyio-4.14.2
+collecting ... W0922 19:26:30.866000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0922 19:26:30.881000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 32 items
+
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-0] INFO 09-22 19:26:39 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:39 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:39 [scheduler.py:339] Chunked prefill is enabled with max_num_batched_tokens=2048.
+ERROR 09-22 19:26:39 [repo_utils.py:119] Error retrieving safetensors: Cannot reach https://huggingface.co/Qwen/Qwen3-0.6B/resolve/main/model.safetensors: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable., retrying 1 of 2
+ERROR 09-22 19:26:41 [repo_utils.py:117] Error retrieving safetensors: Cannot reach https://huggingface.co/Qwen/Qwen3-0.6B/resolve/main/model.safetensors: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.
+WARNING 09-22 19:26:41 [config.py:1222] Could not retrieve safetensors metadata for Qwen/Qwen3-0.6B (Hub fetch failed and no local cache snapshot is available): The cached snapshot for 'Qwen/Qwen3-0.6B' (revision 'main', commit c1899de289a04d12100db370d81485cdf75e47ca) is incomplete: 1 file(s) are missing (model.safetensors). Outgoing traffic is disabled ('local_files_only=True'). Re-run the download with network access to complete the snapshot..
+WARNING 09-22 19:26:41 [vllm.py:1414] Async scheduling not supported with ngram-based speculative decoding and will be disabled.
+INFO 09-22 19:26:41 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+WARNING 09-22 19:26:41 [vllm.py:2059] max_num_scheduled_tokens is set to 2048 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+WARNING 09-22 19:26:41 [vllm.py:769] Model Runner V2 does not yet support ngram/ngram_gpu speculative decoding; using the V1 model runner instead.
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-1] INFO 09-22 19:26:44 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:44 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:44 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-2] INFO 09-22 19:26:44 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:44 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:44 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-3] INFO 09-22 19:26:44 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:44 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:44 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-0] INFO 09-22 19:26:45 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:45 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:45 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-1] INFO 09-22 19:26:45 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:45 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:45 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-2] INFO 09-22 19:26:45 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:45 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:45 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-3] INFO 09-22 19:26:45 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:45 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:45 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-0] INFO 09-22 19:26:45 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:45 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:45 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-1] INFO 09-22 19:26:46 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:46 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:46 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-2] INFO 09-22 19:26:46 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:46 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:46 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-3] INFO 09-22 19:26:46 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:46 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:46 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-0] INFO 09-22 19:26:46 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:46 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:46 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-1] INFO 09-22 19:26:46 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:46 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:46 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-2] INFO 09-22 19:26:47 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:47 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:47 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-3-{"a":-ending3-3] INFO 09-22 19:26:47 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:47 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:47 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-0] INFO 09-22 19:26:47 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:47 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:47 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-1] INFO 09-22 19:26:47 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:47 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:47 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-2] INFO 09-22 19:26:47 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:47 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:47 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-3] INFO 09-22 19:26:47 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:47 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:47 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-0] INFO 09-22 19:26:48 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:48 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:48 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-1] INFO 09-22 19:26:48 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:48 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:48 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-2] INFO 09-22 19:26:48 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:48 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:48 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-3] INFO 09-22 19:26:48 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:48 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:48 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-0] INFO 09-22 19:26:49 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:49 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:49 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-1] INFO 09-22 19:26:49 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:49 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:49 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-2] INFO 09-22 19:26:49 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:49 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:49 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-3] INFO 09-22 19:26:49 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:49 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:49 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+FAILED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-0] INFO 09-22 19:26:49 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:49 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:49 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-1] INFO 09-22 19:26:49 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:49 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:49 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-2] INFO 09-22 19:26:50 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:50 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:50 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-3-{"a":-ending3-3] INFO 09-22 19:26:50 [model.py:686] Resolved architecture: Qwen3ForCausalLM
+INFO 09-22 19:26:50 [model.py:2043] Using max model len 40960
+INFO 09-22 19:26:50 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+PASSED
+
+=================================== FAILURES ===================================
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-1] _
+
+num_verified = 1, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, 220, 220]
+E         
+E         At index 4 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E         -     -1,
+E         +     220,
+E               220,
+E               220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-2] _
+
+num_verified = 2, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, 220]
+E         
+E         At index 4 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E         -     -1,
+E         -     -1,
+E         +     220,
+E         +     220,
+E               220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-3] _
+
+num_verified = 3, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, -1]
+E         
+E         At index 4 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E         -     -1,
+E         -     -1,
+E         -     -1,
+E         +     220,
+E         +     220,
+E         +     220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-2] _
+
+num_verified = 2, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, 220]
+E         
+E         At index 5 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E               50256,
+E         -     -1,
+E         +     220,
+E               220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-3] _
+
+num_verified = 3, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, -1]
+E         
+E         At index 5 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E               50256,
+E         -     -1,
+E         -     -1,
+E         +     220,
+E         +     220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-3] _
+
+num_verified = 3, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 0.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 92, 50256, 220] == [17, 19, 23, 29, 92, 50256, -1]
+E         
+E         At index 6 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E               92,
+E               50256,
+E         -     -1,
+E         +     220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-1] _
+
+num_verified = 1, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, 220, 220]
+E         
+E         At index 4 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E         -     -1,
+E         +     220,
+E               220,
+E               220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-2] _
+
+num_verified = 2, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, 220]
+E         
+E         At index 4 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E         -     -1,
+E         -     -1,
+E         +     220,
+E         +     220,
+E               220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-3] _
+
+num_verified = 3, num_valid = 0, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, -1]
+E         
+E         At index 4 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E         -     -1,
+E         -     -1,
+E         -     -1,
+E         +     220,
+E         +     220,
+E         +     220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-2] _
+
+num_verified = 2, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, 220]
+E         
+E         At index 5 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E               50256,
+E         -     -1,
+E         +     220,
+E               220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-3] _
+
+num_verified = 3, num_valid = 1, prefix = '{"a":"b"}', ending = []
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, -1]
+E         
+E         At index 5 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E               50256,
+E         -     -1,
+E         -     -1,
+E         +     220,
+E         +     220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+_ test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-3] _
+
+num_verified = 3, num_valid = 2, prefix = '{"a":"b"', ending = ['}']
+temperature = 1.0
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+    @pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
+    @pytest.mark.parametrize(
+        ("num_valid", "prefix", "ending"),
+        [
+            (0, '{"a":"b"}', []),
+            (1, '{"a":"b"}', []),
+            (2, '{"a":"b"', ["}"]),
+            (3, '{"a":', ["0", "}"]),
+        ],
+    )
+    @pytest.mark.parametrize("temperature", [0.0, 1.0])
+    def test_gpu_sampler_rejects_drafts_after_grammar_termination(
+        num_verified, num_valid, prefix, ending, temperature
+    ):
+        """Deferred grammar validation must reach the device rejection sampler."""
+        tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
+        grammar = request.structured_output_request.grammar
+        assert grammar.accept_tokens(request.request_id, prompt)
+        eos = tokenizer.eos_token_id
+        space = tokenizer.encode(" ")[0]
+        drafts = [tokenizer.encode(token)[0] for token in ending]
+        if num_valid:
+            drafts.append(eos)
+        drafts += [space] * (3 - num_valid)
+        scheduled = SimpleNamespace(
+            has_structured_output_requests=True,
+            num_scheduled_tokens={request.request_id: 4},
+            scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
+        )
+        scheduler = SimpleNamespace(
+            requests={request.request_id: request}, structured_output_manager=manager
+        )
+        Scheduler.update_draft_token_ids_in_output(
+            scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
+        )
+        assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
+        grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
+        assert grammar_output is not None
+    
+        # The adjacent unstructured request and non-logit input slots must survive
+        # compaction and grammar rejection unchanged.
+        num_logits = num_verified + 2
+        input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
+        logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
+        batch = SimpleNamespace(
+            req_ids=["unstructured", request.request_id],
+            cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
+            cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
+            num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
+            input_ids=input_ids,
+            logits_indices=logits_indices,
+        )
+        vocab_size = manager.vllm_config.model_config.get_vocab_size()
+        logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
+        targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
+        logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
+        worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
+        worker.apply_grammar_bitmask(
+            logits,
+            batch,
+            grammar_output.structured_output_request_ids,
+            grammar_output.grammar_bitmask,
+        )
+        expected_inputs = [17, 19, 23, 29, *drafts]
+        expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
+            num_verified - num_valid, 0
+        )
+>       assert input_ids.tolist() == expected_inputs
+E       assert [17, 19, 23, 29, 92, 50256, 220] == [17, 19, 23, 29, 92, 50256, -1]
+E         
+E         At index 6 diff: 220 != -1
+E         
+E         Full diff:
+E           [
+E               17,
+E               19,
+E               23,
+E               29,
+E               92,
+E               50256,
+E         -     -1,
+E         +     220,
+E           ]
+
+kit/test_r38_baseline_grammar.py:471: AssertionError
+=============================== warnings summary ===============================
+usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+test_r38_baseline_grammar.py: 32 warnings
+  /usr/local/lib/python3.12/dist-packages/xgrammar/matcher.py:256: DeprecationWarning: max_rollback_tokens is deprecated. You don't need to set it and it's always unlimited (-1).
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------- generated xml file: /kit/receipts/baseline.xml ----------------
+=========================== short test summary info ============================
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-1] - assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, 220, 220]
+  
+  At index 4 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+  -     -1,
+  +     220,
+        220,
+        220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-2] - assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, 220]
+  
+  At index 4 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+  -     -1,
+  -     -1,
+  +     220,
+  +     220,
+        220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-0-{"a":"b"}-ending0-3] - assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, -1]
+  
+  At index 4 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+  -     -1,
+  -     -1,
+  -     -1,
+  +     220,
+  +     220,
+  +     220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-2] - assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, 220]
+  
+  At index 5 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+        50256,
+  -     -1,
+  +     220,
+        220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-1-{"a":"b"}-ending1-3] - assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, -1]
+  
+  At index 5 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+        50256,
+  -     -1,
+  -     -1,
+  +     220,
+  +     220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[0.0-2-{"a":"b"-ending2-3] - assert [17, 19, 23, 29, 92, 50256, 220] == [17, 19, 23, 29, 92, 50256, -1]
+  
+  At index 6 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+        92,
+        50256,
+  -     -1,
+  +     220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-1] - assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, 220, 220]
+  
+  At index 4 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+  -     -1,
+  +     220,
+        220,
+        220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-2] - assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, 220]
+  
+  At index 4 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+  -     -1,
+  -     -1,
+  +     220,
+  +     220,
+        220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-0-{"a":"b"}-ending0-3] - assert [17, 19, 23, 29, 220, 220, 220] == [17, 19, 23, 29, -1, -1, -1]
+  
+  At index 4 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+  -     -1,
+  -     -1,
+  -     -1,
+  +     220,
+  +     220,
+  +     220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-2] - assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, 220]
+  
+  At index 5 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+        50256,
+  -     -1,
+  +     220,
+        220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-1-{"a":"b"}-ending1-3] - assert [17, 19, 23, 29, 50256, 220, 220] == [17, 19, 23, 29, 50256, -1, -1]
+  
+  At index 5 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+        50256,
+  -     -1,
+  -     -1,
+  +     220,
+  +     220,
+    ]
+FAILED kit/test_r38_baseline_grammar.py::test_gpu_sampler_rejects_drafts_after_grammar_termination[1.0-2-{"a":"b"-ending2-3] - assert [17, 19, 23, 29, 92, 50256, 220] == [17, 19, 23, 29, 92, 50256, -1]
+  
+  At index 6 diff: 220 != -1
+  
+  Full diff:
+    [
+        17,
+        19,
+        23,
+        29,
+        92,
+        50256,
+  -     -1,
+  +     220,
+    ]
+================= 12 failed, 20 passed, 46 warnings in 22.79s ==================

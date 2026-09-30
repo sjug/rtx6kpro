@@ -1,0 +1,12 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2447,6 +2447,9 @@
+                 mainloop_pipeline.consumer_wait(
+                     mainloop_consumer_state, peek_ab_full_status
+                 )
++                accumulators.fill(0.0)
++                if cutlass.const_expr(self.block_fp8):
++                    stage_accumulators.fill(0.0)
+                 if cutlass.const_expr(self.b_packed):
+                     # Expand the TMA-staged packed B tile in place into the
+                     # swizzled byte-container sB BEFORE any ldmatrix touches

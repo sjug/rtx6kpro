@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 25 items
+
+<Package tests/v1/executor>
+  <Module test_b12x_startup.py>
+    Local startup progress and distributed preparation boundaries.
+    <Function test_tuning_authorization_selects_once_across_disjoint_rank_shards>
+    <Function test_progress_aggregates_work_totals_and_preserves_rank_local_batch_counts>
+    <Function test_progress_does_not_finish_until_every_rank_finishes>
+    <Function test_progress_does_not_sum_replicated_fixed_candidate_count>
+    <Function test_local_only_cancel_still_completes_and_primes>
+    <Function test_default_only_batch_disables_tuning_for_job>
+    <Function test_batches_run_in_order_and_finish_after_the_last>
+    <Function test_pending_compilation_wait_is_bounded>
+    <Function test_abort_closes_active_job_once>
+    <Function test_attention_tuning_rendezvous_ignores_rank_local_device_ordinal[batched]>
+    <Function test_attention_tuning_rendezvous_ignores_rank_local_device_ordinal[varlen]>
+    <Function test_independent_work_never_waits_for_peer_progress>
+    <Function test_all_local_winners_consolidate_once_with_empty_world_rank>
+    <Function test_fixed_collective_authorization_waits_for_every_participant>
+    <Function test_cancelled_consolidation_discards_every_partial_winner>
+    <Function test_peer_failure_drains_every_rank_before_returning>
+    <Function test_executor_runs_worker_on_calling_thread_and_cancels_without_step_rpcs>
+    <Function test_candidate_progress_waits_for_every_expected_rank_to_finish_planning>
+    <Function test_four_rank_candidate_fraction_uses_the_same_scope_for_both_counts[measured0]>
+    <Function test_four_rank_candidate_fraction_uses_the_same_scope_for_both_counts[measured1]>
+    <Function test_cancel_drains_pending_winners_then_orders_collective_warmup>
+    <Function test_heuristic_warmup_is_local_on_each_rank>
+    <Function test_tuning_caches_exchange_before_races_with_empty_world_rank[False]>
+    <Function test_tuning_caches_exchange_before_races_with_empty_world_rank[True]>
+    <Function test_missing_cache_participant_fails_all_ranks_without_hanging>
+
+========================= 25 tests collected in 10.83s =========================
+CACHE-AGREEMENT-GATE-PASS collect_only=True cases=25

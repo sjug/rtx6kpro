@@ -1,0 +1,52 @@
+FROM 83f8183cbcc1063d50e1dffc8e9c95d751c7da6e4658c95e1c6da98c4f3a7f41 AS vllm
+RUN git -C /build/vllm archive 02a457e2e933d0fb20d5786835110546acf7d8f2 > /artifacts/vllm/source.tar
+FROM 358f888657b631b53a0706a3e5c88a680c0e363f48502fac49af2dbfcf135c73 AS flashinfer
+FROM ee19802e04c9ee6923dbb7a3f19147e4eae82edd015c14618a931eb9e51bd719 AS nccl
+FROM bc4722058e7d27f8683546fc7cd234c8acdfe829abce9964dbca882fb4c1cd2f AS lmcache
+FROM ecfffd85f816b5a82bea260e68977b1256ca15d1c741ef3a48f945dfa9a9a5ee AS instanttensor
+FROM ad008e629e810957ba8c8b18b89712717816f52b35960bddf6f9b495bdab7673
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+ENV PATH=/opt/venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    PYTHONPATH=/opt/jovian-judgement/vllm:/opt/jovian-judgement/b12x \
+    LMCACHE_ENABLED=0 VLLM_PLUGINS="" B12X_ROCE_CACHE_DIR=/opt/b12x-roce-cache \
+    LD_PRELOAD=/opt/nccl/lib/libnccl.so.2.31.2 \
+    VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2 \
+    LD_LIBRARY_PATH=/opt/nccl/lib:/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+COPY --from=nccl /artifacts/nccl/lib/ /opt/nccl/lib/
+COPY --from=vllm /artifacts/vllm/ /opt/karmic-build/components/vllm/
+COPY --from=flashinfer /artifacts/flashinfer/ /opt/karmic-build/components/flashinfer/
+COPY --from=lmcache /artifacts/lmcache/ /opt/karmic-build/components/lmcache/
+COPY --from=instanttensor /artifacts/instanttensor/ /opt/karmic-build/components/instanttensor/
+RUN for component in vllm flashinfer lmcache instanttensor; do \
+      (cd /opt/karmic-build/components/$component && sha256sum -c SHA256SUMS); \
+    done \
+    && uv pip install --python /opt/venv/bin/python --no-index --no-deps /opt/karmic-build/components/*/*.whl \
+    && mkdir -p /opt/jovian-judgement/vllm \
+    && tar -xf /opt/karmic-build/components/vllm/source.tar -C /opt/jovian-judgement/vllm
+RUN git init /opt/jovian-judgement/b12x \
+    && git -C /opt/jovian-judgement/b12x remote add origin https://github.com/local-inference-lab/sparkinfer.git \
+    && git -C /opt/jovian-judgement/b12x fetch --depth=1 origin e9ce547767ff9ee6509faf294fa1b4e2380dfbf5 \
+    && git -C /opt/jovian-judgement/b12x checkout --detach FETCH_HEAD \
+    && test "$(git -C /opt/jovian-judgement/b12x rev-parse HEAD^{tree})" = 9f20c0e6b9d49a42bc19f45429ac44758cf5fe76 \
+    && uv pip install --python /opt/venv/bin/python --no-deps --no-build-isolation /opt/jovian-judgement/b12x
+COPY install_runtime_payload.py /opt/karmic-build/
+RUN python /opt/karmic-build/install_runtime_payload.py
+RUN python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py \
+      --manifest /opt/karmic-build/runtime-inputs/tools/jovian_wheel_runtime/ngc-python-patches.json \
+    && python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py \
+      --manifest /opt/karmic-build/runtime-inputs/tools/jovian_wheel_runtime/ngc-venv-python-patches.json
+RUN python -c 'from b12x.comm.roce import _proxy; lib = _proxy.load(); print("RoCE proxy ABI", lib.roce_abi_version())' \
+    && CC=/bin/false python -c 'from b12x.comm.roce import _proxy; _proxy.load(); print("RoCE prebuilt load passed")'
+ARG RECIPE_SHA256
+LABEL local-inference.runtime.recipe.sha256="${RECIPE_SHA256}" \
+      local-inference.status="candidate-not-model-qualified" \
+      vllm.source-tree="02a457e2e933d0fb20d5786835110546acf7d8f2" \
+      b12x.source-tree="9f20c0e6b9d49a42bc19f45429ac44758cf5fe76" \
+      local-inference.flashkda.commit="b59532f1f464fbd536272780e30df5bf6a2ccc02" \
+      local-inference.flashinfer.commit="2206a14e46387a56c093860a46bbbdd00596b75b" \
+      local-inference.lmcache.commit="688bee14e157b64623d93c07fc0d4db93470e12f" \
+      local-inference.nccl.commit="93fe05d9f9b6963ef841166a69cd0b30e4efe97b" \
+      lmcache.default="disabled"
+WORKDIR /opt/jovian-judgement/vllm
+ENTRYPOINT []
+CMD ["python", "-m", "vllm.entrypoints.cli.main", "--help"]

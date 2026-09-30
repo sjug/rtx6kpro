@@ -1,0 +1,16 @@
+FROM e7b273407022ae74726d6c7b7465aa567b2c5a0594d5e0b46002a742a11f5146
+ARG TIMING_LOCK
+ARG TIMING_CACHE
+COPY claude-engram-timing.lock.json claude_engram_timing.py claude_prepare_engram_timing.py claude_install_engram_timing.py claude_test_engram_timing.py Dockerfile.claude-engram-timing claude-engram-timing.patch claude-engram-timing-model.py claude-engram-timing-_impl.py claude-engram-timing-disk_table.py /opt/ds41-engram-timing/
+RUN /opt/venv/bin/python /opt/ds41-engram-timing/claude_install_engram_timing.py
+# B12X, CuTe, Triton and XDG caches stay inherited from the ring-fix candidate:
+# B12X bytes are unchanged, so its package fingerprint and cache keys match.
+# The edited model.py changes vLLM compile keys, so vLLM and Inductor output
+# goes to a separate directory instead of being added to the candidate's.
+ENV VLLM_CACHE_ROOT=/cache/jit/${TIMING_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${TIMING_CACHE}/inductor
+LABEL local-inference.ds41.diagnostic.kind="engram-host-timing" \
+    local-inference.ds41.diagnostic.lock.sha256="${TIMING_LOCK}" \
+    local-inference.ds41.diagnostic.vllm-cache="${TIMING_CACHE}" \
+    local-inference.status="diagnostic-only-not-qualified" \
+    org.opencontainers.image.title="DS4.1 ring-fix candidate with Engram host-path timestamps"

@@ -1,0 +1,308 @@
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+Waiting for API: <urlopen error [Errno 111] Connection refused>
+FIRST-COMPLETION-PASS
+RUN /home/jugs/git/rtx6kpro/spark/qwen38-flash-next/verify-semantic-admission.py --base-url http://dusty:8000 --model Qwen3.8-Flash-Next --runs 3 --receipt-file /home/jugs/git/rtx6kpro/spark/jj-main-sm121/qualification/qwen-mtp3-cache-agreement/semantic.jsonl
+{"answer": "\n\nFirst, find the total number of bolts: 17 boxes \u00d7 23 bolts per box = 391 bolts. Then subtract the bolts used: 391 \u2212 58 = 333 bolts remaining.\n\nFINAL: 333", "completion_tokens": 145, "effort": "low", "kind": "reasoning", "reasoning_chars": 277, "repetition": 1, "valid": true}
+{"answer": "\n\nThe shop has 17 boxes \u00d7 23 bolts = 391 total bolts. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 126, "effort": "medium", "kind": "reasoning", "reasoning_chars": 239, "repetition": 1, "valid": true}
+{"answer": "\n\n17 \u00d7 23 = 391 bolts total. After using 58, 391 \u2212 58 = 333 remain. FINAL: 333", "completion_tokens": 194, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 477, "repetition": 1, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 1, "valid": true}
+{"answer": "\n\nThe image is divided vertically into two equal halves. The left half is filled with a uniform solid red, and the right half is filled with a uniform solid blue. There are no other colors, gradients, or patterns present.\n\nFINAL: red, blue", "kind": "image", "repetition": 1, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 1, "valid": true}
+{"answer": "\n\n**Step 1: Find the total number of bolts.**\n\n17 boxes \u00d7 23 bolts per box = 391 bolts total.\n\n**Step 2: Subtract the bolts used.**\n\n391 bolts \u2212 58 bolts used = 333 bolts remaining.\n\nFINAL: 333", "completion_tokens": 156, "effort": "low", "kind": "reasoning", "reasoning_chars": 213, "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts per box = 391 bolts total. It uses 58 bolts, so the remaining bolts are 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 172, "effort": "medium", "kind": "reasoning", "reasoning_chars": 315, "repetition": 2, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts in total. After using 58 bolts, 391 \u2212 58 = 333 bolts remain.\n\nFINAL: 333", "completion_tokens": 165, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 397, "repetition": 2, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 2, "valid": true}
+{"answer": "\n\nLooking at the image, it is divided into two equal vertical halves, each filled with a single solid color.\n\n- **Left half:** A fully saturated red (approximately RGB 255, 0, 0).\n- **Right half:** A fully saturated blue (approximately RGB 0, 0, 255).\n\nThus the solid color on the left is red, and the solid color on the right is blue.\n\nFINAL: red, blue", "kind": "image", "repetition": 2, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 2, "valid": true}
+{"answer": "\n\nThe shop has 17 boxes \u00d7 23 bolts = 391 bolts total. After using 58 bolts, the remaining bolts are 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 133, "effort": "low", "kind": "reasoning", "reasoning_chars": 223, "repetition": 3, "valid": true}
+{"answer": "\n\nThe shop starts with 17 boxes \u00d7 23 bolts = 391 bolts in total. After using 58 bolts, the remaining count is 391 \u2212 58 = 333.\n\nFINAL: 333", "completion_tokens": 134, "effort": "medium", "kind": "reasoning", "reasoning_chars": 249, "repetition": 3, "valid": true}
+{"answer": "\n\nThere are 17 \u00d7 23 = 391 bolts total. After using 58, 391 \u2212 58 = 333 remain. FINAL: 333", "completion_tokens": 229, "effort": "xhigh", "kind": "reasoning", "reasoning_chars": 506, "repetition": 3, "valid": true}
+{"answer": "FINAL: 333", "kind": "non_thinking", "reasoning_chars": 0, "repetition": 3, "valid": true}
+{"answer": "\n\nThe left half of the image is a pure, solid red, while the right half is a pure, solid blue. There are no gradients or patterns\u2014just two flat color blocks split down the middle.\n\nFINAL: red, blue", "kind": "image", "repetition": 3, "valid": true}
+{"answer": "\n\nFINAL: 391", "arguments": {"a": 17, "b": 23}, "function": "multiply", "kind": "tool_round_trip", "repetition": 3, "valid": true}
+{"kind": "summary", "model": "Qwen3.8-Flash-Next", "runs": 3, "valid": true}
+QWEN38_SEMANTIC_ADMISSION_PASS
+RUN /home/jugs/git/rtx6kpro/spark/qwen38-flash-next/verify-native-context.py --base-url http://dusty:8000 --model Qwen3.8-Flash-Next --needle 739184 --lengths 2848 2849 131072 262000 --max-tokens 64 --receipt-file /home/jugs/git/rtx6kpro/spark/jj-main-sm121/qualification/qwen-mtp3-cache-agreement/native-context.jsonl
+SHORT_START
+{"content": "\n\n11", "elapsed_seconds": 0.85, "finish_reason": "stop", "kind": "short", "reasoning_content": "We need answer user's simple arithmetic: What is 5 + 6? Give final answer as one numeral. Need final only numeral likely 11. Ensure no extra.\n", "usage": {"completion_tokens": 42, "completion_tokens_details": {"reasoning_tokens": 37}, "prompt_tokens": 68, "prompt_tokens_details": null, "total_tokens": 110}}
+CONTEXT_START length=2848
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.357, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2848, "reasoning": "", "requested_input_tokens": 2848, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2848, "prompt_tokens_details": null, "total_tokens": 2855}, "valid": true}
+CONTEXT_START length=2849
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 1.116, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 2849, "reasoning": "", "requested_input_tokens": 2849, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 2849, "prompt_tokens_details": null, "total_tokens": 2856}, "valid": true}
+CONTEXT_START length=131072
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 49.773, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 131072, "reasoning": "", "requested_input_tokens": 131072, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 131072, "prompt_tokens_details": null, "total_tokens": 131079}, "valid": true}
+CONTEXT_START length=262000
+{"cached_tokens": null, "completion_tokens": 7, "elapsed_seconds": 71.045, "finish_reason": "stop", "kind": "context_needle", "needle": "739184", "needle_token_offset": 27, "output_ids": [22, 18, 24, 16, 23, 19, 248046], "prompt_tokens": 262000, "reasoning": "", "requested_input_tokens": 262000, "text": "739184", "usage": {"completion_tokens": 7, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 262000, "prompt_tokens_details": null, "total_tokens": 262007}, "valid": true}
+{"kind": "summary", "lengths": [2848, 2849, 131072, 262000], "model": "Qwen3.8-Flash-Next", "needle": "739184", "valid": true}
+NATIVE_CONTEXT_NEEDLE_VERIFY_PASS
+RUN /home/jugs/git/rtx6kpro/spark/qwen38-flash-next/benchmark-fixed-token-acceptance.py --base-url http://dusty:8000 --model Qwen3.8-Flash-Next --corpus-file /home/jugs/git/rtx6kpro/spark/qwen38-flash-next/fixed-token-acceptance-corpus.json --waves 3 --max-tokens 512 --output /home/jugs/git/rtx6kpro/spark/jj-main-sm121/qualification/qwen-mtp3-cache-agreement/fixed-token-acceptance.json
+{"accept_length": 2.314996232102487, "corpus_sha256": "cc9230856e9dab760645436993ec44669c3168e2edc3cfbc8a897c72de0ffff4", "counter_deltas": {"accepted_per_position": {"0": 1747.0, "1": 1071.0, "2": 672.0}, "accepted_tokens": 3490.0, "draft_tokens": 7962.0, "drafts": 2654.0}, "engine_steps": 2654.0, "max_tokens": 512, "model": "Qwen3.8-Flash-Next", "output_repeatable_across_waves": false, "output_sha256_by_prompt": {"prompt-0": ["0428047edf488adf97917619f9626f79ce8bdec52d7066eff9b2c61e540ac886", "0d0c98c75c57a988e6aa78942e91f542ea7d9599e86fecbc0457d45747a0639b", "6592c98f09d7897d63be7b4f7628d477db3686b0ae2d1eb2c238e4b157ec0b41"], "prompt-1": ["60a4628dca498d617334b223bf883d3053e573c7f1e1470c1ec17602db25a40e", "99af058e4bef10889c813028cad96d6754e72c298bceec629afa97255573abe0", "e7697bbef473f6a4e93cf5a15729bc82eff550c9e26b18f47003faafbf2cfaf0"], "prompt-2": ["6dfb539a49dfdc378ec52f8b8f365746575cb7cdaa0cf20e0895cc897fc63de9", "ada6928eef4fb954ac17a2564423cf092be5031c40b4e8b8b5f5fc4966a60beb", "b18174983f392a0852851d635e147586e1a84e6d929808dd81ed6938dc66783c"], "prompt-3": ["7baccfbb764649263a64d8b6807137a276ab432377613d44863dadfb277b9a1e", "d711933bfbecdaca7f1bed3114889ec4ba0bd8bb99172687924d698eb8fd1ce4", "daf3783bd7880a516a6eef95d0142eae203ab1c45a0f0d97af6d3dadbed9f134"]}, "output_tokens": 6144, "requests": [{"elapsed_seconds": 13.836104, "output_sha256": "0d0c98c75c57a988e6aa78942e91f542ea7d9599e86fecbc0457d45747a0639b", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 0}, {"elapsed_seconds": 14.829325, "output_sha256": "e7697bbef473f6a4e93cf5a15729bc82eff550c9e26b18f47003faafbf2cfaf0", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 0}, {"elapsed_seconds": 16.761158, "output_sha256": "6dfb539a49dfdc378ec52f8b8f365746575cb7cdaa0cf20e0895cc897fc63de9", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 0}, {"elapsed_seconds": 16.36156, "output_sha256": "daf3783bd7880a516a6eef95d0142eae203ab1c45a0f0d97af6d3dadbed9f134", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 0}, {"elapsed_seconds": 15.95389, "output_sha256": "0428047edf488adf97917619f9626f79ce8bdec52d7066eff9b2c61e540ac886", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 1}, {"elapsed_seconds": 15.62751, "output_sha256": "60a4628dca498d617334b223bf883d3053e573c7f1e1470c1ec17602db25a40e", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 1}, {"elapsed_seconds": 17.880382, "output_sha256": "b18174983f392a0852851d635e147586e1a84e6d929808dd81ed6938dc66783c", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 1}, {"elapsed_seconds": 16.710665, "output_sha256": "d711933bfbecdaca7f1bed3114889ec4ba0bd8bb99172687924d698eb8fd1ce4", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 1}, {"elapsed_seconds": 15.500011, "output_sha256": "6592c98f09d7897d63be7b4f7628d477db3686b0ae2d1eb2c238e4b157ec0b41", "output_tokens": 512, "prompt_id": "prompt-0", "wave": 2}, {"elapsed_seconds": 14.972513, "output_sha256": "99af058e4bef10889c813028cad96d6754e72c298bceec629afa97255573abe0", "output_tokens": 512, "prompt_id": "prompt-1", "wave": 2}, {"elapsed_seconds": 17.174574, "output_sha256": "ada6928eef4fb954ac17a2564423cf092be5031c40b4e8b8b5f5fc4966a60beb", "output_tokens": 512, "prompt_id": "prompt-2", "wave": 2}, {"elapsed_seconds": 16.657198, "output_sha256": "7baccfbb764649263a64d8b6807137a276ab432377613d44863dadfb277b9a1e", "output_tokens": 512, "prompt_id": "prompt-3", "wave": 2}], "valid": true, "waves": 3}
+RUN /home/jugs/git/rtx6kpro/spark/glm53/r27-spark/tests/probe-spec-padded-transition.py --base-url http://dusty:8000 --model Qwen3.8-Flash-Next --phases 1,3,1,2,4,1 --rounds 3 --max-tokens 256 --spec-tokens 3 --capture-sizes 1,2,4,8,16,24,32 --receipt-file /home/jugs/git/rtx6kpro/spark/jj-main-sm121/qualification/qwen-mtp3-cache-agreement/padded-transition.jsonl
+phase 0 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.608843537414966
+phase 1 c3: padded (1 padded request rows) tokens=12 graph=16 overlap=3 acceptance_length=2.6589861751152073
+phase 2 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.6404109589041096
+phase 3 c2: uniform tokens=8 graph=8 overlap=2 acceptance_length=2.5996621621621623
+phase 4 c4: uniform tokens=16 graph=16 overlap=4 acceptance_length=2.6977152899824253
+phase 5 c1: uniform tokens=4 graph=4 overlap=1 acceptance_length=2.4741935483870967
+{"collapsed_phases": [], "coverage_basis": "predicted from concurrency, spec window, and capture sizes; not confirmed from engine runtime evidence", "final_phase_acceptance_length": 2.4741935483870967, "kind": "summary", "max_acceptance_length": 2.6977152899824253, "min_acceptance_length": 2.4741935483870967, "overlap_ok": true, "padded_transition_predicted": true, "phases": [1, 3, 1, 2, 4, 1], "valid": true}
+RUN /home/jugs/git/rtx6kpro/spark/glm53/r27-spark/tests/probe-prefix-reuse.py --base-url http://dusty:8000 --model Qwen3.8-Flash-Next --label jj-main-cache-agreement-aligned-mtp3 --receipt-file /home/jugs/git/rtx6kpro/spark/jj-main-sm121/qualification/qwen-mtp3-cache-agreement/prefix-reuse.jsonl
+{"label": "jj-main-cache-agreement-aligned-mtp3", "step": "fresh", "ttft_s": 10.326, "total_s": 10.407, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 0.0, "answer": "739184"}
+{"label": "jj-main-cache-agreement-aligned-mtp3", "step": "extension", "ttft_s": 1.339, "total_s": 1.434, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+{"label": "jj-main-cache-agreement-aligned-mtp3", "step": "verbatim_repeat", "ttft_s": 1.296, "total_s": 1.378, "prompt_tokens": 32038, "cached_tokens": null, "prefix_queries_delta": 32038.0, "prefix_hits_delta": 28480.0, "answer": "739184"}
+{"label": "jj-main-cache-agreement-aligned-mtp3", "step": "extension_repeat", "ttft_s": 1.339, "total_s": 1.421, "prompt_tokens": 32069, "cached_tokens": null, "prefix_queries_delta": 32069.0, "prefix_hits_delta": 28480.0, "answer": "739184 done"}
+QWEN-CORRECTNESS-BATTERY-PASS
+{"content_preview": "# The Anatomy of Fire: The Geology of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Earth. Born from the ", "content_sha256": "6dcb426c21c1f0d71ea96b5ed8c9531fa8b314737573d7b389ed51a19c7aa311", "finish_reason": "length", "label": "seed", "policy": "aligned", "timestamp": "2026-09-21T23:42:24.553399-04:00", "total_s": 1.1981239920132793, "ttft_s": 0.21871015900978819, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 55, "total_tokens": 115}}
+{"content_preview": "**The Arteries of Civilization: A History of Canals**\n\nWater has always been the lifeblood of human civilization. From the earliest river valley settlements to ", "content_sha256": "ba54cf3c82e6f1d8c935cf5595f2a061b913c2edf0ea00f70b1191eb62d6a248", "finish_reason": "length", "label": "long0", "policy": "aligned", "timestamp": "2026-09-21T23:42:39.414939-04:00", "total_s": 14.860350603994448, "ttft_s": 0.2230048130149953, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 46, "total_tokens": 646}}
+{"content_preview": "# The Arteries of Civilization: A History of Canals\n\nBefore the advent of the steam engine, the railroad, or the automobile, water was the primary highway of co", "content_sha256": "dd091415bb0eef7b9fafcd490f097745700621bba9c453bbab461ce4eb3d73a5", "finish_reason": "length", "label": "long1", "policy": "aligned", "timestamp": "2026-09-21T23:42:39.415040-04:00", "total_s": 14.737227933015674, "ttft_s": 0.2226831370498985, "usage": {"completion_tokens": 600, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 49, "total_tokens": 649}}
+{"content_preview": "# The Anatomy of Fire: A Detailed Geological Portrait of a Volcanic Island\n\nVolcanic islands are among the most dynamic and geologically complex landforms on Ea", "content_sha256": "5ea2ab1adb322aef4febd9052c6f3a9a9f0ed29192a30eebff71948214ad5a3f", "finish_reason": "length", "label": "repeat", "policy": "aligned", "timestamp": "2026-09-21T23:42:39.415062-04:00", "total_s": 1.8783302669762634, "ttft_s": 0.30072232597740367, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 55, "total_tokens": 115}}
+{"content_preview": "# Spanning the Divide: A History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. They are not merely structures of stone, steel, or ", "content_sha256": "b50235bb0ca26b3224468bf1dd5fd30b7ddde2865ba66b2d3d13579e6beca8d5", "finish_reason": "length", "label": "fresh0", "policy": "aligned", "timestamp": "2026-09-21T23:42:39.415077-04:00", "total_s": 1.5789705180213787, "ttft_s": 0.3179907129961066, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 43, "total_tokens": 103}}
+{"content_preview": "# Spanning the Divide: A Brief History of Bridges\n\nBridges are among the most enduring symbols of human ingenuity. More than mere structures of stone, steel, or", "content_sha256": "a5f00223af17a455078d738888f32928ca82dc6912e6d5c814116d398591ce04", "finish_reason": "length", "label": "fresh1", "policy": "aligned", "timestamp": "2026-09-21T23:42:39.415089-04:00", "total_s": 1.6974498300114647, "ttft_s": 0.29924737999681383, "usage": {"completion_tokens": 60, "completion_tokens_details": {"reasoning_tokens": 0}, "prompt_tokens": 47, "total_tokens": 107}}
+{"fresh_max_ttft_s": 0.3179907129961066, "kind": "summary", "policy": "aligned", "repeat_ttft_s": 0.30072232597740367, "streams_complete": true, "timestamp": "2026-09-21T23:42:39.415109-04:00"}
+warm c1: n=1 wall=4.0s agg_tok/s=49.7 per_req_s=[4.0]
+c4 distinct: n=4 wall=6.2s agg_tok/s=128.2 per_req_s=[6.2, 5.9, 5.5, 6.1]
+c4 identical: n=4 wall=6.1s agg_tok/s=131.8 per_req_s=[5.8, 6.0, 6.1, 5.3]
+c4 distinct again: n=4 wall=5.8s agg_tok/s=136.9 per_req_s=[5.8, 5.8, 5.5, 5.8]
+c1: n=1 wall=3.9s agg_tok/s=50.8 per_req_s=[3.9]
+/home/jugs/git/llm-inference-bench/run_bench.sh: OK
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+BENCHMARK-START 2026-09-21T23:43:06-04:00
+─────────────────────────────────
+host=http://dusty:8000 model=Qwen3.8-Flash-Next concurrency=1,2,4
+campaign=2026-09-jj-main-sm121-qualification workload=throughput variant=jj-main-cache-agreement-aligned-mtp3 repetition=1
+output=/home/jugs/git/rtx6kpro/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-main-sm121-qualification/throughput/20260921T234306-0400__jj-main-cache-agreement-aligned-mtp3__r01.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: Skipping update.
+
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: Qwen3.8-Flash-Next @ http://dusty:8000                                │
+│ Decode concurrency: [1, 2, 4]                                                │
+│ Decode contexts: ['0', '16k', '32k', '64k', '128k']                          │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: integrated decode scouts | Sustained decode: 15 cells               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.1.dev1+g8e1f1e587.d20260922  Models: ['Qwen3.8-Flash-Next']
+KV cache budget (vLLM metrics): 73,566,688 tokens (25831 blocks × 2848)
+Model context length: 262,144 tokens
+Prefill tests: integrated from decode scout requests ['16k', '32k', '64k', 
+'128k']; scout-only extras ['8k']
+Calibrating padding text (run=kqqortbhdrbh, up to 128k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.17 chars/token (from 8k probe)
+  8k: 50,508 chars (~8,191 tokens)
+  16k: 101,016 chars (~16,383 tokens)
+  32k: 202,032 chars (~32,767 tokens)
+  64k: 404,065 chars (~65,535 tokens)
+  128k: 808,131 chars (~131,071 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+Prefill Speed (scout requests, client ISL / TTFT)                               
+                                                                                
+                                                                PCIe rx/tx      
+  Context    Tokens   TTFT (s)   Client tok/s   Server tok/s           avg   N  
+ ────────────────────────────────────────────────────────────────────────────── 
+  8k          8,195       2.73          3,005              —             —   1  
+  16k        16,169       5.52          2,930      2,959 (1)             —   1  
+  32k        32,149      11.33          2,838      2,857 (1)             —   1  
+  64k        64,104      23.73          2,701      2,718 (1)             —   1  
+  128k      128,019      52.01          2,461      2,475 (1)             —   1  
+                                                                                
+Client tok/s = prompt_tokens / TTFT. Integrated scout rows come from the 
+prefix-cache scout request that decode needs anyway. Server tok/s is optional 
+Prometheus validation when the engine exports prefill counters and the exact 
+counter delta is uncontaminated; for vLLM this uses newly computed KV tokens, 
+not request prompt tokens.
+
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL                              
+╭────────────┬─────────────┬─────────────┬──────────────╮
+│ ctx \ conc │           1 │           2 │            4 │
+├────────────┼─────────────┼─────────────┼──────────────┤
+│ 0          │ 49.2 216/20 │ 76.6 382/25 │ 125.1 382/31 │
+│ 16k        │  50.2 2k/20 │  84.0 3k/24 │  122.5 4k/35 │
+│ 32k        │  46.8 2k/21 │  79.0 2k/25 │  128.5 4k/32 │
+│ 64k        │  56.3 2k/18 │  83.0 3k/25 │  117.4 5k/36 │
+│ 128k       │  47.1 3k/21 │  76.1 4k/27 │  114.5 7k/37 │
+╰────────────┴─────────────┴─────────────┴──────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s                  
+╭────────────┬──────┬──────┬──────╮
+│ ctx \ conc │    1 │    2 │    4 │
+├────────────┼──────┼──────┼──────┤
+│ 0          │ 49.2 │ 38.3 │ 31.3 │
+│ 16k        │ 50.2 │ 42.0 │ 30.6 │
+│ 32k        │ 46.8 │ 39.5 │ 32.1 │
+│ 64k        │ 56.3 │ 41.5 │ 29.4 │
+│ 128k       │ 47.1 │ 38.0 │ 28.6 │
+╰────────────┴──────┴──────┴──────╯
+Client request latency: p50 /   
+p90 ms                          
+╭────────────┬─────┬─────┬─────╮
+│ ctx \ conc │   1 │   2 │   4 │
+├────────────┼─────┼─────┼─────┤
+│ 0          │ —/— │ —/— │ —/— │
+│ 16k        │ —/— │ —/— │ —/— │
+│ 32k        │ —/— │ —/— │ —/— │
+│ 64k        │ —/— │ —/— │ —/— │
+│ 128k       │ —/— │ —/— │ —/— │
+╰────────────┴─────┴─────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭────┬─┬───────┬───────────┬───────┬─────────┬─────┬─────┬─────┬───────────────╮
+│ c… │ │ mode  │ GPU avg/… │ Mem … │ W avg/… │ T … │ CP… │ VR… │ PCIe rx/tx a… │
+├────┼─┼───────┼───────────┼───────┼─────────┼─────┼─────┼─────┼───────────────┤
+│ 0  │ │ sust… │    11/13% │    0% │ 162/171 │ 39C │ 69C │ 61… │     2841/3204 │
+│ 1… │ │ sust… │    10/13% │    0% │ 161/163 │ 39C │ 68C │ 61… │     2757/3386 │
+│ 3… │ │ sust… │    11/13% │    0% │ 166/178 │ 40C │ 68C │ 61… │     2805/3372 │
+│ 6… │ │ sust… │    11/13% │    0% │ 167/173 │ 40C │ 68C │ 61… │     2783/3265 │
+│ 1… │ │ sust… │    11/13% │    0% │ 161/165 │ 39C │ 69C │ 61… │     2632/3424 │
+│ 0  │ │ sust… │    11/13% │    0% │ 168/171 │ 40C │ 67C │ 61… │     2770/3447 │
+│ 0  │ │ sust… │    10/13% │    0% │ 161/163 │ 39C │ 68C │ 61… │     2774/3411 │
+│ 1… │ │ sust… │    11/13% │    0% │ 168/171 │ 40C │ 68C │ 61… │     2911/3255 │
+│ 1… │ │ sust… │    10/13% │    0% │ 163/170 │ 40C │ 68C │ 61… │     2675/3448 │
+│ 3… │ │ sust… │    11/13% │    0% │ 166/171 │ 40C │ 68C │ 61… │     2756/3368 │
+│ 3… │ │ sust… │    10/13% │    0% │ 161/161 │ 40C │ 68C │ 61… │     2764/3315 │
+│ 6… │ │ sust… │    10/13% │    0% │ 160/161 │ 39C │ 68C │ 61… │     2735/3274 │
+│ 6… │ │ sust… │    10/12% │    0% │ 160/161 │ 39C │ 68C │ 61… │     2708/3377 │
+│ 1… │ │ sust… │    10/12% │    0% │ 160/162 │ 39C │ 67C │ 61… │     2710/3316 │
+│ 1… │ │ sust… │    10/12% │    0% │ 161/163 │ 39C │ 67C │ 61… │     2778/3367 │
+╰────┴─┴───────┴───────────┴───────┴─────────┴─────┴─────┴─────┴───────────────╯
+╭────────────────────── Whole-run GPU Power ───────────────────────╮
+│ avg 163 W | max 178 W | limit 600 W | over 13m 04s | 368 samples │
+╰──────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Prefill tok/s                          
+╭──────┬─────────┬────────┬───────┬───╮
+│ ctx  │  tokens │ TTFT s │ tok/s │ N │
+├──────┼─────────┼────────┼───────┼───┤
+│ 8k   │   8,195 │   2.73 │ 3,005 │ 1 │
+│ 16k  │  16,169 │   5.52 │ 2,930 │ 1 │
+│ 32k  │  32,149 │  11.33 │ 2,838 │ 1 │
+│ 64k  │  64,104 │  23.73 │ 2,701 │ 1 │
+│ 128k │ 128,019 │  52.01 │ 2,461 │ 1 │
+╰──────┴─────────┴────────┴───────┴───╯
+Aggregate decode tok/s              
+╭────────────┬──────┬──────┬───────╮
+│ ctx \ conc │    1 │    2 │     4 │
+├────────────┼──────┼──────┼───────┤
+│ 0          │ 49.2 │ 76.6 │ 125.1 │
+│ 16k        │ 50.2 │ 84.0 │ 122.5 │
+│ 32k        │ 46.8 │ 79.0 │ 128.5 │
+│ 64k        │ 56.3 │ 83.0 │ 117.4 │
+│ 128k       │ 47.1 │ 76.1 │ 114.5 │
+╰────────────┴──────┴──────┴───────╯
+MTP-normalized decode steps/s (accept len)              
+╭────────────┬─────────────┬─────────────┬─────────────╮
+│ ctx \ conc │           1 │           2 │           4 │
+├────────────┼─────────────┼─────────────┼─────────────┤
+│ 0          │ 23.1 (2.13) │ 37.3 (2.05) │ 59.7 (2.10) │
+│ 16k        │ 23.0 (2.19) │ 39.1 (2.15) │ 58.1 (2.11) │
+│ 32k        │ 23.1 (2.03) │ 37.4 (2.11) │ 60.7 (2.12) │
+│ 64k        │ 22.6 (2.49) │ 37.0 (2.24) │ 57.0 (2.06) │
+│ 128k       │ 22.2 (2.12) │ 36.1 (2.11) │ 55.0 (2.08) │
+╰────────────┴─────────────┴─────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-main-sm121
+-qualification/throughput/20260921T234306-0400__jj-main-cache-agreement-aligned-
+mtp3__r01.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/rtx6kpro/runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-jj-main-sm121-qualification/throughput/20260921T234306-0400__jj-main-cache-agreement-aligned-mtp3__r01.json
+─────────────────────────────────
+BENCHMARK-END 2026-09-21T23:56:17-04:00
+QWEN-JJ-MAIN-EXECUTION-COMPLETE: inspect correctness, grid and health before promotion

@@ -1,0 +1,206 @@
+--- a/vllm/vllm/models/deepseek_v4_1/nvidia/model.py
++++ b/vllm/vllm/models/deepseek_v4_1/nvidia/model.py
+@@ -9,6 +9,8 @@
+ import torch
+ import torch.nn as nn
+ from b12x.sequence import engram as engram_native
++# DIAGNOSTIC ONLY: one-shot publication skip for the cross-rank fail-closed test.
++import vllm.models.deepseek_v4_1.claude_engram_fault_inject as _fault_inject
+ 
+ import vllm.envs as envs
+ from vllm.config import VllmConfig
+@@ -525,6 +527,9 @@
+         ready = torch.cuda.Event()
+         ready.record()
+         stream = self._engram_stream()
++        # DIAGNOSTIC ONLY: decided on the host before any CUDA work of this job
++        # is queued; True at most once, after a durable receipt names `epoch`.
++        skip_publish = _fault_inject.should_skip(epoch, counts[0] if counts else 0)
+         # Every CUDA operation required by the producer is submitted here,
+         # before the consumer forward. The stream's native I/O callback does
+         # not call CUDA or Python and cannot wait on a later host CUDA launch.
+@@ -536,11 +541,12 @@
+                 status_host=self._engram_io_status.host_view,
+                 clear_tail=False,
+             )
+-            _publish_engram_epoch[(1,)](
+-                self._engram_io_status.device_view,
+-                self._engram_epochs[0:1],
+-                epoch,
+-            )
++            if not skip_publish:
++                _publish_engram_epoch[(1,)](
++                    self._engram_io_status.device_view,
++                    self._engram_epochs[0:1],
++                    epoch,
++                )
+ 
+     def prepare_disk_engram(self, input_ids, query_start_loc, lookback_token_ids):
+         if torch.compiler.is_compiling() or torch.cuda.is_current_stream_capturing():
+--- /dev/null
++++ b/vllm/vllm/models/deepseek_v4_1/claude_engram_fault_inject.py
+@@ -0,0 +1,164 @@
++"""DIAGNOSTIC ONLY: one-shot Engram publication skip on exactly one TP rank.
++
++Installed as vllm/models/deepseek_v4_1/claude_engram_fault_inject.py in a
++diagnostic derivative of the router fence candidate (Engram repair lineage),
++never in the candidate itself. It tests fail-closed behavior, not numerics. DeepseekV4Model._start_engram_job asks should_skip() once per real
++disk-Engram job, on the main thread, before any CUDA work of that job is
++queued. When it returns True, that rank queues the reads and lookups as usual
++but does not queue _publish_engram_epoch, so its consumer times out after
++5000 ms, its flag rides the row all-reduce, every rank records the epoch, and
++rank 0 refuses the step in AsyncOutput.get_output.
++
++Arming, on the targeted host only, after the server is ready:
++  /cache/ds41-engram-fault-inject.json
++  {"token": "<8-64 of [a-z0-9-]>", "rank": 3, "node": "kirby", "min_tokens": 1024}
++
++It fires at most once per token and at most once per process, and only when
++ALL hold:
++  * the trigger was modified after this module was imported, so a trigger
++    left over from an earlier boot cannot fire during warmup;
++  * rank equals this worker's TP rank AND node equals DS41_NODE;
++  * the job has at least min_tokens rows, and min_tokens >= 171 so the
++    Engram row reduce (rows * 12288 bytes) exceeds RoCEnante's 2 MiB cap and
++    runs on NCCL, where the peers' 5 s wait cannot trip RoCEnante's
++    fail-stop instead;
++  * the receipt /cache/ds41-engram-fault-inject-<token>.consumed was
++    published atomically (fsynced temporary file, os.link to the final name,
++    directory fsync). It records the skipped epoch, which the rank-0 error
++    must repeat.
++Any error, invalid trigger, or failure to write the receipt returns False:
++the diagnostic never skips without a durable receipt.
++"""
++from __future__ import annotations
++
++import json
++import os
++import re
++import sys
++import time
++
++TRIGGER = '/cache/ds41-engram-fault-inject.json'
++RECEIPT_DIR = '/cache'
++MIN_TOKENS_FLOOR = 171            # 171 rows * 6144 * 2 bytes > 2 MiB RoCEnante cap
++TOKEN = re.compile(r'[a-z0-9][a-z0-9-]{7,63}\Z')
++KEYS = {'token', 'rank', 'node', 'min_tokens'}
++
++_IMPORTED_AT = time.time()
++_state = {'fired': False, 'noted': set()}
++
++
++def _log(message: str) -> None:
++    print('[DS41-ENGRAM-FAULT-INJECT] ' + message, file=sys.stderr, flush=True)
++
++
++def _note_once(key, message: str) -> None:
++    if key not in _state['noted']:
++        _state['noted'].add(key)
++        _log(message)
++
++
++def _tp_rank() -> int:
++    from vllm.distributed import get_tensor_model_parallel_rank
++    return get_tensor_model_parallel_rank()
++
++
++def receipt_path(token: str, receipt_dir: str = RECEIPT_DIR) -> str:
++    return os.path.join(receipt_dir, f'ds41-engram-fault-inject-{token}.consumed')
++
++
++def parse_trigger(text: str) -> dict:
++    spec = json.loads(text)
++    if not isinstance(spec, dict) or set(spec) != KEYS:
++        raise ValueError('trigger keys must be exactly ' + ','.join(sorted(KEYS)))
++    if not isinstance(spec['token'], str) or not TOKEN.match(spec['token']):
++        raise ValueError('token must be 8-64 characters of [a-z0-9-]')
++    for key in ('rank', 'min_tokens'):
++        if type(spec[key]) is not int or spec[key] < 0:
++            raise ValueError(key + ' must be a nonnegative integer')
++    if not isinstance(spec['node'], str) or not spec['node']:
++        raise ValueError('node must be a nonempty string')
++    if spec['min_tokens'] < MIN_TOKENS_FLOOR:
++        raise ValueError(f'min_tokens must be >= {MIN_TOKENS_FLOOR} (NCCL reduce path)')
++    return spec
++
++
++def _write_all(fd: int, data: bytes) -> None:
++    """os.write may write fewer bytes than asked; loop until all are written."""
++    view = memoryview(data)
++    while view:
++        written = os.write(fd, view)
++        if written <= 0:
++            raise OSError('receipt write made no progress')
++        view = view[written:]
++
++
++def _write_receipt(path: str, payload: dict) -> None:
++    """Publish a complete, fsynced receipt atomically or not at all.
++
++    The content goes to a private temporary file first; os.link() then
++    creates the final name and fails if it already exists, so a receipt is
++    never partial and a token can be consumed only once.
++    """
++    temporary = f'{path}.tmp-{os.getpid()}-{time.monotonic_ns()}'
++    fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
++    try:
++        try:
++            _write_all(fd, (json.dumps(payload, sort_keys=True) + '\n').encode())
++            os.fsync(fd)
++        finally:
++            os.close(fd)
++        os.link(temporary, path)
++    finally:
++        os.unlink(temporary)
++    directory = os.open(os.path.dirname(path) or '.', os.O_RDONLY)
++    try:
++        os.fsync(directory)
++    finally:
++        os.close(directory)
++
++
++def should_skip(epoch: int, tokens: int, *, trigger: str = TRIGGER, receipt_dir: str = RECEIPT_DIR,
++                rank: int | None = None, node: str | None = None,
++                imported_at: float | None = None) -> bool:
++    """Return True exactly once, after durably recording the skipped epoch."""
++    if _state['fired']:
++        return False
++    try:
++        try:
++            info = os.stat(trigger)
++        except FileNotFoundError:
++            return False
++        if info.st_mtime <= (_IMPORTED_AT if imported_at is None else imported_at):
++            _note_once(('stale', info.st_mtime), 'stale trigger ignored (older than this process)')
++            return False
++        with open(trigger, encoding='utf-8') as handle:
++            spec = parse_trigger(handle.read())
++        rank = _tp_rank() if rank is None else rank
++        node = os.environ.get('DS41_NODE', '') if node is None else node
++        if spec['rank'] != rank or spec['node'] != node:
++            _note_once(('other', spec['token']), f'armed for rank {spec["rank"]} on {spec["node"]}; '
++                                                 f'this is rank {rank} on {node}; not firing')
++            return False
++        if tokens < spec['min_tokens']:
++            return False
++        path = receipt_path(spec['token'], receipt_dir)
++        if os.path.exists(path):
++            _state['fired'] = True
++            _note_once(('consumed', spec['token']), 'token already consumed; not firing again')
++            return False
++        _write_receipt(path, {
++            'action': 'skip-engram-publication', 'token': spec['token'], 'epoch': int(epoch),
++            'tokens': int(tokens), 'rank': rank, 'node': node, 'pid': os.getpid(),
++            'wall_time': time.time(), 'monotonic_ns': time.monotonic_ns(),
++        })
++        _state['fired'] = True
++        _log(f'fired: skipped publication of epoch {epoch} ({tokens} rows) on rank {rank} '
++             f'{node}; receipt {path}')
++        return True
++    except FileExistsError:
++        _state['fired'] = True
++        _note_once(('consumed-race', epoch), 'receipt appeared concurrently; not firing')
++        return False
++    except Exception as error:  # the diagnostic must never skip without a receipt
++        _note_once(('error', type(error).__name__, str(error)), f'not firing: {error!r}')
++        return False

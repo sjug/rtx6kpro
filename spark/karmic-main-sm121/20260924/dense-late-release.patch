@@ -1,0 +1,23 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2764,10 +2764,6 @@
+                         0 if k_block_idx + 1 == num_k_blocks else k_block_idx + 1
+                     )
+ 
+-                    if k_block_idx == num_k_blocks - 1:
+-                        mainloop_pipeline.consumer_release(mainloop_consumer_state)
+-                        mainloop_consumer_state.advance()
+-
+                     if k_block_next > 0:
+                         if cutlass.const_expr(self.a16_block_transposed):
+                             cute.copy(smem_tiled_copy_B, tCsB_p[None, None, k_block_next],
+@@ -2858,6 +2854,9 @@
+                                 tile_coord_mnl,
+                                 k_tile_start + Int32(k_tile_iter_cnt - 1),
+                             )
++
++                mainloop_pipeline.consumer_release(mainloop_consumer_state)
++                mainloop_consumer_state.advance()
+ 
+                 if cutlass.const_expr(self.swap_ab):
+                     for acc_m in cutlass.range_constexpr(

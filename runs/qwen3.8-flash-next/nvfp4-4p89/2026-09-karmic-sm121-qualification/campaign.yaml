@@ -1,0 +1,24 @@
+campaign: 2026-09-karmic-sm121-qualification
+status: in_progress
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89
+revision: c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d
+hosts: [dusty, kirby]
+candidate_image_id: f30dc6d9a2a6f6fc0ac9ff8cddb04d9f631f4a87b48ca7cac69254802fe83233
+baseline: qualified R32 on the same pair
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+notes: >-
+  Fresh CUDA 13.4/Torch 2.14 ARM64 foundation and pinned Karmic beta sources.
+  No claim that either alone causes a performance change. Correctness precedes
+  timing. The existing run_bench.sh is used unchanged with RESULTS_REPO pointing
+  at rtx6kpro; neither benchmark source nor its separate results repository is
+  modified. Engine steps, acceptance and output throughput are reported separately.

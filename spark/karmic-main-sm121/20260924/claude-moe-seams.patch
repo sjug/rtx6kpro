@@ -1,0 +1,197 @@
+--- a/vllm/vllm/models/deepseek_v4_1/claude_act_trace.py
++++ b/vllm/vllm/models/deepseek_v4_1/claude_act_trace.py
+@@ -25,6 +25,26 @@
+ identically on every TP rank for every real or dummy step, so it is the
+ cross-rank step identity; the analyzer joins ranks on (arm, epoch) and
+ refuses mixed arms or sessions. A new arm token restarts `seq`.
++
++MoE seams (v2, "moe" key): a pattern list selecting DeepseekV4MoE runners
++(`layers.N.ffn.experts`, class MoERunner at vLLM 1794dcf1). For each selected
++runner, while armed, two instance attributes shadow the only two callsites in
++MoERunner.forward that bracket the rank-local partials and the collective:
++  self._forward_entry(...)            -> records NAME#shared and NAME#routed,
++                                         the custom op's (shared, fused) outputs;
++  self._maybe_reduce_final_output(s)  -> records NAME#pre_reduce (s, the combined
++                                         shared + routed input of the TP
++                                         all-reduce) and NAME#post_reduce (its
++                                         return value).
++The wrappers call the original objects with the original arguments and return
++their results unchanged; they only enqueue digests on the current (main)
++stream. #routed is the raw kernel output: the runner's routed_scaling_factor
++is 1.0 for DS4.1 (the factor is applied to the top-k weights), so nothing
++scales it in place before the combine. Disarming restores the original
++attributes (identity), so an unarmed runner is byte-for-byte the pinned code
++path. Arming is refused if any post, pre or moe pattern matches nothing, or a
++moe pattern selects a module without both callsites (the v1 kit silently
++ignored a pattern naming a method, not a module).
+ 
+ Default patterns are SPARSE checkpoints, to keep the added launches small
+ enough not to mask the race: the outputs of decoder layers 0, 1, 2, 8, 14,
+@@ -93,7 +113,7 @@
+ MAX_TOKENS_CAP = 2048
+ CAPACITY = 2048          # digests per step
+ SLOTS = 8                # steps in flight between the forward and the writer
+-KEYS = {'arm', 'min_tokens', 'max_tokens', 'post', 'pre'}
++KEYS = {'arm', 'min_tokens', 'max_tokens', 'post', 'pre', 'moe'}
+ ARM = re.compile(r'[a-z0-9][a-z0-9-]{7,63}\Z')
+ SPARSE_POST = ['layers.0', 'layers.1', 'layers.2', 'layers.8', 'layers.14', 'layers.19',
+                'layers.20', 'layers.39', 'layers.1.engram', 'layers.14.engram']
+@@ -106,13 +126,13 @@
+ def parse_config(text: str) -> dict:
+     spec = json.loads(text)
+     if not isinstance(spec, dict) or not set(spec) <= KEYS or not {'arm', 'min_tokens', 'max_tokens'} <= set(spec):
+-        raise ValueError('trigger needs arm, min_tokens and max_tokens; optional post and pre')
++        raise ValueError('trigger needs arm, min_tokens and max_tokens; optional post, pre and moe')
+     if not isinstance(spec['arm'], str) or not ARM.match(spec['arm']):
+         raise ValueError('arm must be 8-64 characters of [a-z0-9-]')
+     low, high = spec['min_tokens'], spec['max_tokens']
+     if type(low) is not int or type(high) is not int or not 1 <= low <= high <= MAX_TOKENS_CAP:
+         raise ValueError(f'require 1 <= min_tokens <= max_tokens <= {MAX_TOKENS_CAP}')
+-    for key in ('post', 'pre'):
++    for key in ('post', 'pre', 'moe'):
+         value = spec.setdefault(key, list(SPARSE_POST) if key == 'post' else [])
+         if not isinstance(value, list) or not all(isinstance(p, str) and p for p in value):
+             raise ValueError(key + ' must be a list of name patterns')
+@@ -232,6 +252,54 @@
+                 self.free[slot] = True
+ 
+ 
++SEAMS = ('#shared', '#routed', '#pre_reduce', '#post_reduce')
++
++
++class MoeSeams:
++    """Armed-only wrappers of the two MoERunner.forward callsites of one runner.
++
++    Refuses a module that is not an unwrapped runner: `_forward_entry` must be
++    an instance attribute (MoERunner.__init__ stores the selected custom op
++    there) and `_maybe_reduce_final_output` a class-level method not already
++    shadowed on the instance.
++    """
++
++    def __init__(self, tracer, name, runner):
++        entry = vars(runner).get('_forward_entry')
++        reduce = getattr(type(runner), '_maybe_reduce_final_output', None)
++        if (not callable(entry) or not callable(reduce) or getattr(entry, '_claude_seam', False)
++                or '_maybe_reduce_final_output' in vars(runner)):
++            raise ValueError(f'{name} does not expose both MoE runner callsites')
++        self.runner, self.entry = runner, entry
++        bound = runner._maybe_reduce_final_output
++
++        def forward_entry(*args, **kwargs):
++            result = entry(*args, **kwargs)
++            if tracer.active:
++                shared, routed = result if isinstance(result, tuple) else (None, result)
++                if isinstance(shared, torch.Tensor):
++                    tracer._record(name + '#shared', shared)
++                if isinstance(routed, torch.Tensor):
++                    tracer._record(name + '#routed', routed)
++            return result
++
++        def reduce_final_output(states, *args, **kwargs):
++            if tracer.active and isinstance(states, torch.Tensor):
++                tracer._record(name + '#pre_reduce', states)
++            result = bound(states, *args, **kwargs)
++            if tracer.active and isinstance(result, torch.Tensor):
++                tracer._record(name + '#post_reduce', result)
++            return result
++
++        forward_entry._claude_seam = reduce_final_output._claude_seam = True
++        runner._forward_entry = forward_entry
++        runner._maybe_reduce_final_output = reduce_final_output
++
++    def remove(self):
++        self.runner._forward_entry = self.entry
++        vars(self.runner).pop('_maybe_reduce_final_output', None)
++
++
+ class Tracer:
+     def __init__(self, model, *, transport=None, trigger=TRIGGER, out_dir=OUT_DIR, rank=None, node=None):
+         self.model, self.trigger, self.out_dir = model, trigger, out_dir
+@@ -239,6 +307,7 @@
+         self.rank, self.node = rank, node
+         self.session = f'{os.getpid()}-{uuid.uuid4().hex[:12]}'
+         self.config, self.mtime, self.handles = None, None, []
++        self.seams = 0
+         self.seq = self.dropped = 0
+         self.active = False
+         self.slot = self.count = 0
+@@ -257,9 +326,7 @@
+         if mtime == self.mtime:
+             return
+         self.mtime = mtime
+-        for handle in self.handles:
+-            handle.remove()
+-        self.handles = []
++        self._disarm()
+         if mtime is None:
+             self.config = None
+             return
+@@ -270,19 +337,49 @@
+             print(f'[DS41-ACT-TRACE] trigger ignored: {error!r}', flush=True)
+             self.config = None
+             return
+-        for name, module in self.model.named_modules():
+-            if not name:
+-                continue
+-            members = [member for base, member in map(split_member, config['post']) if matches(name, base)]
+-            if members:
+-                keep = None if None in members else set(members)
+-                self.handles.append(module.register_forward_hook(self._post(name, keep)))
+-            if any(matches(name, p) for p in config['pre']):
+-                self.handles.append(module.register_forward_pre_hook(self._pre(name)))
++        hits = {(key, p): 0 for key in ('post', 'pre', 'moe') for p in config[key]}
++        try:
++            for name, module in self.model.named_modules():
++                if not name:
++                    continue
++                members = []
++                for pattern in config['post']:
++                    base, member = split_member(pattern)
++                    if matches(name, base):
++                        hits['post', pattern] += 1
++                        members.append(member)
++                if members:
++                    keep = None if None in members else set(members)
++                    self.handles.append(module.register_forward_hook(self._post(name, keep)))
++                pre = [p for p in config['pre'] if matches(name, p)]
++                for pattern in pre:
++                    hits['pre', pattern] += 1
++                if pre:
++                    self.handles.append(module.register_forward_pre_hook(self._pre(name)))
++                moe = [p for p in config['moe'] if matches(name, p)]
++                for pattern in moe:
++                    hits['moe', pattern] += 1
++                if moe:
++                    self.handles.append(MoeSeams(self, name, module))
++                    self.seams += 1
++            unmatched = sorted(f'{key}:{p}' for (key, p), n in hits.items() if n == 0)
++            if unmatched:
++                raise ValueError(f'patterns match no hook site: {unmatched}')
++        except Exception as error:
++            self._disarm()
++            print(f'[DS41-ACT-TRACE] trigger refused: {error!r}', flush=True)
++            self.config = None
++            return
+         if self.config is None or self.config['arm'] != config['arm']:
+             self.seq = self.dropped = 0
+         self.config = config
+-        print(f'[DS41-ACT-TRACE] armed {config["arm"]}: {len(self.handles)} module hooks', flush=True)
++        print(f'[DS41-ACT-TRACE] armed {config["arm"]}: {len(self.handles) - self.seams} module hooks, '
++              f'{self.seams} MoE seam runners', flush=True)
++
++    def _disarm(self):
++        for handle in reversed(self.handles):
++            handle.remove()
++        self.handles, self.seams = [], 0
+ 
+     def _identity(self):
+         if self.rank is None:
+@@ -371,7 +468,7 @@
+         meta = {'type': 'step', 'arm': self.config['arm'], 'session': self.session,
+                 'epoch': self.epoch, 'rank': self.rank, 'node': self.node, 'pid': os.getpid(),
+                 'seq': self.seq, 'rows': self.rows, 'wall': self.wall, 'names': list(self.names),
+-                'dropped_before': self.dropped, 'overflow': self.overflow}
++                'dropped_before': self.dropped, 'overflow': self.overflow, 'seam_runners': self.seams}
+         self.transport.submit(self.slot, self.count, meta)
+ 
+ 

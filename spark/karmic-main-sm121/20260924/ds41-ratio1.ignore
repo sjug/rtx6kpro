@@ -1,0 +1,10 @@
+**
+!Dockerfile.ds41-ratio1
+!build_ratio1.py
+!claude_decode_sparse_mla.py
+!ds41-ratio1-attention.py
+!ds41_ratio1_install.py
+!ds41_ratio1_prepare.py
+!ds41_ratio1_smoke.py
+!test_ds41_ratio1.py
+!ds41-ratio1.lock.json

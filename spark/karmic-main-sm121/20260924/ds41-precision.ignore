@@ -1,0 +1,10 @@
+**
+!Dockerfile.ds41-precision
+!ds41-precision-gpu_worker-base.py
+!ds41-precision-gpu_worker.py
+!ds41-precision.patch
+!ds41_precision.py
+!ds41_precision_install.py
+!ds41_precision_prepare.py
+!test_ds41_precision.py
+!ds41-precision.lock.json

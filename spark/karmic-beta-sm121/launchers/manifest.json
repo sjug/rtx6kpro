@@ -1,0 +1,12 @@
+{
+  "serve-qwen38-flash-next-karmic-spark.sh": {
+    "source": "spark/glm53/r38-spark/launchers/serve-qwen38-flash-next-jj-r38-spark.sh",
+    "source_sha256": "cdaf64ded643ae677e04dac81ede0803851e89555f2583d0af7f612cf7ae6aee",
+    "sha256": "5551db04b4411d7c177466f956ef057ca10427316dba4a426cab41cdf56696fe"
+  },
+  "serve-glm53-flash-karmic-spark.sh": {
+    "source": "spark/glm53/r38-spark/launchers/serve-glm53-flash-jj-r38-spark.sh",
+    "source_sha256": "1014b0945ae23147e2dbd831d694df4efe40cf5db2f0525a3fd68fa114aa44e5",
+    "sha256": "3ca22e172d4efc8d5c3ce59fae9b3226b386079d9a4cadb51c1752ae760754a1"
+  }
+}

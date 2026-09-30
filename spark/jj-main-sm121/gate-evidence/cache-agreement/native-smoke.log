@@ -1,0 +1,17 @@
+NATIVE-IMPORT-PASS vllm._C_stable_libtorch /opt/jovian-judgement/vllm/vllm/_C_stable_libtorch.abi3.so
+NATIVE-IMPORT-PASS vllm._moe_C_stable_libtorch /opt/jovian-judgement/vllm/vllm/_moe_C_stable_libtorch.abi3.so
+NATIVE-IMPORT-PASS vllm._flashkda_C /opt/jovian-judgement/vllm/vllm/_flashkda_C.abi3.so
+NATIVE-IMPORT-PASS vllm._qutlass_C /opt/jovian-judgement/vllm/vllm/_qutlass_C.abi3.so
+NATIVE-IMPORT-PASS vllm.cumem_allocator /opt/jovian-judgement/vllm/vllm/cumem_allocator.abi3.so
+NATIVE-IMPORT-PASS vllm.spinloop /opt/jovian-judgement/vllm/vllm/spinloop.abi3.so
+NATIVE-IMPORT-PASS vllm.fs_io_C /opt/jovian-judgement/vllm/vllm/fs_io_C.abi3.so
+NATIVE-IMPORT-PASS vllm._rust_tool_parser /opt/jovian-judgement/vllm/vllm/_rust_tool_parser.abi3.so
+NATIVE-IMPORT-PASS vllm.vllm_flash_attn._vllm_fa2_C /opt/jovian-judgement/vllm/vllm/vllm_flash_attn/_vllm_fa2_C.abi3.so
+NATIVE-IMPORT-PASS vllm.vllm_flash_attn._vllm_fa3_C /opt/jovian-judgement/vllm/vllm/vllm_flash_attn/_vllm_fa3_C.abi3.so
+NATIVE-IMPORT-PASS lmcache.cuda_ops /opt/venv/lib/python3.12/site-packages/lmcache/cuda_ops.cpython-312-aarch64-linux-gnu.so
+NATIVE-IMPORT-PASS lmcache.lmcache_native /opt/venv/lib/python3.12/site-packages/lmcache/lmcache_native.cpython-312-aarch64-linux-gnu.so
+NATIVE-IMPORT-PASS lmcache.lmcache_fs /opt/venv/lib/python3.12/site-packages/lmcache/lmcache_fs.cpython-312-aarch64-linux-gnu.so
+NATIVE-IMPORT-PASS lmcache.lmcache_redis /opt/venv/lib/python3.12/site-packages/lmcache/lmcache_redis.cpython-312-aarch64-linux-gnu.so
+ELF file    1: _flashkda_C.abi3.1.sm_121a.cubin
+
+JJ-MAIN-RUNTIME-NATIVE-SMOKE-PASS

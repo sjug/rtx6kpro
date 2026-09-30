@@ -1,0 +1,492 @@
+diff -ruN a/distribute_diagnostic.py b/distribute_diagnostic.py
+--- a/distribute_diagnostic.py	2026-09-26 19:36:54.429266539 -0400
++++ b/distribute_diagnostic.py	2026-09-26 19:39:09.856382336 -0400
+@@ -10,6 +10,7 @@
+ REMOTE = '/home/jugs/git/ds41-r38/karmic-main-20260924'
+ KINDS = {'decision-row': 'claude-decision-row',
+          'precision': 'ds41-precision',
++         'precision-release': 'ds41-precision-release',
+          'indexer': 'ds41-indexer',
+          'window': 'claude-window',
+          'engram-fault': 'claude-engram-fault-inject'}
+diff -ruN a/precision_release_boots.py b/precision_release_boots.py
+--- a/precision_release_boots.py	1969-12-31 19:00:00.000000000 -0500
++++ b/precision_release_boots.py	2026-09-26 19:38:15.052890627 -0400
+@@ -0,0 +1,136 @@
++"""Independent two-boot record of the original 524K retrieval, and descriptive parent timing.
++
++record  (on a serving release boot, under run_observed.py): identity snapshot with the
++        release gates, the unchanged qualify_original_needle.py (three cold trials), identity
++        snapshot again. The full qualification's own original-524k result is boot A; a
++        second cold boot recorded here is boot B.
++compare (local, no node contact): each boot must pass on its own (all trials correct and
++        identical within the boot), both on the same image, kit and lock, and on different
++        containers with different start times on every rank. Cross-boot signature equality
++        and all timing against the router parent's existing receipts are reported, never
++        required, and no parent model run is needed.
++"""
++import argparse
++import hashlib
++import json
++from pathlib import Path
++import statistics
++import subprocess
++import sys
++
++import precision_release as release
++
++ROOT = Path(__file__).resolve().parent
++INPUT = ROOT.parents[1] / 'ds41/r38/receipts/20260916/admission-k7-1m-u80/needle-524288-input.json'
++PARENT_GATES = ROOT / 'receipts/router-b2-full-qualification-20260926/gates'
++
++
++def signature(trial):
++    choice = trial['response']['choices'][0]
++    payload = {key: choice[key] for key in ('message', 'finish_reason', 'logprobs')}
++    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
++
++
++def boot(directory):
++    """Identity and original-524k result of a record directory or a full qualification gates directory."""
++    directory = Path(directory)
++    identity_dir = next(d for d in (directory, directory / 'correctness')
++                        if (d / 'dusty-identity-before.json').is_file())
++    needle = next(d for d in (directory / 'original-524k', directory / 'correctness/original-524k')
++                  if (d / 'report.json').is_file())
++    identities = {}
++    for node in release.NODES:
++        info = json.loads((identity_dir / f'{node}-identity-before.json').read_text())[0]
++        identities[node] = {'Id': info['Id'], 'StartedAt': info['State']['StartedAt'],
++                            'Image': info['Image'].removeprefix('sha256:'),
++                            'kit': info['Config']['Labels'].get('local-inference.ds41.kit.sha256')}
++    report = json.loads((needle / 'report.json').read_text())
++    trials = [json.loads((needle / f'{row["repeat"]}.json').read_text()) for row in report]
++    return {'path': str(directory), 'identities': identities, 'report': report,
++            'signatures': [signature(t) for t in trials]}
++
++
++def compare(a, b, parent=PARENT_GATES):
++    boots = [boot(a), boot(b)]
++    for item in boots:
++        if len(item['report']) < 3 or not all(r['correct'] and r['identical'] and r['cached_tokens'] == 0
++                                              for r in item['report']):
++            raise RuntimeError('A boot did not pass the original retrieval on its own: ' + item['path'])
++        if len(set(item['signatures'])) != 1:
++            raise RuntimeError('Signatures differ within one boot: ' + item['path'])
++    for node in release.NODES:
++        left, right = boots[0]['identities'][node], boots[1]['identities'][node]
++        if (left['Image'], left['kit']) != (right['Image'], right['kit']):
++            raise RuntimeError('Boots differ in image or kit on ' + node)
++        if left['Id'] == right['Id'] or left['StartedAt'] == right['StartedAt']:
++            raise RuntimeError('Not two independent boots on ' + node)
++    parent_report = json.loads((parent / 'correctness/original-524k/report.json').read_text())
++    return {'scope': 'two independent release boots of the unchanged original 524K gate; '
++                     'cross-boot equality and timing are descriptive only',
++            'boots': [{k: v for k, v in item.items() if k != 'report'} | {
++                'elapsed_s': [r['elapsed_s'] for r in item['report']]} for item in boots],
++            'cross_boot_signature_equal': boots[0]['signatures'][0] == boots[1]['signatures'][0],
++            'parent_original_524k_elapsed_s': [r['elapsed_s'] for r in parent_report],
++            'parent_original_524k_correct': [r['correct'] for r in parent_report]}
++
++
++def stress_timing(release_gates, parent=PARENT_GATES):
++    """Median request and server seconds per length, release against the parent's 1100-request stress."""
++    def medians(path):
++        records = json.loads((Path(path) / 'residual-stress/records.json').read_text())
++        lengths = sorted({r['length'] for r in records})
++        return {n: {'elapsed_s': statistics.median(r['elapsed_s'] for r in records if r['length'] == n),
++                    'server_s': statistics.median(r['server_seconds'] for r in records if r['length'] == n)}
++                for n in lengths}
++    left, right = medians(parent), medians(release_gates)
++    if set(left) != set(right):
++        raise RuntimeError('Stress length sets differ')
++    return {'scope': 'cross-boot, same request set and profile; descriptive, not a gate',
++            'per_length': {n: {'parent': left[n], 'release': right[n],
++                               'release_over_parent_elapsed': right[n]['elapsed_s'] / left[n]['elapsed_s']}
++                           for n in left}}
++
++
++def record(out):
++    from qualify_engram_repair import snapshot
++    out.mkdir(parents=True, exist_ok=False)
++    before = snapshot(out, 'before', release.KIND)
++    command = [sys.executable, '-u', str(ROOT / 'qualify_original_needle.py'), '--input', str(INPUT),
++               '--out', str(out / 'original-524k'), '--repeats', '3']
++    (out / 'original-524k-command.json').write_text(json.dumps({'command': command, 'script_sha256':
++        hashlib.sha256((ROOT / 'qualify_original_needle.py').read_bytes()).hexdigest()}, indent=2) + '\n')
++    with (out / 'original-524k.log').open('x') as log:
++        code = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT).returncode
++    after = snapshot(out, 'after', release.KIND)
++    if after != before:
++        raise RuntimeError('Serving identity changed during the boot record')
++    if code or 'ORIGINAL-NEEDLE-PASS' not in (out / 'original-524k.log').read_text().splitlines():
++        raise SystemExit('PRECISION-RELEASE-BOOT-FAIL: original retrieval did not pass on this boot')
++    print('PRECISION-RELEASE-BOOT-RECORDED', out, flush=True)
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    sub = parser.add_subparsers(dest='command', required=True)
++    r = sub.add_parser('record')
++    r.add_argument('--out', type=Path, required=True)
++    c = sub.add_parser('compare')
++    c.add_argument('--boot-a', type=Path, required=True, help='full qualification gates directory')
++    c.add_argument('--boot-b', type=Path, required=True, help='second-boot record directory')
++    c.add_argument('--release-gates', type=Path, help='release gates directory with residual-stress')
++    c.add_argument('--out', type=Path, required=True)
++    a = parser.parse_args()
++    if a.command == 'record':
++        record(a.out)
++        return
++    result = compare(a.boot_a, a.boot_b)
++    if a.release_gates:
++        result['residual_stress_timing'] = stress_timing(a.release_gates)
++    with a.out.open('x') as stream:
++        stream.write(json.dumps(result, indent=2, sort_keys=True) + '\n')
++    print('PRECISION-RELEASE-TWO-BOOT-PASS', json.dumps({'cross_boot_signature_equal': result['cross_boot_signature_equal']}),
++          flush=True)
++
++
++if __name__ == '__main__':
++    main()
+diff -ruN a/precision_release.py b/precision_release.py
+--- a/precision_release.py	1969-12-31 19:00:00.000000000 -0500
++++ b/precision_release.py	2026-09-26 19:37:16.971936295 -0400
+@@ -0,0 +1,119 @@
++"""Identity rules for the precision release candidate (host side; no node contact here).
++
++The candidate is the router stage-release parent plus the worker-wide BF16 reduced-precision
++disable (ds41-precision-release.lock.json). It is selected only over the exact router parent
++pin and restored only to that exact pin. Serving it uses the normal profile: no fixed KV,
++chunking, or NCCL diagnostic overrides; deterministic MoE on, dense split-K turbo off; and one
++precision marker per worker rank, checked with the capture driver's reviewed rule.
++"""
++import hashlib
++import json
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parent
++KIND = 'precision-release-candidate'
++PARENT_KIND = 'router-stage-release-candidate'
++STEM = 'ds41-precision-release'
++RECEIPT = 'receipts/precision-release-build-receipt.json'
++NODES = ('dusty', 'toby', 'rusty', 'kirby')
++# Every diagnostic control any earlier arm could leave in a container environment.
++DIAGNOSTIC_ENV = ('DS41_DECISION_ROW_BLOCKS', 'DS41_PREFILL_THRESHOLD', 'DS41_CHUNKING_BLOCKS',
++                  'DS41_NCCL_GEOMETRY', 'DS41_NCCL_ARM', 'DS41_ROUTER_CONTROL_BLOCKS',
++                  'NCCL_ALGO', 'NCCL_PROTO', 'NCCL_MIN_NCHANNELS', 'NCCL_MAX_NCHANNELS',
++                  'VLLM_DS41_L2_PREFETCH', 'CUDA_MODULE_LOADING')
++REQUIRED_ENV = {'B12X_DYNAMIC_DETERMINISTIC_OUTPUT': '1', 'B12X_DENSE_SPLITK_TURBO': '0'}
++
++
++def sha(data):
++    return hashlib.sha256(data).hexdigest()
++
++
++def load_lock(root=ROOT):
++    raw = (root / (STEM + '.lock.json')).read_bytes()
++    return json.loads(raw), sha(raw)
++
++
++def router_pin_matches(pin, root=ROOT):
++    """The exact router parent pin: its kind, lock, trees and gated build image."""
++    raw = (root / 'router-release.lock.json').read_bytes()
++    router = json.loads(raw)
++    build = json.loads((root / 'receipts/router-release-build-receipt.json').read_text())
++    diagnostic = pin.get('diagnostic', {})
++    return (pin.get('image_id') == build['image_id'] and build['lock_sha256'] == sha(raw)
++            and diagnostic.get('kind') == PARENT_KIND and diagnostic.get('lock_sha256') == sha(raw)
++            and diagnostic.get('vllm_tree') == router['trees']['vllm']
++            and diagnostic.get('b12x_tree') == router['trees']['b12x'] and 'diagnostic_overlay' not in pin)
++
++
++def validate_build(pin, root=ROOT):
++    """The pinned image is the gated release build of the current lock."""
++    lock, digest = load_lock(root)
++    build = json.loads((root / RECEIPT).read_text())
++    directory = root / 'receipts' / Path(build['directory']).name
++    if (build['lock_sha256'] != digest or pin.get('image_id') != build['image_id']
++            or (directory / 'BUILD-OK').read_text().strip() != build['image_id']):
++        raise RuntimeError('Release pin differs from the gated build of the current lock')
++    diagnostic = pin.get('diagnostic', {})
++    if (diagnostic.get('kind') != KIND or diagnostic.get('lock_sha256') != digest
++            or diagnostic.get('vllm_tree') != lock['trees']['vllm']
++            or diagnostic.get('b12x_tree') != lock['trees']['b12x'] or 'diagnostic_overlay' in pin):
++        raise RuntimeError('Release pin identity differs from the lock')
++    return lock, digest, build
++
++
++def candidate(parent, root=ROOT):
++    """Release pin derived from the exact router parent pin; every other field unchanged."""
++    if not router_pin_matches(parent, root):
++        raise RuntimeError('Release selection must start from the exact router parent pin')
++    lock, digest = load_lock(root)
++    build = json.loads((root / RECEIPT).read_text())
++    if lock['base_image_id'] != parent['image_id'] or build['lock_sha256'] != digest:
++        raise RuntimeError('Release lock or build is not based on the current router parent')
++    result = dict(parent, image_id=build['image_id'])
++    result['diagnostic'] = {'kind': KIND, 'lock_sha256': digest,
++                            'vllm_tree': lock['trees']['vllm'], 'b12x_tree': lock['trees']['b12x']}
++    validate_build(result, root)
++    return result
++
++
++def restored(amendment, current, manifest, root=ROOT):
++    """The exact router parent recorded when the release was selected, and nothing else."""
++    if current != amendment['candidate'] or manifest != amendment['manifest']:
++        raise RuntimeError('Current runtime differs from the release amendment')
++    if current.get('diagnostic', {}).get('kind') != KIND:
++        raise RuntimeError('Current pin is not the release candidate')
++    parent, prior = amendment['prior_candidate'], amendment['prior_manifest']
++    if not router_pin_matches(parent, root):
++        raise RuntimeError('Restoration target is not the exact router parent')
++    if sha((json.dumps(parent, sort_keys=True, indent=2) + '\n').encode()) != prior['candidate.json']:
++        raise RuntimeError('Prior candidate digest differs')
++    if {k: v for k, v in prior.items() if k != 'candidate.json'} != {
++            k: v for k, v in manifest.items() if k != 'candidate.json'}:
++        raise RuntimeError('Restoration would change other runtime files')
++    skip = {'image_id', 'diagnostic'}
++    if {k: v for k, v in parent.items() if k not in skip} != {k: v for k, v in current.items() if k not in skip}:
++        raise RuntimeError('Restoration would change more than image and source identity')
++    return parent, prior
++
++
++def expected_labels(pin, lock):
++    return {'local-inference.ds41.diagnostic.kind': KIND,
++            'local-inference.ds41.diagnostic.lock.sha256': pin['diagnostic']['lock_sha256'],
++            'local-inference.ds41.release.base-image': lock['base_image_id'],
++            'local-inference.ds41.release.base-lock.sha256': lock['base_lock_sha256'],
++            'local-inference.ds41.release.precision-lock.sha256': lock['precision_lock_sha256'],
++            'local-inference.cache.fingerprint': lock['cache_fingerprint'],
++            'local-inference.status': lock['status'],
++            'vllm.source-tree': pin['diagnostic']['vllm_tree'], 'b12x.source-tree': pin['diagnostic']['b12x_tree']}
++
++
++def environment_problems(env):
++    """Normal serving profile: no diagnostic control present, the two repaired settings exact."""
++    problems = [f'diagnostic control present: {k}' for k in DIAGNOSTIC_ENV if k in env]
++    problems += [f'{k} is not {v}' for k, v in REQUIRED_ENV.items() if env.get(k) != v]
++    return problems
++
++
++def marker_problems(log, node):
++    from claude_run_decision_capture import check_precision_marker
++    return check_precision_marker(log, NODES.index(node))
+diff -ruN a/qualify_dense_release.py b/qualify_dense_release.py
+--- a/qualify_dense_release.py	2026-09-26 19:36:54.432675815 -0400
++++ b/qualify_dense_release.py	2026-09-26 19:39:09.856616688 -0400
+@@ -14,7 +14,7 @@
+ args.out.mkdir(parents=True, exist_ok=False)
+ pin = json.loads((root / 'candidate.json').read_text())
+ digest = kit_digest()
+-if pin.get('diagnostic', {}).get('kind') not in ('dense-release-fence', 'compressor-ring-mapping-fix', 'engram-prequeued-native-io-fix', 'router-stage-release-candidate') or 'diagnostic_overlay' in pin:
++if pin.get('diagnostic', {}).get('kind') not in ('dense-release-fence', 'compressor-ring-mapping-fix', 'engram-prequeued-native-io-fix', 'router-stage-release-candidate', 'precision-release-candidate') or 'diagnostic_overlay' in pin:
+     raise RuntimeError('Not the uninstrumented dense release candidate')
+ def inspect_node(node, phase):
+     raw = subprocess.check_output(['ssh', '-o', 'BatchMode=yes', node,
+diff -ruN a/qualify_engram_repair.py b/qualify_engram_repair.py
+--- a/qualify_engram_repair.py	2026-09-26 19:36:54.431612317 -0400
++++ b/qualify_engram_repair.py	2026-09-26 19:39:09.856678665 -0400
+@@ -55,6 +55,9 @@
+         validate_router_build(pin,
+             json.loads((ROOT / 'receipts/router-release-build-receipt.json').read_text()),
+             (ROOT / 'router-release.lock.json').read_bytes())
++    if expected_kind == 'precision-release-candidate':
++        import precision_release
++        precision_release.validate_build(pin, ROOT)
+     digest = kit_digest()
+     result = {}
+     for node in NODES:
+@@ -64,6 +67,16 @@
+         expected = render(node)['env'] | {
+             'B12X_DYNAMIC_DETERMINISTIC_OUTPUT': '1', 'B12X_DENSE_SPLITK_TURBO': '0'}
+         result[node] = validate_identity(json.loads(raw)[0], pin['image_id'], digest, expected)
++        if expected_kind == 'precision-release-candidate':
++            info = json.loads(raw)[0]
++            problems = precision_release.environment_problems(
++                dict(item.split('=', 1) for item in info['Config']['Env']))
++            marker = subprocess.check_output(['ssh', '-o', 'BatchMode=yes', node,
++                'podman logs ds41-flash-karmic-main-tp4 2>&1 | grep -F DS41-PRECISION-APPLIED || true'], text=True)
++            (out / f'{node}-precision-marker-{phase}.log').write_text(marker)
++            problems += precision_release.marker_problems(marker, node)
++            if problems:
++                raise RuntimeError(f'{node}: ' + '; '.join(problems))
+     return result
+ 
+ 
+@@ -102,7 +115,11 @@
+     parser = argparse.ArgumentParser()
+     parser.add_argument('--out', type=Path, required=True)
+     parser.add_argument('--router-fence', action='store_true', help='Require the reviewed uninstrumented router-fence candidate')
++    parser.add_argument('--precision-release', action='store_true',
++                        help='Require the gated precision release candidate on the normal profile')
+     args = parser.parse_args()
++    if args.router_fence and args.precision_release:
++        parser.error('Choose one candidate kind')
+     args.out.mkdir(parents=True, exist_ok=False)
+ 
+     def run(script, options, marker, label):
+@@ -123,7 +140,8 @@
+         if code or marker not in (args.out / f'{label}.log').read_text().splitlines():
+             raise RuntimeError('Gate failed: ' + label)
+ 
+-    kind = 'router-stage-release-candidate' if args.router_fence else 'engram-prequeued-native-io-fix'
++    kind = ('router-stage-release-candidate' if args.router_fence else
++            'precision-release-candidate' if args.precision_release else 'engram-prequeued-native-io-fix')
+     (args.out / 'driver.json').write_text(json.dumps({
+         'kind': kind, 'script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+         'candidate_sha256': hashlib.sha256((ROOT / 'candidate.json').read_bytes()).hexdigest(),
+diff -ruN a/select_precision_release.py b/select_precision_release.py
+--- a/select_precision_release.py	1969-12-31 19:00:00.000000000 -0500
++++ b/select_precision_release.py	2026-09-26 19:37:39.426305502 -0400
+@@ -0,0 +1,78 @@
++"""Pin the gated precision release over the exact router parent, or restore that exact parent.
++
++Selection requires the current pin to be the router parent (kind, lock, trees, gated image),
++every runtime file to match its manifest, and all four nodes idle with the release image
++carrying the lock's labels. Only candidate.json and its manifest entry change; an amendment
++records both sides. --restore takes that amendment and returns the exact router pin.
++Launch profile, contract and every other runtime file are untouched.
++"""
++import argparse
++import datetime
++import hashlib
++import json
++from pathlib import Path
++
++import precision_release as release
++from build_activation_trace import idle, ssh
++
++ROOT = Path(__file__).resolve().parent
++
++
++def check_manifest(manifest, root=ROOT):
++    for name, expected in manifest.items():
++        if Path(name).name != name or hashlib.sha256((root / name).read_bytes()).hexdigest() != expected:
++            raise RuntimeError('Runtime file drift: ' + name)
++
++
++def plan(current, manifest, amendment=None, root=ROOT):
++    """(new pin, updated manifest, expected image labels) without touching nodes or files."""
++    check_manifest(manifest, root)
++    if amendment is None:
++        pin = release.candidate(current, root)
++        lock, _, _ = release.validate_build(pin, root)
++        labels = release.expected_labels(pin, lock)
++        prior = None
++    else:
++        pin, prior = release.restored(amendment, current, manifest, root)
++        labels = {'local-inference.ds41.diagnostic.kind': release.PARENT_KIND,
++                  'local-inference.ds41.diagnostic.lock.sha256': pin['diagnostic']['lock_sha256'],
++                  'vllm.source-tree': pin['diagnostic']['vllm_tree'],
++                  'b12x.source-tree': pin['diagnostic']['b12x_tree']}
++    payload = json.dumps(pin, sort_keys=True, indent=2) + '\n'
++    updated = dict(manifest, **{'candidate.json': hashlib.sha256(payload.encode()).hexdigest()})
++    if prior is not None and updated != prior:
++        raise RuntimeError('Restored manifest differs from the recorded router parent')
++    return pin, payload, updated, labels
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--restore', type=Path, help='release amendment to reverse exactly')
++    args = parser.parse_args()
++    current = json.loads((ROOT / 'candidate.json').read_text())
++    manifest = json.loads((ROOT / 'runtime-files.json').read_text())
++    amendment = json.loads(args.restore.read_text()) if args.restore else None
++    pin, payload, updated, labels = plan(current, manifest, amendment)
++    idle()
++    for node in release.NODES:
++        info = json.loads(ssh(node, 'podman image inspect ' + pin['image_id']))[0]
++        if info['Id'].removeprefix('sha256:') != pin['image_id']:
++            raise RuntimeError('Wrong image on ' + node)
++        for key, value in labels.items():
++            if info['Config']['Labels'].get(key) != value:
++                raise RuntimeError('Image label differs on ' + node + ': ' + key)
++    stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
++    name = ('precision-release-restore-' if args.restore else 'precision-release-') + stamp + '-amendment.json'
++    with (ROOT / name).open('x') as stream:
++        stream.write(json.dumps({'prior_candidate': current, 'prior_manifest': manifest,
++                                 'candidate': pin, 'manifest': updated,
++                                 'scope': ('restore exact router parent' if args.restore else
++                                           'precision release candidate, normal profile; not qualified')},
++                                indent=2) + '\n')
++    (ROOT / 'candidate.json').write_text(payload)
++    (ROOT / 'runtime-files.json').write_text(json.dumps(updated, sort_keys=True, indent=2) + '\n')
++    print('ROUTER-PARENT-RESTORED' if args.restore else 'PRECISION-RELEASE-PINNED', pin['image_id'], flush=True)
++
++
++if __name__ == '__main__':
++    main()
+diff -ruN a/start_moe_repaired.py b/start_moe_repaired.py
+--- a/start_moe_repaired.py	2026-09-26 19:36:54.430416650 -0400
++++ b/start_moe_repaired.py	2026-09-26 19:39:09.856599566 -0400
+@@ -13,7 +13,7 @@
+ NODES = ('toby', 'rusty', 'kirby', 'dusty')
+ NAME = 'ds41-flash-karmic-main-tp4'
+ parser = argparse.ArgumentParser()
+-parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'engram-fault'), default='moe-control-repaired')
++parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault'), default='moe-control-repaired')
+ parser.add_argument('--lengths', default='256,513,514,1024,16384')
+ parser.add_argument('--cuda-module-loading', choices=('LAZY', 'EAGER'))
+ parser.add_argument('--ops-trace', action='store_true', help='After the short repro, collect the reviewed diagnostic operator traces')
+@@ -49,6 +49,9 @@
+     parser.error('Chunking threshold requires clean router-fence or the reviewed matched capture')
+ if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision'):
+     parser.error('The 80927 block pin is restricted to the decision-row diagnostic')
++if args.arm == 'precision-release' and (args.decision_row_blocks or args.prefill_threshold or args.nccl_geometry
++                                        or args.nccl_arm or args.ops_trace or args.cuda_module_loading):
++    parser.error('The precision release runs the normal profile only: no KV, chunking, NCCL or trace controls')
+ if args.cuda_module_loading and args.arm != 'engram-timing':
+     parser.error('Loading-policy control is restricted to the timing diagnostic')
+ if (args.trace_pairs or args.dense_replay) and not args.ops_trace:
+@@ -66,7 +69,7 @@
+ print('RECEIPTS', out, flush=True)
+ (out / 'launch-options.json').write_text(json.dumps(vars(args), indent=2) + '\n')
+ digest = kit_digest()
+-if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'engram-fault'):
++if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault'):
+     pin = json.loads((ROOT / 'candidate.json').read_text())
+     kind = {'dense-release': 'dense-release-fence', 'stale-probe': 'stale-state-probe',
+             'ring-fix': 'compressor-ring-mapping-fix',
+@@ -80,6 +83,7 @@
+             'window': 'window-capture',
+             'indexer': 'indexer-capture',
+             'precision': 'precision-capture',
++            'precision-release': 'precision-release-candidate',
+             'engram-fault': 'engram-fault-inject'}[args.arm]
+     if pin.get('diagnostic', {}).get('kind') != kind or 'diagnostic_overlay' in pin or args.ops_trace:
+         raise RuntimeError('Wrong image or overlay for ' + args.arm)
+@@ -106,12 +110,12 @@
+         overrides += ' DS41_NCCL_ARM=' + args.nccl_arm
+     if args.cuda_module_loading:
+         overrides += ' CUDA_MODULE_LOADING=' + args.cuda_module_loading
+-    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'engram-fault'):
++    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault'):
+         overrides += ' B12X_DENSE_SPLITK_TURBO=0'
+     if args.arm == 'combined-prefetch-off':
+         overrides += ' VLLM_DS41_L2_PREFETCH=0'
+     # Clear remote-shell overrides before applying the explicit repaired profile.
+-    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'engram-fault') else 'env'
++    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'engram-fault') else 'env'
+     clean += ' -u DS41_DECISION_ROW_BLOCKS'
+     clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY -u DS41_NCCL_ARM'
+     return f'cd {REMOTE} && {clean} {overrides} python3 run_node.py --node {node}'
+@@ -135,6 +139,17 @@
+                                    stdout=stream, stderr=subprocess.STDOUT)
+         observers.append((node, process, stream))
+     subprocess.run([sys.executable, str(ROOT / 'watch-startup.py'), str(out)], check=True)
++    if args.arm == 'precision-release':
++        # One reviewed marker per worker rank, before any request reaches the release boot.
++        import precision_release
++        for node in NODES:
++            marker = subprocess.run(['ssh', '-o', 'BatchMode=yes', node,
++                                     f'podman logs {NAME} 2>&1 | grep -F DS41-PRECISION-APPLIED || true'],
++                                    text=True, capture_output=True, check=True, timeout=60).stdout
++            (out / f'{node}-precision-marker.log').write_text(marker)
++            if precision_release.marker_problems(marker, node):
++                raise RuntimeError(f'{node}: missing, duplicate or incorrect worker precision marker')
++        print('PRECISION-RELEASE-MARKERS-PASS', flush=True)
+     repro = subprocess.run([sys.executable, str(ROOT / 'probe_repeatability.py'),
+                     '--corpus', str(ROOT / 'receipts/determinism-corpus.json'),
+                     '--out', str(out / 'repeatability'), '--lengths', args.lengths,

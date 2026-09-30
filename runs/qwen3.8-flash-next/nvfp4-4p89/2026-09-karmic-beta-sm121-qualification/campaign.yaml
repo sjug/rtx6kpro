@@ -1,0 +1,38 @@
+campaign: 2026-09-karmic-beta-sm121-qualification
+status: completed_promoted
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89
+revision: c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d
+hosts: [dusty, kirby]
+candidate_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+publication: karmic-kraken-beta-20260929-7476365edc3d8ee5
+sources:
+  vllm: 99cbe782f3b67a7758a85bcc0e7938a1ec27012a
+  b12x: 1b6cd278626aa6b44c519b5d9f4ad576c9af783b
+kit: spark/karmic-beta-sm121/20260929
+baseline: serving a25bedd43581dffecca2f9eefb40e60b170af6ae19124fef1c292850b2a0483e (qsa865-hcbase) grids r01/r02 in 2026-09-karmic-main-sm121-qualification; no new control boot
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  hc_tp: 0
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+notes: >-
+  Full Karmic beta sources as a tracked refresh of SM121 base 1a7a8acf; natives
+  reused and proven unchanged. Declared deviations: Rust DSML parser at base bytes,
+  LMCache at base 413ac987. New cache namespace, so the first boot tuned cold.
+  Correctness battery, counting, head-of-line, concurrency probes and private
+  replay passed before timing. Unchanged run_bench.sh with RESULTS_REPO pointing
+  to rtx6kpro; no edits to the benchmark repository. Report engine steps,
+  acceptance, output throughput, prefill, KV capacity and startup/runtime health
+  separately. Startup NV_ERR_NO_MEMORY bursts on both nodes, as on a25bedd4.
+  Result: correctness, counting, replay and two grids passed; vs a25bedd4 mean-of-two, steps/s
+  +0.1/+0.2/+1.1 percent and output +2.2/-0.3/+0.2 percent at c1/c2/c4, prefill -0.2 to -1.0 percent,
+  KV -1.2 percent. No kernel events during grids. Parity, single boot. See
+  spark/karmic-beta-sm121/20260929/QUALIFICATION.md.
+  Promoted to production by the user on 2026-09-29; previous containers retained stopped for rollback.

@@ -1,0 +1,418 @@
+--- a/vllm/vllm/models/deepseek_v4_1/nvidia/model.py
++++ b/vllm/vllm/models/deepseek_v4_1/nvidia/model.py
+@@ -9,6 +9,8 @@
+ import torch
+ import torch.nn as nn
+ from b12x.sequence import engram as engram_native
++# DIAGNOSTIC ONLY: activation digests of eager prefill steps.
++import vllm.models.deepseek_v4_1.claude_act_trace as _act_trace
+ 
+ import vllm.envs as envs
+ from vllm.config import VllmConfig
+@@ -503,6 +505,9 @@
+             )
+         else:
+             self._mtp_hidden_buffer = None
++        # DIAGNOSTIC ONLY: two step hooks; module hooks exist only while the
++        # /cache/ds41-act-trace.json trigger is present.
++        _act_trace.install(self)
+ 
+     def _engram_stream(self) -> torch.cuda.Stream:
+         stream = getattr(self, "_engram_side_stream", None)
+--- /dev/null
++++ b/vllm/vllm/models/deepseek_v4_1/claude_act_trace.py
+@@ -0,0 +1,394 @@
++"""DIAGNOSTIC ONLY: per-rank, per-module activation digests of eager prefill steps.
++
++Installed as vllm/models/deepseek_v4_1/claude_act_trace.py in a diagnostic
++derivative of the Engram repair candidate; DeepseekV4Model.__init__ calls
++install(self) once. Nothing runs until the trigger file exists.
++
++Purpose: localize a rare (about 1-3 percent), timing-correlated prefill
++divergence without full tensor snapshots. For each traced step every rank
++records, in call order, a 2-lane integer digest of each hooked tensor:
++  lane 0 = sum of the tensor's raw 32-bit words (16/8-bit for odd sizes),
++  lane 1 = sum of word * ((index mod 65521) + 1),
++both in int64 with wraparound. Integer addition is associative, so the digest
++of identical bytes is identical regardless of reduction order, and any
++single-word change alters lane 0. claude_act_analyze.py then derives, per
++(rank, step key), the modal digest vector and the first diverging module of
++every non-modal step, aligned across ranks by step sequence.
++
++Arming (write the SAME content on every node, after readiness; re-read when
++the file's mtime changes):
++  /cache/ds41-act-trace.json
++  {"arm": "<8-64 of [a-z0-9-]>", "min_tokens": 100, "max_tokens": 1100,
++   "post": [...optional...], "pre": [...optional...]}
++Every record carries the arm token, a per-process session id, and the
++target model's Engram epoch at the start of the step. The epoch advances
++identically on every TP rank for every real or dummy step, so it is the
++cross-rank step identity; the analyzer joins ranks on (arm, epoch) and
++refuses mixed arms or sessions. A new arm token restarts `seq`.
++
++Default patterns are SPARSE checkpoints, to keep the added launches small
++enough not to mask the race: the outputs of decoder layers 0, 1, 2, 8, 14,
++19, 20 and 39 (all five carried tensors) and of the two Engram modules, plus
++the model output. Refine around a first divergence with explicit patterns.
++"post" patterns digest module outputs (a ":k" suffix selects tuple member k
++only); "pre" patterns digest module inputs.
++
++Call path at 1794dcf1 (source-verified): the DS4.1 target model is not
++torch.compile'd (vLLM logs that the model does not support it), so prefill
++steps above the 32-token FULL-graph sizes run eagerly and piecewise
++compilation does not apply. DeepseekV4Model is called through Module.__call__
++by the causal-LM wrapper; layers through layer(...); attention, FFN and
++Engram through self.attn(...), self.ffn(...) and self.engram(...), so their
++hooks run. attn.wo_a/wo_b are NOT invoked as modules: their weights are
++packed into a fused WO projection, so hooks on them never fire, and no
++module hook sees a rank-local tensor before a tensor-parallel reduction. Patterns match
++names relative to the DeepseekV4Model segment by segment: each dotted
++segment is an fnmatch pattern for exactly one name segment, so "layers.*"
++selects the decoder layers and not their nested submodules. Remove the file to disarm:
++module hooks are then unregistered, leaving only the model's two step hooks.
++
++What is traced: only eager target-model forwards whose row count is within
++[min_tokens, max_tokens] (at most 2048, bounding the int64 temporaries).
++Steps under CUDA graph capture or torch.compile are skipped, and graph
++replays never run Python, so captured decode graphs are unchanged. The draft
++model is not traced.
++
++No host synchronization on the forward path. Digests are written into a
++preallocated device slot by stream-ordered kernels on the current stream;
++at the end of the step a dedicated copy stream waits on an event and copies
++the slot to pinned memory; a writer thread waits on that copy and appends one
++JSON line per step to /cache/ds41-act-trace/<node>-<pid>.jsonl. If every slot
++is still in flight the step is dropped (counted), never waited for.
++
++Perturbation (document it with every result): each digested tensor adds about
++six small kernels per 1M-word chunk (optional contiguous copy, int64
++widening, multiply, two reductions, accumulate, slot write) on the current
++stream, with int64 temporaries bounded to about 16 MiB per chunk plus one
++8 MiB weight buffer per device, and Python hook overhead. With the sparse
++defaults (45 digests: 8 layers x 5 carried tensors, 2 Engram outputs, the
++model output and the 2 key digests) that is roughly 250-300 extra launches
++for a 255-row prefill and roughly 500-700 at 1100 rows, dominated by the
++chunked residual digests (rows x 8192 words each); broad patterns such as
++every layer, attention and FFN reach 1500-2000. This changes
++kernel timing and interleaving and can therefore change the rate of a
++timing-dependent race; compare the divergence rate with the trigger present
++and absent on the same boot before interpreting a low capture count. It does
++not change any operand, output or stream dependency of the model.
++"""
++from __future__ import annotations
++
++import fnmatch
++import json
++import os
++import queue
++import re
++import threading
++import time
++import uuid
++
++import torch
++
++TRIGGER = '/cache/ds41-act-trace.json'
++OUT_DIR = '/cache/ds41-act-trace'
++MAX_TOKENS_CAP = 2048
++CAPACITY = 2048          # digests per step
++SLOTS = 8                # steps in flight between the forward and the writer
++KEYS = {'arm', 'min_tokens', 'max_tokens', 'post', 'pre'}
++ARM = re.compile(r'[a-z0-9][a-z0-9-]{7,63}\Z')
++SPARSE_POST = ['layers.0', 'layers.1', 'layers.2', 'layers.8', 'layers.14', 'layers.19',
++               'layers.20', 'layers.39', 'layers.1.engram', 'layers.14.engram']
++PERIOD = 65521                 # weight period: lane 1 uses (index mod PERIOD) + 1
++CHUNK = PERIOD * 16            # words per reduction chunk; a multiple of PERIOD, so
++                               # every chunk uses the same weights (8 MiB int64)
++_WEIGHTS: dict[str, torch.Tensor] = {}
++
++
++def parse_config(text: str) -> dict:
++    spec = json.loads(text)
++    if not isinstance(spec, dict) or not set(spec) <= KEYS or not {'arm', 'min_tokens', 'max_tokens'} <= set(spec):
++        raise ValueError('trigger needs arm, min_tokens and max_tokens; optional post and pre')
++    if not isinstance(spec['arm'], str) or not ARM.match(spec['arm']):
++        raise ValueError('arm must be 8-64 characters of [a-z0-9-]')
++    low, high = spec['min_tokens'], spec['max_tokens']
++    if type(low) is not int or type(high) is not int or not 1 <= low <= high <= MAX_TOKENS_CAP:
++        raise ValueError(f'require 1 <= min_tokens <= max_tokens <= {MAX_TOKENS_CAP}')
++    for key in ('post', 'pre'):
++        value = spec.setdefault(key, list(SPARSE_POST) if key == 'post' else [])
++        if not isinstance(value, list) or not all(isinstance(p, str) and p for p in value):
++            raise ValueError(key + ' must be a list of name patterns')
++    return spec
++
++
++def _weights(device) -> torch.Tensor:
++    key = str(device)
++    weights = _WEIGHTS.get(key)
++    if weights is None:
++        weights = torch.arange(CHUNK, dtype=torch.int64, device=device).remainder_(PERIOD).add_(1)
++        _WEIGHTS[key] = weights
++    return weights
++
++
++def digest(tensor: torch.Tensor) -> torch.Tensor:
++    """int64[2] order-independent digest of the tensor's bytes; device-side only."""
++    data = tensor.detach()
++    if not data.is_contiguous():
++        data = data.contiguous()
++    raw = data.reshape(-1).view(torch.uint8) if data.numel() else data.new_zeros(0, dtype=torch.uint8)
++    if raw.numel() % 4 == 0:
++        words = raw.view(torch.int32)
++    elif raw.numel() % 2 == 0:
++        words = raw.view(torch.int16)
++    else:
++        words = raw
++    total = torch.zeros(2, dtype=torch.int64, device=words.device)
++    weights = _weights(words.device)
++    # Chunking bounds int64 temporaries to 16 bytes per word of one chunk;
++    # the chunk count is known on the host, so no synchronization is needed.
++    for start in range(0, words.numel(), CHUNK):
++        wide = words[start:start + CHUNK].to(torch.int64)
++        total += torch.stack((wide.sum(), (wide * weights[:wide.numel()]).sum()))
++    return total
++
++
++def split_member(pattern: str):
++    """'layers.14:1' -> ('layers.14', 1); 'layers.14' -> ('layers.14', None)."""
++    base, sep, member = pattern.rpartition(':')
++    if sep and member.isdigit():
++        return base, int(member)
++    return pattern, None
++
++
++def matches(name: str, pattern: str) -> bool:
++    """Segment-wise match: each pattern segment (fnmatch syntax) matches exactly
++    one dotted name segment, so 'layers.*' is the decoder layers themselves and
++    never their nested submodules."""
++    parts, wanted = name.split('.'), pattern.split('.')
++    return len(parts) == len(wanted) and all(fnmatch.fnmatchcase(a, b) for a, b in zip(parts, wanted))
++
++
++def _tensors(value, prefix=''):
++    if isinstance(value, torch.Tensor):
++        yield prefix, value
++    elif isinstance(value, (tuple, list)):
++        for index, item in enumerate(value):
++            yield from _tensors(item, f'{prefix}:{index}')
++
++
++class SyncTransport:
++    """Host-memory transport for CPU tests: records are complete at submit."""
++
++    def __init__(self, sink, slots=SLOTS, capacity=CAPACITY):
++        self.sink = sink
++        self.acc = torch.zeros(slots, capacity, 2, dtype=torch.int64)
++        self.free = [True] * slots
++
++    def begin(self, slot):
++        pass
++
++    def submit(self, slot, count, meta):
++        meta['hashes'] = self.acc[slot, :count].tolist()
++        meta['gpu_ms'] = None
++        self.sink(meta)
++        self.free[slot] = True
++
++
++class CudaTransport:
++    """Pinned-memory copy on a side stream; a writer thread finishes records."""
++
++    def __init__(self, sink, device, slots=SLOTS, capacity=CAPACITY):
++        self.sink = sink
++        self.acc = torch.zeros(slots, capacity, 2, dtype=torch.int64, device=device)
++        self.host = torch.zeros(slots, capacity, 2, dtype=torch.int64, pin_memory=True)
++        self.free = [True] * slots
++        self.stream = torch.cuda.Stream(device=device)
++        self.start = [torch.cuda.Event(enable_timing=True) for _ in range(slots)]
++        self.pending: queue.Queue = queue.Queue()
++        threading.Thread(target=self._writer, name='ds41-act-trace', daemon=True).start()
++
++    def begin(self, slot):
++        self.start[slot].record()
++
++    def submit(self, slot, count, meta):
++        end = torch.cuda.Event(enable_timing=True)
++        end.record()
++        self.stream.wait_event(end)
++        with torch.cuda.stream(self.stream):
++            self.host[slot, :count].copy_(self.acc[slot, :count], non_blocking=True)
++            done = torch.cuda.Event()
++            done.record(self.stream)
++        self.pending.put((slot, count, meta, end, done))
++
++    def _writer(self):
++        while True:
++            slot, count, meta, end, done = self.pending.get()
++            try:
++                done.synchronize()
++                meta['gpu_ms'] = self.start[slot].elapsed_time(end)
++                meta['hashes'] = self.host[slot, :count].tolist()
++                self.sink(meta)
++            except Exception as error:  # never let the writer die silently
++                print(f'[DS41-ACT-TRACE] writer error: {error!r}', flush=True)
++            finally:
++                self.free[slot] = True
++
++
++class Tracer:
++    def __init__(self, model, *, transport=None, trigger=TRIGGER, out_dir=OUT_DIR, rank=None, node=None):
++        self.model, self.trigger, self.out_dir = model, trigger, out_dir
++        self.transport = transport
++        self.rank, self.node = rank, node
++        self.session = f'{os.getpid()}-{uuid.uuid4().hex[:12]}'
++        self.config, self.mtime, self.handles = None, None, []
++        self.seq = self.dropped = 0
++        self.active = False
++        self.slot = self.count = 0
++        self.names: list[str] = []
++        self.overflow = False
++        self.lock = threading.Lock()
++        model.register_forward_pre_hook(self._begin, with_kwargs=True)
++        model.register_forward_hook(self._end, with_kwargs=True)
++
++    # ---- configuration (host only) -------------------------------------------------
++    def _refresh(self):
++        try:
++            mtime = os.stat(self.trigger).st_mtime_ns
++        except OSError:
++            mtime = None
++        if mtime == self.mtime:
++            return
++        self.mtime = mtime
++        for handle in self.handles:
++            handle.remove()
++        self.handles = []
++        if mtime is None:
++            self.config = None
++            return
++        try:
++            with open(self.trigger, encoding='utf-8') as handle:
++                config = parse_config(handle.read())
++        except Exception as error:
++            print(f'[DS41-ACT-TRACE] trigger ignored: {error!r}', flush=True)
++            self.config = None
++            return
++        for name, module in self.model.named_modules():
++            if not name:
++                continue
++            members = [member for base, member in map(split_member, config['post']) if matches(name, base)]
++            if members:
++                keep = None if None in members else set(members)
++                self.handles.append(module.register_forward_hook(self._post(name, keep)))
++            if any(matches(name, p) for p in config['pre']):
++                self.handles.append(module.register_forward_pre_hook(self._pre(name)))
++        if self.config is None or self.config['arm'] != config['arm']:
++            self.seq = self.dropped = 0
++        self.config = config
++        print(f'[DS41-ACT-TRACE] armed {config["arm"]}: {len(self.handles)} module hooks', flush=True)
++
++    def _identity(self):
++        if self.rank is None:
++            try:
++                from vllm.distributed import get_tensor_model_parallel_rank
++                self.rank = get_tensor_model_parallel_rank()
++            except Exception:
++                self.rank = -1
++        if self.node is None:
++            self.node = os.environ.get('DS41_NODE', 'unknown')
++
++    def _sink(self, meta):
++        os.makedirs(self.out_dir, exist_ok=True)
++        path = os.path.join(self.out_dir, f'{self.node}-{os.getpid()}.jsonl')
++        with self.lock, open(path, 'a', encoding='utf-8') as stream:
++            stream.write(json.dumps(meta, sort_keys=True) + '\n')
++
++    # ---- forward path: device work only, no host synchronization -------------------
++    def _begin(self, module, args, kwargs):
++        self.active = False
++        if torch.compiler.is_compiling() or (torch.cuda.is_available()
++                                             and torch.cuda.is_current_stream_capturing()):
++            return
++        self._refresh()
++        if self.config is None:
++            return
++        ids = kwargs.get('input_ids', args[0] if args else None)
++        positions = kwargs.get('positions', args[1] if len(args) > 1 else None)
++        embeds = kwargs.get('inputs_embeds')
++        source = ids if isinstance(ids, torch.Tensor) else embeds
++        if not isinstance(source, torch.Tensor):
++            return
++        rows = source.shape[0]
++        if not self.config['min_tokens'] <= rows <= self.config['max_tokens']:
++            return
++        self.seq += 1
++        if self.transport is None:
++            self._identity()
++            self.transport = CudaTransport(self._sink, source.device)
++        free = self.transport.free
++        slot = next((i for i, available in enumerate(free) if available), None)
++        if slot is None:
++            self.dropped += 1
++            return
++        free[slot] = False
++        self.slot, self.count, self.names, self.overflow = slot, 0, [], False
++        self.rows, self.wall = rows, time.time()
++        epoch = getattr(self.model, '_engram_epoch', None)
++        self.epoch = epoch if type(epoch) is int else None
++        self.active = True
++        self.transport.begin(slot)
++        self._record('<input>', source)
++        if isinstance(positions, torch.Tensor):
++            self._record('<positions>', positions)
++
++    def _record(self, name, tensor):
++        if self.count >= self.transport.acc.shape[1]:
++            self.overflow = True
++            return
++        self.transport.acc[self.slot, self.count].copy_(digest(tensor))
++        self.names.append(name)
++        self.count += 1
++
++    def _post(self, name, keep=None):
++        def hook(module, args, output):
++            if self.active:
++                for index, (suffix, tensor) in enumerate(_tensors(output)):
++                    if keep is None or index in keep:
++                        self._record(name + suffix, tensor)
++        return hook
++
++    def _pre(self, name):
++        def hook(module, args):
++            if self.active:
++                for suffix, tensor in _tensors(args):
++                    self._record('>' + name + suffix, tensor)
++        return hook
++
++    def _end(self, module, args, kwargs, output):
++        if not self.active:
++            return
++        for suffix, tensor in _tensors(output):
++            self._record('<output>' + suffix, tensor)
++        self.active = False
++        self._identity()
++        meta = {'type': 'step', 'arm': self.config['arm'], 'session': self.session,
++                'epoch': self.epoch, 'rank': self.rank, 'node': self.node, 'pid': os.getpid(),
++                'seq': self.seq, 'rows': self.rows, 'wall': self.wall, 'names': list(self.names),
++                'dropped_before': self.dropped, 'overflow': self.overflow}
++        self.transport.submit(self.slot, self.count, meta)
++
++
++_INSTALLED: list = []
++
++
++def install(model, **kwargs):
++    """Attach the tracer's two step hooks; module hooks exist only while armed.
++
++    One tracer per process: the epoch join assumes one traced model per rank.
++    At 1794dcf1 only the target model builds a DeepseekV4Model (the DSpark
++    draft does not); any second instance is refused and logged, never traced.
++    """
++    if _INSTALLED:
++        print('[DS41-ACT-TRACE] second DeepseekV4Model in this process: not traced', flush=True)
++        return None
++    tracer = Tracer(model, **kwargs)
++    model._claude_act_tracer = tracer
++    _INSTALLED.append(tracer)
++    return tracer

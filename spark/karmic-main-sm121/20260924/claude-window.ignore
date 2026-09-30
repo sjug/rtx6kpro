@@ -1,0 +1,11 @@
+**
+!Dockerfile.claude-window
+!claude-decision-row-capture.py
+!claude-window-attention.py
+!claude-window-capture.py
+!claude-window-compare.py
+!claude-window-install.py
+!claude-window-prepare.py
+!claude-window-tests.py
+!claude-window.patch
+!claude-window.lock.json

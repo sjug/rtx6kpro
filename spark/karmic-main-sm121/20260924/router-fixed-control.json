@@ -1,0 +1,18 @@
+{
+  "scope": "prepared only, not installed; matched diagnostic, not serving default",
+  "blocks": 79000,
+  "files": {
+    "launch_contract.py": {
+      "input_sha256": "d8b706ceb4bced6045bce39f4b5e602dee7d02869688d0c30809cbec955a428d",
+      "output_sha256": "0bcaa3dfe35be76f31422a8a340eebdb9ad5770d8f90de1c91a5e59eb6ab5cf4",
+      "patch": "router-fixed-launch_contract.py.patch",
+      "patch_sha256": "28985419be0f3ab1a345a5f0041bd3a51a188300b83ed0d80df118afd0d96a68"
+    },
+    "start_moe_repaired.py": {
+      "input_sha256": "06246d5d08ff0d906c35968f2fb7747413da115d9e8c653f88a49b3bb5e76f15",
+      "output_sha256": "ea26b79a13df1a3590d80af2bd8db314a1f9d9d1cb98350dc9c0788c42585959",
+      "patch": "router-fixed-start_moe_repaired.py.patch",
+      "patch_sha256": "4b67da7e6bd1f19c97d72d0234b09f567f0756e11f96700cea3ba8b4ad30cf40"
+    }
+  }
+}

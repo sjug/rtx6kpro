@@ -1,0 +1,5 @@
+{
+  "original_sha256": "81f5af3319f05f3ffcd9a2daf5e5a57b7acd82200dec0e3ecf50313df936afc0",
+  "adapted_sha256": "bd9f10b4667fe0ed4a57b605f80906c3a756fee38b9268646ab1c4c5858ead43",
+  "change": "Poison output and final state as well as checkpoint state before both replay loops"
+}

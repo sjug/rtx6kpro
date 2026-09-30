@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 34 items / 22 deselected / 12 selected
+
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-4] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-64] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-4] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-64] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-4] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-64] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-4] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-64] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-4] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-64] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-4] PASSED
+../../jj-main-build/components/vllm/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-64] PASSED
+
+====================== 12 passed, 22 deselected in 28.28s ======================
+FLASHKDA-JJ-MAIN-GATE-PASS collected=12 passed=12

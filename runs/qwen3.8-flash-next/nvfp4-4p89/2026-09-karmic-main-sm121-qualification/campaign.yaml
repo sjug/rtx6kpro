@@ -1,0 +1,31 @@
+campaign: 2026-09-karmic-main-sm121-qualification
+status: completed_not_promoted
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4-4p89
+revision: c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d
+hosts: [dusty, kirby]
+candidate_image_id: 88867036403cb3c9bc3026eb8c907ad64bc1af9c28d316d22b670dde4f561152
+baseline: saved R32 return and JJ-main September 22 grids; no new control boot
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+notes: >-
+  Main sources on reused Karmic CUDA 13.4/PyTorch 2.14 natives. The source
+  replacement crosses beta-to-main lineages; it is not a linear update.
+  New cache namespace means cold first boot. Correctness precedes timing.
+  Unchanged run_bench.sh with RESULTS_REPO pointing to rtx6kpro. No edits to
+  the benchmark repository. Report engine steps, acceptance, output throughput,
+  prefill, KV capacity and startup/runtime health separately. GLM and DS4 Vision
+  remain serving and are outside this window. No MTP0 arm. Correctness and all
+  15 cells passed. Versus saved R32, decode steps +4.92/+2.32/+1.03 percent at
+  c1/c2/c4, output +9.32/+4.77/+3.67 percent; prefill -3.56 to -6.15 percent.
+  Single candidate boot, not repeatability evidence. Five driver allocation
+  warnings during c4/32K admission, before its measured interval. Candidate
+  remains evaluation serving; no promotion or implicit rollback.

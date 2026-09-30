@@ -1,0 +1,21 @@
+FROM eb3adc203432f2e54738c5977b65bc6a618ba4fdb76f23dd510df5910365e08d
+ARG DIAGNOSTIC_TREE
+ARG DIAGNOSTIC_LOCK
+ARG DIAGNOSTIC_RECIPE
+ARG DIAGNOSTIC_CACHE
+COPY diagnostic-topk.lock.json diagnostic-topk.patch diagnostic-mxfp4.py deterministic_topk.py runtime.lock.json install_deterministic_diagnostic.py /opt/ds41-determinism/
+RUN /opt/venv/bin/python /opt/ds41-determinism/install_deterministic_diagnostic.py
+ENV XDG_CACHE_HOME=/cache/jit/${DIAGNOSTIC_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${DIAGNOSTIC_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${DIAGNOSTIC_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${DIAGNOSTIC_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${DIAGNOSTIC_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${DIAGNOSTIC_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${DIAGNOSTIC_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${DIAGNOSTIC_CACHE}/cute-dsl
+LABEL b12x.source-tree="${DIAGNOSTIC_TREE}" \
+    local-inference.ds41.determinism.lock.sha256="${DIAGNOSTIC_LOCK}" \
+    local-inference.ds41.determinism.recipe.sha256="${DIAGNOSTIC_RECIPE}" \
+    local-inference.cache.fingerprint="${DIAGNOSTIC_CACHE}" \
+    local-inference.status="determinism-diagnostic-not-qualified" \
+    org.opencontainers.image.title="DS4.1 deterministic selection diagnostic"

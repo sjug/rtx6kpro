@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "scope": "As-built identity inventory, not model promotion. Subsequent recipe hardening does not relabel the existing image.",
+  "foundation": "nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5",
+  "components": {
+    "vllm": "83f8183cbcc1063d50e1dffc8e9c95d751c7da6e4658c95e1c6da98c4f3a7f41",
+    "flashinfer": "358f888657b631b53a0706a3e5c88a680c0e363f48502fac49af2dbfcf135c73",
+    "nccl": "ee19802e04c9ee6923dbb7a3f19147e4eae82edd015c14618a931eb9e51bd719",
+    "lmcache": "bc4722058e7d27f8683546fc7cd234c8acdfe829abce9964dbca882fb4c1cd2f",
+    "instanttensor": "ecfffd85f816b5a82bea260e68977b1256ca15d1c741ef3a48f945dfa9a9a5ee",
+    "runtime-deps": "ad008e629e810957ba8c8b18b89712717816f52b35960bddf6f9b495bdab7673"
+  },
+  "runtime_image_id": "627e4cf62a02a73a5f01aea3fc8194b9f567a2e475ecf0cec82de091d148ec14",
+  "serving_image_id": "f30dc6d9a2a6f6fc0ac9ff8cddb04d9f631f4a87b48ca7cac69254802fe83233",
+  "vllm_overlay_tree": "02a457e2e933d0fb20d5786835110546acf7d8f2",
+  "overlay_sha256": "24e122925da51d6c349604e742773791457f4d975624c82f6e675796788bcdda",
+  "b12x_tree": "9f20c0e6b9d49a42bc19f45429ac44758cf5fe76",
+  "flashkda_commit": "b59532f1f464fbd536272780e30df5bf6a2ccc02",
+  "flashinfer_commit": "2206a14e46387a56c093860a46bbbdd00596b75b",
+  "lmcache_commit": "688bee14e157b64623d93c07fc0d4db93470e12f",
+  "nccl_commit": "93fe05d9f9b6963ef841166a69cd0b30e4efe97b",
+  "wheel_sha256": {
+    "flashinfer_jit_cache-0.6.18+lil.cu134.sm121.g2206a14e4638-cp39-abi3-manylinux_2_28_aarch64.whl": "eb82abeabeb493abe4d2848b4457eca4d58ffc8484b1e2c0a698db6961fda30e",
+    "flashinfer_python-0.6.18+lil.cu134.sm121.g2206a14e4638-py3-none-any.whl": "044126ea684663e1f482510b4c5ab59d4ab786eafe5027e9c74f8a83d007d70c",
+    "instanttensor-0.1.9-cp312-cp312-linux_aarch64.whl": "3b53e57dbfc55283b41809b46d9d698f984947b08d59c13cc0815604888ee22a",
+    "lmcache-0.5.3.dev365+lil.cu134.g688bee14e157-cp312-cp312-linux_aarch64.whl": "e6f92a50c6d4698a2c30465588f9a8808e6db0d117c068d30c6ebc231e37799d",
+    "vllm-0.1.dev1+g57a80980b.d20260920.cu134-cp312-cp312-linux_aarch64.whl": "493a8f3e71a4ffcdd0ccb1222025999f2205d55be4be0b3a4dbfefbe23607207"
+  }
+}

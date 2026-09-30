@@ -1,0 +1,55 @@
+id: 2026-09-r38-sm121-tp4-disk-engram
+status: blocked
+objective: Qualify DS4.1 Flash with disk Engram on four DGX Sparks.
+shared_configuration:
+  model_family: deepseek-v4.1-flash
+  model_variant: official
+  checkpoint_revision: fb2764a5cf321eaa5070ca8f9e892818f477c16d
+  image_id: ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5
+  nodes: [dusty, toby, rusty, kirby]
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  engram_table_memory: disk
+  disk_resident_scales: false
+  disk_prefetch_max_tokens: 0
+  nccl_proto: LL,Simple
+  reasoning_effort: max
+  benchmark_contexts: [0, 16384, 32768, 65536, 131072]
+  benchmark_concurrency: [1, 2, 4]
+  benchmark_duration_seconds: 30
+  benchmark_max_tokens: 8192
+notes: |
+  Correctness precedes timing. Initial K7 admission is at max_model_len 131072,
+  which cannot fit the full 128K-plus-generation cell. Record the actual boot
+  envelope, memory utilization, per-rank KV capacity and speculative setting
+  for each arm. Never extrapolate effective KV capacity across context limits.
+  First target-only control uses K0 at the initial envelope. Larger context
+  needs separate memory and output admission before its standard grid.
+  Use the unchanged llm-inference-bench/run_bench.sh. RESULTS_REPO is this
+  rtx6kpro workspace. Decline the harness self-update and keep calibration,
+  checkpoints and all outputs here, not in the benchmark source/results repo.
+  Simple synthetic needles are retrieval gates, not quality or cold-prefill
+  benchmarks. Preserve cached-token counts. Save startup pressure separately
+  from serving failures and performance measurements. GLM is out of scope.
+  2026-09-16 native 1M K7 boot (utilization 0.80, strict JIT): the unchanged
+  qualify.py dual-needle gate passed at 16K, 131K and 262K and failed at
+  524288. The failure is unresolved: the identical input flips between cold
+  runs, and identical requests are not reproducible. It blocks timing and
+  promotion. No throughput run is recorded in this campaign. See
+  spark/ds41/r38/receipts/20260916/needle-524k-diagnostics/VERDICT.md.
+  Approved diagnostic restarts on 2026-09-16 (K0 with JIT warn, then K7
+  strict again) reproduced the 524K failure and the non-reproducibility at
+  the same rates; speculation is excluded. Candidate is serving K7 boot 2.
+  Next diagnostic arm (B12X_DYNAMIC_DETERMINISTIC_OUTPUT=1) awaits approval.
+  Fourth arm (B12X_DYNAMIC_DETERMINISTIC_OUTPUT=1, K7 strict, kit label
+  f6166ebb) reproduced the failure and the spread unchanged; MoE output
+  accumulation is not the dominant source. Nodes serve that diagnostic arm;
+  benchmark.sh pins the previous kit label and stays blocked.
+  Attribution 2026-09-17: non-reproducibility traced to bf16 atomic MoE
+  accumulation (default) and atomic-order tie-break in the DSA indexer top-k
+  (bitwise identical below 514 KV tokens with deterministic MoE; kernel
+  oracle valid every call, sets churn under ties). Accuracy at 524K is a
+  near tie consistent with instruction sensitivity; unproven without a
+  non-B12X reference. Nodes serve baseline K7 strict boot 3. Still blocked.

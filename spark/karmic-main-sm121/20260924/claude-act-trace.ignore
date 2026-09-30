@@ -1,0 +1,10 @@
+**
+!Dockerfile.claude-act-trace
+!claude-act-trace-model.py
+!claude-act-trace.patch
+!claude_act_analyze.py
+!claude_act_trace.py
+!claude_install_act_trace.py
+!claude_prepare_act_trace.py
+!claude_test_act_trace.py
+!claude-act-trace.lock.json

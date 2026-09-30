@@ -1,0 +1,99 @@
+campaign: 2026-09-karmic-sm121-qualification
+status: main_single_factor_performance_investigation_in_progress
+active_candidate_image_id: 1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc
+active_profile_lock: spark/karmic-main-sm121/glm-defaults/profile.lock.json
+active_investigation: spark/karmic-main-sm121/glm-defaults/BISECT.md
+active_arm: no-prefetch-mxfp8-output-a16
+active_effective_profile_sha256: 3801fdb71cf032381bd994d3d23adb457bcd130317681793aa817d5e4afe2956
+active_qualification_status: quantization_withdrawn_by_user_repeat_interrupted_r38_restored_verified
+model: GLM-5.3-Flash
+checkpoint: local-inference-lab/GLM-5.3-Flash-NVFP4
+revision: 46aaae8a82032f77100f2f03e9cc11b391df3b4d
+hosts: [sparky, buddy, rocky, lucky]
+candidate_image_id: 9b23ca237881b90856adcea7f20be5c9937036b74863d668515ca1e58b4a6103
+baseline_image_id: ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5
+baseline_receipt_sha256: 87545df132270c92a899675bb4c7159d40e75a35aa40c72a23381d3f95b072d5
+contract:
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  max_model_len: 1048576
+  max_num_seqs: 8
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  draft_head: bf16
+  recurrent_checkpoint_policy: aligned
+  loader: InstantTensor BUFFERED
+  kda_prefill: flashkda
+  nccl_proto: LL,Simple
+  transport: RoCEnante plus PyNCCL
+  lmcache_enabled: false
+  clear_thinking_override: null
+notes: >-
+  September 24 investigation: no-prefetch passed its correctness screen and
+  15-cell grid, improving steps 5.51/5.29/3.60 percent against main defaults.
+  BF16-head passed but reduced steps 4.86/4.53/4.22 percent and is rejected.
+  Independent materialized-queue arm completed with no meaningful step gain.
+  The prefetch-off K5 arm passed its screen and grid but lost
+  4.05/11.30/12.26 percent throughput against prefetch-off K3 and is rejected.
+  Prefetch-off K3 with mHC PDL disabled was neutral in engine steps and is
+  not carried forward. Block verification passed 20 pinned GPU cases on idle
+  sparky and passed the unchanged screen on two boots. An extra sampled
+  semantic run had an exact-format tool-answer failure; matched fixed-input
+  diagnostics gave 85/100 exact formats with standard and 81/100 with block,
+  all numerically correct. This does not establish a block-specific regression
+  or distribution equivalence. The failure remains recorded. Block verification
+  completed a grid at 51.61/78.35/115.83 tok/s, still below R38 and not promoted.
+  The subsequent K2 arm passed correctness, but client 192.168.2.33 resumed
+  inference during its grid at 06:14:45 UTC. Its 13-cell partial run was
+  interrupted and is contaminated, not an accepted benchmark. Do not resume
+  those cells. User confirmed the quiet window at about 12:03 UTC; a fresh
+  K2 grid completed with --no-resume and exact same-boot correctness reuse:
+  50.619/80.408/117.999 tok/s, still below saved R38. No client was interrupted.
+  Bounded C1/C4 profiler traces then identified target MoE and BF16 dense
+  projections as the largest kernel-time families; instrumented throughput is
+  not scored. The shared-head K3 arm completed at 49.957/77.074/115.811 tok/s,
+  neutral in engine steps, with a host-pressure caveat in its retained telemetry.
+  The user separately authorized selective MXFP8. Its first arm quantizes exactly
+  56 target output/query projections with BF16 activations, preserving experts,
+  recurrent inputs and the original K3/draft-head profile. The four-rank engagement,
+  semantic and cache gates passed; native-1M correctness is in progress. It has
+  not been timed or promoted. Full scope and independent review are recorded in
+  spark/karmic-main-sm121/glm-defaults/SELECTIVE-MXFP8.md.
+  No promotion or
+  repeatability claim yet. The main-default result and beta history below
+  are preserved; R38 is retained, not currently serving during this window.
+  September 23: a separate Karmic-main upstream-default arm failed startup,
+  image 1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc.
+  The candidate_image_id and contract above describe the historical beta arm,
+  not the new main arm. Its complete profile is pinned in
+  spark/karmic-main-sm121/glm-defaults/profile.lock.json, digest
+  78a82d4ec6e674df078e1564e3be73c0cfe5194bb361ea8be11c285863398703.
+  It failed in MTP MXFP8 Marlin repacking with unsupported PTX toolchain;
+  no inference or benchmark ran in that initial arm. The corrected Bash-entry
+  retry on September 24 selects the image's compatibility libcuda rather than
+  the host library. All correctness gates passed, including 1M retrieval;
+  the standard 15-cell grid completed without flags. Same image and model settings.
+  Against saved R38 r04, geometric-mean decode changes at c1/c2/c4 are
+  -8.90/-13.42/-10.01 percent; engine steps -6.18/-8.96/-5.95 percent.
+  Prefill is within 1.8 percent. One boot and multiple policy differences,
+  so this is not engine-only attribution or a repeatability claim.
+  It uses request_boundaries, NVFP4 draft head, B12X KDA prefill, 32 sequences,
+  capture256 and 0.85 utilization. Comparison against R38 is whole-profile,
+  not engine-only. The prior beta verdict below remains unchanged.
+  The allocator-only retry loaded successfully with expandable_segments:True,
+  but two full semantic batteries each failed exact formatting on the third
+  tool round trip after 14 passes. Five isolated tool repeats passed. Correct
+  tool arguments and arithmetic do not waive the exact-output gate. No grid ran.
+  See qualification/glm-allocator-20260921 and glm-allocator-confirmation-20260921.
+  Candidate aborted during sustained host memory pressure and loading slowdown;
+  no correctness battery or benchmark completed. R38 restored and real completion
+  verified at 11:07 EDT September 21. Missing inherited expandable_segments
+  allocator setting is verified configuration drift, not yet a proven cause.
+  Compare the same serving contract on the Karmic CUDA 13.4/Torch 2.14
+  foundation against the accepted R38 r04 receipt. Correctness precedes timing.
+  Use unchanged run_bench.sh with results and calibration in rtx6kpro only.
+  No changes to the separate benchmark repository or its results repository.
+  Record per-rank KV, allocation warnings, clocks, acceptance, engine steps,
+  output throughput and fresh-prompt prefill separately. Historical R38 is
+  not a multi-boot control. R38 containers remain retained for rollback.

@@ -1,0 +1,44 @@
+{
+  "b12x_commit": "a7d7d29b",
+  "base_image_id": "e7b273407022ae74726d6c7b7465aa567b2c5a0594d5e0b46002a742a11f5146",
+  "base_ring_fix_sparse_mla_sha256": "8a8dffa8417f0fd8b9a96723d36ba5a842949b6dd674751a19e55ec9031a4c34",
+  "helper": {
+    "sha256": "c77daf655e39093a6b893dc917756b9199c5eec09c7e163e9fb625c27f22abcc",
+    "source": "claude_engram_timing.py",
+    "target": "vllm/vllm/models/deepseek_v4_1/claude_engram_timing.py"
+  },
+  "inputs": {
+    "Dockerfile.claude-engram-timing": "893ea4274dfed285837060ea17cd1e665282e708c4a50b7f99d3a6256c041bfe",
+    "claude-engram-timing-_impl.py": "f9f4e38096fb1f672675393bc1875d21124d82dcb4055af10ad5b090f43888ad",
+    "claude-engram-timing-disk_table.py": "4a5c2ef7f23a258da7367c618e6d2a1abfd3134f99248ab5db96bb2f50b56e39",
+    "claude-engram-timing-model.py": "4313ab2bdc740a988e96674253b7405363e90180a5b217c803e44d3033de944d",
+    "claude-engram-timing.patch": "20fb55553982678cd363b4da3c03bfb4e811ee741d82984ff09fc418bb246575",
+    "claude_engram_timing.py": "c77daf655e39093a6b893dc917756b9199c5eec09c7e163e9fb625c27f22abcc",
+    "claude_install_engram_timing.py": "07fd112017171a419c10f0199020a071f93a720989f81d3abed1e7a09cc52239",
+    "claude_prepare_engram_timing.py": "c1dc366b3e540c7b5e7e93705237bb73d6cf69626e8a26d594556573da4014f5",
+    "claude_test_engram_timing.py": "d6c938f70f385809432fb886006fe1452fc7507cf02504dad8ba7cc404eee7e6"
+  },
+  "kind": "engram-host-timing",
+  "status": "diagnostic-only-not-applied",
+  "targets": {
+    "b12x/b12x/sequence/_shared/disk_table.py": {
+      "delivery": "runtime-bound",
+      "input_sha256": "2940f50e04be5cc4b9a097ec97a7d422cdd189de2f2496925fbabbb463d0323d",
+      "output_sha256": "4a5c2ef7f23a258da7367c618e6d2a1abfd3134f99248ab5db96bb2f50b56e39",
+      "source": "claude-engram-timing-disk_table.py"
+    },
+    "b12x/b12x/sequence/engram/_impl.py": {
+      "delivery": "runtime-bound",
+      "input_sha256": "5b6eb4c74388141303ba0a1526c61448175ab2dc73ac74f4e20de048daaf4bbd",
+      "output_sha256": "f9f4e38096fb1f672675393bc1875d21124d82dcb4055af10ad5b090f43888ad",
+      "source": "claude-engram-timing-_impl.py"
+    },
+    "vllm/vllm/models/deepseek_v4_1/nvidia/model.py": {
+      "delivery": "file",
+      "input_sha256": "22f0cc096c59ee31075db560060c1a7c963f598534eefc99ff2e1790acc0cd70",
+      "output_sha256": "4313ab2bdc740a988e96674253b7405363e90180a5b217c803e44d3033de944d",
+      "source": "claude-engram-timing-model.py"
+    }
+  },
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1"
+}

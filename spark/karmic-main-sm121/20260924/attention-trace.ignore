@@ -1,0 +1,6 @@
+*
+!attention-trace.lock.json
+!trace-patched-attention.py
+!trace_attention.py
+!install_attention_trace.py
+!Dockerfile.attention-trace

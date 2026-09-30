@@ -1,0 +1,107 @@
+--- a/vllm/models/deepseek_v4_1/common/engram.py
++++ b/vllm/models/deepseek_v4_1/common/engram.py
+@@ -644,6 +644,19 @@
+     tl.store(flag, timed_out.to(tl.bfloat16))
+ 
+ 
++@triton.jit(do_not_specialize=["epoch"])
++def _publish_engram_epoch(status, ready, epoch):
++    """Publish only after the preceding CPU-only host read succeeded.
++
++    The callback writes status before it returns. This kernel is queued after
++    that callback on the same stream, before the model forward is submitted.
++    A failed read deliberately leaves ready unchanged; the bounded consumer
++    wait and cross-rank sticky fault check refuse that boot's outputs.
++    """
++    complete = tl.load(status, volatile=True) == 1
++    tl.store(ready, epoch.to(tl.int64), mask=complete)
++
++
+ class Engram(nn.Module):
+     def __init__(
+         self,
+--- a/vllm/models/deepseek_v4_1/nvidia/model.py
++++ b/vllm/models/deepseek_v4_1/nvidia/model.py
+@@ -3,7 +3,6 @@
+ import copy
+ import typing
+ from collections.abc import Callable, Iterable
+-from concurrent.futures import Future, ThreadPoolExecutor
+ from itertools import islice
+ 
+ import regex as re
+@@ -68,7 +67,7 @@
+ from ..b12x_layers import B12xLinearMethod, B12xMHC
+ from ..b12x_layers import B12xRMSNorm as RMSNorm
+ from ..ced import ced_decoder_start, gather_rows, scatter_rows
+-from ..common.engram import Engram, EngramLayout, NgramHashState
++from ..common.engram import Engram, EngramLayout, NgramHashState, _publish_engram_epoch
+ from .b12x_attention import DeepseekV41B12xAttention
+ 
+ if typing.TYPE_CHECKING:
+@@ -467,8 +466,14 @@
+             # a side stream publishes an epoch that Engram layers wait for.
+             self._engram_overlap = envs.VLLM_DS41_ENGRAM_OVERLAP
+             self._engram_epoch = 0
+-            self._engram_job: Future | None = None
++            self._engram_job = None
+             if self._engram_overlap:
++                from b12x.sequence._shared.disk_table import MappedHostAllocation
++
++                self._engram_io_status = MappedHostAllocation(
++                    (1,), torch.int64, caps.device
++                )
++                self._engram_io_status.host_view.zero_()
+                 self._engram_epochs = torch.zeros(
+                     3, dtype=torch.int64, device=caps.device
+                 )
+@@ -508,7 +513,10 @@
+     def _finish_engram_job(self) -> None:
+         job, self._engram_job = getattr(self, "_engram_job", None), None
+         if job is not None:
+-            job.result()
++            # A skipped callback or hung disk read must fail instead
++            # of hanging the engine forever. Buffer ownership stays
++            # with the native pending job if this wait expires.
++            job.result(timeout=60.0)
+ 
+     def _start_engram_job(self, bindings, counts) -> None:
+         self._engram_epoch += 1
+@@ -517,21 +525,22 @@
+         ready = torch.cuda.Event()
+         ready.record()
+         stream = self._engram_stream()
+-        device = torch.accelerator.current_device_index()
+-
+-        def lookup():
+-            torch.accelerator.set_device_index(device)
+-            with torch.inference_mode(), torch.cuda.stream(stream):
+-                stream.wait_event(ready)
+-                engram_native.run_lookups(bindings, counts, clear_tail=False)
+-                self._engram_epochs[0:1].fill_(epoch)
+-
+-        pool = getattr(self, "_engram_pool", None)
+-        if pool is None:
+-            pool = self._engram_pool = ThreadPoolExecutor(
+-                max_workers=1, thread_name_prefix="ds41-engram"
+-            )
+-        self._engram_job = pool.submit(lookup)
++        # Every CUDA operation required by the producer is submitted here,
++        # before the consumer forward. The stream's native I/O callback does
++        # not call CUDA or Python and cannot wait on a later host CUDA launch.
++        with torch.cuda.stream(stream):
++            stream.wait_event(ready)
++            self._engram_job = engram_native.enqueue_lookups(
++                bindings,
++                counts,
++                status_host=self._engram_io_status.host_view,
++                clear_tail=False,
++            )
++            _publish_engram_epoch[(1,)](
++                self._engram_io_status.device_view,
++                self._engram_epochs[0:1],
++                epoch,
++            )
+ 
+     def prepare_disk_engram(self, input_ids, query_start_loc, lookback_token_ids):
+         if torch.compiler.is_compiling() or torch.cuda.is_current_stream_capturing():

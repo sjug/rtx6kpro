@@ -1,0 +1,56 @@
+{
+  "id": "chatcmpl-bb09d7c63e683331",
+  "object": "chat.completion",
+  "created": 1790098252,
+  "model": "DeepSeek-V4-Flash-Vision-Exp",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [
+          {
+            "id": "chatcmpl-tool-88e10288162770c8",
+            "type": "function",
+            "function": {
+              "name": "multiply",
+              "arguments": "{\"a\": 17, \"b\": 23}"
+            }
+          }
+        ],
+        "reasoning": "We need to use multiply tool for 17*23, then reply with only result."
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.1.dev1+g8e1f1e587.d20260922-tp2-0addb9e9",
+  "usage": {
+    "prompt_tokens": 397,
+    "total_tokens": 476,
+    "completion_tokens": 79,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "created_cache_tokens": 256,
+      "multimodal_tokens": null
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 18
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

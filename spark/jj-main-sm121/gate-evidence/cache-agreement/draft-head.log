@@ -1,0 +1,4 @@
+rows=1 relative_rmse=0.094867 cosine=0.995507
+rows=4 relative_rmse=0.095540 cosine=0.995440
+rows=32 relative_rmse=0.095373 cosine=0.995457
+GLM JJ-main NVFP4 proposal head SM121: PASS

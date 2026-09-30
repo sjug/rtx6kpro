@@ -1,0 +1,75 @@
+[
+  {
+    "id": "chatcmpl-a439da9ad6fc7813",
+    "object": "chat.completion.chunk",
+    "created": 1789962298,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        },
+        "logprobs": null,
+        "finish_reason": null
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 16147,
+      "total_tokens": 16147,
+      "completion_tokens": 0,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "prompt_token_ids": null,
+    "prompt_text": null
+  },
+  {
+    "id": "chatcmpl-a439da9ad6fc7813",
+    "object": "chat.completion.chunk",
+    "created": 1789962298,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [
+      {
+        "index": 0,
+        "delta": {
+          "reasoning": "We"
+        },
+        "logprobs": null,
+        "finish_reason": "length",
+        "stop_reason": null,
+        "token_ids": null
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 16147,
+      "total_tokens": 16148,
+      "completion_tokens": 1,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1
+      }
+    }
+  },
+  {
+    "id": "chatcmpl-a439da9ad6fc7813",
+    "object": "chat.completion.chunk",
+    "created": 1789962298,
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "choices": [],
+    "usage": {
+      "prompt_tokens": 16147,
+      "total_tokens": 16148,
+      "completion_tokens": 1,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "created_cache_tokens": 16128
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1
+      }
+    },
+    "system_fingerprint": "vllm-0.1.dev1+g57a80980b.d20260920-tp2-ff69be8e"
+  }
+]

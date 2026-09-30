@@ -1,0 +1,333 @@
+2026-09-21T11:04:14.933598000-04:00 GLM Spark policy: L2_PREFETCH=platform-default-off-sm121 WORK_SOURCE=materialized_queue DRAFT_HEAD=bf16
+2026-09-21T11:04:25.646555000-04:00 W0921 15:04:25.645000 43 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:04:25.677217000-04:00 W0921 15:04:25.676000 43 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:04:29.065551000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:347] 
+2026-09-21T11:04:29.065937000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:347]        █     █     █▄   ▄█
+2026-09-21T11:04:29.065996000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.26.1rc0+jj.r38.spark.vllm2d38757
+2026-09-21T11:04:29.066040000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /root/.cache/huggingface/hub/models--local-inference-lab--GLM-5.3-Flash-NVFP4/snapshots/46aaae8a82032f77100f2f03e9cc11b391df3b4d
+2026-09-21T11:04:29.066090000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+2026-09-21T11:04:29.066141000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:347] 
+2026-09-21T11:04:29.068003000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [api_utils.py:286] non-default args: {'model_tag': '/root/.cache/huggingface/hub/models--local-inference-lab--GLM-5.3-Flash-NVFP4/snapshots/46aaae8a82032f77100f2f03e9cc11b391df3b4d', 'enable_auto_tool_choice': True, 'tool_call_parser': 'glm47', 'host': '0.0.0.0', 'model': '/root/.cache/huggingface/hub/models--local-inference-lab--GLM-5.3-Flash-NVFP4/snapshots/46aaae8a82032f77100f2f03e9cc11b391df3b4d', 'dtype': 'bfloat16', 'max_model_len': 1048576, 'quantization': 'modelopt_mixed', 'served_model_name': ['GLM-5.3-Flash'], 'load_format': 'instanttensor', 'attention_backend': 'B12X', 'reasoning_parser': 'glm45', 'master_addr': '10.11.11.1', 'master_port': 25000, 'nnodes': 4, 'tensor_parallel_size': 4, 'dcp_kv_cache_interleave_size': 4, 'cp_kv_cache_interleave_size': 4, 'block_size': 256, 'gpu_memory_utilization': 0.85, 'kv_cache_dtype': 'fp8', 'enable_prefix_caching': True, 'recurrent_checkpoint_policy': 'aligned', 'mamba_cache_mode': 'align', 'max_num_batched_tokens': 4096, 'max_num_seqs': 8, 'enable_chunked_prefill': True, 'prefill_schedule_interval': 8, 'cudagraph_capture_sizes': [1, 2, 4, 8, 12, 16, 24, 32], 'max_cudagraph_capture_size': 32, 'enable_flashinfer_autotune': False, 'moe_backend': 'b12x', 'linear_backend': 'b12x', 'speculative_config': {'method': 'mtp', 'num_speculative_tokens': 3, 'draft_sample_method': 'probabilistic', 'rejection_sample_method': 'standard', 'moe_backend': 'marlin', 'attention_backend': 'B12X'}, 'compilation_config': {'mode': None, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': [], 'ir_enable_torch_wrap': None, 'splitting_ops': None, 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': None, 'compile_ranges_endpoints': None, 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': None, 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': None, 'pass_config': {}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': None, 'static_all_moe_layers': []}, 'additional_config': {'glm53_kda_decode_backend': 'auto', 'kda_prefill_backend': 'flashkda'}}
+2026-09-21T11:04:29.068521000-04:00 (APIServer pid=43) WARNING 09-21 15:04:29 [envs.py:2361] Unknown vLLM environment variable detected: VLLM_USE_B12X_PCIE_DMA
+2026-09-21T11:04:29.068572000-04:00 (APIServer pid=43) WARNING 09-21 15:04:29 [envs.py:2361] Unknown vLLM environment variable detected: VLLM_CACHE_DIR
+2026-09-21T11:04:29.068612000-04:00 (APIServer pid=43) WARNING 09-21 15:04:29 [envs.py:2361] Unknown vLLM environment variable detected: VLLM_GLM53_SPLIT_TARGET_BLOCK_SIZE
+2026-09-21T11:04:29.068648000-04:00 (APIServer pid=43) WARNING 09-21 15:04:29 [envs.py:2361] Unknown vLLM environment variable detected: VLLM_GLM53_SPLIT_MAMBA_BLOCK_SIZE
+2026-09-21T11:04:29.105148000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [model.py:686] Resolved architecture: Glm5NextForConditionalGeneration
+2026-09-21T11:04:29.105285000-04:00 (APIServer pid=43) INFO 09-21 15:04:29 [model.py:2043] Using max model len 1048576
+2026-09-21T11:04:31.661835000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [cache.py:356] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+2026-09-21T11:04:31.662218000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [arg_utils.py:2351] Inferred data_parallel_rank 0 from node_rank 0
+2026-09-21T11:04:31.667372000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [model.py:686] Resolved architecture: Glm5NextMTPModel
+2026-09-21T11:04:31.667433000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [model.py:2043] Using max model len 1048576
+2026-09-21T11:04:31.667882000-04:00 (APIServer pid=43) WARNING 09-21 15:04:31 [speculative.py:1366] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+2026-09-21T11:04:31.667930000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [scheduler.py:339] Chunked prefill is enabled with max_num_batched_tokens=4096.
+2026-09-21T11:04:31.668511000-04:00 (APIServer pid=43) WARNING 09-21 15:04:31 [modelopt.py:379] Detected ModelOpt fp8 checkpoint (quant_algo=FP8). Please note that the format is experimental and could change.
+2026-09-21T11:04:31.668554000-04:00 (APIServer pid=43) WARNING 09-21 15:04:31 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=NVFP4). Please note that the format is experimental and could change in future.
+2026-09-21T11:04:31.668592000-04:00 (APIServer pid=43) WARNING 09-21 15:04:31 [modelopt.py:1029] Detected ModelOpt NVFP4 checkpoint (quant_algo=W4A16_NVFP4). Please note that the format is experimental and could change in future.
+2026-09-21T11:04:31.668622000-04:00 (APIServer pid=43) WARNING 09-21 15:04:31 [modelopt.py:1695] Detected ModelOpt MXFP8 checkpoint. Please note that the format is experimental and could change in future.
+2026-09-21T11:04:31.668653000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [vllm.py:835] Auto-enabling VLLM_USE_BREAKABLE_CUDAGRAPH=1. Set VLLM_USE_BREAKABLE_CUDAGRAPH=0 to opt out.
+2026-09-21T11:04:31.668689000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-21T11:04:31.668723000-04:00 (APIServer pid=43) WARNING 09-21 15:04:31 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T11:04:31.700820000-04:00 (APIServer pid=43) INFO 09-21 15:04:31 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-09-21T11:04:37.347138000-04:00 W0921 15:04:37.346000 155 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:04:37.359370000-04:00 W0921 15:04:37.359000 155 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:04:39.961985000-04:00 (EngineCore pid=155) INFO 09-21 15:04:39 [core.py:123] Initializing a V1 LLM engine (v0.26.1rc0+jj.r38.spark.vllm2d38757) with config: model='/root/.cache/huggingface/hub/models--local-inference-lab--GLM-5.3-Flash-NVFP4/snapshots/46aaae8a82032f77100f2f03e9cc11b391df3b4d', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/hub/models--local-inference-lab--GLM-5.3-Flash-NVFP4/snapshots/46aaae8a82032f77100f2f03e9cc11b391df3b4d', num_spec_tokens=3), tokenizer='/root/.cache/huggingface/hub/models--local-inference-lab--GLM-5.3-Flash-NVFP4/snapshots/46aaae8a82032f77100f2f03e9cc11b391df3b4d', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=1048576, download_dir=None, load_format=instanttensor, tensor_parallel_size=4, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=modelopt_mixed, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=fp8, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='glm45', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=GLM-5.3-Flash, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [4096], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 12, 16, 24, 32], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 32, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native']), enable_flashinfer_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, enable_bf16x3_router_gemm=False, moe_backend='b12x', linear_backend='b12x')
+2026-09-21T11:04:39.962742000-04:00 (EngineCore pid=155) INFO 09-21 15:04:39 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=10.11.11.1, mq_connect_ip=10.11.11.1 (local), world_size=4, local_world_size=1
+2026-09-21T11:04:43.409395000-04:00 W0921 15:04:43.408000 171 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:04:43.421424000-04:00 W0921 15:04:43.421000 171 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:04:47.432603000-04:00 (Worker pid=171) INFO 09-21 15:04:47 [parallel_state.py:1647] world_size=4 rank=0 local_rank=0 distributed_init_method=tcp://10.11.11.1:25000 backend=nccl
+2026-09-21T11:04:54.611553000-04:00 (Worker pid=171) INFO 09-21 15:04:54 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-09-21T11:04:54.615347000-04:00 (Worker pid=171) INFO 09-21 15:04:54 [pynccl.py:113] vLLM is using nccl==2.31.2
+2026-09-21T11:04:54.653701000-04:00 NCCL version 2.31.2+cuda13.3
+2026-09-21T11:04:55.265090000-04:00 
+2026-09-21T11:04:55.265251000-04:00 [2026-09-21 15:04:55] sparky:171:171 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-21T11:04:55.270635000-04:00 
+2026-09-21T11:04:55.270766000-04:00 [2026-09-21 15:04:55] sparky:171:171 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-21T11:04:57.947596000-04:00 (Worker pid=171) INFO 09-21 15:04:57 [b12x_roce_all_reduce.py:106] Using RoCEnante (b12x one-shot RoCE collectives): world=4, hcas=rocep1s0f0,roceP2p1s0f0, all-reduce max=2097152 bytes, all-gather shard max=16777216 bytes.
+2026-09-21T11:04:57.947903000-04:00 (Worker pid=171) WARNING 09-21 15:04:57 [symm_mem.py:67] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+2026-09-21T11:04:57.947936000-04:00 (Worker pid=171) INFO 09-21 15:04:57 [cuda_communicator.py:314] Using ['B12X_ROCENANTE', 'PYNCCL'] all-reduce backends (in dispatch order) for group 'tp:0' out of potential backends: ['B12X_PCIE', 'B12X_ROCENANTE', 'FLASHINFER', 'NCCL_SYMM_MEM', 'QUICK_REDUCE', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+2026-09-21T11:04:58.003720000-04:00 (Worker pid=171) INFO 09-21 15:04:58 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/local-inference/nccl/lib/libnccl.so.2.31.2
+2026-09-21T11:05:00.329827000-04:00 (Worker pid=171) INFO 09-21 15:05:00 [cuda_communicator.py:314] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'ep:0' out of potential backends: ['B12X_PCIE', 'B12X_ROCENANTE', 'FLASHINFER', 'NCCL_SYMM_MEM', 'QUICK_REDUCE', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+2026-09-21T11:05:00.330239000-04:00 (Worker pid=171) INFO 09-21 15:05:00 [parallel_state.py:1991] rank 0 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0, EPLB rank N/A
+2026-09-21T11:05:00.330314000-04:00 (Worker pid=171) INFO 09-21 15:05:00 [gpu_worker.py:421] Using V2 Model Runner
+2026-09-21T11:05:00.841548000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:00 [model_runner.py:390] Loading model from scratch...
+2026-09-21T11:05:00.967158000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:00 [cuda.py:551] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+2026-09-21T11:05:00.967349000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:00 [mm_encoder_attention.py:375] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+2026-09-21T11:05:00.995092000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:00 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-21T11:05:00.995287000-04:00 (Worker_TP0 pid=171) WARNING 09-21 15:05:00 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T11:05:01.007973000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:01 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-09-21T11:05:02.177883000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:02 [mla_attention.py:653] Using fp8_ds_mla KV cache format for B12X backend.
+2026-09-21T11:05:02.184649000-04:00 (Worker_TP0 pid=171) WARNING 09-21 15:05:02 [mla_attention.py:736] Sparse MLA layer has no dense-MHA prefill path; using the top-k MQA path only.
+2026-09-21T11:05:02.207605000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:02 [deep_gemm.py:213] DeepGEMM PDL enabled on deep_gemm.
+2026-09-21T11:05:02.207787000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:02 [deep_gemm.py:131] DeepGEMM E8M0 enabled on current platform.
+2026-09-21T11:05:02.279435000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:05:02 [nvfp4.py:261] Using 'B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+2026-09-21T11:05:08.051091000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   0% Completed | 0.00/184G [00:00<?, ?B/s]
+2026-09-21T11:05:09.052530000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   0% Completed | 36.0M/184G [00:01<1:27:31, 37.7MB/s]
+2026-09-21T11:05:10.053442000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   2% Completed | 2.93G/184G [00:02<01:45, 1.84GB/s]
+2026-09-21T11:05:11.054313000-04:00 (Worker_TP0 pid=171)   
+Loading safetensors using InstantTensor loader:   3% Completed | 6.02G/184G [00:03<01:16, 2.52GB/s]
+2026-09-21T11:05:12.055034000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   5% Completed | 8.96G/184G [00:04<01:08, 2.77GB/s]
+2026-09-21T11:05:13.055708000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   6% Completed | 11.8G/184G [00:05<01:04, 2.86GB/s]
+2026-09-21T11:05:14.055700000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   9% Completed | 15.9G/184G [00:06<00:53, 3.40GB/s]
+2026-09-21T11:05:15.056187000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  10% Completed | 19.3G/184G [00:07<00:51, 3.47GB/s]
+2026-09-21T11:05:16.217104000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  12% Completed | 22.5G/184G [00:08<00:52, 3.30GB/s]
+2026-09-21T11:05:17.322934000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  14% Completed | 25.6G/184G [00:09<00:53, 3.20GB/s]
+2026-09-21T11:05:18.327534000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  16% Completed | 29.6G/184G [00:10<00:47, 3.52GB/s]
+2026-09-21T11:05:19.333561000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  18% Completed | 33.5G/184G [00:11<00:43, 3.71GB/s]
+2026-09-21T11:05:20.334037000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  20% Completed | 37.4G/184G [00:12<00:40, 3.85GB/s]
+2026-09-21T11:05:21.447034000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  22% Completed | 41.0G/184G [00:13<00:41, 3.73GB/s]
+2026-09-21T11:05:22.722783000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  24% Completed | 44.5G/184G [00:14<00:43, 3.46GB/s]
+2026-09-21T11:05:23.722722000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  26% Completed | 48.4G/184G [00:15<00:39, 3.65GB/s]
+2026-09-21T11:05:24.783110000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  28% Completed | 51.8G/184G [00:16<00:39, 3.61GB/s]
+2026-09-21T11:05:25.876859000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  30% Completed | 55.2G/184G [00:17<00:39, 3.52GB/s]
+2026-09-21T11:05:26.994911000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  32% Completed | 58.5G/184G [00:18<00:39, 3.42GB/s]
+2026-09-21T11:05:28.026421000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  33% Completed | 61.7G/184G [00:19<00:38, 3.39GB/s]
+2026-09-21T11:05:29.060242000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  35% Completed | 64.9G/184G [00:21<00:38, 3.36GB/s]
+2026-09-21T11:05:30.060614000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  37% Completed | 68.6G/184G [00:22<00:35, 3.54GB/s]
+2026-09-21T11:05:31.061145000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  39% Completed | 72.3G/184G [00:23<00:32, 3.67GB/s]
+2026-09-21T11:05:32.061170000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  41% Completed | 76.3G/184G [00:24<00:30, 3.86GB/s]
+2026-09-21T11:05:33.061706000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  43% Completed | 80.1G/184G [00:25<00:28, 3.92GB/s]
+2026-09-21T11:05:34.065023000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  46% Completed | 84.0G/184G [00:26<00:27, 3.98GB/s]
+2026-09-21T11:05:35.074715000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  48% Completed | 87.7G/184G [00:27<00:26, 3.97GB/s]
+2026-09-21T11:05:36.316871000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  50% Completed | 91.4G/184G [00:28<00:26, 3.70GB/s]
+2026-09-21T11:05:37.370874000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  51% Completed | 94.9G/184G [00:29<00:26, 3.66GB/s]
+2026-09-21T11:05:38.581737000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  53% Completed | 98.3G/184G [00:30<00:26, 3.46GB/s]
+2026-09-21T11:05:39.677373000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  55% Completed | 102G/184G [00:31<00:26, 3.38GB/s]
+2026-09-21T11:05:40.682941000-04:00 (Worker_TP0 pid=171)  
+Loading safetensors using InstantTensor loader:  57% Completed | 105G/184G [00:32<00:24, 3.43GB/s]
+2026-09-21T11:05:41.684353000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  59% Completed | 109G/184G [00:33<00:21, 3.71GB/s]
+2026-09-21T11:05:42.685339000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  61% Completed | 113G/184G [00:34<00:20, 3.72GB/s]
+2026-09-21T11:05:43.685682000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  63% Completed | 116G/184G [00:35<00:19, 3.81GB/s]
+2026-09-21T11:05:44.951676000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  65% Completed | 120G/184G [00:36<00:19, 3.54GB/s]
+2026-09-21T11:05:46.084939000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  67% Completed | 123G/184G [00:38<00:19, 3.42GB/s]
+2026-09-21T11:05:47.086929000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  69% Completed | 127G/184G [00:39<00:17, 3.48GB/s]
+2026-09-21T11:05:48.089695000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  71% Completed | 130G/184G [00:40<00:16, 3.56GB/s]
+2026-09-21T11:05:49.090588000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  73% Completed | 134G/184G [00:41<00:13, 3.85GB/s]
+2026-09-21T11:05:50.092023000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  75% Completed | 139G/184G [00:42<00:12, 4.04GB/s]
+2026-09-21T11:05:51.162264000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  77% Completed | 142G/184G [00:43<00:11, 3.97GB/s]
+2026-09-21T11:05:52.454894000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  79% Completed | 146G/184G [00:44<00:11, 3.66GB/s]
+2026-09-21T11:05:53.543361000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  81% Completed | 149G/184G [00:45<00:10, 3.59GB/s]
+2026-09-21T11:05:54.595584000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  83% Completed | 153G/184G [00:46<00:09, 3.55GB/s]
+2026-09-21T11:05:55.596941000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  85% Completed | 156G/184G [00:47<00:08, 3.57GB/s]
+2026-09-21T11:05:56.683018000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  87% Completed | 161G/184G [00:48<00:06, 3.81GB/s]
+2026-09-21T11:05:57.685626000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  90% Completed | 165G/184G [00:49<00:04, 4.15GB/s]
+2026-09-21T11:05:58.688858000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  92% Completed | 171G/184G [00:50<00:03, 4.56GB/s]
+2026-09-21T11:05:59.694735000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  95% Completed | 176G/184G [00:51<00:01, 4.93GB/s]
+2026-09-21T11:06:02.812618000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  98% Completed | 181G/184G [00:54<00:01, 3.04GB/s]
+2026-09-21T11:06:02.865965000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader: 100% Completed | 184G/184G [00:54<00:00, 3.61GB/s]
+2026-09-21T11:06:02.866120000-04:00 (Worker_TP0 pid=171) 
+2026-09-21T11:06:03.100743000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [default_loader.py:493] Loading weights took 58.36 seconds
+2026-09-21T11:06:03.209655000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [nvfp4.py:613] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-21T11:06:03.556105000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-21T11:06:03.569476000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-21T11:06:03.609669000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [vocab_parallel_embedding.py:392] Quantizing LM head shards to NVFP4 with BF16 activations.
+2026-09-21T11:06:03.619813000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [mxfp8.py:125] Using 'MARLIN' MxFp8 MoE backend (user-requested).
+2026-09-21T11:06:03.843347000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:03 [weight_utils.py:667] Safetensors index filter selected 5/44 checkpoint shards.
+2026-09-21T11:06:03.864576000-04:00 (Worker_TP0 pid=171) /opt/jovian-judgement/vllm/vllm/model_executor/model_loader/weight_utils.py:1318: RuntimeWarning: Shrink io_depth from 128 to 32 due to memory limit.
+2026-09-21T11:06:03.864729000-04:00 (Worker_TP0 pid=171)   with instanttensor.safe_open(
+2026-09-21T11:06:04.224369000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:   0% Completed | 0.00/12.3G [00:00<?, ?B/s]
+2026-09-21T11:06:05.673604000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  19% Completed | 2.36G/12.3G [00:01<00:06, 1.75GB/s]
+2026-09-21T11:06:06.678401000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader:  55% Completed | 6.81G/12.3G [00:02<00:01, 3.24GB/s]
+2026-09-21T11:06:07.442026000-04:00 (Worker_TP0 pid=171) 
+Loading safetensors using InstantTensor loader: 100% Completed | 12.3G/12.3G [00:03<00:00, 4.10GB/s]
+2026-09-21T11:06:07.442887000-04:00 (Worker_TP0 pid=171) 
+2026-09-21T11:06:07.566957000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:07 [default_loader.py:493] Loading weights took 3.72 seconds
+2026-09-21T11:06:07.792304000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:07 [fp8.py:706] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-21T11:06:07.795307000-04:00 (Worker_TP0 pid=171) WARNING 09-21 15:06:07 [speculator.py:196] Draft model Glm5NextMTP does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+2026-09-21T11:06:08.541054000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:08 [model_runner.py:412] Model loading took 47.39 GiB memory and 67.928941 seconds
+2026-09-21T11:06:08.566630000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:08 [topk_topp_sampler.py:64] Using FlashInfer for top-p & top-k sampling.
+2026-09-21T11:06:08.567107000-04:00 (Worker_TP0 pid=171) WARNING 09-21 15:06:08 [interface.py:888] Using split GLM-5.3 cache pages: target block size 2048 tokens, recurrent-state block size 2048 tokens.
+2026-09-21T11:06:08.609963000-04:00 (EngineCore pid=155) INFO 09-21 15:06:08 [utils.py:381] Using BLHNC KV cache layout.
+2026-09-21T11:06:11.342669000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:11 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 32242 tokens, and profiled with 1 video items of the maximum feature size.
+2026-09-21T11:06:22.357486000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:22 [b12x_roce_all_reduce.py:192] RoCEnante all-reduce is live: first routed all-reduce is 65536 bytes (bfloat16); NCCL remains the fallback above 2MB.
+2026-09-21T11:06:22.375006000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:22 [b12x_roce_all_reduce.py:210] RoCEnante all-gather is live: first routed shard is (8, 38720) bfloat16 along dim 1.
+2026-09-21T11:06:23.242497000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:23 [b12x_warmup.py:98] Warmed up 1 b12x MLA kernel signature(s).
+2026-09-21T11:06:23.242667000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:23 [b12x_warmup.py:98] Warmed up 1 b12x MoE kernel signature(s).
+2026-09-21T11:06:23.576569000-04:00 (Worker_TP0 pid=171) WARNING 09-21 15:06:23 [kv_cache_utils.py:2162] Keeping split GLM-5.3 cache groups with physical page sizes [1122304, 1148928].
+2026-09-21T11:06:23.638739000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:23 [breakable_cudagraph.py:321] Breakable CUDA graph enabled
+2026-09-21T11:06:29.892821000-04:00 (Worker_TP0 pid=171) 
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/8 [00:00<?, ?it/s]
+Capturing CUDA graphs (PIECEWISE):  12%|█▎        | 1/8 [00:01<00:07,  1.03s/it]
+Capturing CUDA graphs (PIECEWISE):  25%|██▌       | 2/8 [00:01<00:05,  1.19it/s]
+Capturing CUDA graphs (PIECEWISE):  38%|███▊      | 3/8 [00:02<00:03,  1.31it/s]
+Capturing CUDA graphs (PIECEWISE):  50%|█████     | 4/8 [00:03<00:02,  1.38it/s]
+Capturing CUDA graphs (PIECEWISE):  62%|██████▎   | 5/8 [00:03<00:02,  1.41it/s]
+Capturing CUDA graphs (PIECEWISE):  75%|███████▌  | 6/8 [00:04<00:01,  1.45it/s]
+Capturing CUDA graphs (PIECEWISE):  88%|████████▊ | 7/8 [00:05<00:00,  1.48it/s]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:05<00:00,  1.36it/s]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:05<00:00,  1.35it/s]
+2026-09-21T11:06:30.679355000-04:00 (Worker_TP0 pid=171) 
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]
+Capturing CUDA graphs (FULL):  50%|█████     | 1/2 [00:00<00:00,  2.20it/s]
+Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00,  2.62it/s]
+Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00,  2.54it/s]
+2026-09-21T11:06:30.679519000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:30 [speculator.py:187] Capturing model for speculator...
+2026-09-21T11:06:33.754834000-04:00 (Worker_TP0 pid=171) 
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/8 [00:00<?, ?it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  12%|█▎        | 1/8 [00:00<00:02,  2.52it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  25%|██▌       | 2/8 [00:00<00:02,  2.59it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  38%|███▊      | 3/8 [00:01<00:01,  2.64it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  50%|█████     | 4/8 [00:01<00:01,  2.66it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  62%|██████▎   | 5/8 [00:01<00:01,  2.67it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  75%|███████▌  | 6/8 [00:02<00:00,  2.67it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  88%|████████▊ | 7/8 [00:02<00:00,  2.68it/s]
+Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:03<00:00,  2.54it/s]
+Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:03<00:00,  2.60it/s]
+2026-09-21T11:06:33.843043000-04:00 (Worker_TP0 pid=171) 
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing prefill CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 45.44it/s]
+2026-09-21T11:06:33.914736000-04:00 (Worker_TP0 pid=171) 
+Capturing decode CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing decode CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 56.08it/s]
+2026-09-21T11:06:33.914879000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:33 [model_runner.py:1086] Graph capturing finished in 10 secs, took 1.48 GiB
+2026-09-21T11:06:34.305728000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:34 [gpu_worker.py:628] Available KV cache memory: 40.92 GiB
+2026-09-21T11:06:34.305881000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:34 [gpu_worker.py:643] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8500 is equivalent to --gpu-memory-utilization=0.8365 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8635. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+2026-09-21T11:06:34.334196000-04:00 (EngineCore pid=155) WARNING 09-21 15:06:34 [kv_cache_utils.py:2162] Keeping split GLM-5.3 cache groups with physical page sizes [1122304, 1148928].
+2026-09-21T11:06:34.336963000-04:00 (EngineCore pid=155) INFO 09-21 15:06:34 [kv_cache_utils.py:2251] GPU KV cache size: 6,255,843 tokens, Maximum concurrency for 1,048,576 tokens per request: 5.97x
+2026-09-21T11:06:36.502021000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:36 [kernel_warmup.py:124] JIT kernel warmup starting.
+2026-09-21T11:06:36.502322000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:36 [kernel_warmup.py:134] JIT kernel warmup finished in 0.00s.
+2026-09-21T11:06:36.515528000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:36 [kernel_warmup.py:92] Warming up ll_bf16 router GEMM kernels for shapes: ((4096, 288),).
+2026-09-21T11:06:37.309974000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:37 [kernel_warmup.py:194] Skipping FlashInfer autotune because it is disabled.
+2026-09-21T11:06:51.140327000-04:00 (Worker_TP0 pid=171) 
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/8 [00:00<?, ?it/s]
+Capturing CUDA graphs (PIECEWISE):  12%|█▎        | 1/8 [00:00<00:06,  1.08it/s]
+Capturing CUDA graphs (PIECEWISE):  25%|██▌       | 2/8 [00:01<00:04,  1.29it/s]
+Capturing CUDA graphs (PIECEWISE):  38%|███▊      | 3/8 [00:03<00:07,  1.42s/it]
+Capturing CUDA graphs (PIECEWISE):  50%|█████     | 4/8 [00:05<00:06,  1.63s/it]
+Capturing CUDA graphs (PIECEWISE):  62%|██████▎   | 5/8 [00:07<00:05,  1.74s/it]
+Capturing CUDA graphs (PIECEWISE):  75%|███████▌  | 6/8 [00:09<00:03,  1.81s/it]
+Capturing CUDA graphs (PIECEWISE):  88%|████████▊ | 7/8 [00:11<00:01,  1.85s/it]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:13<00:00,  1.88s/it]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:13<00:00,  1.68s/it]
+2026-09-21T11:06:52.789030000-04:00 (Worker_TP0 pid=171) 
+Capturing CUDA graphs (FULL):   0%|          | 0/6 [00:00<?, ?it/s]
+Capturing CUDA graphs (FULL):  17%|█▋        | 1/6 [00:00<00:01,  3.09it/s]
+Capturing CUDA graphs (FULL):  33%|███▎      | 2/6 [00:00<00:01,  3.18it/s]
+Capturing CUDA graphs (FULL):  50%|█████     | 3/6 [00:00<00:00,  3.49it/s]
+Capturing CUDA graphs (FULL):  67%|██████▋   | 4/6 [00:01<00:00,  3.62it/s]
+Capturing CUDA graphs (FULL):  83%|████████▎ | 5/6 [00:01<00:00,  3.77it/s]
+Capturing CUDA graphs (FULL): 100%|██████████| 6/6 [00:01<00:00,  3.81it/s]
+Capturing CUDA graphs (FULL): 100%|██████████| 6/6 [00:01<00:00,  3.64it/s]
+2026-09-21T11:06:52.789362000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:52 [speculator.py:187] Capturing model for speculator...
+2026-09-21T11:06:55.843337000-04:00 (Worker_TP0 pid=171) 
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/8 [00:00<?, ?it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  12%|█▎        | 1/8 [00:00<00:02,  2.58it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  25%|██▌       | 2/8 [00:00<00:02,  2.59it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  38%|███▊      | 3/8 [00:01<00:01,  2.60it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  50%|█████     | 4/8 [00:01<00:01,  2.61it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  62%|██████▎   | 5/8 [00:01<00:01,  2.62it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  75%|███████▌  | 6/8 [00:02<00:00,  2.63it/s]
+Capturing prefill CUDA graphs (PIECEWISE):  88%|████████▊ | 7/8 [00:02<00:00,  2.63it/s]
+Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:03<00:00,  2.63it/s]
+Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 8/8 [00:03<00:00,  2.62it/s]
+2026-09-21T11:06:55.899536000-04:00 (Worker_TP0 pid=171) 
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing prefill CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 71.16it/s]
+2026-09-21T11:06:55.959560000-04:00 (Worker_TP0 pid=171) 
+Capturing decode CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing decode CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 67.05it/s]
+2026-09-21T11:06:55.959709000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:55 [model_runner.py:1086] Graph capturing finished in 19 secs, took 0.15 GiB
+2026-09-21T11:06:55.959737000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:55 [gpu_worker.py:796] CUDA graph pool memory: 0.15 GiB (actual), 1.64 GiB (estimated), difference: 1.49 GiB (994.3%).
+2026-09-21T11:06:55.959771000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:55 [gpu_worker.py:859] Free memory on device (109.3/121.69 GiB) on startup. Desired GPU memory utilization is (0.85, 103.44 GiB). Actual usage is 58.8 GiB for consumed memory (weights + non-torch), 2.07 GiB for peak activation, and 0.15 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=45385914164` (42.27 GiB) to fit into requested memory, or `--kv-cache-memory=51686696960` (48.14 GiB) to fully utilize gpu memory. Current kv cache memory in use is 40.92 GiB.
+2026-09-21T11:06:58.817113000-04:00 (Worker_TP0 pid=171) INFO 09-21 15:06:58 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+2026-09-21T11:06:59.283311000-04:00 (EngineCore pid=155) INFO 09-21 15:06:59 [core.py:377] init engine (profile, create kv cache, warmup model) took 50.68 s
+2026-09-21T11:07:02.418341000-04:00 (EngineCore pid=155) INFO 09-21 15:07:02 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'])
+2026-09-21T11:07:02.418638000-04:00 (EngineCore pid=155) WARNING 09-21 15:07:02 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T11:07:02.431347000-04:00 (EngineCore pid=155) INFO 09-21 15:07:02 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-09-21T11:07:02.436668000-04:00 (APIServer pid=43) INFO 09-21 15:07:02 [entry.py:135] Supported tasks: ['generate']
+2026-09-21T11:07:02.522512000-04:00 (APIServer pid=43) INFO 09-21 15:07:02 [parser_manager.py:58] "auto" tool choice has been enabled.
+2026-09-21T11:07:03.698763000-04:00 (APIServer pid=43) INFO 09-21 15:07:03 [hf.py:547] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+2026-09-21T11:07:07.694731000-04:00 (APIServer pid=43) INFO 09-21 15:07:07 [base.py:235] Multi-modal warmup completed in 3.979s
+2026-09-21T11:07:10.368572000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [base.py:235] Readonly multi-modal warmup completed in 2.673s
+2026-09-21T11:07:10.404052000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000
+2026-09-21T11:07:10.404186000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:61] Available routes are:
+2026-09-21T11:07:10.404218000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /openapi.json, Methods: GET, HEAD
+2026-09-21T11:07:10.404243000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /docs, Methods: GET, HEAD
+2026-09-21T11:07:10.404275000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+2026-09-21T11:07:10.404296000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /redoc, Methods: GET, HEAD
+2026-09-21T11:07:10.404324000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /load, Methods: GET
+2026-09-21T11:07:10.404352000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /version, Methods: GET
+2026-09-21T11:07:10.404376000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /health, Methods: GET
+2026-09-21T11:07:10.404393000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /metrics, Methods: GET
+2026-09-21T11:07:10.404413000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /tokenize, Methods: POST
+2026-09-21T11:07:10.404433000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /detokenize, Methods: POST
+2026-09-21T11:07:10.404453000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/models, Methods: GET
+2026-09-21T11:07:10.404479000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /ping, Methods: GET
+2026-09-21T11:07:10.404507000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /ping, Methods: POST
+2026-09-21T11:07:10.404532000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /invocations, Methods: POST
+2026-09-21T11:07:10.404562000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+2026-09-21T11:07:10.404582000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+2026-09-21T11:07:10.404599000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/responses, Methods: POST
+2026-09-21T11:07:10.404617000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+2026-09-21T11:07:10.404636000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+2026-09-21T11:07:10.404659000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/completions, Methods: POST
+2026-09-21T11:07:10.404684000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/messages, Methods: POST
+2026-09-21T11:07:10.404705000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+2026-09-21T11:07:10.404728000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /generative_scoring, Methods: POST
+2026-09-21T11:07:10.404748000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+2026-09-21T11:07:10.404765000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+2026-09-21T11:07:10.404795000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/chat/completions/render, Methods: POST
+2026-09-21T11:07:10.404823000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/completions/render, Methods: POST
+2026-09-21T11:07:10.404842000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/chat/completions/derender, Methods: POST
+2026-09-21T11:07:10.404857000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /v1/completions/derender, Methods: POST
+2026-09-21T11:07:10.404875000-04:00 (APIServer pid=43) INFO 09-21 15:07:10 [launcher.py:70] Route: /inference/v1/generate, Methods: POST
+2026-09-21T11:07:10.423337000-04:00 (APIServer pid=43) INFO:     Started server process [43]
+2026-09-21T11:07:10.423466000-04:00 (APIServer pid=43) INFO:     Waiting for application startup.
+2026-09-21T11:07:10.631906000-04:00 (APIServer pid=43) INFO:     Application startup complete.
+2026-09-21T11:07:17.879038000-04:00 (APIServer pid=43) INFO:     192.168.2.2:33732 - "GET /v1/models HTTP/1.1" 200 OK
+2026-09-21T11:07:17.895520000-04:00 (Worker_TP0 pid=171) WARNING 09-21 15:07:17 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _glm_device_token_metadata_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-21T11:07:18.226018000-04:00 (APIServer pid=43) INFO:     192.168.2.2:33746 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2026-09-21T11:07:20.632492000-04:00 (APIServer pid=43) INFO 09-21 15:07:20 [loggers.py:310] Engine 000: Avg prompt throughput: 1.6 tokens/s, Avg generation throughput: 0.7 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+2026-09-21T11:07:20.632792000-04:00 (APIServer pid=43) INFO 09-21 15:07:20 [metrics.py:136] SpecDecoding metrics: Mean acceptance length: 3.25, Mean verification depth: 3.00/3, Accepted throughput: 0.49 tokens/s, Drafted throughput: 0.66 tokens/s, Accepted: 9 tokens, Drafted: 12 tokens, Per-position acceptance rate: 1.000, 1.000, 0.250, Per-position verification coverage: 1.000, 1.000, 1.000, Avg Draft acceptance rate: 75.0%

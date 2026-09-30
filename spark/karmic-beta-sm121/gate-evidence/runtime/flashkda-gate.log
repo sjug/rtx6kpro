@@ -1,0 +1,31 @@
+W0921 00:31:03.208000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 00:31:03.209000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 00:31:03.209000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... collected 34 items / 22 deselected / 12 selected
+
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-4] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype0-64] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-4] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype0-cu_dtype1-64] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-4] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype0-64] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-4] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_packed_checkpoints_match_prefix_states_without_changing_outputs[state_dtype1-cu_dtype1-64] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-4] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype0-64] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-4] PASSED
+../../../gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/test_vsplit.py::test_dense_checkpoints_across_long_prefill_match_independent_prefixes[cu_dtype1-64] PASSED
+
+=============================== warnings summary ===============================
+../../venv/lib/python3.12/site-packages/_pytest/cacheprovider.py:475
+  /opt/venv/lib/python3.12/site-packages/_pytest/cacheprovider.py:475: PytestCacheWarning: could not create cache path /gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/.pytest_cache/v/cache/nodeids: [Errno 30] Read-only file system: '/gate/build-receipts/runtime-20260921T002742Z-1655697/flashkda-tests/pytest-cache-files-qj88qp4m'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========== 12 passed, 22 deselected, 1 warning in 70.32s (0:01:10) ============
+FLASHKDA-KARMIC-GATE-PASS collected=12 passed=12

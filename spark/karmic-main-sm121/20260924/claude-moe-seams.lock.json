@@ -1,0 +1,29 @@
+{
+  "base_diagnostic_lock_sha256": "4d45a44abec8b042b5defd8eccc6cd7fda3c737cb8ec84543184c709470a72c7",
+  "base_image_id": "0b5c65a81b2544b2ebe4d1450076f654e21feb43703931601778a645c829c5ba",
+  "inputs": {
+    "Dockerfile.claude-moe-seams": "89b2d05f21241681f074b25c68b3c651e42463593502b76c1111abf569bfe2ce",
+    "claude-moe-seams-act_analyze.py": "28ef1057a68eab2b05e3fde508ee7d87da5d71bb20e3a1078a783b6d1ddc7e19",
+    "claude-moe-seams-act_trace.py": "b48383e7576620067f9027580be905b15d1e0da33f2262f58f2f8cd47cbfb16c",
+    "claude-moe-seams.patch": "eb7051c1d6668a721b5a2fa9321e91191d1a349a39bdd0d7f3ecfa0c3cb73367",
+    "claude_install_moe_seams.py": "c132058db9f9cc03f04e29ef1916294eaf20f4d3a98ba8bf1b14c06e5d9f0046",
+    "claude_prepare_moe_seams.py": "b8c3dd58043f60bb54e81213fab3fbebbd65578b39f10230900e29d6217a291f",
+    "claude_test_moe_seams.py": "f740e19134d011bfe10fb55cca4412abd2afe71357017993b5c9457e82d3f676"
+  },
+  "kind": "moe-seam-diagnostic",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/models/deepseek_v4_1/claude_act_trace.py": {
+      "input_sha256": "799980138dd3449687a6d6312f5b9547192c033f788823bad53aaca93b525970",
+      "output_sha256": "b48383e7576620067f9027580be905b15d1e0da33f2262f58f2f8cd47cbfb16c",
+      "source": "claude-moe-seams-act_trace.py"
+    }
+  },
+  "verify_unchanged": {
+    "vllm/vllm/model_executor/layers/fused_moe/layer.py": "57d0d03ea2067aafe8c4bdcae00b8db9bc06cda4860844825e8b496d7b7106f9",
+    "vllm/vllm/model_executor/layers/fused_moe/runner/moe_runner.py": "e04db3217620335edc2341be711eb6df32160a2d44ab279ce28821308eb2747c",
+    "vllm/vllm/model_executor/layers/fused_moe/runner/shared_experts.py": "0226f655186944e45a11be7198b666e6697362ece587fba54eb35b953c79ed88",
+    "vllm/vllm/models/deepseek_v4/nvidia/model.py": "109236e3b5868f74922f9d270a2d82776f498855b284666279613002b65016ea"
+  },
+  "vllm_commit": "1794dcf18454900263e0c66711af8ea4a1283ac1"
+}

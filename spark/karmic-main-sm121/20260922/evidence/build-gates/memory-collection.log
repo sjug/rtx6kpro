@@ -1,0 +1,274 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:31:47.910000 50 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:31:47.910000 50 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:31:47.911000 50 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:31:50.722000 50 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:31:50.736000 50 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 2 items
+
+<Package tests/v1/worker>
+  <Module test_async_verified_draft_counts.py>
+    <Function test_verified_counts_belong_to_output_step[deferred-delivery]>
+      A subsequent verifier step may reuse capacity storage before CPU delivery.
+    <Function test_verified_counts_belong_to_output_step[cuda-copy]>
+      A subsequent verifier step may reuse capacity storage before CPU delivery.
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 2 tests collected in 6.93s ==========================
+MEMORY-GATE-PASS verified_counts count=2 collect_only=True
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:31:58.277000 115 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:31:58.277000 115 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:31:58.278000 115 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:32:00.374000 115 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:32:00.389000 115 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 5 items
+
+<Package tests/v1/worker>
+  <Module test_b12x_roce_health.py>
+    Placement of the RoCEnante fail-stop health check in the GPU worker.
+    
+    The four-node adapter tests in b12x establish the GPU behaviour; this test
+    pins where the worker runs the check relative to the step's device-to-host
+    completion: immediately for a synchronous output (or ``None``), and only after
+    ``get_output()`` for an asynchronous output.
+    <Function test_sync_output_is_checked_immediately>
+    <Function test_none_output_is_checked_and_passed_through>
+    <Function test_async_output_is_checked_after_completion>
+    <Function test_failure_propagates_from_sync_and_async>
+    <Function test_no_roce_communicator_means_no_wrapping>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 5 tests collected in 4.67s ==========================
+MEMORY-GATE-PASS roce_health count=5 collect_only=True
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:32:06.305000 180 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:32:06.305000 180 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:32:06.305000 180 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:32:08.388000 180 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:32:08.402000 180 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 19 items
+
+<Package tests/v1/worker>
+  <Module test_boundary_checkpoint_restore_scalars.py>
+    Restore endpoint state for ordinary and specialized scalar arguments.
+    <Function test_restore_accepts_specialized_scalar_indices[17-0-0]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-0-1]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-0-2]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-1-0]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-1-1]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-1-2]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-2-0]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-2-1]>
+    <Function test_restore_accepts_specialized_scalar_indices[17-2-2]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-0-0]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-0-1]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-0-2]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-1-0]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-1-1]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-1-2]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-2-0]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-2-1]>
+    <Function test_restore_accepts_specialized_scalar_indices[1057-2-2]>
+    <Function test_restore_keeps_page_offsets_above_signed_int32>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 19 tests collected in 3.53s ==========================
+MEMORY-GATE-PASS restore_scalars count=19 collect_only=True
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:32:13.840000 244 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:32:13.840000 244 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:32:13.840000 244 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:32:16.112000 244 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:32:16.127000 244 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 8 items
+
+<Dir tests/model_executor/kernels>
+  <Module test_b12x_linear.py>
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[3-pre]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[3-post_pre]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[3-post_pre_bf16]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[3-post]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[4096-pre]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[4096-post_pre]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[4096-post_pre_bf16]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+    <Function test_b12x_mhc_preparation_reuses_outputs_with_exact_graph_replay[4096-post]>
+      Tuning fixtures retain one output set per candidate, not per sample.
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 8 tests collected in 5.47s ==========================
+MEMORY-GATE-PASS mhc count=8 collect_only=True
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:32:21.385000 309 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:32:21.385000 309 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:32:21.385000 309 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:32:23.354000 309 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:32:23.368000 309 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+WARNING 09-23 01:32:25 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+collected 8 items
+
+<Dir tests/v1/attention>
+  <Module test_ds4_workspace_envelope.py>
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[0-0-786688]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[0-0-1048576]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[0-5-786688]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[0-5-1048576]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[384-0-786688]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[384-0-1048576]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[384-5-786688]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+    <Function test_declared_workspace_covers_shorter_compressed_prefixes[384-5-1048576]>
+      Reserve decode-prefix and capacity-prefill plans before workspace lock.
+      
+      Native plan scratch requirements are evaluated without compiling attention
+      kernels. The job stub completes only the coordinator's control protocol;
+      declaration, plan selection, and workspace reservation are real.
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 8 tests collected in 4.34s ==========================
+MEMORY-GATE-PASS envelope count=8 collect_only=True
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:32:28.839000 374 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:32:28.839000 374 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:32:28.839000 374 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:32:31.066000 374 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:32:31.083000 374 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 2 items
+
+<Package tests/v1/worker>
+  <Module test_workspace.py>
+    <Function test_preparation_reservation_preserves_per_lane_profile_capacity[False]>
+    <Function test_preparation_reservation_preserves_per_lane_profile_capacity[True]>
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 2 tests collected in 4.46s ==========================
+MEMORY-GATE-PASS lane_reserve count=2 collect_only=True
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0 -- /opt/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /opt/jovian-judgement/vllm
+configfile: pyproject.toml
+plugins: anyio-4.14.2, typeguard-4.6.0
+collecting ... W0923 01:32:36.629000 439 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:32:36.630000 439 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:32:36.630000 439 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:32:38.659000 439 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:32:38.674000 439 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+collected 2 items
+
+<Package tests/v1/worker>
+  <Module test_workspace.py>
+    <Function test_dsv4_metadata_free_profile_does_not_reserve_split_attention[0]>
+      Prepared state declarations own attention scratch before KV admission.
+    <Function test_dsv4_metadata_free_profile_does_not_reserve_split_attention[384]>
+      Prepared state declarations own attention scratch before KV admission.
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 2 tests collected in 4.23s ==========================
+MEMORY-GATE-PASS metadata_free count=2 collect_only=True

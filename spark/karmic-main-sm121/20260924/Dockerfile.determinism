@@ -1,0 +1,20 @@
+FROM d880b1297eda5d788bd45c2f85a0b42e9dbcdde856117a10ec6ec3f92d7b5937
+ARG PATCH_TREE
+ARG PATCH_LOCK
+ARG PATCH_CACHE
+COPY determinism.lock.json determinism-tiled-topk.py claude-dsa-topk-tiebreak.patch runtime.lock.json install_determinism.py /opt/ds41-determinism/
+RUN /opt/venv/bin/python /opt/ds41-determinism/install_determinism.py
+ENV XDG_CACHE_HOME=/cache/jit/${PATCH_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${PATCH_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${PATCH_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${PATCH_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${PATCH_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${PATCH_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${PATCH_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${PATCH_CACHE}/cute-dsl
+LABEL b12x.source-tree="${PATCH_TREE}" \
+    local-inference.ds41.diagnostic.kind="determinism" \
+    local-inference.ds41.diagnostic.lock.sha256="${PATCH_LOCK}" \
+    local-inference.cache.fingerprint="${PATCH_CACHE}" \
+    local-inference.status="determinism-candidate-not-qualified" \
+    org.opencontainers.image.title="DS4.1 deterministic DSA and MoE candidate"

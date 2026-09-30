@@ -1,0 +1,12 @@
+{
+  "commit": "73cf112295c33aee2b895f329f592f2a9b4b0f97",
+  "dockerfile_sha256": "5cde48aa578c3f1b6e61f6506b5d32615afd95a7a20346ed20f2bf4a94d35771",
+  "max_jobs": 20,
+  "payload_sha256": "7abfbcae1d148f0cfea3e396d530ccf99d058f7e7730bc95692afe0270de07c5",
+  "provenance": "User-approved stock substitution, not Luke patched binary",
+  "repository": "NVIDIA/nccl",
+  "tag": "v2.30.7-1",
+  "target": "sm_121",
+  "tree": "3e7de6f92f0190d1afe9f05642e634cbf43ae4c9",
+  "version_code": 23007
+}

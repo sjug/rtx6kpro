@@ -1,0 +1,10 @@
+**
+!Dockerfile.claude-engram-fault-inject
+!claude-engram-fault-inject-model.py
+!claude-engram-fault-inject.patch
+!claude_classify_fault_inject.py
+!claude_engram_fault_inject.py
+!claude_install_engram_fault_inject.py
+!claude_prepare_engram_fault_inject.py
+!claude_test_engram_fault_inject.py
+!claude-engram-fault-inject.lock.json

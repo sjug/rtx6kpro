@@ -1,0 +1,10 @@
+{
+  "vllm:DeepSeek-V4-Flash-Vision-Exp:f3edcbc57707": {
+    "chars_per_token": 6.178107606679036,
+    "engine": "vllm",
+    "model": "DeepSeek-V4-Flash-Vision-Exp",
+    "source_context": "8k",
+    "template_id": "f3edcbc57707",
+    "updated_at": "2026-09-22T16:02:13.780384-04:00"
+  }
+}

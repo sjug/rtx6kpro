@@ -1,0 +1,153 @@
+true
+true
+/home/jugs/git/llm-inference-bench/llm_decode_bench.py: OK
+/home/jugs/git/llm-inference-bench/run_bench.sh: OK
+─────────────────────────────────
+host=http://rusty:8000 model=DeepSeek-V4-Flash-Vision-Exp concurrency=4
+campaign=2026-09-r38p-grammar-qualification workload=throughput variant=jj-r38p-tp2-dspark-k3-dglin-524k-c4-16k-recheck repetition=2
+output=/home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-r38p-grammar-qualification/throughput/20260922T163950-0400__jj-r38p-tp2-dspark-k3-dglin-524k-c4-16k-recheck__r02.json
+─────────────────────────────────
+
+New version available: v0.6.2 (current: v0.4.29)
+Upgrade and restart? [Y/n]: Skipping update.
+
+╭──────────────────────────── NVIDIA P2P Override ─────────────────────────────╮
+│ Effective: yes                                                               │
+│ Configured file: yes (/etc/modprobe.d/nvidia-p2p-override.conf)              │
+│ Runtime: ForceP2P=0x11; RMForceP2PType=1; RMPcieP2PType=2;                   │
+│ GrdmaPciTopoCheckOverride=1; EnableResizableBar=1; DmaRemapPeerMmio=1        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────── Configuration ────────────────────────────────╮
+│ LLM Inference Benchmark                                                      │
+│ Model: DeepSeek-V4-Flash-Vision-Exp @ http://rusty:8000                      │
+│ Decode concurrency: [4]                                                      │
+│ Decode contexts: ['16k']                                                     │
+│ Duration: 30.0s per decode test | Max tokens: 8192                           │
+│ Pre-decode warmup: C=1 max-runnable context for 3s                           │
+│ Prefill: skipped | Sustained decode: 1 cells                                 │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Engine: vLLM 0.26.1rc0+jj.r38.spark.vllm2d38757  Models: 
+['DeepSeek-V4-Flash-Vision-Exp']
+Model context length: 524,288 tokens
+Prefill tests: skipped
+Calibrating padding text (run=bjuxlfbubbvm, up to 16k)...
+  Token targeting: single-point estimate from 8k (use --token-targeting exact 
+for /tokenize binary search)
+  Calibrated: 6.18 chars/token (cached, source=8k)
+  16k: 101,222 chars (~16,383 tokens)
+Done.
+
+
+
+llm-decode-bench v0.4.29
+╭────────────────────────────────── Phase 2 ───────────────────────────────────╮
+│ Sustained Decode                                                             │
+│ Steady-state decode throughput after the engine has admitted the requested   │
+│ concurrency and passed warmup. Use this as the main tuning/regression signal │
+│ for kernels, NCCL, DCP, MTP, and scheduler changes.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate tok/s  + TTFT/ITL
+╭────────────┬────────────╮
+│ ctx \ conc │          4 │
+├────────────┼────────────┤
+│ 16k        │ 78.5 1k/50 │
+╰────────────┴────────────╯
+Sustained Decode: aggregate tok/s uses OpenAI stream usage by default 
+(continuous completion_tokens when the server supports it). Prometheus is kept 
+as validation/scheduler data.
+Aggregate source(s): openai_continuous_usage
+Per-Request tok/s    
+╭────────────┬──────╮
+│ ctx \ conc │    4 │
+├────────────┼──────┤
+│ 16k        │ 19.6 │
+╰────────────┴──────╯
+Client request      
+latency: p50 / p90  
+ms                  
+╭────────────┬─────╮
+│ ctx \ conc │   4 │
+├────────────┼─────┤
+│ 16k        │ —/— │
+╰────────────┴─────╯
+Aggregate cells show dim detail as TTFT ms / ITL ms for the same ctx/conc 
+coordinate. ITL is computed from observed generated tokens, including streams 
+stopped at the measurement boundary; a missing ITL means no stream produced at 
+least two measured output tokens. Per-request tok/s and request latency are 
+shown in separate per-cell matrices. Completion/sample counts and full 
+request-level distributions remain in JSON under request_samples.
+Sustained mode: client latency metrics explain request UX variance; aggregate 
+tok/s remains the primary throughput signal. 
+ITL=(last_token_time-first_token_time)/(output_tokens-1), user tok/s=1/ITL.
+Hardware Summary                                                                
+╭───┬─┬───────┬───────────┬───────┬──────────┬─────┬──────┬────┬───────────────╮
+│ … │ │ mode  │ GPU avg/… │ Mem … │ W avg/m… │ T … │ CPU… │ V… │ PCIe rx/tx a… │
+├───┼─┼───────┼───────────┼───────┼──────────┼─────┼──────┼────┼───────────────┤
+│ … │ │ sust… │      1/2% │    6% │  106/184 │ 36C │  52C │ 6… │           4/4 │
+╰───┴─┴───────┴───────────┴───────┴──────────┴─────┴──────┴────┴───────────────╯
+╭───────────────────── Whole-run GPU Power ──────────────────────╮
+│ avg 105 W | max 199 W | limit 600 W | over 1m 00s | 29 samples │
+╰────────────────────────────────────────────────────────────────╯
+Hardware summary is sampled from nvidia-smi during the measured part of each 
+cell. Whole-run GPU power is the sampled sum of GPU power draw across the 
+complete benchmark run, not wall-outlet system power. PCIe rx/tx is MB/s and is 
+a coarse live diagnostic, not a per-kernel NCCL profiler.
+
+╭────────────────────────────────── Phase 3 ───────────────────────────────────╮
+│ Burst / E2E Decode                                                           │
+│ Not run. Re-run with --run-burst to append a finite client-facing request    │
+│ burst after Sustained Decode. This is intentionally disabled by default      │
+│ because it adds another full decode matrix.                                  │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+╭────────────────────────────── Primary Summary ───────────────────────────────╮
+│ Primary matrices repeated last so the important numbers are visible without  │
+│ scrolling back through diagnostics.                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Aggregate decode     
+tok/s                
+╭────────────┬──────╮
+│ ctx \ conc │    4 │
+├────────────┼──────┤
+│ 16k        │ 78.5 │
+╰────────────┴──────╯
+MTP-normalized decode       
+steps/s (accept len)        
+╭────────────┬─────────────╮
+│ ctx \ conc │           4 │
+├────────────┼─────────────┤
+│ 16k        │ 37.5 (2.09) │
+╰────────────┴─────────────╯
+steps/s = tok/s ÷ accept_len: engine forward passes per second, independent of 
+MTP acceptance, so runs with different acceptance are directly comparable. 
+(accept len) = tokens emitted per engine step.
+
+Results saved to 
+/home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-r38p-grammar-q
+ualification/throughput/20260922T163950-0400__jj-r38p-tp2-dspark-k3-dglin-524k-c
+4-16k-recheck__r02.json
+
+─────────────────────────────────
+Results saved to: /home/jugs/git/rtx6kpro/runs/deepseek-v4-flash/vision-exp/2026-09-r38p-grammar-qualification/throughput/20260922T163950-0400__jj-r38p-tp2-dspark-k3-dglin-524k-c4-16k-recheck__r02.json
+─────────────────────────────────
+{"label": "default-max-arithmetic-0", "valid": true, "answer": "333", "elapsed_s": 1.0126844460028224, "usage": {"prompt_tokens": 113, "total_tokens": 151, "completion_tokens": 38, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 35}}}
+{"label": "nonthinking-0", "valid": true, "answer": "133", "elapsed_s": 0.2814527320442721, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-0", "valid": true, "answer": "red, blue", "elapsed_s": 1.3081357490154915, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "vision-continuation-0", "valid": true, "answer": "blue", "elapsed_s": 2.529183409002144, "usage": {"prompt_tokens": 262, "total_tokens": 403, "completion_tokens": 141, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 138}}}
+{"label": "default-max-arithmetic-1", "valid": true, "answer": "333", "elapsed_s": 0.8119214840116911, "usage": {"prompt_tokens": 113, "total_tokens": 143, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+{"label": "nonthinking-1", "valid": true, "answer": "133", "elapsed_s": 0.27731179603142664, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-1", "valid": true, "answer": "red, blue", "elapsed_s": 1.36790617601946, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "vision-continuation-1", "valid": true, "answer": "blue", "elapsed_s": 2.4760253480053507, "usage": {"prompt_tokens": 262, "total_tokens": 386, "completion_tokens": 124, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 121}}}
+{"label": "default-max-arithmetic-2", "valid": true, "answer": "333", "elapsed_s": 0.8662578359944746, "usage": {"prompt_tokens": 113, "total_tokens": 143, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+{"label": "nonthinking-2", "valid": true, "answer": "133", "elapsed_s": 0.2755435589933768, "usage": {"prompt_tokens": 18, "total_tokens": 20, "completion_tokens": 2, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "vision-2", "valid": true, "answer": "red, blue", "elapsed_s": 1.3065696500125341, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "vision-continuation-2", "valid": true, "answer": "blue", "elapsed_s": 2.768398027983494, "usage": {"prompt_tokens": 262, "total_tokens": 410, "completion_tokens": 148, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 256, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 145}}}
+{"label": "tool-round-trip", "valid": true, "answer": "391", "elapsed_s": 0.44805753300897777, "usage": {"prompt_tokens": 497, "total_tokens": 500, "completion_tokens": 3, "prompt_tokens_details": {"cached_tokens": 256, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 0}}}
+{"label": "concurrent-0", "valid": true, "answer": "red, blue", "elapsed_s": 1.8262499989941716, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "concurrent-1", "valid": true, "answer": "42", "elapsed_s": 1.4827594310045242, "usage": {"prompt_tokens": 108, "total_tokens": 139, "completion_tokens": 31, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 28}}}
+{"label": "concurrent-2", "valid": true, "answer": "red, blue", "elapsed_s": 1.8257438340224326, "usage": {"prompt_tokens": 241, "total_tokens": 295, "completion_tokens": 54, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": {"image": 115}}, "completion_tokens_details": {"reasoning_tokens": 49}}}
+{"label": "concurrent-3", "valid": true, "answer": "84", "elapsed_s": 1.4823098529595882, "usage": {"prompt_tokens": 108, "total_tokens": 138, "completion_tokens": 30, "prompt_tokens_details": {"cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": null}, "completion_tokens_details": {"reasoning_tokens": 27}}}
+VISION-QUALIFICATION-PASS
+true
+true
+DS4-R38P-SUPPLEMENT-COMPLETE 2026-09-22T16:41:12-04:00

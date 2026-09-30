@@ -1,0 +1,9 @@
+**
+!Dockerfile.claude-moe-seams
+!claude-moe-seams-act_analyze.py
+!claude-moe-seams-act_trace.py
+!claude-moe-seams.patch
+!claude_install_moe_seams.py
+!claude_prepare_moe_seams.py
+!claude_test_moe_seams.py
+!claude-moe-seams.lock.json

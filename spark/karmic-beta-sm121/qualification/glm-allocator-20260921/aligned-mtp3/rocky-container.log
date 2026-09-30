@@ -1,0 +1,150 @@
+2026-09-21T11:16:42.161047000-04:00 GLM Spark policy: L2_PREFETCH=platform-default-off-sm121 WORK_SOURCE=materialized_queue DRAFT_HEAD=bf16
+2026-09-21T11:16:44.993676000-04:00 W0921 15:16:44.992000 85 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:16:44.994221000-04:00 W0921 15:16:44.993000 85 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:16:44.994274000-04:00 W0921 15:16:44.993000 85 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:16:49.895120000-04:00 W0921 15:16:49.894000 45 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:16:49.895520000-04:00 W0921 15:16:49.894000 45 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:16:49.895586000-04:00 W0921 15:16:49.895000 45 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:16:56.192793000-04:00 W0921 15:16:56.192000 45 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:16:56.224906000-04:00 W0921 15:16:56.224000 45 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:17:01.227401000-04:00 WARNING 09-21 15:17:01 [envs.py:2388] Unknown vLLM environment variable detected: VLLM_USE_B12X_PCIE_DMA
+2026-09-21T11:17:01.227698000-04:00 WARNING 09-21 15:17:01 [envs.py:2388] Unknown vLLM environment variable detected: VLLM_GLM53_SPLIT_TARGET_BLOCK_SIZE
+2026-09-21T11:17:01.227723000-04:00 WARNING 09-21 15:17:01 [envs.py:2388] Unknown vLLM environment variable detected: VLLM_GLM53_SPLIT_MAMBA_BLOCK_SIZE
+2026-09-21T11:17:01.251300000-04:00 INFO 09-21 15:17:01 [model.py:693] Resolved architecture: Glm5NextForConditionalGeneration
+2026-09-21T11:17:01.251573000-04:00 INFO 09-21 15:17:01 [model.py:2046] Using max model len 1048576
+2026-09-21T11:17:02.647244000-04:00 WARNING 09-21 15:17:02 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+2026-09-21T11:17:04.833241000-04:00 INFO 09-21 15:17:04 [cache.py:364] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+2026-09-21T11:17:04.833613000-04:00 INFO 09-21 15:17:04 [arg_utils.py:2423] Inferred data_parallel_rank 0 from node_rank 2
+2026-09-21T11:17:04.841153000-04:00 INFO 09-21 15:17:04 [model.py:693] Resolved architecture: Glm5NextMTPModel
+2026-09-21T11:17:04.841213000-04:00 INFO 09-21 15:17:04 [model.py:2046] Using max model len 1048576
+2026-09-21T11:17:04.841515000-04:00 WARNING 09-21 15:17:04 [speculative.py:1422] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+2026-09-21T11:17:04.841742000-04:00 INFO 09-21 15:17:04 [scheduler.py:385] Chunked prefill is enabled with max_num_batched_tokens=4096.
+2026-09-21T11:17:04.842148000-04:00 INFO 09-21 15:17:04 [vllm.py:866] Auto-enabling VLLM_USE_BREAKABLE_CUDAGRAPH=1. Set VLLM_USE_BREAKABLE_CUDAGRAPH=0 to opt out.
+2026-09-21T11:17:04.842339000-04:00 INFO 09-21 15:17:04 [kernel.py:430] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+2026-09-21T11:17:04.842382000-04:00 WARNING 09-21 15:17:04 [vllm.py:2264] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T11:17:04.985678000-04:00 INFO 09-21 15:17:04 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+2026-09-21T11:17:04.985853000-04:00 INFO 09-21 15:17:04 [serve.py:246] Launching vLLM (v0.1.dev1+g57a80980b.d20260920) headless multiproc executor, with head node address 10.11.11.1:25000 for torch.distributed process group.
+2026-09-21T11:17:06.083073000-04:00 W0921 15:17:06.082000 120 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:17:06.083359000-04:00 W0921 15:17:06.082000 120 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:17:06.083386000-04:00 W0921 15:17:06.083000 120 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:17:08.570748000-04:00 W0921 15:17:08.570000 120 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:17:08.583716000-04:00 W0921 15:17:08.583000 120 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+2026-09-21T11:17:10.820331000-04:00 WARNING 09-21 15:17:10 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+2026-09-21T11:17:12.045982000-04:00 (Worker pid=120) INFO 09-21 15:17:12 [parallel_state.py:1859] world_size=4 rank=2 local_rank=0 distributed_init_method=tcp://10.11.11.1:25000 backend=nccl
+2026-09-21T11:17:30.936127000-04:00 (Worker pid=120) INFO 09-21 15:17:30 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2
+2026-09-21T11:17:31.646660000-04:00 
+2026-09-21T11:17:31.646826000-04:00 [2026-09-21 15:17:31] rocky:120:120 [0] init.cc:449 NCCL WARN Spectrum-X (SPCX) NCCL plugin is not supported on device:rocep1s0f0, skipping ..
+2026-09-21T11:17:31.656260000-04:00 
+2026-09-21T11:17:31.656378000-04:00 [2026-09-21 15:17:31] rocky:120:120 [0] init.cc:449 NCCL WARN Spectrum-X (SPCX) NCCL plugin is not supported on device:roceP2p1s0f0, skipping ..
+2026-09-21T11:17:31.670793000-04:00 
+2026-09-21T11:17:31.670911000-04:00 [2026-09-21 15:17:31] rocky:120:120 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-21T11:17:31.683580000-04:00 
+2026-09-21T11:17:31.683685000-04:00 [2026-09-21 15:17:31] rocky:120:120 [0] misc/ibvwrap.cc:405 (wrap_ibv_query_port_speed) NCCL WARN Call to ibv_query_port_speed failed with error Protocol not supported errno 93
+2026-09-21T11:17:34.344975000-04:00 (Worker pid=120) WARNING 09-21 15:17:34 [symm_mem.py:67] SymmMemCommunicator: Device capability 12.1 not supported, communicator is not available.
+2026-09-21T11:17:34.383389000-04:00 (Worker pid=120) INFO 09-21 15:17:34 [nccl.py:25] Found nccl from environment variable VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2
+2026-09-21T11:17:36.637909000-04:00 (Worker pid=120) INFO 09-21 15:17:36 [parallel_state.py:2299] rank 2 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 2, ETP rank 2, EP rank 2, EPLB rank N/A
+2026-09-21T11:17:36.638213000-04:00 (Worker pid=120) INFO 09-21 15:17:36 [gpu_worker.py:472] Using V2 Model Runner
+2026-09-21T11:17:37.142069000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [model_runner.py:412] Loading model from scratch...
+2026-09-21T11:17:37.283135000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [cuda.py:597] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+2026-09-21T11:17:37.283262000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [mm_encoder_attention.py:372] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+2026-09-21T11:17:37.313306000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [kernel.py:430] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+2026-09-21T11:17:37.313444000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:17:37 [vllm.py:2264] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T11:17:37.601730000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [mla_attention.py:682] Using fp8_ds_mla KV cache format for B12X backend.
+2026-09-21T11:17:37.603547000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:17:37 [mla_attention.py:777] Sparse MLA layer has no dense-MHA prefill path; using the top-k MQA path only.
+2026-09-21T11:17:37.642113000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [deep_gemm.py:196] deep_gemm not found in site-packages, trying vendored vllm.third_party.deep_gemm
+2026-09-21T11:17:37.649184000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [deep_gemm.py:223] DeepGEMM PDL enabled on vllm.third_party.deep_gemm.
+2026-09-21T11:17:37.649219000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [deep_gemm.py:136] DeepGEMM E8M0 enabled on current platform.
+2026-09-21T11:17:37.888726000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:17:37 [nvfp4.py:261] Using 'B12X' NvFp4 MoE backend out of potential backends: ['FLASHINFER_TRTLLM', 'FLASHINFER_CUTEDSL', 'FLASHINFER_CUTLASS', 'VLLM_CUTLASS', 'MARLIN', 'HUMMING', 'EMULATION'].
+2026-09-21T11:18:40.171788000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [default_loader.py:510] Loading weights took 60.20 seconds
+2026-09-21T11:18:40.284536000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [nvfp4.py:618] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-21T11:18:40.687133000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [kernel.py:430] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+2026-09-21T11:18:40.699092000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [kernel.py:430] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+2026-09-21T11:18:40.709338000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [kernel.py:430] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+2026-09-21T11:18:40.719437000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [kernel.py:430] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+2026-09-21T11:18:40.787260000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [vocab_parallel_embedding.py:437] Quantizing LM head shards to NVFP4 with BF16 activations.
+2026-09-21T11:18:40.797131000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:40 [mxfp8.py:125] Using 'MARLIN' MxFp8 MoE backend (user-requested).
+2026-09-21T11:18:41.027551000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:41 [weight_utils.py:704] Safetensors index filter selected 5/44 checkpoint shards.
+2026-09-21T11:18:41.042008000-04:00 (Worker_TP2 pid=120) /opt/jovian-judgement/vllm/vllm/model_executor/model_loader/weight_utils.py:1359: RuntimeWarning: Shrink io_depth from 128 to 24 due to memory limit.
+2026-09-21T11:18:41.042175000-04:00 (Worker_TP2 pid=120)   with instanttensor.safe_open(
+2026-09-21T11:18:44.202989000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:44 [default_loader.py:510] Loading weights took 3.17 seconds
+2026-09-21T11:18:44.553245000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:44 [fp8.py:740] Using MoEPrepareAndFinalizeNoDPEPModular
+2026-09-21T11:18:44.558051000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:18:44 [speculator.py:240] Draft model Glm5NextMTP does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+2026-09-21T11:18:45.153234000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:45 [model_runner.py:444] Model loading took 46.93 GiB memory and 68.233784 seconds
+2026-09-21T11:18:45.189949000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:18:45 [interface.py:899] Using split GLM-5.3 cache pages: target block size 2048 tokens, recurrent-state block size 2048 tokens.
+2026-09-21T11:18:47.282730000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:18:47 [b12x_prepare.py:557] b12x weights preparation uses 8 compiler workers
+2026-09-21T11:18:49.495210000-04:00 W0921 15:18:49.494000 274 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.495581000-04:00 W0921 15:18:49.495000 274 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.495650000-04:00 W0921 15:18:49.495000 274 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.511127000-04:00 W0921 15:18:49.510000 279 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.511422000-04:00 W0921 15:18:49.511000 279 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.511560000-04:00 W0921 15:18:49.511000 279 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.511894000-04:00 W0921 15:18:49.511000 277 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.512212000-04:00 W0921 15:18:49.511000 277 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.512308000-04:00 W0921 15:18:49.511000 277 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.514455000-04:00 W0921 15:18:49.513000 281 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.514756000-04:00 W0921 15:18:49.514000 281 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.514872000-04:00 W0921 15:18:49.514000 281 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.515067000-04:00 W0921 15:18:49.514000 280 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.515395000-04:00 W0921 15:18:49.514000 280 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.515511000-04:00 W0921 15:18:49.515000 280 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.518659000-04:00 W0921 15:18:49.518000 275 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.518817000-04:00 W0921 15:18:49.518000 278 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.518863000-04:00 W0921 15:18:49.518000 276 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:18:49.518904000-04:00 W0921 15:18:49.518000 275 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.518959000-04:00 W0921 15:18:49.518000 278 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.518998000-04:00 W0921 15:18:49.518000 275 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.519038000-04:00 W0921 15:18:49.518000 278 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:18:49.519072000-04:00 W0921 15:18:49.518000 276 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:18:49.519101000-04:00 W0921 15:18:49.518000 276 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:19:55.559600000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:19:55 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 32242 tokens, and profiled with 1 video items of the maximum feature size.
+2026-09-21T11:20:13.870286000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:20:13 [kv_cache_utils.py:2692] Keeping split GLM-5.3 cache groups with physical page sizes [1122304, 1148928].
+2026-09-21T11:20:14.965602000-04:00 (Worker_TP2 pid=120) /opt/jovian-judgement/b12x/b12x/attention/_shared/mla/kv_cache.py:833: UserWarning: Accessing the data pointer of FakeTensor is deprecated and will error in PyTorch 2.5. This is almost definitely a bug in your code and will cause undefined behavior with subsystems like torch.compile. Please wrap calls to tensor.data_ptr() in an opaque custom op; If all else fails, you can guard accesses to tensor.data_ptr() on isinstance(tensor, FakeTensor). (Triggered internally at /opt/pytorch/pytorch/c10/core/StorageImpl.cpp:46.)
+2026-09-21T11:20:14.966010000-04:00 (Worker_TP2 pid=120)   if kv_c.stride(0) % 2 != 0 or kv_c.data_ptr() % 4 != 0:
+2026-09-21T11:20:34.090784000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:34 [breakable_cudagraph.py:327] Breakable CUDA graph enabled
+2026-09-21T11:20:34.876502000-04:00 (Worker_TP2 pid=120) /usr/local/lib/python3.12/dist-packages/triton/language/core.py:2623: UserWarning: tl.make_block_ptr is deprecated. Use TensorDescriptor or tl.make_tensor_descriptor instead.
+2026-09-21T11:20:34.876667000-04:00 (Worker_TP2 pid=120)   warn("tl.make_block_ptr is deprecated. Use TensorDescriptor or tl.make_tensor_descriptor instead.")
+2026-09-21T11:20:38.718208000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:38 [speculator.py:187] Capturing model for speculator...
+2026-09-21T11:20:39.580942000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:39 [model_runner.py:1248] Graph capturing finished in 5 secs, took 0.01 GiB
+2026-09-21T11:20:40.610316000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:40 [gpu_worker.py:768] Available KV cache memory: 44.58 GiB
+2026-09-21T11:20:40.610733000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:40 [gpu_worker.py:783] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8500 is equivalent to --gpu-memory-utilization=0.8499 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8501. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+2026-09-21T11:20:40.661914000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:40 [b12x_prepare.py:618] b12x autotuning uses 34 temporary KV blocks before allocating 3471 serving blocks
+2026-09-21T11:20:41.916939000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:20:41 [b12x_prepare.py:557] b12x state preparation uses 8 compiler workers
+2026-09-21T11:20:54.594255000-04:00 W0921 15:20:54.593000 3812 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.594765000-04:00 W0921 15:20:54.594000 3812 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.594815000-04:00 W0921 15:20:54.594000 3812 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.595521000-04:00 W0921 15:20:54.595000 3814 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.595754000-04:00 W0921 15:20:54.595000 3814 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.595860000-04:00 W0921 15:20:54.595000 3814 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.602502000-04:00 W0921 15:20:54.601000 3816 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.603232000-04:00 W0921 15:20:54.602000 3816 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.603352000-04:00 W0921 15:20:54.603000 3816 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.606360000-04:00 W0921 15:20:54.605000 3818 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.606662000-04:00 W0921 15:20:54.606000 3818 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.606772000-04:00 W0921 15:20:54.606000 3818 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.627492000-04:00 W0921 15:20:54.626000 3815 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.627653000-04:00 W0921 15:20:54.627000 3815 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.627683000-04:00 W0921 15:20:54.627000 3815 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.632794000-04:00 W0921 15:20:54.632000 3817 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.633012000-04:00 W0921 15:20:54.632000 3817 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.633104000-04:00 W0921 15:20:54.632000 3817 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.638151000-04:00 W0921 15:20:54.637000 3813 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.638335000-04:00 W0921 15:20:54.637000 3813 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.638387000-04:00 W0921 15:20:54.638000 3813 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:20:54.641999000-04:00 W0921 15:20:54.641000 3819 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+2026-09-21T11:20:54.642183000-04:00 W0921 15:20:54.641000 3819 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+2026-09-21T11:20:54.642234000-04:00 W0921 15:20:54.642000 3819 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+2026-09-21T11:21:13.047959000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:21:13 [b12x_prepare.py:557] b12x bind preparation uses 8 compiler workers
+2026-09-21T11:21:14.764705000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:21:14 [kernel_warmup.py:171] JIT kernel warmup starting.
+2026-09-21T11:22:07.692508000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:07 [kernel_warmup.py:184] JIT kernel warmup finished in 52.93s.
+2026-09-21T11:22:07.720427000-04:00 (Worker_TP2 pid=120) [ERROR] `min_frames` is part of Qwen3VLVideoProcessorInitKwargs, but not documented. Make sure to add it to the docstring of the function in /opt/venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/video_processing_qwen3_vl.py.
+2026-09-21T11:22:07.720600000-04:00 (Worker_TP2 pid=120) [ERROR] `max_frames` is part of Qwen3VLVideoProcessorInitKwargs, but not documented. Make sure to add it to the docstring of the function in /opt/venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/video_processing_qwen3_vl.py.
+2026-09-21T11:22:07.785824000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:07 [mamba_triton_warmup.py:42] Warmed Mamba batch_memcpy_kernel.
+2026-09-21T11:22:07.790403000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:07 [kernel_warmup.py:94] Warming up ll_bf16 router GEMM kernels for shapes: ((4096, 288),).
+2026-09-21T11:22:08.626444000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:08 [kernel_warmup.py:249] Skipping FlashInfer autotune because it is disabled.
+2026-09-21T11:22:17.639370000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:17 [speculator.py:187] Capturing model for speculator...
+2026-09-21T11:22:18.174886000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:18 [model_runner.py:1248] Graph capturing finished in 4 secs, took 0.00 GiB
+2026-09-21T11:22:18.175090000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:18 [gpu_worker.py:986] CUDA graph pool memory: 0.0 GiB (actual), 0.02 GiB (estimated), difference: 0.02 GiB (593.1%).
+2026-09-21T11:22:18.175144000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:18 [gpu_worker.py:1049] Free memory on device (107.94/121.69 GiB) on startup. Desired GPU memory utilization is (0.85, 103.44 GiB). Actual usage is 57.99 GiB for consumed memory (weights + non-torch), 0.85 GiB for peak activation, and 0.0 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=47724073780` (44.45 GiB) to fit into requested memory, or `--kv-cache-memory=52557677568` (48.95 GiB) to fully utilize gpu memory. Current kv cache memory in use is 44.58 GiB.
+2026-09-21T11:22:20.332165000-04:00 (Worker_TP2 pid=120) INFO 09-21 15:22:20 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+2026-09-21T11:22:34.140060000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:22:34 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _glm_device_token_metadata_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+2026-09-21T11:22:36.013608000-04:00 (Worker_TP2 pid=120) WARNING 09-21 15:22:36 [jit_monitor.py:141] Triton kernel JIT compilation during inference: _pool_seq_lens_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.

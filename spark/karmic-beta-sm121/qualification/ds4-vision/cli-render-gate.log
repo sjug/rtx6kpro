@@ -1,0 +1,23 @@
+INFO 09-21 02:09:06 [importing.py:74] Triton is installed but 0 active driver(s) found (expected 1). Disabling Triton to prevent runtime errors.
+INFO 09-21 02:09:06 [importing.py:98] Triton not installed or not compatible; certain GPU-related functions will not be available.
+WARNING 09-21 02:09:08 [argparse_utils.py:441] Found duplicate keys --default-chat-template-kwargs.reasoning_effort
+{"defaults": {"reasoning_effort": "max", "thinking": true}, "headless": false, "rank": 0, "speculative": {"draft_sample_method": "probabilistic", "method": "dspark", "model": "/root/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380", "num_speculative_tokens": 3, "rejection_sample_method": "standard"}, "status": "PARSED-VISION-CLI-PASS"}
+W0921 02:09:02.700000 1 usr/local/lib/python3.12/dist-packages/torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 02:09:02.700000 1 usr/local/lib/python3.12/dist-packages/torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 02:09:02.700000 1 usr/local/lib/python3.12/dist-packages/torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0921 02:09:05.602000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 02:09:05.616000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 02:09:07.687000 1 usr/local/lib/python3.12/dist-packages/torch/utils/cpp_extension.py:178] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+
+INFO 09-21 02:09:15 [importing.py:74] Triton is installed but 0 active driver(s) found (expected 1). Disabling Triton to prevent runtime errors.
+INFO 09-21 02:09:15 [importing.py:98] Triton not installed or not compatible; certain GPU-related functions will not be available.
+WARNING 09-21 02:09:17 [argparse_utils.py:441] Found duplicate keys --default-chat-template-kwargs.reasoning_effort
+{"defaults": {"reasoning_effort": "max", "thinking": true}, "headless": true, "rank": 1, "speculative": {"draft_sample_method": "probabilistic", "method": "dspark", "model": "/root/.cache/huggingface/hub/models--deepseek-ai--DeepSeek-V4-Flash-Vision-Exp/snapshots/6821d6ad3681a4b137b066b76094fa82ebd0a380", "num_speculative_tokens": 3, "rejection_sample_method": "standard"}, "status": "PARSED-VISION-CLI-PASS"}
+W0921 02:09:11.596000 1 usr/local/lib/python3.12/dist-packages/torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 02:09:11.596000 1 usr/local/lib/python3.12/dist-packages/torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 02:09:11.596000 1 usr/local/lib/python3.12/dist-packages/torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0921 02:09:14.314000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 02:09:14.327000 1 usr/local/lib/python3.12/dist-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 02:09:16.457000 1 usr/local/lib/python3.12/dist-packages/torch/utils/cpp_extension.py:178] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+
+HEAD-WORKER-RENDER-PASS

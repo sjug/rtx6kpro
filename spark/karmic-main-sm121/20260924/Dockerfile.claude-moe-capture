@@ -1,0 +1,18 @@
+# DIAGNOSTIC ONLY. Never a serving candidate: activation digests plus MoE
+# seams plus routed-call inputs and a latched in-situ capture of the first
+# routed output that disagrees with its reference.
+# Base: MoE-seam diagnostic 14abc3e66a45 (over 0b5c65a81b25 and ee03505df7a3).
+FROM 14abc3e66a45eacbd7478c1c1f6a69ecd345df6bffb8cd81ea972a5c4b304d7f
+ARG TRACE_LOCK
+ARG TRACE_CACHE
+COPY claude-moe-capture.lock.json claude_prepare_moe_capture.py claude-moe-capture-act_trace.py claude_install_moe_capture.py Dockerfile.claude-moe-capture claude-moe-capture-act_analyze.py claude_test_moe_capture.py claude_gate_moe_capture_cuda.py claude-moe-capture.patch /opt/ds41-moe-capture/
+RUN /opt/venv/bin/python /opt/ds41-moe-capture/claude_install_moe_capture.py
+# B12X bytes are unchanged: its compile cache and native loader build are the
+# candidate's. vLLM and Inductor output goes to a separate directory.
+ENV VLLM_CACHE_ROOT=/cache/jit/${TRACE_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${TRACE_CACHE}/inductor
+LABEL local-inference.ds41.diagnostic.kind="activation-digest-moe-capture" \
+    local-inference.ds41.diagnostic.lock.sha256="${TRACE_LOCK}" \
+    local-inference.ds41.diagnostic.base-image="14abc3e66a45eacbd7478c1c1f6a69ecd345df6bffb8cd81ea972a5c4b304d7f" \
+    local-inference.status="diagnostic-only-not-qualified" \
+    org.opencontainers.image.title="DS4.1 Engram repair with activation-digest and MoE-capture diagnostic"

@@ -1,0 +1,1460 @@
+[
+     {
+          "Id": "e7926f763859ba5800cc24198ef297a12322fdaac93b55ac89b88abe02c1b1fb",
+          "Digest": "sha256:bae175276961969a423af4b73f9e97c39a0514ec546ea18ee0f7da990d568236",
+          "RepoTags": [
+               "localhost/voipmonitor/build-components:jj-main-serving-20260922T015757Z-3053878"
+          ],
+          "RepoDigests": [
+               "localhost/voipmonitor/build-components@sha256:bae175276961969a423af4b73f9e97c39a0514ec546ea18ee0f7da990d568236"
+          ],
+          "Parent": "572a6a75cb3d642794e707b6cd85c4b171546b4cac8180f1fd3e7889b7c216ca",
+          "Comment": "",
+          "Created": "2026-09-22T01:58:01.114812274Z",
+          "Config": {
+               "ExposedPorts": {
+                    "6006/tcp": {},
+                    "8888/tcp": {}
+               },
+               "Env": [
+                    "GDRCOPY_VERSION=2.5.1",
+                    "HPCX_VERSION=2.50",
+                    "MOFED_VERSION=5.4-rdmacore63.0",
+                    "OPENUCX_VERSION=1.21.0",
+                    "OPENMPI_VERSION=5.0.10",
+                    "RDMACORE_VERSION=63.0",
+                    "EFA_VERSION=1.48.0",
+                    "OPAL_PREFIX=/usr/local/mpi",
+                    "OMPI_MCA_coll_hcoll_enable=0",
+                    "CUDA_VERSION=13.4.1.012",
+                    "CUDA_DRIVER_VERSION=615.65.02",
+                    "NVVM_VERSION=13.4.59",
+                    "DOCA_VERSION=3.5.0",
+                    "_CUDA_COMPAT_PATH=/usr/local/cuda/compat",
+                    "ENV=/etc/shinit_v2",
+                    "BASH_ENV=/etc/bash.bashrc",
+                    "SHELL=/bin/bash",
+                    "NVIDIA_REQUIRE_CUDA=cuda>=9.0",
+                    "NCCL_VERSION=2.30.7+cuda13.3",
+                    "CCCL_VERSION=13.3.4.2.1",
+                    "CUBLAS_VERSION=13.7.0.27",
+                    "CUFFT_VERSION=12.4.0.34",
+                    "CURAND_VERSION=10.4.4.49",
+                    "CUSPARSE_VERSION=12.8.6.49",
+                    "CUSPARSELT_VERSION=0.9.1.1",
+                    "CUSOLVER_VERSION=12.3.2.15",
+                    "NPP_VERSION=13.2.0.35",
+                    "NVJPEG_VERSION=13.2.2.35",
+                    "CUFILE_VERSION=1.19.0.109",
+                    "NVJITLINK_VERSION=13.4.52",
+                    "NVFATBIN_VERSION=13.4.49",
+                    "CUBLASMP_VERSION=0.10.0.3695",
+                    "CUSOLVERMP_VERSION=0.9.0.6427",
+                    "NVSHMEM_VERSION=3.7.1",
+                    "CUDLA_VERSION=13.4.49",
+                    "NVPTXCOMPILER_VERSION=13.4.59",
+                    "CUDNN_VERSION=9.25.0.28",
+                    "CUDNN_FRONTEND_VERSION=1.27.0",
+                    "TRT_VERSION=11.2.1.2+cuda13.3",
+                    "TRTOSS_VERSION=",
+                    "NSIGHT_SYSTEMS_VERSION=2026.5.1.18",
+                    "NSIGHT_COMPUTE_VERSION=2026.3.0.13",
+                    "DALI_VERSION=2.2.0",
+                    "DALI_BUILD=",
+                    "DALI_URL_SUFFIX=130",
+                    "POLYGRAPHY_VERSION=0.53.3",
+                    "TRANSFORMER_ENGINE_VERSION=2.18",
+                    "MODEL_OPT_VERSION=0.45.0",
+                    "CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0",
+                    "MAXSMVER=121",
+                    "NVRX_VERSION=0.6.0",
+                    "NIXL_VERSION=1.3.0",
+                    "CUTILE_PYTHON_VERSION=1.5.0",
+                    "CUTLASS_DSL_VERSION=4.6.2",
+                    "NVIDIA_VISIBLE_DEVICES=all",
+                    "NVIDIA_DRIVER_CAPABILITIES=compute,utility,video",
+                    "NVIDIA_PRODUCT_NAME=PyTorch",
+                    "CUDA_COMPONENT_LIST=crt nvrtc driver-dev culibos-dev cudart cudart-dev nvcc tileiras cupti",
+                    "LIBRARY_PATH=/usr/local/cuda/lib64/stubs:/usr/local/cuda/lib64/stubs:",
+                    "PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b",
+                    "PYTORCH_VERSION=2.14.0a0+4fdf77b",
+                    "PYTORCH_BUILD_NUMBER=0",
+                    "NVIDIA_PYTORCH_VERSION=26.08",
+                    "NVFUSER_BUILD_VERSION=0.1.4a0+nvidia",
+                    "NVFUSER_VERSION=",
+                    "TORCHAO_BUILD_VERSION=+gitdd0efc75",
+                    "TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1",
+                    "PIP_BREAK_SYSTEM_PACKAGES=1",
+                    "PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python",
+                    "PIP_CONSTRAINT=/etc/pip/constraint.txt",
+                    "NVPL_LAPACK_MATH_MODE=PEDANTIC",
+                    "PYTHONIOENCODING=utf-8",
+                    "LC_ALL=C.UTF-8",
+                    "PIP_DEFAULT_TIMEOUT=100",
+                    "JUPYTER_PORT=8888",
+                    "TENSORBOARD_PORT=6006",
+                    "UCC_CL_BASIC_TLS=^sharp",
+                    "UCC_EC_CUDA_EXEC_NUM_THREADS=256",
+                    "PYTORCH_HOME=/opt/pytorch/pytorch",
+                    "CUDA_HOME=/usr/local/cuda",
+                    "TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=1",
+                    "TORCHINDUCTOR_CUTLASS_DIR=/opt/pytorch/pytorch/third_party/cutlass",
+                    "TRITON_PTXAS_PATH=/usr/local/cuda/bin/ptxas",
+                    "TRITON_CUOBJDUMP_PATH=/usr/local/cuda/bin/cuobjdump",
+                    "TRITON_NVDISASM_PATH=/usr/local/cuda/bin/nvdisasm",
+                    "TRITON_CUDACRT_PATH=/usr/local/cuda/include",
+                    "TRITON_CUDART_PATH=/usr/local/cuda/include",
+                    "TRITON_CUPTI_LIB_PATH=/usr/local/cuda/lib64",
+                    "TRITON_CUPTI_INCLUDE_PATH=/usr/local/cuda/include",
+                    "COCOAPI_VERSION=2.0+nv0.8.1",
+                    "CUDA_BINARY_LOADER_THREAD_COUNT=8",
+                    "CUDA_MODULE_LOADING=LAZY",
+                    "TORCH_NCCL_USE_COMM_NONBLOCKING=0",
+                    "TORCHINDUCTOR_LOOP_ORDERING_AFTER_FUSION=0",
+                    "NVIDIA_BUILD_ID=406036885",
+                    "UV_LINK_MODE=copy",
+                    "UV_NO_CONFIG=1",
+                    "PYTHONUNBUFFERED=1",
+                    "PATH=/opt/venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "PYTHONPATH=/opt/jovian-judgement/vllm:/opt/jovian-judgement/b12x",
+                    "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True",
+                    "PYTHONOPTIMIZE=0",
+                    "CUDA_DEVICE_ORDER=PCI_BUS_ID",
+                    "NCCL_NET_PLUGIN=none",
+                    "NCCL_TUNER_PLUGIN=none",
+                    "LMCACHE_ENABLED=0",
+                    "VLLM_PLUGINS=",
+                    "B12X_ROCE_CACHE_DIR=/opt/b12x-roce-cache",
+                    "LD_PRELOAD=/opt/nccl/lib/libnccl.so.2.31.2",
+                    "VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2",
+                    "LD_LIBRARY_PATH=/opt/nccl/lib:/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+                    "QWEN_LAUNCHER_SHA256=13db280a2c77f5cc3e311722020a961a0224d2e0ab77eb6f02c803c0a9bfa154",
+                    "GLM_LAUNCHER_SHA256=6f3772af4a113f82fbcdbd3973326ce3abbde8d233c2b196e141198fe429877a",
+                    "XDG_CACHE_HOME=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f",
+                    "VLLM_CACHE_ROOT=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/vllm",
+                    "TORCHINDUCTOR_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/inductor",
+                    "TRITON_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/triton",
+                    "B12X_COMPILE_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/b12x",
+                    "CUTE_DSL_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/cute-dsl",
+                    "B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/b12x/cute",
+                    "SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/b12x/compile",
+                    "TORCH_EXTENSIONS_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/torch-extensions",
+                    "TVM_FFI_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/tvm-ffi",
+                    "TVM_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/tvm",
+                    "DG_JIT_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/deep-gemm",
+                    "NUMBA_CACHE_DIR=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/numba",
+                    "CUDA_CACHE_PATH=/cache/jit/a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f/cuda",
+                    "TORCH_CUDA_ARCH_LIST=12.1a",
+                    "MAX_JOBS=20"
+               ],
+               "Cmd": [
+                    "python",
+                    "-m",
+                    "vllm.entrypoints.cli.main",
+                    "--help"
+               ],
+               "WorkingDir": "/opt/jovian-judgement/vllm",
+               "Labels": {
+                    "b12x.source-tree": "ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e",
+                    "com.nvidia.build.id": "406036885",
+                    "com.nvidia.build.ref": "12711b2fffc2b532c812302ccd6b8c507ba1175d",
+                    "com.nvidia.cublas.version": "13.7.0.27",
+                    "com.nvidia.cublasmp.version": "0.10.0.3695",
+                    "com.nvidia.cuda.version": "9.0",
+                    "com.nvidia.cudla.version": "13.4.49",
+                    "com.nvidia.cudnn.version": "9.25.0.28",
+                    "com.nvidia.cufft.version": "12.4.0.34",
+                    "com.nvidia.curand.version": "10.4.4.49",
+                    "com.nvidia.cusolver.version": "12.3.2.15",
+                    "com.nvidia.cusolvermp.version": "0.9.0.6427",
+                    "com.nvidia.cusparse.version": "12.8.6.49",
+                    "com.nvidia.cusparselt.version": "0.9.1.1",
+                    "com.nvidia.nccl.version": "2.30.7+cuda13.3",
+                    "com.nvidia.npp.version": "13.2.0.35",
+                    "com.nvidia.nsightcompute.version": "2026.3.0.13",
+                    "com.nvidia.nsightsystems.version": "2026.5.1.18",
+                    "com.nvidia.nvjpeg.version": "13.2.2.35",
+                    "com.nvidia.nvvm.version": "13.4.59",
+                    "com.nvidia.pytorch.version": "2.14.0a0+4fdf77b",
+                    "com.nvidia.tensorrt.version": "11.2.1.2+cuda13.3",
+                    "com.nvidia.tensorrtoss.version": "",
+                    "com.nvidia.volumes.needed": "nvidia_driver",
+                    "io.buildah.version": "1.45.0",
+                    "lmcache.default": "disabled",
+                    "local-inference.cache.fingerprint": "a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f",
+                    "local-inference.flashinfer.commit": "2206a14e46387a56c093860a46bbbdd00596b75b",
+                    "local-inference.flashkda.commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+                    "local-inference.glm.launcher.sha256": "6f3772af4a113f82fbcdbd3973326ce3abbde8d233c2b196e141198fe429877a",
+                    "local-inference.lmcache.commit": "688bee14e157b64623d93c07fc0d4db93470e12f",
+                    "local-inference.nccl.commit": "93fe05d9f9b6963ef841166a69cd0b30e4efe97b",
+                    "local-inference.qwen.launcher.sha256": "13db280a2c77f5cc3e311722020a961a0224d2e0ab77eb6f02c803c0a9bfa154",
+                    "local-inference.runtime-deps.recipe.sha256": "3b1e8cde7f30dc984e6efe6b3f305818ab69facd6a2c1a12cad4a30fd27c29e8",
+                    "local-inference.runtime.recipe.sha256": "5869aa01d7c0fe7d7449c342ea96f5665739b2239a4788772454741cb92ce477",
+                    "local-inference.serving.recipe.sha256": "66515fecc97e54b28269db1da11c919b38f768e56f2366dbeeb81944b1812c91",
+                    "local-inference.status": "candidate-not-model-qualified",
+                    "org.opencontainers.image.description": "Fresh CUDA 13.4 Torch 2.14 ARM64 stack; model qualification required",
+                    "org.opencontainers.image.title": "JJ-main beta DGX Spark SM121",
+                    "org.opencontainers.image.version": "24.04",
+                    "vllm.source-tree": "182f7f4ac37b980a3bb81e74797a78e9dbf822cb"
+               }
+          },
+          "Version": "",
+          "Author": "",
+          "Architecture": "arm64",
+          "Os": "linux",
+          "Size": 36784563020,
+          "VirtualSize": 36784563020,
+          "GraphDriver": {
+               "Name": "overlay",
+               "Data": {
+                    "LowerDir": "/home/jugs/.local/share/containers/storage/overlay/6039bcfc1136f5a61bc44c30d0bc395c1bd93b343f9ec0461b4a351e9a5b8935/diff:/home/jugs/.local/share/containers/storage/overlay/29f808448a3fc509546a3e80299af3becdabdf7dfeaec4c728ded7f8210a580f/diff:/home/jugs/.local/share/containers/storage/overlay/a8cf46612173ea1dce99fabaac7c4ce5edc77cc7fb1e1e2dd43db2e35a3466ec/diff:/home/jugs/.local/share/containers/storage/overlay/968b5c2655473b78a7942c8494092fe904cf6da4d812de5bcd3557d5b41d3a64/diff:/home/jugs/.local/share/containers/storage/overlay/3d222af92a77f9bc24b9715c43299626f5218993b1287dfaa2d285cfe23dbd7a/diff:/home/jugs/.local/share/containers/storage/overlay/622ebcd823266f510d49d88a45333c1e61b637b17d8a9c46da88779d62b89cb3/diff:/home/jugs/.local/share/containers/storage/overlay/f0dfa3927fed078283e66021db14c2cdf4f7f0a5a781b1b05d3a41821c0f8345/diff:/home/jugs/.local/share/containers/storage/overlay/1b2905278935eb8a48d6cc0ea89fda2e4e36b2da62d9e8200a646100bfc11fcb/diff:/home/jugs/.local/share/containers/storage/overlay/b22e8ce9205387deccb601071233cdec7f7b15e9f27cc2f4e3bc9f7f678a9365/diff:/home/jugs/.local/share/containers/storage/overlay/9355ddba1eef81de837163fa630db003a422878a891a08e19cb7c6cb64fc24be/diff:/home/jugs/.local/share/containers/storage/overlay/8c560f8a36eb009651b89b04d81ea29b4ee7948c578ee16002b1fe7bbade4225/diff:/home/jugs/.local/share/containers/storage/overlay/e6b7236f121f10105176de5bedadaee36cdea4cf4ab0e09a9c24ce790cd011c5/diff:/home/jugs/.local/share/containers/storage/overlay/c90765ab256591198c54ccc8559f0fcf3d19d8e08de096ef5851382ef7c801e3/diff:/home/jugs/.local/share/containers/storage/overlay/560d44dcb3b7abd76adf78ecdc354100f367b358a5eaf88658905c87d38579b5/diff:/home/jugs/.local/share/containers/storage/overlay/d0dcfd23f1530320f8102215ac9057e4ea7934f54f90e0485d1a47041aae6815/diff:/home/jugs/.local/share/containers/storage/overlay/c9e5fc0f3367aff983cedd873b83232e726b46c8d95ccb1febf68137c06b8cf7/diff:/home/jugs/.local/share/containers/storage/overlay/7b95f4891f9efb87b2b53d26b53c514059f4888df319ae33ebdffeafb1e94144/diff:/home/jugs/.local/share/containers/storage/overlay/ffaa6cdb641d4e8743275c0d1fe4754f13875fb12fe35e00868f407946547326/diff:/home/jugs/.local/share/containers/storage/overlay/0cec130bd4203ee76aef1fe5fb10e7c5c4e1b8e52a246f3a427725ad2bc9281e/diff:/home/jugs/.local/share/containers/storage/overlay/0da19cb6b5213e895937a747fb8a7b6efe3f72bae763d439960ef4056696d4ca/diff:/home/jugs/.local/share/containers/storage/overlay/0abf1ac83105eb665755680a07dc80daa7b0fb1a9f2739c6d64d1ea92023429e/diff:/home/jugs/.local/share/containers/storage/overlay/8d6ff439040fa45eb136dd5f025ba5436fb0fa70dcb2177989fb518f7b92dc76/diff:/home/jugs/.local/share/containers/storage/overlay/092221c43545fc1a06da1a317c6a5cbb46afb3946667464d075c50488da61b4e/diff:/home/jugs/.local/share/containers/storage/overlay/4ef8b7901109486227dc0c854969fb72618fa739fa4ef8432fe96e59776a80c7/diff:/home/jugs/.local/share/containers/storage/overlay/342c6771422aa00963200d0c92dd9f1200d1c1357d4f34439a1555618d7caa0f/diff:/home/jugs/.local/share/containers/storage/overlay/569f689e073035f250b5d4bd966b4ee0c7b50c624822dc411cc6af7c5d44b20c/diff:/home/jugs/.local/share/containers/storage/overlay/967c8214e5a9b7d8dc1e5b8128da06d596cfe0963e7409b998acd78643bfe791/diff:/home/jugs/.local/share/containers/storage/overlay/c45ee75903bfed97dfddcc4f445a25132a350802724e4a93287ae9a9b8da713b/diff:/home/jugs/.local/share/containers/storage/overlay/0a393ef534341fbddd18908a56798817711e5cef6f0fc5db202b46734a8f177a/diff:/home/jugs/.local/share/containers/storage/overlay/5c388569975d76b3beeed5ba3f018d651dfff48fa818a55d49fef2836857ce09/diff:/home/jugs/.local/share/containers/storage/overlay/a4a68d040ff628317f54801028d6b92d6f6d25b91dd6c04ac77be774fc124f0c/diff:/home/jugs/.local/share/containers/storage/overlay/7e4a313a47a820d5d07b5d80745ada0d97f11508373e0b71de0d9758f82eb5d9/diff:/home/jugs/.local/share/containers/storage/overlay/e44db57d67eeb05bbc783348492ce686bddedd826a681785dde0d881dadc0f17/diff:/home/jugs/.local/share/containers/storage/overlay/749a5c376ef7a10e3561a0b117530efb11182c47500f6d5fe22e3d5bacb2497f/diff:/home/jugs/.local/share/containers/storage/overlay/089b983a436aa034a36cc401234a8df307fd698885c8ff95001098be2a626aa3/diff:/home/jugs/.local/share/containers/storage/overlay/74ec5e9fa6a535352b5639534b7dc9c2c77f65d9c1e49c0718d520ddabb6f682/diff:/home/jugs/.local/share/containers/storage/overlay/3b935e95bbadd7901de64210a607205776c84c1be73c147b9a455df0b335ccb2/diff:/home/jugs/.local/share/containers/storage/overlay/96bd4a028273510b9e045cba4b2cbfaddee32276364f8af557885a41c21b6e8f/diff:/home/jugs/.local/share/containers/storage/overlay/e373133716974697843643ef8e650264a48f306c45d9941e1bb4eb4d1a4fe33d/diff:/home/jugs/.local/share/containers/storage/overlay/99bc7ed49b6df734ff2a2632cfdac72a258713b5414836820587124cac2b97d2/diff:/home/jugs/.local/share/containers/storage/overlay/4a4b1bbe915ab61797c8ed27eb495bab7db51a83d6458d406500b745a769f8e0/diff:/home/jugs/.local/share/containers/storage/overlay/617d5b444e7f7f76f6887962d3b71790dfe94679666f26caa3345ddc03d5bc58/diff:/home/jugs/.local/share/containers/storage/overlay/d8a336043de6192af6302ec22f400a0decef8b2a56d21f16d3430f26a2029a5c/diff:/home/jugs/.local/share/containers/storage/overlay/087ee7437dda113a4f5bba60f8db4cf029885049ae7f6754596f23ecb7c4bc62/diff:/home/jugs/.local/share/containers/storage/overlay/1491f6264e32e27da5bd6ce623f95ffdb507a1380f7f159415142955179e84d6/diff:/home/jugs/.local/share/containers/storage/overlay/c3cb0db003bc722f8de897e9c5ecd8459a4d3b44ff209ce2ded0863e25519f8a/diff:/home/jugs/.local/share/containers/storage/overlay/e035ff5b6a2dd663b1b68b36d6e9554728776ab2c6ed8240fcb1eb4a49ab4996/diff:/home/jugs/.local/share/containers/storage/overlay/fcb89d646ff570882d9559dc90e63c21f030e9c569edc5381955d24ab3f0b5bb/diff:/home/jugs/.local/share/containers/storage/overlay/70a0625c04dbd6f794d7a5778d41607c9ab9578a778a25c93b92d4dc4fbc1877/diff:/home/jugs/.local/share/containers/storage/overlay/71e715798834004b88011d9c01021b494352abe45acb461f9f5ecd2e40e0b1d3/diff:/home/jugs/.local/share/containers/storage/overlay/a06da26b968d4088b3d8986a9494248e9340d01199985895e04e63e112b1b7bf/diff:/home/jugs/.local/share/containers/storage/overlay/613f04e61d0c995f372490ee219e08e0b12d4c249e0605e7a0934797912fe15f/diff:/home/jugs/.local/share/containers/storage/overlay/cd2b50c01f0275cc85f5b89f04f49fa7ae265c5ccb869f5507ea076defa651cf/diff:/home/jugs/.local/share/containers/storage/overlay/c1b57824c541c8e85446420a4d4aa96cea75b5709271d5d017a4bf3f21e6fe37/diff:/home/jugs/.local/share/containers/storage/overlay/75a3991779edea0dc96928d3c100b7ecce40ee75d452e05c48fb54511f884987/diff:/home/jugs/.local/share/containers/storage/overlay/30810acad951f3fc2aceb37c0c4782fa21ca45905f818a5c41f927640eb7f72d/diff:/home/jugs/.local/share/containers/storage/overlay/a67c773361b71789adfab18c96f3d7307dc98fada5710341ca2edf63d5511c86/diff:/home/jugs/.local/share/containers/storage/overlay/a713fddac6038e5eee992ac57ec5fc0572280261c4dd7e3fdba91b3a4ae18b19/diff:/home/jugs/.local/share/containers/storage/overlay/92e4ee0f994c9e5104bda5d272532035596d4318252162727aea3a281aa6afec/diff:/home/jugs/.local/share/containers/storage/overlay/186b46d642d241307d5bf889f9aa40683b3aedbf2925feb6f177dd36c842abbd/diff:/home/jugs/.local/share/containers/storage/overlay/9276b1aedca76bcd24b8921c046b88cd92e5bab3f630c42a286bbf1de02b91ad/diff:/home/jugs/.local/share/containers/storage/overlay/7fbeb13876195b4f3552223f36a97bae08cc0e7ad41235888a2fc89e5e01b946/diff:/home/jugs/.local/share/containers/storage/overlay/b5fc96e2629282e5d4c649752edb76340d95742c49bde91b7eb7c740150d2d2e/diff:/home/jugs/.local/share/containers/storage/overlay/bd8a65f175963105faf5ddce62af6cb33bd031f854a0a96f0513855dea5f68bc/diff:/home/jugs/.local/share/containers/storage/overlay/5b58c9249a7fc74724aeab060a77c9aaca7fc803f1b312dd4212d754d0a3b9b8/diff:/home/jugs/.local/share/containers/storage/overlay/d3a3c93336443d0d07678baeb79ba721ac4267d837090b3893767c7247693c83/diff:/home/jugs/.local/share/containers/storage/overlay/fab428fc494c13d806813b1bac2176bd799194865fd964a45acc495fc06600e3/diff:/home/jugs/.local/share/containers/storage/overlay/3b4f31535adf7c410a8a5b5c3e8e78a36948b8e16f5407c1586fd7d3c23a76b0/diff:/home/jugs/.local/share/containers/storage/overlay/beab9472dffe537dc77164e1f96912ba7b9220946055661acbe4479712f12e34/diff:/home/jugs/.local/share/containers/storage/overlay/2744ddcf7da73d98b47f10d352ace0f5a2048aac1ad649d7b57537a4aa2e4375/diff:/home/jugs/.local/share/containers/storage/overlay/3869621934aefc085117116da36e2cad7c57c57ceac3097dedf94d7d2a4c919a/diff:/home/jugs/.local/share/containers/storage/overlay/ff3543c4651dfacc73fc236140bf8abf43f5b7fa5da2eba296ca8c3543441a1b/diff:/home/jugs/.local/share/containers/storage/overlay/06167fd6d86ccbeb82638e29740436ae8db3563027f6895fec88a57116c6af64/diff:/home/jugs/.local/share/containers/storage/overlay/f71a6b4b78f9910e402cf0d327d7ce029e71f3c0ba75b2960fdec01bbfbbbb5b/diff:/home/jugs/.local/share/containers/storage/overlay/8823e0fe886ae0f1b0b6d4b6d26bec2f71a73c7e953eb0261a6c747f1bbf00eb/diff:/home/jugs/.local/share/containers/storage/overlay/360cb263531182d932f013c799569c899eb480869a4315f74ff7c1c9fbb87c76/diff:/home/jugs/.local/share/containers/storage/overlay/dd20fb27285968fa46f93e039f328d4c01c48df1ea65318c947ecb7cd93c68ea/diff:/home/jugs/.local/share/containers/storage/overlay/e3be6c6106e40a7646743cd235ef48e9942c58f2fe82d65a995df330f0e5d7b4/diff:/home/jugs/.local/share/containers/storage/overlay/5cc6a719ec5bf30254e3966865c5ab0f7cb383b0f6cfc9f9e50bf5d1191ffa1f/diff:/home/jugs/.local/share/containers/storage/overlay/3a72b9333f6ca0600f6142be727cf1af1504c0abca936f4e590dc9e9268215fd/diff:/home/jugs/.local/share/containers/storage/overlay/0e70741790cafa2f2555011d909dc4acacc9a417defd1d2b5122375a204f59ef/diff:/home/jugs/.local/share/containers/storage/overlay/e16914649a7b96e857ef3f95c02729fb27fca55970e81405a247c858fdcb7314/diff:/home/jugs/.local/share/containers/storage/overlay/449c51cd725d486ea8921a718902f13eb1f9ad296e2124d60d1b593be320d578/diff:/home/jugs/.local/share/containers/storage/overlay/9f73b786ac3376f9b2d8782edb5420cd00e9b837b23ff74aee2bd09ea34a357d/diff:/home/jugs/.local/share/containers/storage/overlay/65d0056b29c7884baba1d84c84eb510a93d5b600027c16224c97aeadc4aadf89/diff:/home/jugs/.local/share/containers/storage/overlay/7c6540c4f81a0a1708ce3c496c01c46071317f53ef0e5c6cf08ec84a840af803/diff:/home/jugs/.local/share/containers/storage/overlay/4d9210c3941b050de307f9c8cbd0781f7e2599c756ad5cb11c5b024118727154/diff:/home/jugs/.local/share/containers/storage/overlay/646eea22414270d74b0c9e9d6d3b9550701ae62e658a099825d4d15045a3630b/diff",
+                    "UpperDir": "/home/jugs/.local/share/containers/storage/overlay/69b5ac4dc5f5067c59ddc8f5708e8c93d61648c562da8df8407819d432cb3684/diff",
+                    "WorkDir": "/home/jugs/.local/share/containers/storage/overlay/69b5ac4dc5f5067c59ddc8f5708e8c93d61648c562da8df8407819d432cb3684/work"
+               }
+          },
+          "RootFS": {
+               "Type": "layers",
+               "Layers": [
+                    "sha256:646eea22414270d74b0c9e9d6d3b9550701ae62e658a099825d4d15045a3630b",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:b62ae719da325023291d2882dfcf1bff54862385d4cb47202c58b14f56acac22",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:50f48a9054b417e1df457e9c233643b89a6405fbd40dc9c524261876b46401fc",
+                    "sha256:61ef3360ef86fba1c03e4f83d58d0c31918ddd3e8df8c5eee5537f1280509fb6",
+                    "sha256:5b3c5f2d09ae291825acf64501e42c3658d7f6ea2c48908b48948896e9bdb755",
+                    "sha256:440999f48460f3302c87f1168d2ee8afa4a18837e41bd6e10f74fb8ff0dde885",
+                    "sha256:20a48e40ad48fe502511953248d831019d7c6b3ea42a0cfa36476bc7f02c475f",
+                    "sha256:27e63e3e99f954c4b211f13a4ba67fd2aecb981d6219dab173232745b155a4b2",
+                    "sha256:4f3d32c1172786ab7e03f2f891e011185327c66d697f04e9a55254839b2ea50f",
+                    "sha256:77ccbecc64e3521aa1a86d5d2e54aa2b48d8e93fd7e9d5ed375e148c04235e70",
+                    "sha256:a7fb3101ec81ff8af5290444a848f990c1dbdbf04c099f0d2d76e07a05e92d7f",
+                    "sha256:907c89e4a12a707fd3d088f42f2d7fbdde57052142878db72ff80070fc9d66ed",
+                    "sha256:2f8cbd3a33bb7d1d15d91afb8f292f44f0e2eaeae7cb4f6eb6180e2a41008e0c",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:1f7e8a6e984a4eb4392a5f6a46c5e12daec7b42a4900f79c4f3f3ed96dbc0d11",
+                    "sha256:99f80f53dc9f209a92eabf3a0bce0783cab51edd4903cf3622963f76aeef7684",
+                    "sha256:588edcf255ebf51d0524db1cf9ebc9a1b97f001ba0e855cb14da725e5278f8b3",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:55d3a277308991ad8a400f9f149298d0f7653fceed9af97ee67e4e64f7985eae",
+                    "sha256:8e8a3eb3cf78da47df3ca139155fb79ceb5ec6bac5254be41c4dcb5d0144e13a",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:8fb8be79f7230b8343b490684c96f69418712396cd7664ac17ebaf8ac3c34b9c",
+                    "sha256:c252eb6ca6eb7d32aad9b7638544fe0424d8a5a6928ddad394df4c4f0446ce7a",
+                    "sha256:7bf1a550c07ad5c982a9ba3f7766a7e45ce3dab2550c18e4f12bc28805af3e96",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:52d805b80386ccd9275723a23dc10a261260c2f071f54e6df7164465189633d6",
+                    "sha256:72aea80d93c803082c9187668f490d163ac3b460f333c01b7d9925988117c2a2",
+                    "sha256:6ad04ad578fa03f432b9c1180563a424dd239cc2bd8ca8a8cb3bb154086a67a6",
+                    "sha256:e2198eca7757bd61b81a9d41d611ec984c1d3f819c68356afb8f932322934b62",
+                    "sha256:0e2fc8149d06b9b70952d102f94d2ac155b8da29321b70480fd13592ebe2e436",
+                    "sha256:26a3e6795e0d0cfce8c5601e320b4a732830c0d6aead2597f1b72a74b0f93801",
+                    "sha256:63d3d9a23623c85630ae4e738be9926eb7c12e5a91124bec726fe2e6c87574d4",
+                    "sha256:43fee554a376e14cd86230770385c6e187107e56e0b108863d73e9a71118efaa",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:4a74f1a34c8052c28ee7ed41844f7d469f98b9c33db3f8913f11e3e00d28b300",
+                    "sha256:b8eb6a4a6dd8788b7255fe6c04bb20239920ef74ba39073965a15d0c54f8b0d6",
+                    "sha256:1a582d36f6f471185ec0badce31acfde059fa25392638b542edf675b6be77663",
+                    "sha256:0e646915964bb6f415cdc0f7ca01f42933d80c55d48266d7a31b36889fc01221",
+                    "sha256:6dd47bde4ff8ae466d5dc92bcb83b29ad4bb9398826086b28d1967bd38c4be43",
+                    "sha256:5c0dfc5716b1d66d0710ab9e96100104ed6414f6a6f74f39ed1af87388a937f3",
+                    "sha256:107760fa4c0fb5b8d905256d8a79f841686f25fa88123f1b6a31e4b5e35d8193",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:c3aa1c0d859040f6ff889ec9834a33fc50a0389db26c4b23d11f024361147d82",
+                    "sha256:ab640f1007f1659dd8ec6900e5a6f8eecdacf4f16cb53befff7773455835657a",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:08a02f882a3ab18ca7d5d9c73c1ae16acff0982f3a8149714d391c07b4f81aa1",
+                    "sha256:faf6082f3a3585c65e6358f5a1b934b543ad665f5253236cf35af5daa236c32d",
+                    "sha256:b9875574de3729b2070909e7003e5a5be545aec34a00e89960d8c666f67f45b7",
+                    "sha256:6ef0399a40b32b7b85418c48937929e8ded9865d56123b05cd982b92c4adcc7e",
+                    "sha256:734266287025ef0018a77c3ff8d819dc038a1f042869e2bee3b930c3e202dd15",
+                    "sha256:3d2d12a9ed2de107bef3bafe58b7a64b9417f21daee224d9aab4a1ee12a3e62d",
+                    "sha256:3c5234f4dfb6161bad86106c0822d01cf533c46f26dc563195233b35a8bb61bc",
+                    "sha256:4551812f01caae0cafbfb9a36e9bfd53b5a527b3fe462f2e7e82c71a3632f6ab",
+                    "sha256:381aca2b5d896ef8ade51d1512b4793883a6b3edc5e53c6df604b432f6efffaa",
+                    "sha256:64aa771827a66288575e5914f484162b83cba55ac45b76c24051be3fb354ac81",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:abf5505d2019c82dce3f317bd6a629ec5924d56221abfd6e7143a792b61f09a7",
+                    "sha256:fcff4139d3d4073a5f6ae30f3734991deea25017739f1c3f04f1e9be43a93732",
+                    "sha256:41cfd94ca0b2cc660578ab28c405773a59bff99c763ccb66cf37a4340cc8b441",
+                    "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                    "sha256:57e97e65070b9939bd5a0fcfefee09745ca9df122c774b180fbaa36dee741d35",
+                    "sha256:c1536aeb65843acde77d9417af2be975dc47eac6e374eb42d05f0839dea6bd74",
+                    "sha256:1ea8ab1a28f2d592fd71a10b33c2148314423bdee41ca73e1010fd2c92f4cc23",
+                    "sha256:9f78b54af34380caf71bc8488141ab0ed4115949b1c2aa8ef3cfd54225c75659",
+                    "sha256:de8be1b8e7962528c72b398154ad80f44c47cdd0eb16d62edba748690826fac6",
+                    "sha256:6a6cb1ad85048966d0bc3116eb6691e4625ae9f45b34887b3d79f94b1093d641",
+                    "sha256:e9f9e247f8d3bc24c52841d76bf49c7a3517a77d5bc84e7df83b59af2ff9911d",
+                    "sha256:41dc3ca9eeec859340015e140f05cba9f415430ea1eb65737ad97caa44ed2f8c",
+                    "sha256:79e03b52679ddeee664aca2df3657b17050d41306f1cffb6a11bca3b36e4e324",
+                    "sha256:e693e7463122590aa823c25a545f03fe0e9fa542d48227c7226a5bfb2afcab06",
+                    "sha256:0462478c53832cf2da59248ce75d4f3c8aa1dc03008311aa28d65fd1061d8e59",
+                    "sha256:73fbb6ba772cf1972604a87e77b80e3ef86b0f9d88f08f55776dcd2be65c7da6",
+                    "sha256:4f6f1159dde27e7ef13ce7291814d533c70fbfdb34c22c2400ef802ea86da882",
+                    "sha256:0112d046203af53fb9650512c5e07b582858df886df9040d76759053a3990b94",
+                    "sha256:013d6317272572d362119016c4fafcb3befa6b87a2e13bf028b6b9f436c48e01",
+                    "sha256:b8af5842092837a249869de7c95b5a1a414c6e3399ceb0d405aee7b6759e8855",
+                    "sha256:544027fb527fab5fad9d2bd5605b98aac34d3157c5108a140c15cabfe922089f",
+                    "sha256:11f1365b55360fcd2f0e03e875c5957e98a7c56a4ca055ae876b5e656ad361af",
+                    "sha256:4bd0f713f660a69a79b18b2606743067163d9c1add95fc77dabe6a6eddac355f",
+                    "sha256:5340f9c544917ac9ffce58ebecb7ee96a413add8cffe342ec3271874b698717a",
+                    "sha256:862f8d68f54d526715613a1c0a12a77aacc7af9950711bcc68effc8c8eb21265",
+                    "sha256:8adb27d88b14edab523c6a57c7d30f3b8f4d8306c01c43edcf5db28a5f16b4f3"
+               ]
+          },
+          "Labels": {
+               "b12x.source-tree": "ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e",
+               "com.nvidia.build.id": "406036885",
+               "com.nvidia.build.ref": "12711b2fffc2b532c812302ccd6b8c507ba1175d",
+               "com.nvidia.cublas.version": "13.7.0.27",
+               "com.nvidia.cublasmp.version": "0.10.0.3695",
+               "com.nvidia.cuda.version": "9.0",
+               "com.nvidia.cudla.version": "13.4.49",
+               "com.nvidia.cudnn.version": "9.25.0.28",
+               "com.nvidia.cufft.version": "12.4.0.34",
+               "com.nvidia.curand.version": "10.4.4.49",
+               "com.nvidia.cusolver.version": "12.3.2.15",
+               "com.nvidia.cusolvermp.version": "0.9.0.6427",
+               "com.nvidia.cusparse.version": "12.8.6.49",
+               "com.nvidia.cusparselt.version": "0.9.1.1",
+               "com.nvidia.nccl.version": "2.30.7+cuda13.3",
+               "com.nvidia.npp.version": "13.2.0.35",
+               "com.nvidia.nsightcompute.version": "2026.3.0.13",
+               "com.nvidia.nsightsystems.version": "2026.5.1.18",
+               "com.nvidia.nvjpeg.version": "13.2.2.35",
+               "com.nvidia.nvvm.version": "13.4.59",
+               "com.nvidia.pytorch.version": "2.14.0a0+4fdf77b",
+               "com.nvidia.tensorrt.version": "11.2.1.2+cuda13.3",
+               "com.nvidia.tensorrtoss.version": "",
+               "com.nvidia.volumes.needed": "nvidia_driver",
+               "io.buildah.version": "1.45.0",
+               "lmcache.default": "disabled",
+               "local-inference.cache.fingerprint": "a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f",
+               "local-inference.flashinfer.commit": "2206a14e46387a56c093860a46bbbdd00596b75b",
+               "local-inference.flashkda.commit": "3b225bf26bb8e218928a1fe14751cb48cf31d11b",
+               "local-inference.glm.launcher.sha256": "6f3772af4a113f82fbcdbd3973326ce3abbde8d233c2b196e141198fe429877a",
+               "local-inference.lmcache.commit": "688bee14e157b64623d93c07fc0d4db93470e12f",
+               "local-inference.nccl.commit": "93fe05d9f9b6963ef841166a69cd0b30e4efe97b",
+               "local-inference.qwen.launcher.sha256": "13db280a2c77f5cc3e311722020a961a0224d2e0ab77eb6f02c803c0a9bfa154",
+               "local-inference.runtime-deps.recipe.sha256": "3b1e8cde7f30dc984e6efe6b3f305818ab69facd6a2c1a12cad4a30fd27c29e8",
+               "local-inference.runtime.recipe.sha256": "5869aa01d7c0fe7d7449c342ea96f5665739b2239a4788772454741cb92ce477",
+               "local-inference.serving.recipe.sha256": "66515fecc97e54b28269db1da11c919b38f768e56f2366dbeeb81944b1812c91",
+               "local-inference.status": "candidate-not-model-qualified",
+               "org.opencontainers.image.description": "Fresh CUDA 13.4 Torch 2.14 ARM64 stack; model qualification required",
+               "org.opencontainers.image.title": "JJ-main beta DGX Spark SM121",
+               "org.opencontainers.image.version": "24.04",
+               "vllm.source-tree": "182f7f4ac37b980a3bb81e74797a78e9dbf822cb"
+          },
+          "Annotations": {},
+          "ManifestType": "application/vnd.docker.distribution.manifest.v2+json",
+          "User": "",
+          "History": [
+               {
+                    "created": "2026-08-17T13:11:31.291784067Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-17T13:11:31.351279375Z",
+                    "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-17T13:11:31.397969498Z",
+                    "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=24.04",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-17T13:11:34.109791427Z",
+                    "created_by": "/bin/sh -c #(nop) ADD file:0387b3d029de8fa08641ccfaa44c6a4ad07b93035420d53b49783ea27527d153 in / "
+               },
+               {
+                    "created": "2026-08-17T13:11:34.47448671Z",
+                    "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:21.625833762Z",
+                    "created_by": "SHELL [/bin/bash -c]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:21.625833762Z",
+                    "created_by": "ARG ENABLE_MITMPROXY=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:21.625833762Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:34:33.464196301Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c if [ -d /usr/share/ca-certificates ]; then exit; fi  && export DEBIAN_FRONTEND=noninteractive  && apt-get update  && apt-get install -y --no-install-recommends ca-certificates  && rm -rf /var/lib/apt/lists/* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:21.625833762Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c export DEBIAN_FRONTEND=noninteractive  && apt-get update  && apt-get install -y --no-install-recommends         adduser         curl         libnl-route-3-200         libnl-3-200         libnl-3-dev         libnl-route-3-dev         patch         wget  && rm -rf /var/lib/apt/lists/*  && echo \"hsts=0\" > /root/.wgetrc # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG GDRCOPY_VERSION=2.5.1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG HPCX_VERSION=2.50",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG RDMACORE_VERSION=63.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG MOFED_VERSION=5.4-rdmacore63.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG OPENUCX_VERSION=1.21.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG OPENMPI_VERSION=5.0.10",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG EFA_VERSION=1.48.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ENV GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 RDMACORE_VERSION=63.0 EFA_VERSION=1.48.0 NCCL_NET_PLUGIN=spcx",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:44.73472212Z",
+                    "created_by": "ARG TARGETARCH=arm64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "RUN |9 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 /bin/bash -c cd /nvidia  && export OPENMPI_VERSION_MAJOR=\"${OPENMPI_VERSION%%.*}\"  && echo \"OPENMPI_VERSION_MAJOR: ${OPENMPI_VERSION_MAJOR}\"  && ( cd opt/rdma-core/                            && dpkg -i libibverbs1_*.deb                            libibverbs-dev_*.deb                         librdmacm1_*.deb                             librdmacm-dev_*.deb                          libibumad3_*.deb                             libibumad-dev_*.deb                          ibverbs-utils_*.deb                          ibverbs-providers_*.deb           && rm $(dpkg-query -L                                   libibverbs-dev                              librdmacm-dev                               libibumad-dev                           | grep \"\\(\\.a\\)$\")                )                                            && ( cd opt/gdrcopy/                              && dpkg -i libgdrapi_*.deb                   )                                         && ( cp -r opt/hpcx /opt/                                         && cp etc/ld.so.conf.d/hpcx.conf /etc/ld.so.conf.d/          && ln -sf /opt/hpcx/ompi${OPENMPI_VERSION_MAJOR} /usr/local/mpi                      && ln -sf /opt/hpcx/ucx  /usr/local/ucx                      && sed -i 's/^\\(hwloc_base_binding_policy\\) = core$/\\1 = none/' /opt/hpcx/ompi${OPENMPI_VERSION_MAJOR}/etc/openmpi-mca-params.conf         && sed -i 's/^\\(btl = self\\)$/#\\1/'                             /opt/hpcx/ompi${OPENMPI_VERSION_MAJOR}/etc/openmpi-mca-params.conf       )                                                         && ldconfig # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ENV OPAL_PREFIX=/usr/local/mpi PATH=/usr/local/mpi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin:/opt/amazon/efa/bin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ENV OMPI_MCA_coll_hcoll_enable=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ARG CUDA_VERSION=13.4.1.012",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ARG CUDA_DRIVER_VERSION=615.65.02",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ARG NVVM_VERSION=13.4.59",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ARG DOCA_VERSION=3.5.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:34:46.030229537Z",
+                    "created_by": "ENV CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:00.145020865Z",
+                    "created_by": "RUN |13 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 /bin/bash -c export ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)     && export ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)     && BASE=min /nvidia/build-scripts/installCUDA.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:00.198458053Z",
+                    "created_by": "RUN |13 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 /bin/bash -c cp -vprd /nvidia/. /  &&  patch -p0 < /etc/startup_scripts.patch  &&  rm -f /etc/startup_scripts.patch # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:00.198458053Z",
+                    "created_by": "ENV _CUDA_COMPAT_PATH=/usr/local/cuda/compat ENV=/etc/shinit_v2 BASH_ENV=/etc/bash.bashrc SHELL=/bin/bash NVIDIA_REQUIRE_CUDA=cuda>=9.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:00.198458053Z",
+                    "created_by": "LABEL com.nvidia.volumes.needed=nvidia_driver com.nvidia.cuda.version=9.0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:00.198458053Z",
+                    "created_by": "ARG NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:00.198458053Z",
+                    "created_by": "ENV NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSPARSELT_VERSION=0.9.1.1 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:00.207841603Z",
+                    "created_by": "ADD docs.tgz / # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:00.330343042Z",
+                    "created_by": "RUN |49 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2 /bin/bash -c echo \"/usr/local/nvidia/lib\" >> /etc/ld.so.conf.d/nvidia.conf  && echo \"/usr/local/nvidia/lib64\" >> /etc/ld.so.conf.d/nvidia.conf  && if [ \"${TARGETARCH}\" = \"arm64\" ]; then       echo \"/usr/lib/aarch64-linux-gnu/tegra\" >> /etc/ld.so.conf.d/nvidia.conf &&       echo \"/usr/lib/aarch64-linux-gnu/tegra-egl\" >> /etc/ld.so.conf.d/nvidia.conf;     fi # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:00.330343042Z",
+                    "created_by": "ARG _LIBPATH_SUFFIX=",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:00.330343042Z",
+                    "created_by": "ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/mpi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin:/opt/amazon/efa/bin LD_LIBRARY_PATH=/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64 NVIDIA_VISIBLE_DEVICES=all NVIDIA_DRIVER_CAPABILITIES=compute,utility,video",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:14.209025337Z",
+                    "created_by": "RUN |50 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2 _LIBPATH_SUFFIX= /bin/bash -c export ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)     && export ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)     && if [ -n \"${DOCA_VERSION}\" ] && dpkg --compare-versions \"${HPCX_VERSION}\" \"ge\" \"2.24\"; then         /nvidia/build-scripts/installDOCA.sh;     else         echo \"Not running installDOCA.sh\";     fi # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:15.580547011Z",
+                    "created_by": "RUN |50 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2 _LIBPATH_SUFFIX= /bin/bash -c   set -euo pipefail\n  cp -r /mnt/aws-efa-installer /tmp/aws-efa-installer\n  cd /tmp/aws-efa-installer\n  ./efa_installer.sh --skip-rdma-core --build-ngc --skip-mpi\n  dpkg -i DEBS/UBUNTU*/$(uname -m)/libfabric-aws-dev_*.deb\n  dpkg -i DEBS/UBUNTU*/$(uname -m)/libfabric-aws-bin_*.deb\n  rm -f /opt/amazon/efa/lib/libfabric.a\n  rm -rf /tmp/aws-efa-installer\n  ldconfig\n # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:21.340443329Z",
+                    "created_by": "RUN |50 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2 _LIBPATH_SUFFIX= /bin/bash -c   set -euo pipefail\n  shopt -s nullglob\n\n  debs=(/nvidia-networking/opt/gcp/nccl-plugins-ngc-debs/*.deb)\n  if [ \"${#debs[@]}\" -eq 0 ]; then\n    echo \"No GCP NCCL plugin NGC deb staged in networking image; skipping install.\"\n    exit 0\n  fi\n\n  if [ \"${#debs[@]}\" -ne 1 ]; then\n    echo \"Expected exactly one GCP NCCL plugin deb, found ${#debs[@]}:\" >&2\n    printf '  %s\\n' \"${debs[@]}\" >&2\n    exit 1\n  fi\n\n  export DEBIAN_FRONTEND=noninteractive\n  apt-get update\n  apt-get install -y --no-install-recommends \"${debs[0]}\"\n  rm -rf /var/lib/apt/lists/*\n\n  if [ -d /opt/gcp/nccl-plugins/lib64 ]; then\n    echo \"/opt/gcp/nccl-plugins/lib64\" > /etc/ld.so.conf.d/gcp-nccl-plugins.conf\n    ldconfig\n  fi\n # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:21.349375394Z",
+                    "created_by": "COPY entrypoint/ /opt/nvidia/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:21.349375394Z",
+                    "created_by": "ENV NVIDIA_PRODUCT_NAME=CUDA",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:21.349375394Z",
+                    "created_by": "ENTRYPOINT [\"/opt/nvidia/nvidia_entrypoint.sh\"]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:35:21.455012795Z",
+                    "created_by": "RUN |50 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2 _LIBPATH_SUFFIX= /bin/bash -c mkdir -p /workspace && cp -f -p /opt/nvidia/entrypoint.d/30-container-license.txt /workspace/license.txt # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:35:21.625833762Z",
+                    "created_by": "RUN |50 ENABLE_MITMPROXY=0 GDRCOPY_VERSION=2.5.1 HPCX_VERSION=2.50 RDMACORE_VERSION=63.0 MOFED_VERSION=5.4-rdmacore63.0 OPENUCX_VERSION=1.21.0 OPENMPI_VERSION=5.0.10 EFA_VERSION=1.48.0 TARGETARCH=arm64 CUDA_VERSION=13.4.1.012 CUDA_DRIVER_VERSION=615.65.02 NVVM_VERSION=13.4.59 DOCA_VERSION=3.5.0 NCCL_VERSION=2.30.7+cuda13.3 CCCL_VERSION=13.3.4.2.1 CUBLAS_VERSION=13.7.0.27 CUFFT_VERSION=12.4.0.34 CURAND_VERSION=10.4.4.49 CUSPARSE_VERSION=12.8.6.49 CUSOLVER_VERSION=12.3.2.15 NPP_VERSION=13.2.0.35 NVJPEG_VERSION=13.2.2.35 CUFILE_VERSION=1.19.0.109 NVJITLINK_VERSION=13.4.52 NVFATBIN_VERSION=13.4.49 CUBLASMP_VERSION=0.10.0.3695 CUSOLVERMP_VERSION=0.9.0.6427 NVSHMEM_VERSION=3.7.1 CUDLA_VERSION=13.4.49 NVPTXCOMPILER_VERSION=13.4.59 CUDNN_VERSION=9.25.0.28 CUDNN_FRONTEND_VERSION=1.27.0 TRT_VERSION=11.2.1.2+cuda13.3 TRTOSS_VERSION= NSIGHT_SYSTEMS_VERSION=2026.5.1.18 NSIGHT_COMPUTE_VERSION=2026.3.0.13 CUSPARSELT_VERSION=0.9.1.1 DALI_VERSION=2.2.0 DALI_BUILD= DALI_URL_SUFFIX=130 POLYGRAPHY_VERSION=0.53.3 TRANSFORMER_ENGINE_VERSION=2.18 MODEL_OPT_VERSION=0.45.0 CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0 MAXSMVER=121 NVRX_VERSION=0.6.0 NIXL_VERSION=1.3.0 CUTILE_PYTHON_VERSION=1.5.0 CUTLASS_DSL_VERSION=4.6.2 _LIBPATH_SUFFIX= /bin/bash -c /tmp/manage_cert.sh uninstall # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:40:41.275637864Z",
+                    "created_by": "ARG ENABLE_MITMPROXY=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:40:41.275637864Z",
+                    "created_by": "ARG ENABLE_FIPS=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:40:41.275637864Z",
+                    "created_by": "RUN |2 ENABLE_MITMPROXY=0 ENABLE_FIPS=0 /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:40:55.57201278Z",
+                    "created_by": "RUN |2 ENABLE_MITMPROXY=0 ENABLE_FIPS=0 /bin/bash -c export DEBIAN_FRONTEND=noninteractive  && apt-get update  && apt-get install -y --no-install-recommends         apt-utils         build-essential         libncurses6         libncursesw6         unzip         jq         gnupg         libtcmalloc-minimal4         git         libglib2.0-0         libhwloc15         libnuma-dev         libnuma1         libpmi2-0-dev         numactl         openssh-client         vim-tiny         wget  && rm -rf /var/lib/apt/lists/*  && if [ \"${ENABLE_FIPS}\" = \"1\" ]; then       apt-get remove -y openssh-client       && cp -f -p /tmp/ubuntu.sources.fips /etc/apt/sources.list.d/ubuntu.sources       && apt-get update       && apt-get install -y --no-install-recommends openssh-client       && rm -rf /var/lib/apt/lists/*;     fi  && ( [ -x /bin/ssh-agent ] && chgrp root /bin/ssh-agent || true )  && ( [ -x /usr/bin/ssh-agent ] && chgrp root /usr/bin/ssh-agent || true ) # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:40:55.57201278Z",
+                    "created_by": "ARG CUDA_COMPONENT_LIST=crt nvrtc driver-dev culibos-dev cudart cudart-dev nvcc tileiras cupti",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:40:55.57201278Z",
+                    "created_by": "ENV CUDA_COMPONENT_LIST=crt nvrtc driver-dev culibos-dev cudart cudart-dev nvcc tileiras cupti",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:41:11.142666867Z",
+                    "created_by": "RUN |3 ENABLE_MITMPROXY=0 ENABLE_FIPS=0 CUDA_COMPONENT_LIST=crt nvrtc driver-dev culibos-dev cudart cudart-dev nvcc tileiras cupti /bin/bash -c set -exo pipefail\nexport ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)\nexport ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)\n# We need CCCL first since cuda-cudart-dev depends on it\nDEVEL=0 BASE=1 VERSION_LIST=\"CCCL_VERSION\" /nvidia/build-scripts/installLIBS.sh\nCOMPONENT_LIST=\"${CUDA_COMPONENT_LIST}\" /nvidia/build-scripts/installCUDA.sh\n # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:41:11.142666867Z",
+                    "created_by": "ARG VERSION_LIST=CURAND_VERSION CUBLAS_VERSION CUFILE_VERSION CUOBJCLIENT_VERSION",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:43:49.331460007Z",
+                    "created_by": "RUN |4 ENABLE_MITMPROXY=0 ENABLE_FIPS=0 CUDA_COMPONENT_LIST=crt nvrtc driver-dev culibos-dev cudart cudart-dev nvcc tileiras cupti VERSION_LIST=CURAND_VERSION CUBLAS_VERSION CUFILE_VERSION CUOBJCLIENT_VERSION /bin/bash -c set -exo pipefail\nexport ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)\nexport ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)\nVERSION_LIST=\"${VERSION_LIST}\" /nvidia/build-scripts/installLIBS.sh\n\n# Hack to grab stubs from the libs stage and put them under /usr/local/cuda/lib64 without actually installing the libs\nHACK_LIST=\"cusparse cusolver cufft nvJitLink\"\nfor lib in ${HACK_LIST}; do\n  _LIB_VERSION_ENV_VAR=\"${lib^^}_VERSION\"\n  _LIB_MAJOR_VERSION=$(echo \"${!_LIB_VERSION_ENV_VAR}\" | cut -d. -f1)\n  \n  if [[ -z \"${_LIB_MAJOR_VERSION}\" ]]; then\n    echo \"[ERROR] ${_LIB_VERSION_ENV_VAR} is not set\"\n    exit 1\n  fi\n  \n  for _stub in $(ls /tmp/stubs/*${lib}*); do\n    cp ${_stub} /usr/local/cuda/lib64/$(basename ${_stub}).${_LIB_MAJOR_VERSION}\n    # Create a symlink to the file with .0 extension\n    ln -sf $(basename ${_stub}).${_LIB_MAJOR_VERSION} /usr/local/cuda/lib64/$(basename ${_stub}).0\n  done\ndone\n( set +x; echo \"[INFO] /usr/local/cuda/lib64 after hack:\"; ls -larth /usr/local/cuda/lib64/ )\n\n/nvidia/build-scripts/installCUDNN.sh\n\n/nvidia/build-scripts/installCUSPARSELT.sh\n\nNOBUILDER=1 /nvidia/build-scripts/installTRT.sh\n\n/nvidia/build-scripts/installNCCL.sh\nDPKG_DIVERT=1 /nvidia/build-scripts/installNVSHMEM.sh\nls /usr/local/cuda/lib64/libnvshmem_host.so* || { echo \"[ERROR] libnvshmem_host.so* not found under /usr/local/cuda/lib64\"; exit 1; }\nls /usr/local/cuda/lib64/libcuobjclient.so* || { echo \"[ERROR] libcuobjclient.so* not found under /usr/local/cuda/lib64\"; exit 1; }\n # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:43:49.331460007Z",
+                    "created_by": "ENV LIBRARY_PATH=/usr/local/cuda/lib64/stubs:",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:43:49.414884257Z",
+                    "created_by": "RUN |4 ENABLE_MITMPROXY=0 ENABLE_FIPS=0 CUDA_COMPONENT_LIST=crt nvrtc driver-dev culibos-dev cudart cudart-dev nvcc tileiras cupti VERSION_LIST=CURAND_VERSION CUBLAS_VERSION CUFILE_VERSION CUOBJCLIENT_VERSION /bin/bash -c /tmp/manage_cert.sh uninstall # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:43:49.414884257Z",
+                    "created_by": "LABEL com.nvidia.nccl.version=2.30.7+cuda13.3 com.nvidia.cublas.version=13.7.0.27 com.nvidia.cufft.version=12.4.0.34 com.nvidia.curand.version=10.4.4.49 com.nvidia.cusparse.version=12.8.6.49 com.nvidia.cusparselt.version=0.9.1.1 com.nvidia.cusolver.version=12.3.2.15 com.nvidia.npp.version=13.2.0.35 com.nvidia.nvjpeg.version=13.2.2.35 com.nvidia.cudnn.version=9.25.0.28",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:45:40.631829116Z",
+                    "created_by": "ARG ENABLE_MITMPROXY=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:45:40.631829116Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:45:45.20160665Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c export DEBIAN_FRONTEND=noninteractive  && apt-get update  && apt-get install -y --no-install-recommends         build-essential         libncurses6         libncursesw6         unzip         jq         gnupg         libtcmalloc-minimal4  && rm -rf /var/lib/apt/lists/* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:46:07.372861959Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c export ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)     && export ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)     && /nvidia/build-scripts/installCUDA.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:47:40.452601596Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c export ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)  && export ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)  && PURGESTUBS=\"1\" /nvidia/build-scripts/installLIBS.sh  && /nvidia/build-scripts/installCUDNN.sh  && /nvidia/build-scripts/installTRT.sh  && ARTIFACTORY_CLOUD=1 /nvidia/build-scripts/installNSYS.sh  && /nvidia/build-scripts/installNCU.sh  && /nvidia/build-scripts/installCUSPARSELT.sh  && /nvidia/build-scripts/installNCCL.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T02:47:40.452601596Z",
+                    "created_by": "LABEL com.nvidia.nccl.version=2.30.7+cuda13.3 com.nvidia.cublas.version=13.7.0.27 com.nvidia.cufft.version=12.4.0.34 com.nvidia.curand.version=10.4.4.49 com.nvidia.cusparse.version=12.8.6.49 com.nvidia.cusparselt.version=0.9.1.1 com.nvidia.cusolver.version=12.3.2.15 com.nvidia.npp.version=13.2.0.35 com.nvidia.nvjpeg.version=13.2.2.35 com.nvidia.cublasmp.version=0.10.0.3695 com.nvidia.cusolvermp.version=0.9.0.6427 com.nvidia.nvvm.version=13.4.59 com.nvidia.cudla.version=13.4.49 com.nvidia.cudnn.version=9.25.0.28 com.nvidia.tensorrt.version=11.2.1.2+cuda13.3 com.nvidia.tensorrtoss.version= com.nvidia.nsightsystems.version=2026.5.1.18 com.nvidia.nsightcompute.version=2026.3.0.13",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T02:47:40.554893903Z",
+                    "created_by": "RUN |1 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh uninstall # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T03:09:31.653708235Z",
+                    "created_by": "ARG TARGETARCH=arm64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T03:09:31.653708235Z",
+                    "created_by": "ARG ENABLE_FIPS=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T03:09:31.653708235Z",
+                    "created_by": "ARG ENABLE_MITMPROXY=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T03:09:31.653708235Z",
+                    "created_by": "RUN |3 TARGETARCH=arm64 ENABLE_FIPS=0 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T03:09:37.815682393Z",
+                    "created_by": "RUN |3 TARGETARCH=arm64 ENABLE_FIPS=0 ENABLE_MITMPROXY=0 /bin/bash -c export DEBIAN_FRONTEND=noninteractive  && apt-get update  && apt-get install -y --no-install-recommends         build-essential         git         libglib2.0-0         less         libhwloc15         libnuma-dev         libnuma1         libpmi2-0-dev         nano         numactl         openssh-client         vim         wget  && rm -rf /var/lib/apt/lists/*  && if [ \"${ENABLE_FIPS}\" = \"1\" ]; then       apt-get remove -y openssh-client       && cp -f -p /tmp/ubuntu.sources.fips /etc/apt/sources.list.d/ubuntu.sources       && apt-get update       && apt-get install -y --no-install-recommends openssh-client       && rm -rf /var/lib/apt/lists/*;     fi  && ( [ -x /bin/ssh-agent ] && chgrp root /bin/ssh-agent || true )  && ( [ -x /usr/bin/ssh-agent ] && chgrp root /usr/bin/ssh-agent || true ) # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T03:09:37.83453861Z",
+                    "created_by": "COPY cuda-*.patch /tmp # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T03:15:02.259411338Z",
+                    "created_by": "RUN |3 TARGETARCH=arm64 ENABLE_FIPS=0 ENABLE_MITMPROXY=0 /bin/bash -c set -exo pipefail\nexport ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)\nexport ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)\nexport DEVEL=1 BASE=0\n/nvidia/build-scripts/installNCU.sh\n/nvidia/build-scripts/installCUDA.sh\n/nvidia/build-scripts/installLIBS.sh\n/nvidia/build-scripts/installNCCL.sh\n# https://jirasw.nvidia.com/browse/DLR-4957 to get the headers and static files with symlinks to the common location\nDPKG_DIVERT=1 STATIC=1 /nvidia/build-scripts/installNVSHMEM.sh\n/nvidia/build-scripts/installCUDNN.sh\n/nvidia/build-scripts/installTRT.sh\nARTIFACTORY_CLOUD=1 /nvidia/build-scripts/installNSYS.sh\n/nvidia/build-scripts/installCUSPARSELT.sh\nif [ -f \"/tmp/cuda-${_CUDA_VERSION_MAJMIN}.patch\" ]; then patch -p0 < /tmp/cuda-${_CUDA_VERSION_MAJMIN}.patch; fi \nrm -f /tmp/cuda-*.patch\n # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T03:15:02.259411338Z",
+                    "created_by": "ENV LIBRARY_PATH=/usr/local/cuda/lib64/stubs:/usr/local/cuda/lib64/stubs:",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T03:15:02.362221464Z",
+                    "created_by": "RUN |3 TARGETARCH=arm64 ENABLE_FIPS=0 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh uninstall # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ENV NVIDIA_PRODUCT_NAME=PyTorch",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG NVIDIA_PYTORCH_VERSION=26.08",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG NVFUSER_BUILD_VERSION=",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ENV PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b PYTORCH_VERSION=2.14.0a0+4fdf77b PYTORCH_BUILD_NUMBER=0 NVIDIA_PYTORCH_VERSION=26.08",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ENV NVFUSER_BUILD_VERSION=0.1.4a0+nvidia NVFUSER_VERSION=",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG TORCHAO_BUILD_VERSION=+gitdd0efc75",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ENV TORCHAO_BUILD_VERSION=+gitdd0efc75",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ENV TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "LABEL com.nvidia.pytorch.version=2.14.0a0+4fdf77b",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG TARGETARCH=arm64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG PYVER=3.12",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ENV PIP_BREAK_SYSTEM_PACKAGES=1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "ARG ENABLE_MITMPROXY=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:35:32.176529205Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:36:11.095493331Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c export PYSFX=`echo \"${PYVER}\" | cut -c1-1` &&     export DEBIAN_FRONTEND=noninteractive &&     apt-get update &&     apt-get install -y --no-install-recommends         python$PYVER-dev         python$PYSFX         python$PYSFX-dev         python$PYSFX-pip         python$PYSFX-venv         python-is-python$PYSFX         autoconf         automake         libatlas-base-dev         libgoogle-glog-dev         libbz2-dev         libc-ares2         libre2-dev         libleveldb-dev         liblmdb-dev         libprotobuf-dev         libsnappy-dev         libtool         nasm         protobuf-compiler         pkg-config         unzip         sox         libsndfile1         libpng-dev         rapidjson-dev         ninja-build         libedit-dev         build-essential         patchelf         llvm-dev         libzstd-dev     && rm -rf /var/lib/apt/lists/* # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:36:11.095493331Z",
+                    "created_by": "ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:36:11.095493331Z",
+                    "created_by": "ENV PIP_CONSTRAINT=/etc/pip/constraint.txt",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:36:11.754296002Z",
+                    "created_by": "COPY constraint.txt /etc/pip/constraint.txt # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:36:22.501484632Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c pip install --ignore-installed --upgrade pip setuptools wheel &&     pip install cmake # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:36:25.473031207Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c if [ $TARGETARCH = \"arm64\" ]; then cd /opt &&     curl -Of \"https://developer.download.nvidia.com/compute/nvpl/redist/nvpl_blas/linux-sbsa/nvpl_blas-linux-sbsa-0.5.0.1-archive.tar.xz\" &&     curl -Of \"https://developer.download.nvidia.com/compute/nvpl/redist/nvpl_lapack/linux-sbsa/nvpl_lapack-linux-sbsa-0.3.2-archive.tar.xz\" &&     tar xf nvpl_blas-linux-sbsa-0.5.0.1-archive.tar.xz &&     tar xf nvpl_lapack-linux-sbsa-0.3.2-archive.tar.xz &&     cp -r nvpl_blas-linux-sbsa-0.5.0.1-archive/lib/* /usr/local/lib &&     cp -r nvpl_blas-linux-sbsa-0.5.0.1-archive/include/* /usr/local/include &&     cp -r nvpl_lapack-linux-sbsa-0.3.2-archive/lib/* /usr/local/lib &&     cp -r nvpl_lapack-linux-sbsa-0.3.2-archive/include/* /usr/local/include &&     rm -rf ./nvpl_* ; fi # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:36:25.473031207Z",
+                    "created_by": "ENV NVPL_LAPACK_MATH_MODE=PEDANTIC",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:36:25.513440766Z",
+                    "created_by": "WORKDIR /opt/pytorch",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:36:25.513440766Z",
+                    "created_by": "ENV PYTHONIOENCODING=utf-8",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:36:25.513440766Z",
+                    "created_by": "ENV LC_ALL=C.UTF-8",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:36:25.513440766Z",
+                    "created_by": "ENV PIP_DEFAULT_TIMEOUT=100",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:36:58.7988228Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c pip install         scipy         numba==0.64.0         pybind11         Cython         regex         protobuf         nvidia-cutlass-dsl[cu13]==${CUTLASS_DSL_VERSION}         apache-tvm-ffi         cuda-tile==${CUTILE_PYTHON_VERSION} &&     if [[ $TARGETARCH = \"amd64\" ]] ; then pip install --no-cache-dir mkl mkl-include mkl-devel ;     find /usr/local/lib -maxdepth 1 -type f -regex '.*\\/lib\\(tbb\\|mkl\\).*\\.so\\($\\|\\.[0-9]*\\.[0-9]*\\)' -exec rm -v {} + ; fi # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:37:16.122023563Z",
+                    "created_by": "COPY . . # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:38:27.782671924Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c git config --global url.\"https://github\".insteadOf git://github &&     pip install jupyterlab notebook tensorboard     jupyterlab_code_formatter python-hostlist &&     PATCHED_FILE=$(python -c \"from tensorboard.plugins.core import core_plugin as _; print(_.__file__)\") &&     sed -i 's/^\\( *\"--bind_all\",\\)$/\\1 default=True,/' \"$PATCHED_FILE\" &&     test $(grep '^ *\"--bind_all\", default=True,$' \"$PATCHED_FILE\" | wc -l) -eq 1 # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:38:27.894728714Z",
+                    "created_by": "WORKDIR /opt/pytorch",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c pip install --no-cache-dir /builder/*.whl jupytext black isort  && mkdir -p /usr/local/etc/jupyter /root/.jupyter/lab/user-settings/@jupyterlab/completer-extension/  && cp /tmp/jupyter_config/jupyter_notebook_config.py /usr/local/etc/jupyter/  && cp /tmp/jupyter_config/manager.jupyterlab-settings /root/.jupyter/lab/user-settings/@jupyterlab/completer-extension/  && cp /tmp/jupyter_config/settings.jupyterlab-settings /root/.jupyter/lab/user-settings/@jupyterlab/completer-extension/  && jupyter lab clean # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV JUPYTER_PORT=8888",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV TENSORBOARD_PORT=6006",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "EXPOSE [8888/tcp]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "EXPOSE [6006/tcp]",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV UCC_CL_BASIC_TLS=^sharp",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV UCC_EC_CUDA_EXEC_NUM_THREADS=256",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV TORCH_CUDA_ARCH_LIST=8.0 8.6 9.0 10.0 11.0 12.0+PTX",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV PYTORCH_HOME=/opt/pytorch/pytorch",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV CUDA_HOME=/usr/local/cuda",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV TORCH_ALLOW_TF32_CUBLAS_OVERRIDE=1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:32.16370349Z",
+                    "created_by": "ENV TORCHINDUCTOR_CUTLASS_DIR=/opt/pytorch/pytorch/third_party/cutlass",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:39:59.96464538Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c echo \"TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST}\"     && pip install /opt/transfer/torch*.whl     && patchelf --set-rpath '/usr/local/lib' /usr/local/lib/python${PYVER}/dist-packages/torch/lib/libtorch_global_deps.so # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:40:00.439247342Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c mkdir -p /usr/local/share/cmake/TorchVision /usr/local/include/torchvision &&     cp -a /tmp/TorchVision/. /usr/local/share/cmake/TorchVision/ &&     cp -a /tmp/torchvision-include/. /usr/local/include/torchvision/ &&     cp -a /tmp/libtorchvision.so.1.0 /usr/local/lib/libtorchvision.so.1.0 &&     patchelf --set-soname libjpeg.so.62 --output /usr/local/lib/libjpeg.so.62 $(readlink -f $(ldd /usr/local/lib/python${PYVER}/dist-packages/torchvision/image.so | grep libjpeg | awk '{print $3}')) # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "RUN |8 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 /bin/bash -c pip install --no-cache-dir --no-deps /tmp/dist/*.whl # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_PTXAS_PATH=/usr/local/cuda/bin/ptxas",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_CUOBJDUMP_PATH=/usr/local/cuda/bin/cuobjdump",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_NVDISASM_PATH=/usr/local/cuda/bin/nvdisasm",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_CUDACRT_PATH=/usr/local/cuda/include",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_CUDART_PATH=/usr/local/cuda/include",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_CUPTI_LIB_PATH=/usr/local/cuda/lib64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ENV TRITON_CUPTI_INCLUDE_PATH=/usr/local/cuda/include",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:08.292595131Z",
+                    "created_by": "ARG DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:40:37.718244755Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c export CUDA_VERSION_MAJOR=$(ls /usr/local/cuda/lib64/libcudart.so.*.*.* | cut -d . -f 3)   && export DALI_PKG_SUFFIX=\"cuda${CUDA_VERSION_MAJOR}0\"   && if [ -z \"${DALI_URL_SUFFIX}\" ] ; then export DALI_EXTRA_INDEX_URL=\"${DALI_EXTRA_INDEX_URL}-qa/nvidia-dali-cudagpgpu\"; fi   && pip install                 --extra-index-url https://developer.download.nvidia.com/compute/redist                 --extra-index-url \"${DALI_EXTRA_INDEX_URL}\"                 --extra-index-url \"http://sqrl/nvdl/datasets/dali/misc\"                 --trusted-host sqrl         nvidia-dali-${DALI_PKG_SUFFIX}==${DALI_VERSION} # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:40:37.718244755Z",
+                    "created_by": "ENV COCOAPI_VERSION=2.0+nv0.8.1",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:41:04.879384059Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c export COCOAPI_TAG=$(echo ${COCOAPI_VERSION} | sed 's/^.*+n//')  && pip install --no-build-isolation git+https://github.com/nvidia/cocoapi.git@${COCOAPI_TAG}#subdirectory=PythonAPI # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:41:04.902413257Z",
+                    "created_by": "COPY singularity/ /.singularity.d/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:41:05.090995425Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c /tmp/manage_cert.sh install # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:31.175457021Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c export ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)  && export ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)  && /nvidia/build-scripts/installCUBLASMP.sh  && ( cd pytorch/third_party/onnx && pip uninstall typing -y && CMAKE_ARGS=\"-DONNX_USE_PROTOBUF_SHARED_LIBS=ON\" pip install --no-build-isolation . )  && ( cd ao && TORCH_CUDA_ARCH_LIST=\"9.0a 10.0a ${TORCH_CUDA_ARCH_LIST}\" VERSION_SUFFIX=\"${TORCHAO_BUILD_VERSION}\" pip install --no-build-isolation . && python setup.py clean --all )  && ( cd torchtitan && BUILD_VERSION=\"${TORCHTITAN_BUILD_VERSION}\" bash .github/scripts/update_version.sh && pip install --no-build-isolation . && rm -rf build/ ) # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:32.441910954Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c pip install tabulate # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:32.467457024Z",
+                    "created_by": "WORKDIR /workspace",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:32.479169225Z",
+                    "created_by": "COPY NVREADME.md README.md # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:32.490719703Z",
+                    "created_by": "COPY docker-examples docker-examples # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:32.600064963Z",
+                    "created_by": "COPY tutorials tutorials # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:33.029467693Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c chmod -R a+w+t . # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:55.105236605Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c     set -xeo pipefail\n    apt-get update\n    apt-get install -y --no-install-recommends zstd\n    export ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER)\n    export ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN)\n    WHEELS=1 /nvidia/build-scripts/installTRT.sh\n    # Remove zstd after installTRT.sh\n    apt-get purge -y --auto-remove zstd\n    apt-get clean\n    rm -rf /var/lib/apt/lists/*\n # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:48:55.105236605Z",
+                    "created_by": "ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/mpi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin:/opt/amazon/efa/bin:/opt/tensorrt/bin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:49:16.903866402Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c pip --version && python -c 'import sys; print(sys.platform)'     && pip install --extra-index-url https://urm.nvidia.com/artifactory/api/pypi/sw-tensorrt-pypi/simple --no-cache-dir \"polygraphy==${POLYGRAPHY_VERSION}\"     && pip download --no-deps -d /tmp/modelopt --index-url https://gitlab-master.nvidia.com/api/v4/projects/omniml%2Fmodelopt/packages/pypi/simple --extra-index-url https://pypi.nvidia.com \"nvidia-modelopt[torch]==${MODEL_OPT_VERSION}\"     && pip install /tmp/modelopt/nvidia_modelopt*.whl     && rm -rf /tmp/modelopt     && pip download --no-deps -d /tmp/nvrx --index-url https://gitlab-master.nvidia.com/api/v4/projects/dl%2Fosiris%2Fnvidia-resiliency-ext-ci/packages/pypi/simple nvidia-resiliency-ext==${NVRX_VERSION}     && pip install /tmp/nvrx/nvidia_resiliency_ext*.whl     && rm -rf /tmp/nvrx     && pip uninstall -y pynvml # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:49:21.216110238Z",
+                    "created_by": "COPY torch_tensorrt/ /opt/pytorch/torch_tensorrt/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T07:49:21.216110238Z",
+                    "created_by": "ARG PYVER=3.12",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:49:21.216110238Z",
+                    "created_by": "ENV LD_LIBRARY_PATH=/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/lib/python3.12/dist-packages/torch_tensorrt/lib:/usr/local/cuda/compat/lib:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T07:49:21.216110238Z",
+                    "created_by": "ENV PATH=/usr/local/lib/python3.12/dist-packages/torch_tensorrt/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/mpi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ucx/bin:/opt/amazon/efa/bin:/opt/tensorrt/bin",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T08:06:23.184236627Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c pip install --no-cache-dir /opt/pytorch/apex/dist/*.whl &&         pip install --no-cache-dir /opt/pytorch/torch_tensorrt/dist/*.whl &&         pip install --no-cache-dir /opt/transfer/flash_attn*.whl # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T08:06:24.497609526Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c ARTIFACTORY_USER=$(cat /run/secrets/ARTIFACTORY_USER) ARTIFACTORY_TOKEN=$(cat /run/secrets/ARTIFACTORY_TOKEN) /nvidia/build-scripts/installCUSOLVERMP.sh # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:51.504421672Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c git clone -b release_v${TRANSFORMER_ENGINE_VERSION} --single-branch --recursive https://github.com/NVIDIA/TransformerEngine.git &&     _NVTE_CUDA_ARCHS=$(echo \"${CUDA_ARCH_LIST}\" | tr -d '.') &&     NVTE_CUDA_ARCHS=$(echo \"${_NVTE_CUDA_ARCHS}\" | tr ' ' ';') &&     pip install git+https://github.com/NVIDIA/cudnn-frontend@v1.26.0 &&     env NVTE_CUDA_ARCHS=\"${NVTE_CUDA_ARCHS};89;100a;103a;107a\" NVTE_BUILD_THREADS_PER_JOB=8 pip install --no-cache-dir --no-build-isolation ./TransformerEngine &&     rm -rf TransformerEngine # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:51.731087684Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c /tmp/manage_cert.sh uninstall # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:51.731087684Z",
+                    "created_by": "ENV CUDA_BINARY_LOADER_THREAD_COUNT=8",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:51.731087684Z",
+                    "created_by": "ENV CUDA_MODULE_LOADING=LAZY",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:51.731087684Z",
+                    "created_by": "ENV TORCH_NCCL_USE_COMM_NONBLOCKING=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:51.731087684Z",
+                    "created_by": "ENV TORCHINDUCTOR_LOOP_ORDERING_AFTER_FUSION=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:52.003312631Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c ln -sf ${_CUDA_COMPAT_PATH}/lib.real ${_CUDA_COMPAT_PATH}/lib  && echo ${_CUDA_COMPAT_PATH}/lib > /etc/ld.so.conf.d/00-cuda-compat.conf  && ldconfig  && rm -f ${_CUDA_COMPAT_PATH}/lib # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:52.160031319Z",
+                    "created_by": "RUN |9 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali /bin/bash -c cp /tmp/restricted_constraint.txt /etc/pip/constraint.txt  && cp /tmp/original_constraint.txt /etc/pip/original_constraint.txt # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:52.174283724Z",
+                    "created_by": "COPY entrypoint.d/ /opt/nvidia/entrypoint.d/ # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:52.174283724Z",
+                    "created_by": "ARG ENABLE_FIPS=0",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:52.317175894Z",
+                    "created_by": "RUN |10 NVIDIA_PYTORCH_VERSION=26.08 PYTORCH_BUILD_VERSION=2.14.0a0+4fdf77b NVFUSER_BUILD_VERSION=0.1.4a0+nvidia TORCHAO_BUILD_VERSION=+gitdd0efc75 TORCHTITAN_BUILD_VERSION=0.2.2+gitbadf21a1 TARGETARCH=arm64 PYVER=3.12 ENABLE_MITMPROXY=0 DALI_EXTRA_INDEX_URL=http://sqrl/nvdl/datasets/dali/pip-dali ENABLE_FIPS=0 /bin/bash -c if [ \"${ENABLE_FIPS}\" = \"1\" ] && [ \"${TARGETARCH}\" = \"amd64\" ]; then         echo \"Running fips-fix.sh\";         /tmp/fips-fix.sh;     fi # buildkit",
+                    "comment": "buildkit.dockerfile.v0"
+               },
+               {
+                    "created": "2026-08-21T09:00:52.317175894Z",
+                    "created_by": "ARG NVIDIA_BUILD_ID=406036885",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:52.317175894Z",
+                    "created_by": "ENV NVIDIA_BUILD_ID=406036885",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:52.317175894Z",
+                    "created_by": "LABEL com.nvidia.build.id=406036885",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:52.317175894Z",
+                    "created_by": "ARG NVIDIA_BUILD_REF=12711b2fffc2b532c812302ccd6b8c507ba1175d",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-08-21T09:00:52.317175894Z",
+                    "created_by": "LABEL com.nvidia.build.ref=12711b2fffc2b532c812302ccd6b8c507ba1175d",
+                    "comment": "buildkit.dockerfile.v0",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-20T21:56:02.037198939Z",
+                    "created_by": "/bin/sh -c #(nop) SHELL [\"/bin/bash\", \"-euo\", \"pipefail\", \"-c\"]",
+                    "comment": "FROM nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-20T21:56:02.566369Z",
+                    "created_by": "/bin/sh -c #(nop) COPY file:865869722910f5434abffe77e22c7a1f83c0e9959eb576a7b032c3a48e298e86 in /usr/local/bin/uv      "
+               },
+               {
+                    "created": "2026-09-21T00:25:28.513553441Z",
+                    "created_by": "/bin/sh -c #(nop) ENV UV_LINK_MODE=copy UV_NO_CONFIG=1 PYTHONUNBUFFERED=1",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-21T00:25:34.924413781Z",
+                    "created_by": "/bin/sh -c test \"$(uname -m)\" = aarch64     && apt-get update     && apt-get install -y --no-install-recommends libibverbs-dev liburing-dev libaio-dev libnuma-dev     && uv venv --python /usr/bin/python3 --system-site-packages /opt/venv"
+               },
+               {
+                    "created": "2026-09-21T00:25:36.038400424Z",
+                    "created_by": "/bin/sh -c #(nop) COPY multi:cb33ed942fca0d690569f8e2f018b63fdd81b6d55c6d9b13e1debf8a53dac1a9 in /opt/karmic-build/      "
+               },
+               {
+                    "created": "2026-09-21T00:25:36.522528276Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:9a0910a8dd7104696d0b59d5caa5bc56da78d182477c72829cc5640ee2bd9936 in /opt/karmic-build/runtime-inputs      "
+               },
+               {
+                    "created": "2026-09-21T00:25:50.675946456Z",
+                    "created_by": "/bin/sh -c uv pip install --python /opt/venv/bin/python --require-hashes --no-deps       -r /opt/karmic-build/runtime-arm64.lock"
+               },
+               {
+                    "created": "2026-09-21T00:26:10.81334485Z",
+                    "created_by": "/bin/sh -c /opt/venv/bin/python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py       --help"
+               },
+               {
+                    "created": "2026-09-21T00:26:11.072473341Z",
+                    "created_by": "/bin/sh -c #(nop) ARG RECIPE_SHA256",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-21T00:26:11.250321411Z",
+                    "created_by": "/bin/sh -c #(nop) LABEL local-inference.runtime-deps.recipe.sha256=\"${RECIPE_SHA256}\"       local-inference.status=\"build-component-not-serving-qualified\"",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-21T00:27:45.11320522Z",
+                    "created_by": "/bin/sh -c #(nop) SHELL [\"/bin/bash\", \"-euo\", \"pipefail\", \"-c\"]",
+                    "comment": "FROM localhost/voipmonitor/build-components:karmic-runtime-deps-20260921T002527Z-1652849",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:56:32.709981661Z",
+                    "created_by": "/bin/sh -c #(nop) ENV PATH=/opt/venv/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin     PYTHONPATH=/opt/jovian-judgement/vllm:/opt/jovian-judgement/b12x     PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True     PYTHONOPTIMIZE=0 CUDA_DEVICE_ORDER=PCI_BUS_ID     NCCL_NET_PLUGIN=none NCCL_TUNER_PLUGIN=none     LMCACHE_ENABLED=0 VLLM_PLUGINS=\"\" B12X_ROCE_CACHE_DIR=/opt/b12x-roce-cache     LD_PRELOAD=/opt/nccl/lib/libnccl.so.2.31.2     VLLM_NCCL_SO_PATH=/opt/nccl/lib/libnccl.so.2.31.2     LD_LIBRARY_PATH=/opt/nccl/lib:/usr/local/lib/python3.12/dist-packages/torch/lib:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:56:33.344106141Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:db585f8c76a8b63ff2599859d239b0d5562ebfd0c21ca0486f7f037d498b11ff in /opt/nccl/lib/      "
+               },
+               {
+                    "created": "2026-09-22T01:56:35.224751243Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:d9f26d6cb5917f4a3da19f30f32c80879c77d5fb41739bc9b59601ba3a56312e in /opt/jj-main-build/components/vllm/      "
+               },
+               {
+                    "created": "2026-09-22T01:56:37.580887452Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:7bcf141b0ff5109212b693f6c2928c8690fd5f06111c0863f582bd62cb19a0e8 in /opt/jj-main-build/components/flashinfer/      "
+               },
+               {
+                    "created": "2026-09-22T01:56:38.593307926Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:e4b0eb8642f2d866c56a549b0a341c7c7f496f7c1427959fae22650fed18f9eb in /opt/jj-main-build/components/lmcache/      "
+               },
+               {
+                    "created": "2026-09-22T01:56:39.140684915Z",
+                    "created_by": "/bin/sh -c #(nop) COPY dir:d2da8e2bd8415a59046fcaca7ea382763e5df0229d65d4ebbf126fbfff01a8a0 in /opt/jj-main-build/components/instanttensor/      "
+               },
+               {
+                    "created": "2026-09-22T01:56:47.323507354Z",
+                    "created_by": "/bin/sh -c for component in vllm flashinfer lmcache instanttensor; do       (cd /opt/jj-main-build/components/$component && sha256sum -c SHA256SUMS);     done     && uv pip install --python /opt/venv/bin/python --no-index --no-deps /opt/jj-main-build/components/*/*.whl     && mkdir -p /opt/jovian-judgement/vllm     && tar -xf /opt/jj-main-build/components/vllm/source.tar -C /opt/jovian-judgement/vllm"
+               },
+               {
+                    "created": "2026-09-22T01:57:10.394870214Z",
+                    "created_by": "/bin/sh -c git init /opt/jovian-judgement/b12x     && git -C /opt/jovian-judgement/b12x remote add origin https://github.com/local-inference-lab/sparkinfer.git     && git -C /opt/jovian-judgement/b12x fetch --depth=1 origin 0f3a8cbfd1c11d27f04e3ab37a802d522f4f1c68     && git -C /opt/jovian-judgement/b12x checkout --detach FETCH_HEAD     && test \"$(git -C /opt/jovian-judgement/b12x rev-parse HEAD^{tree})\" = ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e     && uv pip install --python /opt/venv/bin/python --no-deps --no-build-isolation /opt/jovian-judgement/b12x"
+               },
+               {
+                    "created": "2026-09-22T01:57:11.387441918Z",
+                    "created_by": "/bin/sh -c #(nop) COPY file:1ad25ccfe581fd1d4f663c8dee5f26cf2dfb31ce7500349c243bf5902a6d632a in /opt/jj-main-build/      "
+               },
+               {
+                    "created": "2026-09-22T01:57:15.443236234Z",
+                    "created_by": "/bin/sh -c python /opt/jj-main-build/install_runtime_payload.py"
+               },
+               {
+                    "created": "2026-09-22T01:57:23.554009597Z",
+                    "created_by": "/bin/sh -c python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py       --manifest /opt/karmic-build/runtime-inputs/tools/jovian_wheel_runtime/ngc-python-patches.json     && python /opt/karmic-build/runtime-inputs/recipes/glm53/install_dependency_python_patches.py       --manifest /opt/karmic-build/runtime-inputs/tools/jovian_wheel_runtime/ngc-venv-python-patches.json"
+               },
+               {
+                    "created": "2026-09-22T01:57:24.656925296Z",
+                    "created_by": "/bin/sh -c python -c 'from b12x.comm.roce import _proxy; lib = _proxy.load(); print(\"RoCE proxy ABI\", lib.roce_abi_version())'     && CC=/bin/false python -c 'from b12x.comm.roce import _proxy; _proxy.load(); print(\"RoCE prebuilt load passed\")'"
+               },
+               {
+                    "created": "2026-09-22T01:57:25.21232425Z",
+                    "created_by": "/bin/sh -c #(nop) COPY multi:540062c22a2285b2028c2368d200fccd273fd91b7f48e2268609932b990e7337 in /opt/jj-main-build/      "
+               },
+               {
+                    "created": "2026-09-22T01:57:25.470621847Z",
+                    "created_by": "/bin/sh -c #(nop) ARG RECIPE_SHA256",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:25.649657116Z",
+                    "created_by": "/bin/sh -c #(nop) LABEL local-inference.runtime.recipe.sha256=\"${RECIPE_SHA256}\"       local-inference.status=\"candidate-not-model-qualified\"       vllm.source-tree=\"182f7f4ac37b980a3bb81e74797a78e9dbf822cb\"       b12x.source-tree=\"ff2218d710ca9cae71459e1b9eb7ca3fe10ae08e\"       local-inference.flashkda.commit=\"3b225bf26bb8e218928a1fe14751cb48cf31d11b\"       local-inference.flashinfer.commit=\"2206a14e46387a56c093860a46bbbdd00596b75b\"       local-inference.lmcache.commit=\"688bee14e157b64623d93c07fc0d4db93470e12f\"       local-inference.nccl.commit=\"93fe05d9f9b6963ef841166a69cd0b30e4efe97b\"       lmcache.default=\"disabled\"",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:25.840717588Z",
+                    "created_by": "/bin/sh -c #(nop) WORKDIR /opt/jovian-judgement/vllm",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:26.045794232Z",
+                    "created_by": "/bin/sh -c #(nop) ENTRYPOINT []",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:26.29147562Z",
+                    "created_by": "/bin/sh -c #(nop) CMD [\"python\", \"-m\", \"vllm.entrypoints.cli.main\", \"--help\"]",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:57.590659049Z",
+                    "created_by": "/bin/sh -c #(nop) SHELL [\"/bin/bash\", \"-euo\", \"pipefail\", \"-c\"]",
+                    "comment": "FROM localhost/voipmonitor/build-components:jj-main-runtime-20260922T015629Z-3050431",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:57.772999309Z",
+                    "created_by": "/bin/sh -c #(nop) ARG QWEN_LAUNCHER_INPUT_SHA256",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:57.962778117Z",
+                    "created_by": "/bin/sh -c #(nop) ARG GLM_LAUNCHER_INPUT_SHA256 QWEN_LAUNCHER_INPUT_SHA256",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:58.141127176Z",
+                    "created_by": "/bin/sh -c #(nop) ARG CACHE_INPUT_SHA256 GLM_LAUNCHER_INPUT_SHA256 QWEN_LAUNCHER_INPUT_SHA256",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:58.322176545Z",
+                    "created_by": "/bin/sh -c #(nop) ARG CACHE_INPUT_SHA256 GLM_LAUNCHER_INPUT_SHA256 QWEN_LAUNCHER_INPUT_SHA256 RECIPE_INPUT_SHA256",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:57:58.71475704Z",
+                    "created_by": "/bin/sh -c #(nop) COPY file:5bae8d0f686d6e034cb7de8e7a5e5cb91065129b46544b7161323dbd9ce33935 in /usr/local/bin/      "
+               },
+               {
+                    "created": "2026-09-22T01:57:59.201555598Z",
+                    "created_by": "/bin/sh -c #(nop) COPY file:19ae1b7ef546bf24c52c2fc5e1e03d7bb91e96d7c2e7ddb3e72b5a5f93568e7d in /usr/local/bin/      "
+               },
+               {
+                    "created": "2026-09-22T01:57:59.755155841Z",
+                    "created_by": "/bin/sh -c #(nop) COPY multi:ac1d5ca12032ad5e3910a47234f787eadeeac1b16e6d531d1d5992f22eb8541a in /opt/jj-main-build/      "
+               },
+               {
+                    "created": "2026-09-22T01:58:00.056105383Z",
+                    "created_by": "/bin/sh -c #(nop) ENV QWEN_LAUNCHER_SHA256=${QWEN_LAUNCHER_INPUT_SHA256}     GLM_LAUNCHER_SHA256=${GLM_LAUNCHER_INPUT_SHA256}     XDG_CACHE_HOME=/cache/jit/${CACHE_INPUT_SHA256}     VLLM_CACHE_ROOT=/cache/jit/${CACHE_INPUT_SHA256}/vllm     TORCHINDUCTOR_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/inductor     TRITON_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/triton     B12X_COMPILE_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/b12x     CUTE_DSL_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/cute-dsl     B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/b12x/cute     SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/b12x/compile     TORCH_EXTENSIONS_DIR=/cache/jit/${CACHE_INPUT_SHA256}/torch-extensions     TVM_FFI_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/tvm-ffi     TVM_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/tvm     DG_JIT_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/deep-gemm     NUMBA_CACHE_DIR=/cache/jit/${CACHE_INPUT_SHA256}/numba     CUDA_CACHE_PATH=/cache/jit/${CACHE_INPUT_SHA256}/cuda     TORCH_CUDA_ARCH_LIST=12.1a MAX_JOBS=20",
+                    "empty_layer": true
+               },
+               {
+                    "created": "2026-09-22T01:58:00.851515854Z",
+                    "created_by": "|4 CACHE_INPUT_SHA256=a8ef291d77eb47414ef31fb76a22190f930813ac34737379057221703b7ba08f GLM_LAUNCHER_INPUT_SHA256=6f3772af4a113f82fbcdbd3973326ce3abbde8d233c2b196e141198fe429877a QWEN_LAUNCHER_INPUT_SHA256=13db280a2c77f5cc3e311722020a961a0224d2e0ab77eb6f02c803c0a9bfa154 RECIPE_INPUT_SHA256=66515fecc97e54b28269db1da11c919b38f768e56f2366dbeeb81944b1812c91 /bin/sh -c echo \"$QWEN_LAUNCHER_SHA256  /usr/local/bin/serve-qwen38-flash-next-jj-main-spark.sh\" | sha256sum -c -     && echo \"$GLM_LAUNCHER_SHA256  /usr/local/bin/serve-glm53-flash-jj-main-spark.sh\" | sha256sum -c -     && chmod 755 /usr/local/bin/serve-*-jj-main-spark.sh"
+               },
+               {
+                    "created": "2026-09-22T01:58:01.116157869Z",
+                    "created_by": "/bin/sh -c #(nop) LABEL org.opencontainers.image.title=\"JJ-main beta DGX Spark SM121\"       org.opencontainers.image.description=\"Fresh CUDA 13.4 Torch 2.14 ARM64 stack; model qualification required\"       local-inference.qwen.launcher.sha256=\"${QWEN_LAUNCHER_INPUT_SHA256}\"       local-inference.glm.launcher.sha256=\"${GLM_LAUNCHER_INPUT_SHA256}\"       local-inference.cache.fingerprint=\"${CACHE_INPUT_SHA256}\"       local-inference.serving.recipe.sha256=\"${RECIPE_INPUT_SHA256}\"",
+                    "empty_layer": true
+               }
+          ],
+          "NamesHistory": [
+               "localhost/voipmonitor/build-components:jj-main-serving-20260922T015757Z-3053878"
+          ]
+     }
+]

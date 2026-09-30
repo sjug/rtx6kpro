@@ -1,0 +1,28 @@
+{
+  "b12x_tree": "2d34ffa9a1cb4380b766e2752fe6d3705841d81e",
+  "base_b12x_tree": "33ecd859e9ab087449b230409c835c5552c5336f",
+  "base_image_id": "30ef9c2d529e9df0a3ea348c773d8ff55284389a90a40922ac1b0d93ccffdd9b",
+  "build_inputs": {
+    "build_dense_release.py": "e4a89b3a58710cff5d70da2c8e0b4eb58b83c2ac81c37009e742ee968f95e446",
+    "claude_test_topk_tiebreak.py": "7f6c6c5d8c92fbf5b948a35282f168f83f0def296b4b93de6712f5b762bcbe3a",
+    "dense-release.ignore": "0ea402a3303b7f39a4a976892134fc76f68a443cb0fc3dee3459c3f86bf93e54",
+    "extract_dense_cubin.py": "87b58e8af33766a961f27dcfb627e24a93a1ca4f0ed8e08098d554fe014bca91",
+    "probe_engram_dense_replay.py": "f35207c28c6644f48f377c31be09297867c673039078c6642872e88b05bddabd",
+    "test_moe_dependency.py": "e0869ddf7c44085d0e8fce9e1cace9a8ea1cc8aa770a60550f437c5ef0360dc7",
+    "verify_dense_release_sass.py": "f28949ab5ea49da7e89936bae889c2dc55f8bc0a81178fa51c337519d3c9c713"
+  },
+  "input_sha256": "0c4d630e2d4c1a444c6046629ad84c3ce6a2c6674e564c8903abbfcb32a6b880",
+  "inputs": {
+    "Dockerfile.dense-release": "5df736874a96991c0a39d437f3cd71557848073cc197bdb915e9137166ef00cb",
+    "dense-fence-before-release.patch": "4c07933b5390bde427a126c83b6a0270ce43f6ff71c045d669408bbe1289b797",
+    "dense_gemm-fence-before-release.py": "291af8c3cce3d3911869717dfa30f4193fe83216a3df821bbac786d6fd6f0b36",
+    "determinism.lock.json": "37630aa80c42a4e066802721bf4f8ec31a143977fcee90c27ec107284e264e9e",
+    "install_dense_release.py": "b313b34678f62f3e067643d1b5ddea1e7ee71e99520aa972d7e7968f7112e318",
+    "prepare_dense_release_image.py": "956a9367ac9de2d884d4cc0eea01c7279c1e584d0e6e9b7f0ae019872228e24d",
+    "runtime.lock.json": "2f40030bf486d390c9759e38717373cdbf38fd09cb35e0d6256d437712b5bf57"
+  },
+  "output_sha256": "291af8c3cce3d3911869717dfa30f4193fe83216a3df821bbac786d6fd6f0b36",
+  "scope": "Order shared-memory reads before both dense GEMM consumer stage releases; arithmetic and tactics unchanged",
+  "target_path": "b12x/_lib/dense_gemm.py",
+  "upstream_b12x_commit": "a7d7d29b2ef8869086e0ceaa787321f17544e3c9"
+}

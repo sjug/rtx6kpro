@@ -1,0 +1,132 @@
+diff -ruN a/launch_contract.py b/launch_contract.py
+--- a/launch_contract.py	2026-09-26 22:25:28.053502856 -0400
++++ b/launch_contract.py	2026-09-26 22:25:28.068164838 -0400
+@@ -40,6 +40,12 @@
+ # standard-NCCL 8192 arm's per-rank B12X selections (receipt ...233036Z) at that arm's geometry
+ # (81389 blocks, threshold 8192), from a separate host cache root. Diagnostic only.
+ REPLAY_SELECTOR = 'standard8192-233036Z'
++# User-requested fixed-verification diagnostic, 2026-09-27: the exact precision release at the ratio-1
++# control's 80022 blocks with DSpark adaptive verification disabled (all 7 drafts verified every step).
++# Only enable_adaptive_verification changes in the rendered speculative config; K7, the cost scale and
++# every other key are preserved. Disabling it also removes the adaptive CUDA-graph route and startup
++# cost profiling, so the arm tests the adaptive path as a whole, not the depth choice alone.
++FIXED_VERIFICATION = 'depth7-adaptive-off'
+ REPLAY_CACHE_ROOT = 'git/ds41-r38/karmic-main-20260924/selection-replay-cache-standard8192-233036Z'
+ 
+ 
+@@ -49,6 +55,10 @@
+     if arm is not None and (arm != STANDARD_NCCL_ARM or diagnostic.get('kind') != 'precision-capture'
+                             or 'DS41_NCCL_GEOMETRY' in env):
+         raise ValueError('The standard NCCL arm is restricted to the precision-capture image without tree geometry')
++    fixed = env.get('DS41_FIXED_VERIFICATION')
++    if fixed is not None and (fixed != FIXED_VERIFICATION or diagnostic.get('kind') != 'precision-release-candidate'
++                              or env.get('DS41_DECISION_ROW_BLOCKS') != RATIO1_BLOCKS):
++        raise ValueError('Fixed verification requires the exact release at the 80022-block control geometry')
+     replay = env.get('DS41_SELECTION_REPLAY')
+     if replay is not None:
+         if (replay != REPLAY_SELECTOR or diagnostic.get('kind') != 'precision-release-candidate'
+@@ -172,6 +182,20 @@
+         if replay != REPLAY_SELECTOR or decision_blocks != '81389' or threshold != '8192':
+             raise ValueError('Selection replay requires the 81389-block, threshold-8192 matched profile')
+         env['DS41_SELECTION_REPLAY'] = replay
++    fixed = os.environ.get('DS41_FIXED_VERIFICATION')
++    if fixed is not None:
++        if (fixed != FIXED_VERIFICATION or decision_blocks != RATIO1_BLOCKS or threshold is not None
++                or chunking_blocks is not None or replay is not None):
++            raise ValueError('Fixed verification requires the 80022-block control geometry without other diagnostics')
++        index = model.index('--speculative-config') + 1
++        spec = json.loads(model[index])
++        if (spec.get('method') != 'dspark' or spec.get('num_speculative_tokens') != 7
++                or spec.get('enable_adaptive_verification') is not True
++                or spec.get('adaptive_verification_cost_scale') != 1.0):
++            raise ValueError('Speculative launch contract changed; review required')
++        spec['enable_adaptive_verification'] = False
++        model[index] = json.dumps(spec)
++        env['DS41_FIXED_VERIFICATION'] = fixed
+     # User-approved NCCL geometry diagnostic, 2026-09-26: four explicit overrides, only on the
+     # matched 81389-block window-capture arms with an explicit threshold. The tuning variables
+     # the normal launch unsets become explicit here; nothing else in the profile changes.
+diff -ruN a/start_moe_repaired.py b/start_moe_repaired.py
+--- a/start_moe_repaired.py	2026-09-26 22:25:28.054548369 -0400
++++ b/start_moe_repaired.py	2026-09-26 22:25:28.068401064 -0400
+@@ -13,7 +13,7 @@
+ NODES = ('toby', 'rusty', 'kirby', 'dusty')
+ NAME = 'ds41-flash-karmic-main-tp4'
+ parser = argparse.ArgumentParser()
+-parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'engram-fault'), default='moe-control-repaired')
++parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'fixed-verification', 'engram-fault'), default='moe-control-repaired')
+ parser.add_argument('--lengths', default='256,513,514,1024,16384')
+ parser.add_argument('--cuda-module-loading', choices=('LAZY', 'EAGER'))
+ parser.add_argument('--ops-trace', action='store_true', help='After the short repro, collect the reviewed diagnostic operator traces')
+@@ -47,13 +47,16 @@
+ if args.prefill_threshold and not matched_capture and args.arm != 'selection-replay' and (args.arm != 'router-fence' or args.decision_row_blocks
+                                                      or args.ops_trace or args.prefill_threshold == '8192'):
+     parser.error('Chunking threshold requires clean router-fence or the reviewed matched capture')
+-if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay'):
++if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'fixed-verification'):
+     parser.error('The 80927 block pin is restricted to the decision-row diagnostic')
+-if args.decision_row_blocks == '80022' and args.arm not in ('precision-release', 'ratio1-diag'):
++if args.decision_row_blocks == '80022' and args.arm not in ('precision-release', 'ratio1-diag', 'fixed-verification'):
+     parser.error('The 80022-block pin is restricted to the ratio-1 compute-mode diagnostic sequence')
+ if args.arm == 'selection-replay' and (args.decision_row_blocks != '81389' or args.prefill_threshold != '8192'
+                                        or args.nccl_geometry or args.nccl_arm or args.ops_trace or args.cuda_module_loading):
+     parser.error('Selection replay requires --decision-row-blocks 81389 --prefill-threshold 8192 and nothing else')
++if args.arm == 'fixed-verification' and (args.decision_row_blocks != '80022' or args.prefill_threshold or args.nccl_geometry
++                                         or args.nccl_arm or args.ops_trace or args.cuda_module_loading):
++    parser.error('Fixed verification requires --decision-row-blocks 80022 and nothing else')
+ if args.arm == 'ratio1-diag' and args.decision_row_blocks != '80022':
+     parser.error('The ratio-1 diagnostic requires the 80022-block pin')
+ if args.arm in ('precision-release', 'ratio1-diag') and (args.decision_row_blocks not in (None, '80022') or args.prefill_threshold or args.nccl_geometry
+@@ -78,7 +81,7 @@
+ print('RECEIPTS', out, flush=True)
+ (out / 'launch-options.json').write_text(json.dumps(vars(args), indent=2) + '\n')
+ digest = kit_digest()
+-if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'engram-fault'):
++if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'fixed-verification', 'engram-fault'):
+     pin = json.loads((ROOT / 'candidate.json').read_text())
+     kind = {'dense-release': 'dense-release-fence', 'stale-probe': 'stale-state-probe',
+             'ring-fix': 'compressor-ring-mapping-fix',
+@@ -95,6 +98,7 @@
+             'precision-release': 'precision-release-candidate',
+             'ratio1-diag': 'ratio1-bf16-diagnostic',
+             'selection-replay': 'precision-release-candidate',
++            'fixed-verification': 'precision-release-candidate',
+             'engram-fault': 'engram-fault-inject'}[args.arm]
+     if pin.get('diagnostic', {}).get('kind') != kind or 'diagnostic_overlay' in pin or args.ops_trace:
+         raise RuntimeError('Wrong image or overlay for ' + args.arm)
+@@ -115,6 +119,8 @@
+             overrides += ' DS41_CHUNKING_BLOCKS=81389'
+     if args.arm == 'selection-replay':
+         overrides += ' DS41_SELECTION_REPLAY=standard8192-233036Z'
++    if args.arm == 'fixed-verification':
++        overrides += ' DS41_FIXED_VERIFICATION=depth7-adaptive-off'
+     if args.decision_row_blocks:
+         overrides += ' DS41_DECISION_ROW_BLOCKS=' + args.decision_row_blocks
+     if getattr(args, 'nccl_geometry', None):
+@@ -123,14 +129,14 @@
+         overrides += ' DS41_NCCL_ARM=' + args.nccl_arm
+     if args.cuda_module_loading:
+         overrides += ' CUDA_MODULE_LOADING=' + args.cuda_module_loading
+-    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'engram-fault'):
++    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'fixed-verification', 'engram-fault'):
+         overrides += ' B12X_DENSE_SPLITK_TURBO=0'
+     if args.arm == 'combined-prefetch-off':
+         overrides += ' VLLM_DS41_L2_PREFETCH=0'
+     # Clear remote-shell overrides before applying the explicit repaired profile.
+-    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'engram-fault') else 'env'
++    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'fixed-verification', 'engram-fault') else 'env'
+     clean += ' -u DS41_DECISION_ROW_BLOCKS'
+-    clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY -u DS41_NCCL_ARM -u DS41_SELECTION_REPLAY'
++    clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY -u DS41_NCCL_ARM -u DS41_SELECTION_REPLAY -u DS41_FIXED_VERIFICATION'
+     return f'cd {REMOTE} && {clean} {overrides} python3 run_node.py --node {node}'
+ 
+ for node in NODES:
+@@ -152,7 +158,7 @@
+                                    stdout=stream, stderr=subprocess.STDOUT)
+         observers.append((node, process, stream))
+     subprocess.run([sys.executable, str(ROOT / 'watch-startup.py'), str(out)], check=True)
+-    if args.arm in ('precision-release', 'ratio1-diag', 'selection-replay'):
++    if args.arm in ('precision-release', 'ratio1-diag', 'selection-replay', 'fixed-verification'):
+         # One reviewed marker per worker rank, before any request reaches the release boot; the
+         # ratio-1 pin marker must appear on the variant only.
+         import precision_release

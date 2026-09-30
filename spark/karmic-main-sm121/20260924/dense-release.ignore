@@ -1,0 +1,9 @@
+**
+!Dockerfile.dense-release
+!dense-release.lock.json
+!dense_gemm-fence-before-release.py
+!dense-fence-before-release.patch
+!determinism.lock.json
+!runtime.lock.json
+!install_dense_release.py
+!prepare_dense_release_image.py

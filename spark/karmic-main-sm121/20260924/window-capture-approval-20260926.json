@@ -1,0 +1,15 @@
+{
+  "approval": "User: yes, to instrumentation-only derivative and both chunk-schedule replays capturing final128 rows through layers0-1",
+  "nodes": ["dusty", "toby", "rusty", "kirby"],
+  "scope": "Prepare, review, build, distribute and run focused capture; compare against matched decision-row receipts; restore diagnostic parent afterwards",
+  "parent_image_id": "e06df11a8ca18fa514d9f28f67cc691aef296da2eeb22b113a734519853bccd7",
+  "thresholds": [8192, 4096],
+  "prepared_capacity": 8192,
+  "diagnostic_kv_blocks": 81389,
+  "original_capture_lock_sha256": "4018f06783a2b391b0aa2e5e014ad90e181f1930949ae64dc3fac61c01cac7e3",
+  "capture_lock_sha256": "59100837bbd6fdee5a9c2d689ae44ebd8b1d4b01838f5067dc3cc08706cea63b",
+  "instrumentation_repair": "Active-row views of prepared attention metadata at the capture hook, matching the kernel binding. Repair within the approved capture scope, not new user approval or a numerical change. Original image and receipts retained; both grids must rerun on the corrected image.",
+  "controls": "Two cold unarmed controls and one armed request per arm; preserve original decision-row captures; verify identities, numerical plans and cold-cache counters",
+  "unchanged": "Numerical kernels, checkpoint, TP4, K7, 600000 context, utilization0.85, deterministic MoE, turbo0",
+  "excluded": "GLM, benchmark-repository changes, external posting, production promotion, commit and push"
+}

@@ -1,0 +1,13 @@
+{
+  "b12x_tree": "91ca3a6958775c72bff285cf04c7315fb62a6c8f",
+  "base_b12x_commit": "a7d7d29b2ef8869086e0ceaa787321f17544e3c9",
+  "base_b12x_tree": "19e40c53ad4d8fa52d32177e4f72c73c780c3cce",
+  "base_image_id": "eb3adc203432f2e54738c5977b65bc6a618ba4fdb76f23dd510df5910365e08d",
+  "input_sha256": "aa5386edfb2faf5816d0b5529d12812b9524a845ebcb2113b7862a7157606fdd",
+  "module_path": "b12x/attention/dsa_indexer/deterministic_topk.py",
+  "module_sha256": "5a0aebd49604f9b6a4f0e4da1c0770d2aa4d99c458ee64cc4b09abcbf151b64c",
+  "output_sha256": "ff453b7d070f53249abc3fac2d32d1b04222c720723a9f6236630c5c499efb34",
+  "patch_sha256": "bb0f60d6fec563b901adeb9cf83734907118724fe7a0d2bfda551a54a5fabb15",
+  "scope": "Diagnostic stable threshold repair, DS4.1 MXFP4 indexer only; native artifacts unchanged",
+  "target_path": "b12x/attention/dsa_indexer/mxfp4.py"
+}

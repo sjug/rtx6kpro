@@ -1,0 +1,17 @@
+{
+  "status": "preparation-only-not-a-build-lock",
+  "foundation": "nvcr.io/nvidia/pytorch@sha256:237ecf9ac7373daf91b31bb4f86651ce1ce57b676366ed435aa1aba61dad81d5",
+  "recipe_commit": "8c5aa7f828689e6385fa309acd0cce168fb38ec7",
+  "sources": {
+    "vllm": {"commit": "57a80980bbf4b40398de7ed851b23e55a3a4c50e", "tree": "a431c22c423738bb8807c8b9e60a67db3bea1958"},
+    "b12x": {"commit": "e9ce547767ff9ee6509faf294fa1b4e2380dfbf5", "tree": "9f20c0e6b9d49a42bc19f45429ac44758cf5fe76"},
+    "flashinfer": {"commit": "2206a14e46387a56c093860a46bbbdd00596b75b", "tree": "dbbe29fea63e3135dbd980132cacb168473363ef"},
+    "LMCache": {"commit": "688bee14e157b64623d93c07fc0d4db93470e12f", "tree": "fa24eb3adba2015056d76a42fcd6f660e590460e"}
+  },
+  "remote_sources": {
+    "instanttensor": "95d4729b6d6a991bb8de61877147a9d9d9100b23",
+    "nccl": "93fe05d9f9b6963ef841166a69cd0b30e4efe97b",
+    "flashkda": "b59532f1f464fbd536272780e30df5bf6a2ccc02"
+  },
+  "flashinfer_parallelism": {"MAX_JOBS": 20, "FLASHINFER_NVCC_THREADS": 1}
+}

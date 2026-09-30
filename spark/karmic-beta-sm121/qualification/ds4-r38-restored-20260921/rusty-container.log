@@ -1,0 +1,227 @@
+2026-09-21T10:35:37.111168000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  26% Completed | 39.9G/156G [00:17<00:51, 2.43GB/s]
+2026-09-21T10:35:38.126089000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  27% Completed | 42.2G/156G [00:18<00:50, 2.42GB/s]
+2026-09-21T10:35:39.128780000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  29% Completed | 44.6G/156G [00:19<00:48, 2.49GB/s]
+2026-09-21T10:35:40.130454000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  30% Completed | 47.1G/156G [00:20<00:46, 2.55GB/s]
+2026-09-21T10:35:41.220539000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  32% Completed | 49.5G/156G [00:21<00:46, 2.48GB/s]
+2026-09-21T10:35:42.234328000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  33% Completed | 51.8G/156G [00:22<00:45, 2.48GB/s]
+2026-09-21T10:35:43.342266000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  35% Completed | 54.2G/156G [00:23<00:45, 2.40GB/s]
+2026-09-21T10:35:44.497070000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  36% Completed | 56.4G/156G [00:24<00:46, 2.30GB/s]
+2026-09-21T10:35:45.642912000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  37% Completed | 58.6G/156G [00:25<00:47, 2.21GB/s]
+2026-09-21T10:35:46.757969000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  39% Completed | 60.6G/156G [00:26<00:47, 2.15GB/s]
+2026-09-21T10:35:47.761524000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  40% Completed | 62.7G/156G [00:27<00:46, 2.18GB/s]
+2026-09-21T10:35:48.761657000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  42% Completed | 65.1G/156G [00:28<00:43, 2.27GB/s]
+2026-09-21T10:35:49.765037000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  43% Completed | 67.2G/156G [00:29<00:42, 2.28GB/s]
+2026-09-21T10:35:50.771630000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  44% Completed | 69.4G/156G [00:31<00:40, 2.29GB/s]
+2026-09-21T10:35:51.777450000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  46% Completed | 71.6G/156G [00:32<00:39, 2.31GB/s]
+2026-09-21T10:35:52.783827000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  47% Completed | 73.8G/156G [00:33<00:38, 2.31GB/s]
+2026-09-21T10:35:53.788440000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  49% Completed | 76.1G/156G [00:34<00:36, 2.37GB/s]
+2026-09-21T10:35:54.788936000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  50% Completed | 78.4G/156G [00:35<00:34, 2.39GB/s]
+2026-09-21T10:35:55.791401000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  52% Completed | 80.7G/156G [00:36<00:33, 2.41GB/s]
+2026-09-21T10:35:56.791576000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  53% Completed | 83.0G/156G [00:37<00:32, 2.44GB/s]
+2026-09-21T10:35:57.796094000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  55% Completed | 85.4G/156G [00:38<00:30, 2.47GB/s]
+2026-09-21T10:35:58.797214000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  56% Completed | 87.9G/156G [00:39<00:28, 2.54GB/s]
+2026-09-21T10:35:59.801758000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  58% Completed | 90.3G/156G [00:40<00:27, 2.55GB/s]
+2026-09-21T10:36:00.861355000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  59% Completed | 92.7G/156G [00:41<00:27, 2.50GB/s]
+2026-09-21T10:36:01.863708000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  61% Completed | 95.0G/156G [00:42<00:26, 2.51GB/s]
+2026-09-21T10:36:02.903179000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  62% Completed | 97.4G/156G [00:43<00:25, 2.48GB/s]
+2026-09-21T10:36:03.967847000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  64% Completed | 99.7G/156G [00:44<00:24, 2.44GB/s]
+2026-09-21T10:36:05.025945000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  65% Completed | 102G/156G [00:45<00:24, 2.40GB/s]
+2026-09-21T10:36:06.117987000-04:00 (Worker_TP0 pid=217)  
+Loading safetensors using InstantTensor loader:  67% Completed | 104G/156G [00:46<00:23, 2.33GB/s]
+2026-09-21T10:36:07.225146000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  68% Completed | 106G/156G [00:47<00:23, 2.27GB/s]
+2026-09-21T10:36:08.225907000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  69% Completed | 109G/156G [00:48<00:22, 2.30GB/s]
+2026-09-21T10:36:09.231550000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  71% Completed | 111G/156G [00:49<00:20, 2.34GB/s]
+2026-09-21T10:36:10.339760000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  72% Completed | 113G/156G [00:50<00:20, 2.27GB/s]
+2026-09-21T10:36:11.509429000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  74% Completed | 115G/156G [00:51<00:20, 2.17GB/s]
+2026-09-21T10:36:12.684937000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  75% Completed | 117G/156G [00:52<00:20, 2.07GB/s]
+2026-09-21T10:36:13.759913000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  76% Completed | 119G/156G [00:53<00:19, 2.03GB/s]
+2026-09-21T10:36:14.762104000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  78% Completed | 121G/156G [00:54<00:17, 2.09GB/s]
+2026-09-21T10:36:15.766144000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  79% Completed | 124G/156G [00:55<00:15, 2.20GB/s]
+2026-09-21T10:36:16.768468000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  81% Completed | 126G/156G [00:56<00:13, 2.34GB/s]
+2026-09-21T10:36:17.771811000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  82% Completed | 128G/156G [00:58<00:12, 2.38GB/s]
+2026-09-21T10:36:18.852456000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  84% Completed | 131G/156G [00:59<00:11, 2.33GB/s]
+2026-09-21T10:36:19.855859000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  85% Completed | 133G/156G [01:00<00:10, 2.36GB/s]
+2026-09-21T10:36:20.857303000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  86% Completed | 135G/156G [01:01<00:09, 2.38GB/s]
+2026-09-21T10:36:21.858293000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  88% Completed | 137G/156G [01:02<00:08, 2.39GB/s]
+2026-09-21T10:36:22.859109000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  89% Completed | 140G/156G [01:03<00:07, 2.46GB/s]
+2026-09-21T10:36:23.859658000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  91% Completed | 142G/156G [01:04<00:06, 2.47GB/s]
+2026-09-21T10:36:24.864576000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  92% Completed | 145G/156G [01:05<00:05, 2.48GB/s]
+2026-09-21T10:36:25.868499000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  94% Completed | 147G/156G [01:06<00:04, 2.50GB/s]
+2026-09-21T10:36:26.871236000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  96% Completed | 149G/156G [01:07<00:03, 2.51GB/s]
+2026-09-21T10:36:27.948712000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  97% Completed | 152G/156G [01:08<00:02, 2.46GB/s]
+2026-09-21T10:36:28.956653000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader:  98% Completed | 154G/156G [01:09<00:01, 2.45GB/s]
+2026-09-21T10:36:29.436848000-04:00 (Worker_TP0 pid=217) 
+Loading safetensors using InstantTensor loader: 100% Completed | 156G/156G [01:09<00:00, 2.41GB/s]
+2026-09-21T10:36:29.437006000-04:00 (Worker_TP0 pid=217) 
+2026-09-21T10:36:29.487188000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:29 [dspark.py:535] DSpark draft model loaded: 100 params
+2026-09-21T10:36:29.487372000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:29 [default_loader.py:493] Loading weights took 70.92 seconds
+2026-09-21T10:36:29.620447000-04:00 (Worker_TP0 pid=217) WARNING 09-21 14:36:29 [speculator.py:196] Draft model DSparkDeepseekV4ForCausalLM does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+2026-09-21T10:36:30.290164000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:30 [model_runner.py:412] Model loading took 81.11 GiB memory and 148.893961 seconds
+2026-09-21T10:36:30.312495000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:30 [topk_topp_sampler.py:64] Using FlashInfer for top-p & top-k sampling.
+2026-09-21T10:36:30.359807000-04:00 (EngineCore pid=195) WARNING 09-21 14:36:30 [torch_utils.py:266] OMP_NUM_THREADS=2 is set; leaving Torch threads at 2 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+2026-09-21T10:36:30.367623000-04:00 (EngineCore pid=195) INFO 09-21 14:36:30 [utils.py:381] Using BLHNC KV cache layout.
+2026-09-21T10:36:30.722928000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:30 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 4096 tokens, and profiled with 10 image items of the maximum feature size.
+2026-09-21T10:36:36.779382000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:36 [indexer.py:589] DSA indexer decode path: use_flattening=True supports_varlen=False (next_n=4, use_fp4_cache=False)
+2026-09-21T10:36:40.097900000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:40 [b12x_warmup.py:98] Warmed up 1 b12x MoE kernel signature(s).
+2026-09-21T10:36:42.897962000-04:00 (Worker_TP0 pid=217) 
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/6 [00:00<?, ?it/s]
+Capturing CUDA graphs (PIECEWISE):  17%|█▋        | 1/6 [00:00<00:01,  2.70it/s]
+Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 2/6 [00:00<00:01,  2.81it/s]
+Capturing CUDA graphs (PIECEWISE):  50%|█████     | 3/6 [00:01<00:01,  2.89it/s]
+Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 4/6 [00:01<00:00,  2.91it/s]
+Capturing CUDA graphs (PIECEWISE):  83%|████████▎ | 5/6 [00:01<00:00,  2.93it/s]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 6/6 [00:02<00:00,  2.87it/s]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 6/6 [00:02<00:00,  2.87it/s]
+2026-09-21T10:36:43.663102000-04:00 (Worker_TP0 pid=217) 
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]
+Capturing CUDA graphs (FULL):  50%|█████     | 1/2 [00:00<00:00,  2.54it/s]
+Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00,  2.63it/s]
+Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00,  2.61it/s]
+2026-09-21T10:36:43.663279000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:43 [speculator.py:141] Capturing model for DSpark speculator...
+2026-09-21T10:36:43.819842000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:43 [model_runner.py:1086] Graph capturing finished in 3 secs, took 0.41 GiB
+2026-09-21T10:36:43.820010000-04:00 (Worker_TP0 pid=217) 
+Capturing dspark CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing dspark CUDA graphs (FULL):  75%|███████▌  | 3/4 [00:00<00:00, 23.45it/s]
+Capturing dspark CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 25.63it/s]
+2026-09-21T10:36:44.178048000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:44 [gpu_worker.py:628] Available KV cache memory: 14.59 GiB
+2026-09-21T10:36:44.178482000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:44 [gpu_worker.py:643] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.8500 is equivalent to --gpu-memory-utilization=0.8463 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.8537. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+2026-09-21T10:36:44.198880000-04:00 (EngineCore pid=195) INFO 09-21 14:36:44 [kv_cache_utils.py:2251] GPU KV cache size: 1,516,572 tokens, Maximum concurrency for 524,288 tokens per request: 2.89x
+2026-09-21T10:36:44.940926000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:44 [kernel_warmup.py:124] JIT kernel warmup starting.
+2026-09-21T10:36:44.941084000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:44 [kernel_warmup.py:134] JIT kernel warmup finished in 0.00s.
+2026-09-21T10:36:45.353993000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:45 [kernel_warmup.py:92] Warming up ll_bf16 router GEMM kernels for shapes: ((4096, 256),).
+2026-09-21T10:36:46.028494000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:46 [flashinfer_sparse_mla_warmup.py:233] Warming up DeepSeek V4 sparse MLA attention for mixed tokens=16.
+2026-09-21T10:36:46.756779000-04:00 (Worker_TP0 pid=217) 
+DeepGEMM warmup:   0%|          | 0/1307 [00:00<?, ?it/s]
+DeepGEMM warmup:  30%|███       | 393/1307 [00:00<00:00, 3905.54it/s]
+DeepGEMM warmup:  62%|██████▏   | 813/1307 [00:00<00:00, 3838.11it/s]
+DeepGEMM warmup: 100%|██████████| 1307/1307 [00:00<00:00, 5234.01it/s]
+2026-09-21T10:36:46.804550000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:46 [kernel_warmup.py:194] Skipping FlashInfer autotune because it is disabled.
+2026-09-21T10:36:48.975400000-04:00 (Worker_TP0 pid=217) 
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/6 [00:00<?, ?it/s]
+Capturing CUDA graphs (PIECEWISE):  17%|█▋        | 1/6 [00:00<00:01,  3.27it/s]
+Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 2/6 [00:00<00:01,  3.29it/s]
+Capturing CUDA graphs (PIECEWISE):  50%|█████     | 3/6 [00:00<00:00,  3.32it/s]
+Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 4/6 [00:01<00:00,  3.31it/s]
+Capturing CUDA graphs (PIECEWISE):  83%|████████▎ | 5/6 [00:01<00:00,  3.29it/s]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 6/6 [00:01<00:00,  3.30it/s]
+Capturing CUDA graphs (PIECEWISE): 100%|██████████| 6/6 [00:01<00:00,  3.30it/s]
+2026-09-21T10:36:48.985024000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-start number=1 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=36480a8c32813d7e kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 3, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:50.418670000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-done number=1 duration_s=1.433 total_compile_s=1.433 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=36480a8c32813d7e kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 3, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:50.847452000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-start number=2 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=7345b36052941084 kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 4, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:52.046762000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-done number=2 duration_s=1.199 total_compile_s=2.632 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=7345b36052941084 kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 4, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:52.467191000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-start number=3 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=87ca418cec8ba1cc kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 6, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:53.670173000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-done number=3 duration_s=1.203 total_compile_s=3.835 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=87ca418cec8ba1cc kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 6, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:54.083409000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-start number=4 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=3b9637a24e80346d kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 12, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:55.289661000-04:00 (Worker_TP0 pid=217) [b12x cute.compile] compile-done number=4 duration_s=1.206 total_compile_s=5.042 target=b12x.attention.dsa_indexer.fused_indexer.DSAFusedIndexerKernel cache_key=3b9637a24e80346d kernel=attention.indexer.fused_indexer version=1 params=[['q', ['tensor', 'q', 'torch.uint8', 3, [['dim', 'dynamic', None], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 8192], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['w', ['tensor', 'w', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 64]], [['dim', 'exact', 64], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kq', ['tensor', 'kq', 'torch.uint8', 3, [['dim', 'exact', 15626], ['dim', 'exact', 64], ['dim', 'exact', 128]], [['dim', 'exact', 1002240], ['dim', 'exact', 128], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ks', ['tensor', 'ks', 'torch.float32', 2, [['dim', 'exact', 15626], ['dim', 'exact', 64]], [['dim', 'exact', 250560], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pt', ['tensor', 'pt', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 2048]], [['dim', 'exact', 2048], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['sl', ['tensor', 'sl', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kstart', ['tensor', 'kstart', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['kend', ['tensor', 'kend', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['oi', ['tensor', 'oi', 'torch.int32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['ov', ['tensor', 'ov', 'torch.float32', 2, [['dim', 'dynamic', None], ['dim', 'exact', 512]], [['dim', 'exact', 512], ['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pv', ['tensor', 'pv', 'torch.float32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['pi', ['tensor', 'pi', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['st', ['tensor', 'st', 'torch.int32', 1, [['dim', 'dynamic', None]], [['dim', 'exact', 1]], ['cuda', 0], None, None]], ['policy', ['fused_indexer_v10_directk64', 1, 64, 512, False, 12, 0, 1002240, 131072, 250560, True, 8192]]]
+2026-09-21T10:36:55.684571000-04:00 (Worker_TP0 pid=217) 
+Capturing CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing CUDA graphs (FULL):  25%|██▌       | 1/4 [00:01<00:05,  1.86s/it]
+Capturing CUDA graphs (FULL):  50%|█████     | 2/4 [00:03<00:03,  1.72s/it]
+Capturing CUDA graphs (FULL):  75%|███████▌  | 3/4 [00:05<00:01,  1.67s/it]
+Capturing CUDA graphs (FULL): 100%|██████████| 4/4 [00:06<00:00,  1.65s/it]
+Capturing CUDA graphs (FULL): 100%|██████████| 4/4 [00:06<00:00,  1.68s/it]
+2026-09-21T10:36:55.684741000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:55 [speculator.py:141] Capturing model for DSpark speculator...
+2026-09-21T10:36:55.811824000-04:00 (Worker_TP0 pid=217) 
+Capturing dspark CUDA graphs (FULL):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing dspark CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 31.68it/s]
+Capturing dspark CUDA graphs (FULL): 100%|██████████| 4/4 [00:00<00:00, 31.64it/s]
+2026-09-21T10:36:55.812106000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:55 [model_runner.py:1086] Graph capturing finished in 9 secs, took 0.51 GiB
+2026-09-21T10:36:55.812222000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:55 [gpu_worker.py:796] CUDA graph pool memory: 0.51 GiB (actual), 0.45 GiB (estimated), difference: 0.06 GiB (12.3%).
+2026-09-21T10:36:55.812269000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:55 [gpu_worker.py:859] Free memory on device (110.09/121.69 GiB) on startup. Desired GPU memory utilization is (0.85, 103.44 GiB). Actual usage is 87.33 GiB for consumed memory (weights + non-torch), 1.08 GiB for peak activation, and 0.51 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=15437568820` (14.38 GiB) to fit into requested memory, or `--kv-cache-memory=22587132928` (21.04 GiB) to fully utilize gpu memory. Current kv cache memory in use is 14.59 GiB.
+2026-09-21T10:36:57.349851000-04:00 (Worker_TP0 pid=217) INFO 09-21 14:36:57 [jit_monitor.py:85] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+2026-09-21T10:36:57.719994000-04:00 (Worker_TP0 pid=217) WARNING 09-21 14:36:57 [torch_utils.py:266] OMP_NUM_THREADS=2 is set; leaving Torch threads at 2 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+2026-09-21T10:36:57.733269000-04:00 (EngineCore pid=195) INFO 09-21 14:36:57 [core.py:377] init engine (profile, create kv cache, warmup model) took 27.37 s
+2026-09-21T10:36:58.724407000-04:00 (EngineCore pid=195) INFO 09-21 14:36:58 [kernel.py:372] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+2026-09-21T10:36:58.724872000-04:00 (EngineCore pid=195) WARNING 09-21 14:36:58 [vllm.py:2059] max_num_scheduled_tokens is set to 4096 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.
+2026-09-21T10:36:58.737719000-04:00 (EngineCore pid=195) INFO 09-21 14:36:58 [compilation.py:329] Enabled custom fusions: norm_quant, act_quant
+2026-09-21T10:36:58.745681000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [entry.py:135] Supported tasks: ['generate']
+2026-09-21T10:36:58.888881000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [parser_manager.py:58] "auto" tool choice has been enabled.
+2026-09-21T10:36:58.900111000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [base.py:235] Multi-modal warmup completed in 0.010s
+2026-09-21T10:36:58.905309000-04:00 (APIServer pid=49) WARNING 09-21 14:36:58 [model.py:1781] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+2026-09-21T10:36:58.916651000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [entry.py:139] Starting vLLM server on http://0.0.0.0:8000
+2026-09-21T10:36:58.916789000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:61] Available routes are:
+2026-09-21T10:36:58.916832000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /openapi.json, Methods: GET, HEAD
+2026-09-21T10:36:58.916872000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /docs, Methods: GET, HEAD
+2026-09-21T10:36:58.916915000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+2026-09-21T10:36:58.916955000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /redoc, Methods: GET, HEAD
+2026-09-21T10:36:58.916992000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /load, Methods: GET
+2026-09-21T10:36:58.917026000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /version, Methods: GET
+2026-09-21T10:36:58.917061000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /health, Methods: GET
+2026-09-21T10:36:58.917095000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /metrics, Methods: GET
+2026-09-21T10:36:58.917154000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /tokenize, Methods: POST
+2026-09-21T10:36:58.917198000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /detokenize, Methods: POST
+2026-09-21T10:36:58.917236000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/models, Methods: GET
+2026-09-21T10:36:58.917271000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /ping, Methods: GET
+2026-09-21T10:36:58.917301000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /ping, Methods: POST
+2026-09-21T10:36:58.917335000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /invocations, Methods: POST
+2026-09-21T10:36:58.917366000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+2026-09-21T10:36:58.917403000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+2026-09-21T10:36:58.917439000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/responses, Methods: POST
+2026-09-21T10:36:58.917468000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+2026-09-21T10:36:58.917502000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+2026-09-21T10:36:58.917532000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/completions, Methods: POST
+2026-09-21T10:36:58.917563000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/messages, Methods: POST
+2026-09-21T10:36:58.917594000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+2026-09-21T10:36:58.917624000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /generative_scoring, Methods: POST
+2026-09-21T10:36:58.917654000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+2026-09-21T10:36:58.917686000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+2026-09-21T10:36:58.917725000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/chat/completions/render, Methods: POST
+2026-09-21T10:36:58.917760000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/completions/render, Methods: POST
+2026-09-21T10:36:58.917789000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/chat/completions/derender, Methods: POST
+2026-09-21T10:36:58.917819000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /v1/completions/derender, Methods: POST
+2026-09-21T10:36:58.917852000-04:00 (APIServer pid=49) INFO 09-21 14:36:58 [launcher.py:70] Route: /inference/v1/generate, Methods: POST
+2026-09-21T10:36:58.946051000-04:00 (APIServer pid=49) INFO:     Started server process [49]
+2026-09-21T10:36:58.946204000-04:00 (APIServer pid=49) INFO:     Waiting for application startup.
+2026-09-21T10:36:59.175631000-04:00 (APIServer pid=49) INFO:     Application startup complete.
+2026-09-21T10:37:05.912841000-04:00 (APIServer pid=49) INFO:     192.168.2.2:43748 - "GET /v1/models HTTP/1.1" 200 OK
+2026-09-21T10:37:06.153636000-04:00 (APIServer pid=49) INFO:     192.168.2.2:43756 - "POST /v1/chat/completions HTTP/1.1" 200 OK

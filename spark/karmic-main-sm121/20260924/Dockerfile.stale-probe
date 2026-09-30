@@ -1,0 +1,18 @@
+FROM 3413799408e09ad3a1bb4ea2297384fa03927ca8b4e8e72f2af61aef8951d54c
+ARG PROBE_LOCK
+ARG PROBE_CACHE
+COPY stale-probe.lock.json stale-probe-model_state.py claude_stale_state_probe.py claude-stale-state-model_state.patch install_stale_probe.py Dockerfile.stale-probe build_stale_probe.py prepare_stale_probe_image.py claude_test_stale_state_probe_torch.py /opt/ds41-stale-probe/
+RUN /opt/venv/bin/python /opt/ds41-stale-probe/install_stale_probe.py
+ENV XDG_CACHE_HOME=/cache/jit/${PROBE_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${PROBE_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${PROBE_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${PROBE_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${PROBE_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${PROBE_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${PROBE_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${PROBE_CACHE}/cute-dsl
+LABEL local-inference.ds41.diagnostic.kind="stale-state-probe" \
+    local-inference.ds41.diagnostic.lock.sha256="${PROBE_LOCK}" \
+    local-inference.cache.fingerprint="${PROBE_CACHE}" \
+    local-inference.status="diagnostic-only-not-qualified" \
+    org.opencontainers.image.title="DS4.1 host-side stale-state capture diagnostic"

@@ -1,0 +1,295 @@
+diff --git a/tests/v1/spec_decode/test_mtp_structured_output.py b/tests/v1/spec_decode/test_mtp_structured_output.py
+index 1fce9037d4..34e613d1ff 100644
+--- a/tests/v1/spec_decode/test_mtp_structured_output.py
++++ b/tests/v1/spec_decode/test_mtp_structured_output.py
+@@ -2,15 +2,23 @@
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ """grammar_bitmask under spec-decode draft padding (#44006)."""
+ 
++from types import SimpleNamespace
++
++import numpy as np
+ import pytest
++import torch
+ from transformers import AutoTokenizer
+ 
+ from vllm.config import StructuredOutputsConfig, VllmConfig
+ from vllm.config.model import ModelConfig
+ from vllm.config.speculative import SpeculativeConfig
+ from vllm.sampling_params import SamplingParams, StructuredOutputsParams
++from vllm.v1.core.sched.scheduler import Scheduler
++from vllm.v1.outputs import DraftTokenIds
+ from vllm.v1.request import Request
+ from vllm.v1.structured_output import StructuredOutputManager
++from vllm.v1.worker.gpu.spec_decode.rejection_sampler_utils import rejection_sample
++from vllm.v1.worker.gpu.structured_outputs import StructuredOutputsWorker
+ 
+ TOKENIZER = "gpt2"
+ NUM_SPEC_TOKENS = 4
+@@ -390,3 +398,93 @@ def test_trim_reasoning_for_advance():
+     next_step = [post, post]
+     request.append_output_token_ids(next_step)
+     assert manager.trim_reasoning_for_advance(request, next_step) == next_step
++
++
++@pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
++@pytest.mark.parametrize("num_verified", [0, 1, 2, 3])
++@pytest.mark.parametrize(
++    ("num_valid", "prefix", "ending"),
++    [
++        (0, '{"a":"b"}', []),
++        (1, '{"a":"b"}', []),
++        (2, '{"a":"b"', ["}"]),
++        (3, '{"a":', ["0", "}"]),
++    ],
++)
++@pytest.mark.parametrize("temperature", [0.0, 1.0])
++def test_gpu_sampler_rejects_drafts_after_grammar_termination(
++    num_verified, num_valid, prefix, ending, temperature
++):
++    """Deferred grammar validation must reach the device rejection sampler."""
++    tokenizer, manager, request, prompt = _make_manager_and_request("xgrammar", prefix)
++    grammar = request.structured_output_request.grammar
++    assert grammar.accept_tokens(request.request_id, prompt)
++    eos = tokenizer.eos_token_id
++    space = tokenizer.encode(" ")[0]
++    drafts = [tokenizer.encode(token)[0] for token in ending]
++    if num_valid:
++        drafts.append(eos)
++    drafts += [space] * (3 - num_valid)
++    scheduled = SimpleNamespace(
++        has_structured_output_requests=True,
++        num_scheduled_tokens={request.request_id: 4},
++        scheduled_spec_decode_tokens={request.request_id: [-1] * 3},
++    )
++    scheduler = SimpleNamespace(
++        requests={request.request_id: request}, structured_output_manager=manager
++    )
++    Scheduler.update_draft_token_ids_in_output(
++        scheduler, DraftTokenIds([request.request_id], [drafts.copy()]), scheduled
++    )
++    assert scheduled.num_invalid_spec_tokens.get(request.request_id, 0) == 3 - num_valid
++    grammar_output = Scheduler.get_grammar_bitmask(scheduler, scheduled)
++    assert grammar_output is not None
++
++    # The adjacent unstructured request and non-logit input slots must survive
++    # compaction and grammar rejection unchanged.
++    num_logits = num_verified + 2
++    input_ids = torch.tensor([17, 19, 23, 29, *drafts], device="cuda")
++    logits_indices = torch.tensor([1, *range(3, 4 + num_verified)], device="cuda")
++    batch = SimpleNamespace(
++        req_ids=["unstructured", request.request_id],
++        cu_num_logits_np=np.array([0, 1, num_logits], dtype=np.int32),
++        cu_num_logits=torch.tensor([0, 1, num_logits], device="cuda"),
++        num_draft_tokens_per_req=np.array([0, 3], dtype=np.int32),
++        input_ids=input_ids,
++        logits_indices=logits_indices,
++    )
++    vocab_size = manager.vllm_config.model_config.get_vocab_size()
++    logits = torch.full((num_logits, vocab_size), -100.0, device="cuda")
++    targets = torch.tensor([space, *drafts, eos][:num_logits], device="cuda")
++    logits[torch.arange(num_logits, device="cuda"), targets] = 100.0
++    worker = StructuredOutputsWorker(8, vocab_size, torch.device("cuda"), 4, 1)
++    worker.apply_grammar_bitmask(
++        logits,
++        batch,
++        grammar_output.structured_output_request_ids,
++        grammar_output.grammar_bitmask,
++        grammar_output.num_invalid_spec_tokens,
++    )
++    expected_inputs = [17, 19, 23, 29, *drafts]
++    expected_inputs[4 + num_valid : 4 + num_verified] = [-1] * max(
++        num_verified - num_valid, 0
++    )
++    assert input_ids.tolist() == expected_inputs
++    sampled, lengths = rejection_sample(
++        target_logits=logits,
++        draft_logits=None,
++        draft_sampled=input_ids[logits_indices],
++        cu_num_logits=batch.cu_num_logits,
++        pos=torch.arange(num_logits, device="cuda"),
++        idx_mapping=torch.tensor([0, 1], device="cuda"),
++        expanded_idx_mapping=torch.tensor(
++            [0] + [1] * (num_verified + 1), device="cuda"
++        ),
++        expanded_local_pos=torch.tensor([0, *range(num_verified + 1)], device="cuda"),
++        temperature=torch.full((2,), temperature, device="cuda"),
++        seed=torch.zeros(2, device="cuda", dtype=torch.int64),
++        num_speculative_steps=3,
++    )
++    accepted = min(num_valid, num_verified)
++    assert lengths.tolist() == [1, accepted + 1]
++    assert sampled[1, :accepted].tolist() == drafts[:accepted]
+diff --git a/tests/v1/worker/test_gpu_batch_shard.py b/tests/v1/worker/test_gpu_batch_shard.py
+index 09972b9ff6..fa6ab37fb5 100644
+--- a/tests/v1/worker/test_gpu_batch_shard.py
++++ b/tests/v1/worker/test_gpu_batch_shard.py
+@@ -309,6 +309,7 @@ def test_shard_grammar_output(tp_size: int):
+     grammar_output = GrammarOutput(
+         structured_output_request_ids=grammar_req_ids,
+         grammar_bitmask=bitmask,
++        num_invalid_spec_tokens={req_ids[i]: int(k[i]) for i in grammar_idx if k[i]},
+     )
+ 
+     kept_total = 0
+@@ -321,6 +322,9 @@ def test_shard_grammar_output(tp_size: int):
+             continue
+         assert local is not None
+         assert local.structured_output_request_ids == [req_ids[i] for i in expected_idx]
++        assert local.num_invalid_spec_tokens == {
++            req_ids[i]: int(k[i]) for i in expected_idx if k[i]
++        }
+         expected_rows = np.concatenate(
+             [
+                 np.arange(row_offsets[i], row_offsets[i] + cu[i + 1] - cu[i])
+diff --git a/vllm/v1/core/sched/output.py b/vllm/v1/core/sched/output.py
+index 81ee8d5591..9a861c77b9 100644
+--- a/vllm/v1/core/sched/output.py
++++ b/vllm/v1/core/sched/output.py
+@@ -336,3 +336,5 @@ class GrammarOutput:
+     structured_output_request_ids: list[str]
+     # Bitmask ordered as structured_output_request_ids.
+     grammar_bitmask: "npt.NDArray[np.int32]"
++    # Draft suffixes invalidated after the model inputs were prepared.
++    num_invalid_spec_tokens: dict[str, int] | None = None
+diff --git a/vllm/v1/core/sched/scheduler.py b/vllm/v1/core/sched/scheduler.py
+index e1fa0de0e4..7622964637 100644
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -2595,7 +2595,11 @@ class Scheduler(SchedulerInterface):
+             structured_output_request_ids,
+             scheduler_output.scheduled_spec_decode_tokens,
+         )
+-        return GrammarOutput(structured_output_request_ids, bitmask)
++        return GrammarOutput(
++            structured_output_request_ids,
++            bitmask,
++            scheduler_output.num_invalid_spec_tokens,
++        )
+ 
+     def update_from_output(
+         self,
+@@ -2720,7 +2724,13 @@ class Scheduler(SchedulerInterface):
+                     )
+                 num_sampled = self.num_sampled_tokens_per_step
+                 num_accepted = max(len(generated_token_ids) - num_sampled, 0)
+-                assert num_accepted <= num_draft_tokens
++                assert num_accepted <= num_draft_tokens, (
++                    f"{req_id}: accepted={num_accepted}, "
++                    f"valid_drafts={num_draft_tokens}, "
++                    f"scheduled_drafts={num_scheduled_draft_tokens}, "
++                    f"grammar_invalid="
++                    f"{(scheduler_output.num_invalid_spec_tokens or {}).get(req_id, 0)}"
++                )
+                 # Every unaccepted scheduler placeholder must be rolled back,
+                 # including drafts omitted by adaptive verification.
+                 num_rejected = num_scheduled_draft_tokens - num_accepted
+diff --git a/vllm/v1/worker/gpu/model_runner.py b/vllm/v1/worker/gpu/model_runner.py
+index b4fb55c33d..9305d2667a 100644
+--- a/vllm/v1/worker/gpu/model_runner.py
++++ b/vllm/v1/worker/gpu/model_runner.py
+@@ -1574,6 +1574,7 @@ class GPUModelRunner(LoRAModelRunnerMixin):
+                 input_batch,
+                 grammar_output.structured_output_request_ids,
+                 grammar_output.grammar_bitmask,
++                grammar_output.num_invalid_spec_tokens,
+             )
+ 
+         sampler_output: SamplerOutput | None
+diff --git a/vllm/v1/worker/gpu/sample/batch_shard.py b/vllm/v1/worker/gpu/sample/batch_shard.py
+index 0f484f1a17..e70f33ad90 100644
+--- a/vllm/v1/worker/gpu/sample/batch_shard.py
++++ b/vllm/v1/worker/gpu/sample/batch_shard.py
+@@ -338,6 +338,13 @@ def _shard_grammar_output(
+     return GrammarOutput(
+         structured_output_request_ids=local_ids,
+         grammar_bitmask=grammar_output.grammar_bitmask[keep_indices],
++        num_invalid_spec_tokens={
++            req_id: num_invalid
++            for req_id, num_invalid in (
++                grammar_output.num_invalid_spec_tokens or {}
++            ).items()
++            if req_id in owned
++        },
+     )
+ 
+ 
+diff --git a/vllm/v1/worker/gpu/structured_outputs.py b/vllm/v1/worker/gpu/structured_outputs.py
+index 8437b0aed9..5565152296 100644
+--- a/vllm/v1/worker/gpu/structured_outputs.py
++++ b/vllm/v1/worker/gpu/structured_outputs.py
+@@ -17,6 +17,7 @@ def _build_grammar_mapping(
+     num_draft_tokens_per_req: np.ndarray | None,
+     num_bonus_tokens: int,
+     mask_stride: int,
++    num_invalid_spec_tokens: dict[str, int] | None = None,
+ ) -> list[int]:
+     mapping: list[int] = []
+     req_id_to_idx = {req_id: i for i, req_id in enumerate(req_ids)}
+@@ -33,6 +34,11 @@ def _build_grammar_mapping(
+         mapping.extend(
+             req_idx * mask_stride + position for position in range(num_positions)
+         )
++        num_invalid = (num_invalid_spec_tokens or {}).get(grammar_req_id, 0)
++        # Negative keys mark input tokens in the invalid draft suffix. The
++        # first logit row consumes the preceding sampled token, not a draft.
++        for offset in range(1, num_invalid + 1):
++            mapping[-offset] = -mapping[-offset] - 1
+     return mapping
+ 
+ 
+@@ -62,6 +68,7 @@ class StructuredOutputsWorker:
+         input_batch: InputBatch,
+         grammar_req_ids: list[str],
+         grammar_bitmask: np.ndarray,
++        num_invalid_spec_tokens: dict[str, int] | None = None,
+     ) -> None:
+         if not grammar_req_ids:
+             return
+@@ -83,6 +90,7 @@ class StructuredOutputsWorker:
+             input_batch.num_draft_tokens_per_req,
+             self.num_bonus_tokens,
+             self.mask_stride,
++            num_invalid_spec_tokens,
+         )
+ 
+         # Asynchronously copy the mapping to GPU.
+@@ -108,6 +116,8 @@ class StructuredOutputsWorker:
+             logits.stride(0),
+             logits_indices,
+             input_batch.cu_num_logits,
++            input_batch.input_ids if num_invalid_spec_tokens else None,
++            input_batch.logits_indices if num_invalid_spec_tokens else None,
+             bitmask,
+             bitmask.stride(0),
+             vocab_size,
+@@ -128,6 +138,8 @@ def _apply_grammar_bitmask_kernel(
+     logits_stride,
+     logits_indices_ptr,
+     cu_num_logits_ptr,
++    input_ids_ptr,
++    input_logits_indices_ptr,
+     bitmask_ptr,
+     bitmask_stride,
+     vocab_size,
+@@ -136,6 +148,9 @@ def _apply_grammar_bitmask_kernel(
+ ):
+     bitmask_idx = tl.program_id(0)
+     mapping_idx = tl.load(logits_indices_ptr + bitmask_idx)
++    if input_ids_ptr is not None:
++        invalid_draft = mapping_idx < 0
++        mapping_idx = tl.where(invalid_draft, -mapping_idx - 1, mapping_idx)
+     req_idx = mapping_idx // MASK_STRIDE
+     position_idx = mapping_idx % MASK_STRIDE
+     logits_idx = tl.load(cu_num_logits_ptr + req_idx)
+@@ -145,6 +160,10 @@ def _apply_grammar_bitmask_kernel(
+ 
+     # Load the bitmask.
+     block_id = tl.program_id(1)
++    if input_ids_ptr is not None:  # noqa: SIM102
++        if block_id == 0 and position_is_active and invalid_draft:
++            input_idx = tl.load(input_logits_indices_ptr + logits_idx)
++            tl.store(input_ids_ptr + input_idx, -1)
+     bitmask_offset = (block_id * BLOCK_SIZE) // 32 + tl.arange(0, BLOCK_SIZE // 32)
+     packed_bitmask = tl.load(
+         bitmask_ptr + bitmask_idx * bitmask_stride + bitmask_offset,

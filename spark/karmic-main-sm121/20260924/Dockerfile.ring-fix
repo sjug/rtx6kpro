@@ -1,0 +1,18 @@
+FROM 3413799408e09ad3a1bb4ea2297384fa03927ca8b4e8e72f2af61aef8951d54c
+ARG RING_LOCK
+ARG RING_CACHE
+COPY ring-fix.lock.json ring-fix-sparse_mla.py ring-fix.patch prepare_ring_fix.py install_ring_fix.py Dockerfile.ring-fix test_compressor_ring_mapping.py build_ring_fix.py run_ring_regression.py /opt/ds41-ring-fix/
+RUN /opt/venv/bin/python /opt/ds41-ring-fix/install_ring_fix.py
+ENV XDG_CACHE_HOME=/cache/jit/${RING_CACHE} \
+    VLLM_CACHE_ROOT=/cache/jit/${RING_CACHE}/vllm \
+    TORCHINDUCTOR_CACHE_DIR=/cache/jit/${RING_CACHE}/inductor \
+    TRITON_CACHE_DIR=/cache/jit/${RING_CACHE}/triton \
+    B12X_COMPILE_CACHE_DIR=/cache/jit/${RING_CACHE}/b12x \
+    B12X_CUTE_COMPILE_CACHE_DIR=/cache/jit/${RING_CACHE}/b12x/cute \
+    SPARKINFER_COMPILE_CACHE_DIR=/cache/jit/${RING_CACHE}/b12x/compile \
+    CUTE_DSL_CACHE_DIR=/cache/jit/${RING_CACHE}/cute-dsl
+LABEL local-inference.ds41.diagnostic.kind="compressor-ring-mapping-fix" \
+    local-inference.ds41.diagnostic.lock.sha256="${RING_LOCK}" \
+    local-inference.cache.fingerprint="${RING_CACHE}" \
+    local-inference.status="candidate-not-qualified" \
+    org.opencontainers.image.title="DS4.1 deterministic candidate with circular compressor mapping fix"

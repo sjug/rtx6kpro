@@ -1,0 +1,10 @@
+**
+!Dockerfile.claude-moe-capture
+!claude-moe-capture-act_analyze.py
+!claude-moe-capture-act_trace.py
+!claude-moe-capture.patch
+!claude_gate_moe_capture_cuda.py
+!claude_install_moe_capture.py
+!claude_prepare_moe_capture.py
+!claude_test_moe_capture.py
+!claude-moe-capture.lock.json

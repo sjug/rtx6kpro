@@ -1,0 +1,10 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2765,6 +2765,7 @@
+                     )
+ 
+                     if k_block_idx == num_k_blocks - 1:
++                        self.mma_sync_barrier.arrive_and_wait()
+                         mainloop_pipeline.consumer_release(mainloop_consumer_state)
+                         mainloop_consumer_state.advance()
+ 

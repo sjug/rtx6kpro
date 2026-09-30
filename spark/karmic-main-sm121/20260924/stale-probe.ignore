@@ -1,0 +1,10 @@
+**
+!stale-probe-model_state.py
+!claude_stale_state_probe.py
+!claude-stale-state-model_state.patch
+!install_stale_probe.py
+!Dockerfile.stale-probe
+!build_stale_probe.py
+!prepare_stale_probe_image.py
+!claude_test_stale_state_probe_torch.py
+!stale-probe.lock.json

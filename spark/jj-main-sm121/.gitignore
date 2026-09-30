@@ -1,0 +1,5 @@
+/build-receipts/
+/__pycache__/
+/.pytest_cache/
+/.native-build.lock
+/*.tar

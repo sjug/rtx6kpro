@@ -1,0 +1,165 @@
+diff -ruN a/launch_contract.py b/launch_contract.py
+--- a/launch_contract.py	2026-09-27 00:36:20.192091149 -0400
++++ b/launch_contract.py	2026-09-27 00:36:20.190834460 -0400
+@@ -59,6 +59,13 @@
+ SELECTION_ROOTS = {REPLAY_SELECTOR: REPLAY_CACHE_ROOT, TRANSPLANT_SELECTOR: TRANSPLANT_CACHE_ROOT,
+                    MHC8192_SELECTOR: MHC8192_CACHE_ROOT, MHC_PRE8192_SELECTOR: MHC_PRE8192_CACHE_ROOT,
+                    MHC_EXPANDED8192_SELECTOR: MHC_EXPANDED8192_CACHE_ROOT}
++# Expanded-mHC capture derivative of the release image (claude-mhc-expanded.lock.json), 2026-09-27:
++# copies of the expanded mHC pre inputs and served outputs only, admitted solely on the passing replay
++# root or the expanded-only transplant root at the replay geometry. Diagnostic only, never serving.
++MHC_EXPANDED_CAPTURE_KIND = 'mhc-expanded-capture'
++MHC_EXPANDED_CAPTURE_LOCK = 'aab479ea81fbdf5e96787e6a33493672190df50978d86d655ceb72dadf6ddf5b'
++MHC_EXPANDED_CAPTURE_BASE = '1989e16daf38d2966b03a2e2abcb878263fb7d17183c8d6c5b084a51fbed7e8f'
++MHC_EXPANDED_CAPTURE_SELECTORS = (REPLAY_SELECTOR, MHC_EXPANDED8192_SELECTOR)
+ 
+ 
+ def validate_chunking_image(pin, env):
+@@ -68,9 +75,15 @@
+                             or 'DS41_NCCL_GEOMETRY' in env):
+         raise ValueError('The standard NCCL arm is restricted to the precision-capture image without tree geometry')
+     replay = env.get('DS41_SELECTION_REPLAY')
++    capture = diagnostic.get('kind') == MHC_EXPANDED_CAPTURE_KIND
++    if capture and (replay not in MHC_EXPANDED_CAPTURE_SELECTORS
++                    or diagnostic.get('lock_sha256') != MHC_EXPANDED_CAPTURE_LOCK
++                    or diagnostic.get('base_image_id') != MHC_EXPANDED_CAPTURE_BASE):
++        raise ValueError('The expanded-mHC capture needs its lock on the passing or expanded-only replay root')
+     if replay is not None:
+-        if (replay not in SELECTION_ROOTS or diagnostic.get('kind') != 'precision-release-candidate'
+-                or diagnostic.get('lock_sha256') != PRECISION_RELEASE_LOCK
++        if (replay not in SELECTION_ROOTS
++                or (not capture and (diagnostic.get('kind') != 'precision-release-candidate'
++                                     or diagnostic.get('lock_sha256') != PRECISION_RELEASE_LOCK))
+                 or env.get('DS41_DECISION_ROW_BLOCKS') != '81389' or env.get('DS41_PREFILL_THRESHOLD') != '8192'
+                 or any(key in env for key in ('DS41_CHUNKING_BLOCKS', 'DS41_NCCL_GEOMETRY', 'DS41_NCCL_ARM'))
+                 or 'diagnostic_overlay' in pin):
+diff -ruN a/run_node.py b/run_node.py
+--- a/run_node.py	2026-09-27 00:36:20.192137576 -0400
++++ b/run_node.py	2026-09-27 00:36:20.190857283 -0400
+@@ -67,7 +67,8 @@
+     validate_chunking_image(pin, profile['env'])
+     if 'DS41_DECISION_ROW_BLOCKS' in profile['env']:
+         require(pin.get('diagnostic', {}).get('kind') in ('decision-row-capture', 'window-capture', 'indexer-capture', 'precision-capture',
+-                                                              'precision-release-candidate', 'ratio1-bf16-diagnostic'),
++                                                              'precision-release-candidate', 'ratio1-bf16-diagnostic',
++                                                              'mhc-expanded-capture'),
+                 'KV block pin is restricted to decision-row-capture or window-capture')
+     if 'DS41_NCCL_GEOMETRY' in profile['env']:
+         require(pin.get('diagnostic', {}).get('kind') in ('window-capture', 'indexer-capture', 'precision-capture'),
+diff -ruN a/runtime.py b/runtime.py
+--- a/runtime.py	2026-09-27 00:36:20.202393778 -0400
++++ b/runtime.py	2026-09-27 00:36:20.190881669 -0400
+@@ -58,7 +58,8 @@
+     validate_overlay(pin, ROOT, installed=True)
+     if 'DS41_DECISION_ROW_BLOCKS' in os.environ:
+         require(pin.get('diagnostic', {}).get('kind') in ('decision-row-capture', 'window-capture', 'indexer-capture', 'precision-capture',
+-                                                              'precision-release-candidate', 'ratio1-bf16-diagnostic'),
++                                                              'precision-release-candidate', 'ratio1-bf16-diagnostic',
++                                                              'mhc-expanded-capture'),
+                 'KV block pin is restricted to decision-row-capture or window-capture')
+     row = render(os.environ['DS41_NODE'])
+     validate_chunking_image(pin, row['env'])
+diff -ruN a/start_moe_repaired.py b/start_moe_repaired.py
+--- a/start_moe_repaired.py	2026-09-27 00:36:20.192169827 -0400
++++ b/start_moe_repaired.py	2026-09-27 00:36:20.190869847 -0400
+@@ -13,7 +13,7 @@
+ NODES = ('toby', 'rusty', 'kirby', 'dusty')
+ NAME = 'ds41-flash-karmic-main-tp4'
+ parser = argparse.ArgumentParser()
+-parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'engram-fault'), default='moe-control-repaired')
++parser.add_argument('--arm', choices=('moe-control-repaired', 'combined-determinism', 'combined-no-turbo', 'combined-prefetch-off', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'mhc-expanded-capture', 'engram-fault'), default='moe-control-repaired')
+ parser.add_argument('--lengths', default='256,513,514,1024,16384')
+ parser.add_argument('--cuda-module-loading', choices=('LAZY', 'EAGER'))
+ parser.add_argument('--ops-trace', action='store_true', help='After the short repro, collect the reviewed diagnostic operator traces')
+@@ -30,6 +30,9 @@
+ parser.add_argument('--nccl-arm', choices=('standard-upstream',),
+                     help='Precision image only: ordinary launch NCCL settings on the matched profile, '
+                          'recorded as an explicit arm; never combined with --nccl-geometry')
++parser.add_argument('--capture-selections', choices=('passing', 'mhc-expanded8192'),
++                    help='mhc-expanded-capture arm only (required there): the passing replay root, or the '
++                         'expanded-only transplant root')
+ parser.add_argument('--transplant-set', choices=('275', 'mhc8192', 'mhc-pre8192', 'mhc-expanded8192'), default='275',
+                     help='selection-transplant arm only: the frozen 275-record set, only the two mHC 8192 records, '
+                          'or exactly one of them (mhc.pre or mhc.pre.expanded)')
+@@ -47,16 +50,18 @@
+     parser.error('Precision requires an explicit NCCL arm: --nccl-geometry tree-simple-1ch or --nccl-arm standard-upstream')
+ if matched_capture and (args.prefill_threshold not in ('8192', '4096') or args.ops_trace):
+     parser.error('Matched capture requires threshold8192/4096 without operator tracing')
+-if args.prefill_threshold and not matched_capture and args.arm not in ('selection-replay', 'selection-transplant') and (args.arm != 'router-fence' or args.decision_row_blocks
++if args.prefill_threshold and not matched_capture and args.arm not in ('selection-replay', 'selection-transplant', 'mhc-expanded-capture') and (args.arm != 'router-fence' or args.decision_row_blocks
+                                                      or args.ops_trace or args.prefill_threshold == '8192'):
+     parser.error('Chunking threshold requires clean router-fence or the reviewed matched capture')
+-if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant'):
++if args.decision_row_blocks and args.arm not in ('decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'mhc-expanded-capture'):
+     parser.error('The 80927 block pin is restricted to the decision-row diagnostic')
+ if args.decision_row_blocks == '80022' and args.arm not in ('precision-release', 'ratio1-diag'):
+     parser.error('The 80022-block pin is restricted to the ratio-1 compute-mode diagnostic sequence')
++if (args.arm == 'mhc-expanded-capture') != (args.capture_selections is not None):
++    parser.error('--capture-selections is required by, and only valid for, the mhc-expanded-capture arm')
+ if args.transplant_set != '275' and args.arm != 'selection-transplant':
+     parser.error('--transplant-set applies only to the selection-transplant arm')
+-if args.arm in ('selection-replay', 'selection-transplant') and (args.decision_row_blocks != '81389' or args.prefill_threshold != '8192'
++if args.arm in ('selection-replay', 'selection-transplant', 'mhc-expanded-capture') and (args.decision_row_blocks != '81389' or args.prefill_threshold != '8192'
+                                        or args.nccl_geometry or args.nccl_arm or args.ops_trace or args.cuda_module_loading):
+     parser.error('Selection replay requires --decision-row-blocks 81389 --prefill-threshold 8192 and nothing else')
+ if args.arm == 'ratio1-diag' and args.decision_row_blocks != '80022':
+@@ -79,13 +84,15 @@
+     out = ROOT / 'receipts' / f'{args.arm}-nccl-{args.nccl_arm}-chunk{args.prefill_threshold}-blocks81389-{stamp}'
+ if args.decision_row_blocks == '80022':
+     out = ROOT / 'receipts' / f'{args.arm}-blocks80022-{stamp}'
++if args.arm == 'mhc-expanded-capture':
++    out = ROOT / 'receipts' / f'{args.arm}-{args.capture_selections}-chunk8192-blocks81389-{stamp}'
+ if args.arm == 'selection-transplant' and args.transplant_set != '275':
+     out = ROOT / 'receipts' / f'{args.arm}-{args.transplant_set}-chunk8192-blocks81389-{stamp}'
+ out.mkdir(exist_ok=False)
+ print('RECEIPTS', out, flush=True)
+ (out / 'launch-options.json').write_text(json.dumps(vars(args), indent=2) + '\n')
+ digest = kit_digest()
+-if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'engram-fault'):
++if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'mhc-expanded-capture', 'engram-fault'):
+     pin = json.loads((ROOT / 'candidate.json').read_text())
+     kind = {'dense-release': 'dense-release-fence', 'stale-probe': 'stale-state-probe',
+             'ring-fix': 'compressor-ring-mapping-fix',
+@@ -103,6 +110,7 @@
+             'ratio1-diag': 'ratio1-bf16-diagnostic',
+             'selection-replay': 'precision-release-candidate',
+             'selection-transplant': 'precision-release-candidate',
++            'mhc-expanded-capture': 'mhc-expanded-capture',
+             'engram-fault': 'engram-fault-inject'}[args.arm]
+     if pin.get('diagnostic', {}).get('kind') != kind or 'diagnostic_overlay' in pin or args.ops_trace:
+         raise RuntimeError('Wrong image or overlay for ' + args.arm)
+@@ -129,6 +137,10 @@
+                                                   'mhc-pre8192': 'transplant1-mhc-pre8192-release-into-233036Z',
+                                                   'mhc-expanded8192': 'transplant1-mhc-expanded8192-release-into-233036Z',
+                                                   }[args.transplant_set]
++    if args.arm == 'mhc-expanded-capture':
++        overrides += ' DS41_SELECTION_REPLAY=' + {'passing': 'standard8192-233036Z',
++                                                  'mhc-expanded8192': 'transplant1-mhc-expanded8192-release-into-233036Z',
++                                                  }[args.capture_selections]
+     if args.decision_row_blocks:
+         overrides += ' DS41_DECISION_ROW_BLOCKS=' + args.decision_row_blocks
+     if getattr(args, 'nccl_geometry', None):
+@@ -137,12 +149,12 @@
+         overrides += ' DS41_NCCL_ARM=' + args.nccl_arm
+     if args.cuda_module_loading:
+         overrides += ' CUDA_MODULE_LOADING=' + args.cuda_module_loading
+-    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'engram-fault'):
++    if args.arm in ('combined-no-turbo', 'dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'mhc-expanded-capture', 'engram-fault'):
+         overrides += ' B12X_DENSE_SPLITK_TURBO=0'
+     if args.arm == 'combined-prefetch-off':
+         overrides += ' VLLM_DS41_L2_PREFETCH=0'
+     # Clear remote-shell overrides before applying the explicit repaired profile.
+-    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'engram-fault') else 'env'
++    clean = 'env -u VLLM_DS41_L2_PREFETCH -u B12X_DENSE_SPLITK_TURBO' if args.arm in ('dense-release', 'stale-probe', 'ring-fix', 'engram-timing', 'engram-repair', 'activation-trace', 'moe-seams', 'moe-capture', 'router-fence', 'decision-row', 'window', 'indexer', 'precision', 'precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'mhc-expanded-capture', 'engram-fault') else 'env'
+     clean += ' -u DS41_DECISION_ROW_BLOCKS'
+     clean += ' -u DS41_PREFILL_THRESHOLD -u DS41_CHUNKING_BLOCKS -u DS41_NCCL_GEOMETRY -u DS41_NCCL_ARM -u DS41_SELECTION_REPLAY'
+     return f'cd {REMOTE} && {clean} {overrides} python3 run_node.py --node {node}'
+@@ -166,7 +178,7 @@
+                                    stdout=stream, stderr=subprocess.STDOUT)
+         observers.append((node, process, stream))
+     subprocess.run([sys.executable, str(ROOT / 'watch-startup.py'), str(out)], check=True)
+-    if args.arm in ('precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant'):
++    if args.arm in ('precision-release', 'ratio1-diag', 'selection-replay', 'selection-transplant', 'mhc-expanded-capture'):
+         # One reviewed marker per worker rank, before any request reaches the release boot; the
+         # ratio-1 pin marker must appear on the variant only.
+         import precision_release

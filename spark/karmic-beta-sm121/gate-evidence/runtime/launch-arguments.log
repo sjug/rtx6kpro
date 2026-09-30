@@ -1,0 +1,7 @@
+W0921 00:40:17.158000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 00:40:17.158000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 00:40:17.158000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0921 00:40:20.574000 1 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0921 00:40:20.588000 1 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+KARMIC-LAUNCH-ARGUMENTS-PASS qwen38-flash-next
+KARMIC-LAUNCH-ARGUMENTS-PASS glm53-flash

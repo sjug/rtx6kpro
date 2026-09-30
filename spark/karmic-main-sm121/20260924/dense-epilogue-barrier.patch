@@ -1,0 +1,10 @@
+--- a/b12x/_lib/dense_gemm.py
++++ b/b12x/_lib/dense_gemm.py
+@@ -2889,6 +2889,7 @@
+                                         self.c_dtype
+                                     )
+                                 )
++                    self.epilog_sync_barrier.arrive_and_wait()
+                     if cutlass.const_expr(self.single_work_tile_per_cta):
+                         work_tile = WorkTileInfo(
+                             work_tile.tile_idx,

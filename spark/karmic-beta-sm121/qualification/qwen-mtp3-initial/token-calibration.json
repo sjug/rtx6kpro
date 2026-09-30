@@ -1,0 +1,10 @@
+{
+  "vllm:Qwen3.8-Flash-Next:f3edcbc57707": {
+    "chars_per_token": 6.165556377991611,
+    "engine": "vllm",
+    "model": "Qwen3.8-Flash-Next",
+    "source_context": "8k",
+    "template_id": "f3edcbc57707",
+    "updated_at": "2026-09-20T21:06:38.151365-04:00"
+  }
+}

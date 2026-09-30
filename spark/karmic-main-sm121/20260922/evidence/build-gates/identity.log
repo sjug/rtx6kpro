@@ -1,0 +1,4 @@
+W0923 01:29:12.517000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:29:12.518000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:29:12.518000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+KARMIC-MAIN-IDENTITY-PASS

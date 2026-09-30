@@ -1,0 +1,12 @@
+{
+  "approval": "User: approve, following the explicit request for the instrumentation-only image and matched capture launcher changes",
+  "nodes": ["dusty", "toby", "rusty", "kirby"],
+  "scope": "Build reviewed diagnostic derivative, distribute unchanged Docker archive over switched 200G, run matched capture boots and per-side audits",
+  "thresholds": [8192, 4096],
+  "prepared_capacity": 8192,
+  "diagnostic_kv_blocks": 81389,
+  "capture_lock_sha256": "3eb16ccca36e78ebbf133fb238ed8b0ffc261316c71ada958ab810ef8f07e8b4",
+  "controls": "Two cold unarmed full-response controls followed by one matching armed replay per boot; same frozen input and eight numerical plans",
+  "unchanged": "Numerical kernels, checkpoint, TP4, K7, 600000 context, utilization0.85, deterministic MoE, turbo0",
+  "excluded": "GLM, production promotion, benchmark-repository changes, external posting, commit or push"
+}

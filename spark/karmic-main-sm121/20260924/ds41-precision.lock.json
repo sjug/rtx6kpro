@@ -1,0 +1,76 @@
+{
+  "apply_marker": "DS41-PRECISION-APPLIED",
+  "base_image_id": "25c92dde8801c9601164dd9144ec5c9aa453581d670b212e60a91d4973b96248",
+  "base_kind": "indexer-capture",
+  "base_lock": "ds41-indexer.lock.json",
+  "base_lock_sha256": "20ea0e6e920b2f5a7d78cc4ae0c3632b8ab4f140536ba6a58c09427b7bc2520f",
+  "base_parent_image_id": "c4a51be481c1c8130a691e72c880c3fa3b751dbddc9b2da7aa6702cc8a0039f9",
+  "base_router_target": {
+    "path": "b12x/gemm/bf16_gemv/_prefill.py",
+    "sha256": "ca888af42b16eb27be445814154f98a3765cb5b054e7b0b77408f76939e801e8"
+  },
+  "base_trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "c959c4f44c7c76fc4e71e3ac59fe1073ce0838d4"
+  },
+  "build_args": [
+    "DECISION_LOCK",
+    "DECISION_CACHE"
+  ],
+  "capture_schema": "ds41-indexer-capture-v1",
+  "decision_row_lock_sha256": "3eb16ccca36e78ebbf133fb238ed8b0ffc261316c71ada958ab810ef8f07e8b4",
+  "decision_row_schema": "claude-decision-row-v3",
+  "image_kind_label": "precision-capture",
+  "inherited_helper_provenance": {
+    "decision_read_path": "/opt/ds41-decision-row/claude-decision-row.lock.json",
+    "disposition": "metadata-only: attention and the decision-row, window and indexer helpers keep their bytes; the three lock files they read for source_trees are replaced by provenance stubs naming this image's trees and the precision lock, with the indexer-era files preserved beside them and the window-era originals left in place",
+    "indexer_era_decision_stub": "claude-decision-row.lock.indexer-stub.json",
+    "indexer_era_lock": "ds41-indexer.lock.original.json",
+    "indexer_era_window_stub": "claude-window.lock.indexer-stub.json",
+    "indexer_read_path": "/opt/ds41-indexer/ds41-indexer.lock.json",
+    "window_era_original_lock": "claude-window.lock.original.json",
+    "window_era_original_stub": "claude-decision-row.lock.original.json",
+    "window_read_path": "/opt/ds41-window/claude-window.lock.json"
+  },
+  "inputs": {
+    "Dockerfile.ds41-precision": "69516615aa7d74f34e4d5fe29cfc91d82dd77be60c21fa1a2d6073e73dd64c62",
+    "ds41-precision-gpu_worker-base.py": "e41fa1f43ae286e798c06f5f4e39301d7d87d8eb91ac8b93ead93337f155e13d",
+    "ds41-precision-gpu_worker.py": "a0de8e9583ddac3bc670b24cb38247838216a770f24e0bc9e2090446e1d31207",
+    "ds41-precision.patch": "6e35850a30d2511251dd8c312ab2ade693cafb4b57687cfb6223faaad307bdf3",
+    "ds41_precision.py": "048697294922cfa57de050f7e2f95a0e11c8a7bd65f95ab64ec49d78a1a1dbfb",
+    "ds41_precision_install.py": "4dbf05edaf3d38bc90927051fdebbbd441620d9b7d2d6caa143357486a0c2f8c",
+    "ds41_precision_prepare.py": "5339ed490fe79c75b679a0f5b1c6c76d4cdb07420343aa5b160e5b69bc8e7ec2",
+    "test_ds41_precision.py": "1fc6047276c0767543375c4b1d7f5f305b4a2c899eb7faf53573ba2e561735a5"
+  },
+  "install_dir": "/opt/ds41-precision",
+  "install_pass_marker": "PRECISION-INSTALL-PASS",
+  "kind": "precision-capture-diagnostic",
+  "precision_schema": "ds41-precision-v1",
+  "preserved": {
+    "vllm/vllm/models/deepseek_v4_1/attention.py": "7ad2c9796fc0b8694e86651cd7b42a666a28aae34ccefb4646062e1cd152907b",
+    "vllm/vllm/models/deepseek_v4_1/claude_decision_row.py": "fc8ed182294ae5b4d669c9451e5b038cfd576a5650f3996a7566d48cf8a7136e",
+    "vllm/vllm/models/deepseek_v4_1/claude_window.py": "94dc1747d8e3843e89052576af4de59d8f132ebf8515da9d27608f3f646aa9b0",
+    "vllm/vllm/models/deepseek_v4_1/ds41_indexer_capture.py": "1928448a2cea54061e72c70ee71e1ee288335ac8e04f63df09c49efa4a012192"
+  },
+  "router_lock_sha256": "7122753a3206df8b1ff23b1fa1b0727daf4e1378f940a4ab7358dfeb76065a77",
+  "scope": "process-wide torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction=False, set once per GPU worker at the top of init_device, on top of the indexer-capture image; one call, no forward-path change, capture helpers and B12X unchanged; a diagnostic arm, not determinism, batch-invariance, retrieval, performance or gate evidence",
+  "status": "diagnostic-only-not-built-not-qualified",
+  "targets": {
+    "vllm/vllm/v1/worker/ds41_precision.py": {
+      "input_sha256": null,
+      "output_sha256": "048697294922cfa57de050f7e2f95a0e11c8a7bd65f95ab64ec49d78a1a1dbfb",
+      "source": "ds41_precision.py"
+    },
+    "vllm/vllm/v1/worker/gpu_worker.py": {
+      "input_sha256": "e41fa1f43ae286e798c06f5f4e39301d7d87d8eb91ac8b93ead93337f155e13d",
+      "output_sha256": "a0de8e9583ddac3bc670b24cb38247838216a770f24e0bc9e2090446e1d31207",
+      "source": "ds41-precision-gpu_worker.py"
+    }
+  },
+  "trees": {
+    "b12x": "03a4e0b363d17c291516678689ae72d3e266749e",
+    "vllm": "1ac17c6371991c04acd212673fbbeced0fbe4003"
+  },
+  "window_lock_sha256": "59100837bbd6fdee5a9c2d689ae44ebd8b1d4b01838f5067dc3cc08706cea63b",
+  "window_schema": "claude-window-v1"
+}

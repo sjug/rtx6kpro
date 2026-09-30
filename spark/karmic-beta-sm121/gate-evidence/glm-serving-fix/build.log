@@ -1,0 +1,41 @@
+STEP 1/7: FROM f30dc6d9a2a6f6fc0ac9ff8cddb04d9f631f4a87b48ca7cac69254802fe83233
+STEP 2/7: ARG GLM_REPAIRED_SHA256
+--> 5a57d1958d5b
+STEP 3/7: COPY launchers/serve-glm53-flash-karmic-spark.sh /usr/local/bin/
+--> 17775e8038bc
+STEP 4/7: COPY launchers/manifest.json /opt/karmic-build/launcher-manifest.json
+--> bd1ef36c3225
+STEP 5/7: ENV GLM_LAUNCHER_SHA256=${GLM_REPAIRED_SHA256}
+--> de239e0e7a33
+STEP 6/7: RUN echo "$GLM_LAUNCHER_SHA256  /usr/local/bin/serve-glm53-flash-karmic-spark.sh" | sha256sum -c -     && chmod 755 /usr/local/bin/serve-glm53-flash-karmic-spark.sh
+/etc/bash.bashrc: line 9: PS1: unbound variable
+/usr/local/bin/serve-glm53-flash-karmic-spark.sh: OK
+--> 68c7741bf70b
+STEP 7/7: LABEL local-inference.glm.launcher.sha256="${GLM_REPAIRED_SHA256}"       local-inference.glm.preflight-repair="filename-and-proxy-path-only"       local-inference.glm.parent-image="f30dc6d9a2a6f6fc0ac9ff8cddb04d9f631f4a87b48ca7cac69254802fe83233"
+COMMIT localhost/voipmonitor/build-components:karmic-glm-launcher
+--> 9b23ca237881
+Successfully tagged localhost/voipmonitor/build-components:karmic-glm-launcher
+9b23ca237881b90856adcea7f20be5c9937036b74863d668515ca1e58b4a6103
+W0921 14:49:42.267000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0921 14:49:42.267000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0921 14:49:42.268000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+NATIVE-IMPORT-PASS vllm._C_stable_libtorch /opt/jovian-judgement/vllm/vllm/_C_stable_libtorch.abi3.so
+NATIVE-IMPORT-PASS vllm._moe_C_stable_libtorch /opt/jovian-judgement/vllm/vllm/_moe_C_stable_libtorch.abi3.so
+NATIVE-IMPORT-PASS vllm._flashkda_C /opt/jovian-judgement/vllm/vllm/_flashkda_C.abi3.so
+NATIVE-IMPORT-PASS vllm._qutlass_C /opt/jovian-judgement/vllm/vllm/_qutlass_C.abi3.so
+NATIVE-IMPORT-PASS vllm.cumem_allocator /opt/jovian-judgement/vllm/vllm/cumem_allocator.abi3.so
+NATIVE-IMPORT-PASS vllm.spinloop /opt/jovian-judgement/vllm/vllm/spinloop.abi3.so
+NATIVE-IMPORT-PASS vllm.fs_io_C /opt/jovian-judgement/vllm/vllm/fs_io_C.abi3.so
+NATIVE-IMPORT-PASS vllm._rust_tool_parser /opt/jovian-judgement/vllm/vllm/_rust_tool_parser.abi3.so
+NATIVE-IMPORT-PASS vllm.vllm_flash_attn._vllm_fa2_C /opt/jovian-judgement/vllm/vllm/vllm_flash_attn/_vllm_fa2_C.abi3.so
+NATIVE-IMPORT-PASS vllm.vllm_flash_attn._vllm_fa3_C /opt/jovian-judgement/vllm/vllm/vllm_flash_attn/_vllm_fa3_C.abi3.so
+[32;20m[2026-09-21 14:49:46,276] LMCache INFO:[0m torch_dev=<module 'torch.cuda' from '/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py'>, torch_device_type=cuda [3m(_device_detect.py:312:lmcache.v1.platform._device_detect)[0m
+[32;20m[2026-09-21 14:49:46,276] LMCache INFO:[0m Auto-selected backend [cuda] for accelerator 'cuda' from candidate backends [cuda, rocm]. [3m(__init__.py:148:lmcache.v1.platform)[0m
+NATIVE-IMPORT-PASS lmcache.cuda_ops /opt/venv/lib/python3.12/site-packages/lmcache/cuda_ops.cpython-312-aarch64-linux-gnu.so
+NATIVE-IMPORT-PASS lmcache.lmcache_native /opt/venv/lib/python3.12/site-packages/lmcache/lmcache_native.cpython-312-aarch64-linux-gnu.so
+NATIVE-IMPORT-PASS lmcache.lmcache_fs /opt/venv/lib/python3.12/site-packages/lmcache/lmcache_fs.cpython-312-aarch64-linux-gnu.so
+NATIVE-IMPORT-PASS lmcache.lmcache_redis /opt/venv/lib/python3.12/site-packages/lmcache/lmcache_redis.cpython-312-aarch64-linux-gnu.so
+ELF file    1: _flashkda_C.abi3.1.sm_121a.cubin
+
+KARMIC-RUNTIME-NATIVE-SMOKE-PASS
+GLM-SERVING-REPAIR-PASS image=sha256:9b23ca237881b90856adcea7f20be5c9937036b74863d668515ca1e58b4a6103

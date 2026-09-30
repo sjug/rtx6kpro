@@ -1,0 +1,75 @@
+{
+  "after": {
+    "tests/models/qwen4_exp/test_b12x_qsa.py": {
+      "mode": "100644",
+      "sha256": "d3e136f1ce30522ab8d47466ed264c02f8842c79f61b0f0bfdcdc2e578ab1d3e"
+    },
+    "tests/v1/cudagraph/test_cudagraph_manager.py": {
+      "mode": "100644",
+      "sha256": "b51796096d330f1cb723ebc45fa08ad93f6e3a14ebdc09a9ebfdaac19f0a532e"
+    },
+    "vllm/models/qwen4_exp/nvidia/b12x_qsa.py": {
+      "mode": "100644",
+      "sha256": "f9fd8269a45bcc3166f6a35d7c3fffad4c542ab09a938945614eb56349739d04"
+    },
+    "vllm/models/qwen4_exp/nvidia/model_state.py": {
+      "mode": "100644",
+      "sha256": "0b4cf2c281dd14774d1826054786a0d2added3d1b9357edd5804dabd494ac533"
+    },
+    "vllm/v1/worker/gpu/cudagraph_utils.py": {
+      "mode": "100644",
+      "sha256": "d7090fe17cea3eef926143e292246b269b75b641382c485b39bdef09d14a7b8d"
+    },
+    "vllm/v1/worker/gpu/input_batch.py": {
+      "mode": "100644",
+      "sha256": "2034bbe57fbd8708439602754a7b2f51cda5ec3f8ae90ea1195e47b4ba3f18cf"
+    }
+  },
+  "b12x_tree": "5bab5ba61f2b511111f1944d3d21642cb6582bcf",
+  "base_image_id": "88867036403cb3c9bc3026eb8c907ad64bc1af9c28d316d22b670dde4f561152",
+  "base_lock_sha256": "7599cfb0c464426da0a35de01bb1092fc05aed5cf18ca603ad90ddc1d891832b",
+  "base_tree": "31cb715f3511073f893900248ba8e737646ca50d",
+  "before": {
+    "tests/models/qwen4_exp/test_b12x_qsa.py": {
+      "mode": "100644",
+      "sha256": "8ba7fb953257d971c011be6cc7fcdcb6525e0ab5b08cc0bbbafa994aa79c9a6d"
+    },
+    "tests/v1/cudagraph/test_cudagraph_manager.py": {
+      "mode": "100644",
+      "sha256": "021770ede8579382f8a8fb429e01517f69eb4991950044a2d33478905fb742d2"
+    },
+    "vllm/models/qwen4_exp/nvidia/b12x_qsa.py": {
+      "mode": "100644",
+      "sha256": "ac8e4bd3b3bbb401a3d101d6c96f8edfa2e5efcf074270d44c251eaae6016bec"
+    },
+    "vllm/models/qwen4_exp/nvidia/model_state.py": {
+      "mode": "100644",
+      "sha256": "4e051972d6c308c28b3a1a0c0fd58a6fed13df583379823351678dd97e9cf124"
+    },
+    "vllm/v1/worker/gpu/cudagraph_utils.py": {
+      "mode": "100644",
+      "sha256": "f849a0e0a9ba4ecb896589c3c0ce4e61cf0ded717dc837acf4d2fe450c8ca93d"
+    },
+    "vllm/v1/worker/gpu/input_batch.py": {
+      "mode": "100644",
+      "sha256": "59e7b879d4522192746c2dd0298266a56e0cbadfe82062f549894a86d7f7ab4f"
+    }
+  },
+  "cache_fingerprint": "karmic-main-qsa865-404a408ed22e31af0228",
+  "lmcache_tests": {
+    "lmcache-tests/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lmcache-tests/tests/v1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lmcache-tests/tests/v1/multiprocess/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lmcache-tests/tests/v1/multiprocess/test_mq.py": "21b8b94a2cfdfb17a9f09008d7549f6d35494affbb6aaca214408878e6084109",
+    "lmcache-tests/tests/v1/multiprocess/test_mq_handler_helpers.py": "e9485bb6dbe9cba6bb5f87872ce760ff6ed595f3fd780aef4d145ab9ed86c8fe"
+  },
+  "package_tree": "20c53d88f184e575ccb20c6c707f74deb6ab8a86",
+  "patch_sha256": "4a70945def2dda5540d04c4a18cf138f3908ae5329745b62753a5c106061f113",
+  "publication": "karmic-kraken-20260923-f37d447a16799e72",
+  "recipe_commit": "459593df3dab9cc5861c0a66dfed709f1a5f2f72",
+  "refresh_sha256": "8f00cbdff257a6435204e9ee873be257929b14008e48304ed58761d8636c3655",
+  "result_tree": "509f53e2e40d7391a7fcb2e6a611ba809af137e5",
+  "runtime_lock_sha256": "62ccdd39c0e359510c23e25570d51bceb2cbbc81a689b2ff007c11d25c872c25",
+  "upstream_base": "e77be22511ab91ecf217760524b7579c366cca2a",
+  "upstream_head": "26b42cf9eb715b118e55f91f53fa0ab412a79c09"
+}

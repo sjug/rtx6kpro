@@ -1,0 +1,38 @@
+{
+  "base_image_id": "ea031e1d3d051033f077fc986bf6f8fce04cf9ab52483d5a719ba13114567fc5",
+  "base_tree": "077347fdeab296404d0b0cb297d316176acc635a",
+  "tree": "6b270cd2ef83746bd429d975f8dab942a58f2615",
+  "package_tree": "319b5bf8cc5d3c2bb0d66b956764df7751db1834",
+  "fix": "8e1f1e587f8d24faf606f334a1c4bdaaa6bd4368",
+  "patch_sha256": "e14a19f9441a0eeb305abe0bfe9fccc8d4520354973b2eea98bd365ae05d784c",
+  "files": {
+    "tests/v1/spec_decode/test_mtp_structured_output.py": {
+      "before": "6c7c481161e4543d9128f85a3101f393020a468f4986542d7c9389165b7a8254",
+      "after": "c6d3146b550c5b33c4604247eeb419829943fc10ed570635db1a3c46f207a23b"
+    },
+    "tests/v1/worker/test_gpu_batch_shard.py": {
+      "before": "cb9890cad93e54c85202d8ab63cff29e2528133b10a6c15372d8588f482df530",
+      "after": "917c9fff0ba7544203dcbaafb24a5d3af032f747f96baa8985d52872a8340419"
+    },
+    "vllm/v1/core/sched/output.py": {
+      "before": "5daf0adf716cf143dd3b6e8aca1c34e4409c20c73801b6d7f7e217a06373772f",
+      "after": "96623adc4ddf9f603bb3eebae63d8d1ae5d34922b1d89b3c4e6f593f419ebd00"
+    },
+    "vllm/v1/core/sched/scheduler.py": {
+      "before": "0af4afe84067ec09c9907523e6ea2367b4f664f935cc5f35f0a054f04f862e2a",
+      "after": "bc256cdbd80dcab9a1f963c1d8147cbb2eed84d1a99d1c5069a3c9096cb7a5db"
+    },
+    "vllm/v1/worker/gpu/model_runner.py": {
+      "before": "0701f5be3e5e2c8b7bed9c010a6ecddc0075b11d719ceb7cc0291eb6ffd4f782",
+      "after": "af91d0807f9cdf767c64774551d1fe61b0c76de6878f7951cfba4768151d594f"
+    },
+    "vllm/v1/worker/gpu/sample/batch_shard.py": {
+      "before": "c30274a3a04e6a03e89be9cd7c62de602b1aba4d412f64540ab6201036de3928",
+      "after": "f0ed32df96bc6aab10d961705919faf2501627e18e6dd8f3920b782af6268506"
+    },
+    "vllm/v1/worker/gpu/structured_outputs.py": {
+      "before": "8d00e766d8d38d87ef16cccd0661d71833e523e1dc8fee5aeab251536b57180c",
+      "after": "27d1fc84e5ca5f07ffd1cd6ce2b4bab0a530f3bce67ff0dd271782a805e61b4f"
+    }
+  }
+}

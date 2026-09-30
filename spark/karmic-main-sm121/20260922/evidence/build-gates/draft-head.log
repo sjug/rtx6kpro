@@ -1,0 +1,11 @@
+W0923 01:36:19.532000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W0923 01:36:19.533000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W0923 01:36:19.533000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+W0923 01:36:22.741000 1 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0923 01:36:22.754000 1 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+WARNING 09-23 01:36:26 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+2026-09-23 01:36:30,495 - INFO - core.py:447 - flashinfer.jit: Building JIT module fp4_quantization_120f; this can take several minutes on first use.
+rows=1 relative_rmse=0.094867 cosine=0.995507
+rows=4 relative_rmse=0.095540 cosine=0.995440
+rows=32 relative_rmse=0.095373 cosine=0.995457
+GLM Karmic NVFP4 proposal head SM121: PASS

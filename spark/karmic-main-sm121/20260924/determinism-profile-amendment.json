@@ -1,0 +1,25 @@
+{
+  "authorization": "User requested completing determinism investigation, fix, image and qualification on four DS41 nodes",
+  "prior_manifest": {
+    "candidate.json": "960a0a7bfde113511c93c2409f78ba216df852cb59f14dea559259ea697f7f83",
+    "gate_ds41.py": "6727ef7ec8b5dc4279ec4ce7d51dac7fc36ae31594fe8cfacd62842003479dc8",
+    "launch_contract.py": "565b7c1f61ef101586ff4fa9a56d6b449f69a12e45d831951b7daa710fd94dbd",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "1e0bab54c1b1a2466f0863c2fd29583858422a3bb4c84addb016ca67eb6831d8",
+    "runtime.py": "736b91800b87b82923816915ee090d125f811fe41d8f239eefbae00dbde12326",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  },
+  "prior_manifest_sha256": "eff15eff0a7c35669546380b7e31260bfa173525b79c32335bb80e9c0feb9183",
+  "scope": "Optional B12X_DYNAMIC_DETERMINISTIC_OUTPUT=0|1; all model arguments unchanged",
+  "updated_manifest": {
+    "candidate.json": "960a0a7bfde113511c93c2409f78ba216df852cb59f14dea559259ea697f7f83",
+    "gate_ds41.py": "6727ef7ec8b5dc4279ec4ce7d51dac7fc36ae31594fe8cfacd62842003479dc8",
+    "launch_contract.py": "dbc1930b581ae13eba20b96aa3553040c6ac36520839052613f124fc8f8dddbb",
+    "model-manifest.json": "8493bdf24a904c63a941f32c219b479665b5c1739c14c4530c2aeeb7473c88cf",
+    "run_node.py": "1e0bab54c1b1a2466f0863c2fd29583858422a3bb4c84addb016ca67eb6831d8",
+    "runtime.py": "736b91800b87b82923816915ee090d125f811fe41d8f239eefbae00dbde12326",
+    "seccomp-io-uring.json": "823b66051a52180058aa04b4343eb29a9cc963c1cff306e5c81dd606324252dc",
+    "upstream-launch.json": "2390f7ce005db9dba2d5a5bcb2d98bc260b66c973ac5de7bd4f2ec2d84b9a3a1"
+  }
+}

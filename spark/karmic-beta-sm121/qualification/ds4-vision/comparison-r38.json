@@ -1,0 +1,101 @@
+{
+  "scope": "Historical R38 comparison, not a matched multi-boot study",
+  "inputs": {
+    "baseline": {
+      "path": "/home/jugs/git/llm-inference-bench/results/runs/deepseek-v4-flash/vision-exp/2026-09-jj-r38-vs-r32/throughput/20260915T152722-0400__jj-r38-sm121-tp2-dspark-k3-dglin-524k__r01.json",
+      "sha256": "c4df4495701dff6e024984e57e06769b593a461b789de766dccbee5819df1d98"
+    },
+    "candidate": {
+      "path": "runs/deepseek-v4-flash/vision-exp/2026-09-karmic-sm121-qualification/throughput/20260920T222721-0400__karmic-sm121-tp2-dspark-k3-dglin-524k__r01.json",
+      "sha256": "bba6fcecab9a07843063751bc8b19a699418b00dad6640be26309c4898733618"
+    }
+  },
+  "summary": [
+    {
+      "concurrency": 1,
+      "aggregate_tps": {
+        "r38": 36.20282016759712,
+        "karmic": 37.053639324954524,
+        "change_pct": 2.3501460754124404
+      },
+      "server_steps_per_s": {
+        "r38": 17.3457675817576,
+        "karmic": 17.368380747081176,
+        "change_pct": 0.13036704900484253
+      },
+      "server_accept_len_effective": {
+        "r38": 2.087127017986296,
+        "karmic": 2.1333963058808196,
+        "change_pct": 2.2168889337250253
+      }
+    },
+    {
+      "concurrency": 2,
+      "aggregate_tps": {
+        "r38": 56.00796184097811,
+        "karmic": 56.93895796786352,
+        "change_pct": 1.6622567511539899
+      },
+      "server_steps_per_s": {
+        "r38": 26.332399070823623,
+        "karmic": 26.281591992805303,
+        "change_pct": -0.19294511632482747
+      },
+      "server_accept_len_effective": {
+        "r38": 2.1269600878499184,
+        "karmic": 2.16649577329451,
+        "change_pct": 1.8587883087433532
+      }
+    },
+    {
+      "concurrency": 4,
+      "aggregate_tps": {
+        "r38": 79.03417974340381,
+        "karmic": 77.15674505253841,
+        "change_pct": -2.37547184896556
+      },
+      "server_steps_per_s": {
+        "r38": 37.25311655752498,
+        "karmic": 35.94493129851148,
+        "change_pct": -3.5116129330909795
+      },
+      "server_accept_len_effective": {
+        "r38": 2.121545444965977,
+        "karmic": 2.1465264298817437,
+        "change_pct": 1.1774899743506095
+      }
+    }
+  ],
+  "prefill": [
+    {
+      "context_tokens": 8192,
+      "r38": 2104.0,
+      "karmic": 2082.0,
+      "change_pct": -1.0456273764258506
+    },
+    {
+      "context_tokens": 16384,
+      "r38": 2253.0,
+      "karmic": 1955.0,
+      "change_pct": -13.22680869951176
+    },
+    {
+      "context_tokens": 32768,
+      "r38": 2219.0,
+      "karmic": 2099.0,
+      "change_pct": -5.4078413699864765
+    },
+    {
+      "context_tokens": 65536,
+      "r38": 2142.0,
+      "karmic": 1896.0,
+      "change_pct": -11.484593837535018
+    },
+    {
+      "context_tokens": 131072,
+      "r38": 2003.0,
+      "karmic": 1645.0,
+      "change_pct": -17.87319021467798
+    }
+  ]
+}

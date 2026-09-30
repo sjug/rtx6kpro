@@ -1,0 +1,2464 @@
+2026-09-22T13:38:29-04:00
+MemFree:         8096932 kB
+MemAvailable:   11174476 kB
+Cached:          7567740 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:38:34-04:00
+MemFree:         8103424 kB
+MemAvailable:   11180968 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:38:39-04:00
+MemFree:         8108452 kB
+MemAvailable:   11186004 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:38:44-04:00
+MemFree:         8108200 kB
+MemAvailable:   11185752 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:38:49-04:00
+MemFree:         8108384 kB
+MemAvailable:   11185944 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:38:54-04:00
+MemFree:         8108220 kB
+MemAvailable:   11185780 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:38:59-04:00
+MemFree:         8108716 kB
+MemAvailable:   11186276 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:04-04:00
+MemFree:         8107960 kB
+MemAvailable:   11185520 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:09-04:00
+MemFree:         8107708 kB
+MemAvailable:   11185268 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:14-04:00
+MemFree:         8107960 kB
+MemAvailable:   11185520 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:19-04:00
+MemFree:         8108472 kB
+MemAvailable:   11186040 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:24-04:00
+MemFree:         8106456 kB
+MemAvailable:   11184024 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:29-04:00
+MemFree:         8108196 kB
+MemAvailable:   11185764 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:34-04:00
+MemFree:         8108124 kB
+MemAvailable:   11185692 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:39-04:00
+MemFree:         8108416 kB
+MemAvailable:   11185992 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:44-04:00
+MemFree:         8106904 kB
+MemAvailable:   11184480 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:49-04:00
+MemFree:         8106904 kB
+MemAvailable:   11184480 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:54-04:00
+MemFree:         8106904 kB
+MemAvailable:   11184480 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:39:59-04:00
+MemFree:         8107852 kB
+MemAvailable:   11185428 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:04-04:00
+MemFree:         8107544 kB
+MemAvailable:   11185120 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:09-04:00
+MemFree:         8106972 kB
+MemAvailable:   11184548 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:14-04:00
+MemFree:         8106720 kB
+MemAvailable:   11184296 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:19-04:00
+MemFree:         8107576 kB
+MemAvailable:   11185168 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:24-04:00
+MemFree:         8106880 kB
+MemAvailable:   11184472 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:29-04:00
+MemFree:         8107384 kB
+MemAvailable:   11184984 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:34-04:00
+MemFree:         8105796 kB
+MemAvailable:   11183396 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:39-04:00
+MemFree:         8105720 kB
+MemAvailable:   11183320 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:44-04:00
+MemFree:         8104712 kB
+MemAvailable:   11182312 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:49-04:00
+MemFree:         8104460 kB
+MemAvailable:   11182092 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:54-04:00
+MemFree:         8103764 kB
+MemAvailable:   11181396 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:40:59-04:00
+MemFree:         8102632 kB
+MemAvailable:   11180264 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:04-04:00
+MemFree:         8102572 kB
+MemAvailable:   11180204 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:09-04:00
+MemFree:         8102432 kB
+MemAvailable:   11180080 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:14-04:00
+MemFree:         8102260 kB
+MemAvailable:   11179908 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:19-04:00
+MemFree:         8101312 kB
+MemAvailable:   11178960 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:24-04:00
+MemFree:         8099488 kB
+MemAvailable:   11177136 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:29-04:00
+MemFree:         8099756 kB
+MemAvailable:   11177404 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:34-04:00
+MemFree:         8099668 kB
+MemAvailable:   11177316 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:39-04:00
+MemFree:         8100196 kB
+MemAvailable:   11177852 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:44-04:00
+MemFree:         8100060 kB
+MemAvailable:   11177716 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:49-04:00
+MemFree:         8100696 kB
+MemAvailable:   11178352 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:54-04:00
+MemFree:         8100564 kB
+MemAvailable:   11178220 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:41:59-04:00
+MemFree:         8100312 kB
+MemAvailable:   11177968 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:04-04:00
+MemFree:         8100564 kB
+MemAvailable:   11178220 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:09-04:00
+MemFree:         8100940 kB
+MemAvailable:   11178596 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:14-04:00
+MemFree:         8100720 kB
+MemAvailable:   11178376 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:19-04:00
+MemFree:         8100504 kB
+MemAvailable:   11178168 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:24-04:00
+MemFree:         8100092 kB
+MemAvailable:   11177756 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:29-04:00
+MemFree:         8100216 kB
+MemAvailable:   11177880 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:34-04:00
+MemFree:         8100464 kB
+MemAvailable:   11178128 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:39-04:00
+MemFree:         8100256 kB
+MemAvailable:   11177920 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:44-04:00
+MemFree:         8099752 kB
+MemAvailable:   11177416 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:49-04:00
+MemFree:         8099804 kB
+MemAvailable:   11177468 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:54-04:00
+MemFree:         8099080 kB
+MemAvailable:   11176752 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:42:59-04:00
+MemFree:         8100080 kB
+MemAvailable:   11177752 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:04-04:00
+MemFree:         8099440 kB
+MemAvailable:   11177112 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:09-04:00
+MemFree:         8100144 kB
+MemAvailable:   11177816 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:14-04:00
+MemFree:         8099264 kB
+MemAvailable:   11176936 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:19-04:00
+MemFree:         8098544 kB
+MemAvailable:   11176216 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:24-04:00
+MemFree:         8098952 kB
+MemAvailable:   11176624 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:29-04:00
+MemFree:         8098836 kB
+MemAvailable:   11176508 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:34-04:00
+MemFree:         8098660 kB
+MemAvailable:   11176332 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:39-04:00
+MemFree:         8098792 kB
+MemAvailable:   11176464 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:44-04:00
+MemFree:         8099552 kB
+MemAvailable:   11177224 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:49-04:00
+MemFree:         8099484 kB
+MemAvailable:   11177156 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:54-04:00
+MemFree:         8099760 kB
+MemAvailable:   11177432 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:43:59-04:00
+MemFree:         8100560 kB
+MemAvailable:   11178232 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:04-04:00
+MemFree:         8100288 kB
+MemAvailable:   11177968 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:09-04:00
+MemFree:         8100288 kB
+MemAvailable:   11177968 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:14-04:00
+MemFree:         8099028 kB
+MemAvailable:   11176708 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:19-04:00
+MemFree:         8099212 kB
+MemAvailable:   11176892 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:24-04:00
+MemFree:         8098636 kB
+MemAvailable:   11176316 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:29-04:00
+MemFree:         8098516 kB
+MemAvailable:   11176196 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:35-04:00
+MemFree:         8097980 kB
+MemAvailable:   11175660 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:40-04:00
+MemFree:         8098444 kB
+MemAvailable:   11176124 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:45-04:00
+MemFree:         8098016 kB
+MemAvailable:   11175704 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:50-04:00
+MemFree:         8098584 kB
+MemAvailable:   11176272 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:44:55-04:00
+MemFree:         8098284 kB
+MemAvailable:   11175972 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:00-04:00
+MemFree:         8096964 kB
+MemAvailable:   11174652 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:05-04:00
+MemFree:         8096520 kB
+MemAvailable:   11174216 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:10-04:00
+MemFree:         8096904 kB
+MemAvailable:   11174608 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:15-04:00
+MemFree:         8097036 kB
+MemAvailable:   11174740 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:20-04:00
+MemFree:         8096436 kB
+MemAvailable:   11174140 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:25-04:00
+MemFree:         8095704 kB
+MemAvailable:   11173416 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:30-04:00
+MemFree:         8095796 kB
+MemAvailable:   11173508 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:35-04:00
+MemFree:         8095824 kB
+MemAvailable:   11173536 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:40-04:00
+MemFree:         8095356 kB
+MemAvailable:   11173068 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:45-04:00
+MemFree:         8095044 kB
+MemAvailable:   11172756 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:50-04:00
+MemFree:         8095636 kB
+MemAvailable:   11173348 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:45:55-04:00
+MemFree:         8095940 kB
+MemAvailable:   11173652 kB
+Cached:          7567744 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:00-04:00
+MemFree:         8094840 kB
+MemAvailable:   11172552 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:05-04:00
+MemFree:         8095624 kB
+MemAvailable:   11173360 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:10-04:00
+MemFree:         8095596 kB
+MemAvailable:   11173332 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:15-04:00
+MemFree:         8095900 kB
+MemAvailable:   11173636 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:20-04:00
+MemFree:         8094604 kB
+MemAvailable:   11172348 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:25-04:00
+MemFree:         8094204 kB
+MemAvailable:   11171948 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:30-04:00
+MemFree:         8094152 kB
+MemAvailable:   11171904 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:35-04:00
+MemFree:         8094228 kB
+MemAvailable:   11171988 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:40-04:00
+MemFree:         8093360 kB
+MemAvailable:   11171120 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:45-04:00
+MemFree:         8092544 kB
+MemAvailable:   11170304 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:50-04:00
+MemFree:         8091344 kB
+MemAvailable:   11169104 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:46:55-04:00
+MemFree:         8091032 kB
+MemAvailable:   11168792 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:00-04:00
+MemFree:         8091080 kB
+MemAvailable:   11168840 kB
+Cached:          7567752 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:05-04:00
+MemFree:         8074208 kB
+MemAvailable:   11152068 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:10-04:00
+MemFree:         8083988 kB
+MemAvailable:   11161864 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:15-04:00
+MemFree:         8086300 kB
+MemAvailable:   11164176 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:20-04:00
+MemFree:         8086016 kB
+MemAvailable:   11163904 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:25-04:00
+MemFree:         8085388 kB
+MemAvailable:   11163276 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:30-04:00
+MemFree:         8085100 kB
+MemAvailable:   11162996 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:35-04:00
+MemFree:         8084820 kB
+MemAvailable:   11162716 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:40-04:00
+MemFree:         8084620 kB
+MemAvailable:   11162516 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:45-04:00
+MemFree:         8084228 kB
+MemAvailable:   11162132 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:50-04:00
+MemFree:         8085056 kB
+MemAvailable:   11162968 kB
+Cached:          7567864 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:47:55-04:00
+MemFree:         8085756 kB
+MemAvailable:   11165220 kB
+Cached:          7569412 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:00-04:00
+MemFree:         8085644 kB
+MemAvailable:   11165116 kB
+Cached:          7569412 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:05-04:00
+MemFree:         8085148 kB
+MemAvailable:   11164620 kB
+Cached:          7569412 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:10-04:00
+MemFree:         8085796 kB
+MemAvailable:   11165276 kB
+Cached:          7569412 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:15-04:00
+MemFree:         8086048 kB
+MemAvailable:   11165528 kB
+Cached:          7569412 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:20-04:00
+MemFree:         8078928 kB
+MemAvailable:   11158504 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:25-04:00
+MemFree:         8082144 kB
+MemAvailable:   11161720 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:30-04:00
+MemFree:         8091828 kB
+MemAvailable:   11171428 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:35-04:00
+MemFree:         8091540 kB
+MemAvailable:   11171140 kB
+Cached:          7569512 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:40-04:00
+MemFree:         8091700 kB
+MemAvailable:   11171308 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:45-04:00
+MemFree:         8092816 kB
+MemAvailable:   11172424 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:50-04:00
+MemFree:         8092040 kB
+MemAvailable:   11171648 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:48:55-04:00
+MemFree:         8091812 kB
+MemAvailable:   11171420 kB
+Cached:          7569520 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:00-04:00
+MemFree:         7745668 kB
+MemAvailable:   10825372 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:05-04:00
+MemFree:         7801536 kB
+MemAvailable:   10881240 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:10-04:00
+MemFree:         7850656 kB
+MemAvailable:   10930368 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:15-04:00
+MemFree:         7876792 kB
+MemAvailable:   10956504 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:20-04:00
+MemFree:         7909868 kB
+MemAvailable:   10989580 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:25-04:00
+MemFree:         7938844 kB
+MemAvailable:   11018556 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:30-04:00
+MemFree:         7975256 kB
+MemAvailable:   11054968 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:35-04:00
+MemFree:         8004100 kB
+MemAvailable:   11083812 kB
+Cached:          7569580 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:40-04:00
+MemFree:         8029192 kB
+MemAvailable:   11109016 kB
+Cached:          7569692 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:45-04:00
+MemFree:         8051860 kB
+MemAvailable:   11131684 kB
+Cached:          7569692 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:50-04:00
+MemFree:         8065380 kB
+MemAvailable:   11145204 kB
+Cached:          7569692 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:49:55-04:00
+MemFree:         8071012 kB
+MemAvailable:   11150848 kB
+Cached:          7569692 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:00-04:00
+MemFree:         8078044 kB
+MemAvailable:   11157880 kB
+Cached:          7569692 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:05-04:00
+MemFree:         8082868 kB
+MemAvailable:   11162704 kB
+Cached:          7569692 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:10-04:00
+MemFree:         8085672 kB
+MemAvailable:   11165508 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:15-04:00
+MemFree:         8086264 kB
+MemAvailable:   11166104 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:20-04:00
+MemFree:         8086032 kB
+MemAvailable:   11165888 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:25-04:00
+MemFree:         8086472 kB
+MemAvailable:   11166328 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:30-04:00
+MemFree:         8086416 kB
+MemAvailable:   11166272 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:35-04:00
+MemFree:         8086404 kB
+MemAvailable:   11166260 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:40-04:00
+MemFree:         8086512 kB
+MemAvailable:   11166368 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:45-04:00
+MemFree:         8086588 kB
+MemAvailable:   11166452 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:50-04:00
+MemFree:         8086436 kB
+MemAvailable:   11166300 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:50:55-04:00
+MemFree:         8064008 kB
+MemAvailable:   11143872 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:51:00-04:00
+MemFree:         8063908 kB
+MemAvailable:   11143780 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:51:05-04:00
+MemFree:         8062004 kB
+MemAvailable:   11141876 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:51:10-04:00
+MemFree:         8037644 kB
+MemAvailable:   11117516 kB
+Cached:          7569696 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
+2026-09-22T13:51:15-04:00
+MemFree:         8069140 kB
+MemAvailable:   11149348 kB
+Cached:          7570020 kB
+SwapCached:          168 kB
+SwapFree:       16776708 kB
+pswpin 38
+pswpout 239
+allocstall_dma 0
+allocstall_dma32 0
+allocstall_normal 601
+allocstall_movable 5672
+allocstall_device 0
+pgscan_direct 408185
+pgscan_direct_throttle 0
+compact_stall 1354
