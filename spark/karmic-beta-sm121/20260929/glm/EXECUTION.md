@@ -223,3 +223,46 @@ worker first (logs archived as `~/logs/glm53-flash-nvfp4-karmic-beta-20260929-tp
 12:04. On all four ranks: image `500ae05b`, no `--profiler-config`, Max/top_p 0.95 defaults, `LL,Simple`. The first
 completion was correct. Lesson: diagnostic flags come off production at the end of the same window, never at "the next
 planned restart".
+
+## QAD checkpoint 175ae8ce (2026-09-30, user-approved)
+
+The publisher replaced HF `main` with a quantization-aware distilled checkpoint on 2026-09-16 (`175ae8ce`; 40 of 47
+weight shards differ; `generation_config.json` now carries temperature 1.0 and top_p 0.95). The user downloaded it on
+sparky. It was pushed to buddy, rocky and lucky over 10.11.11.x (190 GB, 13:17 to 13:23, one rsync per peer, existing
+files kept). On every node the snapshot matches sparky name for name and size for size, and it passes the runner's
+model checks (index total 198042331512, 44 shards, `Glm5NextForConditionalGeneration`, 1,048,576). The
+`run-glm-tp4-node.sh` default `MODEL_REVISION` is now `175ae8ce`. `execute-glm-qad.sh` stopped the old-weights boot
+worker first and kept it as `...-tp4-46aaae8a-20260930`. It then booted the new weights with the plain production
+runner (no diagnostic flags; every rank checked for `MODEL_REVISION` and no profiler) and ran `qualify-glm.sh`.
+Campaign: `runs/glm-5.3-flash/nvfp4/2026-09-qad-175ae8ce-qualification/`. Receipts: `../qualification/glm-qad-175ae8ce/`.
+
+Correctness, all passed on the new weights:
+- Ready at 13:32:57. Short pool 7/7. Semantic x3 including the exact tool format, so no diagnostic was needed.
+  Concurrency passed.
+- Prefix matrix: long 43.9 / 49.6 s and 43.8 / 48.6 s (old weights 43.2 / 49.3 and 42.9 / 47.9).
+- Long triple: 262K cold 90.8 s; 1M extension 384.8 s (old 89.8 and 380.5). The 262K first stage now fills its
+  16-token budget (`length`) where the old weights stopped after 6 tokens, so the budget arm now exercises truncation.
+- Native-context needles 2048, 2049, 262000 and 1048000 exact.
+
+The first driver was stopped by the tool's background time limit 12 minutes into the grid, before results were saved.
+Its partial log is `benchmark-killed-at-time-limit.log`. The grid was rerun detached with `qualify-glm.sh --from-native`,
+after moving the passing first native receipt to `native-context-glm-first-run.jsonl`. Native passed again. The grid ran
+14:00 to 14:13 with 15 valid cells (`75f9475f...`), and the post-grid completion and final container checks passed.
+
+Against the old weights on the same image, defaults and slots (the 2026-09-30 10:11 beta matched grid, `acd2ad53...`),
+compared in `old-vs-qad.json` with the unchanged compare logic minus its identity keys (the checkpoint is the variable;
+checkpoint policy verified aligned on all ranks from container receipts):
+
+| New vs old weights | c1 | c2 | c4 |
+| --- | ---: | ---: | ---: |
+| Output tok/s | -0.6% (54.23 to 53.89) | +0.4% (82.51 to 82.81) | +0.5% (127.36 to 128.03) |
+| Engine steps/s | +0.4% | -0.2% | +0.1% |
+| Effective acceptance | -1.1% | +0.5% | +0.5% |
+
+Prefill scouts 8K to 128K: +2.2, +1.3, +2.2, +1.2 and +1.4 percent, within the observed boot-to-boot range.
+
+Reading: the QAD checkpoint serves at performance parity with the previous weights. Health: no Xid or OOM;
+`NV_ERR_NO_MEMORY` warnings only during the 13:32 boot. MemAvailable 5.8 / 6.4 / 6.4 / 8.9 GB. GLM is serving `175ae8ce`.
+Rollback to the old weights: `podman start` the retained `-46aaae8a-20260930` containers, workers then sparky, after
+stopping the current boot. This window measured correctness and speed only; it measured no quality improvement from
+the distillation.

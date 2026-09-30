@@ -91,9 +91,9 @@ PY
 echo '5c79b9760a2381b4b5233f5bbc8f1f279841b46f596dc718a127eaa8eea3e4f2  /home/jugs/git/llm-inference-bench/run_bench.sh' | sha256sum -c -
 echo '2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3  /home/jugs/git/llm-inference-bench/llm_decode_bench.py' | sha256sum -c -
 HOST=$base MODEL=$model MODEL_FAMILY=glm-5.3-flash MODEL_VARIANT=nvfp4 \
-  CAMPAIGN=2026-09-karmic-beta-sm121-qualification VARIANT=${GLM_GRID_VARIANT:-karmic-beta-20260929-aligned-sm121-tp4-dcp1-mtp3-nvfp4head-seq4-native1m} CONCURRENCY=1,2,4 \
+  CAMPAIGN=${GLM_CAMPAIGN:-2026-09-karmic-beta-sm121-qualification} VARIANT=${GLM_GRID_VARIANT:-karmic-beta-20260929-aligned-sm121-tp4-dcp1-mtp3-nvfp4head-seq4-native1m} CONCURRENCY=1,2,4 \
   /home/jugs/git/llm-inference-bench/run_bench.sh --duration 30 --max-total-tokens 6412288 --display-mode plain --calibration-cache "$out/token-calibration.json" \
-  --metadata image_id="$image" --metadata checkpoint_revision=46aaae8a82032f77100f2f03e9cc11b391df3b4d \
+  --metadata image_id="$image" --metadata checkpoint_revision=${GLM_CHECKPOINT_REVISION:-46aaae8a82032f77100f2f03e9cc11b391df3b4d} \
   --metadata recurrent_checkpoint_policy=aligned \
   --metadata harness_sha256=2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3 < <(printf 'n\n') | tee "$out/benchmark.log"
 completion > "$out/post-benchmark-completion.json"
@@ -101,9 +101,11 @@ valid_completion "$out/post-benchmark-completion.json"
 raw=$(sed -n 's/^Results saved to: //p' "$out/benchmark.log" | tail -n 1)
 [[ -f $raw ]] || { echo 'Missing raw benchmark receipt'; exit 1; }
 python3 "$repo/spark/glm53/r38-spark/qualification/validate-grid.py" "$raw" > "$out/grid-validation.json"
+if [[ ${GLM_SKIP_R38_COMPARE:-0} != 1 ]]; then  # a checkpoint change is compared separately
 baseline=$repo/../llm-inference-bench/results/runs/glm-5.3-flash/nvfp4/2026-09-jj-r38-vs-r32/throughput/20260915T155309-0400__jj-r38-aligned-sm121-tp4-dcp1-mtp3-native1m__r04.json
 echo "87545df132270c92a899675bb4c7159d40e75a35aa40c72a23381d3f95b072d5  $baseline" | sha256sum -c -
 python3 "$repo/spark/karmic-beta-sm121/compare-grids.py" "$baseline" "$raw" > "$out/r38-vs-karmic-beta.json"
+fi
 for node in "${nodes[@]}"; do
   ssh -n -o BatchMode=yes "$node" "podman inspect '$name'" > "$out/$node-final-container.json"
   jq -e '.[0].State | .Running and (.OOMKilled|not)' "$out/$node-final-container.json"

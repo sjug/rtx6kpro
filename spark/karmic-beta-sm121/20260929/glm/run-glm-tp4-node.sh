@@ -24,7 +24,8 @@ GLM_LAUNCHER_FILE=${GLM_LAUNCHER_FILE:-}
 GLM_CHAT_TEMPLATE=${GLM_CHAT_TEMPLATE:-${runner_dir}/templates/glm53-flash.jinja}
 
 MODEL_REPO_DIR=${MODEL_REPO_DIR:-models--local-inference-lab--GLM-5.3-Flash-NVFP4}
-MODEL_REVISION=${MODEL_REVISION:-46aaae8a82032f77100f2f03e9cc11b391df3b4d}
+# 2026-09-30: QAD-distilled checkpoint (HF main 175ae8ce, Sep 16); the previous served revision was 46aaae8a.
+MODEL_REVISION=${MODEL_REVISION:-175ae8ce3b5af842b0d0140dbeb43e9cfc557c49}
 MODEL=${MODEL:-/root/.cache/huggingface/hub/${MODEL_REPO_DIR}/snapshots/${MODEL_REVISION}}
 SERVED_MODEL_NAME=${SERVED_MODEL_NAME:-GLM-5.3-Flash}
 EXPECTED_MODEL_BYTES=${EXPECTED_MODEL_BYTES:-198042331512}

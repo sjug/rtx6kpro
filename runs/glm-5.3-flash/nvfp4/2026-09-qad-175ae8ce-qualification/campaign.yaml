@@ -1,0 +1,33 @@
+campaign: 2026-09-qad-175ae8ce-qualification
+status: qualified_serving_pending_user
+model: GLM-5.3-Flash
+checkpoint: local-inference-lab/GLM-5.3-Flash-NVFP4
+revision: 175ae8ce3b5af842b0d0140dbeb43e9cfc557c49
+previous_revision: 46aaae8a82032f77100f2f03e9cc11b391df3b4d
+hosts: [sparky, buddy, rocky, lucky]
+candidate_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+kit: spark/karmic-beta-sm121/20260929/glm
+baseline: >-
+  Same image and launch profile on the previous checkpoint: 2026-09-karmic-beta-sm121-qualification
+  grid 20260930T101129-0400__beta-matched-defaults-max-topp095-seq4-tp4-mtp3__r01.json (sha256 acd2ad53...).
+contract:
+  tensor_parallel_size: 4
+  decode_context_parallel_size: 1
+  max_model_len: 1048576
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative: mtp 3, probabilistic draft, standard rejection, marlin draft MoE
+  mtp_draft_head: nvfp4
+  recurrent_checkpoint_policy: aligned
+  transport: RoCEnante plus PyNCCL, NCCL_PROTO=LL,Simple, both NCCL rails
+  chat_defaults: reasoning_effort max, clear_thinking false, temperature 1.0, top_p 0.95
+notes: >-
+  Weight change only: the publisher's quantization-aware distilled checkpoint (HF main since
+  2026-09-16; 40 of 47 weight shards differ). Distributed from sparky to buddy/rocky/lucky over
+  10.11.11.x on 2026-09-30 and verified on all four. Tool gate: user rate rule (format-only miss
+  triggers the 100-trial fixed-input diagnostic against the 85/100 baseline).
+  Result 2026-09-30: all correctness gates passed (semantic x3 exact tools, prefix matrix, long triples, native
+  needles to 1048000). Grid 15 valid cells; vs the previous weights on the same image and defaults: output
+  -0.6/+0.4/+0.5 percent, steps +0.4/-0.2/+0.1 percent, acceptance -1.1/+0.5/+0.5 percent, prefill +1.2 to +2.2 percent.
+  Serving 175ae8ce; previous-weights containers retained as -46aaae8a-20260930.
