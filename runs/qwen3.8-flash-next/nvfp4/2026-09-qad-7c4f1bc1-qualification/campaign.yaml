@@ -1,0 +1,29 @@
+campaign: 2026-09-qad-7c4f1bc1-qualification
+status: serving_smoke_passed_qualification_pending
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4
+revision: 7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd
+previous_revision: c374e7e24b54f6cb0017d0c2e6d26823d2f2fb5d
+hosts: [dusty, kirby]
+candidate_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+kit: spark/karmic-beta-sm121/20260929
+baseline: runs/qwen3.8-flash-next/nvfp4-4p89/2026-09-karmic-beta-sm121-qualification
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  hc_tp: 0
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+notes: >-
+  QAD checkpoint update from the user download on dusty, distributed to kirby over
+  their direct DAC (10.11.1.1 to 10.11.1.2). Config model_type is qwen4_exp;
+  the client-facing alias remains Qwen3.8-Flash-Next. Receipts are isolated under
+  qualification/qad-7c4f1bc1 so prior checkpoint results cannot satisfy new gates.
+  Started worker first, then head on 2026-09-30 at about 20:07 UTC. API ready
+  20:10 UTC; health, model listing and arithmetic completion passed. Full
+  correctness qualification and benchmark grids have not run for these weights.

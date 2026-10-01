@@ -1,0 +1,15 @@
+*
+!Dockerfile
+!install.py
+!build.lock.json
+!runtime.lock.json
+!refresh.tar
+!upgrade_dependencies.py
+!verify_compiler.py
+!build_flashinfer.py
+!verify_flashinfer_component.py
+!unpack_sources.py
+!inputs.lock.json
+!compiler-arm64.lock
+!inputs
+!inputs/**

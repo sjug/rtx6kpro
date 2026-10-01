@@ -6,7 +6,9 @@ qualification=${QUALIFICATION_ROOT:-$base/qualification/qad-7c4f1bc1}
 qualified="$qualification/mtp3"
 out=${BENCHMARK_OUTPUT:-$qualified}
 image=${EXPECTED_IMAGE_ID:?built image required}
-name=qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2
+baseline=${BASELINE_GRID:?matched production QAD grid required; use capture-baseline.sh first}
+python3 "$base/compare-production.py" --model qwen --validate-baseline "$baseline"
+name=qwen38-flash-next-nvfp4-karmic-beta-20261001-tp2
 [[ -f $qualified/CORRECTNESS-OK && -f $qualified/counting/COUNTING-OK && -f $qualified/REPLAY-HEALTH-REVIEW-OK && ! -e $out/benchmark.log ]] || exit 78
 mkdir -p "$out"
 for node in dusty kirby; do
@@ -46,10 +48,13 @@ echo "2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3  $bench/l
 export RESULTS_REPO="$repo" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 export HOST=http://dusty:8000 MODEL=Qwen3.8-Flash-Next CONCURRENCY=${CONCURRENCY:-1,2,4}
 export MODEL_FAMILY=qwen3.8-flash-next MODEL_VARIANT=nvfp4
-export CAMPAIGN=2026-09-qad-7c4f1bc1-qualification VARIANT=karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3 REPETITION=${REPETITION:-1}
+export CAMPAIGN=2026-10-karmic-beta-sm121-qualification VARIANT=karmic-beta-20261001-qad-7c4f1bc1-hc-off-mtp3 REPETITION=${REPETITION:-1}
 printf 'n\n' | "$bench/run_bench.sh" --duration 30 --contexts "${CONTEXTS:-0,16k,32k,64k,128k}" \
   --display-mode plain --calibration-cache "$qualified/token-calibration.json" \
   --metadata "image_id=$image" --metadata checkpoint_revision=7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd \
-  --metadata recurrent_checkpoint_policy=aligned --metadata hc_tp=0 --metadata vllm_commit=99cbe782f3b67a7758a85bcc0e7938a1ec27012a --metadata b12x_commit=1b6cd278626aa6b44c519b5d9f4ad576c9af783b \
+  --metadata recurrent_checkpoint_policy=aligned --metadata hc_tp=0 --metadata vllm_commit=980d84efb8c36894374d8333c4c0b7f92d0fb825 --metadata b12x_commit=914921dad15d71ffc68ea329c344b71bf1ae7fa7 \
   --metadata run_bench_sha256=5c79b9760a2381b4b5233f5bbc8f1f279841b46f596dc718a127eaa8eea3e4f2 \
   --metadata llm_decode_bench_sha256=2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3
+
+raw=$(sed -n 's/^Results saved to: //p' "$out/benchmark.log" | tail -n 1)
+python3 "$base/compare-production.py" --model qwen "$baseline" "$raw" > "$out/production-vs-candidate.json"

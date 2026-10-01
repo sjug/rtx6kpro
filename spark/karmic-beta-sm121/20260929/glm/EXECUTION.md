@@ -160,10 +160,12 @@ eight container receipts (all aligned), and the unchanged `compare-grids.py` log
 
 Prefill scouts 8K to 128K: -4.1, -3.0, -1.9, -0.9, +0.5 percent (shorter contexts slightly lower).
 
-Reading: with matched request defaults and slots, beta decodes faster than R38 at every concurrency, and prefill is at
-parity from 32K up. The steps gain matches the September 24 bisect's NVFP4-head steps advantage (4.2 to 4.9 percent);
-that is consistent with it, not an attribution. So the 2026-09-29 "regression" came from comparing different request
-defaults. This is one boot per arm.
+Reading: in this matched run, beta decoded faster than R38 at every concurrency; prefill was slightly lower at
+8K to 64K and slightly higher at 128K. The steps gain is consistent with the September 24 bisect's NVFP4-head
+advantage (4.2 to 4.9 percent), but this comparison does not isolate that cause. Request defaults and slots were
+matched; the images, draft-head precision and other runtime components still differed. This is one boot per arm,
+not evidence of a repeatable gain or proof that request defaults alone caused the September 29 regression.
+Repeated matched runs and a focused draft-head control would be needed for those claims.
 
 Health: no Xid or OOM. `NV_ERR_NO_MEMORY` warnings fell almost entirely inside the two boots (09:49 to 09:50 and 10:10 to
 10:11). One on sparky at 09:54 fell between the tool diagnostic and the R38 grid. Containers: beta running, not OOM

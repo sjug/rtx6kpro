@@ -77,3 +77,50 @@ wording qualifications are applied above.
 Correctness, counting, replay and both grids passed; performance at parity. **Promoted to
 production by the user on 2026-09-29**: the beta image is the production Qwen image on dusty/kirby. The a25bedd4 containers are stopped and
 retained for rollback (`podman start`, kirby worker first, then dusty head). DS4 Vision (2026-09-29) and GLM (2026-09-30) were later qualified and promoted on this image; see ds4-vision/QUALIFICATION.md and glm/EXECUTION.md. DS4.1 has not been qualified.
+
+## QAD checkpoint preparation, September 30
+
+At the user's request, Qwen was stopped worker first, then head, for the model
+and harness update. Both old containers are retained as
+`qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2-c374e7e2-20260930`.
+They remain stopped; the results above describe the previous checkpoint.
+
+The user downloaded `local-inference-lab/Qwen3.8-Flash-Next-NVFP4` revision
+`7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd` on dusty. Its metadata and referenced
+shared Hugging Face cache blobs were transferred to kirby over the direct DAC,
+`10.11.1.1` to `10.11.1.2`, without deleting existing files. The blob transfer
+completed successfully (105,885,596,990 bytes transferred). Both nodes have 36
+weight shards totaling 105,839,492,200 file bytes; index tensor bytes are
+105,798,973,864. All shard lengths agree with their safetensors headers, all
+snapshot links resolve, and both nodes' index, config and header hashes match.
+This was metadata/header/size verification plus rsync's transfer checks, not an
+independent full-weight hash pass or runtime qualification.
+
+The runner now pins the renamed repository and new revision, checks the new
+`qwen4_exp` / `Qwen4ExpForConditionalGeneration` config, and retains the
+client-facing alias `Qwen3.8-Flash-Next`. The runner staged on both nodes matches
+the workstation copy (SHA256
+`52eba183ac522d53bdbe36fd9095ad312eb2bf70defe279c11f6803364e54224`).
+
+The execution and benchmark wrappers use fresh `qualification/qad-7c4f1bc1/`
+receipts and the new `nvfp4/2026-09-qad-7c4f1bc1-qualification` campaign; the
+benchmark checks the live checkpoint revision before measuring. Historical
+`nvfp4-4p89` results remain unchanged. Shell syntax, shellcheck, head/worker dry
+runs and the runner's model checks passed. No new containers were started and
+no benchmarks were run during this preparation.
+
+### QAD startup, September 30 20:10 UTC
+
+The user directed startup after preparation. Kirby worker started first, then
+dusty head, using the staged runner and image `500ae05b`. Both containers carry
+revision `7c4f1bc1`, HC-off, MTP3 and `NCCL_PROTO=LL,Simple`. Weight loading and
+B12X preparation completed; the API became ready at 20:10 UTC (16:10 EDT).
+`/health` returned 200; `/v1/models` reported `Qwen3.8-Flash-Next` and 262,144
+context. A temperature-zero, thinking-disabled chat completion returned exactly
+`391` for 17 multiplied by 23. Both containers are running with no OOM kill or
+restarts. This is a startup smoke result, not the full correctness battery or a
+new benchmark grid. The preparation section's stopped state is superseded.
+
+Kirby logged `NV_ERR_NO_MEMORY` allocation warnings during startup at 20:10:00
+to 20:10:03 UTC, before API readiness, matching the previously documented class
+of startup warnings. No container OOM kill or restart occurred.

@@ -5,8 +5,8 @@ base=$(cd "$(dirname "$0")" && pwd)
 repo=$(cd "$base/../../.." && pwd)
 hcbase="$repo/spark/karmic-main-sm121/20260922/qsa865-hcbase"
 image=${EXPECTED_IMAGE_ID:?built image ID required}
-remote=/home/jugs/git/bld-jj-r38-spark/karmic-beta-sm121/20260929
-name=qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2
+remote=/home/jugs/git/bld-jj-r38-spark/karmic-beta-sm121/20261001
+name=qwen38-flash-next-nvfp4-karmic-beta-20261001-tp2
 qualification=${QUALIFICATION_ROOT:-$base/qualification/qad-7c4f1bc1}
 out="$qualification/mtp3"
 window="$qualification/window"
@@ -14,7 +14,7 @@ window="$qualification/window"
 for node in dusty kirby; do
   running=$(ssh -n -o BatchMode=yes -o ConnectTimeout=10 "$node" 'podman ps -q') || exit 78
   [[ -z $running ]] || { echo "$node is busy"; exit 78; }
-  actual=$(ssh -n "$node" 'podman image inspect localhost/voipmonitor/vllm:karmic-beta-20260929-spark-sm121 --format "{{.Id}}"')
+  actual=$(ssh -n "$node" 'podman image inspect localhost/voipmonitor/vllm:karmic-beta-20261001-spark-sm121 --format "{{.Id}}"')
   [[ ${actual#sha256:} == "$image" ]] || exit 78
   staged=$(ssh -n "$node" "sha256sum '$remote/run-qwen.sh'" | cut -d' ' -f1)
   [[ $staged == "$(sha256sum "$base/run-qwen.sh" | cut -d' ' -f1)" ]] || { echo "$node runner drift"; exit 78; }
@@ -34,7 +34,7 @@ finish() {
   done
   printf 'exit_status=%s\n' "$result" > "$window/status.txt"
   if (( result != 0 )); then
-    echo 'QUALIFICATION STOPPED: preserve candidate logs, inspect pair, restore the retained hcbase Qwen containers (kirby worker, then dusty head) if unsafe. No benchmark or promotion.'
+    echo 'QUALIFICATION STOPPED: preserve candidate logs, inspect pair, restore the retained karmic-beta-20260929 Qwen containers (kirby worker, then dusty head) if unsafe. No benchmark or promotion.'
   fi
   exit "$result"
 }

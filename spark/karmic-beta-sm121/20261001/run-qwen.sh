@@ -7,9 +7,9 @@ case ${DRY_RUN:-0} in 0|1) ;; *) echo 'DRY_RUN must be 0 or 1' >&2; exit 2;; esa
 
 ROLE=${ROLE:?set ROLE=head|worker}
 [[ $ROLE != stop ]] || { echo "Stop gracefully and retain containers" >&2; exit 78; }
-IMAGE=${IMAGE:-localhost/voipmonitor/vllm:karmic-beta-20260929-spark-sm121}
+IMAGE=${IMAGE:-localhost/voipmonitor/vllm:karmic-beta-20261001-spark-sm121}
 EXPECTED_IMAGE_ID=${EXPECTED_IMAGE_ID:-}
-NAME=${NAME:-qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2}
+NAME=${NAME:-qwen38-flash-next-nvfp4-karmic-beta-20261001-tp2}
 PORT=${PORT:-8000}
 
 MODEL_REPO_DIR=${MODEL_REPO_DIR:-models--local-inference-lab--Qwen3.8-Flash-Next-NVFP4}
@@ -182,10 +182,12 @@ actual_image_id=$(podman image inspect "${IMAGE}" --format '{{.Id}}')
 [[ "${actual_image_id#sha256:}" == "${EXPECTED_IMAGE_ID}" ]] || { echo 'Image ID mismatch' >&2; exit 78; }
 labels=$(podman image inspect "${IMAGE}" --format '{{json .Config.Labels}}')
 jq -e '
-  ."vllm.source-tree" == "5a01c2d4f2822b2e2b39c0422b555f8aa59c9bb8" and
-  ."vllm.source-commit" == "99cbe782f3b67a7758a85bcc0e7938a1ec27012a" and
-  ."b12x.source-tree" == "641d413e96d96bf673b34d573c0e27d6acb3a9ca" and
-  ."b12x.source-commit" == "1b6cd278626aa6b44c519b5d9f4ad576c9af783b" and
+  ."vllm.source-tree" == "f9af0c3482812649f9591d802500309623383594" and
+  ."vllm.source-commit" == "980d84efb8c36894374d8333c4c0b7f92d0fb825" and
+  ."b12x.source-tree" == "1cfde5254dbe7613f5a549619e72c3172cbd861e" and
+  ."b12x.source-commit" == "914921dad15d71ffc68ea329c344b71bf1ae7fa7" and
+  ."local-inference.cutlass-dsl.version" == "4.7.1" and
+  ."local-inference.flashinfer.commit" == "dbd6238c6655b98195fdf77f04bba6facf5a38a4" and
   ."lmcache.default" == "disabled" and
   ."local-inference.qwen.launcher.sha256" == "5551db04b4411d7c177466f956ef057ca10427316dba4a426cab41cdf56696fe"
 ' <<<"${labels}" >/dev/null || { echo 'Karmic provenance mismatch' >&2; exit 78; }
