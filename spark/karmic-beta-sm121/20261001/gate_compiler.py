@@ -13,7 +13,8 @@ ROOT = Path('/opt/jovian-judgement/b12x')
 def cases():
     corpus = ROOT / 'validation/cutlass_migration/corpus.txt'
     return [line.strip() for line in corpus.read_text().splitlines() if line.strip()] + [
-        'tests/moe/test_mxfp8_w8a8.py']
+        'tests/moe/test_mxfp8_w8a8.py',
+        'tests/sequence/test_ple_embedding.py']  # caller-owned mapped-host storage (#454)
 
 
 def child(mode, expected=0):

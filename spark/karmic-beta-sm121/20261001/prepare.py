@@ -28,14 +28,14 @@ previous = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(previous)
 
 BASE = '1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc'
-VLLM = '980d84efb8c36894374d8333c4c0b7f92d0fb825'
-B12X = '914921dad15d71ffc68ea329c344b71bf1ae7fa7'
-PUBLICATION = 'karmic-kraken-beta-20261001-7e6bf494ee15c5c3'
-PUBLISHED_IMAGE = 'ghcr.io/local-inference-lab/vllm@sha256:0283bc84008d37853f7ccc2e16ec2ad299008fa6ce052a5a1c65c7fdd5255ee3'
+VLLM = '4a379ed42881ee022aaf5d9ada554f9096e5acf3'
+B12X = 'b557d87850cc836268fd327ccd46eaa6a033cdbf'
+PUBLICATION = 'karmic-kraken-beta-20261001-020df706a373de8d'
+PUBLISHED_IMAGE = 'ghcr.io/local-inference-lab/vllm@sha256:b163546994ee4635feb020e5beb644987b852f80bfb96d410e03c430df4cb669'
 # Foundation provenance copied from the base lock; kept apart from the beta publication.
 INHERITED = ('base_build_lock_sha256', 'native_inputs_sha256', 'native_metadata', 'published_image',
              'recipe_commit', 'lmcache_refresh')
-RECIPE = '20e617110c509b8c97879d2e7c09f20057d83fc8'
+RECIPE = '6c0e9843bb962f483409b0296b225cca03fe8567'
 NATIVE = ('csrc', 'cmake', 'rust', 'requirements', 'CMakeLists.txt', 'setup.py',
           'pyproject.toml', '.gitmodules', 'rust-toolchain.toml', 'build_rust.sh', 'MANIFEST.in')
 # Opt-in Rust frontend (VLLM_USE_RUST_FRONTEND=1) only; the compiled extension is not rebuilt.

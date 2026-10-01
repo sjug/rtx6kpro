@@ -87,3 +87,44 @@ guidance points to the September 29 beta containers. Image transfer/load allows
 continued serving; the build/launch idle checks are unchanged. Inspection of the
 verified dbd6238c archive confirms FLASHINFER_DISABLE_JIT is read in
 flashinfer/jit/core.py, contrary to that specific review assertion.
+
+
+### Afternoon refresh, 2026-10-01T17:08Z
+
+Refreshed all 22 configured remotes across the eleven existing checkouts with
+`git fetch <remote> --no-prune`; all succeeded and every checkout's HEAD and
+working-file status remained unchanged. No repository, remote or worktree was
+created. The current beta branch tips match a newer published beta:
+
+- Published at **2026-10-01T15:29:57Z**, after the earlier 12:24:06Z publication.
+- Image: `ghcr.io/local-inference-lab/vllm:karmic-kraken-beta-20261001-020df706a373de8d`.
+- Digest from the primary release receipt: `ghcr.io/local-inference-lab/vllm@sha256:b163546994ee4635feb020e5beb644987b852f80bfb96d410e03c430df4cb669` (no registry pull).
+- Recipe: `6c0e9843bb962f483409b0296b225cca03fe8567`.
+
+| Source | Earlier kit pin | Refreshed publication pin |
+| --- | --- | --- |
+| vLLM | `980d84efb8c36894374d8333c4c0b7f92d0fb825` | `4a379ed42881ee022aaf5d9ada554f9096e5acf3` |
+| B12X | `914921dad15d71ffc68ea329c344b71bf1ae7fa7` | `b557d87850cc836268fd327ccd46eaa6a033cdbf` |
+| Recipe | `20e617110c509b8c97879d2e7c09f20057d83fc8` | `6c0e9843bb962f483409b0296b225cca03fe8567` |
+
+The new publication adds vLLM #961 shared mapped-host Qwen PLE tables, B12X #454
+caller-provided mapped-host PLE allocation, recipe #117 opt-in TP1 replicas behind
+a conversation-affinity endpoint, and recipe #118 B12X selection for supported
+MXFP8 MTP experts. Shared PLE and replicas are opt-in; the existing one-process-
+per-host TP2 Spark profile would not obtain same-host table-sharing savings.
+The MXFP8 selection is conditional on the drafter export layout. These changes
+have no new Spark performance qualification in this check.
+
+FlashInfer, LMCache, InstantTensor and NCCL publication source pins are unchanged.
+B12X still pins all five CUTLASS DSL distributions to 4.7.1. SGLang's unrelated
+origin/main moved from `41cbe65de05b209f3263942389267f79bd749d6a` to
+`f03a183719c9e7fb2bd528ed5c7e3b627d9df92d`; other canonical refs listed in the
+morning table remain unchanged apart from the three Karmic sources above.
+
+The committed October 1 build kit still targets the earlier publication. It was
+not retargeted or built during this refresh. Using the latest publication requires
+refreshing its source/recipe locks and checking the new runtime delta first.
+
+Primary evidence: [new beta release](https://github.com/local-inference-lab/blackwell-llm-docker/releases/tag/karmic-kraken-beta-020df706a373de8da51b361c100c0a2d0a78d56a3a0b326fdcc06620e9e5ef85),
+[container receipt](https://github.com/local-inference-lab/blackwell-llm-docker/releases/download/karmic-kraken-beta-020df706a373de8da51b361c100c0a2d0a78d56a3a0b326fdcc06620e9e5ef85/container-release.json),
+[release changelog](https://github.com/local-inference-lab/blackwell-llm-docker/releases/download/karmic-kraken-beta-020df706a373de8da51b361c100c0a2d0a78d56a3a0b326fdcc06620e9e5ef85/release-changelog.json).

@@ -52,7 +52,7 @@ export CAMPAIGN=2026-10-karmic-beta-sm121-qualification VARIANT=karmic-beta-2026
 printf 'n\n' | "$bench/run_bench.sh" --duration 30 --contexts "${CONTEXTS:-0,16k,32k,64k,128k}" \
   --display-mode plain --calibration-cache "$qualified/token-calibration.json" \
   --metadata "image_id=$image" --metadata checkpoint_revision=7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd \
-  --metadata recurrent_checkpoint_policy=aligned --metadata hc_tp=0 --metadata vllm_commit=980d84efb8c36894374d8333c4c0b7f92d0fb825 --metadata b12x_commit=914921dad15d71ffc68ea329c344b71bf1ae7fa7 \
+  --metadata recurrent_checkpoint_policy=aligned --metadata hc_tp=0 --metadata vllm_commit=4a379ed42881ee022aaf5d9ada554f9096e5acf3 --metadata b12x_commit=b557d87850cc836268fd327ccd46eaa6a033cdbf \
   --metadata run_bench_sha256=5c79b9760a2381b4b5233f5bbc8f1f279841b46f596dc718a127eaa8eea3e4f2 \
   --metadata llm_decode_bench_sha256=2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3
 

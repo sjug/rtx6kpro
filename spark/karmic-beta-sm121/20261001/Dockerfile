@@ -50,15 +50,15 @@ RUN --mount=type=bind,source=inputs,target=/opt/karmic-beta-refresh/inputs,ro \
     && /opt/venv/bin/python /opt/karmic-beta-refresh/upgrade_dependencies.py
 LABEL org.opencontainers.image.title="Karmic beta 20261001 Spark SM121 candidate" \
     local-inference.base-image="1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc" \
-    local-inference.publication="karmic-kraken-beta-20261001-7e6bf494ee15c5c3" \
-    local-inference.recipe.commit="20e617110c509b8c97879d2e7c09f20057d83fc8" \
+    local-inference.publication="karmic-kraken-beta-20261001-020df706a373de8d" \
+    local-inference.recipe.commit="6c0e9843bb962f483409b0296b225cca03fe8567" \
     local-inference.source-lock.sha256="${SOURCE_LOCK_INPUT}" \
     local-inference.serving.recipe.sha256="${RECIPE_INPUT}" \
     local-inference.cache.fingerprint="${CACHE_INPUT}" \
     local-inference.karmic-beta-build-lock.sha256="${BUILD_LOCK_INPUT}" \
-    vllm.source-commit="980d84efb8c36894374d8333c4c0b7f92d0fb825" \
+    vllm.source-commit="4a379ed42881ee022aaf5d9ada554f9096e5acf3" \
     vllm.source-tree="${VLLM_TREE_INPUT}" \
-    b12x.source-commit="914921dad15d71ffc68ea329c344b71bf1ae7fa7" \
+    b12x.source-commit="b557d87850cc836268fd327ccd46eaa6a033cdbf" \
     b12x.source-tree="${B12X_TREE_INPUT}" \
     local-inference.cutlass-dsl.version="4.7.1" \
     local-inference.flashinfer.commit="dbd6238c6655b98195fdf77f04bba6facf5a38a4" \

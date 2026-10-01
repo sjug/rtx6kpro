@@ -23,7 +23,7 @@
     "run-qwen-tp2-node.sh": "29119a34a3b53a79e1553230c9fc9f88f0cc1d42d6c484eff1ae9d052f47ef02"
   },
   "base_image_id": "1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc",
-  "cache_fingerprint": "karmic-beta-20261001-61e288f5a66c6d2c6e3b",
+  "cache_fingerprint": "karmic-beta-20261001-93d7583a39a5131a8dd7",
   "compiler_upgrade": {
     "flashinfer_commit": "dbd6238c6655b98195fdf77f04bba6facf5a38a4",
     "inputs_lock_sha256": "e8c4be4d9d0472c538cc755b2b72aee82d483f5f518a55e23087e5428b478f20",
@@ -50,13 +50,13 @@
   "lmcache_note": "LMCache kept at the base 413ac987 (beta publishes 820af25f); disabled in all deployments",
   "proxy_abi": 4,
   "publication": {
-    "b12x_commit": "914921dad15d71ffc68ea329c344b71bf1ae7fa7",
+    "b12x_commit": "b557d87850cc836268fd327ccd46eaa6a033cdbf",
     "channel": "karmic-kraken-beta",
-    "image": "ghcr.io/local-inference-lab/vllm@sha256:0283bc84008d37853f7ccc2e16ec2ad299008fa6ce052a5a1c65c7fdd5255ee3",
-    "recipe_commit": "20e617110c509b8c97879d2e7c09f20057d83fc8",
-    "tag": "karmic-kraken-beta-20261001-7e6bf494ee15c5c3",
+    "image": "ghcr.io/local-inference-lab/vllm@sha256:b163546994ee4635feb020e5beb644987b852f80bfb96d410e03c430df4cb669",
+    "recipe_commit": "6c0e9843bb962f483409b0296b225cca03fe8567",
+    "tag": "karmic-kraken-beta-20261001-020df706a373de8d",
     "use": "source identity only; the published image is linux/amd64 SM120 and is not run",
-    "vllm_commit": "980d84efb8c36894374d8333c4c0b7f92d0fb825"
+    "vllm_commit": "4a379ed42881ee022aaf5d9ada554f9096e5acf3"
   },
   "schema": 1,
   "sources": {
@@ -4886,6 +4886,7 @@
         ".lil/changes/b12x-431.json",
         ".lil/changes/b12x-433.json",
         ".lil/changes/b12x-452.json",
+        ".lil/changes/b12x-454.json",
         ".lil/changes/b12x-ds41-fp4-writer-ties.json",
         ".lil/changes/b12x-master-sync-20260923.json",
         ".lil/changes/b12x-master-sync-20260924.json",
@@ -5025,7 +5026,9 @@
         "b12x/sequence/gdn_decode/_preparation.py",
         "b12x/sequence/mtp_feedback/_preparation.py",
         "b12x/sequence/ple/_preparation.py",
+        "b12x/sequence/ple_embedding/_contracts.py",
         "b12x/sequence/ple_embedding/_preparation.py",
+        "b12x/sequence/ple_embedding/_storage.py",
         "b12x/sequence/ple_hash/_preparation.py",
         "b12x/testing/iq2_xs_reference.py",
         "b12x/testing/iq2_xxs_reference.py",
@@ -5207,13 +5210,14 @@
         "tests/preparation/test_tuning_predicates.py",
         "tests/sequence/test_embedding.py",
         "tests/sequence/test_engram.py",
+        "tests/sequence/test_ple_embedding.py",
         "validation/cutlass_migration/corpus.txt",
         "validation/cutlass_migration/resource_census.py",
         "validation/cutlass_migration/test_resource_census.py",
         "validation/iq2_xs/profile_dense.py",
         "validation/iq2_xs/qualify_dense.py"
       ],
-      "commit": "914921dad15d71ffc68ea329c344b71bf1ae7fa7",
+      "commit": "b557d87850cc836268fd327ccd46eaa6a033cdbf",
       "files": {
         ".coderabbit.yaml": {
           "mode": "100644",
@@ -5298,6 +5302,10 @@
         ".lil/changes/b12x-452.json": {
           "mode": "100644",
           "sha256": "1a33526a847c231528ce5418be140a33fc9913fa4979d9251b757e5fc0968e5c"
+        },
+        ".lil/changes/b12x-454.json": {
+          "mode": "100644",
+          "sha256": "40f16656df57cdeaf20b39f05069bb0cdd7328212eab0ed6284f1d88744e0152"
         },
         ".lil/changes/b12x-ds41-fp4-writer-ties.json": {
           "mode": "100644",
@@ -7301,7 +7309,7 @@
         },
         "b12x/sequence/ple_embedding/_contracts.py": {
           "mode": "100644",
-          "sha256": "6d0e81b1eef4d2129ed1e5cd9b256d50654f64345d5ca912b69f1f7d0bb31b52"
+          "sha256": "6394425332bcd36babf96a4a021960b740c95b7c3b69cae679d1ec7cf94a60fb"
         },
         "b12x/sequence/ple_embedding/_disk.py": {
           "mode": "100644",
@@ -7317,7 +7325,7 @@
         },
         "b12x/sequence/ple_embedding/_storage.py": {
           "mode": "100644",
-          "sha256": "ae4e02e40a5df2e72ffa4875a7464ad24aad7061e25aee0a32e3368c933476fa"
+          "sha256": "26176be10f0c10aaed4426558677c0501e6a93772a2b002a4d401c7eb3c09a24"
         },
         "b12x/sequence/ple_embedding/_tuning.py": {
           "mode": "100644",
@@ -9905,7 +9913,7 @@
         },
         "tests/sequence/test_ple_embedding.py": {
           "mode": "100644",
-          "sha256": "d411d41b02bfc897dcba8f2a439800c1ee0d7f745e7ec18675aedcc9e4e4af04"
+          "sha256": "f3523df8c8c04ec5eeb8f3669480e1b7a606831d41e1847bfd5fe531c08337c7"
         },
         "tests/sequence/test_ple_hash_checkpoint_order.py": {
           "mode": "100644",
@@ -10292,9 +10300,9 @@
           "sha256": "ef765bbea5c0b5026ecd73243f69b9dd7319a64b18cd37f476677292f5fb0462"
         }
       },
-      "package_tree": "2796dbd680eb55c178f770e760f27e044209a7e7",
-      "refreshed_tree": "1cfde5254dbe7613f5a549619e72c3172cbd861e",
-      "upstream_tree": "1cfde5254dbe7613f5a549619e72c3172cbd861e"
+      "package_tree": "b9ca709b5960a9b526e6176a53cc35b6ad12bef6",
+      "refreshed_tree": "5561aa253c6853dab3d9041b70e74828fde44dad",
+      "upstream_tree": "5561aa253c6853dab3d9041b70e74828fde44dad"
     },
     "vllm": {
       "archive_sha256": "73c7e21853e9c335825b90a8338a3ab7bec67e8d11d38fd00ba2985a16b7104f",
@@ -39858,6 +39866,7 @@
         ".lil/changes/vllm-951.json",
         ".lil/changes/vllm-954.json",
         ".lil/changes/vllm-957.json",
+        ".lil/changes/vllm-961.json",
         ".lil/changes/vllm-ds41-bf16-attention-fp32-heads.json",
         ".lil/changes/vllm-ds41-decode-metadata-graph-memory.json",
         ".lil/changes/vllm-karmic-canonical-sync-20260923.json",
@@ -39869,6 +39878,7 @@
         ".lil/changes/vllm-restore-admission-stall.json",
         ".lil/changes/vllm-restore-admission.json",
         ".lil/changes/vllm-upstream-56271.json",
+        "docs/design/streaming_weight_loading.md",
         "docs/features/quantization/b12x.md",
         "scripts/serve-ds4-flash-dspark-tp2-rdma.sh",
         "scripts/serve-ds4-flash-dspark-tp4-rdma.sh",
@@ -39914,6 +39924,7 @@
         "tests/models/quantization/test_mimo_v2_router_dflash.py",
         "tests/models/qwen4_exp/test_b12x_qsa.py",
         "tests/models/qwen4_exp/test_config.py",
+        "tests/models/qwen4_exp/test_ple_shared_table.py",
         "tests/models/test_deepseek_v4_1_compressor.py",
         "tests/models/test_deepseek_v4_1_engram.py",
         "tests/models/test_glm5next_model_state.py",
@@ -40056,8 +40067,12 @@
         "vllm/models/kimi_k3/nvidia/tp_projection.py",
         "vllm/models/qwen3_8_flash_next/config.py",
         "vllm/models/qwen4_exp/config.py",
+        "vllm/models/qwen4_exp/nvidia/b12x_ple.py",
         "vllm/models/qwen4_exp/nvidia/b12x_qsa.py",
+        "vllm/models/qwen4_exp/nvidia/model.py",
         "vllm/models/qwen4_exp/nvidia/model_state.py",
+        "vllm/models/qwen4_exp/nvidia/ple_layer.py",
+        "vllm/models/qwen4_exp/nvidia/ple_shared_table.py",
         "vllm/multimodal/audio.py",
         "vllm/parser/abstract_parser.py",
         "vllm/parser/deepseek_v4.py",
@@ -40112,7 +40127,7 @@
         "vllm/v1/worker/mamba_utils.py",
         "vllm/v1/worker/startup_plan.py"
       ],
-      "commit": "980d84efb8c36894374d8333c4c0b7f92d0fb825",
+      "commit": "4a379ed42881ee022aaf5d9ada554f9096e5acf3",
       "deferred_native": {
         "paths": [
           "rust/src/parser/src/tool/deepseek_dsml/deepseek_v32.rs",
@@ -41506,6 +41521,10 @@
         ".lil/changes/vllm-957.json": {
           "mode": "100644",
           "sha256": "f886484fbe84656f82caaf3c7598d3604d85e5e3694d20f98ff92c50a78e724b"
+        },
+        ".lil/changes/vllm-961.json": {
+          "mode": "100644",
+          "sha256": "6135510c5502999dca3781adaa1eab890e2aedc4206b23281395cb34bd677840"
         },
         ".lil/changes/vllm-ds41-bf16-attention-fp32-heads.json": {
           "mode": "100644",
@@ -44409,7 +44428,7 @@
         },
         "docs/design/streaming_weight_loading.md": {
           "mode": "100644",
-          "sha256": "113778610c3967548813292f2f9fb3201bd7a254cef9cbced560c064fa232fcf"
+          "sha256": "bb5830d7e6fb75d658447997b4dd4526e8645fad8522830758aecb470e5dea55"
         },
         "docs/design/torch_compile.md": {
           "mode": "100644",
@@ -44521,7 +44540,7 @@
         },
         "docs/features/quantization/b12x.md": {
           "mode": "100644",
-          "sha256": "6f301dc4d18270a93391f676efd49383a6e3b7e2ad618a39552d004a999987d7"
+          "sha256": "a15d911c03c197bb8cacb332812920d99bd9b2bf91fc5963de31fec9edb3c74a"
         },
         "docs/features/quantization/bnb.md": {
           "mode": "100644",
@@ -53395,6 +53414,10 @@
           "mode": "100644",
           "sha256": "1f3b25f2d0cf3f06d81a513a7f0609221102a26954bd57f96f94b2033ce8dec1"
         },
+        "tests/models/qwen4_exp/test_ple_shared_table.py": {
+          "mode": "100644",
+          "sha256": "ea3b3674a168fc4399c2f6cf5567b89319fd97e1f80ecf4e5605a83908a1d823"
+        },
         "tests/models/qwen4_exp/test_qsa_amd.py": {
           "mode": "100644",
           "sha256": "9a5974e9f06be08ae6e034bc2f41fa1ee02253c224714150948861aa0fb43474"
@@ -59481,7 +59504,7 @@
         },
         "vllm/envs.py": {
           "mode": "100755",
-          "sha256": "5437a30896b0fa2296086d1dc49b06192fdf3df91f42ff37f7394b03c93fb958"
+          "sha256": "f88528a91134e05cbbf7eac4614dcfe9f7ed2ff6c0be7e12db4a264165830a33"
         },
         "vllm/exceptions.py": {
           "mode": "100644",
@@ -66713,7 +66736,7 @@
         },
         "vllm/models/qwen4_exp/nvidia/b12x_ple.py": {
           "mode": "100644",
-          "sha256": "8003274eeaef72f34080532fc5e2f6b8d82be3450b6f63a90dd2314af7d8db46"
+          "sha256": "0243a5b3a6348b3cd4ba9d8d73d2c2db84086bf625102a9d9cadfa2d89084df1"
         },
         "vllm/models/qwen4_exp/nvidia/b12x_qsa.py": {
           "mode": "100644",
@@ -66737,7 +66760,7 @@
         },
         "vllm/models/qwen4_exp/nvidia/model.py": {
           "mode": "100644",
-          "sha256": "4f899f49ff030ca3d9143618946ccc97a4719b6b00219e08769c009d0d2f8781"
+          "sha256": "75d071a584dc9a0be96afe1707db36cfc3ed840b899e14892de413679c7d0b69"
         },
         "vllm/models/qwen4_exp/nvidia/model_state.py": {
           "mode": "100644",
@@ -66781,7 +66804,11 @@
         },
         "vllm/models/qwen4_exp/nvidia/ple_layer.py": {
           "mode": "100644",
-          "sha256": "a60b115bc819e7901752914880dfa8823a975ee8edf23a8c6a2c2f3280460489"
+          "sha256": "a45e332440dc6446d7131621d454ab75b27d2f8242ced77f2c144cb42ecdf6cf"
+        },
+        "vllm/models/qwen4_exp/nvidia/ple_shared_table.py": {
+          "mode": "100644",
+          "sha256": "4bbd46386ffa79316df7e7688091864682c8471d1d5405397c1c4bb432ce68a8"
         },
         "vllm/models/qwen4_exp/nvidia/qsa.py": {
           "mode": "100644",
@@ -70104,10 +70131,10 @@
           "sha256": "d6fccbb0fe1931c79013f5942199c5c9cbba0eedd7ac5ff037f55db19c38421a"
         }
       },
-      "package_tree": "6da59c2ff788874e5a99965aa3fb637c29b967cc",
+      "package_tree": "4c4102924e1a0d19383de166ae0a55ee3e58ddf8",
       "pr865": "merged upstream in beta (01f1b874c7); reverse-apply check passed",
-      "refreshed_tree": "f9af0c3482812649f9591d802500309623383594",
-      "upstream_tree": "c9effe1029e5865892edc1df23a3f5c60343a3ea"
+      "refreshed_tree": "96971e1c01f2ed035ee73cceb71c144de76ede06",
+      "upstream_tree": "eae635ce2caec7446736a885b66826ad28be9d2c"
     }
   }
 }

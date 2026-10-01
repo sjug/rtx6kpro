@@ -50,8 +50,8 @@ fi
 [[ $(podman image inspect "$image" --format '{{.Id}}') == "$expected" ]] || exit 78
 labels=$(podman image inspect "$image" --format '{{json .Config.Labels}}')
 jq -e '
-  ."vllm.source-commit" == "980d84efb8c36894374d8333c4c0b7f92d0fb825" and
-  ."b12x.source-commit" == "914921dad15d71ffc68ea329c344b71bf1ae7fa7" and
+  ."vllm.source-commit" == "4a379ed42881ee022aaf5d9ada554f9096e5acf3" and
+  ."b12x.source-commit" == "b557d87850cc836268fd327ccd46eaa6a033cdbf" and
   ."local-inference.cutlass-dsl.version" == "4.7.1" and
   ."local-inference.flashinfer.commit" == "dbd6238c6655b98195fdf77f04bba6facf5a38a4"
 ' <<<"$labels" >/dev/null || { echo 'Candidate provenance mismatch' >&2; exit 78; }

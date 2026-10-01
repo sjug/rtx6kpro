@@ -419,9 +419,9 @@ if [[ "${actual_image_id}" != "${EXPECTED_IMAGE_ID}" ]]; then
 fi
 labels=$(podman image inspect "${IMAGE}" --format '{{json .Config.Labels}}')
 jq -e '
-  ."vllm.source-tree" == "f9af0c3482812649f9591d802500309623383594" and
-  ."vllm.source-commit" == "980d84efb8c36894374d8333c4c0b7f92d0fb825" and
-  ."b12x.source-tree" == "1cfde5254dbe7613f5a549619e72c3172cbd861e" and
+  ."vllm.source-tree" == "96971e1c01f2ed035ee73cceb71c144de76ede06" and
+  ."vllm.source-commit" == "4a379ed42881ee022aaf5d9ada554f9096e5acf3" and
+  ."b12x.source-tree" == "5561aa253c6853dab3d9041b70e74828fde44dad" and
   ."local-inference.cutlass-dsl.version" == "4.7.1" and
   ."local-inference.flashinfer.commit" == "dbd6238c6655b98195fdf77f04bba6facf5a38a4" and
   ."lmcache.default" == "disabled" and

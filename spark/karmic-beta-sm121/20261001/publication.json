@@ -1,7 +1,7 @@
 {
   "alias": "ghcr.io/local-inference-lab/vllm:karmic-kraken-beta",
   "alias_updated": true,
-  "assembly_sha256": "7e6bf494ee15c5c31225868f612091d48c85c22290d3a5de9f99064affe37402",
+  "assembly_sha256": "020df706a373de8da51b361c100c0a2d0a78d56a3a0b326fdcc06620e9e5ef85",
   "cache_contract_tests": {
     "passed": 158,
     "skipped": 0
@@ -15,16 +15,16 @@
   "channel": "karmic-kraken",
   "components": {
     "b12x": {
-      "archive": "b12x-cu134-914921dad15d71ffc68ea329c344b71bf1ae7fa7.tar.zst",
-      "archive_asset_id": 602998488,
-      "archive_sha256": "f28780e0c1fa23c9020b1968c7788969ab35054784b3e1e783702c18a91e7fbd",
+      "archive": "b12x-cu134-b557d87850cc836268fd327ccd46eaa6a033cdbf.tar.zst",
+      "archive_asset_id": 603498067,
+      "archive_sha256": "285bf66bdd06f23052df76223026853b62e83db1ccdf492f6216cfa89b53e740",
       "branch": "integration/karmic-kraken-beta",
-      "manifest_sha256": "b897f0c31d49c179155492cf83dd36833fc8bf9156b0c1b384c56476887e2d59",
-      "observed_branch_commit": "914921dad15d71ffc68ea329c344b71bf1ae7fa7",
-      "release": "b12x-cu134-beta-914921dad15d71ffc68ea329c344b71bf1ae7fa7",
-      "release_url": "https://github.com/local-inference-lab/b12x/releases/tag/b12x-cu134-beta-914921dad15d71ffc68ea329c344b71bf1ae7fa7",
+      "manifest_sha256": "9b124af42ffae102dd6b6f97bb1d1f5ff0fc76986c21a18c80d378919d37c3e6",
+      "observed_branch_commit": "b557d87850cc836268fd327ccd46eaa6a033cdbf",
+      "release": "b12x-cu134-beta-b557d87850cc836268fd327ccd46eaa6a033cdbf",
+      "release_url": "https://github.com/local-inference-lab/b12x/releases/tag/b12x-cu134-beta-b557d87850cc836268fd327ccd46eaa6a033cdbf",
       "repository": "local-inference-lab/b12x",
-      "source_commit": "914921dad15d71ffc68ea329c344b71bf1ae7fa7"
+      "source_commit": "b557d87850cc836268fd327ccd46eaa6a033cdbf"
     },
     "flashinfer": {
       "archive": "flashinfer-cu134-sm120-dbd6238c6655b98195fdf77f04bba6facf5a38a4.tar.zst",
@@ -75,28 +75,28 @@
       "source_commit": "93fe05d9f9b6963ef841166a69cd0b30e4efe97b"
     },
     "vllm": {
-      "archive": "vllm-jovian-cu134-980d84efb8c36894374d8333c4c0b7f92d0fb825.tar.zst",
-      "archive_asset_id": 603167596,
-      "archive_sha256": "703220a83b22d3cb3d97faf4a3715b07f252ee7dff8b3fc4bf12df596fc6f084",
+      "archive": "vllm-jovian-cu134-4a379ed42881ee022aaf5d9ada554f9096e5acf3.tar.zst",
+      "archive_asset_id": 603504299,
+      "archive_sha256": "51dc09184e636d8aef52beef8c30b362546902e8a8c65917a3c4c9e1ce158550",
       "branch": "integration/karmic-kraken-beta",
-      "manifest_sha256": "d2708b781d18e4d8b87941eb4ebfbe4f6f3215d4bb534efc149c70e5cbe95fb7",
-      "observed_branch_commit": "980d84efb8c36894374d8333c4c0b7f92d0fb825",
-      "release": "vllm-jovian-cu134-beta-980d84efb8c36894374d8333c4c0b7f92d0fb825",
-      "release_url": "https://github.com/local-inference-lab/vllm/releases/tag/vllm-jovian-cu134-beta-980d84efb8c36894374d8333c4c0b7f92d0fb825",
+      "manifest_sha256": "9ad249d3cc8d9ec4c366e9f79237bc768b1b0495d898b2df7900822cf2111aa5",
+      "observed_branch_commit": "4a379ed42881ee022aaf5d9ada554f9096e5acf3",
+      "release": "vllm-jovian-cu134-beta-4a379ed42881ee022aaf5d9ada554f9096e5acf3",
+      "release_url": "https://github.com/local-inference-lab/vllm/releases/tag/vllm-jovian-cu134-beta-4a379ed42881ee022aaf5d9ada554f9096e5acf3",
       "repository": "local-inference-lab/vllm",
-      "source_commit": "980d84efb8c36894374d8333c4c0b7f92d0fb825"
+      "source_commit": "4a379ed42881ee022aaf5d9ada554f9096e5acf3"
     }
   },
-  "digest": "ghcr.io/local-inference-lab/vllm@sha256:0283bc84008d37853f7ccc2e16ec2ad299008fa6ce052a5a1c65c7fdd5255ee3",
-  "image": "ghcr.io/local-inference-lab/vllm:karmic-kraken-beta-20261001-7e6bf494ee15c5c3",
+  "digest": "ghcr.io/local-inference-lab/vllm@sha256:b163546994ee4635feb020e5beb644987b852f80bfb96d410e03c430df4cb669",
+  "image": "ghcr.io/local-inference-lab/vllm:karmic-kraken-beta-20261001-020df706a373de8d",
   "layers": 68,
   "qualification_scope": "Native GPU smoke and LMCache checkpoint/filesystem contract tests; model-serving performance and full GLM cache E2E remain unqualified.",
-  "recipe_commit": "20e617110c509b8c97879d2e7c09f20057d83fc8",
-  "release_changelog_sha256": "43761c5b642202cd3ac312012a8cdc4e34abe8a2a58bdada479357c216a35556",
+  "recipe_commit": "6c0e9843bb962f483409b0296b225cca03fe8567",
+  "release_changelog_sha256": "73904e3f48c586de0c994b40c6dec8be2dc778d1cfaec91d05c947120cf50835",
   "release_channel": "karmic-kraken-beta",
-  "release_tag": "karmic-kraken-beta-7e6bf494ee15c5c31225868f612091d48c85c22290d3a5de9f99064affe37402",
-  "runtime_files_sha256": "89c73d751ef984c3818a8bae6a28cdd0e58d379452bee92f53e5c115886aec03",
-  "runtime_manifest_sha256": "24b9e872d6844dae6f8b3631b7e9fc97c85c4ec7cbe08ffc4c4fbc8aaf7493d3",
+  "release_tag": "karmic-kraken-beta-020df706a373de8da51b361c100c0a2d0a78d56a3a0b326fdcc06620e9e5ef85",
+  "runtime_files_sha256": "98296e7f7bb0eaadfb1164eb0ea6d649c14218ec98bae58bf032722cd12b1633",
+  "runtime_manifest_sha256": "a8339d1301e426c0d7e714b65081892174444b8804944ef1abc7863d1e8cc49a",
   "schema": "local-inference-container-assembly/v1",
   "status": "qualified"
 }

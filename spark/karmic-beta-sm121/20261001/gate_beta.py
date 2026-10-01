@@ -22,6 +22,7 @@ FILES = (
     'tests/v1/core/test_prefill_compute_share_scheduler.py',     # stalled prefill lanes (#959/#960)
     'tests/v1/core/test_boundary_admission.py',                  # full-KV preemption (#946)
     'tests/kernels/layers/test_qwen_gdn_linear_attn.py',          # bound state pool
+    'tests/models/qwen4_exp/test_ple_shared_table.py',            # shared PLE table (#961)
 )
 
 

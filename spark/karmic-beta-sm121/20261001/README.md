@@ -7,17 +7,17 @@ on dusty/kirby is required before running the real build.
 
 ## Pinned composition
 
-This ports the [October 1 beta publication](https://github.com/local-inference-lab/blackwell-llm-docker/releases/tag/karmic-kraken-beta-7e6bf494ee15c5c31225868f612091d48c85c22290d3a5de9f99064affe37402)
+This ports the [October 1 beta publication](https://github.com/local-inference-lab/blackwell-llm-docker/releases/tag/karmic-kraken-beta-020df706a373de8da51b361c100c0a2d0a78d56a3a0b326fdcc06620e9e5ef85)
 to ARM64 / SM121 using the same content-addressed foundation as our September 29 kit.
 The publication's x86_64 / SM120 wheels are source references, not Spark binaries.
 
 | Component | Pin |
 | --- | --- |
-| Published image | `karmic-kraken-beta-20261001-7e6bf494ee15c5c3` |
-| Published digest | `sha256:0283bc84008d37853f7ccc2e16ec2ad299008fa6ce052a5a1c65c7fdd5255ee3` |
-| Recipe | `20e617110c509b8c97879d2e7c09f20057d83fc8` |
-| vLLM | `980d84efb8c36894374d8333c4c0b7f92d0fb825` |
-| B12X | `914921dad15d71ffc68ea329c344b71bf1ae7fa7` |
+| Published image | `karmic-kraken-beta-20261001-020df706a373de8d` |
+| Published digest | `sha256:b163546994ee4635feb020e5beb644987b852f80bfb96d410e03c430df4cb669` |
+| Recipe | `6c0e9843bb962f483409b0296b225cca03fe8567` |
+| vLLM | `4a379ed42881ee022aaf5d9ada554f9096e5acf3` |
+| B12X | `b557d87850cc836268fd327ccd46eaa6a033cdbf` |
 | FlashInfer | `dbd6238c6655b98195fdf77f04bba6facf5a38a4` |
 | CUTLASS DSL and all four library distributions | `4.7.1`, ARM64-compatible wheels |
 | QuACK | `0.6.5` |
@@ -36,7 +36,7 @@ parser follows the pinned vLLM source.
 commits. It proves the native vLLM inputs unchanged apart from the already
 declared deferred Rust files, independently replays the foundation, preserves
 the SM121 architecture/draft-head overlay and verifies the merged QSA865 patch.
-It freezes 309 vLLM and 338 B12X tracked-file deltas and their resulting Git trees.
+It freezes 316 vLLM and 342 B12X tracked-file deltas and their resulting Git trees.
 The compiler libraries are replaced separately; unchanged vLLM binaries are reused.
 
 `prepare_inputs.py` restores the frozen `inputs.lock.json`; it never resolves
@@ -87,8 +87,8 @@ replacement audit. The serving tag is created only after every gate succeeds.
 
 The gates include the inherited native/linkage, FlashKDA, launcher, memory and
 regression matrices; QSA865; beta's original seven regression files; the new
-scheduler/boundary-admission and Qwen GDN tests; and B12X's compiler-migration
-corpus plus the MXFP8 numerical/graph suite. Test collection must be nonempty,
+scheduler/boundary-admission, Qwen GDN and shared PLE table tests; and B12X's compiler-migration
+corpus plus the MXFP8 numerical/graph and PLE embedding suites. Test collection must be nonempty,
 and every selected case must pass without skips or xfails. The four cuDNN
 comparison cases excluded by the upstream compiler corpus remain excluded and
 are not acceptance evidence. A new FlashInfer gate compares FP16/BF16 decode,
@@ -140,6 +140,10 @@ Identity, harness, token-budget and protocol drift reject comparison. No histori
 R38 result substitutes for this required baseline. Transport confirmation probes
 the running candidate and does not stop or replace another deployment.
 No model revision, MXFP8 drafter or serving profile change is selected here.
+The afternoon publication adds opt-in same-host TP1 replicas and shared PLE
+storage. Its recipe identity is recorded, while the qualified Spark launchers
+remain inherited: this TP2/TP4 candidate does not select either option or the
+new recipe's optional MXFP8 MTP expert configuration.
 These scripts are prepared for a separately authorized idle window; none has
 been executed on a host. Keep rollback containers separately from candidate stop.
 The Qwen failure guidance names the retained September 29 beta containers.
@@ -163,7 +167,7 @@ The local suite checks deterministic source-lock/payload preparation, complete
 delta replay, remote Git blob equality for all five source archives, rejection
 of a wrong source digest, compiler requirement metadata/RECORD handling, and
 head/worker command preservation. These are artifact checks, not an image build
-or a live runtime result. All 24 local tests, shell checks, input preflight and
+or a live runtime result. All 25 local tests, shell checks, input preflight and
 the build dry-run passed during preparation. See [the upstream comparison](../../../docs/upstream-check-20261001.md).
 
 
@@ -177,6 +181,8 @@ bash capture-baseline.sh glm "$PWD/qualification/production-glm"
 
 Each captures current container identities, checks the image/checkpoint/profile,
 and runs the unchanged standard harness. Supply the printed `BASELINE_GRID`
-path when running Qwen's benchmark or GLM's execute/qualify scripts. No matching
-QAD production grid was found in the local result trees inspected during this
-revision; these baseline captures and the candidate comparisons remain pending.
+path when running Qwen's benchmark or GLM's execute/qualify scripts. The September 30 GLM QAD grid and October 1 Qwen QAD qualification grid both
+pass `compare-production.py --validate-baseline`; they are the production
+baselines for this build. Separate baseline capture runs are unnecessary.
+The Qwen record explicitly waives private replay because the trace is unavailable.
+Candidate comparisons remain pending.
