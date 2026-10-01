@@ -124,3 +124,47 @@ new benchmark grid. The preparation section's stopped state is superseded.
 Kirby logged `NV_ERR_NO_MEMORY` allocation warnings during startup at 20:10:00
 to 20:10:03 UTC, before API readiness, matching the previously documented class
 of startup warnings. No container OOM kill or restart occurred.
+
+
+### QAD qualification and October 1 baseline, 2026-10-01
+
+The user authorized a fresh qualification boot from the workstation checkout.
+Smoke containers were logged, stopped worker first, and retained as
+`qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2-7c4f1bc1-smoke-20260930`.
+The `-c374e7e2-20260930` containers remain retained for rollback. The new boot
+uses image `500ae05b`, revision `7c4f1bc1`, aligned checkpoints, HC off and MTP3.
+API readiness was observed at 16:10:22 UTC, after the 16:07:28 UTC window start.
+
+`execute.sh` exited 0 with `KARMIC-BETA-QWEN-SERVING-GATES-COMPLETE`.
+Semantic admission, native-context needles (2,848 / 2,849 / 131,072 / 262,000),
+fixed-token acceptance, padded transitions and prefix reuse passed. Counting
+passed 21/21 plus serial boundaries 56,976 / 56,977 / 56,978 / 56,984 / 56,992 /
+56,993. The serial counting probe retained cached-token usage but did not observe
+graph dispatch. Head-of-line fresh maximum TTFT was 0.231 s. C4 distinct,
+identical and distinct-again probes measured 125.8 / 129.2 / 124.6 tok/s.
+
+**Private replay was not run:** the `05daceed` source trace is no longer available,
+and the user explicitly waived replay. `REPLAY-HEALTH-REVIEW-OK` records the waiver
+and the passing health review; it does not claim private-replay or multi-turn
+behavior on these weights. Window and post-grid kernel logs showed no Xid, OOM or
+NV_ERR_NO_MEMORY, including startup. Containers stayed running with no OOM kills
+or restarts; `/health` returned HTTP 200 before and after the grid.
+
+The pinned standard harness completed one full 15-cell C1/C2/C4 grid, exit 0:
+
+| Concurrency | Output tok/s | Engine steps/s | Effective acceptance |
+| --- | ---: | ---: | ---: |
+| 1 | 51.16 | 24.22 | 2.113 |
+| 2 | 80.06 | 38.86 | 2.060 |
+| 4 | 120.98 | 57.81 | 2.093 |
+
+These are geometric means over the five decode contexts. Prefill scouts at
+8K / 16K / 32K / 64K / 128K measured 3,057 / 2,963 / 2,871 / 2,692 / 2,449 tok/s.
+This is one grid from one boot, not a repeatability or checkpoint-quality claim.
+The completed grid returned `PRODUCTION-BASELINE-VALID` and is the October 1
+Qwen comparison baseline:
+
+`runs/qwen3.8-flash-next/nvfp4/2026-09-qad-7c4f1bc1-qualification/throughput/20261001T122604-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r01.json`
+
+Receipts remain under `qualification/qad-7c4f1bc1/`. The freshly qualified pair
+continues serving. The October 1 image build has not begun.
