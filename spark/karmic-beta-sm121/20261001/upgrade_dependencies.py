@@ -43,38 +43,54 @@ def update_compiler_metadata():
     import io
     import re
     changes = {}
+    updated = set()
     for name in ('vllm', 'b12x'):
-        dist = metadata.distribution(name)
-        candidates = [p for p in dist.files or () if str(p).endswith('.dist-info/METADATA')]
-        require(len(candidates) == 1, f'Cannot locate {name} metadata')
-        relative = candidates[0]
-        path = Path(dist.locate_file(relative))
-        before = path.read_text()
-        after = re.sub(r'(?m)^(Requires-Dist: nvidia-cutlass-dsl[^\n]*)4\.6\.2',
-                       lambda m: m.group(1) + '4.7.1', before)
-        # Preserve all other fields, requirements and historical distribution versions.
-        if after == before:
-            require('4.6.2' not in '\n'.join(line for line in before.splitlines()
-                                            if line.startswith('Requires-Dist: nvidia-cutlass-dsl')),
-                    f'Unrecognized compiler requirement: {name}')
-            continue
-        data = after.encode()
-        path.write_bytes(data)
-        record = path.parent / 'RECORD'
-        require(record.is_file(), f'Missing distribution RECORD: {name}')
-        rows = list(csv.reader(io.StringIO(record.read_text())))
-        matched = 0
-        for row in rows:
-            if row[0] == str(relative):
-                row[1] = 'sha256=' + base64.urlsafe_b64encode(hashlib.sha256(data).digest()).decode().rstrip('=')
-                row[2] = str(len(data))
-                matched += 1
-        require(matched == 1, f'Missing metadata RECORD row: {name}')
-        stream = io.StringIO()
-        csv.writer(stream, lineterminator='\n').writerows(rows)
-        record.write_text(stream.getvalue())
-        changes[name] = {'before_sha256': hashlib.sha256(before.encode()).hexdigest(),
-                         'after_sha256': hashlib.sha256(data).hexdigest()}
+        distributions = list(metadata.distributions(name=name))
+        require(distributions, f'Cannot locate {name} distribution')
+        for dist in distributions:
+            files = list(dist.files or ())
+            candidates = [p for p in files if str(p).endswith(('.dist-info/METADATA', '.egg-info/PKG-INFO'))]
+            require(len(candidates) == 1, f'Cannot locate {name} metadata')
+            relative = candidates[0]
+            path = Path(dist.locate_file(relative))
+            updated.add(path.resolve())
+            targets = [(relative, path, r'Requires-Dist: ')]
+            if path.parent.name.endswith('.egg-info'):
+                requires = path.parent / 'requires.txt'
+                require(requires.is_file(), f'Missing source requirements: {name}')
+                targets.append((None, requires, ''))
+            for relative, path, prefix in targets:
+                before = path.read_text()
+                pattern = r'(?m)^(' + prefix + r'nvidia-cutlass-dsl[^\n]*)4\.6\.2'
+                after = re.sub(pattern, lambda m: m.group(1) + '4.7.1', before)
+                # Preserve versions, extra sections and all unrelated requirements.
+                require('4.6.2' not in '\n'.join(line for line in after.splitlines()
+                                                if line.startswith(prefix + 'nvidia-cutlass-dsl')),
+                        f'Unrecognized compiler requirement: {name} {path}')
+                if after == before:
+                    continue
+                data = after.encode()
+                if relative is not None and path.parent.name.endswith('.dist-info'):
+                    record = path.parent / 'RECORD'
+                    require(record.is_file(), f'Missing distribution RECORD: {name}')
+                    rows = list(csv.reader(io.StringIO(record.read_text())))
+                    matched = 0
+                    for row in rows:
+                        if row[0] == str(relative):
+                            row[1] = 'sha256=' + base64.urlsafe_b64encode(hashlib.sha256(data).digest()).decode().rstrip('=')
+                            row[2] = str(len(data))
+                            matched += 1
+                    require(matched == 1, f'Missing metadata RECORD row: {name}')
+                    stream = io.StringIO()
+                    csv.writer(stream, lineterminator='\n').writerows(rows)
+                    record.write_text(stream.getvalue())
+                path.write_bytes(data)
+                changes.setdefault(name, []).append({
+                    'path': str(path),
+                    'before_sha256': hashlib.sha256(before.encode()).hexdigest(),
+                    'after_sha256': hashlib.sha256(data).hexdigest()})
+    from verify_compiler import validate_compiler_metadata
+    validate_compiler_metadata(updated)
     return changes
 
 
@@ -109,6 +125,8 @@ def main():
     (site / '00-karmic-cutlass.pth').write_text(f'import sys; sys.path.insert(0, {str(compiler_path)!r})\n')
     subprocess.run([sys.executable, str(ROOT / 'verify_compiler.py')], check=True)
     metadata_changes = update_compiler_metadata()
+    from verify_compiler import validate_compiler_metadata
+    metadata_copies = validate_compiler_metadata()
     import flashinfer
     import flashinfer_jit_cache
     require(flashinfer.__git_commit__ == 'dbd6238c6655b98195fdf77f04bba6facf5a38a4', 'FlashInfer source mismatch')
@@ -116,6 +134,7 @@ def main():
     (ROOT / 'dependency-upgrade.json').write_text(json.dumps({
         'before': before, 'after': after, 'changed_native_paths': sorted(changes),
         'compiler_requirement_overlays': metadata_changes,
+        'compiler_consumer_metadata': metadata_copies,
         'system_compiler_deviation': 'NGC system Python retains 4.6.2; serving and all runtime gates use /opt/venv and check imported CUTLASS 4.7.1',
         'flashinfer_build_environment': json.loads((wheels / 'build-environment.json').read_text()),
         'wheels': {p.name: file_sha(p) for p in outputs}}, sort_keys=True, indent=2) + '\n')

@@ -69,7 +69,7 @@ and FlashInfer distributions; the foundation independently audits vLLM binaries.
 
 The source-first vLLM/B12X distributions retain their original version metadata.
 Only inherited CUTLASS `Requires-Dist` fields are advanced from 4.6.2 to 4.7.1;
-their distribution RECORD hashes are updated and before/after digests recorded.
+both the source egg and wheel metadata are covered, and wheel RECORD hashes are updated and before/after digests recorded.
 The runtime source lock, image labels and source trees identify the new runtime.
 This is a declared packaging overlay, not a claim of a newly compiled vLLM wheel.
 
@@ -167,7 +167,7 @@ The local suite checks deterministic source-lock/payload preparation, complete
 delta replay, remote Git blob equality for all five source archives, rejection
 of a wrong source digest, compiler requirement metadata/RECORD handling, and
 head/worker command preservation. These are artifact checks, not an image build
-or a live runtime result. All 25 local tests, shell checks, input preflight and
+or a live runtime result. All 26 local tests, shell checks, input preflight and
 the build dry-run passed during preparation. See [the upstream comparison](../../../docs/upstream-check-20261001.md).
 
 

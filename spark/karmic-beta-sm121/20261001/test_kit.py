@@ -142,13 +142,68 @@ class KitTest(unittest.TestCase):
                 def locate_file(self, name):
                     return root / name
 
-            with patch.object(upgrade_dependencies.metadata, 'distribution', return_value=Distribution()):
+            with patch.object(upgrade_dependencies.metadata, 'distributions', return_value=[Distribution()]), \
+                 patch.object(upgrade_dependencies.metadata, 'distribution', return_value=Distribution()):
                 changed = upgrade_dependencies.update_compiler_metadata()
             self.assertIn('vllm', changed)
             self.assertEqual(path.read_text(), original.replace('4.6.2', '4.7.1'))
             row = next(csv.reader(io.StringIO((path.parent / 'RECORD').read_text())))
             self.assertTrue(row[1].startswith('sha256='))
             self.assertEqual(int(row[2]), len(path.read_bytes()))
+
+    def test_compiler_overlay_updates_source_egg_and_wheel_metadata(self):
+        import importlib.metadata as metadata
+        import sys
+        import upgrade_dependencies
+        from verify_compiler import validate_compiler_metadata
+        with tempfile.TemporaryDirectory() as scratch:
+            root = Path(scratch)
+            source, installed = root / 'source', root / 'installed'
+            source.mkdir()
+            installed.mkdir()
+            for name in ('vllm', 'b12x'):
+                egg = source / (name + '.egg-info')
+                wheel = installed / (name + '-1.3.0.dist-info')
+                egg.mkdir()
+                wheel.mkdir()
+                original = ('Metadata-Version: 2.1\nName: ' + name + '\nVersion: 1.3.0\n'
+                            'Requires-Dist: torch>=2.12\nRequires-Dist: nvidia-cutlass-dsl==4.6.2\n'
+                            'Requires-Dist: nvidia-cutlass-dsl-libs-cu13==4.6.2\n')
+                requirements = ('torch>=2.12\nnvidia-cutlass-dsl==4.6.2\n'
+                                'nvidia-cutlass-dsl-libs-cu13==4.6.2\n\n[dev]\npytest\n'
+                                '\n[dev:python_version < "3.11"]\ntomli>=2.0\n')
+                (egg / 'PKG-INFO').write_text(original)
+                (egg / 'requires.txt').write_text(requirements)
+                (egg / 'SOURCES.txt').write_text(name + '.egg-info/PKG-INFO\n' + name + '.egg-info/requires.txt\n')
+                (wheel / 'METADATA').write_text(original)
+                (wheel / 'RECORD').write_text(name + '-1.3.0.dist-info/METADATA,,\n')
+            with patch.object(sys, 'path', [str(source), str(installed), *sys.path]):
+                for name in ('vllm', 'b12x'):
+                    self.assertEqual(len(list(metadata.distributions(name=name))), 2)
+                self.assertEqual(metadata.distribution('b12x')._path, source / 'b12x.egg-info')
+                changes = upgrade_dependencies.update_compiler_metadata()
+                audit = validate_compiler_metadata()
+                for name in ('vllm', 'b12x'):
+                    egg = source / (name + '.egg-info')
+                    wheel = installed / (name + '-1.3.0.dist-info')
+                    expected = original.replace('Name: b12x', 'Name: ' + name).replace('4.6.2', '4.7.1')
+                    self.assertEqual((egg / 'PKG-INFO').read_text(), expected)
+                    self.assertEqual((wheel / 'METADATA').read_text(), expected)
+                    self.assertEqual((egg / 'requires.txt').read_text(), requirements.replace('4.6.2', '4.7.1'))
+                    copies = list(metadata.distributions(name=name))
+                    self.assertEqual(len(copies), 2)
+                    for dist in copies:
+                        self.assertEqual(dist.version, '1.3.0')
+                        compiler = [r for r in dist.requires if r.startswith('nvidia-cutlass-dsl')]
+                        self.assertTrue(compiler)
+                        self.assertTrue(all('4.7.1' in r and '4.6.2' not in r for r in compiler))
+                    self.assertEqual(audit[name]['selected'], str(egg / 'PKG-INFO'))
+                    self.assertEqual(len(changes[name]), 3)
+                with self.assertRaisesRegex(RuntimeError, 'Uncovered selected'):
+                    validate_compiler_metadata(set())
+                (installed / 'b12x-1.3.0.dist-info/METADATA').write_text(original)
+                with self.assertRaisesRegex(RuntimeError, 'Wrong compiler requirement'):
+                    validate_compiler_metadata()
 
     def test_candidates_preserve_serving_arguments(self):
         # Exercise shell dry-runs: only image/name/source identity may change.

@@ -42,8 +42,9 @@ def child(mode, expected=0):
 
 def main():
     import cutlass
-    from verify_compiler import validate_cutlass
+    from verify_compiler import validate_cutlass, validate_compiler_metadata
     print('CUTLASS-IMPORT-PASS', validate_cutlass(cutlass), flush=True)
+    print('COMPILER-CONSUMER-METADATA-PASS', validate_compiler_metadata(), flush=True)
     import torch
     if torch.cuda.get_device_capability() != (12, 1):
         raise RuntimeError('Compiler gate requires SM121')
