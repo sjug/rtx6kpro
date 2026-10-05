@@ -1,0 +1,130 @@
+--- a/llm_decode_bench.py
++++ b/llm_decode_bench.py
+@@ -90,6 +90,28 @@
+ THEME_ERROR = "#ff5555"
+ CAPACITY_LIMIT_MARK = "∅"
+ 
++
++def local_timestamp() -> str:
++    """Return an unambiguous ISO 8601 timestamp in the client's local zone."""
++    return datetime.now().astimezone().isoformat()
++
++
++def parse_run_metadata(entries: list[str]) -> dict[str, str]:
++    """Parse repeatable KEY=VALUE metadata without allowing silent overrides."""
++    metadata: dict[str, str] = {}
++    for entry in entries:
++        key, separator, value = entry.partition("=")
++        if not separator or not key:
++            raise ValueError(f"invalid metadata {entry!r}; expected KEY=VALUE")
++        if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_.-]*", key):
++            raise ValueError(
++                f"invalid metadata key {key!r}; use letters, digits, dot, underscore, or hyphen"
++            )
++        if key in metadata:
++            raise ValueError(f"duplicate metadata key {key!r}")
++        metadata[key] = value
++    return metadata
++
+ PADDING_SENTENCES = [
+     "The history of European architecture spans thousands of years and encompasses a wide variety of styles and movements.",
+     "From the ancient Greek temples to the Gothic cathedrals of the Middle Ages, each era has left its distinctive mark on the built environment.",
+@@ -14107,6 +14129,7 @@
+                 for bucket in sorted(per_category.values(), key=lambda b: b["category"])
+             ]
+         report = {
++            "run_metadata": getattr(args, "run_metadata", {}),
+             "metadata": {
+                 "version": VERSION,
+                 "mode": "completion_stats",
+@@ -14123,7 +14146,7 @@
+                 "test_profile_description": (profile or {}).get("description", ""),
+                 "prompt_source": prompt_source,
+                 "prompt_chars": len(prompt),
+-                "timestamp": datetime.now().isoformat(),
++                "timestamp": local_timestamp(),
+                 "chat_template_kwargs": CHAT_TEMPLATE_KWARGS,
+                 "max_tokens": args.max_tokens if args.max_tokens > 0 else None,
+                 "token_limit_field": token_limit_field,
+@@ -14804,7 +14827,7 @@
+                         "model": args.model,
+                         "source_context": format_context(cal_ctx),
+                         "template_id": template_id,
+-                        "updated_at": datetime.now().isoformat(),
++                        "updated_at": local_timestamp(),
+                     }
+                     save_calibration_cache(args.calibration_cache, cache)
+ 
+@@ -16416,12 +16439,13 @@
+             }
+ 
+     output = {
++        "run_metadata": getattr(args, "run_metadata", {}),
+         "metadata": {
+             "version": VERSION,
+             "engine": engine,
+             "model": args.model,
+             "server": args.host if args.host.startswith("http") else f"{args.host}:{args.port or 5000}",
+-            "timestamp": datetime.now().isoformat(),
++            "timestamp": local_timestamp(),
+             "chat_template_kwargs": CHAT_TEMPLATE_KWARGS,
+             "decode_mode": "request-count" if getattr(args, "request_count", 0) > 0 else "duration",
+             "primary_decode_layer": (
+@@ -16632,7 +16656,7 @@
+             # run_benchmark mutates args (e.g. autodetected model), so use the
+             # signature frozen at startup — the same view the loader compares.
+             "signature": getattr(args, "resume_signature", None) or resume_config_signature(args),
+-            "timestamp": datetime.now().isoformat(),
++            "timestamp": local_timestamp(),
+             "results": [asdict(r) for r in results],
+             "burst_results": [asdict(r) for r in burst_results],
+             "prefill_results": {str(k): v for k, v in (prefill_results or {}).items()},
+@@ -17486,6 +17510,11 @@
+         help="Output JSON file path (default: benchmark_results.json)"
+     )
+     parser.add_argument(
++        "--metadata", action="append", default=[], metavar="KEY=VALUE",
++        help="Attach repeatable user metadata under the top-level run_metadata object. "
++             "Keys must be unique."
++    )
++    parser.add_argument(
+         "--model", default="Qwen3.5",
+         help="Model name for API requests (default: Qwen3.5)"
+     )
+@@ -17532,6 +17561,10 @@
+             parser.error("--forced-token-id cannot be combined with --respect-eos")
+         if args.prefill_only:
+             parser.error("--forced-token-id cannot be combined with --prefill-only")
++    try:
++        args.run_metadata = parse_run_metadata(args.metadata)
++    except ValueError as exc:
++        parser.error(str(exc))
+     if args.prefill_only:
+         if args.skip_prefill:
+             parser.error("--prefill-only cannot be combined with --skip-prefill")
+@@ -17715,10 +17748,11 @@
+         print_paired_comparison(comparison, console)
+         if cli_option_present("--output"):
+             output = {
++                "run_metadata": args.run_metadata,
+                 "metadata": {
+                     "version": VERSION,
+                     "mode": "paired_comparison",
+-                    "timestamp": datetime.now().isoformat(),
++                    "timestamp": local_timestamp(),
+                     "chat_template_kwargs": CHAT_TEMPLATE_KWARGS,
+                     "baseline_path": args.compare_baseline,
+                     "candidate_path": args.compare_candidate,
+@@ -17748,10 +17782,11 @@
+         if args.amd_fabric_only:
+             modes.append("amd_fabric")
+         output = {
++            "run_metadata": args.run_metadata,
+             "metadata": {
+                 "version": VERSION,
+                 "mode": "_".join(modes) + "_only",
+-                "timestamp": datetime.now().isoformat(),
++                "timestamp": local_timestamp(),
+                 "chat_template_kwargs": CHAT_TEMPLATE_KWARGS,
+             },
+             "nvidia_p2p_override": args.nvidia_p2p_override,

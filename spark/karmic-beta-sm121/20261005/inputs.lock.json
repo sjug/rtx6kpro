@@ -1,0 +1,109 @@
+{
+  "sources": {
+    "cccl": {
+      "commit": "16bd510c9b712e82b0ab6cbb630d8e29ba1f7116",
+      "destination": "3rdparty/cccl",
+      "digest_kind": "uncompressed-tar-sha256",
+      "file": "cccl-16bd510c9b712e82b0ab6cbb630d8e29ba1f7116.tar.gz",
+      "format": "canonical-git-blobs-v1",
+      "repository": "NVIDIA/cccl",
+      "sha256": "534b66980b191ca17260a006fed583a74346c4f196dfd8bab12ac983c66fac28",
+      "tree_file": "cccl-tree.json",
+      "tree_sha256": "2e3eccb116aa560d2d9e8917bc00c62ae47f36aa0ec844703291c3a14bf9b191",
+      "url": "https://api.github.com/repos/NVIDIA/cccl/tarball/16bd510c9b712e82b0ab6cbb630d8e29ba1f7116"
+    },
+    "cutlass": {
+      "commit": "b46b16d003484063bca4ed365e44095c4c6ed633",
+      "destination": "3rdparty/cutlass",
+      "digest_kind": "uncompressed-tar-sha256",
+      "file": "cutlass-b46b16d003484063bca4ed365e44095c4c6ed633.tar.gz",
+      "format": "canonical-git-blobs-v1",
+      "repository": "NVIDIA/cutlass",
+      "sha256": "a4cc30936387e56cf160a75a10682dded883214d1e6806a94c2dd8290fb81a7e",
+      "tree_file": "cutlass-tree.json",
+      "tree_sha256": "1999740f01f920582ee7cf20091866290b1549e524c76c9798a8cc1c4fbc87eb",
+      "url": "https://api.github.com/repos/NVIDIA/cutlass/tarball/b46b16d003484063bca4ed365e44095c4c6ed633"
+    },
+    "flashinfer": {
+      "commit": "dbd6238c6655b98195fdf77f04bba6facf5a38a4",
+      "destination": ".",
+      "digest_kind": "uncompressed-tar-sha256",
+      "file": "flashinfer-dbd6238c6655b98195fdf77f04bba6facf5a38a4.tar.gz",
+      "format": "canonical-git-blobs-v1",
+      "repository": "local-inference-lab/flashinfer",
+      "sha256": "f511d76cee346adf6a6f78fb2e4746a4d97be5995c6a9a3c8ee7a9a68dc0a742",
+      "tree_file": "flashinfer-tree.json",
+      "tree_sha256": "0357d201eb82984703200cc7b2573e04f11f2053f6b88b07ce4cf5b76c5d36fb",
+      "url": "https://api.github.com/repos/local-inference-lab/flashinfer/tarball/dbd6238c6655b98195fdf77f04bba6facf5a38a4"
+    },
+    "nixl": {
+      "commit": "b20f4d0adb95f53c4a1272915ef8d86cec304584",
+      "destination": "3rdparty/nixl",
+      "digest_kind": "uncompressed-tar-sha256",
+      "file": "nixl-b20f4d0adb95f53c4a1272915ef8d86cec304584.tar.gz",
+      "format": "canonical-git-blobs-v1",
+      "repository": "ai-dynamo/nixl",
+      "sha256": "7bbf771996c89405f95dbced4950b267bf204272bc63e790b99dc9610ab4afe1",
+      "tree_file": "nixl-tree.json",
+      "tree_sha256": "5adba8cba904ed98a10a564df3ae6052c5c7693a940da1b29d1989668d1025aa",
+      "url": "https://api.github.com/repos/ai-dynamo/nixl/tarball/b20f4d0adb95f53c4a1272915ef8d86cec304584"
+    },
+    "spdlog": {
+      "commit": "c3aed4b68373955e1cc94307683d44dca1515d2b",
+      "destination": "3rdparty/spdlog",
+      "digest_kind": "uncompressed-tar-sha256",
+      "file": "spdlog-c3aed4b68373955e1cc94307683d44dca1515d2b.tar.gz",
+      "format": "canonical-git-blobs-v1",
+      "repository": "gabime/spdlog",
+      "sha256": "aff9bec92417ce008da5bc9e0963be878c6d10a9b4170a9e8d88f4418547c2df",
+      "tree_file": "spdlog-tree.json",
+      "tree_sha256": "451a9044b9c2236b5d13cdd5b343dfee3f9caa9818f511067cb0f34bad8815ca",
+      "url": "https://api.github.com/repos/gabime/spdlog/tarball/c3aed4b68373955e1cc94307683d44dca1515d2b"
+    }
+  },
+  "target": "CPython 3.12, Linux aarch64, glibc <= 2.39",
+  "wheels": {
+    "nvidia-cutlass-dsl": {
+      "file": "nvidia_cutlass_dsl-4.7.1-py3-none-any.whl",
+      "sha256": "765850c74868a0b5a02fefbfc1b380842b64e5f7a1c8b1655e322a3b14c01726",
+      "url": "https://files.pythonhosted.org/packages/af/ef/903dab832a19e0f1d798c9acc96edbda5dfb29f2e030b46e163946555817/nvidia_cutlass_dsl-4.7.1-py3-none-any.whl",
+      "version": "4.7.1"
+    },
+    "nvidia-cutlass-dsl-libs-base": {
+      "file": "nvidia_cutlass_dsl_libs_base-4.7.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "sha256": "e86c55a5010a7edfc067648a75cb29d0c5bd67d75210168cf507b0d0e4d15ba7",
+      "url": "https://files.pythonhosted.org/packages/9f/6e/5d3f67caba70fe9a5cc21b845d2be35d88049da536185196a2644b0d461c/nvidia_cutlass_dsl_libs_base-4.7.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "version": "4.7.1"
+    },
+    "nvidia-cutlass-dsl-libs-core": {
+      "file": "nvidia_cutlass_dsl_libs_core-4.7.1-py3-none-any.whl",
+      "sha256": "c65662abc9ab18fd997c57547895736928e559f4624bbe2aa1aa91418ea014ca",
+      "url": "https://files.pythonhosted.org/packages/6b/14/b669cc890f7fd74008d7bc52f493d0a7ff256de10f3941c6676249419c07/nvidia_cutlass_dsl_libs_core-4.7.1-py3-none-any.whl",
+      "version": "4.7.1"
+    },
+    "nvidia-cutlass-dsl-libs-cu12": {
+      "file": "nvidia_cutlass_dsl_libs_cu12-4.7.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "sha256": "f57a3955c17b7dcd5472aa47c46513e5f3914e1325fc308afca1b9063a8f897b",
+      "url": "https://files.pythonhosted.org/packages/36/c1/e1202a7d8e3ce5fbb430f1123fd8109e92785a5d18a8749ca8f199318fde/nvidia_cutlass_dsl_libs_cu12-4.7.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "version": "4.7.1"
+    },
+    "nvidia-cutlass-dsl-libs-cu13": {
+      "file": "nvidia_cutlass_dsl_libs_cu13-4.7.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "sha256": "e675bf04dc6c91f7c4d5540699b7a031f2b8b44cd2687b32c20892f112f7e0d9",
+      "url": "https://files.pythonhosted.org/packages/30/ea/c7c2b4da3d6c9818e152e20cd5f797fb6d9ef75c3a5c80d2d6a9cb211489/nvidia_cutlass_dsl_libs_cu13-4.7.1-cp312-cp312-manylinux_2_28_aarch64.whl",
+      "version": "4.7.1"
+    },
+    "quack-kernels": {
+      "file": "quack_kernels-0.6.5-py3-none-any.whl",
+      "sha256": "df1ddd31366c82eb9692fe087c671209189dcbde53c909c81a865d4ee66b158d",
+      "url": "https://files.pythonhosted.org/packages/73/d8/f5e56c38b286308d115a171e3c5c44f24e9d03980c3cfd22588df40261fa/quack_kernels-0.6.5-py3-none-any.whl",
+      "version": "0.6.5"
+    },
+    "torch-c-dlpack-ext": {
+      "file": "torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl",
+      "sha256": "3562ee411258676f9c38b8ad39306d1c8d027b6a86f6a87c920d2d009a9d1510",
+      "url": "https://files.pythonhosted.org/packages/87/06/8d760997307a5c3be4384424667bf31aae0a42060838c532c7d846516175/torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl",
+      "version": "0.1.5"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Campaign-aware, no-clobber wrapper for llm_decode_bench.py.
+#
+# Results are written to the private nested results repository using:
+#   runs/<model-family>/<model-variant>/<campaign>/<workload>/
+#     <local-timestamp-with-offset>__<variant>__rNN.json
+#
+# Required environment:
+#   MODEL_FAMILY  canonical model-family slug, e.g. deepseek-v4-flash
+#   MODEL_VARIANT fixed checkpoint/weights/quant slug, e.g. 0731
+#   CAMPAIGN      atomic experiment slug, e.g. 2026-08-iir-kernel-regression
+#   VARIANT       arm/configuration slug, e.g. iir18-b12x-a8
+#
+# Optional environment:
+#   HOST          server base URL      (default http://rusty:8000)
+#   MODEL         served model name    (default DeepSeek-V4-Flash)
+#   CONCURRENCY   comma list           (default 1,2,4)
+#   WORKLOAD      flat workload slug   (default throughput)
+#   REPETITION    positive integer     (default 1)
+#   RESULTS_REPO  private results repo (default <this repo>/results)
+#
+# The campaign directory and campaign.yaml must already exist. Extra arguments
+# pass through to llm_decode_bench.py.
+#
+# Example:
+#   MODEL_FAMILY=deepseek-v4-flash MODEL_VARIANT=0731 \
+#   CAMPAIGN=2026-08-iir-kernel-regression VARIANT=iir18-b12x-a8 \
+#   ./run_bench.sh
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+HOST="${HOST:-http://rusty:8000}"
+MODEL="${MODEL:-DeepSeek-V4-Flash}"
+CONCURRENCY="${CONCURRENCY:-1,2,4}"
+MODEL_FAMILY="${MODEL_FAMILY:-}"
+MODEL_VARIANT="${MODEL_VARIANT:-}"
+CAMPAIGN="${CAMPAIGN:-}"
+WORKLOAD="${WORKLOAD:-throughput}"
+VARIANT="${VARIANT:-${LABEL:-}}"
+REPETITION="${REPETITION:-1}"
+RESULTS_REPO="${RESULTS_REPO:-${SCRIPT_DIR}/results}"
+
+for required_name in MODEL_FAMILY MODEL_VARIANT CAMPAIGN VARIANT; do
+  if [[ -z "${!required_name}" ]]; then
+    echo "error: ${required_name} is required" >&2
+    exit 2
+  fi
+done
+
+for slug_name in MODEL_FAMILY MODEL_VARIANT CAMPAIGN WORKLOAD VARIANT; do
+  slug="${!slug_name}"
+  if [[ "${slug_name}" == "MODEL_VARIANT" && "${slug}" == "_cross-variant" ]]; then
+    continue
+  fi
+  if [[ ! "${slug}" =~ ^[a-z0-9][a-z0-9._-]*$ ]]; then
+    echo "error: ${slug_name} must be a lowercase path-safe slug: ${slug}" >&2
+    exit 2
+  fi
+done
+
+if [[ ! "${REPETITION}" =~ ^[1-9][0-9]*$ ]]; then
+  echo "error: REPETITION must be a positive integer: ${REPETITION}" >&2
+  exit 2
+fi
+REPETITION_NUMBER="$((10#${REPETITION}))"
+printf -v REPETITION_PAD '%02d' "${REPETITION_NUMBER}"
+
+if [[ ! -d "${RESULTS_REPO}/.git" ]]; then
+  echo "error: RESULTS_REPO is not an initialized Git repository: ${RESULTS_REPO}" >&2
+  exit 2
+fi
+
+CAMPAIGN_DIR="${RESULTS_REPO}/runs/${MODEL_FAMILY}/${MODEL_VARIANT}/${CAMPAIGN}"
+if [[ ! -f "${CAMPAIGN_DIR}/campaign.yaml" ]]; then
+  echo "error: create ${CAMPAIGN_DIR}/campaign.yaml before recording runs" >&2
+  exit 2
+fi
+
+TIMESTAMP="$(date +%Y%m%dT%H%M%S%z)"
+RUN_ID="${TIMESTAMP}__${VARIANT}__r${REPETITION_PAD}"
+OUTPUT_DIR="${CAMPAIGN_DIR}/${WORKLOAD}"
+OUTPUT="${OUTPUT_DIR}/${RUN_ID}.json"
+
+mkdir -p "${OUTPUT_DIR}"
+if [[ -e "${OUTPUT}" ]]; then
+  echo "error: refusing to overwrite ${OUTPUT}" >&2
+  exit 1
+fi
+
+cd "${SCRIPT_DIR}"
+source .venv/bin/activate
+
+echo "─────────────────────────────────"
+echo "host=${HOST} model=${MODEL} concurrency=${CONCURRENCY}"
+echo "campaign=${CAMPAIGN} workload=${WORKLOAD} variant=${VARIANT} repetition=${REPETITION_NUMBER}"
+echo "output=${OUTPUT}"
+echo "─────────────────────────────────"
+
+python3 llm_decode_bench.py \
+  --host "${HOST}" \
+  --model "${MODEL}" \
+  --concurrency "${CONCURRENCY}" \
+  --output "${OUTPUT}" \
+  --metadata "run_id=${RUN_ID}" \
+  --metadata "campaign_id=${CAMPAIGN}" \
+  --metadata "model_family=${MODEL_FAMILY}" \
+  --metadata "model_variant=${MODEL_VARIANT}" \
+  --metadata "workload=${WORKLOAD}" \
+  --metadata "variant_id=${VARIANT}" \
+  --metadata "repetition=${REPETITION_NUMBER}" \
+  "$@"
+
+echo ""
+echo "─────────────────────────────────"
+echo "Results saved to: ${OUTPUT}"
+echo "─────────────────────────────────"
