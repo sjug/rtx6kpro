@@ -62,6 +62,13 @@ class ReviewRegression(unittest.TestCase):
                 'image_id': compare.PRODUCTION_IMAGE, 'checkpoint_revision': revision,
                 'recurrent_checkpoint_policy': 'aligned', 'harness_sha256': compare.HARNESS, 'hc_tp': '0'}}
             compare.validate_identity(data, model, compare.PRODUCTION_IMAGE)
+            with self.assertRaisesRegex(RuntimeError, 'harness mismatch'):
+                compare.validate_identity(data, model, compare.PRODUCTION_IMAGE, compare.QWEN_HARNESS)
+            data['run_metadata']['harness_sha256'] = compare.QWEN_HARNESS
+            compare.validate_identity(data, model, compare.PRODUCTION_IMAGE, compare.QWEN_HARNESS)
+            with self.assertRaisesRegex(RuntimeError, 'harness mismatch'):
+                compare.validate_identity(data, model, compare.PRODUCTION_IMAGE)
+            data['run_metadata']['harness_sha256'] = compare.HARNESS
             data['run_metadata']['image_id'] = 'old-r38'
             with self.assertRaisesRegex(RuntimeError, 'image_id'):
                 compare.validate_identity(data, model, compare.PRODUCTION_IMAGE)

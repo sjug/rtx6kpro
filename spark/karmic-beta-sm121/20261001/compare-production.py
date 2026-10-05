@@ -15,10 +15,12 @@ PROFILES = {
 }
 HARNESS = '2c447f16840e30e12335053ace433a1c6f00b4df280dac3987ae172a3a99b7c3'
 
+QWEN_HARNESS = 'cc9bb06a4f1142d2bf08afbcfc0e57d8a465a0bd180eee74e276dea70a82071c'
 
-def validate_identity(data, model, image):
+def validate_identity(data, model, image, harness=HARNESS, revision=None):
     metadata = data['run_metadata']
-    name, revision = PROFILES[model]
+    name, production_revision = PROFILES[model]
+    revision = revision or production_revision
     expected = {'image_id': image, 'checkpoint_revision': revision,
                 'recurrent_checkpoint_policy': 'aligned'}
     if model == 'qwen':
@@ -28,7 +30,7 @@ def validate_identity(data, model, image):
             raise RuntimeError(f'Production comparison identity mismatch: {key}')
     if data['metadata']['model'] != name:
         raise RuntimeError('Production comparison model mismatch')
-    if metadata.get('llm_decode_bench_sha256', metadata.get('harness_sha256')) != HARNESS:
+    if metadata.get('llm_decode_bench_sha256', metadata.get('harness_sha256')) != harness:
         raise RuntimeError('Production comparison harness mismatch')
 
 
@@ -36,10 +38,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', required=True, choices=PROFILES)
     parser.add_argument('--validate-baseline', action='store_true')
+    parser.add_argument('--harness-sha256', choices=(HARNESS, QWEN_HARNESS), default=HARNESS)
+    # A checkpoint qualification compares a new revision against the production one.
+    parser.add_argument('--candidate-revision')
     parser.add_argument('baseline', type=Path)
     parser.add_argument('candidate', type=Path, nargs='?')
     args = parser.parse_args()
-    validate_identity(json.loads(args.baseline.read_text()), args.model, PRODUCTION_IMAGE)
+    validate_identity(json.loads(args.baseline.read_text()), args.model, PRODUCTION_IMAGE, args.harness_sha256)
     if args.validate_baseline:
         # Complete-grid validation, including errors/capacity and all C1/C2/C4 cells.
         import importlib.util
@@ -55,11 +60,13 @@ def main():
         parser.error('candidate receipt required')
     candidate = json.loads(args.candidate.read_text())
     baseline = json.loads(args.baseline.read_text())
-    validate_identity(candidate, args.model, os.environ['EXPECTED_IMAGE_ID'])
+    validate_identity(candidate, args.model, os.environ['EXPECTED_IMAGE_ID'], args.harness_sha256,
+                      args.candidate_revision)
     if baseline['metadata'].get('max_total_tokens') != candidate['metadata'].get('max_total_tokens'):
         raise RuntimeError('Production comparison token budget mismatch')
+    extra = ['--checkpoint-change'] if args.candidate_revision else []
     subprocess.run([sys.executable, str(ROOT.parent / 'compare-grids.py'),
-                    str(args.baseline), str(args.candidate)], check=True)
+                    str(args.baseline), str(args.candidate), *extra], check=True)
 
 
 if __name__ == '__main__':

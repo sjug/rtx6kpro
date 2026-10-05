@@ -21,7 +21,7 @@ FILES = (
     'tests/v1/engine/test_structured_output_draft_handoff.py',    # MTP draft rows stay constrained
     'tests/v1/core/test_prefill_compute_share_scheduler.py',     # stalled prefill lanes (#959/#960)
     'tests/v1/core/test_boundary_admission.py',                  # full-KV preemption (#946)
-    'tests/kernels/layers/test_qwen_gdn_linear_attn.py',          # bound state pool
+    'tests/model_executor/layers/test_qwen_gdn_linear_attn.py',          # bound state pool
     'tests/models/qwen4_exp/test_ple_shared_table.py',            # shared PLE table (#961)
 )
 
@@ -56,8 +56,10 @@ def child(mode, index, expected=None):
 def main():
     total = 0
     for index, path in enumerate(FILES):
-        out = subprocess.run([sys.executable, __file__, 'collect', str(index)], check=True,
+        out = subprocess.run([sys.executable, __file__, 'collect', str(index)],
                              capture_output=True, text=True)
+        if out.returncode:
+            raise RuntimeError(f'Collection failed for {path}:\n{out.stdout}\n{out.stderr}')
         lines = [line for line in out.stdout.splitlines() if line.startswith('COLLECTED ')]
         if len(lines) != 1:
             raise RuntimeError(f'No collection count for {path}:\n{out.stdout[-2000:]}\n{out.stderr[-2000:]}')

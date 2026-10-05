@@ -10,13 +10,18 @@ and live state before acting.
 
 Every associated repository already has a checkout under `~/git/`. Work in those:
 
+Remote names follow one convention: `origin` is the user's fork, `upstream` is the
+repository it was forked from, and any other fork keeps a descriptive name (`lil`,
+`voip`). Checkouts without a user fork have only `upstream`.
+
 | Checkout | Remotes to fetch |
 | --- | --- |
-| `~/git/rtx6kpro` | `upstream` (voipmonitor), `origin` |
+| `~/git/rtx6kpro` | `upstream` (local-inference-lab/rtx6kpro), `origin` |
 | `~/git/vllm` | `lil` (local-inference-lab/vllm), `upstream`, `origin` |
-| `~/git/b12x` | `lil` (local-inference-lab/sparkinfer), `upstream`, `voip`, `origin` |
-| `~/git/blackwell-llm-docker` | `origin` (voipmonitor), `fork` |
-| `~/git/flashinfer`, `~/git/LMCache`, `~/git/cutlass`, `~/git/sglang`, `~/git/spark-vllm-docker`, `~/git/dgx-spark-infra`, `~/git/llm-inference-bench` | their configured remotes |
+| `~/git/b12x` | `upstream` (local-inference-lab/b12x), `voip`, `origin` |
+| `~/git/blackwell-llm-docker` | `upstream` (local-inference-lab/blackwell-llm-docker), `origin` |
+| `~/git/LMCache` | `lil` (local-inference-lab/LMCache), `upstream`, `origin` |
+| `~/git/flashinfer`, `~/git/cutlass`, `~/git/sglang`, `~/git/spark-vllm-docker`, `~/git/dgx-spark-infra`, `~/git/llm-inference-bench` | their configured remotes |
 
 Rules for any check or investigation:
 

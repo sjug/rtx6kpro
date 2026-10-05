@@ -1,0 +1,37 @@
+campaign: 2026-10-karmic-beta-sm121-qualification
+status: rolled_back_performance_regression
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4
+revision: 7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd
+hosts: [dusty, kirby]
+candidate_image_id: c4d4c7f5689245d07308813a8f1dae4ee418fa02364591f6ea33cd53724f520d
+kit: spark/karmic-beta-sm121/20261001
+baseline_grid: runs/qwen3.8-flash-next/nvfp4/2026-09-qad-7c4f1bc1-qualification/throughput/20261001T122604-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r01.json
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  hc_tp: 0
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+private_replay: not_run_trace_unavailable_user_waived
+notes: >-
+  October 1 beta image, CUTLASS DSL 4.7.1, rebuilt FlashInfer dbd6238c,
+  vLLM 4a379ed4 and B12X b557d878. Native GPU gates passed.
+  Initial cold-cache boot passed correctness but had post-readiness NV_ERR_NO_MEMORY
+  and was not approved for timing. A fresh boot with populated compiler caches
+  passed all serving gates; memory warnings occurred only before API readiness,
+  no Xid or OOM kills, no container restarts. Receipts: kit qualification/qad-7c4f1bc1-warm.
+  Private replay was waived by the user because the trace is unavailable;
+  evidence for multi-turn tool calls is weaker. The full C1/C2/C4 comparison
+  passed with the exact baseline harness token budget. Post-grid kernel health
+  was clean, containers had no OOM kills or restarts, and /health returned 200.
+qualification_grid: throughput/20261001T171223-0400__karmic-beta-20261001-qad-7c4f1bc1-hc-off-mtp3__r02.json
+comparison: production-vs-candidate.json
+deployment: rolled_back_to_karmic_beta_20260929
+rollback_reason: user_rejected_measured_decode_regressions
+rollback_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05

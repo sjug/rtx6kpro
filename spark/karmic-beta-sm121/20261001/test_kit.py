@@ -205,6 +205,30 @@ class KitTest(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, 'Wrong compiler requirement'):
                     validate_compiler_metadata()
 
+    def test_candidate_preserves_foundation_gates_and_expands_warmup(self):
+        import ast
+        import gate_inherited
+        tree = ast.parse((FOUNDATION / 'inherited/tests/run_r38_regressions.py').read_text())
+        cases = ast.literal_eval(next(n.value for n in tree.body if isinstance(n, ast.Assign)
+                                      and any(isinstance(t, ast.Name) and t.id == 'CASES' for t in n.targets)))
+        adapted = gate_inherited.adapted_cases(cases)
+        self.assertEqual(adapted.pop('warmup'), (gate_inherited.WARMUP, 8, None))
+        self.assertEqual(adapted, {k: v for k, v in cases.items() if k != 'warmup'})
+        with self.assertRaisesRegex(RuntimeError, 'contract changed'):
+            gate_inherited.adapted_cases({**cases, 'warmup': (gate_inherited.WARMUP, 7, None)})
+        expected = (FOUNDATION / 'gate.sh').read_text().replace(
+            'cd "$(dirname "${BASH_SOURCE[0]}")"',
+            'KIT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)\ncd "$KIT/../../karmic-main-sm121/20260922"').replace(
+            '-v "$PWD:/gate:ro" "$image" python',
+            '-v "$PWD:/gate:ro" -v "$KIT:/kit:ro" "$image" python').replace(
+            '/gate/inherited/tests/run_r38_regressions.py', '/kit/gate_inherited.py')
+        self.assertEqual((ROOT / 'gate_foundation.sh').read_text(), expected)
+
+    def test_beta_gate_paths_exist_in_pinned_source(self):
+        import gate_beta
+        for path in gate_beta.FILES:
+            self.assertIn(path.split('::', 1)[0], self.lock['sources']['vllm']['files'])
+
     def test_candidates_preserve_serving_arguments(self):
         # Exercise shell dry-runs: only image/name/source identity may change.
         import shlex

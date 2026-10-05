@@ -112,3 +112,16 @@ DRY_RUN=1 bash build.sh
    `a25bedd4`.
 4. GLM, DS4 Vision and DS4.1 follow in their own windows. The unchanged 524K gate still
    applies to DS4.1.
+
+### Qwen benchmark harness update (October 2)
+
+Qwen `benchmark.sh` now pins the local v0.7.6 harness and enables
+`--coding-peak` after the regular grid: five sequential C1 Sieve-of-Eratosthenes
+requests, up to 2,000 output tokens each, using server/model temperature defaults.
+This measures generation speed and TTFT; it does not execute or grade generated code.
+Results include a separate `coding_peak` object. Historical receipts are unchanged.
+
+New candidate comparisons require a fresh production baseline with the same new
+harness hash. The October 1 comparator accepts an explicit pinned harness via
+`--harness-sha256`; both grids must match it. Legacy comparisons keep their old
+default pin. The Qwen scripts pass the new pin explicitly.

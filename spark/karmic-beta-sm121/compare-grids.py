@@ -15,6 +15,8 @@ spec.loader.exec_module(prior)
 parser = argparse.ArgumentParser()
 parser.add_argument('baseline', type=Path)
 parser.add_argument('candidate', type=Path)
+# A checkpoint qualification compares two revisions on an otherwise matched grid.
+parser.add_argument('--checkpoint-change', action='store_true')
 args = parser.parse_args()
 baseline, left = prior.load(args.baseline)
 candidate, right = prior.load(args.candidate)
@@ -23,7 +25,7 @@ for key in ('version', 'decode_mode', 'duration_per_test', 'decode_warmup_second
             'temperature', 'prefill_mode', 'concurrency_levels'):
     if baseline['metadata'][key] != candidate['metadata'][key]:
         raise RuntimeError(f'Protocol drift: {key}')
-for key in ('checkpoint_revision', 'recurrent_checkpoint_policy'):
+for key in ('recurrent_checkpoint_policy',) if args.checkpoint_change else ('checkpoint_revision', 'recurrent_checkpoint_policy'):
     if not baseline['run_metadata'].get(key) or baseline['run_metadata'][key] != candidate['run_metadata'].get(key):
         raise RuntimeError(f'Identity drift: {key}')
 def harness(data):
@@ -36,7 +38,8 @@ if baseline['metadata']['model'] != candidate['metadata']['model']:
 def values(a, b):
     return {'baseline': a, 'candidate': b, 'change_pct': (b / a - 1) * 100}
 metrics = ('aggregate_tps', 'server_steps_per_s', 'server_accept_len_effective')
-report = {'repeatable_gain_proven': False, 'grids_valid': True, 'inputs': {
+report = {'repeatable_gain_proven': False, 'grids_valid': True,
+    'checkpoint_change': args.checkpoint_change, 'inputs': {
     name: {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
     for name, path in (('baseline', args.baseline), ('candidate', args.candidate))},
     'summary': [], 'cells': [], 'prefill': []}

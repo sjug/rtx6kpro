@@ -1,0 +1,51 @@
+campaign: 2026-10-qad-6909a5be-qualification
+status: qualified_private_replay_waived
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4
+revision: 6909a5bed089a48fa07e956d3915af2537de9368
+previous_revision: 7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd
+hosts: [dusty, kirby]
+candidate_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+kit: spark/karmic-beta-sm121/20260929
+baseline: matched 7c4f1bc1 production grid in this campaign (same image, harness and KV budget)
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  hc_tp: 0
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+  kv_budget: 78619040
+notes: >-
+  Checkpoint qualification: image 500ae05b and the serving profile are unchanged
+  from production. Not checkpoint-only: B12X autotune selections were re-measured
+  for the new model path (41 of 79 shared queries picked a different winner, 14/8
+  queries unique to old/new), so steps/s deltas are not attributed to the checkpoint. 6909a5be is a hybrid (HYBRID.json): trunk from QAD revision
+  60215d26 (step-5500) with MXFP8 attention and MTP experts from 7c4f1bc1.
+  The user downloaded it on both nodes on 2026-10-04.
+baseline_grid: throughput/20261004T231819-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r01.json
+qualification_grids:
+  - throughput/20261004T235041-0400__karmic-beta-20260929-qad-6909a5be-hc-off-mtp3__r01.json
+  - throughput/20261005T000453-0400__karmic-beta-20260929-qad-6909a5be-hc-off-mtp3__r02.json
+comparisons: [baseline-vs-candidate-r01.json, baseline-vs-candidate-r02.json]
+harness_sha256: cc9bb06a4f1142d2bf08afbcfc0e57d8a465a0bd180eee74e276dea70a82071c
+private_replay: not_run_trace_unavailable_user_waived
+result_notes: >-
+  Baseline: fresh grid on the serving 7c4f1bc1 pair (same boot as its October 1
+  qualification), PRODUCTION-BASELINE-VALID, kernel logs clean. Candidate: fresh
+  boot of 6909a5be on image 500ae05b; correctness battery, counting 21/21 plus
+  serial boundaries, head-of-line and identical-vs-distinct passed. Two grids on
+  that boot, both exit 0 with clean kernel logs. Mean of the two candidate grids
+  against the single baseline grid: output tok/s C1/C2/C4 -1.0%/+1.6%/+3.0%,
+  engine steps/s -0.9%/-2.7%/-0.6%, effective acceptance -0.1%/+4.5%/+3.7%.
+  C2 steps/s was lower in both candidate grids (-2.3%, -3.2%); with one baseline
+  grid this is not separated from boot variance. Prefill 16K-128K within 1.3%;
+  the 8K scout difference (+21-22%) is a first-use outlier in the baseline grid.
+  GPU KV 5,132,117 tokens vs 5,191,165 (-1.1%). Dusty logged 59 startup-only
+  NV_ERR_NO_MEMORY lines before API readiness. Reading: performance parity;
+  no quality claim beyond the gates (no task-accuracy evaluation was run).
+  Production was restored to 7c4f1bc1 afterwards; promotion is the user's decision.

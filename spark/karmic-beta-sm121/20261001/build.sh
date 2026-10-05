@@ -56,10 +56,12 @@ podman image inspect "$image" > "$receipt/image-inspect.json"
 podman run --rm --pull=never --entrypoint /bin/cat "$image" \
   /opt/karmic-beta-refresh/dependency-upgrade.json > "$receipt/dependency-upgrade.json"
 idle_pair
-bash "$FOUNDATION/gate.sh" "$image" "$receipt"
+bash "$PWD/gate_foundation.sh" "$image" "$receipt"
 gate() {
   local log=$1 script=$2
-  podman run --rm --pull=never --device nvidia.com/gpu=all --security-opt label=disable --ipc=host \
+  local -a compiler_policy=()
+  [[ $log != compiler-471 ]] || compiler_policy=(--security-opt seccomp=unconfined)
+  podman run --rm --pull=never --device nvidia.com/gpu=all --security-opt label=disable --ipc=host "${compiler_policy[@]}" \
     -e PYTHONUNBUFFERED=1 -e PYTHONOPTIMIZE=0 -e B12X_PRINT_COMPILE_PROGRESS=1 \
     -v "$FOUNDATION:/gate:ro" -v "$PWD:/kit:ro" "$image" /opt/venv/bin/python "$script" 2>&1 | tee "$receipt/$log.log"
 }

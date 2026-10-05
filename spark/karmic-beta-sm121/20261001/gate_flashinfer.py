@@ -35,12 +35,23 @@ def main():
         q = torch.randn(8, 128, device='cuda', dtype=dtype)
         expected = torch.nn.functional.scaled_dot_product_attention(
             q.float().unsqueeze(1), k.float().transpose(0, 1), v.float().transpose(0, 1)).squeeze(1)
-        actual = flashinfer.single_decode_with_kv_cache(q, k, v)
+        workspace = torch.empty(16 * 1024 * 1024, device='cuda', dtype=torch.uint8)
+        decode = flashinfer.BatchDecodeWithPagedKVCacheWrapper(workspace, kv_layout='NHD')
+        decode.plan(torch.tensor([0, 4], dtype=torch.int32),
+                    torch.arange(4, dtype=torch.int32),
+                    torch.tensor([16], dtype=torch.int32),
+                    8, 8, 128, 16, q_data_type=dtype, kv_data_type=dtype)
+        actual = decode.run(q.unsqueeze(0), (k.reshape(4, 16, 8, 128),
+                                            v.reshape(4, 16, 8, 128))).squeeze(0)
         torch.testing.assert_close(actual.float(), expected, atol=0.02, rtol=0.02)
         q = torch.randn(16, 8, 128, device='cuda', dtype=dtype)
         expected = torch.nn.functional.scaled_dot_product_attention(
             q.float().transpose(0, 1), k.float().transpose(0, 1), v.float().transpose(0, 1)).transpose(0, 1)
-        actual = flashinfer.single_prefill_with_kv_cache(q, k, v, causal=False, backend='fa2')
+        prefill = flashinfer.BatchPrefillWithRaggedKVCacheWrapper(workspace, kv_layout='NHD', backend='fa2')
+        prefill.plan(torch.tensor([0, 16], dtype=torch.int32),
+                     torch.tensor([0, 64], dtype=torch.int32),
+                     8, 8, 128, causal=False, q_data_type=dtype, kv_data_type=dtype)
+        actual = prefill.run(q, k, v)
         torch.testing.assert_close(actual.float(), expected, atol=0.02, rtol=0.02)
         x = torch.randn(16, 256, device='cuda', dtype=dtype)
         weight = torch.randn(256, device='cuda', dtype=dtype)

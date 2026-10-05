@@ -47,10 +47,10 @@ The repository map at the last review was:
 
 | Role | Source to inspect |
 | --- | --- |
-| Runbooks and measurement records | `voipmonitor/rtx6kpro`, `master` |
+| Runbooks and measurement records | `local-inference-lab/rtx6kpro`, `master` |
 | Image assembly, channels, dependency pins | `local-inference-lab/blackwell-llm-docker` |
 | Serving fork | `local-inference-lab/vllm` |
-| Kernel library | `local-inference-lab/b12x`, also reached through the configured `sparkinfer` URL |
+| Kernel library | `local-inference-lab/b12x` |
 | Component publishers | Local Inference Lab FlashInfer, LMCache, InstantTensor and nccl-canonical repositories |
 | Native dependencies | URLs and exact commits declared by the selected recipe, including FlashKDA and CUTLASS |
 

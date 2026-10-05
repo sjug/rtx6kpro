@@ -14,7 +14,7 @@ from contracts import file_sha, require, sha
 BASE = '1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc'
 VLLM_TREE = '96971e1c01f2ed035ee73cceb71c144de76ede06'
 B12X_TREE = '5561aa253c6853dab3d9041b70e74828fde44dad'
-FILES = ['Dockerfile', '.containerignore', 'install.py', 'prepare.py', 'preflight.py', 'build.sh',
+FILES = ['compiler_oracle.py', 'gate_foundation.sh', 'gate_inherited.py', 'Dockerfile', '.containerignore', 'install.py', 'prepare.py', 'preflight.py', 'build.sh',
          'run-qwen.sh', 'gate_beta.py', 'gate_compiler.py', 'test_kit.py', 'build.lock.json', 'runtime.lock.json', 'refresh.tar',
          'prepare_inputs.py', 'inputs.lock.json', 'compiler-arm64.lock', 'unpack_sources.py', 'upgrade_dependencies.py',
          'publication.json', 'glm/run-glm-tp4-node.sh', 'glm/templates/glm53-flash.jinja',

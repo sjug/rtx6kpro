@@ -7,7 +7,9 @@ hcbase="$repo/spark/karmic-main-sm121/20260922/qsa865-hcbase"
 image=${EXPECTED_IMAGE_ID:?built image ID required}
 remote=/home/jugs/git/bld-jj-r38-spark/karmic-beta-sm121/20260929
 name=qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2
-qualification=${QUALIFICATION_ROOT:-$base/qualification/qad-7c4f1bc1}
+revision=${MODEL_REVISION:-7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd}
+[[ $revision =~ ^[0-9a-f]{40}$ ]] || exit 78
+qualification=${QUALIFICATION_ROOT:-$base/qualification/qad-${revision:0:8}}
 out="$qualification/mtp3"
 window="$qualification/window"
 [[ $image =~ ^[0-9a-f]{64}$ && ! -e $out && ! -e $window ]] || exit 78
@@ -46,11 +48,12 @@ done
 for node in kirby dusty; do
   role=worker
   [[ $node != dusty ]] || role='head'
-  ssh -n "$node" "cd '$remote' && ROLE=$role EXPECTED_IMAGE_ID=$image bash run-qwen.sh"
+  ssh -n "$node" "cd '$remote' && ROLE=$role EXPECTED_IMAGE_ID=$image MODEL_REVISION=$revision bash run-qwen.sh"
   ssh -n "$node" "podman inspect '$name'" > "$window/$node-container.json"
-  jq -e --arg image "$image" '.[0] | .State.Running and .Image==$image and
+  jq -e --arg image "$image" --arg revision "MODEL_REVISION=$revision" '.[0] | .State.Running and .Image==$image and
     (.Config.Env | index("VLLM_QWEN3_8_FLASH_NEXT_HC_TP=0") != null) and
     (.Config.Env | index("NUM_SPECULATIVE_TOKENS=3") != null) and
+    (.Config.Env | index($revision) != null) and
     (.Args | index("--max-cudagraph-capture-size") as $i | $i != null and .[$i+1]=="32")' "$window/$node-container.json" >/dev/null
 done
 python3 -u "$repo/spark/karmic-main-sm121/20260922/qualify.py" --out "$out"

@@ -17,8 +17,18 @@ MODEL_REVISION=${MODEL_REVISION:-7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd}
 MODEL=${MODEL:-/root/.cache/huggingface/hub/${MODEL_REPO_DIR}/snapshots/${MODEL_REVISION}}
 # Client-facing alias only; the checkpoint repository and revision stay pinned.
 SERVED_MODEL_NAME=${SERVED_MODEL_NAME:-Qwen3.8-Flash-Next}
-EXPECTED_MODEL_BYTES=${EXPECTED_MODEL_BYTES:-105798973864}
-EXPECTED_MODEL_SHARDS=${EXPECTED_MODEL_SHARDS:-36}
+# Each qualified revision pins its index metadata, the bytes of the shards the index
+# references, and the architectures list. 6909a5be's index total_size is stale (its
+# referenced shards hold 106,334,488,084 bytes), so the shard bytes are checked as well.
+case $MODEL_REVISION in
+  7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd)
+    expected_index=105798973864 expected_shard_bytes=105839492200 expected_shards=36
+    expected_architectures='["Qwen4ExpForConditionalGeneration","Qwen3_8FlashNextForConditionalGeneration"]' ;;
+  6909a5bed089a48fa07e956d3915af2537de9368)
+    expected_index=110091566076 expected_shard_bytes=106334488084 expected_shards=40
+    expected_architectures='["Qwen4ExpForConditionalGeneration"]' ;;
+  *) echo "No checkpoint expectations for MODEL_REVISION=${MODEL_REVISION}" >&2; exit 78 ;;
+esac
 
 HF_CACHE=${HF_CACHE:-$HOME/.cache/huggingface}
 CACHE=${CACHE:-$HOME/.cache/vllm-jj-qwen38-4p89}
@@ -153,7 +163,7 @@ if [[ ! -r "${index_file}" || ! -r "${config_file}" ]]; then
   echo "Pinned model snapshot is incomplete: ${host_snapshot}" >&2
   exit 78
 fi
-python3 - "${index_file}" "${config_file}" "${EXPECTED_MODEL_BYTES}" "${EXPECTED_MODEL_SHARDS}" <<'PY'
+python3 - "${index_file}" "${config_file}" "${expected_index}" "${expected_shards}" "${expected_shard_bytes}" "${expected_architectures}" <<'PY'
 if not __debug__:
     raise RuntimeError("Karmic verification requires Python assertions enabled")
 import json
@@ -168,7 +178,8 @@ shards = sorted(set(index["weight_map"].values()))
 assert index["metadata"]["total_size"] == int(sys.argv[3])
 assert len(shards) == int(sys.argv[4])
 assert all((index_path.parent / shard).is_file() for shard in shards)
-assert config["architectures"] == ["Qwen4ExpForConditionalGeneration", "Qwen3_8FlashNextForConditionalGeneration"]
+assert sum((index_path.parent / shard).stat().st_size for shard in shards) == int(sys.argv[5])
+assert config["architectures"] == json.loads(sys.argv[6])
 assert config["model_type"] == "qwen4_exp"
 assert config["quantization_config"]["quant_algo"] == "MIXED_PRECISION"
 assert config["quantization_config"]["quant_method"] == "modelopt"

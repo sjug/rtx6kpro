@@ -168,3 +168,57 @@ Qwen comparison baseline:
 
 Receipts remain under `qualification/qad-7c4f1bc1/`. The freshly qualified pair
 continues serving. The October 1 image build has not begun.
+
+## Checkpoint 6909a5be qualification, 2026-10-04/05
+
+Same production image `500ae05b` and unchanged profile; the checkpoint is the declared change, but not the only one (see below). The user
+downloaded `local-inference-lab/Qwen3.8-Flash-Next-NVFP4` revision
+`6909a5bed089a48fa07e956d3915af2537de9368` on both nodes (40 index-referenced shards,
+106,334,488,084 bytes; the index `total_size` 110,091,566,076 is stale; three unreferenced
+shard files are left over and not loaded). `HYBRID.json` records a hybrid: trunk from QAD
+revision `60215d26` (step-5500), MXFP8 attention and MTP experts from `7c4f1bc1`. The
+config lists only `Qwen4ExpForConditionalGeneration` and uses per-layer
+`quantized_layers` (384 MXFP8, 49 NVFP4, 2 W4A16_NVFP4).
+
+Kit changes: `run-qwen.sh` pins index size, referenced shard bytes, shard count and
+architectures per revision (defaults stay on `7c4f1bc1`); `execute.sh` and `benchmark.sh`
+take `MODEL_REVISION`, derive the receipt root and campaign from it, and `benchmark.sh`
+accepts `NAME` (a retained production pair) and `KV_BUDGET`. The comparators accept a
+declared checkpoint change (`--candidate-revision`, `--checkpoint-change`). Staged runner
+SHA256 `64c691c77a71085d473dee3b496c08dc9de479fc6953f7f442e6c193da4f86dc`; check-only
+runs passed on both nodes for both revisions.
+
+Sequence: a fresh baseline grid on the serving `7c4f1bc1` pair with the current harness
+(`cc9bb06a`, `--coding-peak`, KV budget 78,619,040), `PRODUCTION-BASELINE-VALID`, kernel
+logs clean. Production stopped worker first, then head. `execute.sh` booted `6909a5be`
+(API ready 03:38:08 UTC) and exited 0: correctness battery, counting 21/21 plus serial
+boundaries 56,976 to 56,993, head-of-line fresh maximum TTFT 0.252 s, c4 distinct /
+identical / distinct-again 128.8 / 132.3 / 133.2 tok/s. Private replay not run (trace
+unavailable), waived on the same terms as `7c4f1bc1`. Two grids on that boot, both exit 0.
+
+| Grid | c1 tok/s | c1 steps/s | c2 tok/s | c2 steps/s | c4 tok/s | c4 steps/s | coding peak median |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 7c4f1bc1 baseline | 49.63 | 24.00 | 79.83 | 39.45 | 120.47 | 58.76 | 71.6 |
+| 6909a5be r01 | 47.15 | 23.86 | 80.49 | 38.56 | 123.63 | 58.76 | 73.6 |
+| 6909a5be r02 | 51.12 | 23.70 | 81.78 | 38.20 | 124.64 | 58.02 | 73.7 |
+| mean vs baseline | -1.0% | -0.9% | +1.6% | -2.7% | +3.0% | -0.6% | |
+
+Geometric means over the five contexts. Effective acceptance moved -0.1% / +4.5% / +3.7%
+(C1 swung from 1.98 in r01 to 2.16 in r02). C2 steps/s was lower in both candidate grids;
+with a single baseline grid that is not separated from boot variance. Prefill 16K-128K is
+within 1.3%; the baseline's 8K scout (2,536 tok/s) is a first-use outlier. GPU KV
+5,132,117 tokens vs 5,191,165 (-1.1%).
+
+What else differed: B12X autotune selections are keyed by model path, so the candidate boot measured its own winners (`0549113e...json`, 87 records) instead of reusing `7c4f1bc1`'s (`d21ec6d1...json`, 93 records). Of 79 shared queries, 41 picked a different winner; 14 queries exist only in the old file and 8 only in the new. The checkpoints also differ in format outside the text path's attention and expert layers: the vision encoder is BF16 (`model.visual.*` ignored by quantization) and the PLE `ngram_embedding` is NVFP4. The steps/s differences above are therefore not attributed to the checkpoint alone; selection variability (b12x#463), the NVFP4 PLE lookup and trunk expert routing are not separated.
+
+Health: dusty logged 59 `NV_ERR_NO_MEMORY` lines at 03:37:48-49 UTC, before API readiness
+(the startup-only class recorded above); kirby clean; no Xid or OOM; no kernel events
+during either grid; containers ran with no OOM kills or restarts.
+
+Reading: performance parity with `7c4f1bc1`, all serving gates passed. No task-accuracy
+evaluation was run, so no quality claim is made beyond the gates. Production was restored
+to the `7c4f1bc1` pair (`podman start`, kirby then dusty). The candidate pair is retained
+as `qwen38-flash-next-nvfp4-karmic-beta-20260929-tp2-6909a5be-qualified-20261005` for a
+`podman start` cutover; promotion is the user's decision. Results:
+`runs/qwen3.8-flash-next/nvfp4/2026-10-qad-6909a5be-qualification/`; receipts under
+`qualification/qad-6909a5be/` and `qualification/qad-7c4f1bc1/mtp3/baseline-20261004/`.

@@ -34,3 +34,15 @@ notes: >-
   multi-turn tool-call evidence on the new weights is therefore weaker.
 qualification_grid: throughput/20261001T122604-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r01.json
 private_replay: not_run_trace_unavailable_user_waived
+
+rollback_repeat_grid: throughput/20261001T225514-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r02.json
+rollback_repeat_comparison: restored-vs-candidate.json
+rollback_repeat_health: completed_with_dusty_NV_ERR_NO_MEMORY_warning
+rollback_repeat_notes: >-
+  Full matched repeat on the retained qualified September 29 containers after
+  rollback. Production-baseline validation passed. Decode geometric means
+  C1/C2/C4: 50.12/80.57/123.24 output tokens per second. Against this repeat,
+  the October 1 candidate was 1.77%/2.47%/0.55% slower. Dusty emitted three
+  NV_ERR_NO_MEMORY kernel warnings during the grid; no Xid, OOM kills or
+  container restarts, no fatal container errors during this run, final health 200.
+  This repeat does not claim a clean kernel-health qualification.

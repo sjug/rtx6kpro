@@ -1,9 +1,10 @@
 # October 1 Karmic beta with CUTLASS DSL 4.7.1 for DGX Spark
 
-Status: **prepared and locally checked; not built, GPU-qualified or deployed**.
+Status: **Qwen rolled back for measured performance regressions; candidate retained**.
 Target tag: `localhost/voipmonitor/vllm:karmic-beta-20261001-spark-sm121`.
-No Spark host was contacted during preparation. An authorized idle build window
-on dusty/kirby is required before running the real build.
+Image: `c4d4c7f5689245d07308813a8f1dae4ee418fa02364591f6ea33cd53724f520d`.
+Built on dusty and loaded on kirby. The candidate is stopped; Qwen serves the
+retained qualified September 29 image `500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05`.
 
 ## Pinned composition
 
@@ -75,7 +76,7 @@ This is a declared packaging overlay, not a claim of a newly compiled vLLM wheel
 
 The cache fingerprint includes the compiler/source dependency lock, so new
 CuTE/B12X/Triton caches cannot reuse the previous compiler's runtime namespace.
-Expect cold compilation; performance remains unmeasured on Spark.
+Expect cold compilation; Qwen performance was measured on Spark as recorded below.
 
 ## Safeguards and pending GPU gates
 
@@ -86,13 +87,21 @@ It records the recipe manifest, logs, exit status, image identity and native
 replacement audit. The serving tag is created only after every gate succeeds.
 
 The gates include the inherited native/linkage, FlashKDA, launcher, memory and
-regression matrices; QSA865; beta's original seven regression files; the new
+regression matrices; the candidate adapter expands only the warmup matrix from
+six to eight for beta's two MXFP8 capacity cases, retaining strict collection
+and pass counts and leaving historical foundation files untouched; QSA865; beta's original seven regression files; the new
 scheduler/boundary-admission, Qwen GDN and shared PLE table tests; and B12X's compiler-migration
 corpus plus the MXFP8 numerical/graph and PLE embedding suites. Test collection must be nonempty,
 and every selected case must pass without skips or xfails. The four cuDNN
 comparison cases excluded by the upstream compiler corpus remain excluded and
-are not acceptance evidence. A new FlashInfer gate compares FP16/BF16 decode,
-prefill and RMSNorm with Torch numerical references, disables JIT fallback and
+are not acceptance evidence. The exact Laguna high-page specialization explicitly
+requires SM120 and is also excluded from this SM121 gate. Every remaining case
+must pass; collection counts are taken after deselection. Torch GEMM references
+use highest precision. The exact NVFP4 migration test uses FP64 dequantization
+for its oracle, retaining zero tolerance and the original graph-replay checks.
+The compiler-test container alone runs with seccomp disabled so the optional PLE
+disk tests can use io_uring; serving container policy is unchanged. A new FlashInfer gate compares packaged FP16/BF16 batch decode,
+ragged batch prefill and RMSNorm with Torch numerical references, disables JIT fallback and
 requires every requested nvcc module to have an artifact inside the rebuilt AOT
 cache, and blocks its compiler entry point directly. It exercises vLLM's actual
 CUDA top-p (0.95), top-k and combined sampler paths, checking allowed tokens and
@@ -167,7 +176,7 @@ The local suite checks deterministic source-lock/payload preparation, complete
 delta replay, remote Git blob equality for all five source archives, rejection
 of a wrong source digest, compiler requirement metadata/RECORD handling, and
 head/worker command preservation. These are artifact checks, not an image build
-or a live runtime result. All 26 local tests, shell checks, input preflight and
+or a live runtime result. All 28 local tests, shell checks, input preflight and
 the build dry-run passed during preparation. See [the upstream comparison](../../../docs/upstream-check-20261001.md).
 
 
@@ -186,3 +195,66 @@ pass `compare-production.py --validate-baseline`; they are the production
 baselines for this build. Separate baseline capture runs are unnecessary.
 The Qwen record explicitly waives private replay because the trace is unavailable.
 Candidate comparisons remain pending.
+
+## October 1 build result
+
+Image `c4d4c7f5689245d07308813a8f1dae4ee418fa02364591f6ea33cd53724f520d`
+passed the native GPU gates on dusty on 2026-10-01. Receipt:
+`receipts/build-20261001T182227Z-551801/`; final `status.txt` is `exit_status=0`.
+The serving tag now points to this image.
+
+- Foundation: FlashKDA 12, inherited regressions 258, memory 46 and draft head passed.
+- QSA865: loader/compile/link and 18 cases passed.
+- Beta: 283 cases across 11 files passed.
+- CUTLASS/compiler: 179 applicable cases passed, including caller-owned PLE storage and disk cases.
+- FlashInfer: 18 cases passed, including the real-vocabulary samplers; all requested native kernels loaded from the rebuilt wheel with compilation blocked.
+
+Qualification resumed on the same image after gate corrections. The original
+failed statuses and logs are retained separately; `qualification-inputs.json`
+and saved gate files record the corrected qualification recipe independently
+of the immutable build manifest. The corrections remain uncommitted because
+the user prioritized image qualification over further signing attempts.
+Qwen, GLM and DS4 model correctness and benchmark comparisons remain pending.
+
+## Qwen qualification result, October 1
+
+The candidate passed correctness, native-context retrieval through 262000 tokens,
+counting and serial boundaries, head-of-line, and identical-vs-distinct probes.
+The first cold-cache boot passed functional gates but had a post-readiness
+NV_ERR_NO_MEMORY burst and was not approved for timing. Its receipts remain in
+`qualification/qad-7c4f1bc1/`. A fresh boot with populated compiler caches passed
+functional gates and health review; its NV_ERR_NO_MEMORY bursts occurred only
+before API readiness. Both containers remained running without OOM kills or
+restarts; the endpoint returned HTTP 200 after qualification and timing.
+
+The full C1/C2/C4 grid at 0/16K/32K/64K/128K passed the strict production
+comparison with the baseline token budget of 78619040. Decode throughput
+geometric means changed -3.77%/-1.86%/+1.31% at C1/C2/C4; prefill changed
++0.79% to +2.45%. This does not establish a repeatable performance gain.
+The initial timing grid auto-detected a different admission budget and failed
+strict comparison; it is retained, and benchmark.sh now pins the baseline budget.
+
+Private replay was not run because trace 05daceed is unavailable, as explicitly
+waived by the user. Multi-turn tool-call evidence remains weaker.
+Receipts: `qualification/qad-7c4f1bc1-warm/`, with the final grid and comparison in
+`mtp3/matched-budget/`. The retained campaign record and raw grids are under
+`runs/qwen3.8-flash-next/nvfp4/2026-10-karmic-beta-sm121-qualification/` at the repo root.
+GLM and DS4 model qualification remain separate windows; their serving was not changed.
+
+The user rejected the measured decode regressions and requested rollback. The
+September 29 qualified Qwen pair was restored, worker first, and verified with
+HTTP 200 health and an arithmetic completion. Candidate containers, image and
+qualification receipts are retained. GLM/DS4 candidate qualification was not started.
+
+### Qwen benchmark harness update (October 2)
+
+Qwen `benchmark.sh` now pins the local v0.7.6 harness and enables
+`--coding-peak` after the regular grid: five sequential C1 Sieve-of-Eratosthenes
+requests, up to 2,000 output tokens each, using server/model temperature defaults.
+This measures generation speed and TTFT; it does not execute or grade generated code.
+Results include a separate `coding_peak` object. Historical receipts are unchanged.
+
+New candidate comparisons require a fresh production baseline with the same new
+harness hash. The October 1 comparator accepts an explicit pinned harness via
+`--harness-sha256`; both grids must match it. Legacy comparisons keep their old
+default pin. The Qwen scripts pass the new pin explicitly.
