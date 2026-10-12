@@ -21,7 +21,8 @@ repository it was forked from, and any other fork keeps a descriptive name (`lil
 | `~/git/b12x` | `upstream` (local-inference-lab/b12x), `voip`, `origin` |
 | `~/git/blackwell-llm-docker` | `upstream` (local-inference-lab/blackwell-llm-docker), `origin` |
 | `~/git/LMCache` | `lil` (local-inference-lab/LMCache), `upstream`, `origin` |
-| `~/git/flashinfer`, `~/git/cutlass`, `~/git/sglang`, `~/git/spark-vllm-docker`, `~/git/dgx-spark-infra`, `~/git/llm-inference-bench` | their configured remotes |
+| `~/git/flashinfer` | `lil` (local-inference-lab/flashinfer, carries B12X since FlashInfer 0.7.1), `upstream` (flashinfer-ai), `voip`, `origin` |
+| `~/git/cutlass`, `~/git/sglang`, `~/git/spark-vllm-docker`, `~/git/dgx-spark-infra`, `~/git/llm-inference-bench` | their configured remotes |
 
 Rules for any check or investigation:
 

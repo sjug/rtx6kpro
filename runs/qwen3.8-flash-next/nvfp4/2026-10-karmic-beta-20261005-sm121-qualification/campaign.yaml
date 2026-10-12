@@ -1,0 +1,53 @@
+campaign: 2026-10-karmic-beta-20261005-sm121-qualification
+status: gates_passed_performance_regression_production_restored
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4
+revision: 7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd
+hosts: [dusty, kirby]
+candidate_image_id: 8afa3a013cde50905d87b76edbada1ea34896f7dcaef5222ccb054fd63609f72
+production_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+kit: spark/karmic-beta-sm121/20261005
+publication: karmic-kraken-beta-20261005-4102660abd8a98b1
+sources: {vllm: f1c2508f1018f47ee8a78478a819d202f359887b, b12x: 52640cb15d4ad1c7230f747e72c45d45dc2da681, recipe: e881183c06a6f64dffb87afb24c7e7703240dca3}
+baseline: October 4 production 7c4f1bc1 grid on image 500ae05b (same checkpoint, harness and KV budget)
+baseline_grid: ../2026-10-qad-6909a5be-qualification/throughput/20261004T231819-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r01.json
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  hc_tp: 0
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+  kv_budget: 78619040
+harness_sha256: cc9bb06a4f1142d2bf08afbcfc0e57d8a465a0bd180eee74e276dea70a82071c
+private_replay: not_run_trace_unavailable_user_waived
+notes: >-
+  Image-only qualification: the October 5 Karmic beta (4102660a) ported to SM121 on the
+  original 7c4f1bc1 checkpoint with production serving arguments. Timing uses the second
+  (warm-cache) boot; the cold boot passed every gate but had a post-readiness
+  NV_ERR_NO_MEMORY burst on dusty. Harness is the frozen cc9bb06a copy rebuilt by the kit.
+qualification_grids:
+  - throughput/20261005T141550-0400__karmic-beta-20261005-qad-7c4f1bc1-hc-off-mtp3__r01.json
+  - throughput/20261005T145145-0400__karmic-beta-20261005-qad-7c4f1bc1-hc-off-mtp3__r02.json
+comparisons: [baseline-vs-candidate-r01.json, baseline-vs-candidate-r02.json]
+result_notes: >-
+  Warm boot passed every serving gate and the health review; the grid is valid against the October 4
+  baseline (same checkpoint, harness cc9bb06a, KV budget). Geometric means C1/C2/C4: output tok/s
+  -4.9/-3.2/+1.0%, steps/s -0.9/-3.3/-0.2%, effective acceptance -4.1/+0.1/+1.2%. Prefill 16K-128K
+  within 0.7% (8K +23% is the baseline's first-use outlier). Coding peak median 66.9 vs 71.6 tok/s.
+  GPU KV 5,313,211 vs 5,191,165 tokens. No kernel events during the grid. Same pattern as the October 1
+  candidate the user rejected (-3.77/-1.86/+1.31%); one grid, so boot variance is not separated.
+  Production 7c4f1bc1 pair restored 2026-10-05T18:31Z; candidate containers retained, not promoted.
+repeat_notes: >-
+  Second grid on a fresh boot of the unmodified image (natural selections cached from the first boot),
+  requested to see whether the MTP acceptance loss recovers. It did (C1 effective acceptance 2.07, equal to
+  baseline) but steps/s fell further: output tok/s -4.9/-2.5/-2.0%, steps/s -4.9/-6.8/-3.4%, acceptance
+  0.0/+4.6/+1.5% at C1/C2/C4. Mean of the two grids: output tok/s -4.9/-2.9/-0.5%, steps/s -2.9/-5.0/-1.8%.
+  Decode steps/s is lower than production in both grids at every concurrency, so the regression is in
+  engine step rate, not MTP acceptance. r02 prefill was also 1.5-7.7% lower at 16K-128K (r01 was within
+  0.7%); not separated from boot variance. Coding peak median 67.6 (r01 66.9) vs 71.6 tok/s.
+  Production restored again 2026-10-05T19:07Z; candidate containers retained as *-warm-r1 and *-r2.
