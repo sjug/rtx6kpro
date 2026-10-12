@@ -33,6 +33,24 @@ FILES = (
 DESELECT = {
     'tests/model_executor/model_loader/instanttensor_loader/test_weight_utils.py': (
         'test_instanttensor_model_loader',),  # downloads openai-community/gpt2
+    # vllm#858's merge left these tests stale against beta's own code (they fail on any hardware):
+    # the aligned-state cases still expect -1 padding, but beta pads with NULL_BLOCK_ID (638f90a1,
+    # gated by test_aligned_state_indices_padding.py); the copy-function cases pass the whole
+    # _COPY_FUNCS dict where a per-type tuple (_DEFAULT_COPY_FUNCS) is meant. The single-row
+    # aligned-state cases, including 69-group tiling, still run.
+    'tests/v1/worker/test_mamba_utils.py': (
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[4-1-2]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[4-1-69]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[4-8-2]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[4-8-69]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[33-1-2]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[33-1-69]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[33-8-2]',
+        'test_aligned_state_indices_graph_replay_masks_padding_and_refreshes_blocks[33-8-69]',
+        'test_discovers_heterogeneous_mamba_uniform_group',
+        'test_heterogeneous_copy_capacity_is_checked_before_writes',
+        'test_populates_heterogeneous_mamba_metadata_with_group_association',
+        'test_resolves_legacy_single_type_mamba_copy_api'),
 }
 
 

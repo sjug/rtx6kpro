@@ -1,6 +1,6 @@
 # October 5 Karmic beta with CUTLASS DSL 4.7.1 for DGX Spark
 
-Status: **prepared, not built**. No GPU gate or model qualification has run.
+Status: **built and gated; Qwen not promoted (decode regression); see the result section**.
 Target tag: `localhost/voipmonitor/vllm:karmic-beta-20261005-spark-sm121`.
 
 This kit is the [October 1 kit](../20261001/README.md) re-pinned to the latest beta publication. The composition method, build inputs, native boundaries, safeguards and GPU gates are unchanged except as listed below; read the October 1 README for them.
@@ -47,7 +47,7 @@ Beta regression gate (`gate_beta.py`), in addition to the October 1 files:
 - `tests/models/qwen4_exp/test_b12x_config.py` (#974)
 - `tests/kernels/moe/test_b12x_a4_prefill.py` (#970/#977, opt-in wiring)
 - `tests/model_executor/model_loader/instanttensor_loader/test_weight_utils.py` (#841), deselecting `test_instanttensor_model_loader`, which downloads gpt2 unpinned; the gate stays offline
-- `tests/v1/worker/test_mamba_utils.py` (#858)
+- `tests/v1/worker/test_mamba_utils.py` (#858), deselecting 12 cases the #858 merge left stale against beta (first build, 2026-10-05: 50 of 62 passed). Eight aligned-state graph-replay cases with zero-length rows expect `-1` padding, but beta deliberately pads with `NULL_BLOCK_ID` (`638f90a1`, gated by `test_aligned_state_indices_padding.py`, which passed). Four heterogeneous/legacy copy-function cases pass the whole `_COPY_FUNCS` dict where a per-type tuple is meant. Both are hardware-independent test defects; the image's `mamba_utils.py` is byte-identical to upstream `f1c2508f`. Single-row cases, including 69-group tiling, still run.
 
 Compiler gate (`gate_compiler.py`), in addition to the October 1 corpus:
 
@@ -82,3 +82,37 @@ DRY_RUN=1 bash build.sh
 ```
 
 See [the upstream check](../../../docs/upstream-check-20261005.md).
+
+## October 5 build and Qwen qualification result
+
+Status update: **gates passed; not promoted for a decode regression; production restored**.
+
+Build: the first attempt (`receipts/build-20261005T162659Z-1108242`) failed the beta gate on 12 stale `test_mamba_utils.py` cases (above). The second (`receipts/build-20261005T171153Z-1242904`, exit 0) passed every gate: foundation, QSA865, beta 413 cases in 16 files, compiler 196 cases, FlashInfer 18 cases. Image `8afa3a013cde50905d87b76edbada1ea34896f7dcaef5222ccb054fd63609f72`, loaded on kirby by digest.
+
+Cold boot (`qualification/qad-7c4f1bc1/`): every serving gate passed, but dusty logged 19 `NV_ERR_NO_MEMORY` lines 47 s after API readiness, at the first use of a new request shape. As on October 1 it was not used for timing; its containers are kept as `*-cold-boot`.
+
+Warm boot (`qualification/qad-7c4f1bc1-warm/`): correctness battery, needles through 262000 tokens, counting 21/21 plus serial boundaries 56976 to 56993, head-of-line (fresh max TTFT 0.212 s) and identical-vs-distinct (c4 125.7/139.1/127.6 tok/s) passed. All `NV_ERR_NO_MEMORY` lines preceded readiness; no Xid, OOM or engine errors. GPU KV 5,313,211 tokens against production's 5,191,165 (+2.4%, consistent with vLLM #980). Private replay waived as before.
+
+Grid against the October 4 production baseline (same checkpoint, harness `cc9bb06a`, KV budget 78,619,040), geometric means over the five contexts:
+
+| | C1 | C2 | C4 |
+| --- | ---: | ---: | ---: |
+| output tok/s | -4.9% | -3.2% | +1.0% |
+| steps/s | -0.9% | -3.3% | -0.2% |
+| effective acceptance | -4.1% | +0.1% | +1.2% |
+
+Prefill 16K to 128K is within 0.7% (the baseline's 8K first-use outlier makes 8K read +23%). Coding peak median 66.9 against 71.6 tok/s. The pattern matches the October 1 candidate the user rejected (-3.77/-1.86/+1.31%). This is one grid; boot variance is not separated, and the C1 tok/s loss is mostly acceptance while the C2 loss is steps/s.
+
+The production `7c4f1bc1` pair on image `500ae05b` was restored (kirby, then dusty) on 2026-10-05 at 18:31 UTC. The candidate containers are retained. Results: `runs/qwen3.8-flash-next/nvfp4/2026-10-karmic-beta-20261005-sm121-qualification/`.
+
+### Repeat grid (user-requested), October 5
+
+A fresh boot of the same unmodified image (`qualification/qad-7c4f1bc1-r2/`, natural B12X selections cached from the first boot) passed every gate with a clean health review (GPU KV 5,442,966 tokens) and ran a second grid:
+
+| | C1 | C2 | C4 |
+| --- | ---: | ---: | ---: |
+| output tok/s, r01 / r02 | -4.9 / -4.9% | -3.2 / -2.5% | +1.0 / -2.0% |
+| steps/s, r01 / r02 | -0.9 / -4.9% | -3.3 / -6.8% | -0.2 / -3.4% |
+| effective acceptance, r01 / r02 | -4.1 / 0.0% | +0.1 / +4.6% | +1.2 / +1.5% |
+
+MTP acceptance recovered to the baseline (C1 2.07), but the engine step rate fell, so output throughput did not recover. Steps/s is below production in both grids at every concurrency: the regression is in decode step rate, not acceptance. r02 prefill was 1.5% to 7.7% lower at 16K to 128K (r01 was within 0.7%); one boot each, not separated from boot variance. Coding peak median 67.6 tok/s (r01 66.9, production 71.6). Production restored at 19:07 UTC; candidate containers retained as `*-warm-r1` and `*-r2`.
