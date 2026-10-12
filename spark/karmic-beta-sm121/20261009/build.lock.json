@@ -1,0 +1,15 @@
+{
+  "b12x_commit": "b4c35e6ec1d712f6b832679c08ce5719fae57cd6",
+  "base_image_id": "1a7a8acff71044e3b8bf97dacb7617cd1bdb50d0ab2fc2e35364a4d4dc165dcc",
+  "base_lock_sha256": "62ccdd39c0e359510c23e25570d51bceb2cbbc81a689b2ff007c11d25c872c25",
+  "cache_fingerprint": "karmic-beta-20261009-8e17404520abaf9de81b",
+  "compiler_lock_sha256": "29867d673910321ab04a58bd8d0366c6530eb4d6c9f50708d94f1c7053a189b9",
+  "flashinfer_commit": "b4c35e6ec1d712f6b832679c08ce5719fae57cd6",
+  "inputs_lock_sha256": "91f2fc2517070f47d3ab56618d22a9baeee0af0c85aa3e8c1b59150e29c76f4c",
+  "publication": "karmic-kraken-beta-20261008.2",
+  "recipe_commit": "05eaafa9473068844c0342f93286ed9759443251",
+  "refresh_sha256": "e2d8c136b2db93ab8996aca087d1ac86e8acf1f13657fe68da8fa540e07b6467",
+  "runtime_lock_sha256": "65c5527a1285933c7c54b5ce6f751311930b56a46fd7b0407a89007dadcd5057",
+  "runtime_lock_sha256_deps": "14f37696c5ad548cc2524d3fefe31f7c62577f9d802cb9375ef60e5d18c01c96",
+  "vllm_commit": "19f2c20ed4d64ae22bd009ceacadd85e2a81e354"
+}

@@ -1,0 +1,89 @@
+{
+  "alias": "ghcr.io/local-inference-lab/vllm:karmic-kraken-beta",
+  "alias_updated": true,
+  "assembly_sha256": "38f14a00e64d69455155e707beca056e524bcceab75d2518281f729d82058a5f",
+  "cache_contract_tests": {
+    "passed": 158,
+    "skipped": 0
+  },
+  "changelog": {
+    "required_components": [
+      "vllm"
+    ]
+  },
+  "channel": "karmic-kraken",
+  "components": {
+    "flashinfer": {
+      "archive": "flashinfer-cu134-sm120-b4c35e6ec1d712f6b832679c08ce5719fae57cd6.tar.zst",
+      "archive_asset_id": 621076620,
+      "archive_sha256": "d4c8beb5a9451d190ce3a26dc6e2b1ff71dae235904a6b0da99394e19e96e281",
+      "branch": "integration/karmic-kraken-beta",
+      "manifest_sha256": "47a8978c5073d654f6550376fb5d4277125b6d19cc3d5aa6eb09573c8bc143b7",
+      "observed_branch_commit": "b4c35e6ec1d712f6b832679c08ce5719fae57cd6",
+      "release": "flashinfer-cu134-sm120-beta-b4c35e6ec1d712f6b832679c08ce5719fae57cd6",
+      "release_url": "https://github.com/local-inference-lab/flashinfer/releases/tag/flashinfer-cu134-sm120-beta-b4c35e6ec1d712f6b832679c08ce5719fae57cd6",
+      "repository": "local-inference-lab/flashinfer",
+      "source_commit": "b4c35e6ec1d712f6b832679c08ce5719fae57cd6"
+    },
+    "instanttensor": {
+      "archive": "instanttensor-cu134-747390dc2bd1e0a18b0c7b13a09a38594edf342f.tar.zst",
+      "archive_asset_id": 615156765,
+      "archive_sha256": "79693499d50df602a443447523521b57e066dd845b6bf747788f2b91823e1460",
+      "branch": "main",
+      "manifest_sha256": "6cd0be824d6800419634874b50d2926dc61b6f526e662010d683c05e8020c556",
+      "observed_branch_commit": "747390dc2bd1e0a18b0c7b13a09a38594edf342f",
+      "release": "instanttensor-cu134-beta-747390dc2bd1e0a18b0c7b13a09a38594edf342f",
+      "release_url": "https://github.com/local-inference-lab/InstantTensor/releases/tag/instanttensor-cu134-beta-747390dc2bd1e0a18b0c7b13a09a38594edf342f",
+      "repository": "local-inference-lab/InstantTensor",
+      "source_commit": "747390dc2bd1e0a18b0c7b13a09a38594edf342f"
+    },
+    "lmcache": {
+      "archive": "lmcache-cu134-sm120-3171cdb537de7af7d66d8e6ec7bf26bdcf3ba3bd.tar.zst",
+      "archive_asset_id": 615155427,
+      "archive_sha256": "079ce646c66c174f9ec84aaa02683bbbaba8168d997e0543570789675a87766d",
+      "branch": "integration/local-inference-lab",
+      "manifest_sha256": "2626adfcbe0f9b6c6f694a413aeef769e5fcb935e026269a4c42c3587deee2b7",
+      "observed_branch_commit": "3171cdb537de7af7d66d8e6ec7bf26bdcf3ba3bd",
+      "release": "lmcache-cu134-sm120-beta-3171cdb537de7af7d66d8e6ec7bf26bdcf3ba3bd",
+      "release_url": "https://github.com/local-inference-lab/LMCache/releases/tag/lmcache-cu134-sm120-beta-3171cdb537de7af7d66d8e6ec7bf26bdcf3ba3bd",
+      "repository": "local-inference-lab/LMCache",
+      "source_commit": "3171cdb537de7af7d66d8e6ec7bf26bdcf3ba3bd"
+    },
+    "nccl": {
+      "archive": "local-inference-nccl-cu134-300f3a73caba7196e436571d9ac34069e81edea4.tar.zst",
+      "archive_asset_id": 615152659,
+      "archive_sha256": "c1ccd86051e047f20be4b03fd073f9b25282bead965b78f5c27986f39e08c5fc",
+      "branch": "canonical/cu134-nccl2312-amd-turin",
+      "manifest_sha256": "49384e92bad79cc48f2c294fb52bbff97428b45720f979406adf5c8558008fe4",
+      "observed_branch_commit": "300f3a73caba7196e436571d9ac34069e81edea4",
+      "release": "nccl-cu134-sm120-300f3a73caba7196e436571d9ac34069e81edea4",
+      "release_url": "https://github.com/local-inference-lab/nccl-canonical/releases/tag/nccl-cu134-sm120-300f3a73caba7196e436571d9ac34069e81edea4",
+      "repository": "local-inference-lab/nccl-canonical",
+      "source_commit": "300f3a73caba7196e436571d9ac34069e81edea4"
+    },
+    "vllm": {
+      "archive": "vllm-jovian-cu134-19f2c20ed4d64ae22bd009ceacadd85e2a81e354.tar.zst",
+      "archive_asset_id": 621913367,
+      "archive_sha256": "3582df6c1f38814443df0b038e99649a0701856cdba2d66f4aaae77fbaffbcc3",
+      "branch": "integration/karmic-kraken-beta",
+      "manifest_sha256": "8220f5dbe4976acafd6f9bcde6809ac76533ce1657fe54b1a9a9533cb431811f",
+      "observed_branch_commit": "19f2c20ed4d64ae22bd009ceacadd85e2a81e354",
+      "release": "vllm-jovian-cu134-beta-19f2c20ed4d64ae22bd009ceacadd85e2a81e354",
+      "release_url": "https://github.com/local-inference-lab/vllm/releases/tag/vllm-jovian-cu134-beta-19f2c20ed4d64ae22bd009ceacadd85e2a81e354",
+      "repository": "local-inference-lab/vllm",
+      "source_commit": "19f2c20ed4d64ae22bd009ceacadd85e2a81e354"
+    }
+  },
+  "digest": "ghcr.io/local-inference-lab/vllm@sha256:cf8e87217901a88a258beeb545a52e893323671735b926cd25bd3879e48e965e",
+  "image": "ghcr.io/local-inference-lab/vllm:karmic-kraken-beta-20261008.2",
+  "layers": 68,
+  "qualification_scope": "Native GPU smoke and LMCache checkpoint/filesystem contract tests; model-serving performance and full GLM cache E2E remain unqualified.",
+  "recipe_commit": "05eaafa9473068844c0342f93286ed9759443251",
+  "release_changelog_sha256": "9b928ab16fc9ada34cc8ffb1e17cb91880dde1b6058561c887508d4f5dd39fa9",
+  "release_channel": "karmic-kraken-beta",
+  "release_tag": "karmic-kraken-beta-38f14a00e64d69455155e707beca056e524bcceab75d2518281f729d82058a5f",
+  "runtime_files_sha256": "fe1d48befb14981833510f1a7ebfbb0e936203c890e402a63077e405b4733372",
+  "runtime_manifest_sha256": "0226394950943bdac7ef7264cdcf0b0dba779483fd55d6d40c234bc9a45c2e44",
+  "schema": "local-inference-container-assembly/v1",
+  "status": "qualified"
+}
