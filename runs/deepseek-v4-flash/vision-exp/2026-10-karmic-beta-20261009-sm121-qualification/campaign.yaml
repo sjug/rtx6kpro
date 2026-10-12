@@ -1,0 +1,42 @@
+id: 2026-10-karmic-beta-20261009-sm121-qualification
+status: gates_passed_parity_or_better_with_fresh_production_kv_minus_10pct_decision_pending
+objective: Image-only qualification of the October 9 Karmic beta Spark image (publication 20261008.2, FlashInfer 0.7.1 with B12X inside) for DS4 Vision on rusty/toby, no checkpoint or argument change.
+candidate_image_id: d9ba012f9fbe5e6d95b07890b269fd64521f0b7f95d6408c1719ccd06feafdc3
+production_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+publication: karmic-kraken-beta-20261008.2
+kit: spark/karmic-beta-sm121/20261009/ds4-vision
+sources: {vllm: 19f2c20ed4d64ae22bd009ceacadd85e2a81e354, flashinfer_with_b12x: b4c35e6ec1d712f6b832679c08ce5719fae57cd6, recipe: 05eaafa9473068844c0342f93286ed9759443251}
+baselines:
+  - same-window fresh-boot production grid on image 500ae05b (capture-baseline.sh ds4-vision, frozen harness cc9bb06a), the comparison of record
+  - September 29 qualification grid (harness 2c447f16), historical reference only
+shared_configuration:
+  checkpoint_revision: 6821d6ad3681a4b137b066b76094fa82ebd0a380
+  nodes: [rusty, toby]
+  tensor_parallel: 2
+  decode_context_parallel: 1
+  speculative_method: dspark
+  speculative_tokens: 3
+  backend: b12x-a8
+  max_model_len: 1048576
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  kv_cache_dtype: fp8
+harness_sha256: cc9bb06a4f1142d2bf08afbcfc0e57d8a465a0bd180eee74e276dea70a82071c
+notes: >-
+  Production serving arguments (run-node.sh, pinned by runtime-files.sha256); the lossless CSF checkpoint
+  the upstream profile now defaults to is deliberately not selected. Candidate boots fresh; production is
+  restarted fresh from its retained container for the baseline grid in the same window.
+qualification_grids:
+  - throughput/20261009T195837-0400__karmic-beta-20261009-tp2-dspark-k3-b12x-a8-native1m__r01.json
+production_fresh_boot_grid: throughput/20261009T201617-0400__production-20260929-qad-ds4-vision-fresh-boot__r01.json
+comparisons: [production-fresh-vs-candidate-r01.md]
+result_notes: >-
+  Candidate (fresh boot 19:49 EDT) passed first completion, the vision semantic battery with long cases,
+  32 structured-output cases, grid validation and the post-grid semantic check. Grid vs same-window
+  fresh-boot production: output tok/s +1.0/+3.7/+2.4%, steps/s +0.1/+1.1/+0.4%, acceptance
+  +0.9/+2.5/+2.0% at C1/C2/C4; prefill -0.9% to -2.1%. GPU KV 1,983,708 vs 2,196,661 tokens (-9.7%):
+  consumed memory per rank 88.35 vs 87.28 GiB and CUDA graph capture 0.60 vs 0.27 GiB on the new
+  foundation. One grid each; boot variance not separated. Production restored 20:14 EDT (toby, then
+  rusty); candidate containers retained as ds4-vision-karmic-beta-20261009-tp2-r1. Not promoted: the
+  user's decision.

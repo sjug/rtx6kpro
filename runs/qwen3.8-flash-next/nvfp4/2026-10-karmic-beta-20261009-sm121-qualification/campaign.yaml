@@ -1,0 +1,58 @@
+campaign: 2026-10-karmic-beta-20261009-sm121-qualification
+status: gates_passed_parity_with_fresh_production_decision_pending
+model: Qwen3.8-Flash-Next
+checkpoint: local-inference-lab/Qwen3.8-Flash-Next-NVFP4
+revision: 7c4f1bc1a2d6847e0cbc01ac6b823f00251de8dd
+hosts: [dusty, kirby]
+candidate_image_id: d9ba012f9fbe5e6d95b07890b269fd64521f0b7f95d6408c1719ccd06feafdc3
+production_image_id: 500ae05b98da0658c1a5e1820387f96f2121c5659bd7954ad1c5861f20934f05
+kit: spark/karmic-beta-sm121/20261009
+publication: karmic-kraken-beta-20261008.2
+sources: {vllm: 19f2c20ed4d64ae22bd009ceacadd85e2a81e354, flashinfer_with_b12x: b4c35e6ec1d712f6b832679c08ce5719fae57cd6, recipe: 05eaafa9473068844c0342f93286ed9759443251}
+baseline: October 4 production 7c4f1bc1 grid on image 500ae05b for the KV budget; a same-window fresh-boot production grid on the frozen harness is the comparison of record (capture-baseline.sh)
+baseline_grid: ../2026-10-qad-6909a5be-qualification/throughput/20261004T231819-0400__karmic-beta-20260929-qad-7c4f1bc1-hc-off-mtp3__r01.json
+contract:
+  tensor_parallel_size: 2
+  max_model_len: 262144
+  max_num_seqs: 4
+  max_num_batched_tokens: 4096
+  gpu_memory_utilization: 0.85
+  speculative_tokens: 3
+  recurrent_checkpoint_policy: aligned
+  hc_tp: 0
+  loader: InstantTensor BUFFERED
+  nccl_proto: LL,Simple
+  kv_budget: 78619040
+harness_sha256: cc9bb06a4f1142d2bf08afbcfc0e57d8a465a0bd180eee74e276dea70a82071c
+private_replay: not_run_trace_unavailable_user_waived
+notes: >-
+  Image-only qualification: the October 8 Karmic beta publication 20261008.2 (FlashInfer 0.7.1 with
+  B12X inside, RoCE proxy ABI 5) ported to SM121 on the original 7c4f1bc1 checkpoint with production
+  serving arguments. Build took eight attempts on 2026-10-09 (kit README). Cold boot passed every serving
+  gate with kernel NV_ERR_NO_MEMORY retries during load (dusty) and warmup (kirby), none after the first
+  request; kept as *-cold-boot. Warm boot passed every serving gate; kernel retries 128 on dusty before the
+  first request and 5 on kirby during the semantic battery; no Xid or container-side error. Timing uses
+  the warm boot with that recorded. Harness is the frozen cc9bb06a copy rebuilt by the kit.
+qualification_grids:
+  - throughput/20261009T153932-0400__production-20260929-qad-qwen-fresh-boot__r01.json.resume.json
+production_fresh_boot_grid: throughput/20261009T153932-0400__production-20260929-qad-qwen-fresh-boot__r01.json
+comparisons: [baseline-oct4-vs-candidate-r01.json, baseline-fresh-vs-candidate-r01.md]
+result_notes: >-
+  Warm-boot grid r01 (2026-10-09 19:13 EDT start) against the October 4 production grid (same checkpoint,
+  harness cc9bb06a, KV budget 78,619,040): output tok/s -3.1/-3.7/-3.0%, steps/s -1.1/-3.2/-2.6%,
+  effective acceptance -2.0/-0.5/-0.3% at C1/C2/C4; prefill 16K-128K within 0.8% (8K +22% is the
+  baseline's first-use outlier). GPU KV 5,293,089 (warm) / 5,318,664 (cold) vs 5,191,165 tokens.
+  No kernel events during the grid. Same pattern as the October 1 and October 5 candidates
+  (b12x#463 decode step rate). A fresh-boot production grid on the frozen harness in the same window
+  (qualification/production-fresh-boot-20261009) is the comparison of record.
+fresh_baseline_notes: >-
+  Same-window fresh-boot production grid (image 500ae05b, retained container restarted 19:28Z, frozen
+  harness cc9bb06a, capture-baseline.sh; its KV budget is the bench's own 5,189,473 rather than the
+  forced 78,619,040, irrelevant here because no cell was capacity-limited). Candidate vs fresh production,
+  geometric means over the five contexts: output tok/s -2.7/+0.6/+0.4%, steps/s -0.5/+0.7/+1.4%,
+  effective acceptance -2.2/-0.1/-1.0% at C1/C2/C4; prefill +1.0% to +2.0% at every context; coding
+  peak median 65.4 tok/s for the candidate (the fresh production capture does not run the coding-peak
+  probe; the Oct 4 production grid read 71.6). The Oct 4 baseline is 3.4-4.3% above tonight's
+  fresh production at C2/C4 (C1 within 0.4%), which accounts for the apparent 3% deficit against it:
+  the candidate is at parity with production on the same checkpoint and arguments. Decision is the
+  user's; production serves on dusty/kirby, candidate containers retained as *-cold-boot and *-warm-r1.
